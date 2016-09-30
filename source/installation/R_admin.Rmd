@@ -74,5 +74,5 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 ### Inhoud `Rprofile.site`
 
 ```{r, comment = NA}
-cat(readLines("Rprofile.site"), sep = "\n")
+cat(readLines("../../installation/Rprofile.site"), sep = "\n")
 ```
