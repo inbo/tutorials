@@ -1,6 +1,8 @@
-## A set of tutorials
+# Tutorials
 
-### Installation
+Instructions on the use, installation, and development of research software at the INBO.
+
+## Installation
 
 This folder contains detailed installation instructions for several software packages.
 
