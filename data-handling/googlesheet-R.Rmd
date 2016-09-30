@@ -5,7 +5,7 @@ date: "September 15, 2016"
 output: html_document
 ---
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 library(googlesheets)
 library(dplyr)
 library(ggplot2)
@@ -25,7 +25,7 @@ gs_auth()
 
 Google will ask to grant the package the permission to access your drive. This token is saved to in a file `.httr-oauth` in your current working directory. Make sure this is not part of your version control system.
 
-Once registered An overview of your available google sheets is provided as follows:
+Once registered, n overview of your available google sheets is provided as follows:
 ```{r}
 gs_ls()
 ```
@@ -80,12 +80,12 @@ class(breedingbirds)
 head(breedingbirds)
 ```
 
-We can now start working on the data, e.g. make a plot of the number of species in each biotope divided based on the RLC2 level:
+We can now start working on the data, e.g. make a plot of the number of species in each biotope divided based on the RLC level:
 
 ```{r, fig.width=12, fig.height=8}
 ggplot(data = breedingbirds, aes(x = Biotope)) +
     geom_bar() + 
-    facet_grid(RLC2 ~ .)
+    facet_grid(RLC ~ .)
 ```
 
 
