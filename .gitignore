@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 *.Rproj
+
+# Ignore tokens
+*.rds
