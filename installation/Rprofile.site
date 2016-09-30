@@ -1,0 +1,40 @@
+options(
+  papersize = "a4",
+  tab.width = 2,
+  width = 80,
+  help_type = "html",
+  stringsAsFactors = TRUE,
+  keep.source.pkgs = TRUE,
+  xpinch = 300,
+  ypinch = 300,
+  repos = c(
+    RStudio = "https://cran.rstudio.com/",
+    INLA = "http://www.math.ntnu.no/inla/R/stable"
+  ),
+  install.packages.check.source = "yes"
+)
+if (interactive()) {
+  tryCatch(
+    print(fortunes::fortune()),
+    error = function(e){
+      invisible(NULL)
+    }
+  )
+  warning(
+"Opgelet: vanaf nu worden character variabelen bij het inlezen automatisch
+omgezet naar factoren. Gebruik onderstaande commando aan het begin van elk
+script om terug de oude instelling te krijgen.
+
+options(stringsAsFactors = FALSE)
+
+Je kan ook expliciet het argument 'stringsAsFactors = FALSE' gebruiken bij het
+inlezen van gegevens.
+
+read.csv2('bestand.csv', stringsAsFactors = FALSE)
+sqlQuery(channel, query, stringsAsFactors = FALSE)
+data.frame(X = 1:10, stringsAsFactors = FALSE)
+
+Om deze waarschuwing niet meer te tonen, open je C:/R/R-3.x.y/etc/Rprofile.site.
+Zoek naar deze tekst en plaats # voor elke regel vanaf warning( tot )"
+  )
+}

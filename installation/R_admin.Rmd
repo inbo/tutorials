@@ -3,6 +3,12 @@ title: "R installeren als administrator"
 output: github_document
 ---
 
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE
+)
+```
+
 ## Windows
 
 Installatiebestand beschikbaar via http://cran.r-project.org/bin/windows/base/
@@ -64,3 +70,9 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 **R mag niet met admininstratorrechten gestart worden.** Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.
 
 Start `R` als een gewone gebruiker om de configuratie te testen.
+
+### Inhoud `Rprofile.site`
+
+```{r, comment = NA}
+cat(readLines("Rprofile.site"), sep = "\n")
+```
