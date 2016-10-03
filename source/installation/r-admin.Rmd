@@ -1,5 +1,7 @@
 ---
 title: "R installeren als administrator"
+author: "Thierry Onkelinx"
+date: "30 september 2016"
 output: github_document
 ---
 
@@ -74,5 +76,5 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 ### Inhoud `Rprofile.site`
 
 ```{r, comment = NA}
-cat(readLines("../../installation/Rprofile.site"), sep = "\n")
+cat(readLines("Rprofile.site"), sep = "\n")
 ```

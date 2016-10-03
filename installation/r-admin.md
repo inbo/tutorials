@@ -1,5 +1,7 @@
 R installeren als administrator
 ================
+Thierry Onkelinx
+30 september 2016
 
 Windows
 -------
