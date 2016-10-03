@@ -1,4 +1,9 @@
-# Styleguide for repositories
+---
+title: Styleguide for repositories
+maintainer: Peter Desmet
+tags: Github, repositories
+output: html_document
+---
 
 ## Naming
 
@@ -11,5 +16,5 @@
 
         .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql
 
-## README
+## READMEs
 
