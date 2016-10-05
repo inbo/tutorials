@@ -1,0 +1,28 @@
+---
+title: "How to render the Rmd files"
+maintainer: Thierry Onkelinx
+output: github_document
+---
+
+## Command line solution
+
+1. Start RStudio or standalone R.
+1. Use `setwd()` to set the current working directory to the main directory of the repository. This is done automatically when using an RStudio project.
+1. Run the command `source("source/render-Rmd.R")`.
+
+## GUI solution
+
+### Setup
+
+1. Install RStudio according to the guidelines.
+1. Go to Github.com and copy the clone URL.
+1. Open RStudio.
+1. Use 'File' > 'New Project' > 'Version control' > 'Git'.
+1. Copy the clone URL into the 'Repository URL' and create the project.
+
+### Render all Rmd files
+
+1. Open RStudio.
+1. Open the project.
+1. Open the 'render-Rmd.R' file.
+1. Execute the script by pushing the 'Source' button.

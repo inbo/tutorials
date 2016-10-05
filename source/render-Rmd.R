@@ -5,6 +5,7 @@ to.render <- list.files(
   recursive = TRUE,
   ignore.case = TRUE
 )
+to.render <- to.render[!grepl("source/README.Rmd", to.render)]
 
 for (i in to.render) {
   rmarkdown::render(i, output_dir = dirname(gsub("^source/", "output/", i)))
