@@ -1,7 +1,5 @@
 R installeren als administrator
 ================
-Thierry Onkelinx
-30 september 2016
 
 Windows
 -------
@@ -23,7 +21,7 @@ In de onderstaande tekst moet je in `R-3.x.y` zowel `x` als `y` vervangen door e
 9.  Geef de map voor het start menu en klik op *Volgende*. Je mag de standaardwaarde gebruiken.
 10. Vink de gewenste extra snelkoppelingen *aan* (default is ok), alle register entries *aan* en klik op *Volgende*.
 11. R wordt nu geïnstalleerd. Klik op *Voltooien* als de installatie afgelopen is.
-12. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld ´Programma's en variabelen zoeken´. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat[1]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
+12. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld `Programma's en variabelen zoeken`. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat[1]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
 13. Kopieer het bestand `Rprofile.site` naar `C:\R\R-3.x.y\etc` Hierbij moet je het bestaande bestand overschrijven.
 14. Zorg dat de gebruiker schrijfrechten heeft voor `C:\R\R-3.x.y\library`
 

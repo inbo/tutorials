@@ -1,7 +1,5 @@
 Bijwerken van R als gebruiker
 ================
-Thierry Onkelinx
-30 september 2016
 
 Na de eerste installatie
 ------------------------

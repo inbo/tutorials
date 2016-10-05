@@ -6,6 +6,6 @@ to.render <- list.files(
   ignore.case = TRUE
 )
 
-for (i in to.render){
-  rmarkdown::render(i, output_dir = dirname(gsub("^source/", "", i)))
+for (i in to.render) {
+  rmarkdown::render(i, output_dir = dirname(gsub("^source/", "output/", i)))
 }
