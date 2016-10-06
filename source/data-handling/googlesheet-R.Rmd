@@ -29,20 +29,19 @@ Once registered, n overview of your available google sheets is provided as follo
 gs_ls()
 ```
 
-However, as we want to be able to make the running independent from the user authentification or without needing an interactive environment. Therefor, we can store the token in a file and get the authentification from there:
+However, as we want to be able to make the running independent from the user authentification or without needing an interactive environment. Therefore, we can store the token in a file and get the authentification from there. The code loads the token from the file if the file exists. Otherwise a new token is created and stored in the file.
 
-```{r, eval=FALSE}
-# first get the token, but not caching it in a local file
-token <- gs_auth(cache = FALSE)
-# save the token into a file in the current directory
-saveRDS(token, file = "googlesheets_token.rds")
+```{r}
+if (file_test("-f", "googlesheets_token.rds")) {
+  gs_auth(token = "googlesheets_token.rds")
+} else {
+  # first get the token, but not caching it in a local file
+  token <- gs_auth(cache = FALSE)
+  # save the token into a file in the current directory
+  saveRDS(token, file = "googlesheets_token.rds")
+}
 ```
 
-Loading this later on can be done by loading the token from this file, also in non-interactive sessions such as Rmarkdown scripts. 
-
-```{r, eval=FALSE}
-gs_auth(token = "googlesheets_token.rds")
-```
 
 Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in [this manual](https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html).
 
