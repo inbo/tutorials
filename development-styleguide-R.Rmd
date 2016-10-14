@@ -1,0 +1,62 @@
+---
+title: "INBO style guide for R code"
+maintainer: "Thierry Onkelinx"
+output: html_document
+---
+
+# Scope
+
+This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn't apply to existing projects, except when revising those project. Then the style guide applies to the revised parts of the code.
+
+# Recommended packages
+
+## Data import
+
+`readr`
+  ~ text files
+
+`readexcel`
+  ~ Excel files
+  
+`googlesheets`
+  ~ googlesheets
+
+`DBI`
+  ~ connections to databases: PostgreSQL, SQLite, MySQL, Oracle, ...
+  
+`RODBC`
+  ~ connections to SQL Server, Access
+
+## Data manipulation and transformation
+
+`dplyr`
+  ~ subsetting observations
+  ~ subsetting variables
+  ~ changing variables
+  ~ aggregation
+  ~ combining dataframes
+
+`tidyr`
+  ~ changing a dataframe for wide to long format and vice versa
+  ~ nesting and unnesting dataframes
+  ~ splitting a single variable into multiple variables
+
+## Graphics
+
+`ggplot2`
+  ~ all static graphics
+
+`INBOtheme`
+  ~ INBO corporate identity for `ggplot2` graphics
+
+## Quality control
+
+`lintr`
+  ~ checking coding style
+
+`testthat`
+  ~ writing unit tests
+
+`covr`
+  ~ check which part of the code is not covered by unit tests
+

@@ -11,7 +11,7 @@
 
 
 
-<title>INBO Tutorials</title>
+<title>INBO style guide for R code</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -228,21 +228,84 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">INBO Tutorials</h1>
+<h1 class="title toc-ignore">INBO style guide for R code</h1>
 
 </div>
 
 
-<div id="tutorials" class="section level1">
-<h1>Tutorials</h1>
-<p>Instructions on the use, installation, and development of research software at the INBO.</p>
-<div id="outputinstallation" class="section level2">
-<h2>output/installation</h2>
-<p>This folder contains detailed installation instructions for several software packages. The filenames start with the name of the software followed by either <em>admin</em> or <em>user</em>. The <em>admin</em> version is intented for the administrators who do the actual installation. The <em>user</em> version is intented for the end users.</p>
-<ul>
-<li>R</li>
-<li>RStudio</li>
-</ul>
+<div id="scope" class="section level1">
+<h1>Scope</h1>
+<p>This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn’t apply to existing projects, except when revising those project. Then the style guide applies to the revised parts of the code.</p>
+</div>
+<div id="recommended-packages" class="section level1">
+<h1>Recommended packages</h1>
+<div id="data-import" class="section level2">
+<h2>Data import</h2>
+<dl>
+<dt><code>readr</code></dt>
+<dd>text files
+</dd>
+<dt><code>readexcel</code></dt>
+<dd>Excel files
+</dd>
+<dt><code>googlesheets</code></dt>
+<dd>googlesheets
+</dd>
+<dt><code>DBI</code></dt>
+<dd>connections to databases: PostgreSQL, SQLite, MySQL, Oracle, …
+</dd>
+<dt><code>RODBC</code></dt>
+<dd>connections to SQL Server, Access
+</dd>
+</dl>
+</div>
+<div id="data-manipulation-and-transformation" class="section level2">
+<h2>Data manipulation and transformation</h2>
+<dl>
+<dt><code>dplyr</code></dt>
+<dd>subsetting observations
+</dd>
+<dd>subsetting variables
+</dd>
+<dd>changing variables
+</dd>
+<dd>aggregation
+</dd>
+<dd>combining dataframes
+</dd>
+<dt><code>tidyr</code></dt>
+<dd>changing a dataframe for wide to long format and vice versa
+</dd>
+<dd>nesting and unnesting dataframes
+</dd>
+<dd>splitting a single variable into multiple variables
+</dd>
+</dl>
+</div>
+<div id="graphics" class="section level2">
+<h2>Graphics</h2>
+<dl>
+<dt><code>ggplot2</code></dt>
+<dd>all static graphics
+</dd>
+<dt><code>INBOtheme</code></dt>
+<dd>INBO corporate identity for <code>ggplot2</code> graphics
+</dd>
+</dl>
+</div>
+<div id="quality-control" class="section level2">
+<h2>Quality control</h2>
+<dl>
+<dt><code>lintr</code></dt>
+<dd>checking coding style
+</dd>
+<dt><code>testthat</code></dt>
+<dd>writing unit tests
+</dd>
+<dt><code>covr</code></dt>
+<dd>check which part of the code is not covered by unit tests
+</dd>
+</dl>
 </div>
 </div>
 
