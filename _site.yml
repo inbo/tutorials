@@ -1,0 +1,22 @@
+name: "inbo-tutorials"
+navbar:
+  title: "INBO tutorials"
+  left:
+    - text: "Home"
+      href: "index.html"
+    - text: "Software installation"
+      menu:
+        - text: "R as admin"
+          href: "R-admin.html"
+        - text: "R as user"
+          href: "R-user.html"
+        - text: "RStudio as admin"
+          href: "RStudio-admin.html"
+        - text: "RStudio as user"
+          href: "RStudio-user.html"
+    - text: "Software development"
+      menu:
+        - text: "Repository styleguide"
+          href: "styleguide-repos.html"
+exclude: ["LICENSE", "Rprofile.site"]
+output_dir: "docs"
