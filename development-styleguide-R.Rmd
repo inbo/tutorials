@@ -60,3 +60,69 @@ This style guide applies to all R code where INBO is copyright holder. It is man
 `covr`
   ~ check which part of the code is not covered by unit tests
 
+# Syntax
+
+- lines should not exceed 80 characters
+- object names should not exceed 30 characters
+- object names should lowercase
+- use `_` to separate words in object names
+
+## Assignments
+
+- always use `<-` for assignment
+- use `=` only for passing arguments in a function
+- only create an object when you will use it later on
+- one space before and one space after `<-` and `=`
+
+```{r eval = FALSE}
+# Good
+x <- data.frame(z = 1:10)
+summary(x)
+
+# Wrong
+x=data.frame(z<-1:10)
+```
+
+## Brackets
+
+R uses three types of brackets: round `(`, `)`, square `[`, `]` and curly `{`, `}`.
+
+- no spaces after opening a bracket
+- no spaces before closing a bracket
+- no spaces before opening a bracket except:
+    - one space with control flow functions (`if`, `else`, `for`, `while`)
+- no spaces after closing a bracket except:
+    - one space with control flow functions (`if`, `else`, `for`, `while`)
+- apply identation when splitting long text inside brackets over multiple lines
+```{r eval = FALSE}
+# Good
+y <- seq(0, 2)
+if (max(y) <= 10) {
+  x <- 1
+} else {
+  x <- 2
+}
+sapply(
+  y, 
+  function(x){
+    return(x)
+  }
+)
+
+# Wrong
+y <- seq (0, 2   )
+if(   max( y ) <= 10    )        { x <- 1 } else 
+{ x <- 2 }
+```
+
+# Documentation
+
+## Functions
+
+- Add documentation above each function with `Roxygen` markup
+- Add inline comments where relevant
+
+## How-to's
+
+- Add one or more how-to's to a package
+- Add them as RMarkdown vignettes
