@@ -1,6 +1,6 @@
 ---
 title: "R installeren als administrator"
-output: github_document
+maintainer: "Thierry Onkelinx"
 ---
 
 ```{r include = FALSE}
@@ -28,7 +28,7 @@ In de onderstaande tekst moet je in `R-3.x.y` zowel `x` als `y` vervangen door e
 1. Geef de map voor het start menu en klik op _Volgende_. Je mag de standaardwaarde gebruiken.
 1. Vink de gewenste extra snelkoppelingen _aan_ (default is ok), alle register entries _aan_ en klik op _Volgende_.
 1. R wordt nu geïnstalleerd. Klik op _Voltooien_ als de installatie afgelopen is.
-1. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld ´Programma's en variabelen zoeken´. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat^[Het moeten forward slashes zijn.]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
+1. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld `Programma's en variabelen zoeken`. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat^[Het moeten forward slashes zijn.]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
 1. Kopieer het bestand `Rprofile.site` naar `C:\R\R-3.x.y\etc` Hierbij moet je het bestaande bestand overschrijven.
 1. Zorg dat de gebruiker schrijfrechten heeft voor `C:\R\R-3.x.y\library`
 
