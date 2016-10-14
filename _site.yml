@@ -7,16 +7,16 @@ navbar:
     - text: "Software installation"
       menu:
         - text: "R as admin"
-          href: "R-admin.html"
+          href: "installation-R-admin.html"
         - text: "R as user"
-          href: "R-user.html"
+          href: "installation-R-user.html"
         - text: "RStudio as admin"
-          href: "RStudio-admin.html"
+          href: "installation-RStudio-admin.html"
         - text: "RStudio as user"
-          href: "RStudio-user.html"
+          href: "installation-RStudio-user.html"
     - text: "Software development"
       menu:
         - text: "Repository styleguide"
-          href: "styleguide-repos.html"
+          href: "development-styleguide-repos.html"
 exclude: ["LICENSE", "Rprofile.site"]
 output_dir: "docs"
