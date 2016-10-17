@@ -6,7 +6,7 @@ output: html_document
 
 # Scope
 
-This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn't apply to existing projects, except when revising those project. Then the style guide applies to the revised parts of the code.
+This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn't apply to existing projects, except when revising such project. Then the style guide applies to the revised parts of the code.
 
 # Recommended packages
 
@@ -62,16 +62,49 @@ This style guide applies to all R code where INBO is copyright holder. It is man
 
 # Syntax
 
+**RStudio hint**: _Tools_ -> _Global options_ -> _Code_ -> _Diagnotics_ -> Check everything
+
+## General
+
 - lines should not exceed 80 characters
-- object names should not exceed 30 characters
+    - split the command over multiple lines if the command is longer than 80 characters
+    - **RStudio hint**: _Tools_ -> _Global options_ -> _Code_ -> _Display_ -> Check _Show margin_ and set _Margin column_ to 80
+- object names should be meaningful
+- object names should not exceed 20 characters
 - object names should lowercase
 - use `_` to separate words in object names
+    - function names with a single dot are allowed
+- use single quotes (`'`) around characters and not double quotes (`"`)
+- don't add commented code
+    - use version control is you want to keep old versions of code
+
+```{r eval = FALSE}
+# Good
+example_text <- example_function(
+  first_argument = 'Some text', 
+  second_argument = 'More text'
+)
+
+# Wrong
+some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = "Some text", second.argument = "More text")
+```
+
+## Whitespace
+
+- don't use tabs, use two spaces instead
+    - **RStudio hint**: _Tools_ -> _Global options_ -> _Code_ -> _Editing_ -> Check _Insert spaces for tab_ and set _Tab width_ to 2
+- no space before a comma, one space after a comma
+- one space before and after an infix operator (`+`, `-`, `*`, `/`, `^`, `&`, `|`, `%%`, `%/%`, `%*%`, `%in%`, ...)
+- no spaces a the end of a line
+    - **RStudio hint**: _Tools_ -> _Global options_ -> _Code_ -> _Saving_ -> Check _Strip trailing horizontal whitespace when saving_
+- the script file end with a single blank line
+    - **RStudio hint**: _Tools_ -> _Global options_ -> _Code_ -> _Saving_ -> Check _Ensure that source files end with newline_
 
 ## Assignments
 
+- only create an object when you will use it later on
 - always use `<-` for assignment
 - use `=` only for passing arguments in a function
-- only create an object when you will use it later on
 - one space before and one space after `<-` and `=`
 
 ```{r eval = FALSE}
@@ -93,7 +126,9 @@ R uses three types of brackets: round `(`, `)`, square `[`, `]` and curly `{`, `
     - one space with control flow functions (`if`, `else`, `for`, `while`)
 - no spaces after closing a bracket except:
     - one space with control flow functions (`if`, `else`, `for`, `while`)
-- apply identation when splitting long text inside brackets over multiple lines
+- `{` should not start on a newline and is always the end of a line
+- apply indentation when splitting long text inside brackets over multiple lines
+
 ```{r eval = FALSE}
 # Good
 y <- seq(0, 2)
@@ -111,9 +146,46 @@ sapply(
 
 # Wrong
 y <- seq (0, 2   )
-if(   max( y ) <= 10    )        { x <- 1 } else 
+if(   max( y ) <= 10    )        
+{ x <- 1 } else 
 { x <- 2 }
+sapply( y , function ( x ) { return(x)})
 ```
+
+## Special cases and exceptions
+
+- selecting rows with square brackets `df[selection, ]`
+    - this results in two conflicting rules
+        1. a single space after a comma
+        1. no space before a bracket
+    - solution in case of a short command: add `# nolint` after the command
+        - `df[selection, ] # nolint`
+    - solution in case of a long command: split the command over several lines
+
+```{r eval = FALSE}
+# Good
+relevant_subset <- original_dataframe[
+  original_dataframe$x > some_value | original_dataframe$y < some_other_value, 
+]
+# Recommended dplyr alternative
+relevant_subset <- original_dataframe %>%
+  filter(x > some_value | y < some_other_value)
+
+# Wrong
+relevant_subset <- original_dataframe[original_dataframe$x > some_value | original_dataframe$y < some_other_value, ] # nolint
+```
+
+- a really long text
+    - text shorter than 80 characters but passed the 80 character limit due to the indentitation
+        - solution: remove all indentation
+    - text longer than 80 characters
+        - solution: add `# nolint` at the end of the line
+- functions from other packages with names that don't comply with this style guide
+    - solution: add `# nolint` at the end of the line
+
+**Important notice**
+
+Adding `# nolint` at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.
 
 # Documentation
 

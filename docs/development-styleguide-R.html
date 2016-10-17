@@ -235,7 +235,7 @@ $(document).ready(function () {
 
 <div id="scope" class="section level1">
 <h1>Scope</h1>
-<p>This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn’t apply to existing projects, except when revising those project. Then the style guide applies to the revised parts of the code.</p>
+<p>This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn’t apply to existing projects, except when revising such project. Then the style guide applies to the revised parts of the code.</p>
 </div>
 <div id="recommended-packages" class="section level1">
 <h1>Recommended packages</h1>
@@ -306,6 +306,176 @@ $(document).ready(function () {
 <dd>check which part of the code is not covered by unit tests
 </dd>
 </dl>
+</div>
+</div>
+<div id="syntax" class="section level1">
+<h1>Syntax</h1>
+<p><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Diagnotics</em> -&gt; Check everything</p>
+<div id="general" class="section level2">
+<h2>General</h2>
+<ul>
+<li>lines should not exceed 80 characters
+<ul>
+<li>split the command over multiple lines if the command is longer than 80 characters</li>
+<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Display</em> -&gt; Check <em>Show margin</em> and set <em>Margin column</em> to 80</li>
+</ul></li>
+<li>object names should be meaningful</li>
+<li>object names should not exceed 20 characters</li>
+<li>object names should lowercase</li>
+<li>use <code>_</code> to separate words in object names
+<ul>
+<li>function names with a single dot are allowed</li>
+</ul></li>
+<li>use single quotes (<code>'</code>) around characters and not double quotes (<code>&quot;</code>)</li>
+<li>don’t add commented code
+<ul>
+<li>use version control is you want to keep old versions of code</li>
+</ul></li>
+</ul>
+<pre class="r"><code># Good
+example_text &lt;- example_function(
+  first_argument = &#39;Some text&#39;, 
+  second_argument = &#39;More text&#39;
+)
+
+# Wrong
+some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &quot;Some text&quot;, second.argument = &quot;More text&quot;)</code></pre>
+</div>
+<div id="whitespace" class="section level2">
+<h2>Whitespace</h2>
+<ul>
+<li>don’t use tabs, use two spaces instead
+<ul>
+<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Editing</em> -&gt; Check <em>Insert spaces for tab</em> and set <em>Tab width</em> to 2</li>
+</ul></li>
+<li>no space before a comma, one space after a comma</li>
+<li>one space before and after an infix operator (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>&amp;</code>, <code>|</code>, <code>%%</code>, <code>%/%</code>, <code>%*%</code>, <code>%in%</code>, …)</li>
+<li>no spaces a the end of a line
+<ul>
+<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Saving</em> -&gt; Check <em>Strip trailing horizontal whitespace when saving</em></li>
+</ul></li>
+<li>the script file end with a single blank line
+<ul>
+<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Saving</em> -&gt; Check <em>Ensure that source files end with newline</em></li>
+</ul></li>
+</ul>
+</div>
+<div id="assignments" class="section level2">
+<h2>Assignments</h2>
+<ul>
+<li>only create an object when you will use it later on</li>
+<li>always use <code>&lt;-</code> for assignment</li>
+<li>use <code>=</code> only for passing arguments in a function</li>
+<li>one space before and one space after <code>&lt;-</code> and <code>=</code></li>
+</ul>
+<pre class="r"><code># Good
+x &lt;- data.frame(z = 1:10)
+summary(x)
+
+# Wrong
+x=data.frame(z&lt;-1:10)</code></pre>
+</div>
+<div id="brackets" class="section level2">
+<h2>Brackets</h2>
+<p>R uses three types of brackets: round <code>(</code>, <code>)</code>, square <code>[</code>, <code>]</code> and curly <code>{</code>, <code>}</code>.</p>
+<ul>
+<li>no spaces after opening a bracket</li>
+<li>no spaces before closing a bracket</li>
+<li>no spaces before opening a bracket except:
+<ul>
+<li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
+</ul></li>
+<li>no spaces after closing a bracket except:
+<ul>
+<li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
+</ul></li>
+<li><code>{</code> should not start on a newline and is always the end of a line</li>
+<li>apply indentation when splitting long text inside brackets over multiple lines</li>
+</ul>
+<pre class="r"><code># Good
+y &lt;- seq(0, 2)
+if (max(y) &lt;= 10) {
+  x &lt;- 1
+} else {
+  x &lt;- 2
+}
+sapply(
+  y, 
+  function(x){
+    return(x)
+  }
+)
+
+# Wrong
+y &lt;- seq (0, 2   )
+if(   max( y ) &lt;= 10    )        
+{ x &lt;- 1 } else 
+{ x &lt;- 2 }
+sapply( y , function ( x ) { return(x)})</code></pre>
+</div>
+<div id="special-cases-and-exceptions" class="section level2">
+<h2>Special cases and exceptions</h2>
+<ul>
+<li>selecting rows with square brackets <code>df[selection, ]</code>
+<ul>
+<li>this results in two conflicting rules
+<ol style="list-style-type: decimal">
+<li>a single space after a comma</li>
+<li>no space before a bracket</li>
+</ol></li>
+<li>solution in case of a short command: add <code># nolint</code> after the command
+<ul>
+<li><code>df[selection, ] # nolint</code></li>
+</ul></li>
+<li>solution in case of a long command: split the command over several lines</li>
+</ul></li>
+</ul>
+<pre class="r"><code># Good
+relevant_subset &lt;- original_dataframe[
+  original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, 
+]
+# Recommended dplyr alternative
+relevant_subset &lt;- original_dataframe %&gt;%
+  filter(x &gt; some_value | y &lt; some_other_value)
+
+# Wrong
+relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, ] # nolint</code></pre>
+<ul>
+<li>a really long text
+<ul>
+<li>text shorter than 80 characters but passed the 80 character limit due to the indentitation
+<ul>
+<li>solution: remove all indentation</li>
+</ul></li>
+<li>text longer than 80 characters
+<ul>
+<li>solution: add <code># nolint</code> at the end of the line</li>
+</ul></li>
+</ul></li>
+<li>functions from other packages with names that don’t comply with this style guide
+<ul>
+<li>solution: add <code># nolint</code> at the end of the line</li>
+</ul></li>
+</ul>
+<p><strong>Important notice</strong></p>
+<p>Adding <code># nolint</code> at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.</p>
+</div>
+</div>
+<div id="documentation" class="section level1">
+<h1>Documentation</h1>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<ul>
+<li>Add documentation above each function with <code>Roxygen</code> markup</li>
+<li>Add inline comments where relevant</li>
+</ul>
+</div>
+<div id="how-tos" class="section level2">
+<h2>How-to’s</h2>
+<ul>
+<li>Add one or more how-to’s to a package</li>
+<li>Add them as RMarkdown vignettes</li>
+</ul>
 </div>
 </div>
 
