@@ -478,6 +478,122 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </ul>
 </div>
 </div>
+<div id="file-structure" class="section level1">
+<h1>File structure</h1>
+<div id="r-package" class="section level2">
+<h2>R Package</h2>
+<div id="functions-1" class="section level3">
+<h3>Functions</h3>
+<ul>
+<li>all generic R functions should be distributed as an R package</li>
+<li>use <code>devtools::create()</code> to start a new pacakge
+<ul>
+<li><strong>RStudio hint</strong>: <em>File</em> -&gt; <em>New project</em> -&gt; <em>New directory</em> -&gt; <em>R Package</em> -&gt; Type the name in <em>Package name</em></li>
+</ul></li>
+<li>keep source files compact
+<ul>
+<li>each function in a separate file with file name equal to the function name
+<ul>
+<li>compact source files</li>
+<li>easy to find the correct source file</li>
+</ul></li>
+<li>exception: very short auxilary functions with related functionality
+<ul>
+<li>related functions can be bundled into one R script</li>
+<li>file name is either equal to the most important function or describes the related functionality</li>
+</ul></li>
+</ul></li>
+<li>split large functions into several subfunctions</li>
+</ul>
+</div>
+<div id="scripts" class="section level3">
+<h3>Scripts</h3>
+<ul>
+<li>place scripts in the <code>inst</code> folder
+<ul>
+<li>the scripts will be available for the user after installing the package</li>
+<li>the location of the scripts can be found with <code>system.file(&quot;script-name.R&quot;, package = &quot;yourpackage&quot;)</code></li>
+<li>use a relevant folder structure when adding lots of files to <code>inst</code></li>
+</ul></li>
+</ul>
+</div>
+<div id="unit-tests" class="section level3">
+<h3>Unit tests</h3>
+<ul>
+<li>use the <code>testthat</code> package for unit tests
+<ul>
+<li>use <code>devtools::use_testthat()</code> to setup the test infrastructure</li>
+</ul></li>
+<li>all unit tests are stored in <code>tests/testthat</code></li>
+<li>all file should have either a <code>test_</code> or <code>helper_</code> prefix
+<ul>
+<li>files with <code>helper_</code> prefix contain auxiliary function for the tests but no tests</li>
+</ul></li>
+<li>the test files will be run in alphabetical order
+<ul>
+<li>setting the order of the files is easy when we add 3 letters to the prefix (eg. <code>test_aaa_</code>, <code>test_baa</code>, <code>test_zzz_</code>)</li>
+<li>3 letters offers quite some flexibility to insert new files at the correct location without having to rename at lot of files
+<ul>
+<li>if the first file is <code>test_aaa_</code> and the second <code>test_baa</code>, they you can 675 files between the two.</li>
+</ul></li>
+</ul></li>
+<li>unit test files can be larger than source files</li>
+<li>a unit test file can contain tests for several functions in case the functions are strongly related (e.g. subfunctions) and reuse test cases</li>
+<li>each package should contain the unit for coding style as listed below
+<ul>
+<li>store this in a file <code>tests/testthat/test_zzz_coding_style.R</code></li>
+<li>add this file to <code>.gitignore</code>
+<ul>
+<li>the coding style will be tested separatly when using continuous integration</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="r"><code>if (requireNamespace(&quot;lintr&quot;, quietly = TRUE)) {
+  context(&quot;lints&quot;)
+  test_that(&quot;Package Style&quot;, {
+    lintr::expect_lint_free()
+  })
+}</code></pre>
+</div>
+</div>
+<div id="r-script" class="section level2">
+<h2>R script</h2>
+<ul>
+<li>group a long set of commands with similar functionality into a dedicated function
+<ul>
+<li>e.g. <code>prepare_data()</code>, <code>do_analysis()</code>, <code>create_figure()</code>, …</li>
+</ul></li>
+<li>place the user defined functions in a separate file which you <code>source()</code> into the main script
+<ul>
+<li>better is to use to apply the same file structure as an R package</li>
+<li>consider writing a simple package in case you have a lot of functions</li>
+</ul></li>
+</ul>
+</div>
+<div id="rmarkdown" class="section level2">
+<h2>RMarkdown</h2>
+<ul>
+<li>each chunk has only one output (figure, table, summary, …)</li>
+<li>don’t mix (heavy) calculations and output in the same chunk
+<ul>
+<li>having them in different chunks is more interesting for caching the results</li>
+</ul></li>
+<li>give chunks a relevant name
+<ul>
+<li>this makes debugging easier</li>
+<li>file name of figures and Bookdown label will be based on the chunk name</li>
+</ul></li>
+<li>avoid writing code that generates Markdown
+<ul>
+<li>use (parametrised) child documents instead</li>
+</ul></li>
+<li>use the bookdown version for long reports
+<ul>
+<li>this makes it easy to split a long report into several child documents</li>
+</ul></li>
+</ul>
+</div>
+</div>
 
 
 

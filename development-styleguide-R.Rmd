@@ -198,3 +198,78 @@ Adding `# nolint` at the end of a line excludes that line from the automatic che
 
 - Add one or more how-to's to a package
 - Add them as RMarkdown vignettes
+
+# File structure
+
+## R Package
+
+### Functions
+
+- all generic R functions should be distributed as an R package
+- use `devtools::create()` to start a new pacakge
+    - **RStudio hint**: _File_ -> _New project_ -> _New directory_ -> _R Package_ -> Type the name in _Package name_
+- keep source files compact
+    - each function in a separate file with file name equal to the function name
+        - compact source files
+        - easy to find the correct source file
+    - exception: very short auxilary functions with related functionality
+        - related functions can be bundled into one R script
+        - file name is either equal to the most important function or describes the related functionality
+- split large functions into several subfunctions
+
+### Scripts
+
+- place scripts in the `inst` folder
+    - the scripts will be available for the user after installing the package
+    - the location of the scripts can be found with `system.file("script-name.R", package = "yourpackage")`
+    - use a relevant folder structure when adding lots of files to `inst`
+
+### Unit tests
+
+- use the `testthat` package for unit tests
+    - use `devtools::use_testthat()` to setup the test infrastructure
+- all unit tests are stored in `tests/testthat`
+- all file should have either a `test_` or `helper_` prefix
+    - files with `helper_` prefix contain auxiliary function for the tests but no tests
+- the test files will be run in alphabetical order
+    - setting the order of the files is easy when we add 3 letters to the prefix (eg. `test_aaa_`, `test_baa`, `test_zzz_`)
+    - 3 letters offers quite some flexibility to insert new files at the correct location without having to rename at lot of files
+        - if the first file is `test_aaa_` and the second `test_baa`, they you can 675 files between the two.
+- unit test files can be larger than source files
+- a unit test file can contain tests for several functions in case the functions are strongly related (e.g. subfunctions) and reuse test cases
+- each package should contain the unit for coding style as listed below
+    - store this in a file `tests/testthat/test_zzz_coding_style.R`
+    - add this file to `.gitignore`
+        - the coding style will be tested separatly when using continuous integration
+
+```{r eval = FALSE}
+if (requireNamespace("lintr", quietly = TRUE)) {
+  context("lints")
+  test_that("Package Style", {
+    lintr::expect_lint_free()
+  })
+}
+```
+
+
+
+## R script
+
+- group a long set of commands with similar functionality into a dedicated function
+    - e.g. `prepare_data()`, `do_analysis()`, `create_figure()`, ...
+- place the user defined functions in a separate file which you `source()` into the main script
+    - better is to use to apply the same file structure as an R package
+    - consider writing a simple package in case you have a lot of functions
+
+## RMarkdown
+
+- each chunk has only one output (figure, table, summary, ...)
+- don't mix (heavy) calculations and output in the same chunk
+    - having them in different chunks is more interesting for caching the results
+- give chunks a relevant name
+    - this makes debugging easier
+    - file name of figures and Bookdown label will be based on the chunk name
+- avoid writing code that generates Markdown
+    - use (parametrised) child documents instead
+- use the bookdown version for long reports
+    - this makes it easy to split a long report into several child documents
