@@ -235,93 +235,69 @@ $(document).ready(function () {
 
 <div id="scope" class="section level1">
 <h1>Scope</h1>
-<p>This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn’t apply to existing projects, except when revising such project. Then the style guide applies to the revised parts of the code.</p>
+<p>This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn’t apply for existing projects, except when revising such project. Then the style guide applies to the revised parts of the code.</p>
 </div>
 <div id="recommended-packages" class="section level1">
 <h1>Recommended packages</h1>
 <div id="data-import" class="section level2">
 <h2>Data import</h2>
-<dl>
-<dt><code>readr</code></dt>
-<dd>text files
-</dd>
-<dt><code>readexcel</code></dt>
-<dd>Excel files
-</dd>
-<dt><code>googlesheets</code></dt>
-<dd>googlesheets
-</dd>
-<dt><code>DBI</code></dt>
-<dd>connections to databases: PostgreSQL, SQLite, MySQL, Oracle, …
-</dd>
-<dt><code>RODBC</code></dt>
-<dd>connections to SQL Server, Access
-</dd>
-</dl>
+<ul>
+<li><code>readr</code>: import text files</li>
+<li><code>readexcel</code>: import Excel files</li>
+<li><code>googlesheets</code>: import Google Sheets</li>
+<li><code>DBI</code>: connect to databases PostgreSQL, SQLite, MySQL, Oracle, …</li>
+<li><code>RODBC</code>: connect to databases SQL Server, Access</li>
+</ul>
 </div>
-<div id="data-manipulation-and-transformation" class="section level2">
-<h2>Data manipulation and transformation</h2>
-<dl>
-<dt><code>dplyr</code></dt>
-<dd>subsetting observations
-</dd>
-<dd>subsetting variables
-</dd>
-<dd>changing variables
-</dd>
-<dd>aggregation
-</dd>
-<dd>combining dataframes
-</dd>
-<dt><code>tidyr</code></dt>
-<dd>changing a dataframe for wide to long format and vice versa
-</dd>
-<dd>nesting and unnesting dataframes
-</dd>
-<dd>splitting a single variable into multiple variables
-</dd>
-</dl>
+<div id="data-manipulation-transformation" class="section level2">
+<h2>Data manipulation &amp; transformation</h2>
+<ul>
+<li><code>dplyr</code>:
+<ul>
+<li>subsetting observations</li>
+<li>subsetting variables</li>
+<li>changing variables</li>
+<li>aggregation</li>
+<li>combining dataframes</li>
+</ul></li>
+<li><code>tidyr</code>:
+<ul>
+<li>changing a dataframe from wide to long format and vice versa</li>
+<li>nesting and unnesting dataframes</li>
+<li>splitting a single variable into multiple variables</li>
+</ul></li>
+</ul>
 </div>
 <div id="graphics" class="section level2">
 <h2>Graphics</h2>
-<dl>
-<dt><code>ggplot2</code></dt>
-<dd>all static graphics
-</dd>
-<dt><code>INBOtheme</code></dt>
-<dd>INBO corporate identity for <code>ggplot2</code> graphics
-</dd>
-</dl>
+<ul>
+<li><code>ggplot2</code>:all static graphics, charts and plots</li>
+<li><code>INBOtheme</code>: INBO corporate identity for <code>ggplot2</code> graphics</li>
+</ul>
 </div>
 <div id="quality-control" class="section level2">
 <h2>Quality control</h2>
-<dl>
-<dt><code>lintr</code></dt>
-<dd>checking coding style
-</dd>
-<dt><code>testthat</code></dt>
-<dd>writing unit tests
-</dd>
-<dt><code>covr</code></dt>
-<dd>check which part of the code is not covered by unit tests
-</dd>
-</dl>
+<ul>
+<li><code>lintr</code>: checking coding style</li>
+<li><code>testthat</code>: writing unit tests</li>
+<li><code>covr</code>: check which part of the code is not covered by unit tests</li>
+</ul>
 </div>
 </div>
 <div id="syntax" class="section level1">
 <h1>Syntax</h1>
-<p><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Diagnotics</em> -&gt; Check everything</p>
+<p><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Diagnotics</em>: Check everything</p>
 <div id="general" class="section level2">
 <h2>General</h2>
 <ul>
 <li>lines should not exceed 80 characters
 <ul>
 <li>split the command over multiple lines if the command is longer than 80 characters</li>
-<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Display</em> -&gt; Check <em>Show margin</em> and set <em>Margin column</em> to 80</li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Display</em>: Check <em>Show margin</em> and set <em>Margin column</em> to 80</li>
 </ul></li>
 <li>object names should be meaningful</li>
 <li>object names should not exceed 20 characters</li>
-<li>object names should lowercase</li>
+<li>object names should be lowercase</li>
 <li>use <code>_</code> to separate words in object names
 <ul>
 <li>function names with a single dot are allowed</li>
@@ -329,7 +305,7 @@ $(document).ready(function () {
 <li>use single quotes (<code>'</code>) around characters and not double quotes (<code>&quot;</code>)</li>
 <li>don’t add commented code
 <ul>
-<li>use version control is you want to keep old versions of code</li>
+<li>use version control if you want to keep old versions of code</li>
 </ul></li>
 </ul>
 <pre class="r"><code># Good
@@ -338,7 +314,7 @@ example_text &lt;- example_function(
   second_argument = &#39;More text&#39;
 )
 
-# Wrong
+# Bad
 some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &quot;Some text&quot;, second.argument = &quot;More text&quot;)</code></pre>
 </div>
 <div id="whitespace" class="section level2">
@@ -346,17 +322,17 @@ some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &quot;S
 <ul>
 <li>don’t use tabs, use two spaces instead
 <ul>
-<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Editing</em> -&gt; Check <em>Insert spaces for tab</em> and set <em>Tab width</em> to 2</li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Editing</em>: Check <em>Insert spaces for tab</em> and set <em>Tab width</em> to 2</li>
 </ul></li>
 <li>no space before a comma, one space after a comma</li>
 <li>one space before and after an infix operator (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>&amp;</code>, <code>|</code>, <code>%%</code>, <code>%/%</code>, <code>%*%</code>, <code>%in%</code>, …)</li>
 <li>no spaces a the end of a line
 <ul>
-<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Saving</em> -&gt; Check <em>Strip trailing horizontal whitespace when saving</em></li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Saving</em>: Check <em>Strip trailing horizontal whitespace when saving</em></li>
 </ul></li>
-<li>the script file end with a single blank line
+<li>end the script file with a single blank line
 <ul>
-<li><strong>RStudio hint</strong>: <em>Tools</em> -&gt; <em>Global options</em> -&gt; <em>Code</em> -&gt; <em>Saving</em> -&gt; Check <em>Ensure that source files end with newline</em></li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Saving</em>: Check <em>Ensure that source files end with newline</em></li>
 </ul></li>
 </ul>
 </div>
@@ -372,12 +348,12 @@ some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &quot;S
 x &lt;- data.frame(z = 1:10)
 summary(x)
 
-# Wrong
+# Bad
 x=data.frame(z&lt;-1:10)</code></pre>
 </div>
 <div id="brackets" class="section level2">
 <h2>Brackets</h2>
-<p>R uses three types of brackets: round <code>(</code>, <code>)</code>, square <code>[</code>, <code>]</code> and curly <code>{</code>, <code>}</code>.</p>
+<p>R uses three types of brackets: round <code>(...)</code>, square <code>[...]</code> and curly <code>{...}</code>.</p>
 <ul>
 <li>no spaces after opening a bracket</li>
 <li>no spaces before closing a bracket</li>
@@ -406,7 +382,7 @@ sapply(
   }
 )
 
-# Wrong
+# Bad
 y &lt;- seq (0, 2   )
 if(   max( y ) &lt;= 10    )        
 { x &lt;- 1 } else 
@@ -438,7 +414,7 @@ relevant_subset &lt;- original_dataframe[
 relevant_subset &lt;- original_dataframe %&gt;%
   filter(x &gt; some_value | y &lt; some_other_value)
 
-# Wrong
+# Bad
 relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, ] # nolint</code></pre>
 <ul>
 <li>a really long text
@@ -469,6 +445,41 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <li>Add documentation above each function with <code>Roxygen</code> markup</li>
 <li>Add inline comments where relevant</li>
 </ul>
+<div id="required-roxygen-tags" class="section level3">
+<h3>Required Roxygen tags</h3>
+<pre class="r"><code>#&#39; @title Title of the helpfile
+#&#39; @description Description of the function in the helpfile
+#&#39; @param define a parameter
+#&#39; @export is the function exported by the package NAMESPACE
+#&#39; @importFrom import a function from another package</code></pre>
+</div>
+<div id="optional-roxygen-tags" class="section level3">
+<h3>Optional Roxygen tags</h3>
+<pre class="r"><code>#&#39; @seealso link to other functions
+#&#39; @section section title
+#&#39; @alias other name for the topic
+#&#39; @keywords a set of standardised keywords. See file.path(R.home(&quot;doc&quot;), &quot;KEYWORDS&quot;)
+#&#39; @inheritParams inherit the definition of parameters from another function
+#&#39; @examples a working example of the function
+#&#39; @return a description of the output from the function</code></pre>
+<p>See <a href="http://r-pkgs.had.co.nz/man.html#roxygen-comments" class="uri">http://r-pkgs.had.co.nz/man.html#roxygen-comments</a> for more information on Roxygen</p>
+</div>
+<div id="inbo-extra-requirements-for-package-description" class="section level3">
+<h3>INBO extra requirements for package DESCRIPTION</h3>
+<ul>
+<li>license: MIT or GPL-3? In case of MIT a LICENSE file should be added and <code>License: MIT</code> to the DESCRIPTION. In case of GPL-3 it is sufficient to add <code>License: GPL-3</code> to the DESCRIPTION</li>
+<li>list of authors in <code>Authors@R</code> format</li>
+<li>INBO is listed as copyright holder</li>
+<li>one or more roles are atributed to each person
+<ul>
+<li><code>cre</code>: package maintainer (only one person)</li>
+<li><code>aut</code>: main author (at least one person)</li>
+<li><code>ctb</code>: contributor (if relevant)</li>
+<li><code>cph</code>: copyright holder (must be INBO)</li>
+</ul></li>
+</ul>
+<p><a href="mailto:Authors@R">Authors@R</a>: c(person(‘Els’, ‘Lommelen’, email = <a href="mailto:&#39;els.lommelen@inbo.be&#39;">'els.lommelen@inbo.be'</a>, role = c(‘aut’, ‘cre’)), person(‘Thierry’, ‘Onkelinx’, email = <a href="mailto:&#39;thierry.onkelinx@inbo.be&#39;">'thierry.onkelinx@inbo.be'</a>, role = ‘aut’), person(‘Anja’, ‘Leyman’, email = <a href="mailto:&#39;anja.leyman@inbo.be&#39;">'anja.leyman@inbo.be'</a>, role = ‘ctb’), person(family = ‘Research Institute for Nature and Forest (INBO)’, email = <a href="mailto:&#39;info@inbo.be&#39;">'info@inbo.be'</a>, role = ‘cph’))</p>
+</div>
 </div>
 <div id="how-tos" class="section level2">
 <h2>How-to’s</h2>
@@ -488,15 +499,11 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <li>all generic R functions should be distributed as an R package</li>
 <li>use <code>devtools::create()</code> to start a new pacakge
 <ul>
-<li><strong>RStudio hint</strong>: <em>File</em> -&gt; <em>New project</em> -&gt; <em>New directory</em> -&gt; <em>R Package</em> -&gt; Type the name in <em>Package name</em></li>
+<li><strong>RStudio hint</strong>: <em>File &gt; New project &gt; New directory &gt; R Package</em>: Type the name in <em>Package name</em></li>
 </ul></li>
 <li>keep source files compact
 <ul>
-<li>each function in a separate file with file name equal to the function name
-<ul>
-<li>compact source files</li>
-<li>easy to find the correct source file</li>
-</ul></li>
+<li>create a separate file for each function, with tje file name equal to the function name. This makes it easy to find the correct source file.</li>
 <li>exception: very short auxilary functions with related functionality
 <ul>
 <li>related functions can be bundled into one R script</li>
@@ -531,11 +538,8 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </ul></li>
 <li>the test files will be run in alphabetical order
 <ul>
-<li>setting the order of the files is easy when we add 3 letters to the prefix (eg. <code>test_aaa_</code>, <code>test_baa</code>, <code>test_zzz_</code>)</li>
-<li>3 letters offers quite some flexibility to insert new files at the correct location without having to rename at lot of files
-<ul>
-<li>if the first file is <code>test_aaa_</code> and the second <code>test_baa</code>, they you can 675 files between the two.</li>
-</ul></li>
+<li>setting the order of the files is easy by adding 3 letters to the prefix (eg. <code>test_aaa_</code>, <code>test_baa</code>, <code>test_zzz_</code>)</li>
+<li>3 letters offers quite some flexibility to insert new files at the correct location without having to rename at lot of files. If the first file is <code>test_aaa_</code> and the second <code>test_baa</code>, they you can 675 files between the two.</li>
 </ul></li>
 <li>unit test files can be larger than source files</li>
 <li>a unit test file can contain tests for several functions in case the functions are strongly related (e.g. subfunctions) and reuse test cases</li>
@@ -565,7 +569,7 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </ul></li>
 <li>place the user defined functions in a separate file which you <code>source()</code> into the main script
 <ul>
-<li>better is to use to apply the same file structure as an R package</li>
+<li>it is better to use the same file structure as an R package</li>
 <li>consider writing a simple package in case you have a lot of functions</li>
 </ul></li>
 </ul>
@@ -574,23 +578,13 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <h2>RMarkdown</h2>
 <ul>
 <li>each chunk has only one output (figure, table, summary, …)</li>
-<li>don’t mix (heavy) calculations and output in the same chunk
-<ul>
-<li>having them in different chunks is more interesting for caching the results</li>
-</ul></li>
-<li>give chunks a relevant name
-<ul>
-<li>this makes debugging easier</li>
-<li>file name of figures and Bookdown label will be based on the chunk name</li>
-</ul></li>
+<li>don’t mix (heavy) calculations and output in the same chunk: this is more interesting for caching the results</li>
+<li>give chunks a relevant name: this make debugging easier and file name of figures and Bookdown label will be based on the chunk name</li>
 <li>avoid writing code that generates Markdown
 <ul>
 <li>use (parametrised) child documents instead</li>
 </ul></li>
-<li>use the bookdown version for long reports
-<ul>
-<li>this makes it easy to split a long report into several child documents</li>
-</ul></li>
+<li>use the bookdown version for long reports: this makes it easy to split a long report into several child documents</li>
 </ul>
 </div>
 </div>
