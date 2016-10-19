@@ -13,7 +13,7 @@ This style guide applies to all R code where INBO is copyright holder. It is man
 ## Data import
 
 - `readr`: import text files
-- `readexcel`: import Excel files
+- `readxl`: import Excel files
 - `googlesheets`: import Google Sheets
 - `DBI`: connect to databases PostgreSQL, SQLite, MySQL, Oracle, ...
 - `RODBC`: connect to databases SQL Server, Access
