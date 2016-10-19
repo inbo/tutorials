@@ -56,7 +56,7 @@ This style guide applies to all R code where INBO is copyright holder. It is man
 - object names should be lowercase
 - use `_` to separate words in object names
     - function names with a single dot are allowed
-- use single quotes (`'`) around characters and not double quotes (`"`)
+- use double quotes (`"`) around characters and not single quotes (`'`)
 - don't add commented code
     - use version control if you want to keep old versions of code
 
@@ -87,7 +87,7 @@ some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = "Some text
 - only create an object when you will use it later on
 - always use `<-` for assignment
 - use `=` only for passing arguments in a function
-- at least one space before and one space after `<-` and `=`
+- at least one space before and at least one space after `<-` and `=`
     - use multiple spaces if it improves readability
 
 ```{r eval = FALSE}
