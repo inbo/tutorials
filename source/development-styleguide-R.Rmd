@@ -229,7 +229,7 @@ Authors@R: c(person('Els', 'Lommelen', email = 'els.lommelen@inbo.be', role = c(
 - use `devtools::create()` to start a new pacakge
     - **RStudio hint**: _File > New project > New directory > R Package_: Type the name in _Package name_
 - keep source files compact
-    - create a separate file for each function, with tje file name equal to the function name. This makes it easy to find the correct source file.
+    - create a separate file for each function, with the file name equal to the function name. This makes it easy to find the correct source file.
     - exception: very short auxilary functions with related functionality
         - related functions can be bundled into one R script
         - file name is either equal to the most important function or describes the related functionality
