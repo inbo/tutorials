@@ -247,7 +247,7 @@ Authors@R: c(person('Els', 'Lommelen', email = 'els.lommelen@inbo.be', role = c(
 - use the `testthat` package for unit tests
     - use `devtools::use_testthat()` to setup the test infrastructure
 - all unit tests are stored in `tests/testthat`
-- all file should have either a `test_` or `helper_` prefix
+- all files should have either a `test_` or `helper_` prefix
     - files with `helper_` prefix contain auxiliary function for the tests but no tests
 - the test files will be run in alphabetical order
     - setting the order of the files is easy by adding 3 letters to the prefix (eg. `test_aaa_`, `test_baa`, `test_zzz_`)
