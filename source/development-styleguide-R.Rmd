@@ -87,7 +87,8 @@ some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = "Some text
 - only create an object when you will use it later on
 - always use `<-` for assignment
 - use `=` only for passing arguments in a function
-- one space before and one space after `<-` and `=`
+- at least one space before and one space after `<-` and `=`
+    - use multiple spaces if it improves readability
 
 ```{r eval = FALSE}
 # Good
@@ -96,6 +97,12 @@ summary(x)
 
 # Bad
 x=data.frame(z<-1:10)
+
+# Improved readability example
+a   <-   5   
+ab  <-  10   
+abc <-   7
+d   <- 245 
 ```
 
 ## Brackets
