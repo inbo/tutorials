@@ -14,4 +14,15 @@ rmarkdown::render_site("source")
 
 ### Using the RStudio GUI
 
-Go the the _Build_ pane and click _Build Website_.
+First setup the RStudio project
+
+1. Open RStudio
+1. Create a new project: 
+    1. _File > New Project > Version Control > Git_
+    1. Copy the URL in _Repository URL_
+    1. _Create project_
+1. Go to the _Build_ pane
+1. Click _More > Configure Build Tools ..._
+1. Set the _Site directory_ to `source` and click _OK_
+
+When the RStudio project is setup: Go to the _Build_ pane and click _Build Website_.
