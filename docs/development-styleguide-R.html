@@ -452,6 +452,21 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <p><strong>Important notice</strong></p>
 <p>Adding <code># nolint</code> at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.</p>
 </div>
+<div id="validating-syntax" class="section level2">
+<h2>Validating syntax</h2>
+<p>The code below validate the syntax for an R file, an RMarkdown file or an R package.</p>
+<p><strong>RStudio hint</strong>: Running this code within RStudio will open a <em>Markers</em> pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file a the correct location, making it easy to rectify the problem.</p>
+<p>Extra hint: start correcting for the last lines and work your way forward. This leave the line numbers of the errors intact until you solve them.</p>
+<p>An example to clarify this. Suppose you have an error at line 10 and an error at line 100. Both errors are <code>lines should not be more than 80 characters</code>, so to solve them we have to split the lines over multiple lines.</p>
+<p>Let say that we start with solving line 10 by splitting it over four lines. So the old line 10 becomes the new lines 10 to 13. Hence the old line 11 becomes the new line 14, and the old line 100 becomes the new line 103. When we now click on the marker for line 100, RStudio will go the current line 100 which is the old line 97. So you end up looking for an error at the wrong position.</p>
+<p>Starting at the back solved this issue. In the same example we would start by solving line 100. Let’s assume we split this over two lines. So old line 100 because new line 100 and 101. Old line 101 becomes new line 102 but more importantly <strong>all line numbers before 100 are unchanged</strong>. So clicking on the marker for line 10 will take you the current line 10 which is the old line 10.</p>
+<pre class="r"><code># validate a single file
+lintr::lint(filename = &quot;file.R&quot;)
+lintr::lint(filename = &quot;file.Rmd&quot;)
+
+# validate a package
+lintr::lint_package(path = &quot;.&quot;)</code></pre>
+</div>
 </div>
 <div id="documentation" class="section level1">
 <h1>Documentation</h1>
