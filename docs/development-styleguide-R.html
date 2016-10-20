@@ -235,7 +235,14 @@ $(document).ready(function () {
 
 <div id="scope" class="section level1">
 <h1>Scope</h1>
-<p>This style guide applies to all R code where INBO is copyright holder. It is mandatory for all new projects intended to be distributed and highly recommended for all other projects. It doesn’t apply for existing projects, except when revising such project. Then the style guide applies to the revised parts of the code.</p>
+<p>This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). It is like to have concequence on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.</p>
+<ol style="list-style-type: decimal">
+<li>Don’t apply the style guide to existing code.</li>
+<li>R users have a free choice to apply the style guide to new personal R code.</li>
+<li>Using the style guide is highly recommended for new or revised R code intended to be distributed and used by other R users.</li>
+<li>The style guide is mandatory for new or revised R packages distributed by INBO.</li>
+</ol>
+<p>Please note that the RStudio editor has some handy features that automatically highlights errors against the code style in a non intrusive way. <strong>RStudio hints</strong> in this document are the instructions to activate these diagnostics in RStudio.</p>
 </div>
 <div id="recommended-packages" class="section level1">
 <h1>Recommended packages</h1>
@@ -302,7 +309,7 @@ $(document).ready(function () {
 <ul>
 <li>function names with a single dot are allowed</li>
 </ul></li>
-<li>use single quotes (<code>'</code>) around characters and not double quotes (<code>&quot;</code>)</li>
+<li>use double quotes (<code>&quot;</code>) around characters and not single quotes (<code>'</code>)</li>
 <li>don’t add commented code
 <ul>
 <li>use version control if you want to keep old versions of code</li>
@@ -342,14 +349,23 @@ some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &quot;S
 <li>only create an object when you will use it later on</li>
 <li>always use <code>&lt;-</code> for assignment</li>
 <li>use <code>=</code> only for passing arguments in a function</li>
-<li>one space before and one space after <code>&lt;-</code> and <code>=</code></li>
+<li>at least one space before and at least one space after <code>&lt;-</code> and <code>=</code>
+<ul>
+<li>use multiple spaces if it improves readability</li>
+</ul></li>
 </ul>
 <pre class="r"><code># Good
 x &lt;- data.frame(z = 1:10)
 summary(x)
 
 # Bad
-x=data.frame(z&lt;-1:10)</code></pre>
+x=data.frame(z&lt;-1:10)
+
+# Improved readability example
+a   &lt;-   5   
+ab  &lt;-  10   
+abc &lt;-   7
+d   &lt;- 245 </code></pre>
 </div>
 <div id="brackets" class="section level2">
 <h2>Brackets</h2>
@@ -503,7 +519,7 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </ul></li>
 <li>keep source files compact
 <ul>
-<li>create a separate file for each function, with tje file name equal to the function name. This makes it easy to find the correct source file.</li>
+<li>create a separate file for each function, with the file name equal to the function name. This makes it easy to find the correct source file.</li>
 <li>exception: very short auxilary functions with related functionality
 <ul>
 <li>related functions can be bundled into one R script</li>
@@ -532,7 +548,7 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <li>use <code>devtools::use_testthat()</code> to setup the test infrastructure</li>
 </ul></li>
 <li>all unit tests are stored in <code>tests/testthat</code></li>
-<li>all file should have either a <code>test_</code> or <code>helper_</code> prefix
+<li>all files should have either a <code>test_</code> or <code>helper_</code> prefix
 <ul>
 <li>files with <code>helper_</code> prefix contain auxiliary function for the tests but no tests</li>
 </ul></li>
