@@ -70,12 +70,12 @@ Please note that the RStudio editor has some handy features that automatically h
 ```{r eval = FALSE}
 # Good
 example_text <- example_function(
-  first_argument = 'Some text', 
-  second_argument = 'More text'
+  first_argument = "Some text",
+  second_argument = "More text"
 )
 
 # Bad
-some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = "Some text", second.argument = "More text")
+some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = 'Some text', second.argument = 'More text')
 ```
 
 ## Whitespace
@@ -106,10 +106,10 @@ summary(x)
 x=data.frame(z<-1:10)
 
 # Improved readability example
-a   <-   5   
-ab  <-  10   
+a   <-   5
+ab  <-  10
 abc <-   7
-d   <- 245 
+d   <- 245
 ```
 
 ## Brackets
@@ -134,7 +134,7 @@ if (max(y) <= 10) {
   x <- 2
 }
 sapply(
-  y, 
+  y,
   function(x){
     return(x)
   }
@@ -161,7 +161,7 @@ sapply( y , function ( x ) { return(x)})
 ```{r eval = FALSE}
 # Good
 relevant_subset <- original_dataframe[
-  original_dataframe$x > some_value | original_dataframe$y < some_other_value, 
+  original_dataframe$x > some_value | original_dataframe$y < some_other_value,
 ]
 # Recommended dplyr alternative
 relevant_subset <- original_dataframe %>%

@@ -317,12 +317,12 @@ $(document).ready(function () {
 </ul>
 <pre class="r"><code># Good
 example_text &lt;- example_function(
-  first_argument = &#39;Some text&#39;, 
-  second_argument = &#39;More text&#39;
+  first_argument = &quot;Some text&quot;,
+  second_argument = &quot;More text&quot;
 )
 
 # Bad
-some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &quot;Some text&quot;, second.argument = &quot;More text&quot;)</code></pre>
+some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = &#39;Some text&#39;, second.argument = &#39;More text&#39;)</code></pre>
 </div>
 <div id="whitespace" class="section level2">
 <h2>Whitespace</h2>
@@ -362,10 +362,10 @@ summary(x)
 x=data.frame(z&lt;-1:10)
 
 # Improved readability example
-a   &lt;-   5   
-ab  &lt;-  10   
+a   &lt;-   5
+ab  &lt;-  10
 abc &lt;-   7
-d   &lt;- 245 </code></pre>
+d   &lt;- 245</code></pre>
 </div>
 <div id="brackets" class="section level2">
 <h2>Brackets</h2>
@@ -392,7 +392,7 @@ if (max(y) &lt;= 10) {
   x &lt;- 2
 }
 sapply(
-  y, 
+  y,
   function(x){
     return(x)
   }
@@ -424,7 +424,7 @@ sapply( y , function ( x ) { return(x)})</code></pre>
 </ul>
 <pre class="r"><code># Good
 relevant_subset &lt;- original_dataframe[
-  original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, 
+  original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value,
 ]
 # Recommended dplyr alternative
 relevant_subset &lt;- original_dataframe %&gt;%
