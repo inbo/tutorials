@@ -248,7 +248,7 @@ See <http://r-pkgs.had.co.nz/man.html#roxygen-comments> for more information on 
       - `ctb`: contributor (if relevant)
       - `cph`: copyright holder (must be INBO)
 
-Authors@R: c(person('Els', 'Lommelen', email = 'els.lommelen@inbo.be', role = c('aut', 'cre')), person('Thierry', 'Onkelinx', email = 'thierry.onkelinx@inbo.be', role = 'aut'), person('Anja', 'Leyman', email = 'anja.leyman@inbo.be', role = 'ctb'), person(family = 'Research Institute for Nature and Forest (INBO)', email = 'info@inbo.be', role = 'cph'))
+Authors@R: c(person("Els", "Lommelen", email = "els.lommelen@inbo.be", role = c("aut", "cre")), person("Thierry", "Onkelinx", email = "thierry.onkelinx@inbo.be", role = "aut"), person("Anja", "Leyman", email = "anja.leyman@inbo.be", role = "ctb"), person(family = "Research Institute for Nature and Forest (INBO)", email = "info@inbo.be", role = "cph"))
 
 
 ## How-to's
