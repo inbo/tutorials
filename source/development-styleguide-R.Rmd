@@ -6,10 +6,10 @@ output: html_document
 
 # Scope
 
-This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). It is like to have concequence on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.
+This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). It is likely to have consequences on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.
 
 1. Don't apply the style guide to existing code.
-1. R users have a free choice to apply the style guide to new personal R code.
+1. R users are free to apply the style guide to new personal R code.
 1. Using the style guide is highly recommended for new or revised R code intended to be distributed and used by other R users.
 1. The style guide is mandatory for new or revised R packages distributed by INBO.
 
