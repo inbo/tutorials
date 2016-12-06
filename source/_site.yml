@@ -16,7 +16,9 @@ navbar:
           href: "installation-RStudio-user.html"
     - text: "Software development"
       menu:
-        - text: "Repository styleguide"
+        - text: "Repository style guide"
           href: "development-styleguide-repos.html"
+        - text: "R style guide"
+          href: "development-styleguide-R.html"
 exclude: ["LICENSE", "Rprofile.site"]
-output_dir: "docs"
+output_dir: "../docs"
