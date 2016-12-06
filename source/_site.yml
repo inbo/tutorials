@@ -14,6 +14,8 @@ navbar:
           href: "installation-RStudio-admin.html"
         - text: "RStudio as user"
           href: "installation-RStudio-user.html"
+        - text: "git as admin"
+          href: "installation-git-admin.html"
     - text: "Software development"
       menu:
         - text: "Repository style guide"
