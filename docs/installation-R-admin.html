@@ -353,6 +353,15 @@ Zoek naar deze tekst en plaats # voor elke regel vanaf warning( tot )&quot;
 }</code></pre>
 </div>
 </div>
+<div id="ubuntu" class="section level2">
+<h2>Ubuntu</h2>
+<pre><code>sudo sh -c &#39;echo &quot;deb http://cran.rstudio.com/bin/linux/ubuntu xenial/&quot; &gt;&gt; /etc/apt/sources.list&#39;
+sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+sudo gpg -a --export E084DAB9 | apt-key add -
+
+sudo apt-get update
+sudo apt-get install -y r-base-core r-base-dev</code></pre>
+</div>
 <div class="footnotes">
 <hr />
 <ol>
