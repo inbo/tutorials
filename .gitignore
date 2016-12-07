@@ -1,6 +1,12 @@
+.DS_Store
+
+# R
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 *.Rproj
-.DS_Store
+
+# Ignore tokens
+*.rds
+.httr-oauth

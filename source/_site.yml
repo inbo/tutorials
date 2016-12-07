@@ -31,5 +31,9 @@ navbar:
           href: "development-styleguide-repos.html"
         - text: "R style guide"
           href: "development-styleguide-R.html"
+    - text: "R tutorials"
+      menu:
+        - text: "Read data from GoogleSheet"
+          href: "data-handling-googlesheet-R.html"
 exclude: ["LICENSE", "Rprofile.site"]
 output_dir: "../docs"
