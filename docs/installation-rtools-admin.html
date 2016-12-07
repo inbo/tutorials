@@ -11,7 +11,7 @@
 
 
 
-<title>Bijwerken van RStudio als gebruiker</title>
+<title>Rtools installeren als administrator</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -241,73 +241,34 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Bijwerken van RStudio als gebruiker</h1>
+<h1 class="title toc-ignore">Rtools installeren als administrator</h1>
 
 </div>
 
 
-<div id="na-de-eerste-installatie" class="section level2">
-<h2>Na de eerste installatie</h2>
+<div id="windows" class="section level2">
+<h2>Windows</h2>
+<div id="installatie-en-upgrade" class="section level3">
+<h3>Installatie en upgrade</h3>
+<p>De installatiebestanden zijn beschikbaar via <a href="http://cran.r-project.org/bin/windows/Rtools/" class="uri">http://cran.r-project.org/bin/windows/Rtools/</a></p>
 <ol style="list-style-type: decimal">
-<li>Start <code>Rstudio</code></li>
-<li>Kies in het menu <code>Tools -&gt; Global Options</code></li>
-<li>In het tabblad <code>General</code>
-<ol style="list-style-type: decimal">
-<li>Pas de <em>Default working directory</em> aan naar de locatie waar je <code>R</code> versie staat (<code>C:/R/R-3.x.y</code>) <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
-<li><em>Restore .RData into workspace at startup:</em> <code>uitvinken</code></li>
-<li><em>Save workspace to.RData on exit:</em> <code>Never</code></li>
-</ol></li>
-<li>In het tabblad <em>Code</em>
-<ol style="list-style-type: decimal">
-<li>Subtab <em>Editing</em>
-<ol style="list-style-type: decimal">
-<li><em>Insert spaces for tab:</em> <code>aanvinken</code></li>
-<li><em>Tab width:</em> <code>2</code></li>
-<li><em>Soft-wrap R source files:</em> <code>aanvinken</code></li>
-</ol></li>
-<li>Subtab <em>Saving</em>
-<ol style="list-style-type: decimal">
-<li><em>Default text encoding:</em> <code>UTF-8</code></li>
-</ol></li>
-<li>Subtab <em>Diagnostics</em>
-<ol style="list-style-type: decimal">
-<li>Alles <code>aanvinken</code></li>
-</ol></li>
-</ol></li>
-<li>In het tabblad <em>Appearance</em>
-<ol style="list-style-type: decimal">
-<li>Stel in naar eigen smaak</li>
-</ol></li>
-<li>In het tabblad <em>Packages</em>
-<ol style="list-style-type: decimal">
-<li><em>CRAN mirror:</em> wijzigen naar <code>Global (CDN) - RStudio</code></li>
-</ol></li>
-<li>In het tabblad <em>Sweave</em>
-<ol style="list-style-type: decimal">
-<li><em>Weave Rnw files using:</em> <code>knitr</code></li>
-<li><em>Typeset LaTeX into PDF using:</em> <code>XeLaTex</code></li>
-</ol></li>
-<li>Klik op <em>OK</em> en herstart <code>RStudio</code></li>
+<li>Kies <code>Nederlands</code> als taal voor de installatie en klik <em>volgende</em>.</li>
+<li>Klik <em>volgende</em>.</li>
+<li>Klik <em>volgende</em>.</li>
+<li>Wijzig de installatiemap naar <code>C:\R\Rtools</code> en klik <em>volgende</em>.</li>
+<li>Selecteer in de dropdown box <code>Package authoring installation</code> en klik <em>volgende</em>.</li>
+<li>Vink <em>Edit the system PATH</em> aan, vink <em>Save versions information to registry</em> aan en klik op <em>volgende</em>.</li>
+<li>Klik <em>volgende</em>.</li>
+<li>Klik <em>installeren</em>.</li>
+<li>Klik <em>Voltooien</em>.</li>
 </ol>
 </div>
-<div id="configuratie-van-rstudio-na-een-upgrade-van-r" class="section level2">
-<h2>Configuratie van RStudio na een upgrade van R</h2>
-<ol style="list-style-type: decimal">
-<li>Start <code>RStudio</code></li>
-<li>Kies in het menu <code>Tools -&gt; Global Options</code></li>
-<li>Indien niet de laatste versie vermeld staat bij R version: klik op <em>Change</em> om het aan te passen.</li>
-<li>Klik op <em>OK</em> als je een waarschuwing krijgt dat je <code>RStudio</code> moet herstarten.</li>
-<li>Wijzig de initial working directory in <code>C:/R/R-3.x.y</code> <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
-<li>Klik op <em>OK</em></li>
-<li>Herstart <code>RStudio</code></li>
-</ol>
+<div id="afwijkingen-t.o.v.-default-installatie" class="section level3">
+<h3>Afwijkingen t.o.v. default installatie</h3>
+<ul>
+<li>Installeren naar <code>C:\R\Rtools</code> i.p.v. <code>C:\Rtools</code></li>
+</ul>
 </div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>x en y verwijzen naar het versienummer. Dus bij R-3.1.0 is x = 1 en y = 0. De working directory is in dat geval <code>C:/R/R-3.1.0</code><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>x en y verwijzen naar het versienummer. Dus bij R-3.1.0 is x = 1 en y = 0. De working directory is in dat geval <code>C:/R/R-3.1.0</code><a href="#fnref2">↩</a></p></li>
-</ol>
 </div>
 
 

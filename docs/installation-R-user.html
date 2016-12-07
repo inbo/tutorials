@@ -19,12 +19,11 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/default.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -151,7 +150,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -187,17 +185,32 @@ $(document).ready(function () {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">As administrator</li>
     <li>
-      <a href="installation-R-admin.html">R as admin</a>
+      <a href="installation-R-admin.html">R</a>
     </li>
     <li>
-      <a href="installation-R-user.html">R as user</a>
+      <a href="installation-RStudio-admin.html">RStudio</a>
     </li>
     <li>
-      <a href="installation-RStudio-admin.html">RStudio as admin</a>
+      <a href="installation-git-admin.html">git</a>
     </li>
     <li>
-      <a href="installation-RStudio-user.html">RStudio as user</a>
+      <a href="installation-rtools-admin.html">Rtools</a>
+    </li>
+    <li>
+      <a href="installation-latex-admin.html">LaTeX</a>
+    </li>
+    <li>
+      <a href="installation-pandoc-admin.html">Pandoc</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">As user</li>
+    <li>
+      <a href="installation-R-user.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-user.html">RStudio</a>
     </li>
   </ul>
 </li>
@@ -274,8 +287,11 @@ $(document).ready(function () {
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
