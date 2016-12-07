@@ -18,6 +18,8 @@ navbar:
           href: "installation-git-admin.html"
         - text: "Rtools as admin"
           href: "installation-rtools-admin.html"
+        - text: "LaTeX as admin"
+          href: "installation-latex-admin.html"
     - text: "Software development"
       menu:
         - text: "Repository style guide"

@@ -11,7 +11,7 @@
 
 
 
-<title>Rtools installeren als administrator</title>
+<title>LaTeX installeren als administrator</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -235,33 +235,57 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Rtools installeren als administrator</h1>
+<h1 class="title toc-ignore">LaTeX installeren als administrator</h1>
 
 </div>
 
 
 <div id="windows" class="section level2">
 <h2>Windows</h2>
-<div id="installatie-en-upgrade" class="section level3">
-<h3>Installatie en upgrade</h3>
-<p>De installatiebestanden zijn beschikbaar via <a href="http://cran.r-project.org/bin/windows/Rtools/" class="uri">http://cran.r-project.org/bin/windows/Rtools/</a></p>
+<p>De installatiebestanden zijn beschikbaar via <a href="http://miktex.org/download" class="uri">http://miktex.org/download</a></p>
 <ol style="list-style-type: decimal">
-<li>Kies <code>Nederlands</code> als taal voor de installatie en klik <em>volgende</em>.</li>
-<li>Klik <em>volgende</em>.</li>
-<li>Klik <em>volgende</em>.</li>
-<li>Wijzig de installatiemap naar <code>C:\R\Rtools</code> en klik <em>volgende</em>.</li>
-<li>Selecteer in de dropdown box <code>Package authoring installation</code> en klik <em>volgende</em>.</li>
-<li>Vink <em>Edit the system PATH</em> aan, vink <em>Save versions information to registry</em> aan en klik op <em>volgende</em>.</li>
-<li>Klik <em>volgende</em>.</li>
-<li>Klik <em>installeren</em>.</li>
-<li>Klik <em>Voltooien</em>.</li>
+<li>Start de installer en klik op <em>Uitvoeren</em>.</li>
+<li>Aanvaard de voorwaarden en klik op <em>Volgende</em></li>
+<li>Selecteer <em>Anyone who uses this computer</em> en klik op <em>volgende</em>.</li>
+<li>In het veld <em>Install MikTeX to</em> vul je <code>c:\R\MikTeX</code> in en klik op <em>volgende</em>.</li>
+<li>Wijzig <em>Install missing packages on-the-fly</em> naar <code>Yes</code> en klik op <em>volgende</em>.</li>
+<li>Klik op <em>Start</em>.</li>
+<li>Klik op <em>volgende</em>.</li>
+<li>Klik op <em>close</em>.</li>
+<li>Ga in het <em>Start</em> menu naar de <em>MikTex</em> map.</li>
+<li>Start <em>Update (admin)</em> in de submap <em>Maintainance (admin)</em>.</li>
+<li>Selecteer <em>remote package repository</em> en <em>nearest package repository</em> en klik tenslotte op <em>Volgende</em>.</li>
+<li>Klik op <em>Volgende</em>.</li>
+<li>Klik op <em>Volgende</em>.</li>
 </ol>
-</div>
 <div id="afwijkingen-t.o.v.-default-installatie" class="section level3">
 <h3>Afwijkingen t.o.v. default installatie</h3>
 <ul>
-<li>Installeren naar <code>C:\R\Rtools</code> i.p.v. <code>C:\Rtools</code></li>
+<li>Installeren naar <code>C:\R\MikTex</code> i.p.v. <code>C:\Program Files\MikTex</code></li>
+<li><em>Install missing packages on-the-fly</em>: <code>Yes</code></li>
 </ul>
+</div>
+</div>
+<div id="ubuntu" class="section level2">
+<h2>Ubuntu</h2>
+<div id="minimale-installatie" class="section level3">
+<h3>Minimale installatie</h3>
+<pre><code>sudo apt-get update
+sudo apt-get install -y --no-install-recommends \
+    lmodern \
+    qpdf \
+    texlive-fonts-recommended \
+    texlive-humanities \
+    texlive-latex-extra \
+    texinfo
+cd /usr/share/texlive/texmf-dist
+sudo wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip
+sudo unzip inconsolata.tds.zip
+sudo rm inconsolata.tds.zip
+sudo echo &quot;Map zi4.map&quot; &gt;&gt; /usr/share/texlive/texmf-dist/web2c/updmap.cfg
+sudo mktexlsr
+sudo updmap-sys
+cd ~</code></pre>
 </div>
 </div>
 
