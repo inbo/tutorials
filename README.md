@@ -1,13 +1,28 @@
 # Tutorials
 
-Instructions on the use, installation, and development of research software at the INBO.
+Here you can find the source files for the instructions on the use, installation, and development of freeware open source research software at the Research Institute of Nature and Forest (INBO). Visit <http://inbo.github.io/tutorials> to see the rendered version.
 
-## Installation
+The repository is structured in two folders: `docs` and `source`. `source` contains all source files of the website in RMarkdown format. One should only edit these files. The `docs` folder contains the rendered version of the source files. <http://inbo.github.io/tutorials> displays the content of the `docs` folder in the HEAD of the master branch.
 
-This folder contains detailed installation instructions for several software packages.
+## How to render the source files
 
-[R_admin](installation/R_admin.md)
-  ~ instructions for installing or upgrading `R` as administrator.
+### Using the command line
 
-[R_user](installation/R_user.md)
-  ~ instructions for finalising the installation or upgrade of `R` by the end user.
+```
+rmarkdown::render_site("source")
+```
+
+### Using the RStudio GUI
+
+First setup the RStudio project
+
+1. Open RStudio
+1. Create a new project: 
+    1. _File > New Project > Version Control > Git_
+    1. Copy the URL in _Repository URL_
+    1. _Create project_
+1. Go to the _Build_ pane
+1. Click _More > Configure Build Tools ..._
+1. Set the _Site directory_ to `source` and click _OK_
+
+When the RStudio project is setup: Go to the _Build_ pane and click _Build Website_.

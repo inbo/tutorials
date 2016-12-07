@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>LaTeX installeren als administrator</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">INBO tutorials</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software installation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">As administrator</li>
+    <li>
+      <a href="installation-R-admin.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-admin.html">RStudio</a>
+    </li>
+    <li>
+      <a href="installation-git-admin.html">git</a>
+    </li>
+    <li>
+      <a href="installation-rtools-admin.html">Rtools</a>
+    </li>
+    <li>
+      <a href="installation-latex-admin.html">LaTeX</a>
+    </li>
+    <li>
+      <a href="installation-pandoc-admin.html">Pandoc</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">As user</li>
+    <li>
+      <a href="installation-R-user.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-user.html">RStudio</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software development
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="development-styleguide-repos.html">Repository style guide</a>
+    </li>
+    <li>
+      <a href="development-styleguide-R.html">R style guide</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">LaTeX installeren als administrator</h1>
+
+</div>
+
+
+<div id="windows" class="section level2">
+<h2>Windows</h2>
+<p>De installatiebestanden zijn beschikbaar via <a href="http://miktex.org/download" class="uri">http://miktex.org/download</a></p>
+<ol style="list-style-type: decimal">
+<li>Start de installer en klik op <em>Uitvoeren</em>.</li>
+<li>Aanvaard de voorwaarden en klik op <em>Volgende</em></li>
+<li>Selecteer <em>Anyone who uses this computer</em> en klik op <em>volgende</em>.</li>
+<li>In het veld <em>Install MikTeX to</em> vul je <code>c:\R\MikTeX</code> in en klik op <em>volgende</em>.</li>
+<li>Wijzig <em>Install missing packages on-the-fly</em> naar <code>Yes</code> en klik op <em>volgende</em>.</li>
+<li>Klik op <em>Start</em>.</li>
+<li>Klik op <em>volgende</em>.</li>
+<li>Klik op <em>close</em>.</li>
+<li>Ga in het <em>Start</em> menu naar de <em>MikTex</em> map.</li>
+<li>Start <em>Update (admin)</em> in de submap <em>Maintainance (admin)</em>.</li>
+<li>Selecteer <em>remote package repository</em> en <em>nearest package repository</em> en klik tenslotte op <em>Volgende</em>.</li>
+<li>Klik op <em>Volgende</em>.</li>
+<li>Klik op <em>Volgende</em>.</li>
+</ol>
+<div id="afwijkingen-t.o.v.-default-installatie" class="section level3">
+<h3>Afwijkingen t.o.v. default installatie</h3>
+<ul>
+<li>Installeren naar <code>C:\R\MikTex</code> i.p.v. <code>C:\Program Files\MikTex</code></li>
+<li><em>Install missing packages on-the-fly</em>: <code>Yes</code></li>
+</ul>
+</div>
+</div>
+<div id="ubuntu" class="section level2">
+<h2>Ubuntu</h2>
+<div id="minimale-installatie" class="section level3">
+<h3>Minimale installatie</h3>
+<pre><code>sudo apt-get update
+sudo apt-get install -y --no-install-recommends \
+    lmodern \
+    qpdf \
+    texlive-fonts-recommended \
+    texlive-humanities \
+    texlive-latex-extra \
+    texinfo
+cd /usr/share/texlive/texmf-dist
+sudo wget http://mirrors.ctan.org/install/fonts/inconsolata.tds.zip
+sudo unzip inconsolata.tds.zip
+sudo rm inconsolata.tds.zip
+sudo echo &quot;Map zi4.map&quot; &gt;&gt; /usr/share/texlive/texmf-dist/web2c/updmap.cfg
+sudo mktexlsr
+sudo updmap-sys
+cd ~</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

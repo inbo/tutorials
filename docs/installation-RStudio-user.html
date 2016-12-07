@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Bijwerken van RStudio als gebruiker</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">INBO tutorials</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software installation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">As administrator</li>
+    <li>
+      <a href="installation-R-admin.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-admin.html">RStudio</a>
+    </li>
+    <li>
+      <a href="installation-git-admin.html">git</a>
+    </li>
+    <li>
+      <a href="installation-rtools-admin.html">Rtools</a>
+    </li>
+    <li>
+      <a href="installation-latex-admin.html">LaTeX</a>
+    </li>
+    <li>
+      <a href="installation-pandoc-admin.html">Pandoc</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">As user</li>
+    <li>
+      <a href="installation-R-user.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-user.html">RStudio</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software development
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="development-styleguide-repos.html">Repository style guide</a>
+    </li>
+    <li>
+      <a href="development-styleguide-R.html">R style guide</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Bijwerken van RStudio als gebruiker</h1>
+
+</div>
+
+
+<div id="na-de-eerste-installatie" class="section level2">
+<h2>Na de eerste installatie</h2>
+<ol style="list-style-type: decimal">
+<li>Start <code>Rstudio</code></li>
+<li>Kies in het menu <code>Tools -&gt; Global Options</code></li>
+<li>In het tabblad <code>General</code>
+<ol style="list-style-type: decimal">
+<li>Pas de <em>Default working directory</em> aan naar de locatie waar je <code>R</code> versie staat (<code>C:/R/R-3.x.y</code>) <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+<li><em>Restore .RData into workspace at startup:</em> <code>uitvinken</code></li>
+<li><em>Save workspace to.RData on exit:</em> <code>Never</code></li>
+</ol></li>
+<li>In het tabblad <em>Code</em>
+<ol style="list-style-type: decimal">
+<li>Subtab <em>Editing</em>
+<ol style="list-style-type: decimal">
+<li><em>Insert spaces for tab:</em> <code>aanvinken</code></li>
+<li><em>Tab width:</em> <code>2</code></li>
+<li><em>Soft-wrap R source files:</em> <code>aanvinken</code></li>
+</ol></li>
+<li>Subtab <em>Saving</em>
+<ol style="list-style-type: decimal">
+<li><em>Default text encoding:</em> <code>UTF-8</code></li>
+</ol></li>
+<li>Subtab <em>Diagnostics</em>
+<ol style="list-style-type: decimal">
+<li>Alles <code>aanvinken</code></li>
+</ol></li>
+</ol></li>
+<li>In het tabblad <em>Appearance</em>
+<ol style="list-style-type: decimal">
+<li>Stel in naar eigen smaak</li>
+</ol></li>
+<li>In het tabblad <em>Packages</em>
+<ol style="list-style-type: decimal">
+<li><em>CRAN mirror:</em> wijzigen naar <code>Global (CDN) - RStudio</code></li>
+</ol></li>
+<li>In het tabblad <em>Sweave</em>
+<ol style="list-style-type: decimal">
+<li><em>Weave Rnw files using:</em> <code>knitr</code></li>
+<li><em>Typeset LaTeX into PDF using:</em> <code>XeLaTex</code></li>
+</ol></li>
+<li>Klik op <em>OK</em> en herstart <code>RStudio</code></li>
+</ol>
+</div>
+<div id="configuratie-van-rstudio-na-een-upgrade-van-r" class="section level2">
+<h2>Configuratie van RStudio na een upgrade van R</h2>
+<ol style="list-style-type: decimal">
+<li>Start <code>RStudio</code></li>
+<li>Kies in het menu <code>Tools -&gt; Global Options</code></li>
+<li>Indien niet de laatste versie vermeld staat bij R version: klik op <em>Change</em> om het aan te passen.</li>
+<li>Klik op <em>OK</em> als je een waarschuwing krijgt dat je <code>RStudio</code> moet herstarten.</li>
+<li>Wijzig de initial working directory in <code>C:/R/R-3.x.y</code> <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
+<li>Klik op <em>OK</em></li>
+<li>Herstart <code>RStudio</code></li>
+</ol>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>x en y verwijzen naar het versienummer. Dus bij R-3.1.0 is x = 1 en y = 0. De working directory is in dat geval <code>C:/R/R-3.1.0</code><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>x en y verwijzen naar het versienummer. Dus bij R-3.1.0 is x = 1 en y = 0. De working directory is in dat geval <code>C:/R/R-3.1.0</code><a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
