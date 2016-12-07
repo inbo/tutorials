@@ -22,3 +22,10 @@ De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
 - Installeren naar `C:\R\Git` i.p.v. `C:\Program Files\Git`
 - `use Git from the Windows Command Prompt`
 - `use Windows' default console window`
+
+## Ubuntu
+
+```
+sudo apt-get update
+sudo apt-get install git
+```
