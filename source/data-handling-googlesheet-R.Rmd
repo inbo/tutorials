@@ -1,17 +1,12 @@
 ---
 title: "Read data from google sheet"
 maintainer: "Stijn Van Hoey"
-output: github_document
 ---
 
 ```{r, warning = FALSE, message = FALSE}
 library(googlesheets)
 library(dplyr)
 library(ggplot2)
-```
-
-```{r, echo=FALSE, include=FALSE}
-suppressMessages(gs_auth(token = "googlesheets_token.rds", verbose = FALSE))
 ```
 
 ## Setup
@@ -23,12 +18,6 @@ gs_auth()
 ```
 
 Google will ask to grant the package the permission to access your drive. This token is saved to in a file `.httr-oauth` in your current working directory. Make sure this is not part of your version control system.
-
-Once registered, n overview of your available google sheets is provided as follows:
-```{r}
-gs_ls()
-```
-
 However, as we want to be able to make the running independent from the user authentification or without needing an interactive environment. Therefore, we can store the token in a file and get the authentification from there. The code loads the token from the file if the file exists. Otherwise a new token is created and stored in the file.
 
 ```{r}
@@ -42,8 +31,12 @@ if (file_test("-f", "googlesheets_token.rds")) {
 }
 ```
 
-
 Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in [this manual](https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html).
+
+Once registered, an overview of your available google sheets is provided as follows:
+```{r}
+gs_ls()
+```
 
 ## I just want to load a google spreadsheet
 
