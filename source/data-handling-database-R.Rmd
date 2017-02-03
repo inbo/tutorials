@@ -1,0 +1,61 @@
+---
+title: "Read data from INBO database (SQL Server) with R(ODBC)"
+maintainer: "Stijn Van Hoey"
+date: "February 3, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+To query data from a SQL database you can already access using MSAccess, the link can be made with R as well using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html). This package enables the link in between R and the (remote) database.
+
+```{r, warning = FALSE, message = FALSE}
+library(RODBC)
+```
+
+For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the *Registered ODBC connections* in the administrator tools menu.
+
+Hence, the DSN name `UserFlora` can be used to query the Flora database and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
+
+```{r}
+my_connection <- odbcConnect("UserFlora")
+```
+
+Once this connection is sucessfully established, the database can be queried. 
+
+## Get a complete table from the databse
+
+The function `sqlFetch` can be used to load an entire table from a database. For example, to extract the `tblTaxon` table from the flora database:
+
+```{r}
+taxa_info <- sqlFetch(my_connection, "tblTaxon")
+```
+
+with the connection `my_connection` made earlier is used as the first argument, the table name is the second argument.
+
+**Remark:** If you have no idea about the size of the table you're trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.
+
+## Execute a query to the database
+
+The function `sqlQuery` provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here.
+
+# TODO
+
+## Create and use query templates
+
+When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the whole query. It is prone to errors and you're script will be rather verbose. It is advisable to create you're own query *templates*, that can be used wihtin the `sqlQuery` function. 
+
+# TODO
+
+
+#-------------------------------------------------
+
+
+```{r}
+#my_connection <- odbcConnect("D0021_00_userFlora")
+my_connection <- odbcDriverConnect('driver=ODBC Driver 13 for SQL Server;server=inbo-sql07-prd.inbo.be;database=D0021_00_userFlora;uid=stijn_vanhoey')
+```
+
+
