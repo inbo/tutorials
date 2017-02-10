@@ -180,20 +180,15 @@ dbListTables(db)
 Let's try to select rows where the device id matches a given value (e.g. 860), and the date time is between two given timestamps. For our analysis, we only need date_time, latitude, longitude and altitude so we only select those.
 
 ```{r}
-sqlTiming1 <- system.time(res <- dbSendQuery(conn = db,
+sqlTiming <- system.time(data <-  dbGetQuery(conn = db,
    "SELECT date_time, latitude, longitude, altitude
     FROM processed_logs 
     WHERE device_info_serial = 860 
         AND date_time < '2014-07-01' 
         AND date_time > '2014-03-01'"
-)) # This does not execute the query yet
+))
 
-sqlTiming2 <- system.time(
-    data <- dbFetch(res)
-)
-
-print(sqlTiming1[3])
-print(sqlTiming2[3])
+print(sqlTiming[3])
 ```
 
 This provides a convenient and fast way of requesting subsets of data from our big data file. We could do the same analysis for each of the serial numbers, each time only loading that subset of the data. As an example, consider the calculation of the average altitude over the specified period for each of the bird serial identifiers in the list `serial_id_list`. By using a for loop, the calculation is done for each of the birds separately and the amount of data loaded into memory at the same time is lower:
@@ -202,13 +197,12 @@ This provides a convenient and fast way of requesting subsets of data from our b
 serial_id_list <- c(853, 860, 783)
 print("Average altitude between 2014-03-01 and 2014-07-01:")
 for (serialid in serial_id_list) {
-    res <- dbSendQuery(conn = db,
+    data <-  dbGetQuery(conn = db,
                        sprintf("SELECT date_time, latitude, longitude, altitude
                                 FROM processed_logs 
                                 WHERE device_info_serial = %d 
                                     AND date_time < '2014-07-01' 
                                     AND date_time > '2014-03-01'", serialid))
-    data <- dbFetch(res)    
     print(sprintf("serialID %d: %f", serialid, mean(data$altitude)))
     }
 ```
