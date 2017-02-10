@@ -297,7 +297,6 @@ if(!file.exists(db.name)){
 <h1>Loading a large dataset: Use fread instead of read.*</h1>
 <pre class="r"><code>library(&quot;data.table&quot;)</code></pre>
 <p>If you really need to read an entire csv in memory, by default, R users use the <code>read.table</code> method or variations thereof (such as <code>read.csv</code>). However, <code>fread</code> from the <code>data.table</code> package is supposed to be a lot faster. Let’s measure the time to read in the data using these two different methods.</p>
-<p>read.table(file.path(“source”, csv.name)</p>
 <pre class="r"><code>read.table.timing &lt;- system.time(read.table(csv.name, header = TRUE, sep = &quot;,&quot;))
 data.table.timing &lt;- system.time(allData &lt;- fread(csv.name, showProgress = FALSE))
 data &lt;- data.frame(method = c(&#39;read.table&#39;, &#39;fread&#39;), 
@@ -430,36 +429,28 @@ dbListTables(db)</code></pre>
 ## [23] &quot;virts_geometry_columns_field_infos&quot;
 ## [24] &quot;virts_geometry_columns_statistics&quot;</code></pre>
 <p>Let’s try to select rows where the device id matches a given value (e.g. 860), and the date time is between two given timestamps. For our analysis, we only need date_time, latitude, longitude and altitude so we only select those.</p>
-<pre class="r"><code>sqlTiming1 &lt;- system.time(res &lt;- dbSendQuery(conn = db,
+<pre class="r"><code>sqlTiming &lt;- system.time(data &lt;-  dbGetQuery(conn = db,
    &quot;SELECT date_time, latitude, longitude, altitude
     FROM processed_logs 
     WHERE device_info_serial = 860 
         AND date_time &lt; &#39;2014-07-01&#39; 
         AND date_time &gt; &#39;2014-03-01&#39;&quot;
-)) # This does not execute the query yet
+))
 
-sqlTiming2 &lt;- system.time(
-    data &lt;- dbFetch(res)
-)
-
-print(sqlTiming1[3])</code></pre>
+print(sqlTiming[3])</code></pre>
 <pre><code>## elapsed 
-##    0.19</code></pre>
-<pre class="r"><code>print(sqlTiming2[3])</code></pre>
-<pre><code>## elapsed 
-##   7.003</code></pre>
+##  11.778</code></pre>
 <p>This provides a convenient and fast way of requesting subsets of data from our big data file. We could do the same analysis for each of the serial numbers, each time only loading that subset of the data. As an example, consider the calculation of the average altitude over the specified period for each of the bird serial identifiers in the list <code>serial_id_list</code>. By using a for loop, the calculation is done for each of the birds separately and the amount of data loaded into memory at the same time is lower:</p>
 <pre class="r"><code>serial_id_list &lt;- c(853, 860, 783)
 print(&quot;Average altitude between 2014-03-01 and 2014-07-01:&quot;)</code></pre>
 <pre><code>## [1] &quot;Average altitude between 2014-03-01 and 2014-07-01:&quot;</code></pre>
 <pre class="r"><code>for (serialid in serial_id_list) {
-    res &lt;- dbSendQuery(conn = db,
+    data &lt;-  dbGetQuery(conn = db,
                        sprintf(&quot;SELECT date_time, latitude, longitude, altitude
                                 FROM processed_logs 
                                 WHERE device_info_serial = %d 
                                     AND date_time &lt; &#39;2014-07-01&#39; 
                                     AND date_time &gt; &#39;2014-03-01&#39;&quot;, serialid))
-    data &lt;- dbFetch(res)    
     print(sprintf(&quot;serialID %d: %f&quot;, serialid, mean(data$altitude)))
     }</code></pre>
 <pre><code>## [1] &quot;serialID 853: NA&quot;
@@ -471,23 +462,25 @@ print(&quot;Average altitude between 2014-03-01 and 2014-07-01:&quot;)</code></p
 <h2>Interacting with SQLite databases using dplyr</h2>
 <p>If you’re not comfortable with writing queries in SQL, R has a great alternative: <code>dplyr</code>. Dplyr can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.</p>
 <pre class="r"><code>library(dplyr)
-my_db &lt;- src_sqlite(db.name, create = F)
+my_db &lt;- src_sqlite(db.name, create = FALSE)
 bird_tracking &lt;- tbl(my_db, &quot;processed_logs&quot;)
 results &lt;- bird_tracking %&gt;%
     filter(device_info_serial == 860) %&gt;%
-    select(date_time, latitude, longitude, altitude)
+    select(date_time, latitude, longitude, altitude) %&gt;%
+    filter(date_time &lt; &quot;2014-07-01&quot;) %&gt;%
+    filter(date_time &gt; &quot;2014-03-01&quot;)
 head(results)</code></pre>
 <pre><code>## Source:   query [?? x 4]
 ## Database: sqlite 3.11.1 [2016-04-20-processed-logs-big-file-example.db]
 ## 
 ##             date_time latitude longitude altitude
 ##                 &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2013-07-25 11:52:06 51.48745  2.866380      -80
-## 2 2013-07-25 12:07:02 51.48778  2.864833      168
-## 3 2013-07-25 12:37:10 51.47806  2.847062     -110
-## 4 2013-07-25 12:52:48 51.46558  2.819050       -1
-## 5 2013-07-25 14:53:40 51.50082  2.888921       -1
-## 6 2013-07-25 15:08:37 51.49167  2.845241       -8</code></pre>
+## 1 2014-03-10 12:43:37 44.02479 -7.593672      626
+## 2 2014-03-10 12:58:32 44.05553 -7.672856      405
+## 3 2014-03-10 13:13:52 44.05931 -7.691700      326
+## 4 2014-03-10 13:28:57 44.06181 -7.708990      250
+## 5 2014-03-10 13:43:54 44.06501 -7.724725      174
+## 6 2014-03-10 13:59:06 44.06468 -7.726737       23</code></pre>
 <p>Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use <code>dplyr</code> with a SQLite database, head over to the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">vignette</a>.</p>
 </div>
 </div>
