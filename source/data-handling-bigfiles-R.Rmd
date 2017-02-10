@@ -55,7 +55,6 @@ library("data.table")
 
 If you really need to read an entire csv in memory, by default, R users use the `read.table` method or variations thereof (such as `read.csv`). However, `fread` from the `data.table` package is supposed to be a lot faster. Let's measure the time to read in the data using these two different methods.
 
-read.table(file.path("source", csv.name)
 
 ```{r comp_timing, warning=FALSE, message=FALSE, cache=TRUE}
 read.table.timing <- system.time(read.table(csv.name, header = TRUE, sep = ","))
