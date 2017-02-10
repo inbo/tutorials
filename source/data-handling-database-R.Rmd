@@ -15,16 +15,22 @@ To query data from a SQL database you can already access using MSAccess, the lin
 library(RODBC)
 ```
 
-For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the *Registered ODBC connections* in the administrator tools menu.
+For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the [*registered ODBC connections*](http://www.stata.com/support/faqs/data-management/configuring-odbc-win/) in the administrator tools menu. 
 
-%% TODO -> screen shots toevoegen...
+For Dutch-speaking Windows 7 users: 
+> Kies in het Configuratiescherm van Windows de optie Systeembeheer > Gegevensbronnen (ODBC). De optie Systeembeheer verschijnt in de categorie Systeem en onderhoud.
 
-Hence, the DSN name `UserFlora` can be used to query the Flora database and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
+You should see a list of something similar to the list underneath, with the names of the available DSN names enlisted:
+![odbc-connecties](../img/odbc_gegevensbron.png)
+
+An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*):
+
+![access-dsn](../img/access_dsn.png)
+
+For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query the Flora database and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
 
 ```{r}
-my_connection <- odbcConnect("UserFlora")
-
-
+#my_connection <- odbcConnect("UserFlora")
 my_connection <- odbcDriverConnect("Driver={ODBC Driver 13 for SQL Server};Server=inbosql04.inbo.be;Database=NBNData_IPT;Trusted_Connection=yes;")
 ```
 
@@ -44,7 +50,7 @@ with the connection `my_connection` made earlier is used as the first argument, 
 
 ## Execute a query to the database
 
-The function `sqlQuery` provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here.
+The function `sqlQuery` provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here. We will focus on the application and the reusage of a query.
 
 # TODO
 
