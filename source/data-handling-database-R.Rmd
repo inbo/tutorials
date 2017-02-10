@@ -17,10 +17,15 @@ library(RODBC)
 
 For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the *Registered ODBC connections* in the administrator tools menu.
 
+%% TODO -> screen shots toevoegen...
+
 Hence, the DSN name `UserFlora` can be used to query the Flora database and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
 
 ```{r}
 my_connection <- odbcConnect("UserFlora")
+
+
+my_connection <- odbcDriverConnect("Driver={ODBC Driver 13 for SQL Server};Server=inbosql04.inbo.be;Database=NBNData_IPT;Trusted_Connection=yes;")
 ```
 
 Once this connection is sucessfully established, the database can be queried. 
@@ -30,7 +35,7 @@ Once this connection is sucessfully established, the database can be queried.
 The function `sqlFetch` can be used to load an entire table from a database. For example, to extract the `tblTaxon` table from the flora database:
 
 ```{r}
-taxa_info <- sqlFetch(my_connection, "tblTaxon")
+taxa_info <- sqlFetch(my_connection, "dbo.taxon_list")
 ```
 
 with the connection `my_connection` made earlier is used as the first argument, the table name is the second argument.
@@ -45,7 +50,7 @@ The function `sqlQuery` provides more flexibilty as it can be used to try any SQ
 
 ## Create and use query templates
 
-When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the whole query. It is prone to errors and you're script will be rather verbose. It is advisable to create you're own query *templates*, that can be used wihtin the `sqlQuery` function. 
+When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the entire query. It is prone to errors and you're script will become verbose. It is advisable to create query *templates*, that can be used wihtin the `sqlQuery` function. 
 
 # TODO
 
@@ -55,7 +60,7 @@ When you regularly use similar queries, with some minimal alterations, you do no
 
 ```{r}
 #my_connection <- odbcConnect("D0021_00_userFlora")
-my_connection <- odbcDriverConnect('driver=ODBC Driver 13 for SQL Server;server=inbo-sql07-prd.inbo.be;database=D0021_00_userFlora;uid=stijn_vanhoey')
+
 ```
 
 
