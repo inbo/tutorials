@@ -215,11 +215,13 @@ If you're not comfortable with writing queries in SQL, R has a great alternative
 
 ```{r dplyr, message=FALSE, warning=FALSE}
 library(dplyr)
-my_db <- src_sqlite(db.name, create = F)
+my_db <- src_sqlite(db.name, create = FALSE)
 bird_tracking <- tbl(my_db, "processed_logs")
 results <- bird_tracking %>%
     filter(device_info_serial == 860) %>%
-    select(date_time, latitude, longitude, altitude)
+    select(date_time, latitude, longitude, altitude) %>%
+    filter(date_time < "2014-07-01") %>%
+    filter(date_time > "2014-03-01")
 head(results)
 ```
 
