@@ -54,22 +54,24 @@ if(!file.exists(db.name)){
 
 ```{r loaddatatable, warning=FALSE, message=FALSE}
 library("data.table")
+library("readr")
 ```
 
-If you really need to read an entire csv in memory, by default, R users use the `read.table` method or variations thereof (such as `read.csv`). However, `fread` from the `data.table` package is a lot faster. Let's measure the time to read in the data using these two different methods.
+If you really need to read an entire csv in memory, by default, R users use the `read.table` method or variations thereof (such as `read.csv`). However, `fread` from the `data.table` package is a lot faster. Furthermore, the `readr` package also provides more optimized reading functions (`read_csv`, `read_delim`,...). Let's measure the time to read in the data using these three different methods.
 
 
 ```{r comp_timing, warning=FALSE, message=FALSE, cache=TRUE}
 read.table.timing <- system.time(read.table(csv.name, header = TRUE, sep = ","))
+readr.timing <- system.time(read_delim(csv.name, ",", col_names = TRUE))
 data.table.timing <- system.time(allData <- fread(csv.name, showProgress = FALSE))
-data <- data.frame(method = c('read.table', 'fread'), 
-                  timing = c(read.table.timing[3], data.table.timing[3]))
+data <- data.frame(method = c('read.table', 'readr', 'fread'), 
+                  timing = c(read.table.timing[3], readr.timing[3], data.table.timing[3]))
 data
 ```
 
-`fread` is indeed much faster then the default `read.table`. However, the result of `fread` is a `data.table`, not a `data.frame`. The `data.table` package describes the `data.table` object as a more performant replacement for the `data.frame`. This means that selecting, filtering and aggregating data is much faster on a `data.table` compared to the standard `data.frame` but it requires you to use a slightly different syntax.
+`fread` and `read_delim` are indeed much faster then the default `read.table`. However, the result of `fread` is a `data.table` and the result of `read_delim` is a `tibble`. Both are not a `data.frame`. The `data.table` package describes the `data.table` object as a more performant replacement for the `data.frame`. This means that selecting, filtering and aggregating data is much faster on a `data.table` compared to the standard `data.frame` but it requires you to use a slightly different syntax. A `tibble` is very similar to a `data.frame`, but provides more convenience when printing or subsetting the data table.
 
-You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started.
+You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started. You can also find the The `readr` package is also on [CRAN](https://cran.r-project.org/web/packages/readr/index.html). It belongs to a suite of R packages aiming to improve data manipulation in R, called [tidyverse](http://tidyverse.org/). More examples and explanation about `readr` is provided on the [readr website](http://readr.tidyverse.org/).
 
 ## Data files that don't fit in memory
 
@@ -91,7 +93,7 @@ subSet <- fread(csv.name, skip = "2015-06-12 15:14:39", showProgress = FALSE)
 sprintf("Number of lines in data set with skipped lines: %s", nrow(subSet))
 ```
 
-Skipping rows this way is obviously not giving you the entire dataset, so this strategy is only useful for doing exploratory analysis on a subset of your data. If you want to explore the whole dataset, limiting the number of columns you read can be a more useful strategy.
+Skipping rows this way is obviously not giving you the entire dataset, so this strategy is only useful for doing exploratory analysis on a subset of your data. Note that also `read_delim` provides a `n_max` argument to limit the number of lines to read. If you want to explore the whole dataset, limiting the number of columns you read can be a more useful strategy.
 
 ### 2. Limit the number of columns you read (`fread`)
 
@@ -109,7 +111,7 @@ The difference might not be as large as you would expect. R objects claim more m
 
 ### 3. Limiting both the number of rows and the number of columns using `sqldf`
 
-The [sqldf package](https://cran.r-project.org/web/packages/sqldf/sqldf.pdf) allows you to run SQL-like queries on a file, resulting in only a selection of the file being read. It allows you to limit both the number of lines and the number of rows at the same time. In the background, this actually creates a sqlite database on the fly to execute the query. Consider using the package when starting from a csv file, but the actual strategy boils down to making a sqlite database file of your data. See [this section below](#the-database-file-strategy) to learn how to interact with those. 
+The [sqldf package](https://cran.r-project.org/web/packages/sqldf/sqldf.pdf) allows you to run SQL-like queries on a file, resulting in only a selection of the file being read. It allows you to limit both the number of lines and the number of rows at the same time. In the background, this actually creates a sqlite database on the fly to execute the query. Consider using the package when starting from a csv file, but the actual strategy boils down to making a sqlite database file of your data. See [this section below](#the-database-file-strategy) to learn how to interact with those and create a SQlite database from a CSV-file.
 
 ### 4. Streaming data
 
