@@ -231,3 +231,105 @@ head(results)
 ```
 
 Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use `dplyr` with a SQLite database, head over to [this vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
+
+### Create a SQLite databases from a CSV file
+
+In the case you have a CSV file available and you would like to query the data using SQL queries or with `dplyr` as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with `dplyr` as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with. 
+
+If you already loaded the CSV file into memory, the creation of a SQLITE database is very straighforward and can be achieved in two steps:
+
+```{r}
+db <- dbConnect(SQLite(), dbname = "example.sqlite")
+dbWriteTable(db, "birdtracks", allData)
+dbDisconnect(db)
+```
+
+The first command creates a new database when the file `example.sqlite` does not exist already. The command `dbWriteTable` writes the table in the database. Hence, we can rerun the query from the previous section, but now on the newly created SQlite database, with the single created table `birdtracks`:
+
+```{r}
+my_db <- src_sqlite("example.sqlite", create = FALSE)
+bird_tracking <- tbl(my_db, "birdtracks")
+results <- bird_tracking %>%
+    filter(device_info_serial == 860) %>%
+    select(date_time, latitude, longitude, altitude) %>%
+    filter(date_time < "2014-07-01") %>%
+    filter(date_time > "2014-03-01")
+head(results)
+```
+
+However, when working with really large CSV files, you do not want to load the entire file into memory first (this is the whole point of this tutorial). An alternative strategy is to load the data from the CSV file in chunks (small sections) and write them step by step to the SQlite database. 
+
+This can be implemented by reading the CSV file in small sections (let's say 50000 lines each time) and move all sections to a given table in a sqlite database. As this is a recurrent task, we will provide the transformation in a custom written function, called `csv_to_sqlite`. The documentation of the individual input parameters of the function are explained in the documentation section just above the functionn itself. As SQlite does not natively support `date` and `datetime` representations, the function converts those columns to an appropriate string representation before copying the dates to sqlite. To check for the date handling, the `lubridate` package is used.
+
+```{r}
+library(lubridate)
+
+#' Save a single CSV-table into a single table sqlite database
+#'
+#' @param csv_file name of the CSV file to convert
+#' @param sqlite_file name of the newly created sqlite file
+#' @param table_name name of the table to store the data table in the sqlite 
+#'      dbase
+#' @param pre_process_size the number of lines to check the data types of the 
+#'      individual columns (default 1000)
+#' @param chunk_size the number of lines to read for each chunk (default 50000)
+#'
+csv_to_sqlite <- function(csv_file, sqlite_file, table_name, 
+                          pre_process_size = 1000, chunk_size = 50000) {
+    con <- dbConnect(RSQLite::SQLite(), dbname = sqlite_file)
+
+    # read an extract of the data to extract the colnames and types
+    # to figure out the date ande datetime columns
+    df <- read_delim(csv.name, ",", n_max = pre_process_size)
+    date_cols <- df %>% 
+        select_if(lubridate::is.Date) %>% 
+        colnames()
+    datetime_cols <- df %>% 
+        select_if(lubridate::is.POSIXt) %>% 
+        colnames()    
+    # write this first batch of lines to SQLITE table, converting dates to string representation
+    df[ , date_cols] <- as.character.Date(df[ , date_cols])
+    df[ , datetime_cols] <- as.character.POSIXt(df[ , datetime_cols])
+    dbWriteTable(con, table_name, as.data.frame(df), 
+             overwrite = TRUE)
+    
+    # subfunction that appends new sections to the table
+    append_to_sqlite <- function(x, pos) {
+        x <- as.data.frame(x)
+        x[ , date_cols] <- as.character.Date(x[ , date_cols])
+        x[ , datetime_cols] <- as.character.POSIXt(x[ , datetime_cols])
+        dbWriteTable(con, table_name, x, append = TRUE)
+    }
+    
+    # readr chunk functionality
+    read_delim_chunked(csv.name, append_to_sqlite, delim = ",",
+                       skip = pre_process_size, col_names = colnames(df), 
+                       col_types = spec(df), chunk_size = chunk_size)
+    dbDisconnect(con)
+}
+```
+
+As an example, let's convert the processed bird logs csv file to a sqlite database, called `example.sqlite` as a table `birdtracks`. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:
+
+```{r}
+sqlite_file <- "example2.sqlite"
+table_name <- "birdtracks"
+
+csv_to_sqlite(csv.name, sqlite_file, table_name, 
+              pre_process_size = 1000, chunk_size = 50000)
+```
+
+Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the sqlite is available to query, similar to the previous examples:
+
+```{r}
+my_db <- src_sqlite("example2.sqlite", create = FALSE)
+bird_tracking <- tbl(my_db, "birdtracks")
+results <- bird_tracking %>%
+    filter(device_info_serial == 860) %>%
+    select(date_time, latitude, longitude, altitude) %>%
+    filter(date_time < "2014-07-01") %>%
+    filter(date_time > "2014-03-01")
+head(results)
+```
+
+Remark that the dates are properly handled, by making sure the date representation inside sqlite is the converted string version. 
