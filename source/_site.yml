@@ -35,5 +35,7 @@ navbar:
       menu:
         - text: "Read data from GoogleSheet"
           href: "data-handling-googlesheet-R.html"
+        - text: "Reading and handling large data files in R"
+          href: "data-handling-large-files-R.html"          
 exclude: ["LICENSE", "Rprofile.site"]
 output_dir: "../docs"
