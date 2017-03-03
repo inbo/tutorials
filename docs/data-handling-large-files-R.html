@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Bart Aelterman, Stijn Van Hoey" />
+
+<meta name="date" content="2017-02-10" />
+
+<title>Reading large data files in R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">INBO tutorials</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software installation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">As administrator</li>
+    <li>
+      <a href="installation-R-admin.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-admin.html">RStudio</a>
+    </li>
+    <li>
+      <a href="installation-git-admin.html">git</a>
+    </li>
+    <li>
+      <a href="installation-rtools-admin.html">Rtools</a>
+    </li>
+    <li>
+      <a href="installation-latex-admin.html">LaTeX</a>
+    </li>
+    <li>
+      <a href="installation-pandoc-admin.html">Pandoc</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">As user</li>
+    <li>
+      <a href="installation-R-user.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-user.html">RStudio</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software development
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="development-styleguide-repos.html">Repository style guide</a>
+    </li>
+    <li>
+      <a href="development-styleguide-R.html">R style guide</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="data-handling-googlesheet-R.html">Read data from GoogleSheet</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reading large data files in R</h1>
+<h4 class="author"><em>Bart Aelterman, Stijn Van Hoey</em></h4>
+<h4 class="date"><em>February 10, 2017</em></h4>
+
+</div>
+
+
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.</p>
+</div>
+<div id="tldr" class="section level2">
+<h2>tl;dr</h2>
+<ul>
+<li>If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the <code>data.table</code> package and <a href="#loadentire">read the file with its <code>fread</code> function</a>.</li>
+<li>If your file does not comfortably fit in memory:
+<ul>
+<li><a href="#sqldftit">Use <code>sqldf</code></a> if you have to stick to <code>csv</code> files.</li>
+<li>Use a SQLite database and query it using either <a href="#sqlitestrat">SQL queries</a> or <a href="#dplyrstrat"><code>dplyr</code></a>.</li>
+<li><a href="#convertsqlite">Convert</a> your <code>csv</code> file to a <code>sqlite</code> database in order to query</li>
+</ul></li>
+</ul>
+</div>
+<div id="downloading-the-example-files" class="section level2">
+<h2>Downloading the example files</h2>
+<p>While you can directly test this tutorial on your own large data files, we will use bird tracking data from the <a href="https://doi.org/10.3897/zookeys.555.6173">LifeWatch bird tracking network</a> for the examples. We have made two versions of some tracking data available for download: a <code>.csv</code> file (text data) and a <code>.db</code> file (sqlite data). Both contain processed log files; for more information on the processing, see the <a href="https://github.com/inbo/bird-tracking-etl">BirdTrackingEtl package</a>.</p>
+<pre class="r"><code>csv.name &lt;- &quot;2016-04-20-processed-logs-big-file-example.csv&quot;
+db.name &lt;- &quot;2016-04-20-processed-logs-big-file-example.db&quot;</code></pre>
+<p>The evaluation of the next code chunk is ignored by default as the downloading and unzipping of the files results in more than 3 GB of data. If you do want to download the files yourself and test the other chunks, run the code and download the <code>csv</code> and <code>sqlite</code> examples. Make sure you have the <code>R.utils</code> package available (for unzipping the downloaded files). If not, use the command <code>install.packages(&quot;R.utils&quot;)</code> in your R console to download the package.</p>
+<pre class="r"><code>library(&quot;R.utils&quot;)
+# download the CSV file example
+csv.url &lt;- paste(&quot;https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/&quot;, 
+                 csv.name, &quot;.gz&quot;, sep = &quot;&quot;)
+if(!file.exists(csv.name)){
+    download.file(csv.url, destfile=paste(csv.name, &quot;.gz&quot;, sep = &quot;&quot;))
+    gunzip(paste(csv.name, &quot;.gz&quot;, sep = &quot;&quot;))
+}
+
+# download the sqlite database example
+db.url &lt;- paste(&quot;https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/&quot;, 
+                db.name, &quot;.gz&quot;, sep = &quot;&quot;)
+if(!file.exists(db.name)){
+    download.file(db.url, destfile=paste(db.name, &quot;.gz&quot;, sep = &quot;&quot;))
+    gunzip(paste(db.name, &quot;.gz&quot;, sep = &quot;&quot;))
+}</code></pre>
+</div>
+<div id="loadentire" class="section level2">
+<h2>Loading a large dataset: use <code>fread</code> or <code>readr</code> instead of <code>read</code>.</h2>
+<pre class="r"><code>library(&quot;data.table&quot;)
+library(&quot;readr&quot;)</code></pre>
+<p>If you really need to read an entire csv in memory, by default, R users use the <code>read.table</code> method or variations thereof (such as <code>read.csv</code>). However, <code>fread</code> from the <code>data.table</code> package is a lot faster. Furthermore, the <code>readr</code> package also provides more optimized reading functions (<code>read_csv</code>, <code>read_delim</code>,…). Let’s measure the time to read in the data using these three different methods.</p>
+<pre class="r"><code>read.table.timing &lt;- system.time(read.table(csv.name, header = TRUE, sep = &quot;,&quot;))
+readr.timing &lt;- system.time(read_delim(csv.name, &quot;,&quot;, col_names = TRUE))
+data.table.timing &lt;- system.time(allData &lt;- fread(csv.name, showProgress = FALSE))
+data &lt;- data.frame(method = c(&#39;read.table&#39;, &#39;readr&#39;, &#39;fread&#39;), 
+                  timing = c(read.table.timing[3], readr.timing[3], data.table.timing[3]))
+data</code></pre>
+<pre><code>##       method  timing
+## 1 read.table 323.827
+## 2      readr  33.824
+## 3      fread  20.501</code></pre>
+<p><code>fread</code> and <code>read_delim</code> are indeed much faster then the default <code>read.table</code>. However, the result of <code>fread</code> is a <code>data.table</code> and the result of <code>read_delim</code> is a <code>tibble</code>. Both are not a <code>data.frame</code>. The <code>data.table</code> package describes the <code>data.table</code> object as a more performant replacement for the <code>data.frame</code>. This means that selecting, filtering and aggregating data is much faster on a <code>data.table</code> compared to the standard <code>data.frame</code> but it requires you to use a slightly different syntax. A <code>tibble</code> is very similar to a <code>data.frame</code>, but provides more convenience when printing or subsetting the data table.</p>
+<p>You can find the <code>data.table</code> package on <a href="https://cran.r-project.org/web/packages/data.table/index.html">CRAN</a>. A good place to learn this package are the package vignettes. The <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html">introduction to data.table</a> should be enough to get started. You can also find the The <code>readr</code> package is also on <a href="https://cran.r-project.org/web/packages/readr/index.html">CRAN</a>. It belongs to a suite of R packages aiming to improve data manipulation in R, called <a href="http://tidyverse.org/">tidyverse</a>. More examples and explanation about <code>readr</code> is provided on the <a href="http://readr.tidyverse.org/">readr website</a>.</p>
+</div>
+<div id="data-files-that-dont-fit-in-memory" class="section level2">
+<h2>Data files that don’t fit in memory</h2>
+<p>If you are not able to read in the data file, because it does not fit in memory (or because R becomes too slow when you load the entire dataset), you will need to limit the amount of data that will actually be stored in memory. There are a couple of options which we will investigate:</p>
+<ol style="list-style-type: decimal">
+<li>limit the number of lines you are trying to read for some exploratory analysis. Once you are happy with the analysis you want to run on the entire dataset, move to another machine.</li>
+<li>limit the number of columns you are reading to reduce the memory required to store the data.</li>
+<li>limit both the number of rows and the number of columns using <code>sqldf</code>.</li>
+<li>stream the data.</li>
+</ol>
+<div id="limit-the-number-of-lines-you-read-fread" class="section level3">
+<h3>1. Limit the number of lines you read (<code>fread</code>)</h3>
+<p>Limiting the number of lines you read is easy. Just use the <code>nrows</code> and/or <code>skip</code> option (available to both <code>read.table</code> and <code>fread</code>). <code>skip</code> can be used to skip a number of rows, but you can also pass a string to this parameter causing <code>fread</code> to only start reading lines from the first line matching that string. Let’s say we only want to start reading lines after we find a line matching the pattern <code>801,2014-06-29</code>. We can do that like this:</p>
+<pre class="r"><code>sprintf(&quot;Number of lines in full data set: %s&quot;, nrow(allData))</code></pre>
+<pre><code>## [1] &quot;Number of lines in full data set: 3761058&quot;</code></pre>
+<pre class="r"><code>subSet &lt;- fread(csv.name, skip = &quot;2015-06-12 15:14:39&quot;, showProgress = FALSE)
+sprintf(&quot;Number of lines in data set with skipped lines: %s&quot;, nrow(subSet))</code></pre>
+<pre><code>## [1] &quot;Number of lines in data set with skipped lines: 9998&quot;</code></pre>
+<p>Skipping rows this way is obviously not giving you the entire dataset, so this strategy is only useful for doing exploratory analysis on a subset of your data. Note that also <code>read_delim</code> provides a <code>n_max</code> argument to limit the number of lines to read. If you want to explore the whole dataset, limiting the number of columns you read can be a more useful strategy.</p>
+</div>
+<div id="limit-the-number-of-columns-you-read-fread" class="section level3">
+<h3>2. Limit the number of columns you read (<code>fread</code>)</h3>
+<p>If you only need 4 columns of the 21 columns present in the file, you can tell <code>fread</code> to only select those 4. This can have a major impact on the memory footprint of your data. The option you need for this is: <code>select</code>. With this, you can specify a number of columns to keep. The opposite - specifying the columns you want to drop - can be accomplished with the <code>drop</code> option.</p>
+<pre class="r"><code>fourColumns = fread(csv.name, select = c(&quot;device_info_serial&quot;, &quot;date_time&quot;, 
+                                         &quot;latitude&quot;, &quot;longitude&quot;), 
+                    showProgress = FALSE)
+sprintf(&quot;Size of total data in memory: %s MB&quot;, utils::object.size(allData)/1000000)</code></pre>
+<pre><code>## [1] &quot;Size of total data in memory: 1434.074264 MB&quot;</code></pre>
+<pre class="r"><code>sprintf(&quot;Size of only four columns in memory: %s MB&quot;, utils::object.size(fourColumns)/1000000)</code></pre>
+<pre><code>## [1] &quot;Size of only four columns in memory: 365.90692 MB&quot;</code></pre>
+<p>The difference might not be as large as you would expect. R objects claim more memory then needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.</p>
+</div>
+<div id="limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf" class="section level3">
+<h3>3. Limiting both the number of rows and the number of columns using <code id="sqldftit">sqldf</code></h3>
+<p>The <a href="https://cran.r-project.org/web/packages/sqldf/sqldf.pdf">sqldf package</a> allows you to run SQL-like queries on a file, resulting in only a selection of the file being read. It allows you to limit both the number of lines and the number of rows at the same time. In the background, this actually creates a sqlite database on the fly to execute the query. Consider using the package when starting from a csv file, but the actual strategy boils down to making a sqlite database file of your data. See <a href="#the-database-file-strategy">this section below</a> to learn how to interact with those and create a SQlite database from a CSV-file.</p>
+</div>
+<div id="streaming-data" class="section level3">
+<h3>4. Streaming data</h3>
+<p><strong>Short:</strong> streaming a file in R is a bad idea. If you are interested why, read the rest of this section.</p>
+<p>Streaming a file means reading it line by line and only keeping the lines you need or do stuff with the lines while you read through the file. It turns out that R is really not very efficient in streaming files. The main reason is the memory allocation process that has difficulties with a constantly growing object (which can be a dataframe containing only the selected lines).</p>
+<p>In the next code block, we will read parts of our data file once using the <code>fread</code>function, and once line by line. You’ll see the performance issue with the streaming solution.</p>
+<pre class="r"><code>library(ggplot2)
+allowedDevices = c(753, 801, 852)
+minDate = strptime(&#39;1/3/2014&#39;,format = &#39;%d/%m/%Y&#39;)
+maxDate = strptime(&#39;1/10/2014&#39;,format = &#39;%d/%m/%Y&#39;)
+
+streamFile &lt;- function(limit) {
+    con &lt;- file(csv.name, open = &quot;r&quot;)
+    selectedRecords &lt;- list()
+    i &lt;- 0
+    file.streaming.timing &lt;- system.time(
+        while (i &lt; limit) {
+            oneLine &lt;- readLines(con, n = 1, warn = FALSE)
+            vec = (strsplit(oneLine, &quot;,&quot;))
+            selectedRecords &lt;- c(selectedRecords, vec)
+            i &lt;- i + 1
+        }
+    )
+    close(con)
+    return(file.streaming.timing[[3]])
+}
+
+freadFile &lt;- function(limit) {
+    file.fread.timing = system.time(
+        d &lt;- fread(csv.name, showProgress = FALSE, nrows = limit)
+    )
+    return(file.fread.timing[[3]])
+}
+
+maxLines &lt;- c(5000, 10000, 15000, 20000, 25000, 30000)
+streamingTimes &lt;- sapply(maxLines, streamFile)
+freadTimes &lt;- sapply(maxLines, freadFile)
+data &lt;- data.frame(n = maxLines, streaming = streamingTimes, 
+                   fread = freadTimes)
+pdata &lt;- melt(data, id = c(&quot;n&quot;))
+colnames(pdata) &lt;- c(&quot;n&quot;, &quot;algorithm&quot;, &quot;execTime&quot;)
+qplot(n, execTime, data = pdata, color = algorithm, 
+      xlab = &quot;number of lines read&quot;, ylab = &quot;execution time (s)&quot;)</code></pre>
+<p><img src="data-handling-large-files-R_files/figure-html/streamexample-1.png" width="672" /></p>
+</div>
+</div>
+<div id="the-database-file-strategy" class="section level2">
+<h2>The database file strategy</h2>
+<div id="sqlitestrat" class="section level3">
+<h3>Working with SQLite databases</h3>
+<p>SQLite databases are single file databases meaning you can simply download them, store them in a folder or share them with colleages. Similar to a csv. They are however more powerful than csv’s because of two important features:</p>
+<ul>
+<li>Support for SQL: this allows you to execute intelligent filters on your data, similar to the <code>sqldf</code> package or database environments you are familiar with. That way, you can reduce the amount of data that’s stored in memory by filtering out rows or columns.</li>
+<li>Indexes: SQLite databases contain indexes. An index is something like an ordered version of a column. When enabled on a column, you can search through the column much faster. We will demonstrate this below.</li>
+</ul>
+<p>We have downloaded a second file <code>2016-04-20-processed-logs-big-file-example.db</code> that contains the same data as the <code>2016-04-20-processed-logs-big-file-example.csv</code> file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, you can first convert your csv into a SQlite as described <a href="#convertsqlite">further in this tutorial</a>.</p>
+<p>Let’s first connect to the database and list the available tables.</p>
+<pre class="r"><code>library(RSQLite)
+db &lt;- dbConnect(SQLite(), dbname = db.name)
+
+# show the tables in this database
+dbListTables(db)</code></pre>
+<pre><code>##  [1] &quot;SpatialIndex&quot;                      
+##  [2] &quot;geom_cols_ref_sys&quot;                 
+##  [3] &quot;geometry_columns&quot;                  
+##  [4] &quot;geometry_columns_auth&quot;             
+##  [5] &quot;geometry_columns_field_infos&quot;      
+##  [6] &quot;geometry_columns_statistics&quot;       
+##  [7] &quot;geometry_columns_time&quot;             
+##  [8] &quot;processed_logs&quot;                    
+##  [9] &quot;spatial_ref_sys&quot;                   
+## [10] &quot;spatialite_history&quot;                
+## [11] &quot;sql_statements_log&quot;                
+## [12] &quot;sqlite_sequence&quot;                   
+## [13] &quot;vector_layers&quot;                     
+## [14] &quot;vector_layers_auth&quot;                
+## [15] &quot;vector_layers_field_infos&quot;         
+## [16] &quot;vector_layers_statistics&quot;          
+## [17] &quot;views_geometry_columns&quot;            
+## [18] &quot;views_geometry_columns_auth&quot;       
+## [19] &quot;views_geometry_columns_field_infos&quot;
+## [20] &quot;views_geometry_columns_statistics&quot; 
+## [21] &quot;virts_geometry_columns&quot;            
+## [22] &quot;virts_geometry_columns_auth&quot;       
+## [23] &quot;virts_geometry_columns_field_infos&quot;
+## [24] &quot;virts_geometry_columns_statistics&quot;</code></pre>
+<p>Let’s try to select rows where the device id matches a given value (e.g. 860), and the date time is between two given timestamps. For our analysis, we only need <code>date_time</code>, <code>latitude</code>, <code>longitude</code> and <code>altitude</code> so we will only select those.</p>
+<pre class="r"><code>sqlTiming &lt;- system.time(data &lt;-  dbGetQuery(conn = db,
+   &quot;SELECT date_time, latitude, longitude, altitude
+    FROM processed_logs 
+    WHERE device_info_serial = 860 
+        AND date_time &lt; &#39;2014-07-01&#39; 
+        AND date_time &gt; &#39;2014-03-01&#39;&quot;
+))
+
+print(sqlTiming[3])</code></pre>
+<pre><code>## elapsed 
+##  14.169</code></pre>
+<p>This provides a convenient and fast way to request subsets of data from our large data file. We could do the same analysis for each of the serial numbers, each time only loading that subset of the data. As an example, consider the calculation of the average altitude over the specified period for each of the bird serial identifiers in the list <code>serial_id_list</code>. By using a for loop, the calculation is done for each of the birds separately and the amount of data loaded into memory at the same time is lower:</p>
+<pre class="r"><code>serial_id_list &lt;- c(853, 860, 783)
+print(&quot;Average altitude between 2014-03-01 and 2014-07-01:&quot;)</code></pre>
+<pre><code>## [1] &quot;Average altitude between 2014-03-01 and 2014-07-01:&quot;</code></pre>
+<pre class="r"><code>for (serialid in serial_id_list) {
+    data &lt;-  dbGetQuery(conn = db,
+                       sprintf(&quot;SELECT date_time, latitude, longitude, altitude
+                                FROM processed_logs 
+                                WHERE device_info_serial = %d 
+                                    AND date_time &lt; &#39;2014-07-01&#39; 
+                                    AND date_time &gt; &#39;2014-03-01&#39;&quot;, serialid))
+    print(sprintf(&quot;serialID %d: %f&quot;, serialid, mean(data$altitude)))
+    }</code></pre>
+<pre><code>## [1] &quot;serialID 853: NA&quot;
+## [1] &quot;serialID 860: 23.550518&quot;
+## [1] &quot;serialID 783: 14.900030&quot;</code></pre>
+<p>Remark that we use the <code>sprintf</code> function to dynamically replace the serial id in the sqlite query we will execute. For each loop, the <code>%d</code> is replaced by the value of the serial id of the respective loop. Read the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/sprintf.html">manual</a> of the <code>sprintf</code> function for more information and options.</p>
+</div>
+<div id="interacting-with-sqlite-databases-using-dplyr" class="section level3">
+<h3>Interacting with SQLite databases using <code id="dplyrstrat">dplyr</code></h3>
+<p>If you’re not comfortable with writing queries in SQL, R has a great alternative: <code>dplyr</code>. <code>dplyr</code> can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.</p>
+<pre class="r"><code>library(dplyr)
+my_db &lt;- src_sqlite(db.name, create = FALSE)
+bird_tracking &lt;- tbl(my_db, &quot;processed_logs&quot;)
+results &lt;- bird_tracking %&gt;%
+    filter(device_info_serial == 860) %&gt;%
+    select(date_time, latitude, longitude, altitude) %&gt;%
+    filter(date_time &lt; &quot;2014-07-01&quot;) %&gt;%
+    filter(date_time &gt; &quot;2014-03-01&quot;)
+head(results)</code></pre>
+<pre><code>## Source:   query [?? x 4]
+## Database: sqlite 3.11.1 [2016-04-20-processed-logs-big-file-example.db]
+## 
+##             date_time latitude longitude altitude
+##                 &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 2014-03-10 12:43:37 44.02479 -7.593672      626
+## 2 2014-03-10 12:58:32 44.05553 -7.672856      405
+## 3 2014-03-10 13:13:52 44.05931 -7.691700      326
+## 4 2014-03-10 13:28:57 44.06181 -7.708990      250
+## 5 2014-03-10 13:43:54 44.06501 -7.724725      174
+## 6 2014-03-10 13:59:06 44.06468 -7.726737       23</code></pre>
+<p>Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use <code>dplyr</code> with a SQLite database, head over to <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">this vignette</a>.</p>
+</div>
+<div id="convertsqlite" class="section level3">
+<h3>Create a SQLite databases from a CSV file</h3>
+<p>In the case you have a CSV file available and you would like to query the data using SQL queries or with <code>dplyr</code> as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with <code>dplyr</code> as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with.</p>
+<p>If you already loaded the CSV file into memory, the creation of a SQLITE database is very straighforward and can be achieved in two steps:</p>
+<pre class="r"><code>db &lt;- dbConnect(SQLite(), dbname = &quot;example.sqlite&quot;)
+dbWriteTable(db, &quot;birdtracks&quot;, allData)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>dbDisconnect(db)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>The first command creates a new database when the file <code>example.sqlite</code> does not exist already. The command <code>dbWriteTable</code> writes the table in the database. Hence, we can rerun the query from the previous section, but now on the newly created SQlite database, with the single created table <code>birdtracks</code>:</p>
+<pre class="r"><code>my_db &lt;- src_sqlite(&quot;example.sqlite&quot;, create = FALSE)
+bird_tracking &lt;- tbl(my_db, &quot;birdtracks&quot;)
+results &lt;- bird_tracking %&gt;%
+    filter(device_info_serial == 860) %&gt;%
+    select(date_time, latitude, longitude, altitude) %&gt;%
+    filter(date_time &lt; &quot;2014-07-01&quot;) %&gt;%
+    filter(date_time &gt; &quot;2014-03-01&quot;)
+head(results)</code></pre>
+<pre><code>## Source:   query [?? x 4]
+## Database: sqlite 3.11.1 [example.sqlite]
+## 
+##             date_time latitude longitude altitude
+##                 &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1 2014-03-10 12:43:37 44.02479 -7.593672      626
+## 2 2014-03-10 12:58:32 44.05553 -7.672856      405
+## 3 2014-03-10 13:13:52 44.05931 -7.691700      326
+## 4 2014-03-10 13:28:57 44.06181 -7.708990      250
+## 5 2014-03-10 13:43:54 44.06501 -7.724725      174
+## 6 2014-03-10 13:59:06 44.06468 -7.726737       23</code></pre>
+<p>However, when working with really large CSV files, you do not want to load the entire file into memory first (this is the whole point of this tutorial). An alternative strategy is to load the data from the CSV file in chunks (small sections) and write them step by step to the SQlite database.</p>
+<p>This can be implemented by reading the CSV file in small sections (let’s say 50000 lines each time) and move all sections to a given table in a sqlite database. As this is a recurrent task, we will provide the transformation in a custom written function, called <code>csv_to_sqlite</code>. The documentation of the individual input parameters of the function are explained in the documentation section just above the functionn itself. As SQlite does not natively support <code>date</code> and <code>datetime</code> representations, the function converts those columns to an appropriate string representation before copying the dates to sqlite. To check for the date handling, the <code>lubridate</code> package is used.</p>
+<pre class="r"><code>library(lubridate)
+
+#&#39; Save a single CSV-table into a single table sqlite database
+#&#39;
+#&#39; @param csv_file name of the CSV file to convert
+#&#39; @param sqlite_file name of the newly created sqlite file
+#&#39; @param table_name name of the table to store the data table in the sqlite 
+#&#39;      dbase
+#&#39; @param pre_process_size the number of lines to check the data types of the 
+#&#39;      individual columns (default 1000)
+#&#39; @param chunk_size the number of lines to read for each chunk (default 50000)
+#&#39;
+csv_to_sqlite &lt;- function(csv_file, sqlite_file, table_name, 
+                          pre_process_size = 1000, chunk_size = 50000) {
+    con &lt;- dbConnect(RSQLite::SQLite(), dbname = sqlite_file)
+
+    # read an extract of the data to extract the colnames and types
+    # to figure out the date ande datetime columns
+    df &lt;- read_delim(csv.name, &quot;,&quot;, n_max = pre_process_size)
+    date_cols &lt;- df %&gt;% 
+        select_if(lubridate::is.Date) %&gt;% 
+        colnames()
+    datetime_cols &lt;- df %&gt;% 
+        select_if(lubridate::is.POSIXt) %&gt;% 
+        colnames()    
+    # write this first batch of lines to SQLITE table, converting dates to string representation
+    df[ , date_cols] &lt;- as.character.Date(df[ , date_cols])
+    df[ , datetime_cols] &lt;- as.character.POSIXt(df[ , datetime_cols])
+    dbWriteTable(con, table_name, as.data.frame(df), 
+             overwrite = TRUE)
+    
+    # subfunction that appends new sections to the table
+    append_to_sqlite &lt;- function(x, pos) {
+        x &lt;- as.data.frame(x)
+        x[ , date_cols] &lt;- as.character.Date(x[ , date_cols])
+        x[ , datetime_cols] &lt;- as.character.POSIXt(x[ , datetime_cols])
+        dbWriteTable(con, table_name, x, append = TRUE)
+    }
+    
+    # readr chunk functionality
+    read_delim_chunked(csv.name, append_to_sqlite, delim = &quot;,&quot;,
+                       skip = pre_process_size, col_names = colnames(df), 
+                       col_types = spec(df), chunk_size = chunk_size)
+    dbDisconnect(con)
+}</code></pre>
+<p>As an example, let’s convert the processed bird logs csv file to a sqlite database, called <code>example.sqlite</code> as a table <code>birdtracks</code>. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:</p>
+<pre class="r"><code>sqlite_file &lt;- &quot;example2.sqlite&quot;
+table_name &lt;- &quot;birdtracks&quot;
+
+csv_to_sqlite(csv.name, sqlite_file, table_name, 
+              pre_process_size = 1000, chunk_size = 50000)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   calc_corine_value = col_character(),
+##   project_leader = col_character(),
+##   device_info_serial = col_integer(),
+##   bird_name = col_character(),
+##   ring_code = col_character(),
+##   colour_ring_code = col_character(),
+##   species_code = col_character(),
+##   scientific_name = col_character(),
+##   catch_weight = col_integer(),
+##   sex = col_character(),
+##   catch_location = col_character(),
+##   tracking_started_at = col_datetime(format = &quot;&quot;),
+##   tracking_ended_at = col_character(),
+##   is_active = col_character(),
+##   remarks = col_character(),
+##   date_time = col_datetime(format = &quot;&quot;),
+##   altitude = col_integer(),
+##   pressure = col_character(),
+##   satellites_used = col_integer(),
+##   userflag = col_integer()
+##   # ... with 8 more columns
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the SQlite database is available to query, similar to the previous examples:</p>
+<pre class="r"><code>my_db &lt;- src_sqlite(&quot;example2.sqlite&quot;, create = FALSE)
+bird_tracking &lt;- tbl(my_db, &quot;birdtracks&quot;)
+results &lt;- bird_tracking %&gt;%
+    filter(device_info_serial == 860) %&gt;%
+    select(date_time, latitude, longitude, altitude) %&gt;%
+    filter(date_time &lt; &quot;2014-07-01&quot;) %&gt;%
+    filter(date_time &gt; &quot;2014-03-01&quot;)
+head(results)</code></pre>
+<pre><code>## Source:   query [?? x 4]
+## Database: sqlite 3.11.1 [example2.sqlite]
+## 
+##             date_time latitude longitude altitude
+##                 &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1 2014-03-10 12:43:37 44.02479 -7.593672      626
+## 2 2014-03-10 12:58:32 44.05553 -7.672856      405
+## 3 2014-03-10 13:13:52 44.05931 -7.691700      326
+## 4 2014-03-10 13:28:57 44.06181 -7.708990      250
+## 5 2014-03-10 13:43:54 44.06501 -7.724725      174
+## 6 2014-03-10 13:59:06 44.06468 -7.726737       23</code></pre>
+<p>Remark that the dates are properly handled, by making sure the date representation inside SQlite is the converted string version.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

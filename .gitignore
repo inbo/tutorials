@@ -6,7 +6,11 @@
 .RData
 .Ruserdata
 *.Rproj
+*R_cache/
 
 # Ignore tokens
 *.rds
 .httr-oauth
+
+# ignore temporary download files
+2016-04-20-processed-logs*
