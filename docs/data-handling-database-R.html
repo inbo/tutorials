@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Read data from INBO databases (SQL Server) with R(ODBC)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">INBO tutorials</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software installation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">As administrator</li>
+    <li>
+      <a href="installation-R-admin.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-admin.html">RStudio</a>
+    </li>
+    <li>
+      <a href="installation-git-admin.html">git</a>
+    </li>
+    <li>
+      <a href="installation-rtools-admin.html">Rtools</a>
+    </li>
+    <li>
+      <a href="installation-latex-admin.html">LaTeX</a>
+    </li>
+    <li>
+      <a href="installation-pandoc-admin.html">Pandoc</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">As user</li>
+    <li>
+      <a href="installation-R-user.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-user.html">RStudio</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software development
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="development-styleguide-repos.html">Repository style guide</a>
+    </li>
+    <li>
+      <a href="development-styleguide-R.html">R style guide</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="data-handling-googlesheet-R.html">Read data from GoogleSheet</a>
+    </li>
+    <li>
+      <a href="data-handling-large-files-R.html">Reading and handling large data files in R</a>
+    </li>
+    <li>
+      <a href="data-handling-database-R.html">Read data from INBO databases (SQL Server) from R</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Read data from INBO databases (SQL Server) with R(ODBC)</h1>
+<h4 class="date"><em>February 3, 2017</em></h4>
+
+</div>
+
+
+<p>To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R using the package <a href="https://cran.r-project.org/web/packages/RODBC/index.html">RODBC</a>. This package enables the link in between R and the (remote) database. After installation of the package (<code>install.packages('RODBC')</code>), the package can be loaded:</p>
+<pre class="r"><code>library(RODBC)</code></pre>
+<p>For Windows users, the most important element is to know the so-called <code>DSN</code> (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the <code>DSN</code> is to check the <a href="http://www.stata.com/support/faqs/data-management/configuring-odbc-win/"><em>registered ODBC connections</em></a> in the administrator tools menu.</p>
+<p>For Dutch-speaking Windows 7 users:</p>
+<pre><code>&gt; Kies in het Configuratiescherm van Windows de optie Systeembeheer &gt; Gegevensbronnen (ODBC). De optie Systeembeheer verschijnt in de categorie Systeem en onderhoud.</code></pre>
+<p>You should see a list similar to the list underneath, with the names of the available DSN names enlisted: <img src="/home/stijn_vanhoey/githubs/inbo_tutorials/img/odbc_gegevensbron.png" alt="odbc-connecties" /></p>
+<p>An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item <em>Koppelingsbeheer</em>): <img src="/home/stijn_vanhoey/githubs/inbo_tutorials/img/access_dsn.png" alt="access-dsn" /></p>
+<p>For example, the DSN name <code>UserFlora</code> or <code>Cydonia-prd</code> can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the <code>odbcConnect</code> function, providing the DSN name as argument:</p>
+<pre class="r"><code># WINDOWS USERS (uncomment when working in Windows)
+#my_connection &lt;- odbcConnect(&quot;UserFlora&quot;) # uncomment for windows users
+
+# LINUX/MAC USERS (comment out when working in Windows)
+my_connection &lt;- odbcDriverConnect(&quot;Driver={ODBC Driver 13 for SQL Server};Server=inbosql04.inbo.be;Database=UserFlora;Trusted_Connection=yes;&quot;)</code></pre>
+<p>Once this connection is sucessfully established, the database can be queried.</p>
+<div id="get-a-complete-table-from-the-databse" class="section level2">
+<h2>Get a complete table from the databse</h2>
+<p>The function <code>sqlFetch</code> can be used to load an entire table from a database. For example, to extract the <code>tblTaxon</code> table from the flora database:</p>
+<pre class="r"><code>rel_taxa &lt;- sqlFetch(my_connection, &quot;dbo.relTaxonTaxonGroep&quot;)
+head(rel_taxa)</code></pre>
+<pre><code>##   ID TaxonGroepID TaxonID
+## 1  1            4       1
+## 2  2            4       2
+## 3  3            4       3
+## 4  4            4       4
+## 5  5            4       5
+## 6  6            4       6</code></pre>
+<p>with the connection <code>my_connection</code> made earlier is used as the first argument, the table name is the second argument.</p>
+<p><strong>Remark:</strong> If you have no idea about the size of the table you’re trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.</p>
+</div>
+<div id="execute-a-query-to-the-database" class="section level2">
+<h2>Execute a query to the database</h2>
+<p>The function <code>sqlQuery</code> provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here. We will focus on the application and the reusage of a query.</p>
+<pre class="r"><code>meting &lt;- sqlQuery(my_connection, paste(&quot;SELECT TOP 10 * FROM dbo.tblMeting&quot;, 
+                                        &quot;WHERE Cor_X IS NOT NULL&quot;))
+head(meting)</code></pre>
+<pre><code>##    ID WaarnemingID TaxonID MetingStatusCode  Cor_X  Cor_Y CommentaarTaxon
+## 1   2        21748    3909             GDGA 109948 185379              NA
+## 2  14        45523    3909             GDGA 127708 179454              NA
+## 3  15       124394    3909             GDGA 109424 192152              NA
+## 4  23        38561    3909             GDGA 128290 179297              NA
+## 5  24       126500    3909             GDGA  98714 178373              NA
+## 6 173        73725    3909             GDGA 102612 189891              NA
+##   CommentaarHabitat CREATION_DATE CREATION_USER UPDATE_DATE UPDATE_USER
+## 1                NA          &lt;NA&gt;            NA        &lt;NA&gt;          NA
+## 2                NA          &lt;NA&gt;            NA        &lt;NA&gt;          NA
+## 3                NA          &lt;NA&gt;            NA        &lt;NA&gt;          NA
+## 4                NA          &lt;NA&gt;            NA        &lt;NA&gt;          NA
+## 5                NA          &lt;NA&gt;            NA        &lt;NA&gt;          NA
+## 6                NA          &lt;NA&gt;            NA        &lt;NA&gt;          NA</code></pre>
+</div>
+<div id="create-and-use-query-templates" class="section level2">
+<h2>Create and use query templates</h2>
+<p>When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the entire query. It is prone to errors and you’re script will become verbose. It is advisable to create query <em>templates</em>, that can be used within the <code>sqlQuery</code> function.</p>
+<p>Consider the execution of the following query. We are interested in those records with valid X and Y coordinates for the measurement, based on a given dutch name:</p>
+<pre class="r"><code>subset_meting &lt;- sqlQuery(my_connection, 
+&quot;SELECT meet.Cor_X
+     , meet.COr_Y
+     , meet.MetingStatusCode
+     , tax.NaamNederlands
+     , tax.NaamWetenschappelijk
+     , waar.IFBLHokID
+FROM  [dbo].[tblMeting] meet
+    LEFT JOIN [dbo].tblTaxon tax ON tax.ID = meet.TaxonID
+    LEFT JOIN [dbo].tblWaarneming waar ON waar.ID = meet.WaarnemingID
+WHERE meet.Cor_X IS NOT NULL
+    AND meet.Cor_X != 0
+    AND tax.NaamNederlands LIKE &#39;Wilde hyacint&#39;&quot;)
+head(subset_meting)</code></pre>
+<pre><code>##    Cor_X  COr_Y MetingStatusCode NaamNederlands
+## 1  88720 208327             GDGA  Wilde hyacint
+## 2  24106 199925             GDGA  Wilde hyacint
+## 3 103111 190915             GDGA  Wilde hyacint
+## 4  68959 173070             GDGK  Wilde hyacint
+## 5  77618 175718             GDGK  Wilde hyacint
+## 6  77414 175841             GDGK  Wilde hyacint
+##                               NaamWetenschappelijk IFBLHokID
+## 1 Hyacinthoides non-scripta (L.) Chouard ex Rothm.     11195
+## 2 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      9601
+## 3 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      6990
+## 4 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      3197
+## 5 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      4043
+## 6 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      4043</code></pre>
+<p>If we need this query regularly, but each time using a different <code>tax.NaamNederlands</code> (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let’s create a function <code>flora_records_on_dutch_name</code> that takes a valid database connection and a given dutch name and returns the relevant subset of the data for this query:</p>
+<pre class="r"><code>flora_records_on_dutch_name &lt;- function(dbase_connection, dutch_name) {
+     sqlQuery(dbase_connection, sprintf(
+            &quot;SELECT meet.Cor_X
+                 , meet.COr_Y
+                 , meet.MetingStatusCode
+                 , tax.NaamNederlands
+                 , tax.NaamWetenschappelijk
+                 , waar.IFBLHokID
+            FROM  [dbo].[tblMeting] meet
+                LEFT JOIN [dbo].tblTaxon tax ON tax.ID = meet.TaxonID
+                LEFT JOIN [dbo].tblWaarneming waar ON waar.ID = meet.WaarnemingID
+            WHERE meet.Cor_X IS NOT NULL
+                AND meet.Cor_X != 0
+                AND tax.NaamNederlands LIKE &#39;%s&#39;&quot;, dutch_name))
+}</code></pre>
+<p>Hence, instead of copy-pasting the whole query each time (which could be error-prone), we can reuse the function for different names:</p>
+<pre class="r"><code>hyacint &lt;- flora_records_on_dutch_name(my_connection, &quot;Wilde hyacint&quot;)
+head(hyacint)</code></pre>
+<pre><code>##    Cor_X  COr_Y MetingStatusCode NaamNederlands
+## 1  88720 208327             GDGA  Wilde hyacint
+## 2  24106 199925             GDGA  Wilde hyacint
+## 3 103111 190915             GDGA  Wilde hyacint
+## 4  68959 173070             GDGK  Wilde hyacint
+## 5  77618 175718             GDGK  Wilde hyacint
+## 6  77414 175841             GDGK  Wilde hyacint
+##                               NaamWetenschappelijk IFBLHokID
+## 1 Hyacinthoides non-scripta (L.) Chouard ex Rothm.     11195
+## 2 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      9601
+## 3 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      6990
+## 4 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      3197
+## 5 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      4043
+## 6 Hyacinthoides non-scripta (L.) Chouard ex Rothm.      4043</code></pre>
+<pre class="r"><code>bosanemoon &lt;- flora_records_on_dutch_name(my_connection, &quot;Bosanemoon&quot;)
+head(bosanemoon)</code></pre>
+<pre><code>##    Cor_X  COr_Y MetingStatusCode NaamNederlands NaamWetenschappelijk
+## 1 185254 180042             GDGK     Bosanemoon  Anemone nemorosa L.
+## 2 103211 166981             GDGK     Bosanemoon  Anemone nemorosa L.
+## 3 146876 157963             GDGK     Bosanemoon  Anemone nemorosa L.
+## 4 125685 186775             GDGA     Bosanemoon  Anemone nemorosa L.
+## 5 108129 170484             GDGK     Bosanemoon  Anemone nemorosa L.
+## 6 171182 172377             GDGK     Bosanemoon  Anemone nemorosa L.
+##   IFBLHokID
+## 1      4352
+## 2      1751
+## 3       132
+## 4      6083
+## 5      2587
+## 6      2860</code></pre>
+<p><strong>Remark:</strong> Do not forget to close your connection when done finished.</p>
+<pre class="r"><code>close(my_connection)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
