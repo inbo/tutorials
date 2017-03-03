@@ -15,10 +15,11 @@ R is known to have difficulties handling large data files. Here we will explore 
 
 ## tl;dr
 
-* If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the `data.table` package and [read the file with its `fread` function](#loading-a-large-dataset-use-fread-instead-of-read).
+* If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the `data.table` package and [read the file with its `fread` function](#loadentire).
 * If your file does not comfortably fit in memory:
-    * [Use `sqldf`](#3-limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf) if you have to stick to `csv` files.
-    * Use a SQLite database and query it using either [SQL queries](#working-with-sqlite-databases) or [`dplyr`](#interacting-with-sqlite-databases-using-dplyr).
+    * [Use `sqldf`](#sqldftit) if you have to stick to `csv` files.
+    * Use a SQLite database and query it using either [SQL queries](#sqlitestrat) or [`dplyr`](#dplyrstrat).
+    * [Convert](#convertsqlite) your `csv` file to a `sqlite` database in order to query
 
 ## Downloading the example files
 
@@ -50,7 +51,7 @@ if(!file.exists(db.name)){
 }
 ```
 
-## Loading a large dataset: use `fread` instead of `read`.
+## Loading a large dataset: use `fread` or `readr` instead of `read`. {#loadentire}
 
 ```{r loaddatatable, warning=FALSE, message=FALSE}
 library("data.table")
@@ -109,7 +110,7 @@ sprintf("Size of only four columns in memory: %s MB", utils::object.size(fourCol
 
 The difference might not be as large as you would expect. R objects claim more memory then needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.
 
-### 3. Limiting both the number of rows and the number of columns using `sqldf`
+### 3. Limiting both the number of rows and the number of columns using `sqldf` {#sqldftit}
 
 The [sqldf package](https://cran.r-project.org/web/packages/sqldf/sqldf.pdf) allows you to run SQL-like queries on a file, resulting in only a selection of the file being read. It allows you to limit both the number of lines and the number of rows at the same time. In the background, this actually creates a sqlite database on the fly to execute the query. Consider using the package when starting from a csv file, but the actual strategy boils down to making a sqlite database file of your data. See [this section below](#the-database-file-strategy) to learn how to interact with those and create a SQlite database from a CSV-file.
 
@@ -161,16 +162,16 @@ qplot(n, execTime, data = pdata, color = algorithm,
       xlab = "number of lines read", ylab = "execution time (s)")
 ```
 
-## The database file strategy
+## The database file strategy 
 
-### Working with SQLite databases
+### Working with SQLite databases {#sqlitestrat}
 
 SQLite databases are single file databases meaning you can simply download them, store them in a folder or share them with colleages. Similar to a csv. They are however more powerful than csv's because of two important features:
 
 * Support for SQL: this allows you to execute intelligent filters on your data, similar to the `sqldf` package or database environments you are familiar with. That way, you can reduce the amount of data that's stored in memory by filtering out rows or columns.
 * Indexes: SQLite databases contain indexes. An index is something like an ordered version of a column. When enabled on a column, you can search through the column much faster. We will demonstrate this below.
 
-We have downloaded a second file `2016-04-20-processed-logs-big-file-example.db` that contains the same data as the `2016-04-20-processed-logs-big-file-example.csv` file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, try creating one as described [here](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
+We have downloaded a second file `2016-04-20-processed-logs-big-file-example.db` that contains the same data as the `2016-04-20-processed-logs-big-file-example.csv` file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, you can first convert your csv into a SQlite as described [further in this tutorial](#convertsqlite).
 
 Let's first connect to the database and list the available tables.
 
@@ -184,7 +185,7 @@ dbListTables(db)
 
 Let's try to select rows where the device id matches a given value (e.g. 860), and the date time is between two given timestamps. For our analysis, we only need `date_time`, `latitude`, `longitude` and `altitude` so we will only select those.
 
-```{r}
+```{r sqlitequery}
 sqlTiming <- system.time(data <-  dbGetQuery(conn = db,
    "SELECT date_time, latitude, longitude, altitude
     FROM processed_logs 
@@ -214,9 +215,9 @@ for (serialid in serial_id_list) {
 
 Remark that we use the `sprintf` function to dynamically replace the serial id in the sqlite query we will execute. For each loop, the `%d` is replaced by the value of the serial id of the respective loop. Read the [manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/sprintf.html) of the `sprintf` function for more information and options.
 
-### Interacting with SQLite databases using `dplyr`
+### Interacting with SQLite databases using `dplyr` {#dplyrstrat}
 
-If you're not comfortable with writing queries in SQL, R has a great alternative: `dplyr`. Dplyr can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.
+If you're not comfortable with writing queries in SQL, R has a great alternative: `dplyr`. `dplyr` can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.
 
 ```{r dplyr, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -232,13 +233,13 @@ head(results)
 
 Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use `dplyr` with a SQLite database, head over to [this vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
-### Create a SQLite databases from a CSV file
+### Create a SQLite databases from a CSV file {#convertsqlite}
 
 In the case you have a CSV file available and you would like to query the data using SQL queries or with `dplyr` as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with `dplyr` as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with. 
 
 If you already loaded the CSV file into memory, the creation of a SQLITE database is very straighforward and can be achieved in two steps:
 
-```{r}
+```{r sqlitewritetable}
 db <- dbConnect(SQLite(), dbname = "example.sqlite")
 dbWriteTable(db, "birdtracks", allData)
 dbDisconnect(db)
@@ -246,7 +247,7 @@ dbDisconnect(db)
 
 The first command creates a new database when the file `example.sqlite` does not exist already. The command `dbWriteTable` writes the table in the database. Hence, we can rerun the query from the previous section, but now on the newly created SQlite database, with the single created table `birdtracks`:
 
-```{r}
+```{r dplyrrecheck}
 my_db <- src_sqlite("example.sqlite", create = FALSE)
 bird_tracking <- tbl(my_db, "birdtracks")
 results <- bird_tracking %>%
@@ -261,7 +262,7 @@ However, when working with really large CSV files, you do not want to load the e
 
 This can be implemented by reading the CSV file in small sections (let's say 50000 lines each time) and move all sections to a given table in a sqlite database. As this is a recurrent task, we will provide the transformation in a custom written function, called `csv_to_sqlite`. The documentation of the individual input parameters of the function are explained in the documentation section just above the functionn itself. As SQlite does not natively support `date` and `datetime` representations, the function converts those columns to an appropriate string representation before copying the dates to sqlite. To check for the date handling, the `lubridate` package is used.
 
-```{r}
+```{r csv2sqlite, warning=FALSE, message=FALSE}
 library(lubridate)
 
 #' Save a single CSV-table into a single table sqlite database
@@ -311,7 +312,7 @@ csv_to_sqlite <- function(csv_file, sqlite_file, table_name,
 
 As an example, let's convert the processed bird logs csv file to a sqlite database, called `example.sqlite` as a table `birdtracks`. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:
 
-```{r}
+```{r runcssv2sqlite}
 sqlite_file <- "example2.sqlite"
 table_name <- "birdtracks"
 
@@ -319,9 +320,9 @@ csv_to_sqlite(csv.name, sqlite_file, table_name,
               pre_process_size = 1000, chunk_size = 50000)
 ```
 
-Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the sqlite is available to query, similar to the previous examples:
+Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the SQlite database is available to query, similar to the previous examples:
 
-```{r}
+```{r dplyrverify}
 my_db <- src_sqlite("example2.sqlite", create = FALSE)
 bird_tracking <- tbl(my_db, "birdtracks")
 results <- bird_tracking %>%
@@ -332,4 +333,10 @@ results <- bird_tracking %>%
 head(results)
 ```
 
-Remark that the dates are properly handled, by making sure the date representation inside sqlite is the converted string version. 
+Remark that the dates are properly handled, by making sure the date representation inside SQlite is the converted string version.
+
+```{r cleanexamples, message=FALSE, warning=FALSE, include=FALSE}
+file.remove("example.sqlite")
+file.remove("example2.sqlite")
+```
+
