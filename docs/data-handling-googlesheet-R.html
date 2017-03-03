@@ -239,6 +239,12 @@ $(document).ready(function () {
     <li>
       <a href="data-handling-googlesheet-R.html">Read data from GoogleSheet</a>
     </li>
+    <li>
+      <a href="data-handling-large-files-R.html">Reading and handling large data files in R</a>
+    </li>
+    <li>
+      <a href="data-handling-database-R.html">Read data from INBO databases (SQL Server) from R</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -278,20 +284,20 @@ library(ggplot2)</code></pre>
 <p>Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in <a href="https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html">this manual</a>.</p>
 <p>Once registered, an overview of your available google sheets is provided as follows:</p>
 <pre class="r"><code>gs_ls()</code></pre>
-<pre><code>## # A tibble: 163 × 10
+<pre><code>## # A tibble: 167 × 10
 ##                 sheet_title        author  perm version
 ##                       &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;
-## 1              GitHub repos  peter.desmet    rw     old
+## 1  overzicht netwerken en … tessa.vansan…    rw     old
 ## 2  LifeWatch budget en uit… peter.desmet…    rw     old
-## 3  400+ Tools study resear…    jeroensbox    rw     old
-## 4  DQ Tests-Assertions - P…      godfoder    rw     old
-## 5                PRJ_Vissen veerle.marte…    rw     old
-## 6   Fish tracking receivers  peter.desmet    rw     old
-## 7             GIS scripting maarten.stev…    rw     old
-## 8  20170116_Planning_Selec… daphne.lingi…    rw     old
-## 9  20150526_Mobistar_INBO … joost.sturte…    rw     old
-## 10 20150526_Mobistar_INBO … joost.sturte…    rw     old
-## # ... with 153 more rows, and 6 more variables: updated &lt;dttm&gt;,
+## 3  Open biodiversity data …  peter.desmet    rw     old
+## 4  400+ Tools and innovati…    jeroensbox    rw     old
+## 5         Smartphone_uitrol      inbodata    rw     old
+## 6  DQ Tests-Assertions - P…      godfoder    rw     old
+## 7           IDC-budget 2017 daniel.duseu…    rw     old
+## 8  LifeWatch Monthly Activ…     info55896    rw     old
+## 9     Bird tracking devices  peter.desmet    rw     old
+## 10 2015.05.01 Contactgegev… thomas.timme…    rw     old
+## # ... with 157 more rows, and 6 more variables: updated &lt;dttm&gt;,
 ## #   sheet_key &lt;chr&gt;, ws_feed &lt;chr&gt;, alternate &lt;chr&gt;, self &lt;chr&gt;,
 ## #   alt_key &lt;chr&gt;</code></pre>
 </div>
@@ -315,12 +321,12 @@ library(ggplot2)</code></pre>
 <pre><code>## 
 Downloading: 1.3 kB     
 Downloading: 1.3 kB     
-Downloading: 2.7 kB     
-Downloading: 2.7 kB     
+Downloading: 2.2 kB     
+Downloading: 2.2 kB     
 Downloading: 3 kB     
 Downloading: 3 kB     
-Downloading: 4.2 kB     
-Downloading: 4.2 kB     
+Downloading: 4.1 kB     
+Downloading: 4.1 kB     
 Downloading: 4.6 kB     
 Downloading: 4.6 kB     
 Downloading: 5.6 kB     
