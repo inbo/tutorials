@@ -127,20 +127,20 @@ close(my_connection)
 
 ## The `sprintf` function {#sprintf}
 
-In order to accomplish the re-usage of a query for different input names (`dutch_name`), the `sprintf` function is used. The `sprintf` function provides the ability to combine text and variable values in a single charactor string (i.e. the query to execute). For each variable name required in the query (any part of your query you want to have interchangeable), a representation in the query is given by a `%` in combination with the data type you want to represent. The latter is an agreed format conversion, for example `%s` is a character string (e.g. the example of `dutch_name`) and `%d` is an integer value (e.g. `2`). More information about the different symbols is given in the documentation of `sprintf` (type `?sprintf` in the console). 
+In order to accomplish the re-usage of a query for different input names (`dutch_name`), the `sprintf` function is used. The `sprintf` function provides the ability to combine text and variable values in a single charactor string (i.e. the query to execute). For each variable name required in the query (any part of your query you want to have interchangeable), a representation in the query is given by a `%` in combination with the data type you want to represent. The latter is an agreed format conversion, for example `%s` is a character string (e.g. the example of `dutch_name`) and `%i` is an integer value (e.g. `2`). More information about the different symbols is given in the documentation of `sprintf` (type `?sprintf` in the console). 
 
 ```{r sprintfex1}
-aname <- 'Jan'
-aninteger <- 3
-afloat <- 2.8
-sprintf('This prints a combination of a name: %s, an integer: %d and a float value: %f', aname, aninteger, afloat)
+a_name <- 'Jan'
+an_integer <- 3
+a_float <- 2.8
+sprintf('This prints a combination of a name: %s, an integer: %i and a float value: %f', a_name, an_integer, a_float)
 ```
 
-For float values, you can further define the fixed number of decimals (`%f`)
+For float values, you can further define the fixed number of decimals (`%f`) or a fixed number of significant digits with `%g`
 
 ```{r sprintfex2}
-afloat <- 2.8
-sprintf('This prints the same value with one: %.1f and two: %.2f decimal numbers', afloat, afloat)
+a_float <- 0.0008262372
+sprintf('This prints the same value with five: %.5f or two: %.2f decimal numbers, or a define a number of significant digits: %.5g or %.2g which is sometimes more useful.', a_float, a_float, a_float, a_float)
 ```
 
 Similarly, this approach can be used to programmatically create template queries with adaptable input values. 
