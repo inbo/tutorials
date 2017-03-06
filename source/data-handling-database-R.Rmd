@@ -71,7 +71,7 @@ Consider the execution of the following query. We are interested in those record
 ```{r queryexample}
 subset_meting <- sqlQuery(my_connection, 
 "SELECT meet.Cor_X
-	 , meet.COr_Y
+	 , meet.Cor_Y
 	 , meet.MetingStatusCode
 	 , tax.NaamNederlands
 	 , tax.NaamWetenschappelijk
