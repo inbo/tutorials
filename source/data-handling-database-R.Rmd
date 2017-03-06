@@ -76,7 +76,7 @@ subset_meting <- sqlQuery(my_connection,
 	 , tax.NaamNederlands
 	 , tax.NaamWetenschappelijk
 	 , waar.IFBLHokID
-FROM  [dbo].[tblMeting] meet
+FROM  [dbo].[tblMeting] AS meet
 	LEFT JOIN [dbo].tblTaxon tax ON tax.ID = meet.TaxonID
 	LEFT JOIN [dbo].tblWaarneming waar ON waar.ID = meet.WaarnemingID
 WHERE meet.Cor_X IS NOT NULL
