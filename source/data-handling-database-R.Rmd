@@ -27,7 +27,7 @@ You should see a list similar to the list underneath, with the names of the avai
 An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*): 
 ![access-dsn](../img/access_dsn.png)
 
-For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
+For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument (Notice, you have to change the comments when running the tutorial in windows):
 
 ```{r sqlconnection}
 # WINDOWS USERS (uncomment when working in Windows)
@@ -38,6 +38,8 @@ my_connection <- odbcDriverConnect("Driver={ODBC Driver 13 for SQL Server};Serve
 ```
 
 Once this connection is sucessfully established, the database can be queried. 
+
+**Remark for linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality will be provided in an upcoming tutorial.
 
 ## Get a complete table from the databse
 
