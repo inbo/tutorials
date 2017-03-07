@@ -79,8 +79,8 @@ subset_meting <- sqlQuery(my_connection,
 	 , tax.NaamWetenschappelijk
 	 , waar.IFBLHokID
 FROM  [dbo].[tblMeting] AS meet
-	LEFT JOIN [dbo].tblTaxon tax ON tax.ID = meet.TaxonID
-	LEFT JOIN [dbo].tblWaarneming waar ON waar.ID = meet.WaarnemingID
+	LEFT JOIN [dbo].tblTaxon AS tax ON tax.ID = meet.TaxonID
+	LEFT JOIN [dbo].tblWaarneming AS waar ON waar.ID = meet.WaarnemingID
 WHERE meet.Cor_X IS NOT NULL
 	AND meet.Cor_X != 0
 	AND tax.NaamNederlands LIKE 'Wilde hyacint'")
@@ -100,8 +100,8 @@ flora_records_on_dutch_name <- function(dbase_connection, dutch_name) {
             	 , tax.NaamWetenschappelijk
             	 , waar.IFBLHokID
             FROM  [dbo].[tblMeting] meet
-            	LEFT JOIN [dbo].tblTaxon tax ON tax.ID = meet.TaxonID
-            	LEFT JOIN [dbo].tblWaarneming waar ON waar.ID = meet.WaarnemingID
+            	LEFT JOIN [dbo].tblTaxon AS tax ON tax.ID = meet.TaxonID
+            	LEFT JOIN [dbo].tblWaarneming AS waar ON waar.ID = meet.WaarnemingID
             WHERE meet.Cor_X IS NOT NULL
             	AND meet.Cor_X != 0
             	AND tax.NaamNederlands LIKE '%s'", dutch_name))
