@@ -36,6 +36,8 @@ navbar:
         - text: "Read data from GoogleSheet"
           href: "data-handling-googlesheet-R.html"
         - text: "Reading and handling large data files in R"
-          href: "data-handling-large-files-R.html"          
+          href: "data-handling-large-files-R.html"
+        - text: "Read data from INBO databases (SQL Server) from R"
+          href: "data-handling-database-R.html"
 exclude: ["LICENSE", "Rprofile.site"]
 output_dir: "../docs"
