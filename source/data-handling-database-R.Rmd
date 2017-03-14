@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html). This package enables the link in between R and the (remote) database. After installation of the package (`install.packages('RODBC')`), the package can be loaded:
@@ -22,10 +22,10 @@ For Dutch-speaking Windows 7 users:
     > Kies in het Configuratiescherm van Windows de optie Systeembeheer > Gegevensbronnen (ODBC). De optie Systeembeheer verschijnt in de categorie Systeem en onderhoud.
 
 You should see a list similar to the list underneath, with the names of the available DSN names enlisted:
-![odbc-connecties](../img/odbc_gegevensbron.png)
+![odbc-connecties](./data-handling-database-R/odbc_gegevensbron.png)
 
 An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*): 
-![access-dsn](../img/access_dsn.png)
+![access-dsn](./data-handling-database-R/access_dsn.png)
 
 For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument (Notice, you have to change the comments when running the tutorial in windows):
 
