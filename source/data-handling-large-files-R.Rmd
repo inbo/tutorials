@@ -50,10 +50,8 @@ db.url <- paste("https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/",
                 db.name, ".gz", sep = "")
 if(!file.exists(paste("./data-handling-large-files-R", db.name, sep = "/"))){
     download.file(db.url, destfile = paste(paste("./data-handling-large-files-R", 
-                                                 db.name, sep = "/"), ".gz", 
-                                           sep = ""))
-    gunzip(paste(paste("./data-handling-large-files-R", 
-                       db.name, sep = "/"), ".gz", sep = ""))
+                                                 db.name, sep = "/"), ".gz", sep = ""))
+    gunzip(paste(paste("./data-handling-large-files-R", db.name, sep = "/"), ".gz", sep = ""))
 }
 ```
 
@@ -287,7 +285,7 @@ csv_to_sqlite <- function(csv_file, sqlite_file, table_name,
 
     # read an extract of the data to extract the colnames and types
     # to figure out the date ande datetime columns
-    df <- read_delim(csv.name, ",", n_max = pre_process_size)
+    df <- read_delim(csv_file, ",", n_max = pre_process_size)
     date_cols <- df %>% 
         select_if(lubridate::is.Date) %>% 
         colnames()
@@ -309,21 +307,23 @@ csv_to_sqlite <- function(csv_file, sqlite_file, table_name,
     }
     
     # readr chunk functionality
-    read_delim_chunked(csv.name, append_to_sqlite, delim = ",",
+    read_delim_chunked(csv_file, append_to_sqlite, delim = ",",
                        skip = pre_process_size, col_names = colnames(df), 
-                       col_types = spec(df), chunk_size = chunk_size)
+                       col_types = spec(df), chunk_size = chunk_size,
+                       progress = FALSE)
     dbDisconnect(con)
 }
 ```
 
 As an example, let's convert the processed bird logs csv file to a sqlite database, called `example.sqlite` as a table `birdtracks`. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:
 
-```{r runcssv2sqlite, warning=FALSE, message=FALSE}
+```{r runcssv2sqlite, message=FALSE, warning=FALSE}
 sqlite_file <- "example2.sqlite"
 table_name <- "birdtracks"
 
-csv_to_sqlite(csv.name, sqlite_file, table_name, 
-              pre_process_size = 1000, chunk_size = 50000)
+csv_to_sqlite(paste("./data-handling-large-files-R", csv.name, sep = "/"), 
+              sqlite_file, table_name, pre_process_size = 1000, 
+              chunk_size = 50000)
 ```
 
 Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the SQlite database is available to query, similar to the previous examples:
