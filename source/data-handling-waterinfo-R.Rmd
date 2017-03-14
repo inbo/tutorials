@@ -1,0 +1,43 @@
+---
+title: "Get data from waterinfo.be using webservice"
+author: "Stijn Van Hoey"
+date: "March 10, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, warning=FALSE}
+library('httr')
+library('curl')
+library('jsonlite')
+```
+
+```{r}
+data <- fromJSON("http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&type=queryServices&service=kisters&request=getTimeseriesValues&timeseriesgroup_id=192918&format=json&period=P3D&returnfields=Timestamp,Value,Quality%20Code&metadata=true")
+```
+
+Hence, downloading data is a matter of putting together the appropriate URL with the parameters.
+
+```{r}
+variable <- "023072043" #timeseriesgroup_id
+format <- "json"
+period <- "P1D"
+returnfields <- c("Timestamp", "Value", "Quality Code")
+metadata <- "true"
+
+r <- GET("http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS", 
+         query = list(datasource = 0, type = "queryServices", 
+                      service = "kisters", request = "getTimeseriesValues",
+                      ts_id = variable, format = format,
+                      period = period, metadata = metadata,
+                      returnfields = as.character(paste(returnfields, 
+                                                        collapse = ","))))
+```
+
+```{r}
+data <- fromJSON(content(r))
+```
+
