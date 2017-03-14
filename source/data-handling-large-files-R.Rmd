@@ -37,17 +37,23 @@ library("R.utils")
 # download the CSV file example
 csv.url <- paste("https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/", 
                  csv.name, ".gz", sep = "")
-if(!file.exists(csv.name)){
-    download.file(csv.url, destfile=paste(csv.name, ".gz", sep = ""))
-    gunzip(paste(csv.name, ".gz", sep = ""))
+if(!file.exists(paste("./data-handling-large-files-R", csv.name, sep = "/"))){
+    download.file(csv.url, 
+                  destfile = paste(paste("./data-handling-large-files-R", 
+                                         csv.name, sep = "/"), ".gz", sep = ""))
+    gunzip(paste(paste("./data-handling-large-files-R", 
+                       csv.name, sep = "/"), ".gz", sep = ""))
 }
 
 # download the sqlite database example
 db.url <- paste("https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/", 
                 db.name, ".gz", sep = "")
-if(!file.exists(db.name)){
-    download.file(db.url, destfile=paste(db.name, ".gz", sep = ""))
-    gunzip(paste(db.name, ".gz", sep = ""))
+if(!file.exists(paste("./data-handling-large-files-R", db.name, sep = "/"))){
+    download.file(db.url, destfile = paste(paste("./data-handling-large-files-R", 
+                                                 db.name, sep = "/"), ".gz", 
+                                           sep = ""))
+    gunzip(paste(paste("./data-handling-large-files-R", 
+                       db.name, sep = "/"), ".gz", sep = ""))
 }
 ```
 
