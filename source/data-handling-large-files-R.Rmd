@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 ## Intro
@@ -312,7 +312,7 @@ csv_to_sqlite <- function(csv_file, sqlite_file, table_name,
 
 As an example, let's convert the processed bird logs csv file to a sqlite database, called `example.sqlite` as a table `birdtracks`. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:
 
-```{r runcssv2sqlite}
+```{r runcssv2sqlite, warning=FALSE, message=FALSE}
 sqlite_file <- "example2.sqlite"
 table_name <- "birdtracks"
 
