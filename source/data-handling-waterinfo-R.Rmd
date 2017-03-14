@@ -1,5 +1,5 @@
 ---
-title: "Get data from waterinfo.be using webservice"
+title: "Get time series data from waterinfo.be using the webservice"
 author: "Stijn Van Hoey"
 date: "March 10, 2017"
 output: html_document
@@ -9,20 +9,157 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Using a webservice with R
+
+## Just an URL as you use in your browser
+
+Using a webservice to download data is mainly a matter of providing the appropriate URL (address to a webpage). As an example, copy the following URL in your favorite browser (e.g. firefox, chrome,...) and check the page content:
+
+```
+http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&type=queryServices&service=kisters&request=getTimeseriesValues&timeseriesgroup_id=192918&period=P3D&format=html
+```
+
+If everything went fine, an HTML page with tabular data appeared. Do the same with the following URL:
+
+```
+http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&type=queryServices&service=kisters&request=getTimeseriesValues&timeseriesgroup_id=192918&period=P3D&format=json
+```
+Which results in the same data, but an alternative representation. The latter is called [`json`](https://en.wikipedia.org/wiki/JSON) and is a popular format to share data amongst web-services. 
+
+**Tip:** When working in chrome, it could be worthwhile to install [Json Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en), which provides a clean representation of a `json` output. 
+
+As you wouold notice, the only difference in the URL is the change in `format=html` into `format=json`. Hence, by changing the `format` parameter, we tell waterinfo.be how we want the data to be represented. 
+
+**Remark:** The need for a different URL for both representations (`json` versus `html`) is a designer choice of *Waterinfo.be*. For a more in-depth discussion about this, check the [blog post of Ruben Verborgh](https://ruben.verborgh.org/blog/2013/11/29/the-lie-of-the-api/).
+
+`format` is not the only parameter we can change. The available options (parameters) can vary from one webservice to another. Other parameters for this specific case are `period`, `datasource`, `request`, `timeseriesgroup_id`,... As you will notice, the URL to use is structured in two main section:
+
+1. `http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS`:the web address the web-service is active. It can be interpreted as the base URL to start from
+
+2. `?parameter1=value1&parameter2=value2&...`: the combination of parameters and their chosen value, each time divided by the `&` character.
+
+## Using the URL in R to download data
+
+Another example of a data request, based on a set of (try in your browser):
+
+```
+http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&type=queryServices&service=kisters&request=getTimeseriesValues&timeseriesgroup_id=192918&format=json&period=P3D&returnfields=Timestamp,Value,Quality%20Code&metadata=true
+```
+
+To do the same in R, packages already do exist that support the handling of a data request from a webservice and to properly handle `json` data representation:
+
 ```{r, message=FALSE, warning=FALSE}
 library('httr')
-library('curl')
 library('jsonlite')
 ```
 
+So, instead of our browser, we can use the `GET` command from the `httr` package:
+
 ```{r}
-data <- fromJSON("http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&type=queryServices&service=kisters&request=getTimeseriesValues&timeseriesgroup_id=192918&format=json&period=P3D&returnfields=Timestamp,Value,Quality%20Code&metadata=true")
+r <- GET("http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&type=queryServices&service=kisters&request=getTimeseriesValues&timeseriesgroup_id=192918&format=json&period=P3D&returnfields=Timestamp,Value,Quality%20Code&metadata=true")
+r
 ```
 
-Hence, downloading data is a matter of putting together the appropriate URL with the parameters.
+This does NOT result directly into a `data.frame` or similar representation. However, we already see we got a succesfull request, i.e. `Status: 200`. An overview of codes is given [here](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html). Furthermore, the content is provided as `json`.
+
+## From raw download to R objects
+
+To get the data out of the result is a matter of checking the structure of the returned `json` (cfr. test the result in your browser) and extract the useful information from the given structure. This will be different for each web-service. Luckily, the `httr` and `jsonlite` packages do provide functionalities to convert to something useful in R easier. For example, the `fromJSON` function tries to convert the `json`
 
 ```{r}
-variable <- "023072043" #timeseriesgroup_id
+rdata <- fromJSON(content(r, "text"))
+head(rdata[c("station_name", "parametertype_name", "ts_unitname", "ts_unitsymbol", "columns")])
+```
+
+We get a dataframe with information of eight individual stations (name, coordinates, variable type, unit, station). The last column, called `data`, contains for the given station and variable the corresponding time series. When looking into more detail in one of these `data.frame` elements, this looks as follows:
+
+```{r}
+rdata$data[[1]][1:10,]
+```
+(*for convenience, ohly the first ten rows where printed*)
+
+This is not yet useful for analysis, as these are all string representations. It would be better to have the data for a specific station and variable as a `data.frame` as well. Let's start with the data of the first row, i.e. station Boekhoute. We select that specific data from the parsed `data.frame`:
+
+```{r}
+boekhoute_pa <- rdata$data[[1]]
+boekhoute_pa[1:10,]
+```
+
+Now we can convert this character matrix into a `data.frame`:
+
+```{r}
+boekhoute_pa_df <- as.data.frame(boekhoute_pa, stringsAsFactors = FALSE)
+head(boekhoute_pa_df)
+```
+
+This works, but when checking how R interpreted the individual 
+
+```{r}
+str(boekhoute_pa_df)
+```
+
+All columns are characters, whereas we want the dates to be interpreted, as well as numeric types for the other columns. Converting the column data types for these types is as follows:
+
+```{r}
+boekhoute_pa_df$V1 <- as.POSIXct(boekhoute_pa_df$V1, 
+                                 format = "%Y-%m-%dT%H:%M:%S") # DATE
+boekhoute_pa_df$V2 <- as.double(as.character(boekhoute_pa_df$V2)) # float
+boekhoute_pa_df$V3 <- as.integer(as.character(boekhoute_pa_df$V3)) # integer
+str(df)
+```
+
+Finally, we would like to have the column names something more useful as the current attributed names:
+
+```{r}
+colnames(boekhoute_pa_df)
+```
+
+Actually, the column names are provided as a column in the `rdata` as derived from the `json` response:
+
+```{r}
+rdata$columns[1]
+```
+
+So, it would be good to use these names as the column names of our time series. Therefore, spliiting the character vector in three values by using the `,` as a character to split the original vector:
+
+```{r}
+colnames(boekhoute_pa_df) <- stringr::str_split(rdata$columns[1], pattern = ",")[[1]]
+head(boekhoute_pa_df)
+```
+
+As a result, we have our time series of pressure values measured in Boekhoute together with a quality code. For the reference, the VMM Quality Code Interpretation is as follows:
+
+| Code       | Quality   |
+| ---------- | --------- |
+| 10/110     | Excellent |
+| 30/100/130 | Good      |
+| 50/150     | Moderate  |
+| 70/170     | Poor      |
+| 80/180     | Estimated |
+| 90/190     | Suspect   |
+| 220        | Default   |
+| -1         | Missing   |
+
+We can now work with the data as usual, e.g. plot the time series:
+
+```{r}
+ggplot(data = boekhoute_pa_df, aes(x = Timestamp, y = Value)) +
+    geom_line() + 
+    ylab("hPa") + 
+    xlab("Boekhoute")
+```
+
+
+# Waterinfo specific functionalities
+
+The first time we have to find out how to retrieve the data from the `json` response takes a while and requires a number of steps (run `GET`, parse `json`, convert to `data.frame`, assign column names and convert data types). However, we do not want to recode all of this when we need the same kind of data ever again. Therefore, we will summarize some of the typical data requests as R functions. These functions can be re-used and will speed up the data request considerably the next time.
+
+## Recap
+
+Hence, downloading data is a matter of putting together the appropriate URL with the adequate parameters:
+
+```{r}
+station <- "023072043" # != timeseriesgroup_id
 format <- "json"
 period <- "P1D"
 returnfields <- c("Timestamp", "Value", "Quality Code")
@@ -31,13 +168,56 @@ metadata <- "true"
 r <- GET("http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS", 
          query = list(datasource = 0, type = "queryServices", 
                       service = "kisters", request = "getTimeseriesValues",
-                      ts_id = variable, format = format,
+                      ts_id = station, format = format,
                       period = period, metadata = metadata,
                       returnfields = as.character(paste(returnfields, 
                                                         collapse = ","))))
+r
 ```
 
+**Remark:** Here we do not use the timeseriesgroup_id (a kind of variable), but a station id, more specifically from `Oudenaarde Opwaarts/Bovenschelde` as well as another datasource.
+
+Retrieving the data itself, is a matter of interpreting the data into an object (mostly `data.frame`) that makes sense in R. For this specific case (howver similar to above:
+
 ```{r}
-data <- fromJSON(content(r))
+sdata <- fromJSON(content(r, "text"))
+df <- as.data.frame(sdata$data)
+df$X1 <- as.POSIXct(df$X1, format = "%Y-%m-%dT%H:%M:%S")
+df$X2 <- as.double(as.character(df$X2))
+df$X3 <- as.integer(as.character(df$X3))
+
+colnames(df) <- stringr::str_split(data$columns, pattern = ",")[[1]]
+print(sdata$station_name) 
+print(sdata$parametertype_name)
+print(sdata$ts_unitname)
 ```
+
+The result can be used to incorporate in any kind of analysis or exported as for example `csv`.
+
+```{r}
+ggplot(data = df, aes(x = Timestamp, y = Value)) +
+    geom_line() + 
+    ylab("Waterlevel (m)") + 
+    xlab(sdata$station_name)
+    
+```
+
+## Pressure
+TODO
+
+
+## Discharges
+TODO
+
+## Air temperature
+TODO
+
+
+
+
+TODO: provide conversion from ID to text representation about quality
+
+
+**Remark:** More advanced API request handling, the `curl` package provides more advanced functionalities with respect to handling many and or large requests. A in-depth discussion is out of scope here, but the reader is referred to the `curl` package [documentation](https://cran.r-project.org/web/packages/curl/curl.pdf) and the [vignette](https://cran.r-project.org/web/packages/curl/vignettes/intro.html) for more information.
+
 

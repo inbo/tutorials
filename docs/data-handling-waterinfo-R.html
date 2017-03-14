@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Stijn Van Hoey" />
+
+<meta name="date" content="2017-03-10" />
+
+<title>Get time series data from waterinfo.be using the webservice</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">INBO tutorials</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software installation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">As administrator</li>
+    <li>
+      <a href="installation-R-admin.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-admin.html">RStudio</a>
+    </li>
+    <li>
+      <a href="installation-git-admin.html">git</a>
+    </li>
+    <li>
+      <a href="installation-rtools-admin.html">Rtools</a>
+    </li>
+    <li>
+      <a href="installation-latex-admin.html">LaTeX</a>
+    </li>
+    <li>
+      <a href="installation-pandoc-admin.html">Pandoc</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">As user</li>
+    <li>
+      <a href="installation-R-user.html">R</a>
+    </li>
+    <li>
+      <a href="installation-RStudio-user.html">RStudio</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Software development
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="development-styleguide-repos.html">Repository style guide</a>
+    </li>
+    <li>
+      <a href="development-styleguide-R.html">R style guide</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="data-handling-googlesheet-R.html">Read data from GoogleSheet</a>
+    </li>
+    <li>
+      <a href="data-handling-large-files-R.html">Reading and handling large data files in R</a>
+    </li>
+    <li>
+      <a href="data-handling-database-R.html">Read data from INBO databases (SQL Server) from R</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Get time series data from waterinfo.be using the webservice</h1>
+<h4 class="author"><em>Stijn Van Hoey</em></h4>
+<h4 class="date"><em>March 10, 2017</em></h4>
+
+</div>
+
+
+<div id="using-a-webservice-with-r" class="section level1">
+<h1>Using a webservice with R</h1>
+<div id="just-an-url-as-you-use-in-your-browser" class="section level2">
+<h2>Just an URL as you use in your browser</h2>
+<p>Using a webservice to download data is mainly a matter of providing the appropriate URL (address to a webpage). As an example, copy the following URL in your favorite browser (e.g. firefox, chrome,…) and check the page content:</p>
+<pre><code>http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&amp;type=queryServices&amp;service=kisters&amp;request=getTimeseriesValues&amp;timeseriesgroup_id=192918&amp;period=P3D&amp;format=html</code></pre>
+<p>If everything went fine, an HTML page with tabular data appeared. Do the same with the following URL:</p>
+<pre><code>http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&amp;type=queryServices&amp;service=kisters&amp;request=getTimeseriesValues&amp;timeseriesgroup_id=192918&amp;period=P3D&amp;format=json</code></pre>
+<p>Which results in the same data, but an alternative representation. The latter is called <a href="https://en.wikipedia.org/wiki/JSON"><code>json</code></a> and is a popular format to share data amongst web-services.</p>
+<p>**<a href="Tip:**" class="uri">Tip:**</a> When working in chrome, it could be worthwhile to install <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en">Json Formatter</a>, which provides a clean representation of a <code>json</code> output.</p>
+<p>As you wouold notice, the only difference in the URL is the change in <code>format=html</code> into <code>format=json</code>. Hence, by changing the <code>format</code> parameter, we tell waterinfo.be how we want the data to be represented.</p>
+<p><strong>Remark:</strong> The need for a different URL for both representations (<code>json</code> versus <code>html</code>) is a designer choice of <em>Waterinfo.be</em>. For a more in-depth discussion about this, check the <a href="https://ruben.verborgh.org/blog/2013/11/29/the-lie-of-the-api/">blog post of Ruben Verborgh</a>.</p>
+<p><code>format</code> is not the only parameter we can change. The available options (parameters) can vary from one webservice to another. Other parameters for this specific case are <code>period</code>, <code>datasource</code>, <code>request</code>, <code>timeseriesgroup_id</code>,… As you will notice, the URL to use is structured in two main section:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS</code>:the web address the web-service is active. It can be interpreted as the base URL to start from</p></li>
+<li><p><code>?parameter1=value1&amp;parameter2=value2&amp;...</code>: the combination of parameters and their chosen value, each time divided by the <code>&amp;</code> character.</p></li>
+</ol>
+</div>
+<div id="using-the-url-in-r-to-download-data" class="section level2">
+<h2>Using the URL in R to download data</h2>
+<p>Another example of a data request, based on a set of (try in your browser):</p>
+<pre><code>http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&amp;type=queryServices&amp;service=kisters&amp;request=getTimeseriesValues&amp;timeseriesgroup_id=192918&amp;format=json&amp;period=P3D&amp;returnfields=Timestamp,Value,Quality%20Code&amp;metadata=true</code></pre>
+<p>To do the same in R, packages already do exist that support the handling of a data request from a webservice and to properly handle <code>json</code> data representation:</p>
+<pre class="r"><code>library(&#39;httr&#39;)
+library(&#39;jsonlite&#39;)</code></pre>
+<p>So, instead of our browser, we can use the <code>GET</code> command from the <code>httr</code> package:</p>
+<pre class="r"><code>r &lt;- GET(&quot;http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&amp;type=queryServices&amp;service=kisters&amp;request=getTimeseriesValues&amp;timeseriesgroup_id=192918&amp;format=json&amp;period=P3D&amp;returnfields=Timestamp,Value,Quality%20Code&amp;metadata=true&quot;)
+r</code></pre>
+<pre><code>## Response [http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=1&amp;type=queryServices&amp;service=kisters&amp;request=getTimeseriesValues&amp;timeseriesgroup_id=192918&amp;format=json&amp;period=P3D&amp;returnfields=Timestamp,Value,Quality%20Code&amp;metadata=true]
+##   Date: 2017-03-14 20:50
+##   Status: 200
+##   Content-Type: application/json;charset=UTF-8
+##   Size: 92.2 kB</code></pre>
+<p>This does NOT result directly into a <code>data.frame</code> or similar representation. However, we already see we got a succesfull request, i.e. <code>Status: 200</code>. An overview of codes is given <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">here</a>. Furthermore, the content is provided as <code>json</code>.</p>
+</div>
+<div id="from-raw-download-to-r-objects" class="section level2">
+<h2>From raw download to R objects</h2>
+<p>To get the data out of the result is a matter of checking the structure of the returned <code>json</code> (cfr. test the result in your browser) and extract the useful information from the given structure. This will be different for each web-service. Luckily, the <code>httr</code> and <code>jsonlite</code> packages do provide functionalities to convert to something useful in R easier. For example, the <code>fromJSON</code> function tries to convert the <code>json</code></p>
+<pre class="r"><code>rdata &lt;- fromJSON(content(r, &quot;text&quot;))
+head(rdata[c(&quot;station_name&quot;, &quot;parametertype_name&quot;, &quot;ts_unitname&quot;, &quot;ts_unitsymbol&quot;, &quot;columns&quot;)])</code></pre>
+<pre><code>##              station_name parametertype_name ts_unitname ts_unitsymbol
+## 1            Boekhoute_ME                 Pa hectopascal           hPa
+## 2              Waregem_ME                 Pa hectopascal           hPa
+## 3           Liedekerke_ME                 Pa hectopascal           hPa
+## 4              Melsele_ME                 Pa hectopascal           hPa
+## 5 Niel-bij-St.-Truiden_ME                 Pa hectopascal           hPa
+## 6             Overpelt_ME                 Pa hectopascal           hPa
+##                        columns
+## 1 Timestamp,Value,Quality Code
+## 2 Timestamp,Value,Quality Code
+## 3 Timestamp,Value,Quality Code
+## 4 Timestamp,Value,Quality Code
+## 5 Timestamp,Value,Quality Code
+## 6 Timestamp,Value,Quality Code</code></pre>
+<p>We get a dataframe with information of eight individual stations (name, coordinates, variable type, unit, station). The last column, called <code>data</code>, contains for the given station and variable the corresponding time series. When looking into more detail in one of these <code>data.frame</code> elements, this looks as follows:</p>
+<pre class="r"><code>rdata$data[[1]][1:10,]</code></pre>
+<pre><code>##       [,1]                            [,2]     [,3] 
+##  [1,] &quot;2017-03-11T22:00:00.000+01:00&quot; &quot;1016.2&quot; &quot;130&quot;
+##  [2,] &quot;2017-03-11T22:15:00.000+01:00&quot; &quot;1016&quot;   &quot;130&quot;
+##  [3,] &quot;2017-03-11T22:30:00.000+01:00&quot; &quot;1015.9&quot; &quot;130&quot;
+##  [4,] &quot;2017-03-11T22:45:00.000+01:00&quot; &quot;1015.8&quot; &quot;130&quot;
+##  [5,] &quot;2017-03-11T23:00:00.000+01:00&quot; &quot;1015.8&quot; &quot;130&quot;
+##  [6,] &quot;2017-03-11T23:15:00.000+01:00&quot; &quot;1015.8&quot; &quot;130&quot;
+##  [7,] &quot;2017-03-11T23:30:00.000+01:00&quot; &quot;1015.7&quot; &quot;130&quot;
+##  [8,] &quot;2017-03-11T23:45:00.000+01:00&quot; &quot;1015.6&quot; &quot;130&quot;
+##  [9,] &quot;2017-03-12T00:00:00.000+01:00&quot; &quot;1015.4&quot; &quot;130&quot;
+## [10,] &quot;2017-03-12T00:15:00.000+01:00&quot; &quot;1015.3&quot; &quot;130&quot;</code></pre>
+<p>(<em>for convenience, ohly the first ten rows where printed</em>)</p>
+<p>This is not yet useful for analysis, as these are all string representations. It would be better to have the data for a specific station and variable as a <code>data.frame</code> as well. Let’s start with the data of the first row, i.e. station Boekhoute. We select that specific data from the parsed <code>data.frame</code>:</p>
+<pre class="r"><code>boekhoute_pa &lt;- rdata$data[[1]]
+boekhoute_pa[1:10,]</code></pre>
+<pre><code>##       [,1]                            [,2]     [,3] 
+##  [1,] &quot;2017-03-11T22:00:00.000+01:00&quot; &quot;1016.2&quot; &quot;130&quot;
+##  [2,] &quot;2017-03-11T22:15:00.000+01:00&quot; &quot;1016&quot;   &quot;130&quot;
+##  [3,] &quot;2017-03-11T22:30:00.000+01:00&quot; &quot;1015.9&quot; &quot;130&quot;
+##  [4,] &quot;2017-03-11T22:45:00.000+01:00&quot; &quot;1015.8&quot; &quot;130&quot;
+##  [5,] &quot;2017-03-11T23:00:00.000+01:00&quot; &quot;1015.8&quot; &quot;130&quot;
+##  [6,] &quot;2017-03-11T23:15:00.000+01:00&quot; &quot;1015.8&quot; &quot;130&quot;
+##  [7,] &quot;2017-03-11T23:30:00.000+01:00&quot; &quot;1015.7&quot; &quot;130&quot;
+##  [8,] &quot;2017-03-11T23:45:00.000+01:00&quot; &quot;1015.6&quot; &quot;130&quot;
+##  [9,] &quot;2017-03-12T00:00:00.000+01:00&quot; &quot;1015.4&quot; &quot;130&quot;
+## [10,] &quot;2017-03-12T00:15:00.000+01:00&quot; &quot;1015.3&quot; &quot;130&quot;</code></pre>
+<p>Now we can convert this character matrix into a <code>data.frame</code>:</p>
+<pre class="r"><code>boekhoute_pa_df &lt;- as.data.frame(boekhoute_pa, stringsAsFactors = FALSE)
+head(boekhoute_pa_df)</code></pre>
+<pre><code>##                              V1     V2  V3
+## 1 2017-03-11T22:00:00.000+01:00 1016.2 130
+## 2 2017-03-11T22:15:00.000+01:00   1016 130
+## 3 2017-03-11T22:30:00.000+01:00 1015.9 130
+## 4 2017-03-11T22:45:00.000+01:00 1015.8 130
+## 5 2017-03-11T23:00:00.000+01:00 1015.8 130
+## 6 2017-03-11T23:15:00.000+01:00 1015.8 130</code></pre>
+<p>This works, but when checking how R interpreted the individual</p>
+<pre class="r"><code>str(boekhoute_pa_df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    281 obs. of  3 variables:
+##  $ V1: chr  &quot;2017-03-11T22:00:00.000+01:00&quot; &quot;2017-03-11T22:15:00.000+01:00&quot; &quot;2017-03-11T22:30:00.000+01:00&quot; &quot;2017-03-11T22:45:00.000+01:00&quot; ...
+##  $ V2: chr  &quot;1016.2&quot; &quot;1016&quot; &quot;1015.9&quot; &quot;1015.8&quot; ...
+##  $ V3: chr  &quot;130&quot; &quot;130&quot; &quot;130&quot; &quot;130&quot; ...</code></pre>
+<p>All columns are characters, whereas we want the dates to be interpreted, as well as numeric types for the other columns. Converting the column data types for these types is as follows:</p>
+<pre class="r"><code>boekhoute_pa_df$V1 &lt;- as.POSIXct(boekhoute_pa_df$V1, 
+                                 format = &quot;%Y-%m-%dT%H:%M:%S&quot;) # DATE
+boekhoute_pa_df$V2 &lt;- as.double(as.character(boekhoute_pa_df$V2)) # float
+boekhoute_pa_df$V3 &lt;- as.integer(as.character(boekhoute_pa_df$V3)) # integer
+str(df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    92 obs. of  3 variables:
+##  $ Timestamp   : POSIXct, format: &quot;2017-03-13 22:00:00&quot; &quot;2017-03-13 22:15:00&quot; ...
+##  $ Value       : num  10.1 10 10.1 10.1 10.1 ...
+##  $ Quality Code: int  200 200 200 200 200 200 200 200 200 200 ...</code></pre>
+<p>Finally, we would like to have the column names something more useful as the current attributed names:</p>
+<pre class="r"><code>colnames(boekhoute_pa_df)</code></pre>
+<pre><code>## [1] &quot;V1&quot; &quot;V2&quot; &quot;V3&quot;</code></pre>
+<p>Actually, the column names are provided as a column in the <code>rdata</code> as derived from the <code>json</code> response:</p>
+<pre class="r"><code>rdata$columns[1]</code></pre>
+<pre><code>## [1] &quot;Timestamp,Value,Quality Code&quot;</code></pre>
+<p>So, it would be good to use these names as the column names of our time series. Therefore, spliiting the character vector in three values by using the <code>,</code> as a character to split the original vector:</p>
+<pre class="r"><code>colnames(boekhoute_pa_df) &lt;- stringr::str_split(rdata$columns[1], pattern = &quot;,&quot;)[[1]]
+head(boekhoute_pa_df)</code></pre>
+<pre><code>##             Timestamp  Value Quality Code
+## 1 2017-03-11 22:00:00 1016.2          130
+## 2 2017-03-11 22:15:00 1016.0          130
+## 3 2017-03-11 22:30:00 1015.9          130
+## 4 2017-03-11 22:45:00 1015.8          130
+## 5 2017-03-11 23:00:00 1015.8          130
+## 6 2017-03-11 23:15:00 1015.8          130</code></pre>
+<p>As a result, we have our time series of pressure values measured in Boekhoute together with a quality code. For the reference, the VMM Quality Code Interpretation is as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Quality</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10/110</td>
+<td>Excellent</td>
+</tr>
+<tr class="even">
+<td>30/100/130</td>
+<td>Good</td>
+</tr>
+<tr class="odd">
+<td>50/150</td>
+<td>Moderate</td>
+</tr>
+<tr class="even">
+<td>70/170</td>
+<td>Poor</td>
+</tr>
+<tr class="odd">
+<td>80/180</td>
+<td>Estimated</td>
+</tr>
+<tr class="even">
+<td>90/190</td>
+<td>Suspect</td>
+</tr>
+<tr class="odd">
+<td>220</td>
+<td>Default</td>
+</tr>
+<tr class="even">
+<td>-1</td>
+<td>Missing</td>
+</tr>
+</tbody>
+</table>
+<p>We can now work with the data as usual, e.g. plot the time series:</p>
+<pre class="r"><code>ggplot(data = boekhoute_pa_df, aes(x = Timestamp, y = Value)) +
+    geom_line() + 
+    ylab(&quot;hPa&quot;) + 
+    xlab(&quot;Boekhoute&quot;)</code></pre>
+<p><img src="data-handling-waterinfo-R_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+</div>
+<div id="waterinfo-specific-functionalities" class="section level1">
+<h1>Waterinfo specific functionalities</h1>
+<p>The first time we have to find out how to retrieve the data from the <code>json</code> response takes a while and requires a number of steps (run <code>GET</code>, parse <code>json</code>, convert to <code>data.frame</code>, assign column names and convert data types). However, we do not want to recode all of this when we need the same kind of data ever again. Therefore, we will summarize some of the typical data requests as R functions. These functions can be re-used and will speed up the data request considerably the next time.</p>
+<div id="recap" class="section level2">
+<h2>Recap</h2>
+<p>Hence, downloading data is a matter of putting together the appropriate URL with the adequate parameters:</p>
+<pre class="r"><code>station &lt;- &quot;023072043&quot; # != timeseriesgroup_id
+format &lt;- &quot;json&quot;
+period &lt;- &quot;P1D&quot;
+returnfields &lt;- c(&quot;Timestamp&quot;, &quot;Value&quot;, &quot;Quality Code&quot;)
+metadata &lt;- &quot;true&quot;
+
+r &lt;- GET(&quot;http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS&quot;, 
+         query = list(datasource = 0, type = &quot;queryServices&quot;, 
+                      service = &quot;kisters&quot;, request = &quot;getTimeseriesValues&quot;,
+                      ts_id = station, format = format,
+                      period = period, metadata = metadata,
+                      returnfields = as.character(paste(returnfields, 
+                                                        collapse = &quot;,&quot;))))
+r</code></pre>
+<pre><code>## Response [http://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?datasource=0&amp;type=queryServices&amp;service=kisters&amp;request=getTimeseriesValues&amp;ts_id=023072043&amp;format=json&amp;period=P1D&amp;metadata=true&amp;returnfields=Timestamp%2CValue%2CQuality%20Code]
+##   Date: 2017-03-14 20:50
+##   Status: 200
+##   Content-Type: application/json;charset=UTF-8
+##   Size: 4.59 kB</code></pre>
+<p><strong>Remark:</strong> Here we do not use the timeseriesgroup_id (a kind of variable), but a station id, more specifically from <code>Oudenaarde Opwaarts/Bovenschelde</code> as well as another datasource.</p>
+<p>Retrieving the data itself, is a matter of interpreting the data into an object (mostly <code>data.frame</code>) that makes sense in R. For this specific case (howver similar to above:</p>
+<pre class="r"><code>sdata &lt;- fromJSON(content(r, &quot;text&quot;))
+df &lt;- as.data.frame(sdata$data)
+df$X1 &lt;- as.POSIXct(df$X1, format = &quot;%Y-%m-%dT%H:%M:%S&quot;)
+df$X2 &lt;- as.double(as.character(df$X2))
+df$X3 &lt;- as.integer(as.character(df$X3))
+
+colnames(df) &lt;- stringr::str_split(data$columns, pattern = &quot;,&quot;)[[1]]
+print(sdata$station_name) </code></pre>
+<pre><code>## [1] &quot;Oudenaarde Opwaarts/Bovenschelde&quot;</code></pre>
+<pre class="r"><code>print(sdata$parametertype_name)</code></pre>
+<pre><code>## [1] &quot;h&quot;</code></pre>
+<pre class="r"><code>print(sdata$ts_unitname)</code></pre>
+<pre><code>## [1] &quot;m&quot;</code></pre>
+<p>The result can be used to incorporate in any kind of analysis or exported as for example <code>csv</code>.</p>
+<pre class="r"><code>ggplot(data = df, aes(x = Timestamp, y = Value)) +
+    geom_line() + 
+    ylab(&quot;Waterlevel (m)&quot;) + 
+    xlab(sdata$station_name)</code></pre>
+<p><img src="data-handling-waterinfo-R_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="pressure" class="section level2">
+<h2>Pressure</h2>
+<p>TODO</p>
+</div>
+<div id="discharges" class="section level2">
+<h2>Discharges</h2>
+<p>TODO</p>
+</div>
+<div id="air-temperature" class="section level2">
+<h2>Air temperature</h2>
+<p>TODO</p>
+<p>TODO: provide conversion from ID to text representation about quality</p>
+<p><strong>Remark:</strong> More advanced API request handling, the <code>curl</code> package provides more advanced functionalities with respect to handling many and or large requests. A in-depth discussion is out of scope here, but the reader is referred to the <code>curl</code> package <a href="https://cran.r-project.org/web/packages/curl/curl.pdf">documentation</a> and the <a href="https://cran.r-project.org/web/packages/curl/vignettes/intro.html">vignette</a> for more information.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
