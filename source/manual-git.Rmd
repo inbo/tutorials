@@ -117,9 +117,25 @@ Undo when already commit
 ---
 ## Experiment with changes
 
+* Create a branch (`git checkout -b myfeaturebranch`)
+* Get an overview of your branches `git branch`
+* `git add` a file to the repository
+* Go back to the status of the master (`git checkout master`)
+* Verify your local folder structure (where is the file?)
+* Go back to the status of the new branch (`git checkout myfeaturebranch`)
 
+---
+Merge branches
+* Go back to the status of the master (`git checkout master`)
+* `git merge myfeaturebranch` to the master branch 
+* Verify your local folder structure (where is the file?)
+* Delete the `myfeaturebranch` (`git branch -d myfeaturebranch`)
 
-* Restart experimenting from a previous commit: `git checkout -b old-state 0d1d7fc32`
+---
+A branch is a label to a commit
+* Restart experimenting from a previous commit: `git checkout -b oldstate 0d1d7fc32`
+* Backup this branch to GitHub (`git push origin oldstate`)
+
 ---
 
 # Working together
