@@ -11,6 +11,7 @@
 # Ignore tokens
 *.rds
 .httr-oauth
+token
 
 # ignore temporary download files
 2016-04-20-processed-logs*
