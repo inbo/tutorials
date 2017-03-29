@@ -55,21 +55,75 @@ If you prefer working on the command line...
 
 ## Make a commit
 
-...
+1. Open your favourite text editor
+2. Update the `README.md`
+3. Commit your changes
 
 ---
 
+![Local commit](manual-git/local-commit.png)
 
 ## Push your changes to backup your work
 
+* GitHub Desktop: click `Sync`
+* Command line: `git push origin master`
+* Go to your repo on GitHub to verify
+
 ---
+
+![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
+
+---
+
+## Create logical commits
+
+1. Make 2 unrelated changes to your `README.md` locally
+2. Create one commit for each change. For command line: `git add -p README.md`
+3. Do not push (yet)
+
+---
+
+![Logical commit 1](manual-git/logical-commit-1.png)
+
+---
+
+![Logical commit 2](manual-git/logical-commit-2.png)
 
 ## Create a conflict
 
-1. Adapt your `README.md` on GitHub
-2. Adapt your `README.md` locally
-3. `git push/pull` your local changes
-4. CONFLICT!?!
+1. Update your `README.md` on GitHub, on a line you also edited locally
+
+![Commit to create conflict](manual-git/commit-to-create-conflict.png)
+
+---
+
+## Conflict!
+
+1. Try to push your local changes
+
+![Conflict](manual-git/conflict.png)
+
+---
+
+## Keep calm and resolve conflict
+
+1. Open in text editor:
+
+        <<<<<<< HEAD
+        A simple analysis to visualize my favourite fruit colour.
+        =======
+        A simple analysis to discover my favourite fruit color.
+        >>>>>>> origin/master
+
+2. Choose what you want to keep:
+
+        A simple analysis to discover my favourite fruit colour.
+
+3. Commit and push
+
+---
+
+*Unreviewed below*
 
 ---
 ## The story of your project
