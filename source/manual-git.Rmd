@@ -153,42 +153,42 @@ git pull origin master
 
 ---
 
-## Add file
+## Add a file
 
-1. Add a `data.csv` for the data
-2. Remove this content from the `README.md`
+1. Add a `fruits.csv` file in a `/data` directory
+2. Link to this file the `README.md`
 
 ## Add a file: GitHub Desktop
 
-...
+![Add a file](manual-git/add-file.png)
 
 ---
 
 ## Add a file: command line
 
-1. `git add data.csv`
-2. `git commit -am "Add data file" data.csv`
+1. `git add data/fruits.csv`
+2. `git commit -am "Add data file" data/fruits.csv`
 3. `git push origin master`
 
 ---
 
 ## Undo or adapt last commit: GitHub Desktop
 
-...
+![Undo](manual-git/undo.png)
 
 ---
 
 ## Undo or adapt last commit: command line
 
-1. `git revert HEAD`
+`git revert HEAD`
 
-**Remark:** `git revert` can be applied to any commit, more in depth information about undoing of commits is given in LINK TO MD TODO
+**Tip**: `git revert` can be applied to any commit. See [this tutorial]() for more in depth information on undoing commits. TODO ADD LINK
 
 ---
 
 ## View history: GitHub Desktop
 
-...
+![View history](manual-git/view-history.png)
 
 ---
 
@@ -200,7 +200,7 @@ git pull origin master
 4. Check the local directory and files on your computer
 5. `git checkout master`
 
-**Linux user Tip:** Add an alias to your `.bash_aliases`:
+**Tip for Linux users:** Add an alias to your `.bash_aliases`:
 
 ```
 alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
@@ -208,43 +208,93 @@ alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Cres
 
 ---
 
+## Create a branch to experiment
 
+1. Create a branch
+2. Add a analysis file in a `/src` directory
+3. Commit
+4. Switch between branches
+
+## Create a branch to experiment: GitHub Desktop
+
+![View history](manual-git/create-branch.png)
 
 ---
-## Experiment with changes
 
-* Create a branch (`git checkout -b myfeaturebranch`)
-* Get an overview of your branches `git branch`
-* `git add` a file to the repository
+## Create a branch to experiment: GitHub Desktop
+
+![View history](manual-git/add-file-to-branch.png)
+
+## Create a branch to experiment: command line
+
+1. Create a branch: `git checkout -b analysis-script`
+2. Get an overview of your branches: `git branch`
+3. `git add` a file to the repository
+4. Go back to the status of the master: `git checkout master`
+5. Verify your local directory structure: where are your files?
+6. Go back to the status of the new branch: `git checkout myfeaturebranch`
+
+---
+
+## Create a pull request to include your work: GitHub Desktop
+
+![Create a pull request](manual-git/create-local-pr.png)
+
+---
+
+## Create a pull request to include your work: command line
+
+TODO: to update
+
 * Go back to the status of the master (`git checkout master`)
+* `git merge analysis-script` to the master branch 
 * Verify your local folder structure (where is the file?)
-* Go back to the status of the new branch (`git checkout myfeaturebranch`)
-
----
-Merge branches
-* Go back to the status of the master (`git checkout master`)
-* `git merge myfeaturebranch` to the master branch 
-* Verify your local folder structure (where is the file?)
-* Delete the `myfeaturebranch` (`git branch -d myfeaturebranch`)
+* Delete the `analysis-script` (`git branch -d analysis-script`)
 
 ---
 
-## Exclude files
+## Review a pull request
 
-Passwords and large files need to be excluded from the version control!
+![See pull request](manual-git/pr.png)
 
-* Go to master branch `git checkout master`
-* Create a new file `password.txt` with the words `SECRET`
-* `git status` and `git diff`
-* Adapt `.gitignore` to exclude the `password.txt` file
-* `git status` and `git diff`
-* `git commit` your adaptation to the `.gitignore` file
-* `git push` your changes to GitHub
-* Verify the `.gitignore` file on GitHub
+## Review a pull request
+
+1. Review
+2. If OK, merge pull request
+3. Delete branch
+
+## Exclude files: GitHub Desktop
+
+![Ignore file](manual-git/ignore-1.png)
+
+---
+
+## Exclude files: GitHub Desktop
+
+![Ignore file](manual-git/ignore-2.png)
+
+---
+
+## Exclude files: command line
+
+TODO: update
+
+1. Go to master branch `git checkout master`
+2. Create a new file `password.txt` with the words `SECRET`
+3. `git status` and `git diff`
+4. Adapt `.gitignore` to exclude the `password.txt` file
+5. `git status` and `git diff`
+6. `git commit` your adaptation to the `.gitignore` file
+7. `git push` your changes to GitHub
+8. Verify the `.gitignore` file on GitHub
 
 ---
 
 # Working together
+
+## Invite collaborators
+
+![Invite collaborator](manual-git/invite-collaborator.png)
 
 ## Teaming up
 * Team up with two or three persons
