@@ -1,5 +1,5 @@
 ---
-title: "Git handson session"
+title: "Git hands-on session"
 author: "Stijn Van Hoey, Peter Desmet"
 date: "March 29, 2017"
 output:
@@ -16,24 +16,56 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Personal workflow
+# Working on your own
 
 ---
-## Backup your work
-* Create your own repository online
-* Connect your local Git with Github
 
-```
-git config -- global user.name 'Your Name Here'
-git config -- global user.email 'email@example.com'
-```
-* `git clone` to your computer
+## Create a repo
+
+1. Go to [GitHub](https://github.com) and login
+2. Follow [this tutorial](https://help.github.com/articles/create-a-repo/) to create a repo
 
 ---
-* Adapt your `README.md` on Github
-* Adapt your `README.md` local
-* `git push/pull` your local changes
-* CONFLICT!?!
+
+![Create a fruit repository]()
+
+---
+
+## Clone a repo to work locally with GitHub Desktop
+
+If you prefer a visual interface to git...
+
+1. Install [GitHub Desktop](https://desktop.github.com/)
+2. [Configure git](https://help.github.com/desktop/guides/getting-started/configuring-git-for-github-desktop/)
+3. Follow [this tutorial](https://help.github.com/desktop/guides/contributing/cloning-a-repository-from-github-to-github-desktop/) to clone your repo
+
+## Clone a repo to work locally with the command line
+
+If you prefer working on the command line...
+
+1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+2. [Configure git](https://help.github.com/articles/set-up-git/)
+3. Follow [this tutorial](https://help.github.com/articles/cloning-a-repository/) to clone your repo
+
+---
+
+## Make a commit
+
+...
+
+---
+
+
+## Push your changes to backup your work
+
+---
+
+## Create a conflict
+
+1. Adapt your `README.md` on GitHub
+2. Adapt your `README.md` locally
+3. `git push/pull` your local changes
+4. CONFLICT!?!
 
 ---
 ## The story of your project
