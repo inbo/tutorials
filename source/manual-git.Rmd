@@ -52,12 +52,42 @@ git config -- global user.email 'email@example.com'
 * Backup - `git push` - your local work to Github
 
 ## Travel back in time
-* Check your git 
+* Explore your `git log`
+* Explore the `log` on Github and write down the HASH of your fist commit
 
+* **Linux user Tip:** Add an alias to your `.bash_aliases`:
+```
+alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+```
 
+---
+Exploration from history (READ-ONLY)
+* `git checkout` to your first commit
+* Check the local folder and files on your computer
+* `git checkout master` to your latest work again
+
+---
+Undo when not yet commit 
+* Change a value in your data file
+* Save the file
+* Undo this change `git checkout -- datafilename`
+
+---
+Undo when already commit
+* Change a value in any of your files
+* Save the file
+* `git commit` your adaptation
+* `git revert HEAD` (go back one commit)
+* Check the file again
+
+**Remark:** `git revert` can be applied to any commit, more in depth information about undoing of commits is given in LINK TO MD TODO
+
+---
 ## Experiment with changes
 
 
+
+* Restart experimenting from a previous commit: `git checkout -b old-state 0d1d7fc32`
 ---
 
 # Working together
