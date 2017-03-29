@@ -39,5 +39,17 @@ navbar:
           href: "data-handling-large-files-R.html"
         - text: "Read data from INBO databases (SQL Server) from R"
           href: "data-handling-database-R.html"
+    - text: "Git tutorials"
+      menu:
+        - text: "Git hands-on session"
+          href: "manual-git.html"
+        - text: "Git collaborative workflow for command line"
+          href: "manual-git-workflow.html"
+        - text: "Fix merge conflict with a pull request"
+          href: "manual-git-fix-conflict.html"
+        - text: "Undo commits with command line"
+          href: "manual-git-undo-commits.html"
+        - text: "Git without internet connection"
+          href: "manual-git-without-internet.html"
 exclude: ["LICENSE", "Rprofile.site"]
 output_dir: "../docs"

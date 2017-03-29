@@ -5,6 +5,8 @@ date: "March 29, 2017"
 output: html_document
 ---
 
+## Introduction
+
 You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
 
 First, check your history of commits to see which commits are the faulty ones.
@@ -23,6 +25,8 @@ a1e8fb5 Make some important changes to hello.py
 9773e52 Initial import
 ```
 
+## Git checkout
+
 The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches. In this part, only the first two configurations are addressed. Checking out a commit makes the entire working directory match that commit. This can be used to view an old state of your project without altering your current state in any way. Checking out a file lets you see an old version of that particular file, **leaving the rest of your working directory untouched**. (This will put you in a detached HEAD state.)
 
 ![](./manual-git-undo-commits/01.svg)
@@ -39,7 +43,7 @@ This makes your working directory match the exact state of the a1e8fb5 commit. Y
 git checkout master
 ```
 
-If you’re only interested in a single file, you can also use git checkout to fetch an old version of it. For example, if you only wanted to see the hello.py file from the old commit, you could use the following command:
+If you’re only interested in a single file, you can also use git checkout to fetch an old version of it. For example, if you only wanted to see the `hello.py` file from the old commit, you could use the following command:
 
 ```
 git checkout a1e8fb5 hello.py
@@ -55,7 +59,7 @@ This concludes the part on checking your previous commits. In the following part
 
 
 
-**git revert**
+## git revert
 
 The git revert command undoes a committed snapshot. But, instead of removing the commit from the project history, it figures out how to undo the changes introduced by the commit and appends a new commit with the resulting content. This prevents Git from losing history, which is important for the integrity of your revision history and for reliable collaboration.
 
@@ -101,7 +105,7 @@ This can be visualized as the following:
 Note that the 4th commit is still in the project history after the revert. Instead of deleting it, git revert added a new commit to undo its changes. As a result, the 3rd and 5th commits represent the exact same code base, and the 4th commit is still in our history just in case we want to go back to it down the road.
 
 
-**git reset**
+## git reset
 
 If git revert is a “safe” way to undo changes, you can think of git reset as the dangerous method. When you undo with git reset(and the commits are no longer referenced by any ref or the reflog), there is no way to retrieve the original copy—it is a permanent undo. Care must be taken when using this tool, as it’s one of the only Git commands that has the potential to lose your work.
 
@@ -159,11 +163,11 @@ As soon as you add new commits after the reset, Git will think that your local h
 
 The point is, make sure that you’re using git reset <commit> on a local experiment that went wrong—not on published changes. If you need to fix a public commit, the git revert command was designed specifically for this purpose.
 
-Examples:
+## Examples:
 
-*unstaging a file*
+### *unstaging a file*
 
-The git reset command is frequently encountered while preparing the staged snapshot. The next example assumes you have two files called hello.py and main.py that you’ve already added to the repository.
+The git reset command is frequently encountered while preparing the staged snapshot. The next example assumes you have two files called `hello.py` and `main.py` that you’ve already added to the repository.
 
 ```
 # Edit both hello.py and main.py
@@ -187,7 +191,7 @@ git commit -m "Edit main.py"
 
 As you can see, git reset helps you keep your commits highly-focused by letting you unstage changes that aren’t related to the next commit.
 
-*removing local commits*
+### *removing local commits*
 
 The next example shows a more advanced use case. It demonstrates what happens when you’ve been working on a new experiment for a while, but decide to completely throw it away after committing a few snapshots.
 
@@ -207,5 +211,9 @@ git commit -a -m "Continue my crazy feature"
 git reset --hard HEAD~2
 ```
 
-The git reset HEAD~2 command moves the current branch backward by two commits, effectively removing the two snapshots we just created from the project history. Remember that this kind of reset should only be used on unpublished commits. Never perform the above operation if you’ve already pushed your commits to a shared repository.
+The `git reset HEAD~2` command moves the current branch backward by two commits, effectively removing the two snapshots we just created from the project history. Remember that this kind of reset should only be used on unpublished commits. Never perform the above operation if you’ve already pushed your commits to a shared repository.
+
+## Usage statement
+
+The content of this Rmarkdown tutorial is a transformation from [this source](https://www.atlassian.com/git/tutorials/undoing-changes) and is licensed under a Creative Commons Attribution 2.5 Australia License.
 
