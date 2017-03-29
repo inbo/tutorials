@@ -4,23 +4,41 @@ author: "Stijn Van Hoey, Peter Desmet"
 date: "March 29, 2017"
 output:
   revealjs::revealjs_presentation:
-    theme: simple
+    theme: solarized
     highlight: zenburn
     transition: none
     center: true
-    fig_width: 7
-    fig_height: 6    
+    fig_caption: false
+    fig_width: 5
+    fig_height: 4
+    reveal_options:
+      slideNumber: true
+      previewLinks: true    
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+<style type="text/css">
+    .reveal section img { 
+        border:none; 
+        box-shadow:none; 
+        }
+    .reveal code {
+    	font-family: monospace;
+    	color: #c04384;
+        }
+    .reveal pre code {
+    	font-family: monospace;
+    	color: #1a1a1a;
+    	background: ##ececec;
+        }
+</style>
 
-# Working on your own
+
+
+## Working on your own {data-background=#c2c444}
 
 ---
 
-## Create a repo
+### Create a repo
 
 1. Go to [GitHub](https://github.com) and login
 2. Follow [this tutorial](https://help.github.com/articles/create-a-repo/) to create a repo
@@ -28,6 +46,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ---
 
 ![Create a repo](manual-git/create-a-repo.png)
+    
 
 ---
 
@@ -35,7 +54,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ---
 
-## Clone a repo to work locally: GitHub Desktop
+### Clone a repo to work locally: GitHub Desktop
 
 If you prefer a visual interface to git...
 
@@ -45,7 +64,7 @@ If you prefer a visual interface to git...
 
 ---
 
-## Clone a repo to work locally: command line
+### Clone a repo to work locally: command line
 
 If you prefer working on the command line...
 
@@ -53,9 +72,15 @@ If you prefer working on the command line...
 2. [Configure git](https://help.github.com/articles/set-up-git/)
 3. Follow [this tutorial](https://help.github.com/articles/cloning-a-repository/) to clone your repo
 
+__Tip__: [adapt git configuration](https://git-scm.com/docs/git-config.html#git-config-coreeditor) to use your favourite editor
+
+```
+git config --global core.editor vim
+```
+
 ---
 
-## Make a commit
+### Make a commit
 
 1. Open your favourite text editor
 2. Update the `README.md`
@@ -63,33 +88,44 @@ If you prefer working on the command line...
 
 ---
 
-## Make a commit: GitHub Desktop
+### Make a commit: GitHub Desktop
 
 ![Local commit](manual-git/local-commit.png)
 
 ---
 
-## Make a commit: command line
+### Make a commit: command line
 
 1. Check the differences: `git status` and `git diff`
-2. Commit your changes: `git commit`
+2. Commit your changes with `git commit`: 
+    * Write commit message in editor: 
+    ```
+    git commit README.md
+    ```
+    * Write commit message inline: 
+    ```
+    git commit -m 'Proper commit message README.md'
+    ```
 
 ---
 
-## Push your changes to backup your work
+### Push your changes to backup your work
 
 * GitHub Desktop: click `Sync`
-* Command line: `git push origin master`
+* Command line `git push`: 
+```
+git push origin master
+```
 
 ---
 
-## Go to your repo on GitHub to verify
+#### Go to your repo on GitHub to verify
 
 ![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
 
 ---
 
-## Create logical commits
+### Create logical commits
 
 1. Make 2 unrelated changes to your `README.md` locally
 2. Create one commit for each change.
@@ -97,31 +133,38 @@ If you prefer working on the command line...
 
 ---
 
-## Create logical commits: GitHub Desktop
+### Create logical commits: GitHub Desktop
 
 ![Logical commit 1](manual-git/logical-commit-1.png)
 
 ---
 
-## Create logical commits: GitHub Desktop
+### Create logical commits: GitHub Desktop
 
 ![Logical commit 2](manual-git/logical-commit-2.png)
 
 ---
 
-## Create logical commits: command line
+### Create logical commits: command line
 
-`git add -p README.md`
+```
+git add -p README.md
+```
 
-## Create a conflict
+![Logical commit cmd 1](manual-git/logical-commit-1-cmd.png)
 
-Update your `README.md` on GitHub, on a line you also edited locally
+---
+
+### Create a conflict
+
+Update your `README.md` on GitHub,<br/>
+on a line you also edited locally
 
 ![Commit to create conflict](manual-git/commit-to-create-conflict.png)
 
 ---
 
-## Conflict: GitHub Desktop
+### Conflict: GitHub Desktop
 
 Try to push your local changes
 
@@ -129,13 +172,17 @@ Try to push your local changes
 
 ---
 
-## Conflict: command line
+### Conflict: command line
 
 ```
 git pull origin master
 ```
 
-## Keep calm and resolve conflict
+![Conflict cmd](manual-git/conflict-cmd.png)
+
+---
+
+### Keep calm and resolve conflict
 
 1. Open `README.md` in text editor:
 
@@ -150,49 +197,77 @@ git pull origin master
         A simple analysis to discover my favourite fruit colour.
 
 3. Commit and push
+    * in command line: 
+        ```
+        git add <fixed files>
+        git commit
+        git push origin master
+        ```
 
 ---
 
-## Add a file
+### Resolve conflict: command line
+
+![Conflict resolve cmd](manual-git/resolve-conflict-cmd.png)
+
+---
+
+### Add a file
 
 1. Add a `fruits.csv` file in a `/data` directory
 2. Link to this file the `README.md`
 
-## Add a file: GitHub Desktop
+---
+
+### Add a file: GitHub Desktop
 
 ![Add a file](manual-git/add-file.png)
 
 ---
 
-## Add a file: command line
+### Add a file: command line
 
-1. `git add data/fruits.csv`
-2. `git commit -am "Add data file" data/fruits.csv`
-3. `git push origin master`
+`git commit -am "Mymessage"` <br/>
+takes all changes in a single commit
+
+```
+git add data/fruits.csv
+git commit -am "Add data file"
+git push origin master
+```
 
 ---
 
-## Undo or adapt last commit: GitHub Desktop
+### Undo or adapt last commit: GitHub Desktop
 
 ![Undo](manual-git/undo.png)
 
 ---
 
-## Undo or adapt last commit: command line
+### Undo or adapt last commit: command line
 
-`git revert HEAD`
+```
+git revert HEAD
+```
 
-**Tip**: `git revert` can be applied to any commit. See [this tutorial]() for more in depth information on undoing commits. TODO ADD LINK
+<br/><br/>
+<small>
+**Tip**: `git revert` can be applied for more functionality. <br/> See [this tutorial](https://inbo.github.io/tutorials/manual-git-undo-commits.html) for more in depth information on undoing commits. 
+
+**Tip**: `git checkout -- <file-name>` will undo changes <br/>to file since last commit (!no log of your changes)
+
+**Tip**: `git reset HEAD~` will unstage changes <br/>(similar to Github Desktop)
+</small>
 
 ---
 
-## View history: GitHub Desktop
+### View history: GitHub Desktop
 
 ![View history](manual-git/view-history.png)
 
 ---
 
-## View history: command line
+### View history: command line
 
 1. `git log`
 2. Copy a HASH
@@ -208,81 +283,125 @@ alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Cres
 
 ---
 
-## Create a branch to experiment
+### Create a branch to experiment
 
 1. Create a branch
-2. Add a analysis file in a `/src` directory
+2. Add an analysis file in a `/src` directory
 3. Commit
 4. Switch between branches
 
-## Create a branch to experiment: GitHub Desktop
+---
+
+### Create a branch to experiment: GitHub Desktop
 
 ![View history](manual-git/create-branch.png)
 
 ---
 
-## Create a branch to experiment: GitHub Desktop
+### Create a branch to experiment: GitHub Desktop
 
 ![View history](manual-git/add-file-to-branch.png)
 
-## Create a branch to experiment: command line
+---
 
-1. Create a branch: `git checkout -b analysis-script`
+### Create a branch to experiment: command line
+
+1. Create a branch by a checkout to new branch, `git checkout -b`: 
+    ```
+    git checkout -b analysis-script
+    ```
 2. Get an overview of your branches: `git branch`
 3. `git add` a file to the repository
-4. Go back to the status of the master: `git checkout master`
+4. Go back to the status of the master: 
+    ```
+    git checkout master
+    ```
 5. Verify your local directory structure: where are your files?
-6. Go back to the status of the new branch: `git checkout myfeaturebranch`
+6. Go back to the status of the new branch: 
+    ```
+    git checkout analysis-script
+    ```
 
 ---
 
-## Create a pull request to include your work: GitHub Desktop
+### Create a pull request to include your work: GitHub Desktop
 
 ![Create a pull request](manual-git/create-local-pr.png)
 
 ---
 
-## Create a pull request to include your work: command line
+### Create a pull request to include your work: command line
 
-TODO: to update
+```
+git push origin analysis-script
+```
 
-* Go back to the status of the master (`git checkout master`)
-* `git merge analysis-script` to the master branch 
-* Verify your local folder structure (where is the file?)
-* Delete the `analysis-script` (`git branch -d analysis-script`)
+![Github pull request note](manual-git/pull-request-self.png)
 
 ---
 
-## Review a pull request
+### Review a (your) pull request
 
 ![See pull request](manual-git/pr.png)
 
-## Review a pull request
+---
+
+### Review a pull request
 
 1. Review
 2. If OK, merge pull request
 3. Delete branch
 
-## Exclude files: GitHub Desktop
+---
+
+### Update local master after remote merge: command line
+
+```
+git fetch origin
+git checkout master
+git merge --ff-only origin/master
+git branch -d analysis-script
+```
+
+**Tip for Linux users:** Add an alias to your `.bash_aliases`:
+
+```
+ alias gplfm="git fetch origin; git checkout master; git merge --ff-only origin/master""
+```
+
+**Cfr. local merge**: `git checkout master` and `git merge analysis-script`
+
+---
+
+### Exclude files
+
+* in any programming language, some files are _derivatives_
+* sensitive information (passwords,...)
+* a folder with large data files that should not be in the history (and backuped elsewhere!)
+* a _temp/_ folder for just garbage you create/...
+
+`.gitignore` to the rescue!
+
+---
+
+### Exclude files: GitHub Desktop
 
 ![Ignore file](manual-git/ignore-1.png)
 
 ---
 
-## Exclude files: GitHub Desktop
+### Exclude files: GitHub Desktop
 
 ![Ignore file](manual-git/ignore-2.png)
 
 ---
 
-## Exclude files: command line
-
-TODO: update
+### Exclude files: command line
 
 1. Go to master branch `git checkout master`
 2. Create a new file `password.txt` with the words `SECRET`
 3. `git status` and `git diff`
-4. Adapt `.gitignore` to exclude the `password.txt` file
+4. Create a file `.gitignore` to exclude the `password.txt` file
 5. `git status` and `git diff`
 6. `git commit` your adaptation to the `.gitignore` file
 7. `git push` your changes to GitHub
@@ -290,56 +409,122 @@ TODO: update
 
 ---
 
-# Working together
+## Working together {data-background=#c2c444}
 
-## Invite collaborators
+---
 
-![Invite collaborator](manual-git/invite-collaborator.png)
+### Teaming up
 
-## Teaming up
 * Team up with two or three persons
 * Let one person invite the others, provide them with read/write access as explained in [this tutorial](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/)
 
-## Online collaboration
-* All raise an issue online
-* provide these issues with an appropriate label
+---
+
+### Invite collaborators
+
+![Invite collaborator](manual-git/invite-collaborator.png)
 
 ---
+
+### Invite collaborators
+
+![react to collaborator](manual-git/react-collaborator.png)
+
+---
+
+### Collaboration: issues
+
+* Raise an `issue` online
+* Provide issues with an appropriate label
+* Assign your colleague to the `issue`
+
+---
+
+### Collaboration: online adaptations
+
 * Make an adaptation to an online file
 * Propose a `pull request` and assign your collaborator
 * Merge the adaptation to the `master` branch
 
-## Working local - merging online
-
-* As collaborator, `git clone` the other repository to your local computer
-* Create each a new branch with a different name (`git checkout -b mybranchname`)
-* Adapt the content of a file
-* `git commit` your adaptation
-* `git push origin mybranchname` to the remote location
-* Go to GitHub and make a `pull request`
-* Revise eachother work and **mege online** when appropriate
-
 ---
-Update your local work
-* Locally, go to master branch `git checkout master`
-* Get the remote work `git fetch origin`
-* Update your local master `git merge --ff-only origin/master`
+
+### Collaboration: local adaptations
+
+**Working local - merging online**
+
+* As collaborator, `clone` the other repository to your local computer
+* Create a new `branch` with a different name
+* Adapt the content of a file
+* `commit` your adaptation
+* `push` your `branch` to the remote repository
+* Go to GitHub and make a `pull request`
+* Revise the work and `merge` online when appropriate
+* Update your local work
 * Check if all adaptations are represented in your local files
 
+**Tip**: All functionalities (Github Desktop or command line) are available in the previous sections
+
 ---
 
-## Release
+### Release
 
 We are satisfied about outcome analysis. A release can be useful...
+
 * ...for publications (DOI)
 * ...for code/software development
 * ...for course notes
 
 [This tutorial](https://help.github.com/articles/creating-releases/) explains how to create a release.
 
+---
 
+### Alias usage for command line
 
+As an example, give it your flavour:
 
+```
+alias gcl='git clone'
+
+alias gs='git status'
+alias gd='git diff --word-diff'
+
+alias ga='git add'
+alias gap='git add -p'
+alias gcm='git commit -v -m'
+alias gcam='git commit -am'
+
+alias gch='git checkout'
+alias gchb='git checkout -b'
+
+alias gfo='git fetch origin'
+
+alias gm='git merge'
+alias gpl='git pull'
+alias gps='git push'
+alias gplom='git pull origin master'
+alias gpsom='git push origin master'
+alias gplfm='git fetch origin; git checkout master; git merge --ff-only origin/master'
+
+alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+```
+---
+
+### Some more advice:
+
+* Commit often, make small commits
+* Don’t mix changes in 1 commit
+* Think about your commit messages
+* Keep your code clean, avoid huge one-liners
+* Use branches (!)
+* Don’t keep long-lived branches (form of technical debt)
+
+---
+
+**There’s no such thing, as a free lunch...**
+
+---
+
+Information combined at [INBO Tutorials website](https://inbo.github.io/tutorials/). <br/>You're welcome to provide issues, pull requests,...
 
 
 

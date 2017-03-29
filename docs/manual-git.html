@@ -13,7 +13,7 @@
 
 
 
-<link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+<link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/theme/solarized.css" id="theme">
 
 
   <!-- some tweaks to reveal css -->
@@ -455,88 +455,153 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h3 class="date">March 29, 2017</h3>
 </section>
 
-<section><section id="working-on-your-own" class="titleslide slide level1"><h1>Working on your own</h1></section><section id="create-a-repo" class="slide level2">
-<h1>Create a repo</h1>
+<section class="slide level2">
+
+<style type="text/css">
+    .reveal section img { 
+        border:none; 
+        box-shadow:none; 
+        }
+    .reveal code {
+        font-family: monospace;
+        color: #c04384;
+        }
+    .reveal pre code {
+        font-family: monospace;
+        color: #1a1a1a;
+        background: ##ececec;
+        }
+</style>
+</section>
+<section id="working-on-your-own" class="slide level2" data-background="#c2c444">
+<h1>Working on your own</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-repo">Create a repo</h3>
 <ol type="1">
 <li>Go to <a href="https://github.com">GitHub</a> and login</li>
 <li>Follow <a href="https://help.github.com/articles/create-a-repo/">this tutorial</a> to create a repo</li>
 </ol>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p><img src="manual-git/create-a-repo.png" alt="Create a repo" /></p>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p><img src="manual-git/create-repo-result.png" alt="Result of creating a repo" /></p>
-</section><section id="clone-a-repo-to-work-locally-github-desktop" class="slide level2">
-<h1>Clone a repo to work locally: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="clone-a-repo-to-work-locally-github-desktop">Clone a repo to work locally: GitHub Desktop</h3>
 <p>If you prefer a visual interface to git…</p>
 <ol type="1">
 <li>Install <a href="https://desktop.github.com/">GitHub Desktop</a></li>
 <li><a href="https://help.github.com/desktop/guides/getting-started/configuring-git-for-github-desktop/">Configure git</a></li>
 <li>Follow <a href="https://help.github.com/desktop/guides/contributing/cloning-a-repository-from-github-to-github-desktop/">this tutorial</a> to clone your repo</li>
 </ol>
-</section><section id="clone-a-repo-to-work-locally-command-line" class="slide level2">
-<h1>Clone a repo to work locally: command line</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="clone-a-repo-to-work-locally-command-line">Clone a repo to work locally: command line</h3>
 <p>If you prefer working on the command line…</p>
 <ol type="1">
 <li>Install <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a></li>
 <li><a href="https://help.github.com/articles/set-up-git/">Configure git</a></li>
 <li>Follow <a href="https://help.github.com/articles/cloning-a-repository/">this tutorial</a> to clone your repo</li>
 </ol>
-</section><section id="make-a-commit" class="slide level2">
-<h1>Make a commit</h1>
+<p><strong>Tip</strong>: <a href="https://git-scm.com/docs/git-config.html#git-config-coreeditor">adapt git configuration</a> to use your favourite editor</p>
+<pre><code>git config --global core.editor vim</code></pre>
+</section>
+<section class="slide level2">
+
+<h3 id="make-a-commit">Make a commit</h3>
 <ol type="1">
 <li>Open your favourite text editor</li>
 <li>Update the <code>README.md</code></li>
 <li>Commit your changes</li>
 </ol>
-</section><section id="make-a-commit-github-desktop" class="slide level2">
-<h1>Make a commit: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="make-a-commit-github-desktop">Make a commit: GitHub Desktop</h3>
 <p><img src="manual-git/local-commit.png" alt="Local commit" /></p>
-</section><section id="make-a-commit-command-line" class="slide level2">
-<h1>Make a commit: command line</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="make-a-commit-command-line">Make a commit: command line</h3>
 <ol type="1">
 <li>Check the differences: <code>git status</code> and <code>git diff</code></li>
-<li>Commit your changes: <code>git commit</code></li>
+<li>Commit your changes with <code>git commit</code>:
+<ul>
+<li><p>Write commit message in editor:</p>
+<pre><code>git commit README.md</code></pre></li>
+<li><p>Write commit message inline:</p>
+<pre><code>git commit -m &#39;Proper commit message README.md&#39;</code></pre></li>
+</ul></li>
 </ol>
-</section><section id="push-your-changes-to-backup-your-work" class="slide level2">
-<h1>Push your changes to backup your work</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="push-your-changes-to-backup-your-work">Push your changes to backup your work</h3>
 <ul>
 <li>GitHub Desktop: click <code>Sync</code></li>
-<li>Command line: <code>git push origin master</code></li>
+<li><p>Command line <code>git push</code>:</p>
+<pre><code>git push origin master</code></pre></li>
 </ul>
-</section><section id="go-to-your-repo-on-github-to-verify" class="slide level2">
-<h1>Go to your repo on GitHub to verify</h1>
+</section>
+<section class="slide level2">
+
+<h4 id="go-to-your-repo-on-github-to-verify">Go to your repo on GitHub to verify</h4>
 <p><img src="manual-git/local-commit-on-github.png" alt="Verify your commits on GitHub" /></p>
-</section><section id="create-logical-commits" class="slide level2">
-<h1>Create logical commits</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits">Create logical commits</h3>
 <ol type="1">
 <li>Make 2 unrelated changes to your <code>README.md</code> locally</li>
 <li>Create one commit for each change.</li>
 <li>Do not push (yet)</li>
 </ol>
-</section><section id="create-logical-commits-github-desktop" class="slide level2">
-<h1>Create logical commits: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits-github-desktop">Create logical commits: GitHub Desktop</h3>
 <p><img src="manual-git/logical-commit-1.png" alt="Logical commit 1" /></p>
-</section><section id="create-logical-commits-github-desktop-1" class="slide level2">
-<h1>Create logical commits: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits-github-desktop-1">Create logical commits: GitHub Desktop</h3>
 <p><img src="manual-git/logical-commit-2.png" alt="Logical commit 2" /></p>
-</section><section id="create-logical-commits-command-line" class="slide level2">
-<h1>Create logical commits: command line</h1>
-<p><code>git add -p README.md</code></p>
-</section><section id="create-a-conflict" class="slide level2">
-<h1>Create a conflict</h1>
-<p>Update your <code>README.md</code> on GitHub, on a line you also edited locally</p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits-command-line">Create logical commits: command line</h3>
+<pre><code>git add -p README.md</code></pre>
+<p><img src="manual-git/logical-commit-1-cmd.png" alt="Logical commit cmd 1" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-conflict">Create a conflict</h3>
+<p>Update your <code>README.md</code> on GitHub,<br/> on a line you also edited locally</p>
 <p><img src="manual-git/commit-to-create-conflict.png" alt="Commit to create conflict" /></p>
-</section><section id="conflict-github-desktop" class="slide level2">
-<h1>Conflict: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="conflict-github-desktop">Conflict: GitHub Desktop</h3>
 <p>Try to push your local changes</p>
 <p><img src="manual-git/conflict.png" alt="Conflict" /></p>
-</section><section id="conflict-command-line" class="slide level2">
-<h1>Conflict: command line</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="conflict-command-line">Conflict: command line</h3>
 <pre><code>git pull origin master</code></pre>
-</section><section id="keep-calm-and-resolve-conflict" class="slide level2">
-<h1>Keep calm and resolve conflict</h1>
+<p><img src="manual-git/conflict-cmd.png" alt="Conflict cmd" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="keep-calm-and-resolve-conflict">Keep calm and resolve conflict</h3>
 <ol type="1">
 <li><p>Open <code>README.md</code> in text editor:</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
@@ -546,36 +611,62 @@ A simple analysis to discover my favourite fruit color.
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/master</code></pre></li>
 <li><p>Choose what you want to keep:</p>
 <pre><code>A simple analysis to discover my favourite fruit colour.</code></pre></li>
-<li><p>Commit and push</p></li>
+<li>Commit and push
+<ul>
+<li><p>in command line:</p>
+<pre><code>git add &lt;fixed files&gt;
+git commit
+git push origin master</code></pre></li>
+</ul></li>
 </ol>
-</section><section id="add-a-file" class="slide level2">
-<h1>Add a file</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="resolve-conflict-command-line">Resolve conflict: command line</h3>
+<p><img src="manual-git/resolve-conflict-cmd.png" alt="Conflict resolve cmd" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="add-a-file">Add a file</h3>
 <ol type="1">
 <li>Add a <code>fruits.csv</code> file in a <code>/data</code> directory</li>
 <li>Link to this file the <code>README.md</code></li>
 </ol>
-</section><section id="add-a-file-github-desktop" class="slide level2">
-<h1>Add a file: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="add-a-file-github-desktop">Add a file: GitHub Desktop</h3>
 <p><img src="manual-git/add-file.png" alt="Add a file" /></p>
-</section><section id="add-a-file-command-line" class="slide level2">
-<h1>Add a file: command line</h1>
-<ol type="1">
-<li><code>git add data/fruits.csv</code></li>
-<li><code>git commit -am &quot;Add data file&quot; data/fruits.csv</code></li>
-<li><code>git push origin master</code></li>
-</ol>
-</section><section id="undo-or-adapt-last-commit-github-desktop" class="slide level2">
-<h1>Undo or adapt last commit: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="add-a-file-command-line">Add a file: command line</h3>
+<p><code>git commit -am &quot;Mymessage&quot;</code> <br/> takes all changes in a single commit</p>
+<pre><code>git add data/fruits.csv
+git commit -am &quot;Add data file&quot;
+git push origin master</code></pre>
+</section>
+<section class="slide level2">
+
+<h3 id="undo-or-adapt-last-commit-github-desktop">Undo or adapt last commit: GitHub Desktop</h3>
 <p><img src="manual-git/undo.png" alt="Undo" /></p>
-</section><section id="undo-or-adapt-last-commit-command-line" class="slide level2">
-<h1>Undo or adapt last commit: command line</h1>
-<p><code>git revert HEAD</code></p>
-<p><strong>Tip</strong>: <code>git revert</code> can be applied to any commit. See <a href="">this tutorial</a> for more in depth information on undoing commits. TODO ADD LINK</p>
-</section><section id="view-history-github-desktop" class="slide level2">
-<h1>View history: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="undo-or-adapt-last-commit-command-line">Undo or adapt last commit: command line</h3>
+<pre><code>git revert HEAD</code></pre>
+<p><br/><br/> <small> <strong>Tip</strong>: <code>git revert</code> can be applied for more functionality. <br/> See <a href="https://inbo.github.io/tutorials/manual-git-undo-commits.html">this tutorial</a> for more in depth information on undoing commits.</p>
+<p><strong>Tip</strong>: <code>git checkout -- &lt;file-name&gt;</code> will undo changes <br/>to file since last commit (!no log of your changes)</p>
+<p><strong>Tip</strong>: <code>git reset HEAD~</code> will unstage changes <br/>(similar to Github Desktop) </small></p>
+</section>
+<section class="slide level2">
+
+<h3 id="view-history-github-desktop">View history: GitHub Desktop</h3>
 <p><img src="manual-git/view-history.png" alt="View history" /></p>
-</section><section id="view-history-command-line" class="slide level2">
-<h1>View history: command line</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="view-history-command-line">View history: command line</h3>
 <ol type="1">
 <li><code>git log</code></li>
 <li>Copy a HASH</li>
@@ -585,95 +676,228 @@ A simple analysis to discover my favourite fruit color.
 </ol>
 <p><strong>Tip for Linux users:</strong> Add an alias to your <code>.bash_aliases</code>:</p>
 <pre><code>alias glog=&quot;git log --graph --pretty=format:&#39;%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)&lt;%an&gt; %C(cyan)(%cr)%Creset&#39; --abbrev-commit --date=relative&quot;</code></pre>
-</section><section id="create-a-branch-to-experiment" class="slide level2">
-<h1>Create a branch to experiment</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-branch-to-experiment">Create a branch to experiment</h3>
 <ol type="1">
 <li>Create a branch</li>
-<li>Add a analysis file in a <code>/src</code> directory</li>
+<li>Add an analysis file in a <code>/src</code> directory</li>
 <li>Commit</li>
 <li>Switch between branches</li>
 </ol>
-</section><section id="create-a-branch-to-experiment-github-desktop" class="slide level2">
-<h1>Create a branch to experiment: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-branch-to-experiment-github-desktop">Create a branch to experiment: GitHub Desktop</h3>
 <p><img src="manual-git/create-branch.png" alt="View history" /></p>
-</section><section id="create-a-branch-to-experiment-github-desktop-1" class="slide level2">
-<h1>Create a branch to experiment: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-branch-to-experiment-github-desktop-1">Create a branch to experiment: GitHub Desktop</h3>
 <p><img src="manual-git/add-file-to-branch.png" alt="View history" /></p>
-</section><section id="create-a-branch-to-experiment-command-line" class="slide level2">
-<h1>Create a branch to experiment: command line</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-branch-to-experiment-command-line">Create a branch to experiment: command line</h3>
 <ol type="1">
-<li>Create a branch: <code>git checkout -b analysis-script</code></li>
+<li><p>Create a branch by a checkout to new branch, <code>git checkout -b</code>:</p>
+<pre><code>git checkout -b analysis-script</code></pre></li>
 <li>Get an overview of your branches: <code>git branch</code></li>
 <li><code>git add</code> a file to the repository</li>
-<li>Go back to the status of the master: <code>git checkout master</code></li>
+<li><p>Go back to the status of the master:</p>
+<pre><code>git checkout master</code></pre></li>
 <li>Verify your local directory structure: where are your files?</li>
-<li>Go back to the status of the new branch: <code>git checkout myfeaturebranch</code></li>
+<li><p>Go back to the status of the new branch:</p>
+<pre><code>git checkout analysis-script</code></pre></li>
 </ol>
-</section><section id="create-a-pull-request-to-include-your-work-github-desktop" class="slide level2">
-<h1>Create a pull request to include your work: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-pull-request-to-include-your-work-github-desktop">Create a pull request to include your work: GitHub Desktop</h3>
 <p><img src="manual-git/create-local-pr.png" alt="Create a pull request" /></p>
-</section><section id="create-a-pull-request-to-include-your-work-command-line" class="slide level2">
-<h1>Create a pull request to include your work: command line</h1>
-<p>TODO: to update</p>
-<ul>
-<li>Go back to the status of the master (<code>git checkout master</code>)</li>
-<li><code>git merge analysis-script</code> to the master branch</li>
-<li>Verify your local folder structure (where is the file?)</li>
-<li>Delete the <code>analysis-script</code> (<code>git branch -d analysis-script</code>)</li>
-</ul>
-</section><section id="review-a-pull-request" class="slide level2">
-<h1>Review a pull request</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-pull-request-to-include-your-work-command-line">Create a pull request to include your work: command line</h3>
+<pre><code>git push origin analysis-script</code></pre>
+<p><img src="manual-git/pull-request-self.png" alt="Github pull request note" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="review-a-your-pull-request">Review a (your) pull request</h3>
 <p><img src="manual-git/pr.png" alt="See pull request" /></p>
-</section><section id="review-a-pull-request-1" class="slide level2">
-<h1>Review a pull request</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="review-a-pull-request">Review a pull request</h3>
 <ol type="1">
 <li>Review</li>
 <li>If OK, merge pull request</li>
 <li>Delete branch</li>
 </ol>
-</section><section id="exclude-files-github-desktop" class="slide level2">
-<h1>Exclude files: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="update-local-master-after-remote-merge-command-line">Update local master after remote merge: command line</h3>
+<pre><code>git fetch origin
+git checkout master
+git merge --ff-only origin/master
+git branch -d analysis-script</code></pre>
+<p><strong>Tip for Linux users:</strong> Add an alias to your <code>.bash_aliases</code>:</p>
+<pre><code> alias gplfm=&quot;git fetch origin; git checkout master; git merge --ff-only origin/master&quot;&quot;</code></pre>
+<p><strong>Cfr. local merge</strong>: <code>git checkout master</code> and <code>git merge analysis-script</code></p>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files">Exclude files</h3>
+<ul>
+<li>in any programming language, some files are <em>derivatives</em></li>
+<li>sensitive information (passwords,…)</li>
+<li>a folder with large data files that should not be in the history (and backuped elsewhere!)</li>
+<li>a <em>temp/</em> folder for just garbage you create/…</li>
+</ul>
+<p><code>.gitignore</code> to the rescue!</p>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files-github-desktop">Exclude files: GitHub Desktop</h3>
 <p><img src="manual-git/ignore-1.png" alt="Ignore file" /></p>
-</section><section id="exclude-files-github-desktop-1" class="slide level2">
-<h1>Exclude files: GitHub Desktop</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files-github-desktop-1">Exclude files: GitHub Desktop</h3>
 <p><img src="manual-git/ignore-2.png" alt="Ignore file" /></p>
-</section><section id="exclude-files-command-line" class="slide level2">
-<h1>Exclude files: command line</h1>
-<p>TODO: update</p>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files-command-line">Exclude files: command line</h3>
 <ol type="1">
 <li>Go to master branch <code>git checkout master</code></li>
 <li>Create a new file <code>password.txt</code> with the words <code>SECRET</code></li>
 <li><code>git status</code> and <code>git diff</code></li>
-<li>Adapt <code>.gitignore</code> to exclude the <code>password.txt</code> file</li>
+<li>Create a file <code>.gitignore</code> to exclude the <code>password.txt</code> file</li>
 <li><code>git status</code> and <code>git diff</code></li>
 <li><code>git commit</code> your adaptation to the <code>.gitignore</code> file</li>
 <li><code>git push</code> your changes to GitHub</li>
 <li>Verify the <code>.gitignore</code> file on GitHub</li>
 </ol>
-</section><section class="slide level2">
+</section>
+<section id="working-together" class="slide level2" data-background="#c2c444">
+<h1>Working together</h1>
+</section>
+<section class="slide level2">
 
-</section></section>
-<section><section id="working-together" class="titleslide slide level1"><h1>Working together</h1></section><section id="invite-collaborators" class="slide level2">
-<h1>Invite collaborators</h1>
-<p><img src="manual-git/invite-collaborator.png" alt="Invite collaborator" /></p>
-</section><section id="teaming-up" class="slide level2">
-<h1>Teaming up</h1>
+<h3 id="teaming-up">Teaming up</h3>
 <ul>
 <li>Team up with two or three persons</li>
 <li>Let one person invite the others, provide them with read/write access as explained in <a href="https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/">this tutorial</a></li>
 </ul>
-</section><section id="online-collaboration" class="slide level2">
-<h1>Online collaboration</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="invite-collaborators">Invite collaborators</h3>
+<p><img src="manual-git/invite-collaborator.png" alt="Invite collaborator" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="invite-collaborators-1">Invite collaborators</h3>
+<p><img src="manual-git/react-collaborator.png" alt="react to collaborator" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="collaboration-issues">Collaboration: issues</h3>
 <ul>
-<li>All raise an issue online</li>
-<li>provide these issues with an appropriate label</li>
+<li>Raise an <code>issue</code> online</li>
+<li>Provide issues with an appropriate label</li>
+<li>Assign your colleague to the <code>issue</code></li>
 </ul>
-<p>Update your local work * Locally, go to master branch <code>git checkout master</code> * Get the remote work <code>git fetch origin</code> * Update your local master <code>git merge --ff-only origin/master</code> * Check if all adaptations are represented in your local files</p>
-</section><section id="release" class="slide level2">
-<h1>Release</h1>
-<p>We are satisfied about outcome analysis. A release can be useful… * …for publications (DOI) * …for code/software development * …for course notes</p>
+</section>
+<section class="slide level2">
+
+<h3 id="collaboration-online-adaptations">Collaboration: online adaptations</h3>
+<ul>
+<li>Make an adaptation to an online file</li>
+<li>Propose a <code>pull request</code> and assign your collaborator</li>
+<li>Merge the adaptation to the <code>master</code> branch</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="collaboration-local-adaptations">Collaboration: local adaptations</h3>
+<p><strong>Working local - merging online</strong></p>
+<ul>
+<li>As collaborator, <code>clone</code> the other repository to your local computer</li>
+<li>Create a new <code>branch</code> with a different name</li>
+<li>Adapt the content of a file</li>
+<li><code>commit</code> your adaptation</li>
+<li><code>push</code> your <code>branch</code> to the remote repository</li>
+<li>Go to GitHub and make a <code>pull request</code></li>
+<li>Revise the work and <code>merge</code> online when appropriate</li>
+<li>Update your local work</li>
+<li>Check if all adaptations are represented in your local files</li>
+</ul>
+<p><strong>Tip</strong>: All functionalities (Github Desktop or command line) are available in the previous sections</p>
+</section>
+<section class="slide level2">
+
+<h3 id="release">Release</h3>
+<p>We are satisfied about outcome analysis. A release can be useful…</p>
+<ul>
+<li>…for publications (DOI)</li>
+<li>…for code/software development</li>
+<li>…for course notes</li>
+</ul>
 <p><a href="https://help.github.com/articles/creating-releases/">This tutorial</a> explains how to create a release.</p>
-</section></section>
+</section>
+<section class="slide level2">
+
+<h3 id="alias-usage-for-command-line">Alias usage for command line</h3>
+<p>As an example, give it your flavour:</p>
+<pre><code>alias gcl=&#39;git clone&#39;
+
+alias gs=&#39;git status&#39;
+alias gd=&#39;git diff --word-diff&#39;
+
+alias ga=&#39;git add&#39;
+alias gap=&#39;git add -p&#39;
+alias gcm=&#39;git commit -v -m&#39;
+alias gcam=&#39;git commit -am&#39;
+
+alias gch=&#39;git checkout&#39;
+alias gchb=&#39;git checkout -b&#39;
+
+alias gfo=&#39;git fetch origin&#39;
+
+alias gm=&#39;git merge&#39;
+alias gpl=&#39;git pull&#39;
+alias gps=&#39;git push&#39;
+alias gplom=&#39;git pull origin master&#39;
+alias gpsom=&#39;git push origin master&#39;
+alias gplfm=&#39;git fetch origin; git checkout master; git merge --ff-only origin/master&#39;
+
+alias glog=&quot;git log --graph --pretty=format:&#39;%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)&lt;%an&gt; %C(cyan)(%cr)%Creset&#39; --abbrev-commit --date=relative&quot;</code></pre>
+</section>
+<section class="slide level2">
+
+<h3 id="some-more-advice">Some more advice:</h3>
+<ul>
+<li>Commit often, make small commits</li>
+<li>Don’t mix changes in 1 commit</li>
+<li>Think about your commit messages</li>
+<li>Keep your code clean, avoid huge one-liners</li>
+<li>Use branches (!)</li>
+<li>Don’t keep long-lived branches (form of technical debt)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><strong>There’s no such thing, as a free lunch…</strong></p>
+</section>
+<section class="slide level2">
+
+<p>Information combined at <a href="https://inbo.github.io/tutorials/">INBO Tutorials website</a>. <br/>You’re welcome to provide issues, pull requests,…</p>
+</section>
     </div>
   </div>
 
@@ -685,10 +909,14 @@ A simple analysis to discover my favourite fruit color.
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
         // Push each slide change to the browser history
         history: true,
         // Vertical centering of slides
         center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
         // Transition style
         transition: 'none', // none/fade/slide/convex/concave/zoom
         // Transition style for full page slide backgrounds
