@@ -137,6 +137,18 @@ A branch is a label to a commit
 * Backup this branch to GitHub (`git push origin oldstate`)
 
 ---
+## Exclude files
+
+Passwords and large files need to be excluded from the version control!
+
+* Go to master branch `git checkout master`
+* Create a new file `password.txt` with the words `SECRET`
+* `git status` and `git diff`
+* Adapt `.gitignore` to exclude the `password.txt` file
+* `git status` and `git diff`
+* `git commit` your adaptation to the `.gitignore` file
+* `git push` your changes to GitHub
+* Verify the `.gitignore` file on GitHub
 
 # Working together
 
