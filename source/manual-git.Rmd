@@ -154,15 +154,41 @@ Passwords and large files need to be excluded from the version control!
 * `git push` your changes to GitHub
 * Verify the `.gitignore` file on GitHub
 
+---
 # Working together
 
 ## Teaming up
-
+* Team up with two or three persons
+* Let one person invite the others, provide them with read/write access as explained in [this tutorial](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/)
 
 ## Online collaboration
+* All raise an issue online
+* provide these issues with an appropriate label
 
+---
+* Make an adaptation to an online file
+* Propose a `pull request` and assign your collaborator
+* Merge the adaptation to the `master` branch
 
 ## Working local - merging online
+
+* As collaborator, `git clone` the other repository to your local computer
+* Create each a new branch with a different name (`git checkout -b mybranchname`)
+* Adapt the content of a file
+* `git commit` your adaptation
+* `git push origin mybranchname` to the remote location
+* Go to GitHub and make a `pull request`
+* Revise eachother work and **mege online** when appropriate
+
+---
+Update your local work
+* Locally, go to master branch `git checkout master`
+* Get the remote work `git fetch origin`
+* Update your local master `git merge --ff-only origin/master`
+* Check if all adaptations are represented in your local files
+
+---
+
     
 
 ## Release
