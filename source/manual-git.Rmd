@@ -15,22 +15,22 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Introduction
-
-## Plan of the session
-
-## Git versus Github
-
-## Checkup installation and login
-
-
----
 # Personal workflow
 
+---
 ## The repository
+* Create your own repository online
+* Connect your local Git with Github
 
+```
+git config -- global user.name 'Your Name Here'
+git config -- global user.email 'email@example.com'
+```
+* `git clone` to your computer
 
+---
 ## The story of your project
+* 
 
 
 ## Backup your work
