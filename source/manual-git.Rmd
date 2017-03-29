@@ -35,7 +35,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ---
 
-## Clone a repo to work locally with GitHub Desktop
+## Clone a repo to work locally: GitHub Desktop
 
 If you prefer a visual interface to git...
 
@@ -43,7 +43,9 @@ If you prefer a visual interface to git...
 2. [Configure git](https://help.github.com/desktop/guides/getting-started/configuring-git-for-github-desktop/)
 3. Follow [this tutorial](https://help.github.com/desktop/guides/contributing/cloning-a-repository-from-github-to-github-desktop/) to clone your repo
 
-## Clone a repo to work locally with the command line
+---
+
+## Clone a repo to work locally: command line
 
 If you prefer working on the command line...
 
@@ -61,15 +63,27 @@ If you prefer working on the command line...
 
 ---
 
+## Make a commit: GitHub Desktop
+
 ![Local commit](manual-git/local-commit.png)
+
+---
+
+## Make a commit: command line
+
+1. Check the differences: `git status` and `git diff`
+2. Commit your changes: `git commit`
+
+---
 
 ## Push your changes to backup your work
 
 * GitHub Desktop: click `Sync`
 * Command line: `git push origin master`
-* Go to your repo on GitHub to verify
 
 ---
+
+## Go to your repo on GitHub to verify
 
 ![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
 
@@ -78,36 +92,52 @@ If you prefer working on the command line...
 ## Create logical commits
 
 1. Make 2 unrelated changes to your `README.md` locally
-2. Create one commit for each change. For command line: `git add -p README.md`
+2. Create one commit for each change.
 3. Do not push (yet)
 
 ---
+
+## Create logical commits: GitHub Desktop
 
 ![Logical commit 1](manual-git/logical-commit-1.png)
 
 ---
 
+## Create logical commits: GitHub Desktop
+
 ![Logical commit 2](manual-git/logical-commit-2.png)
+
+---
+
+## Create logical commits: command line
+
+`git add -p README.md`
 
 ## Create a conflict
 
-1. Update your `README.md` on GitHub, on a line you also edited locally
+Update your `README.md` on GitHub, on a line you also edited locally
 
 ![Commit to create conflict](manual-git/commit-to-create-conflict.png)
 
 ---
 
-## Conflict!
+## Conflict: GitHub Desktop
 
-1. Try to push your local changes
+Try to push your local changes
 
 ![Conflict](manual-git/conflict.png)
 
 ---
 
+## Conflict: command line
+
+```
+git pull origin master
+```
+
 ## Keep calm and resolve conflict
 
-1. Open in text editor:
+1. Open `README.md` in text editor:
 
         <<<<<<< HEAD
         A simple analysis to visualize my favourite fruit colour.
@@ -123,54 +153,62 @@ If you prefer working on the command line...
 
 ---
 
-*Unreviewed below*
+## Add file
+
+1. Add a `data.csv` for the data
+2. Remove this content from the `README.md`
+
+## Add a file: GitHub Desktop
+
+...
 
 ---
-## The story of your project
-* Add a new file to your repository
-* `git diff` and `git status` the changes
-* `git commit` the addition of the new file
-* Adapt your `README.md` again in two different sections
-* `git diff` and `git status` the changes
-* `git commit` these changes in two separate commits
+
+## Add a file: command line
+
+1. `git add data.csv`
+2. `git commit -am "Add data file" data.csv`
+3. `git push origin master`
 
 ---
-* Apparently, a small typo in the last commit
-* `git amend` the typo to your last commit
+
+## Undo or adapt last commit: GitHub Desktop
+
+...
 
 ---
-* Backup - `git push` - your local work to Github
 
-## Travel back in time
-* Explore your `git log`
-* Explore the `log` on Github and write down the HASH of your fist commit
+## Undo or adapt last commit: command line
 
-* **Linux user Tip:** Add an alias to your `.bash_aliases`:
+1. `git revert HEAD`
+
+**Remark:** `git revert` can be applied to any commit, more in depth information about undoing of commits is given in LINK TO MD TODO
+
+---
+
+## View history: GitHub Desktop
+
+...
+
+---
+
+## View history: command line
+
+1. `git log`
+2. Copy a HASH
+3. `git checkout HASH`
+4. Check the local directory and files on your computer
+5. `git checkout master`
+
+**Linux user Tip:** Add an alias to your `.bash_aliases`:
+
 ```
 alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 ```
 
 ---
-Exploration from history (READ-ONLY)
-* `git checkout` to your first commit
-* Check the local folder and files on your computer
-* `git checkout master` to your latest work again
 
----
-Undo when not yet commit 
-* Change a value in your data file
-* Save the file
-* Undo this change `git checkout -- datafilename`
 
----
-Undo when already commit
-* Change a value in any of your files
-* Save the file
-* `git commit` your adaptation
-* `git revert HEAD` (go back one commit)
-* Check the file again
-
-**Remark:** `git revert` can be applied to any commit, more in depth information about undoing of commits is given in LINK TO MD TODO
 
 ---
 ## Experiment with changes
@@ -190,11 +228,7 @@ Merge branches
 * Delete the `myfeaturebranch` (`git branch -d myfeaturebranch`)
 
 ---
-A branch is a label to a commit
-* Restart experimenting from a previous commit: `git checkout -b oldstate 0d1d7fc32`
-* Backup this branch to GitHub (`git push origin oldstate`)
 
----
 ## Exclude files
 
 Passwords and large files need to be excluded from the version control!
@@ -209,6 +243,7 @@ Passwords and large files need to be excluded from the version control!
 * Verify the `.gitignore` file on GitHub
 
 ---
+
 # Working together
 
 ## Teaming up
