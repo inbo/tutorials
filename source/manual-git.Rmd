@@ -6,6 +6,7 @@ output:
   revealjs::revealjs_presentation:
     theme: simple
     highlight: zenburn
+    transition: none
     center: true
     fig_width: 7
     fig_height: 6    
@@ -18,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # Personal workflow
 
 ---
-## The repository
+## Backup your work
 * Create your own repository online
 * Connect your local Git with Github
 
@@ -29,14 +30,29 @@ git config -- global user.email 'email@example.com'
 * `git clone` to your computer
 
 ---
+* Adapt your `README.md` on Github
+* Adapt your `README.md` local
+* `git push/pull` your local changes
+* CONFLICT!?!
+
+---
 ## The story of your project
-* 
+* Add a new file to your repository
+* `git diff` and `git status` the changes
+* `git commit` the addition of the new file
+* Adapt your `README.md` again in two different sections
+* `git diff` and `git status` the changes
+* `git commit` these changes in two separate commits
 
+---
+* Apparently, a small typo in the last commit
+* `git amend` the typo to your last commit
 
-## Backup your work
-
+---
+* Backup - `git push` - your local work to Github
 
 ## Travel back in time
+* Check your git 
 
 
 ## Experiment with changes
