@@ -47,7 +47,7 @@ output: html_document
         git commit -am "clear and understandable message about edits"
         ```
 
-### Edits on branch ready to be official
+### EDITS ON BRANCH READY
 * **STEP 4**: Pull request to add your changes to the current master. Choose your option:
     * **OPTION 2A CHOSEN**:
 
@@ -62,13 +62,14 @@ output: html_document
         ```
 
 * **STEP 5**: Code review!
-Go to your repo on Github.com and click the *create pull request* block. You and collaborators can make comments about the edits and review the code.
 
-If everything is ok, click the  *Merge pull request*, followed by *confirm merge*. (all online actions on GitHub). Delete the online branch, since obsolete. 
+    Go to your repo on Github.com and click the *create pull request* block. You and collaborators can make comments about the edits and review the code.
 
-You're work is now tracked and added to master! Congratulations.
+    If everything is ok, click the  *Merge pull request*, followed by *confirm merge*. (all online actions on GitHub). Delete the online branch, since obsolete. 
 
-If the code can't be merged automatically (provided by a message online), go to **STEP 6**.    
+    You're work is now tracked and added to master! Congratulations.
+
+    If the code can't be merged automatically (provided by a message online), go to **STEP 6**.    
     
 ### PULL REQUEST CANNOT BE MERGED BY GITHUB
 * **STEP 6**: master has changed and there are conflicts:  update your working branch with rebase
