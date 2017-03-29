@@ -249,6 +249,30 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Git tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="manual-git.html">Git hands-on session</a>
+    </li>
+    <li>
+      <a href="manual-git-workflow.html">Git collaborative workflow for command line</a>
+    </li>
+    <li>
+      <a href="manual-git-fix-conflict.html">Fix merge conflict with a pull request</a>
+    </li>
+    <li>
+      <a href="manual-git-undo-commits.html">Undo commits with command line</a>
+    </li>
+    <li>
+      <a href="manual-git-without-internet.html">Git without internet connection</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -588,6 +612,7 @@ table_name &lt;- &quot;birdtracks&quot;
 csv_to_sqlite(paste(&quot;./data-handling-large-files-R&quot;, csv.name, sep = &quot;/&quot;), 
               sqlite_file, table_name, pre_process_size = 1000, 
               chunk_size = 50000)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <p>Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the SQlite database is available to query, similar to the previous examples:</p>
 <pre class="r"><code>my_db &lt;- src_sqlite(&quot;example2.sqlite&quot;, create = FALSE)
 bird_tracking &lt;- tbl(my_db, &quot;birdtracks&quot;)

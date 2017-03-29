@@ -247,6 +247,30 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Git tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="manual-git.html">Git hands-on session</a>
+    </li>
+    <li>
+      <a href="manual-git-workflow.html">Git collaborative workflow for command line</a>
+    </li>
+    <li>
+      <a href="manual-git-fix-conflict.html">Fix merge conflict with a pull request</a>
+    </li>
+    <li>
+      <a href="manual-git-undo-commits.html">Undo commits with command line</a>
+    </li>
+    <li>
+      <a href="manual-git-without-internet.html">Git without internet connection</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -284,20 +308,20 @@ library(ggplot2)</code></pre>
 <p>Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in <a href="https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html">this manual</a>.</p>
 <p>Once registered, an overview of your available google sheets is provided as follows:</p>
 <pre class="r"><code>gs_ls()</code></pre>
-<pre><code>## # A tibble: 167 × 10
+<pre><code>## # A tibble: 188 × 10
 ##                 sheet_title        author  perm version
 ##                       &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;
-## 1  overzicht netwerken en … tessa.vansan…    rw     old
-## 2  LifeWatch budget en uit… peter.desmet…    rw     old
-## 3  Open biodiversity data …  peter.desmet    rw     old
-## 4  400+ Tools and innovati…    jeroensbox    rw     old
-## 5         Smartphone_uitrol      inbodata    rw     old
-## 6  DQ Tests-Assertions - P…      godfoder    rw     old
-## 7           IDC-budget 2017 daniel.duseu…    rw     old
-## 8  LifeWatch Monthly Activ…     info55896    rw     old
-## 9     Bird tracking devices  peter.desmet    rw     old
-## 10 2015.05.01 Contactgegev… thomas.timme…    rw     old
-## # ... with 157 more rows, and 6 more variables: updated &lt;dttm&gt;,
+## 1  overzicht SVZ migratie … joost.sturte…    rw     old
+## 2        Opleiding Git(hub) stijn.vanhoey    rw     old
+## 3       Opleiding scripting maarten.stev…    rw     old
+## 4  INBO A1 publications 20…  peter.desmet    rw     old
+## 5  400+ Tools and innovati…    jeroensbox    rw     old
+## 6       T0 sources datasets sander.devis…    rw     old
+## 7             INBO en lopen gerald.louet…    rw     old
+## 8                Statistics  peter.desmet    rw     old
+## 9  LifeWatch budget en uit… peter.desmet…    rw     old
+## 10 vergelijking fotodataba… tanja.milotic    rw     old
+## # ... with 178 more rows, and 6 more variables: updated &lt;dttm&gt;,
 ## #   sheet_key &lt;chr&gt;, ws_feed &lt;chr&gt;, alternate &lt;chr&gt;, self &lt;chr&gt;,
 ## #   alt_key &lt;chr&gt;</code></pre>
 </div>
@@ -318,23 +342,6 @@ library(ggplot2)</code></pre>
 <pre class="r"><code>breedingbirds &lt;- redlists %&gt;% 
         gs_read(ws = &quot;BreedingBirds&quot;)</code></pre>
 <pre><code>## Accessing worksheet titled &#39;BreedingBirds&#39;.</code></pre>
-<pre><code>## 
-Downloading: 1.3 kB     
-Downloading: 1.3 kB     
-Downloading: 2.2 kB     
-Downloading: 2.2 kB     
-Downloading: 3 kB     
-Downloading: 3 kB     
-Downloading: 4.1 kB     
-Downloading: 4.1 kB     
-Downloading: 4.6 kB     
-Downloading: 4.6 kB     
-Downloading: 5.6 kB     
-Downloading: 5.6 kB     
-Downloading: 5.6 kB     
-Downloading: 5.6 kB     
-Downloading: 5.6 kB     
-Downloading: 5.6 kB</code></pre>
 <pre><code>## No encoding supplied: defaulting to UTF-8.</code></pre>
 <p>Inspecting the data of the sheet:</p>
 <pre class="r"><code>class(breedingbirds)</code></pre>
