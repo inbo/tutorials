@@ -273,12 +273,6 @@ git revert HEAD
 4. Check the local directory and files on your computer
 5. `git checkout master`
 
-**Tip for Linux users:** Add an alias to your `.bash_aliases`:
-
-```
-alias glog="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
-```
-
 ---
 
 ### Create a branch to experiment
@@ -359,12 +353,6 @@ git fetch origin
 git checkout master
 git merge --ff-only origin/master
 git branch -d analysis-script
-```
-
-**Tip for Linux users:** Add an alias to your `.bash_aliases`:
-
-```
- alias gplfm="git fetch origin; git checkout master; git merge --ff-only origin/master""
 ```
 
 **Cfr. local merge**: `git checkout master` and `git merge analysis-script`

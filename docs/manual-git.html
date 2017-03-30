@@ -512,7 +512,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Follow <a href="https://help.github.com/articles/cloning-a-repository/">this tutorial</a> to clone your repo</li>
 </ol>
 <p><strong>Tip</strong>: <a href="https://git-scm.com/docs/git-config.html#git-config-coreeditor">adapt git configuration</a> to use your favourite editor</p>
-<pre><code>git config --global core.editor vim</code></pre>
+<pre><code>git config --global core.editor gedit</code></pre>
 </section>
 <section class="slide level2">
 
@@ -553,7 +553,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section class="slide level2">
 
-<h4 id="go-to-your-repo-on-github-to-verify">Go to your repo on GitHub to verify</h4>
+<h3 id="go-to-your-repo-on-github-to-verify">Go to your repo on GitHub to verify</h3>
 <p><img src="manual-git/local-commit-on-github.png" alt="Verify your commits on GitHub" /></p>
 </section>
 <section class="slide level2">
@@ -611,13 +611,10 @@ A simple analysis to discover my favourite fruit color.
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/master</code></pre></li>
 <li><p>Choose what you want to keep:</p>
 <pre><code>A simple analysis to discover my favourite fruit colour.</code></pre></li>
-<li>Commit and push
-<ul>
-<li><p>in command line:</p>
+<li><p>Commit and push</p>
 <pre><code>git add &lt;fixed files&gt;
 git commit
 git push origin master</code></pre></li>
-</ul></li>
 </ol>
 </section>
 <section class="slide level2">
@@ -630,7 +627,7 @@ git push origin master</code></pre></li>
 <h3 id="add-a-file">Add a file</h3>
 <ol type="1">
 <li>Add a <code>fruits.csv</code> file in a <code>/data</code> directory</li>
-<li>Link to this file the <code>README.md</code></li>
+<li>Link to this file in the <code>README.md</code></li>
 </ol>
 </section>
 <section class="slide level2">
@@ -641,7 +638,7 @@ git push origin master</code></pre></li>
 <section class="slide level2">
 
 <h3 id="add-a-file-command-line">Add a file: command line</h3>
-<p><code>git commit -am &quot;Mymessage&quot;</code> <br/> takes all changes in a single commit</p>
+<p><code>git commit -am &quot;My message&quot;</code> <br/> takes all changes in a single commit</p>
 <pre><code>git add data/fruits.csv
 git commit -am &quot;Add data file&quot;
 git push origin master</code></pre>
@@ -674,8 +671,6 @@ git push origin master</code></pre>
 <li>Check the local directory and files on your computer</li>
 <li><code>git checkout master</code></li>
 </ol>
-<p><strong>Tip for Linux users:</strong> Add an alias to your <code>.bash_aliases</code>:</p>
-<pre><code>alias glog=&quot;git log --graph --pretty=format:&#39;%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)&lt;%an&gt; %C(cyan)(%cr)%Creset&#39; --abbrev-commit --date=relative&quot;</code></pre>
 </section>
 <section class="slide level2">
 
@@ -725,12 +720,12 @@ git push origin master</code></pre>
 </section>
 <section class="slide level2">
 
-<h3 id="review-a-your-pull-request">Review a (your) pull request</h3>
+<h3 id="review-your-pull-request">Review your pull request</h3>
 <p><img src="manual-git/pr.png" alt="See pull request" /></p>
 </section>
 <section class="slide level2">
 
-<h3 id="review-a-pull-request">Review a pull request</h3>
+<h3 id="review-your-pull-request-1">Review your pull request</h3>
 <ol type="1">
 <li>Review</li>
 <li>If OK, merge pull request</li>
@@ -744,8 +739,6 @@ git push origin master</code></pre>
 git checkout master
 git merge --ff-only origin/master
 git branch -d analysis-script</code></pre>
-<p><strong>Tip for Linux users:</strong> Add an alias to your <code>.bash_aliases</code>:</p>
-<pre><code> alias gplfm=&quot;git fetch origin; git checkout master; git merge --ff-only origin/master&quot;&quot;</code></pre>
 <p><strong>Cfr. local merge</strong>: <code>git checkout master</code> and <code>git merge analysis-script</code></p>
 </section>
 <section class="slide level2">
@@ -808,9 +801,9 @@ git branch -d analysis-script</code></pre>
 
 <h3 id="collaboration-issues">Collaboration: issues</h3>
 <ul>
-<li>Raise an <code>issue</code> online</li>
+<li>Raise an <strong>issue</strong> online</li>
 <li>Provide issues with an appropriate label</li>
-<li>Assign your colleague to the <code>issue</code></li>
+<li>Assign your colleague to the issue</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -818,7 +811,7 @@ git branch -d analysis-script</code></pre>
 <h3 id="collaboration-online-adaptations">Collaboration: online adaptations</h3>
 <ul>
 <li>Make an adaptation to an online file</li>
-<li>Propose a <code>pull request</code> and assign your collaborator</li>
+<li>Propose a <strong>pull request</strong> and assign your collaborator</li>
 <li>Merge the adaptation to the <code>master</code> branch</li>
 </ul>
 </section>
@@ -842,13 +835,13 @@ git branch -d analysis-script</code></pre>
 <section class="slide level2">
 
 <h3 id="release">Release</h3>
-<p>We are satisfied about outcome analysis. A release can be useful…</p>
+<p>Once you are satisfied with the status of your analysis, it makes sense to create a release:</p>
 <ul>
-<li>…for publications (DOI)</li>
-<li>…for code/software development</li>
-<li>…for course notes</li>
+<li>For publications (DOI)</li>
+<li>For code/software development versions</li>
+<li>For course notes</li>
 </ul>
-<p><a href="https://help.github.com/articles/creating-releases/">This tutorial</a> explains how to create a release.</p>
+<p>Follow <a href="https://help.github.com/articles/creating-releases/">this tutorial</a> to create a release.</p>
 </section>
 <section class="slide level2">
 
