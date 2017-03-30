@@ -119,7 +119,7 @@ git push origin master
 
 ---
 
-#### Go to your repo on GitHub to verify
+### Go to your repo on GitHub to verify
 
 ![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
 
@@ -197,12 +197,10 @@ git pull origin master
         A simple analysis to discover my favourite fruit colour.
 
 3. Commit and push
-    * in command line: 
-        ```
+
         git add <fixed files>
         git commit
         git push origin master
-        ```
 
 ---
 
@@ -215,7 +213,7 @@ git pull origin master
 ### Add a file
 
 1. Add a `fruits.csv` file in a `/data` directory
-2. Link to this file the `README.md`
+2. Link to this file in the `README.md`
 
 ---
 
@@ -227,7 +225,7 @@ git pull origin master
 
 ### Add a file: command line
 
-`git commit -am "Mymessage"` <br/>
+`git commit -am "My message"` <br/>
 takes all changes in a single commit
 
 ```
@@ -340,13 +338,13 @@ git push origin analysis-script
 
 ---
 
-### Review a (your) pull request
+### Review your pull request
 
 ![See pull request](manual-git/pr.png)
 
 ---
 
-### Review a pull request
+### Review your pull request
 
 1. Review
 2. If OK, merge pull request
@@ -434,16 +432,16 @@ git branch -d analysis-script
 
 ### Collaboration: issues
 
-* Raise an `issue` online
+* Raise an **issue** online
 * Provide issues with an appropriate label
-* Assign your colleague to the `issue`
+* Assign your colleague to the issue
 
 ---
 
 ### Collaboration: online adaptations
 
 * Make an adaptation to an online file
-* Propose a `pull request` and assign your collaborator
+* Propose a **pull request** and assign your collaborator
 * Merge the adaptation to the `master` branch
 
 ---
@@ -468,13 +466,13 @@ git branch -d analysis-script
 
 ### Release
 
-We are satisfied about outcome analysis. A release can be useful...
+Once you are satisfied with the status of your analysis, it makes sense to create a release:
 
-* ...for publications (DOI)
-* ...for code/software development
-* ...for course notes
+* For publications (DOI)
+* For code/software development versions
+* For course notes
 
-[This tutorial](https://help.github.com/articles/creating-releases/) explains how to create a release.
+Follow [this tutorial](https://help.github.com/articles/creating-releases/) to create a release.
 
 ---
 
