@@ -75,7 +75,7 @@ If you prefer working on the command line...
 __Tip__: [adapt git configuration](https://git-scm.com/docs/git-config.html#git-config-coreeditor) to use your favourite editor
 
 ```
-git config --global core.editor vim
+git config --global core.editor gedit
 ```
 
 ---
