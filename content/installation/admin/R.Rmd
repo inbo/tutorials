@@ -82,5 +82,5 @@ sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 sudo gpg -a --export E084DAB9 | apt-key add -
 
 sudo apt-get update
-sudo apt-get install -y r-base r-base-dev
+sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh2-1-dev
 ```
