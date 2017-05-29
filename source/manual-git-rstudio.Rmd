@@ -85,6 +85,8 @@ The path should be something like: `C:/Program Files (x86)/Git/bin/git.exe`
 1. Go to `Tools > Shell` to open the Git Shell
 1. Tell Git your username and GitHub email (!)
 
+_TODO Stijn: how to set username and email?_
+
 ![RStudio setup git shell](manual-git/Rstudio-GitShell.png)
 
 ---
@@ -93,12 +95,12 @@ The path should be something like: `C:/Program Files (x86)/Git/bin/git.exe`
 
 1. Copy the repository HTTPS url
 
-![Copy the https link of a repo](manual-git/copy-repo-link.png)
+![Copy the https link of a repo](manual-git/copy-repo-link.png){width=30%}
 
 2. `File > New Project...`, select `Version Control`, choose `Git`
-3. Provide the repository HTTPS link, select the R workspace folder
+3. Provide the repository HTTPS link, select desired directory
 
-TODO-Thierry: screenshot (gif?)
+![Clone a repo in RStudio](manual-git/create-project-rstudio.png){width=30%}
 
 ---
 

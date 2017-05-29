@@ -512,7 +512,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section class="slide level2">
 
 <h3 id="git-for-rstudio-setup-2">Git for RStudio setup</h3>
-<p>Check Enable version control interface for RStudio projects. Set the path to the Git executable that you just installed. Open a shell, if you don’t know where Git is installed. Type <code>where git</code> and hit enter (Windows users). The path should be something like: <code>C:/Program Files (x86)/Git/bin/git.exe</code></p>
+<p>Check Enable version control interface for RStudio projects. Set the path to the Git executable that you just installed. Open a shell, if you don’t know where Git is installed. Type <code>where git</code> and hit enter (Windows users).</p>
+<p>The path should be something like: <code>C:/Program Files (x86)/Git/bin/git.exe</code></p>
 </section>
 <section class="slide level2">
 
@@ -521,6 +522,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Go to <code>Tools &gt; Shell</code> to open the Git Shell</li>
 <li>Tell Git your username and GitHub email (!)</li>
 </ol>
+<p><em>TODO Stijn: how to set username and email?</em></p>
 <p><img src="manual-git/Rstudio-GitShell.png" alt="RStudio setup git shell" /></p>
 </section>
 <section class="slide level2">
@@ -529,12 +531,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ol type="1">
 <li>Copy the repository HTTPS url</li>
 </ol>
-<p><img src="manual-git/copy-repo-link.png" alt="Copy the https link of a repo" /></p>
+<p><img src="manual-git/copy-repo-link.png" alt="Copy the https link of a repo" style="width:30.0%" /></p>
 <ol start="2" type="1">
 <li><code>File &gt; New Project...</code>, select <code>Version Control</code>, choose <code>Git</code></li>
-<li>Provide the repository HTTPS link, select the R workspace folder</li>
+<li>Provide the repository HTTPS link, select desired directory</li>
 </ol>
-<p>TODO-Thierry: screenshot (gif?)</p>
+<p><img src="manual-git/create-project-rstudio.png" alt="Clone a repo in RStudio" style="width:30.0%" /></p>
 </section>
 <section class="slide level2">
 
@@ -851,7 +853,7 @@ A simple analysis to discover my favourite fruit color.
     (function () {
       var script = document.createElement("script");
       script.type = "text/javascript";
-      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
       document.getElementsByTagName("head")[0].appendChild(script);
     })();
   </script>
