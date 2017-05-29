@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Stijn Van Hoey, Peter Desmet, Thierry Onkelinx" />
+  <title>Git hands-on session within RStudio</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/theme/solarized.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Git hands-on session within RStudio</h1>
+    <h2 class="author">Stijn Van Hoey, Peter Desmet, Thierry Onkelinx</h2>
+</section>
+
+<section class="slide level2">
+
+<style type="text/css">
+    .reveal section img { 
+        border:none; 
+        box-shadow:none; 
+        }
+    .reveal code {
+        font-family: monospace;
+        color: #c04384;
+        }
+    .reveal pre code {
+        font-family: monospace;
+        color: #1a1a1a;
+        background: ##ececec;
+        }
+</style>
+</section>
+<section id="working-on-your-own" class="slide level2" data-background="#c2c444">
+<h1>Working on your own</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-repo">Create a repo</h3>
+<ol type="1">
+<li>Go to <a href="https://github.com">GitHub</a> and login</li>
+<li>Follow <a href="https://help.github.com/articles/create-a-repo/">this tutorial</a> to create a repo</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<p><img src="manual-git/create-a-repo.png" alt="Create a repo" /></p>
+</section>
+<section class="slide level2">
+
+<p><img src="manual-git/create-repo-result.png" alt="Result of creating a repo" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="git-for-rstudio-setup">Git for RStudio setup</h3>
+<ol type="1">
+<li><a href="https://git-scm.com/downloads">Download</a> and install Git</li>
+<li>Install <a href="https://inbo.github.io/tutorials/installation-RStudio-admin.html">RStudio</a></li>
+<li>Open <a href="https://inbo.github.io/tutorials/installation-RStudio-user.html">RStudio</a></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="git-for-rstudio-setup-1">Git for RStudio setup</h3>
+<p>Tell RStudio where to find the Git installation.</p>
+<ol type="1">
+<li>Go to <code>Tools &gt; Global Options</code></li>
+<li>Click on <code>Git/SVN</code>.</li>
+</ol>
+<p><img src="manual-git/RStudio-setup-git.png" alt="RStudio setup for git" style="width:50.0%" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="git-for-rstudio-setup-2">Git for RStudio setup</h3>
+<p>Check Enable version control interface for RStudio projects. Set the path to the Git executable that you just installed. Open a shell, if you don’t know where Git is installed. Type <code>where git</code> and hit enter (Windows users). The path should be something like: <code>C:/Program Files (x86)/Git/bin/git.exe</code></p>
+</section>
+<section class="slide level2">
+
+<h3 id="git-for-rstudio-setup-git-configuration">Git for RStudio setup: git configuration</h3>
+<ol type="1">
+<li>Go to <code>Tools &gt; Shell</code> to open the Git Shell</li>
+<li>Tell Git your username and GitHub email (!)</li>
+</ol>
+<p><img src="manual-git/Rstudio-GitShell.png" alt="RStudio setup git shell" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="clone-a-repo-to-work-locally">Clone a repo to work locally</h3>
+<ol type="1">
+<li>Copy the repository HTTPS url</li>
+</ol>
+<p><img src="manual-git/copy-repo-link.png" alt="Copy the https link of a repo" /></p>
+<ol start="2" type="1">
+<li><code>File &gt; New Project...</code>, select <code>Version Control</code>, choose <code>Git</code></li>
+<li>Provide the repository HTTPS link, select the R workspace folder</li>
+</ol>
+<p>TODO-Thierry: screenshot (gif?)</p>
+</section>
+<section class="slide level2">
+
+<h3 id="make-a-commit">Make a commit</h3>
+<ol type="1">
+<li>Update the <code>README.md</code></li>
+<li>Commit your changes</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="make-a-commit-1">Make a commit</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/local-commit.png" alt="Local commit" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="first-time-to-push-your-changes">First time to push your changes</h3>
+<p>TODO-Thierry: check if this is correct</p>
+<ol type="1">
+<li>Go to <code>Tools &gt; Shell</code> to open the Git Shell</li>
+<li>Type <code>git push -u origin</code></li>
+</ol>
+<p>After this first time, you can just click <code>push</code></p>
+<p>TODO-Thierry: screenshot</p>
+</section>
+<section class="slide level2">
+
+<h3 id="go-to-your-repo-on-github-to-verify">Go to your repo on GitHub to verify</h3>
+<p><img src="manual-git/local-commit-on-github.png" alt="Verify your commits on GitHub" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits">Create logical commits</h3>
+<ol type="1">
+<li>Make 2 unrelated changes to your <code>README.md</code> locally</li>
+<li>Create one commit for each change.</li>
+<li>Do not push (yet)</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits-1">Create logical commits</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/logical-commit-1.png" alt="Logical commit 1" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-logical-commits-2">Create logical commits</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/logical-commit-2.png" alt="Logical commit 2" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-conflict">Create a conflict</h3>
+<p>Update your <code>README.md</code> on GitHub,<br/> on a line you also edited locally</p>
+<p><img src="manual-git/commit-to-create-conflict.png" alt="Commit to create conflict" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="conflict">Conflict!</h3>
+<p>Try to push (click <code>push</code>) your local changes</p>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/conflict.png" alt="Conflict" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="keep-calm-and-resolve-conflict">Keep calm and resolve conflict</h3>
+<p>TODO-Thierry: check if correct</p>
+<ol type="1">
+<li><p>Open <code>README.md</code> in RStudio:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+A simple analysis to visualize my favourite fruit colour.
+=======
+A simple analysis to discover my favourite fruit color.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/master</code></pre></li>
+<li><p>Choose what you want to keep:</p>
+<pre><code>A simple analysis to discover my favourite fruit colour.</code></pre></li>
+<li><p>Commit and click <code>push</code></p></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="add-a-file">Add a file</h3>
+<ol type="1">
+<li>Add a <code>fruits.csv</code> file in a <code>/data</code> directory</li>
+<li>Link to this file in the <code>README.md</code></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="add-a-file-1">Add a file</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/add-file.png" alt="Add a file" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="undo-or-adapt-last-commit">Undo or adapt last commit</h3>
+<p>TODO-Thierry: update fig to rstudio (or cmd-version?) <img src="manual-git/undo.png" alt="Undo" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="view-history">View history</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/view-history.png" alt="View history" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-branch-to-experiment">Create a branch to experiment</h3>
+<ol type="1">
+<li>Create a NEW branch</li>
+<li>Add an analysis file in a <code>/src</code> directory</li>
+<li>Commit</li>
+<li>Switch between branches</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-branch-to-experiment-command-line">Create a branch to experiment (command line)</h3>
+<ol type="1">
+<li><p>Create a branch by a checkout to new branch, <code>git checkout -b</code>:</p>
+<pre><code>git checkout -b analysis-script</code></pre></li>
+<li><p>Get an overview of your branches: <code>git branch</code></p></li>
+</ol>
+<p>TODO-Thierry: add screenshot of shell-version</p>
+</section>
+<section class="slide level2">
+
+<h3 id="effect-of-changing-switching-branches">Effect of changing switching branches</h3>
+<p>Add a file to the repository in a <code>src</code>-directory (see earlier)</p>
+<ol type="1">
+<li>Go back to the status of the <code>master</code> branch: TODO-thierry: add screenshot</li>
+<li>Verify your local directory structure: where are your files?</li>
+<li>Go back to the status of the new branch (e.g. <code>analysis-script</code>): TODO-thierry: add screenshot</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-pull-request-to-include-your-work">Create a pull request to include your work</h3>
+<ol type="1">
+<li>Click <code>push</code></li>
+<li>At <a href="https://github.com/">Github</a>, browse to you repo…</li>
+<li>Create a <code>pull request</code></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-pull-request-to-include-your-work-1">Create a pull request to include your work</h3>
+<p><img src="manual-git/pull-request-intro.png" alt="Check Github message pull request" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="create-a-pull-request-to-include-your-work-2">Create a pull request to include your work</h3>
+<p><img src="manual-git/pull-request_message.png" alt="Adapt Github message and start pull request" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="review-your-pull-request">Review your pull request</h3>
+<p><img src="manual-git/pr.png" alt="See pull request" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="review-your-pull-request-1">Review your pull request</h3>
+<ol type="1">
+<li>Review</li>
+<li>If OK, merge pull request</li>
+<li>Delete branch</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="include-your-accepted-work-to-local-master">Include your accepted work to local master</h3>
+<ol type="1">
+<li>Switch to <code>master</code> branch</li>
+<li>Click <code>pull</code>.</li>
+</ol>
+<p>TODO-Thierry: add screenshot</p>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files">Exclude files</h3>
+<ul>
+<li>in any programming language, some files are <em>derivatives</em></li>
+<li>sensitive information (passwords,…)</li>
+<li>a folder with large data files that should not be in the history (and backuped elsewhere!)</li>
+<li>a <em>temp/</em> folder for just garbage you create/…</li>
+</ul>
+<p><code>.gitignore</code> to the rescue!</p>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files-1">Exclude files</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/ignore-1.png" alt="Ignore file" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="exclude-files-2">Exclude files</h3>
+<p>TODO-Thierry: update fig to rstudio <img src="manual-git/ignore-2.png" alt="Ignore file" /></p>
+</section>
+<section id="working-together" class="slide level2" data-background="#c2c444">
+<h1>Working together</h1>
+</section>
+<section class="slide level2">
+
+<h3 id="teaming-up">Teaming up</h3>
+<ul>
+<li>Team up with two or three persons</li>
+<li>Let one person invite the others, provide them with read/write access as explained in <a href="https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/">this tutorial</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="invite-collaborators">Invite collaborators</h3>
+<p><img src="manual-git/invite-collaborator.png" alt="Invite collaborator" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="invite-collaborators-1">Invite collaborators</h3>
+<p><img src="manual-git/react-collaborator.png" alt="react to collaborator" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="collaboration-issues">Collaboration: issues</h3>
+<ul>
+<li>Raise an <strong>issue</strong> online</li>
+<li>Provide issues with an appropriate label</li>
+<li>Assign your colleague to the issue</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="collaboration-online-adaptations">Collaboration: online adaptations</h3>
+<ul>
+<li>Make an adaptation to an online file</li>
+<li>Propose a <strong>pull request</strong> and assign your collaborator</li>
+<li>Merge the adaptation to the <code>master</code> branch</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="collaboration-local-adaptations">Collaboration: local adaptations</h3>
+<p><strong>Working local - merging online</strong></p>
+<ul>
+<li>As collaborator, <code>clone</code> the other repository to your local computer</li>
+<li>Create a new <code>branch</code> with a different name</li>
+<li>Adapt the content of a file</li>
+<li><code>commit</code> your adaptation</li>
+<li><code>push</code> your <code>branch</code> to the remote repository</li>
+<li>Go to GitHub and make a <code>pull request</code></li>
+<li>Revise the work and <code>merge</code> online when appropriate</li>
+<li>Update your local work</li>
+<li>Check if all adaptations are represented in your local files</li>
+</ul>
+<p><strong>Tip</strong>: All functionalities are available in the previous sections</p>
+</section>
+<section class="slide level2">
+
+<h3 id="release">Release</h3>
+<p>Once you are satisfied with the status of your analysis, it makes sense to create a release:</p>
+<ul>
+<li>For publications (DOI)</li>
+<li>For code/software development versions</li>
+<li>For course notes</li>
+</ul>
+<p>Follow <a href="https://help.github.com/articles/creating-releases/">this tutorial</a> to create a release.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="some-more-advice">Some more advice:</h3>
+<ul>
+<li>Commit often, make small commits</li>
+<li>Don’t mix changes in 1 commit</li>
+<li>Think about your commit messages</li>
+<li>Keep your code clean, avoid huge one-liners</li>
+<li>Use branches (!)</li>
+<li>Don’t keep long-lived branches (form of technical debt)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><strong>There’s no such thing, as a free lunch…</strong></p>
+</section>
+<section class="slide level2">
+
+<p>Information combined at <a href="https://inbo.github.io/tutorials/">INBO Tutorials website</a>. <br/>You’re welcome to provide issues, pull requests,…</p>
+</section>
+    </div>
+  </div>
+
+  <script src="site_libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="site_libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
