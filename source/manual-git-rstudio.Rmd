@@ -150,16 +150,12 @@ _TODO Stijn: how to set username and email?_
 
 ---
 
-### First time to push your changes
+### Push the changes to GitHub
 
-TODO-Thierry: check if this is correct
+1. Note that the `git` pane displays _your branch is ahead of 'origin/master' by 2 commits_
+1. Click `push` in the `git` pane
 
-1. Go to `Tools > Shell` to open the Git Shell
-2. Type `git push -u origin`
-
-After this first time, you can just click `push`
-
-TODO-Thierry: screenshot
+![Push](manual-git/push-rstudio1.png)
 
 ---
 
@@ -287,6 +283,19 @@ TODO-thierry: add screenshot
 2. Verify your local directory structure: where are your files?
 3. Go back to the status of the new branch (e.g. `analysis-script`): 
 TODO-thierry: add screenshot
+
+---
+
+### First push of a new branch
+
+TODO-Thierry: check if this is correct
+
+1. Go to `Tools > Shell` to open the Git Shell
+2. Type `git push -u origin`
+
+After this first time, you can just click `push`
+
+TODO-Thierry: screenshot
 
 ---
 
