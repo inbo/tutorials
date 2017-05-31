@@ -168,7 +168,7 @@ _TODO Stijn: how to set username and email?_
 ### Store your credentials when using https
 
 1. Click on the `more` button in the `git pane` and select `shell`
-1. Type `git config --global credential.helper manager`
+1. Type `git config --global credential.helper store`
 1. Type `exit` to quit the shell
 1. The next time `git` needs your credentials, it will ask them one more time and store them
 
