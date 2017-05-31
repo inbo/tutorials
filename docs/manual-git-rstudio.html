@@ -733,34 +733,44 @@ A simple analysis to discover my favourite fruit color.
 </section>
 <section class="slide level2">
 
-<h3 id="create-a-branch-to-experiment-command-line">Create a branch to experiment (command line)</h3>
+<h3 id="create-a-branch-to-experiment-1">Create a branch to experiment</h3>
 <ol type="1">
-<li><p>Create a branch by a checkout to new branch, <code>git checkout -b</code>:</p>
+<li>Open the git shell</li>
+<li><p>Create a branch by a checkout to new branch</p>
 <pre><code>git checkout -b analysis-script</code></pre></li>
 <li><p>Get an overview of your branches: <code>git branch</code></p></li>
 </ol>
-<p>TODO-Thierry: add screenshot of shell-version</p>
+<p><img src="manual-git/create-branch-rstudio.png" alt="Create branch" /></p>
 </section>
 <section class="slide level2">
 
 <h3 id="effect-of-changing-switching-branches">Effect of changing switching branches</h3>
 <p>Add a file to the repository in a <code>src</code>-directory (see earlier)</p>
 <ol type="1">
-<li>Go back to the status of the <code>master</code> branch: TODO-thierry: add screenshot</li>
+<li>Go back to the status of the <code>master</code> branch</li>
+<li>Click on <code>analysis-script</code> in the <code>git</code> pane and select <code>(LOCAL BRANCHES) -&gt; master</code> <img src="manual-git/branch-rstudio1.png" alt="Switch branch" /></li>
+</ol>
+<p><img src="manual-git/branch-rstudio2.png" alt="Switch branch" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="effect-of-changing-switching-branches-1">Effect of changing switching branches</h3>
+<ol type="1">
 <li>Verify your local directory structure: where are your files?</li>
-<li>Go back to the status of the new branch (e.g. <code>analysis-script</code>): TODO-thierry: add screenshot</li>
+<li>Go back to the status of the new branch (e.g. <code>analysis-script</code>)</li>
+<li>Verify your local directory structure again: where are your files?</li>
 </ol>
 </section>
 <section class="slide level2">
 
 <h3 id="first-push-of-a-new-branch">First push of a new branch</h3>
-<p>TODO-Thierry: check if this is correct</p>
 <ol type="1">
-<li>Go to <code>Tools &gt; Shell</code> to open the Git Shell</li>
-<li>Type <code>git push -u origin</code></li>
+<li>Notice that the <code>pull</code> and <code>push</code> buttons in the <code>git</code> pane are grayed out</li>
+<li>Open the Git Shell</li>
+<li>Type <code>git push -u origin analysis-script</code></li>
 </ol>
-<p>After this first time, you can just click <code>push</code></p>
-<p>TODO-Thierry: screenshot</p>
+<p>This will also activate the <code>pull</code> and <code>push</code> buttons</p>
+<p><img src="manual-git/branch-first-push-rstudio.png" alt="First push branch" /></p>
 </section>
 <section class="slide level2">
 

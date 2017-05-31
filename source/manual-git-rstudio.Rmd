@@ -302,15 +302,16 @@ Try to push (click `push`) your local changes
 
 ---
 
-### Create a branch to experiment (command line)
+### Create a branch to experiment
 
-1. Create a branch by a checkout to new branch, `git checkout -b`: 
+1. Open the git shell
+1. Create a branch by a checkout to new branch 
     ```
     git checkout -b analysis-script
     ```
-2. Get an overview of your branches: `git branch`
+1. Get an overview of your branches: `git branch`
 
-TODO-Thierry: add screenshot of shell-version
+![Create branch](manual-git/create-branch-rstudio.png)
 
 ---
 
@@ -318,24 +319,32 @@ TODO-Thierry: add screenshot of shell-version
 
 Add a file to the repository in a `src`-directory (see earlier)
 
-1. Go back to the status of the `master` branch: 
-TODO-thierry: add screenshot
-2. Verify your local directory structure: where are your files?
-3. Go back to the status of the new branch (e.g. `analysis-script`): 
-TODO-thierry: add screenshot
+1. Go back to the status of the `master` branch
+1. Click on `analysis-script` in the `git` pane and select `(LOCAL BRANCHES) -> master`
+![Switch branch](manual-git/branch-rstudio1.png)
+
+![Switch branch](manual-git/branch-rstudio2.png)
+
+---
+
+### Effect of changing switching branches
+
+1. Verify your local directory structure: where are your files?
+1. Go back to the status of the new branch (e.g. `analysis-script`)
+1. Verify your local directory structure again: where are your files?
 
 ---
 
 ### First push of a new branch
 
-TODO-Thierry: check if this is correct
+1. Notice that the `pull` and `push` buttons in the `git` pane are grayed out
+1. Open the Git Shell
+1. Type `git push -u origin analysis-script`
 
-1. Go to `Tools > Shell` to open the Git Shell
-2. Type `git push -u origin`
+This will also activate the `pull` and `push` buttons
 
-After this first time, you can just click `push`
+![First push branch](manual-git/branch-first-push-rstudio.png)
 
-TODO-Thierry: screenshot
 
 ---
 
