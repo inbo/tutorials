@@ -1,7 +1,6 @@
 ---
-title: "Git hands-on session"
+title: "Git hands-on session with command line"
 author: "Stijn Van Hoey, Peter Desmet"
-date: "March 29, 2017"
 output:
   revealjs::revealjs_presentation:
     theme: solarized
@@ -54,19 +53,7 @@ output:
 
 ---
 
-### Clone a repo to work locally: GitHub Desktop
-
-If you prefer a visual interface to git...
-
-1. Install [GitHub Desktop](https://desktop.github.com/)
-2. [Configure git](https://help.github.com/desktop/guides/getting-started/configuring-git-for-github-desktop/)
-3. Follow [this tutorial](https://help.github.com/desktop/guides/contributing/cloning-a-repository-from-github-to-github-desktop/) to clone your repo
-
----
-
-### Clone a repo to work locally: command line
-
-If you prefer working on the command line...
+### Clone a repo to work locally
 
 1. Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 2. [Configure git](https://help.github.com/articles/set-up-git/)
@@ -88,13 +75,7 @@ git config --global core.editor gedit
 
 ---
 
-### Make a commit: GitHub Desktop
-
-![Local commit](manual-git/local-commit.png)
-
----
-
-### Make a commit: command line
+### Make a commit
 
 1. Check the differences: `git status` and `git diff`
 2. Commit your changes with `git commit`: 
@@ -111,8 +92,7 @@ git config --global core.editor gedit
 
 ### Push your changes to backup your work
 
-* GitHub Desktop: click `Sync`
-* Command line `git push`: 
+* Command `git push`: 
 ```
 git push origin master
 ```
@@ -133,19 +113,7 @@ git push origin master
 
 ---
 
-### Create logical commits: GitHub Desktop
-
-![Logical commit 1](manual-git/logical-commit-1.png)
-
----
-
-### Create logical commits: GitHub Desktop
-
-![Logical commit 2](manual-git/logical-commit-2.png)
-
----
-
-### Create logical commits: command line
+### Create logical commits
 
 ```
 git add -p README.md
@@ -164,15 +132,7 @@ on a line you also edited locally
 
 ---
 
-### Conflict: GitHub Desktop
-
-Try to push your local changes
-
-![Conflict](manual-git/conflict.png)
-
----
-
-### Conflict: command line
+### Conflict!
 
 ```
 git pull origin master
@@ -204,7 +164,7 @@ git pull origin master
 
 ---
 
-### Resolve conflict: command line
+### Resolve conflict
 
 ![Conflict resolve cmd](manual-git/resolve-conflict-cmd.png)
 
@@ -217,13 +177,7 @@ git pull origin master
 
 ---
 
-### Add a file: GitHub Desktop
-
-![Add a file](manual-git/add-file.png)
-
----
-
-### Add a file: command line
+### Add a file
 
 `git commit -am "My message"` <br/>
 takes all changes in a single commit
@@ -233,12 +187,6 @@ git add data/fruits.csv
 git commit -am "Add data file"
 git push origin master
 ```
-
----
-
-### Undo or adapt last commit: GitHub Desktop
-
-![Undo](manual-git/undo.png)
 
 ---
 
@@ -259,13 +207,7 @@ git revert HEAD
 
 ---
 
-### View history: GitHub Desktop
-
-![View history](manual-git/view-history.png)
-
----
-
-### View history: command line
+### View history
 
 1. `git log`
 2. Copy a HASH
@@ -281,18 +223,6 @@ git revert HEAD
 2. Add an analysis file in a `/src` directory
 3. Commit
 4. Switch between branches
-
----
-
-### Create a branch to experiment: GitHub Desktop
-
-![View history](manual-git/create-branch.png)
-
----
-
-### Create a branch to experiment: GitHub Desktop
-
-![View history](manual-git/add-file-to-branch.png)
 
 ---
 
@@ -316,13 +246,7 @@ git revert HEAD
 
 ---
 
-### Create a pull request to include your work: GitHub Desktop
-
-![Create a pull request](manual-git/create-local-pr.png)
-
----
-
-### Create a pull request to include your work: command line
+### Create a pull request to include your work
 
 ```
 git push origin analysis-script
@@ -346,7 +270,7 @@ git push origin analysis-script
 
 ---
 
-### Update local master after remote merge: command line
+### Update local master after remote merge
 
 ```
 git fetch origin
@@ -367,18 +291,6 @@ git branch -d analysis-script
 * a _temp/_ folder for just garbage you create/...
 
 `.gitignore` to the rescue!
-
----
-
-### Exclude files: GitHub Desktop
-
-![Ignore file](manual-git/ignore-1.png)
-
----
-
-### Exclude files: GitHub Desktop
-
-![Ignore file](manual-git/ignore-2.png)
 
 ---
 
@@ -448,7 +360,7 @@ git branch -d analysis-script
 * Update your local work
 * Check if all adaptations are represented in your local files
 
-**Tip**: All functionalities (Github Desktop or command line) are available in the previous sections
+**Tip**: All functionalities are available in the previous sections
 
 ---
 
@@ -466,7 +378,7 @@ Follow [this tutorial](https://help.github.com/articles/creating-releases/) to c
 
 ### Alias usage for command line
 
-As an example, give it your flavour:
+As an **example**, give it your flavour:
 
 ```
 alias gcl='git clone'
