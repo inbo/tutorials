@@ -107,8 +107,8 @@ _TODO Stijn: how to set username and email?_
 ### .gitignore
 
 1. RStudio will always add `.gitignore` if it doesn't exists
-1. go to `git` pane, right click `.Proj` and select `Ìgnore`
-1. Update .gitignore` and click `Save`
+1. Go to `git` pane, right click `.Proj` and select `Ìgnore`
+1. Update `.gitignore` and click `Save`. More details later.
 
 ![Ignore a file](manual-git/gitignore-rstudio1.png){width=30%}
 
