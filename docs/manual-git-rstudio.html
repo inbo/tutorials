@@ -520,10 +520,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h3 id="git-for-rstudio-setup-git-configuration">Git for RStudio setup: git configuration</h3>
 <ol type="1">
 <li>Go to <code>Tools &gt; Shell</code> to open the Git Shell</li>
-<li>Tell Git your username and GitHub email (!)</li>
+<li>Tell Git your Github (!) username and GitHub email</li>
 </ol>
-<p><em>TODO Stijn: how to set username and email?</em></p>
 <p><img src="manual-git/Rstudio-GitShell.png" alt="RStudio setup git shell" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="git-for-rstudio-setup-git-configuration-1">Git for RStudio setup: git configuration</h3>
+<ol type="1">
+<li>Go to <code>Tools &gt; Shell</code> to open the Git Shell</li>
+<li>Tell Git your Github (!) username and GitHub email:</li>
+</ol>
+<p>In the shell, type the following two commands:</p>
+<pre><code>git config --global user.email &quot;my.name@inbo.be&quot;
+git config --global user.name &quot;mygithubusername&quot;</code></pre>
+<p>Use your GitHub username!</p>
 </section>
 <section class="slide level2">
 
@@ -614,7 +625,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ol type="1">
 <li>Make 2 unrelated changes to your <code>README.md</code> locally</li>
 <li>Create one commit for each change.</li>
-<li>Do not push (yet)</li>
+<li>Do NOT push (yet)</li>
 </ol>
 </section>
 <section class="slide level2">
@@ -622,7 +633,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h3 id="create-logical-commits-1">Create logical commits</h3>
 <ol type="1">
 <li>Click <code>Commit</code> in the <code>git</code> pane</li>
-<li>Select the changes you can to commit and click <code>stage selection</code></li>
+<li>Select the changes you want to commit and click <code>stage selection</code></li>
 <li>Add a <code>commit message</code> and click <code>Commit</code></li>
 </ol>
 <p><img src="manual-git/logical-commit-rstudio.png" alt="Logical commit 1" style="width:80.0%" /></p>
@@ -917,6 +928,22 @@ A simple analysis to discover my favourite fruit color.
 </section>
 <section class="slide level2">
 
+<p>…but if you’re hungry:</p>
+<ul>
+<li>Webinars
+<ul>
+<li><a href="https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-managing-part-2/">Github and Rstudio management</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/collaboration-and-time-travel-version-control-with-git-github-and-rstudio/">Collaboration and time travel: version control with git, github and RStudio</a></li>
+</ul></li>
+<li>Tutorials
+<ul>
+<li><a href="http://r-pkgs.had.co.nz/git.html">Hadley Wickham R packages book</a></li>
+<li><a href="http://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
 <p>Information combined at <a href="https://inbo.github.io/tutorials/">INBO Tutorials website</a>. <br/>You’re welcome to provide issues, pull requests,…</p>
 </section>
     </div>
@@ -955,7 +982,7 @@ A simple analysis to discover my favourite fruit color.
     (function () {
       var script = document.createElement("script");
       script.type = "text/javascript";
-      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
       document.getElementsByTagName("head")[0].appendChild(script);
     })();
   </script>
