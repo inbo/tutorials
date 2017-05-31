@@ -688,16 +688,26 @@ A simple analysis to discover my favourite fruit color.
 <li>Add a <code>fruits.csv</code> file in a <code>/data</code> directory</li>
 <li>Link to this file in the <code>README.md</code></li>
 </ol>
+<p><img src="manual-git/add-file-rstudio1.png" alt="Add a file" /></p>
 </section>
 <section class="slide level2">
 
-<h3 id="add-a-file-1">Add a file</h3>
-<p>TODO-Thierry: update fig to rstudio <img src="manual-git/add-file.png" alt="Add a file" /></p>
+<h3 id="add-a-file-within-a-directory">Add a file within a directory</h3>
+<ul>
+<li>Staging a new directory will stage all files in the directory</li>
+<li>You can’t stage empty directories</li>
+</ul>
+<p><img src="manual-git/add-file-rstudio2.png" alt="Add a file" /></p>
 </section>
 <section class="slide level2">
 
-<h3 id="undo-or-adapt-last-commit">Undo or adapt last commit</h3>
-<p>TODO-Thierry: update fig to rstudio (or cmd-version?) <img src="manual-git/undo.png" alt="Undo" /></p>
+<h3 id="adapt-last-commit">Adapt last commit</h3>
+<ul>
+<li><strong>Warning:</strong> don’t do this on commits that have been pushed. That would result in conflicts.</li>
+<li>Make a change in <code>fruits.csv</code></li>
+<li><code>Commit</code> as usual but <strong>check</strong> <code>amend previous commit</code> under the commit message box</li>
+</ul>
+<p><img src="manual-git/amend-commit-rstudio.png" alt="Add a file" style="width:60.0%" /></p>
 </section>
 <section class="slide level2">
 

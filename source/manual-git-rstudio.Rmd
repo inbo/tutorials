@@ -257,19 +257,26 @@ Try to push (click `push`) your local changes
 1. Add a `fruits.csv` file in a `/data` directory
 2. Link to this file in the `README.md`
 
----
-
-### Add a file
-
-TODO-Thierry: update fig to rstudio
-![Add a file](manual-git/add-file.png)
+![Add a file](manual-git/add-file-rstudio1.png)
 
 ---
 
-### Undo or adapt last commit
+### Add a file within a directory
 
-TODO-Thierry: update fig to rstudio (or cmd-version?)
-![Undo](manual-git/undo.png)
+- Staging a new directory will stage all files in the directory
+- You can't stage empty directories
+
+![Add a file](manual-git/add-file-rstudio2.png)
+
+---
+
+### Adapt last commit
+
+- **Warning:** don't do this on commits that have been pushed. That would result in conflicts.
+- Make a change in `fruits.csv`
+- `Commit` as usual but **check** `amend previous commit` under the commit message box
+
+![Add a file](manual-git/amend-commit-rstudio.png){width=60%}
 
 ---
 
