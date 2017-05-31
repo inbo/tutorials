@@ -120,13 +120,33 @@ _TODO Stijn: how to set username and email?_
 
 1. Update the `README.md`
 1. Commit your changes
-                            
+1. Go to `git` pane, check `.gitignore` and click commit
+
+![Local commit](manual-git/commit-rstudio1.png)                            
+
 ---
 
 ### Make a commit
 
-TODO-Thierry: update fig to rstudio
-![Local commit](manual-git/local-commit.png)
+1. Add a commit message and click commit
+
+![Local commit](manual-git/commit-rstudio2.png)
+
+---
+
+### Make a commit
+
+1. Click `Close` to remove the commit summary
+
+![Local commit](manual-git/commit-rstudio3.png)
+
+---
+
+### Make a commit
+
+1. Add a commit message and click commit
+
+![Local commit](manual-git/commit-rstudio4.png)
 
 ---
 
