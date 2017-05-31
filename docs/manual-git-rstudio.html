@@ -599,6 +599,17 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section class="slide level2">
 
+<h3 id="store-your-credentials-when-using-https">Store your credentials when using https</h3>
+<ol type="1">
+<li>Click on the <code>more</code> button in the <code>git pane</code> and select <code>shell</code></li>
+<li>Type <code>git config --global credential.helper manager</code></li>
+<li>Type <code>exit</code> to quit the shell</li>
+<li>The next time <code>git</code> needs your credentials, it will ask them one more time and store them</li>
+</ol>
+<p><img src="manual-git/https-credentials-rstudio1.png" alt="Store credentials" /></p>
+</section>
+<section class="slide level2">
+
 <h3 id="create-logical-commits">Create logical commits</h3>
 <ol type="1">
 <li>Make 2 unrelated changes to your <code>README.md</code> locally</li>

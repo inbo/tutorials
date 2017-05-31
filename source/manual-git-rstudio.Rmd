@@ -165,6 +165,18 @@ _TODO Stijn: how to set username and email?_
 
 ---
 
+### Store your credentials when using https
+
+1. Click on the `more` button in the `git pane` and select `shell`
+1. Type `git config --global credential.helper manager`
+1. Type `exit` to quit the shell
+1. The next time `git` needs your credentials, it will ask them one more time and store them
+
+![Store credentials](manual-git/https-credentials-rstudio1.png)
+
+
+---
+
 ### Create logical commits
 
 1. Make 2 unrelated changes to your `README.md` locally
