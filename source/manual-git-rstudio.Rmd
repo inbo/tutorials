@@ -222,14 +222,19 @@ on a line you also edited locally
 
 Try to push (click `push`) your local changes
 
-TODO-Thierry: update fig to rstudio
-![Conflict](manual-git/conflict.png)
+![Conflict](manual-git/conflict-rstudio1.png)
 
 ---
 
 ### Keep calm and resolve conflict
 
-TODO-Thierry: check if correct
+1. Click `Pull` to download the changes from Github
+
+![Conflict](manual-git/conflict-rstudio2.png)
+
+---
+
+### Keep calm and resolve conflict
 
 1. Open `README.md` in RStudio:
 
