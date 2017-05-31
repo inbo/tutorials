@@ -194,14 +194,14 @@ Use your GitHub username!
 
 1. Make 2 unrelated changes to your `README.md` locally
 2. Create one commit for each change.
-3. Do not push (yet)
+3. Do NOT push (yet)
 
 ---
 
 ### Create logical commits
 
 1. Click `Commit` in the `git` pane
-1. Select the changes you can to commit and click `stage selection`
+1. Select the changes you want to commit and click `stage selection`
 1. Add a `commit message` and click `Commit`
 
 ![Logical commit 1](manual-git/logical-commit-rstudio.png){width=80%}
@@ -506,6 +506,18 @@ Follow [this tutorial](https://help.github.com/articles/creating-releases/) to c
 ---
 
 **There’s no such thing, as a free lunch...**
+
+---
+
+...but if you're hungry:
+
+* Webinars
+    - [Github and Rstudio management](https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-managing-part-2/)
+    - [Collaboration and time travel: version control with git, github and RStudio](https://www.rstudio.com/resources/webinars/collaboration-and-time-travel-version-control-with-git-github-and-rstudio/)
+
+* Tutorials
+    - [Hadley Wickham R packages book](http://r-pkgs.had.co.nz/git.html)
+    - [Happy Git and GitHub for the useR](http://happygitwithr.com/index.html)
 
 ---
 
