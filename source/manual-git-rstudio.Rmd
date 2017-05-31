@@ -83,11 +83,24 @@ The path should be something like: `C:/Program Files (x86)/Git/bin/git.exe`
 ### Git for RStudio setup: git configuration
 
 1. Go to `Tools > Shell` to open the Git Shell
-1. Tell Git your username and GitHub email (!)
-
-_TODO Stijn: how to set username and email?_
+1. Tell Git your Github (!) username and GitHub email
 
 ![RStudio setup git shell](manual-git/Rstudio-GitShell.png)
+
+---
+
+### Git for RStudio setup: git configuration
+
+1. Go to `Tools > Shell` to open the Git Shell
+1. Tell Git your Github (!) username and GitHub email:
+
+In the shell, type the following two commands:
+
+```
+git config --global user.email "my.name@inbo.be"
+git config --global user.name "mygithubusername"
+```
+Use your GitHub username!
 
 ---
 
