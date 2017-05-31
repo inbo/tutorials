@@ -404,15 +404,11 @@ This will also activate the `pull` and `push` buttons
 
 ### Exclude files
 
-TODO-Thierry: update fig to rstudio
-![Ignore file](manual-git/ignore-1.png)
+![Ignore a file](manual-git/gitignore-rstudio1.png){width=30%}
 
----
+Note that you can use wild cards e.g. `*.Rproj`
 
-### Exclude files
-
-TODO-Thierry: update fig to rstudio
-![Ignore file](manual-git/ignore-2.png)
+![Update .gitignore](manual-git/gitignore-rstudio2.png){width=30%}
 
 ---
 
