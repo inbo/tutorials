@@ -620,12 +620,31 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section class="slide level2">
 
 <h3 id="create-logical-commits-1">Create logical commits</h3>
-<p>TODO-Thierry: update fig to rstudio <img src="manual-git/logical-commit-1.png" alt="Logical commit 1" /></p>
+<ol type="1">
+<li>Click <code>Commit</code> in the <code>git</code> pane</li>
+<li>Select the changes you can to commit and click <code>stage selection</code></li>
+<li>Add a <code>commit message</code> and click <code>Commit</code></li>
+</ol>
+<p><img src="manual-git/logical-commit-rstudio.png" alt="Logical commit 1" style="width:80.0%" /></p>
 </section>
 <section class="slide level2">
 
 <h3 id="create-logical-commits-2">Create logical commits</h3>
-<p>TODO-Thierry: update fig to rstudio <img src="manual-git/logical-commit-2.png" alt="Logical commit 2" /></p>
+<ul>
+<li><code>stage xyz</code>: add the xyz from the commit</li>
+<li><code>unstage xyz</code>: remove the xyz from the commit</li>
+<li><code>discard xyz</code>: revert the changes in the xyz (can’t be undone!!!)</li>
+<li><code>xyz</code> can be
+<ul>
+<li>a single <code>line</code></li>
+<li>a <code>selection</code> of lines</li>
+<li>a <code>chunk</code>
+<ul>
+<li>RStudio will automatically split the changes in chunks</li>
+<li>chunks are defined by 10 unchanged lines between changes</li>
+</ul></li>
+</ul></li>
+</ul>
 </section>
 <section class="slide level2">
 

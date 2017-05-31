@@ -187,15 +187,25 @@ _TODO Stijn: how to set username and email?_
 
 ### Create logical commits
 
-TODO-Thierry: update fig to rstudio
-![Logical commit 1](manual-git/logical-commit-1.png)
+1. Click `Commit` in the `git` pane
+1. Select the changes you can to commit and click `stage selection`
+1. Add a `commit message` and click `Commit`
+
+![Logical commit 1](manual-git/logical-commit-rstudio.png){width=80%}
 
 ---
 
 ### Create logical commits
 
-TODO-Thierry: update fig to rstudio
-![Logical commit 2](manual-git/logical-commit-2.png)
+- `stage xyz`: add the xyz from the commit
+- `unstage xyz`: remove the xyz from the commit
+- `discard xyz`: revert the changes in the xyz (can't be undone!!!)
+- `xyz` can be
+    - a single `line`
+    - a `selection` of lines
+    - a `chunk`
+        - RStudio will automatically split the changes in chunks
+        - chunks are defined by 10 unchanged lines between changes
 
 ---
 
