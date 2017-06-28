@@ -39,6 +39,8 @@ navbar:
           href: "data-handling-large-files-R.html"
         - text: "Read data from INBO databases (SQL Server) from R"
           href: "data-handling-database-R.html"
+        - text: "Estimate density from point pattern"
+          href: "point-pattern-R.html"
     - text: "Git tutorials"
       menu:
         - text: "Git hands-on session using Github Desktop"
