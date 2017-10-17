@@ -1,6 +1,6 @@
 ---
-title: "git installeren als administrator"
-maintainer: "Thierry Onkelinx"
+title: "Git"
+date: 2017-10-18T00:29:14+02:00
 ---
 
 ## Windows

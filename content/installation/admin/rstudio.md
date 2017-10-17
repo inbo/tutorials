@@ -1,13 +1,8 @@
 ---
-title: "RStudio installeren als administrator"
-maintainer: "Thierry Onkelinx"
+title: "Rstudio"
+date: 2017-10-18T00:30:40+02:00
 ---
 
-```{r include = FALSE}
-knitr::opts_chunk$set(
-  echo = FALSE
-)
-```
 De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/ 
 
 ## Windows

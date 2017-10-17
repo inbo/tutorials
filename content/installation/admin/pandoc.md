@@ -1,6 +1,6 @@
 ---
-title: "Pandoc installeren als administrator"
-maintainer: "Thierry Onkelinx"
+title: "Pandoc"
+date: 2017-10-18T00:28:40+02:00
 ---
 
 ## Windows

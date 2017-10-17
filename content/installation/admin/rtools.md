@@ -1,6 +1,6 @@
 ---
-title: "Rtools installeren als administrator"
-maintainer: "Thierry Onkelinx"
+title: "Rtools"
+date: 2017-10-18T00:30:16+02:00
 ---
 
 ## Windows

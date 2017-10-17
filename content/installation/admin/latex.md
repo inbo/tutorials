@@ -1,6 +1,6 @@
 ---
-title: "LaTeX installeren als administrator"
-maintainer: "Thierry Onkelinx"
+title: "Latex"
+date: 2017-10-18T00:29:35+02:00
 ---
 
 ## Windows
