@@ -1,3 +1,5 @@
+[![wercker status](https://app.wercker.com/status/28ef302cb50839bc1ff8b411c292dbd8/m/master "wercker status")](https://app.wercker.com/project/byKey/28ef302cb50839bc1ff8b411c292dbd8)
+
 # Tutorials
 
 Here you can find the source files for the instructions on the use, installation, and development of freeware open source research software at the Research Institute of Nature and Forest (INBO). Visit <http://inbo.github.io/tutorials> to see the rendered version.
