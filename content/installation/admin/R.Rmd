@@ -86,7 +86,7 @@ cat(readLines("Rprofile.site"), sep = "\n")
 ## Ubuntu
 
 ```
-sudo sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list'
+sudo sh -c 'echo "deb http://cloud.r-project.org/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list'
 sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 sudo gpg -a --export E084DAB9 | apt-key add -
 
