@@ -1,7 +1,7 @@
 ---
-title: Styleguide for repositories
-maintainer: Peter Desmet
-tags: Github, repositories
+date: 2017-10-18T16:02:35+02:00
+description: ""
+title: git repositories
 ---
 
 ## Naming

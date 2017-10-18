@@ -1,10 +1,10 @@
 ---
-title: "INBO style guide for R code"
-maintainer: "Thierry Onkelinx"
-output: html_document
+date: 2017-10-18T16:01:34+02:00
+description: ""
+title: R
 ---
 
-# Scope
+## Scope
 
 This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). It is likely to have consequences on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.
 
@@ -15,9 +15,9 @@ This style guide is a recommendation for all R code written for the Research Ins
 
 Please note that the RStudio editor has some handy features that automatically highlights errors against the code style in a non intrusive way. **RStudio hints** in this document are the instructions to activate these diagnostics in RStudio.
 
-# Recommended packages
+## Recommended packages
 
-## Data import
+### Data import
 
 - `readr`: import text files
 - `readxl`: import Excel files
@@ -25,7 +25,7 @@ Please note that the RStudio editor has some handy features that automatically h
 - `DBI`: connect to databases PostgreSQL, SQLite, MySQL, Oracle, ...
 - `RODBC`: connect to databases SQL Server, Access
 
-## Data manipulation & transformation
+### Data manipulation & transformation
 
 - `dplyr`:
     - subsetting observations
@@ -38,22 +38,22 @@ Please note that the RStudio editor has some handy features that automatically h
     - nesting and unnesting dataframes
     - splitting a single variable into multiple variables
 
-## Graphics
+### Graphics
 
 - `ggplot2`:all static graphics, charts and plots
 - `INBOtheme`: INBO corporate identity for `ggplot2` graphics
 
-## Quality control
+### Quality control
 
 - `lintr`: checking coding style
 - `testthat`: writing unit tests
 - `covr`: check which part of the code is not covered by unit tests
 
-# Syntax
+## Syntax
 
 **RStudio hint**: _Tools > Global options > Code > Diagnotics_: Check everything
 
-## General
+### General
 
 - lines should not exceed 80 characters
     - split the command over multiple lines if the command is longer than 80 characters
@@ -78,7 +78,7 @@ example_text <- example_function(
 some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = 'Some text', second.argument = 'More text')
 ```
 
-## Whitespace
+### Whitespace
 
 - don't use tabs, use two spaces instead
     - **RStudio hint**: _Tools > Global options > Code > Editing_: Check _Insert spaces for tab_ and set _Tab width_ to 2
@@ -89,7 +89,7 @@ some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = 'Some text
 - end the script file with a single blank line
     - **RStudio hint**: _Tools > Global options > Code > Saving_: Check _Ensure that source files end with newline_
 
-## Assignments
+### Assignments
 
 - only create an object when you will use it later on
 - always use `<-` for assignment
@@ -112,7 +112,7 @@ abc <-   7
 d   <- 245
 ```
 
-## Brackets
+### Brackets
 
 R uses three types of brackets: round `(...)`, square `[...]` and curly `{...}`.
 
@@ -148,7 +148,7 @@ if(   max( y ) <= 10    )
 sapply( y , function ( x ) { return(x)})
 ```
 
-## Special cases and exceptions
+### Special cases and exceptions
 
 - selecting rows with square brackets `df[selection, ]`
     - this results in two conflicting rules
@@ -183,7 +183,7 @@ relevant_subset <- original_dataframe[original_dataframe$x > some_value | origin
 
 Adding `# nolint` at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.
 
-## Validating syntax
+### Validating syntax
 
 The code below validate the syntax for an R file, an RMarkdown file or an R package.
 
@@ -206,14 +206,14 @@ lintr::lint(filename = "file.Rmd")
 lintr::lint_package(path = ".")
 ```
 
-# Documentation
+## Documentation
 
-## Functions
+### Functions
 
 - Add documentation above each function with `Roxygen` markup
 - Add inline comments where relevant
 
-### Required Roxygen tags
+#### Required Roxygen tags
 
 ```{r eval = FALSE}
 #' @title Title of the helpfile
@@ -223,7 +223,7 @@ lintr::lint_package(path = ".")
 #' @importFrom import a function from another package
 ```
 
-### Optional Roxygen tags
+#### Optional Roxygen tags
 
 ```{r eval = FALSE}
 #' @seealso link to other functions
@@ -237,7 +237,7 @@ lintr::lint_package(path = ".")
 
 See <http://r-pkgs.had.co.nz/man.html#roxygen-comments> for more information on Roxygen
 
-### INBO extra requirements for package DESCRIPTION
+#### INBO extra requirements for package DESCRIPTION
 
 - license: MIT or GPL-3? In case of MIT a LICENSE file should be added and `License: MIT` to the DESCRIPTION. In case of GPL-3 it is sufficient to add `License: GPL-3` to the DESCRIPTION
 - list of authors in `Authors@R` format
@@ -251,16 +251,16 @@ See <http://r-pkgs.had.co.nz/man.html#roxygen-comments> for more information on 
 Authors@R: c(person("Els", "Lommelen", email = "els.lommelen@inbo.be", role = c("aut", "cre")), person("Thierry", "Onkelinx", email = "thierry.onkelinx@inbo.be", role = "aut"), person("Anja", "Leyman", email = "anja.leyman@inbo.be", role = "ctb"), person(family = "Research Institute for Nature and Forest (INBO)", email = "info@inbo.be", role = "cph"))
 
 
-## How-to's
+### How-to's
 
 - Add one or more how-to's to a package
 - Add them as RMarkdown vignettes
 
-# File structure
+## File structure
 
-## R Package
+### R Package
 
-### Functions
+#### Functions
 
 - all generic R functions should be distributed as an R package
 - use `devtools::create()` to start a new pacakge
@@ -272,14 +272,14 @@ Authors@R: c(person("Els", "Lommelen", email = "els.lommelen@inbo.be", role = c(
         - file name is either equal to the most important function or describes the related functionality
 - split large functions into several subfunctions
 
-### Scripts
+#### Scripts
 
 - place scripts in the `inst` folder
     - the scripts will be available for the user after installing the package
     - the location of the scripts can be found with `system.file("script-name.R", package = "yourpackage")`
     - use a relevant folder structure when adding lots of files to `inst`
 
-### Unit tests
+#### Unit tests
 
 - use the `testthat` package for unit tests
     - use `devtools::use_testthat()` to setup the test infrastructure
@@ -305,7 +305,7 @@ if (requireNamespace("lintr", quietly = TRUE)) {
 }
 ```
 
-## R script
+### R script
 
 - group a long set of commands with similar functionality into a dedicated function
     - e.g. `prepare_data()`, `do_analysis()`, `create_figure()`, ...
@@ -313,7 +313,7 @@ if (requireNamespace("lintr", quietly = TRUE)) {
     - it is better to use the same file structure as an R package
     - consider writing a simple package in case you have a lot of functions
 
-## RMarkdown
+### RMarkdown
 
 - each chunk has only one output (figure, table, summary, ...)
 - don't mix (heavy) calculations and output in the same chunk: this is more interesting for caching the results
