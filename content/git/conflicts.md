@@ -1,9 +1,11 @@
 ---
-title: "Fix merge conflict with a pull request"
-author: "Stijn Van Hoey"
-date: "March 29, 2017"
-output: html_document
+date: 2017-10-18T15:30:15+02:00
+description: ""
+draft: true
+title: "Handle conflicts"
 ---
+
+## Fix merge conflict with a pull request
 
 You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
 

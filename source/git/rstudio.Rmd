@@ -44,12 +44,12 @@ output:
 
 ---
 
-![Create a repo](manual-git/create-a-repo.png)
+![Create a repo](images/create-a-repo.png)
     
 
 ---
 
-![Result of creating a repo](manual-git/create-repo-result.png)
+![Result of creating a repo](images/create-repo-result.png)
 
 ---
 
@@ -68,7 +68,7 @@ Tell RStudio where to find the Git installation.
 1. Go to `Tools > Global Options`
 1. Click on `Git/SVN`. 
 
-![RStudio setup for git](manual-git/RStudio-setup-git.png){width=50%}
+![RStudio setup for git](images/RStudio-setup-git.png){width=50%}
 
 ---
 
@@ -85,7 +85,7 @@ The path should be something like: `C:/Program Files (x86)/Git/bin/git.exe`
 1. Go to `Tools > Shell` to open the Git Shell
 1. Tell Git your Github (!) username and GitHub email
 
-![RStudio setup git shell](manual-git/Rstudio-GitShell.png)
+![RStudio setup git shell](images/Rstudio-GitShell.png)
 
 ---
 
@@ -108,12 +108,12 @@ Use your GitHub username!
 
 1. Copy the repository HTTPS url
 
-![Copy the https link of a repo](manual-git/copy-repo-link.png){width=30%}
+![Copy the https link of a repo](images/copy-repo-link.png){width=30%}
 
 2. `File > New Project...`, select `Version Control`, choose `Git`
 3. Provide the repository HTTPS link, select desired directory
 
-![Clone a repo in RStudio](manual-git/create-project-rstudio.png){width=30%}
+![Clone a repo in RStudio](images/create-project-rstudio.png){width=30%}
 
 ---
 
@@ -123,9 +123,9 @@ Use your GitHub username!
 1. Go to `git` pane, right click `.Proj` and select `Ìgnore`
 1. Update `.gitignore` and click `Save`. More details later.
 
-![Ignore a file](manual-git/gitignore-rstudio1.png){width=30%}
+![Ignore a file](images/gitignore-rstudio1.png){width=30%}
 
-![Update .gitignore](manual-git/gitignore-rstudio2.png){width=20%}
+![Update .gitignore](images/gitignore-rstudio2.png){width=20%}
 
 ---
 
@@ -135,7 +135,7 @@ Use your GitHub username!
 1. Commit your changes
 1. Go to `git` pane, check `.gitignore` and click commit
 
-![Local commit](manual-git/commit-rstudio1.png)                            
+![Local commit](images/commit-rstudio1.png)                            
 
 ---
 
@@ -143,7 +143,7 @@ Use your GitHub username!
 
 1. Add a commit message and click commit
 
-![Local commit](manual-git/commit-rstudio2.png)
+![Local commit](images/commit-rstudio2.png)
 
 ---
 
@@ -151,7 +151,7 @@ Use your GitHub username!
 
 1. Click `Close` to remove the commit summary
 
-![Local commit](manual-git/commit-rstudio3.png)
+![Local commit](images/commit-rstudio3.png)
 
 ---
 
@@ -159,7 +159,7 @@ Use your GitHub username!
 
 1. Add a commit message and click commit
 
-![Local commit](manual-git/commit-rstudio4.png)
+![Local commit](images/commit-rstudio4.png)
 
 ---
 
@@ -168,13 +168,13 @@ Use your GitHub username!
 1. Note that the `git` pane displays _your branch is ahead of 'origin/master' by 2 commits_
 1. Click `push` in the `git` pane
 
-![Push](manual-git/push-rstudio1.png)
+![Push](images/push-rstudio1.png)
 
 ---
 
 ### Go to your repo on GitHub to verify
 
-![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
+![Verify your commits on GitHub](images/local-commit-on-github.png)
 
 ---
 
@@ -185,7 +185,7 @@ Use your GitHub username!
 1. Type `exit` to quit the shell
 1. The next time `git` needs your credentials, it will ask them one more time and store them
 
-![Store credentials](manual-git/https-credentials-rstudio1.png)
+![Store credentials](images/https-credentials-rstudio1.png)
 
 
 ---
@@ -204,7 +204,7 @@ Use your GitHub username!
 1. Select the changes you want to commit and click `stage selection`
 1. Add a `commit message` and click `Commit`
 
-![Logical commit 1](manual-git/logical-commit-rstudio.png){width=80%}
+![Logical commit 1](images/logical-commit-rstudio.png){width=80%}
 
 ---
 
@@ -227,7 +227,7 @@ Use your GitHub username!
 Update your `README.md` on GitHub,<br/>
 on a line you also edited locally
 
-![Commit to create conflict](manual-git/commit-to-create-conflict.png)
+![Commit to create conflict](images/commit-to-create-conflict.png)
 
 ---
 
@@ -235,7 +235,7 @@ on a line you also edited locally
 
 Try to push (click `push`) your local changes
 
-![Conflict](manual-git/conflict-rstudio1.png)
+![Conflict](images/conflict-rstudio1.png)
 
 ---
 
@@ -243,7 +243,7 @@ Try to push (click `push`) your local changes
 
 1. Click `Pull` to download the changes from Github
 
-![Conflict](manual-git/conflict-rstudio2.png)
+![Conflict](images/conflict-rstudio2.png)
 
 ---
 
@@ -270,7 +270,7 @@ Try to push (click `push`) your local changes
 1. Add a `fruits.csv` file in a `/data` directory
 2. Link to this file in the `README.md`
 
-![Add a file](manual-git/add-file-rstudio1.png)
+![Add a file](images/add-file-rstudio1.png)
 
 ---
 
@@ -279,7 +279,7 @@ Try to push (click `push`) your local changes
 - Staging a new directory will stage all files in the directory
 - You can't stage empty directories
 
-![Add a file](manual-git/add-file-rstudio2.png)
+![Add a file](images/add-file-rstudio2.png)
 
 ---
 
@@ -289,20 +289,20 @@ Try to push (click `push`) your local changes
 - Make a change in `fruits.csv`
 - `Commit` as usual but **check** `amend previous commit` under the commit message box
 
-![Add a file](manual-git/amend-commit-rstudio.png){width=60%}
+![Add a file](images/amend-commit-rstudio.png){width=60%}
 
 ---
 
 ### View history
 
 - Click on `history` in the `git` pane
-![View history](manual-git/history-rstudio1.png)
+![View history](images/history-rstudio1.png)
 
 ---
 
 ### View history
 
-![View history](manual-git/history-rstudio2.png)
+![View history](images/history-rstudio2.png)
 
 ---
 
@@ -324,7 +324,7 @@ Try to push (click `push`) your local changes
     ```
 1. Get an overview of your branches: `git branch`
 
-![Create branch](manual-git/create-branch-rstudio.png)
+![Create branch](images/create-branch-rstudio.png)
 
 ---
 
@@ -334,9 +334,9 @@ Add a file to the repository in a `src`-directory (see earlier)
 
 1. Go back to the status of the `master` branch
 1. Click on `analysis-script` in the `git` pane and select `(LOCAL BRANCHES) -> master`
-![Switch branch](manual-git/branch-rstudio1.png)
+![Switch branch](images/branch-rstudio1.png)
 
-![Switch branch](manual-git/branch-rstudio2.png)
+![Switch branch](images/branch-rstudio2.png)
 
 ---
 
@@ -356,7 +356,7 @@ Add a file to the repository in a `src`-directory (see earlier)
 
 This will also activate the `pull` and `push` buttons
 
-![First push branch](manual-git/branch-first-push-rstudio.png)
+![First push branch](images/branch-first-push-rstudio.png)
 
 
 ---
@@ -371,19 +371,19 @@ This will also activate the `pull` and `push` buttons
 
 ### Create a pull request to include your work 
 
-![Check Github message pull request](manual-git/pull-request-intro.png)
+![Check Github message pull request](images/pull-request-intro.png)
 
 ---
 
 ### Create a pull request to include your work 
 
-![Adapt Github message and start pull request](manual-git/pull-request_message.png)
+![Adapt Github message and start pull request](images/pull-request_message.png)
 
 ---
 
 ### Review your pull request
 
-![See pull request](manual-git/pr.png)
+![See pull request](images/pr.png)
 
 ---
 
@@ -400,7 +400,7 @@ This will also activate the `pull` and `push` buttons
 1. Switch to `master` branch
 2. Click `pull`.
 
-![git pull](manual-git/pull-rstudio.png)
+![git pull](images/pull-rstudio.png)
 
 ---
 
@@ -417,11 +417,11 @@ This will also activate the `pull` and `push` buttons
 
 ### Exclude files
 
-![Ignore a file](manual-git/gitignore-rstudio1.png){width=30%}
+![Ignore a file](images/gitignore-rstudio1.png){width=30%}
 
 Note that you can use wild cards e.g. `*.Rproj`
 
-![Update .gitignore](manual-git/gitignore-rstudio2.png){width=30%}
+![Update .gitignore](images/gitignore-rstudio2.png){width=30%}
 
 ---
 
@@ -438,13 +438,13 @@ Note that you can use wild cards e.g. `*.Rproj`
 
 ### Invite collaborators
 
-![Invite collaborator](manual-git/invite-collaborator.png)
+![Invite collaborator](images/invite-collaborator.png)
 
 ---
 
 ### Invite collaborators
 
-![react to collaborator](manual-git/react-collaborator.png)
+![react to collaborator](images/react-collaborator.png)
 
 ---
 

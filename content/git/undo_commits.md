@@ -1,9 +1,10 @@
 ---
-title: "Undo commits with command line"
-author: "Stijn Van Hoey"
-date: "March 29, 2017"
-output: html_document
+date: 2017-10-18T15:31:53+02:00
+description: ""
+title: "Undo commits"
 ---
+
+# with command line
 
 ## Introduction
 
@@ -29,7 +30,7 @@ a1e8fb5 Make some important changes to hello.py
 
 The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches. In this part, only the first two configurations are addressed. Checking out a commit makes the entire working directory match that commit. This can be used to view an old state of your project without altering your current state in any way. Checking out a file lets you see an old version of that particular file, **leaving the rest of your working directory untouched**. (This will put you in a detached HEAD state.)
 
-![](./manual-git-undo-commits/01.svg)
+![](../undo_commits_images/01.svg)
 
 You can use git checkout to view the “Make some import changes to hello.py” commit as follows:
 
@@ -63,7 +64,7 @@ This concludes the part on checking your previous commits. In the following part
 
 The git revert command undoes a committed snapshot. But, instead of removing the commit from the project history, it figures out how to undo the changes introduced by the commit and appends a new commit with the resulting content. This prevents Git from losing history, which is important for the integrity of your revision history and for reliable collaboration.
 
-![](./manual-git-undo-commits/03.svg)
+![](../undo_commits_images/03.svg)
 
 Usage:
 
@@ -77,7 +78,7 @@ Reverting should be used when you want to remove an entire commit from your proj
 
 It's important to understand that git revert undoes a single commit—it does not “revert” back to the previous state of a project by removing all subsequent commits. In Git, this is actually called a reset, not a revert.
 
-![](./manual-git-undo-commits/04.svg)
+![](../undo_commits_images/04.svg)
 
 Reverting has two important advantages over resetting. First, it doesn’t change the project history, which makes it a “safe” operation for commits that have already been published to a shared repository. For details about why altering shared history is dangerous, please see the git reset page.
 
@@ -100,7 +101,7 @@ git revert HEAD
 
 This can be visualized as the following:
 
-![](./manual-git-undo-commits/05.svg)
+![](../undo_commits_images/05.svg)
 
 Note that the 4th commit is still in the project history after the revert. Instead of deleting it, git revert added a new commit to undo its changes. As a result, the 3rd and 5th commits represent the exact same code base, and the 4th commit is still in our history just in case we want to go back to it down the road.
 
@@ -149,7 +150,7 @@ All of the above invocations are used to remove changes from a repository. Witho
 
 Whereas reverting is designed to safely undo a public commit, git reset is designed to undo local changes. Because of their distinct goals, the two commands are implemented differently: resetting completely removes a changeset, whereas reverting maintains the original changeset and uses a new commit to apply the undo.
 
-![](./manual-git-undo-commits/06.svg)
+![](../undo_commits_images/06.svg)
 
 Don’t Reset Public History
 
@@ -157,7 +158,7 @@ You should never use git reset <commit> when any snapshots after <commit> have b
 
 Removing a commit that other team members have continued developing poses serious problems for collaboration. When they try to sync up with your repository, it will look like a chunk of the project history abruptly disappeared. The sequence below demonstrates what happens when you try to reset a public commit. The origin/master branch is the central repository’s version of your local master branch.
 
-![](./manual-git-undo-commits/07.svg)
+![](../undo_commits_images/07.svg)
 
 As soon as you add new commits after the reset, Git will think that your local history has diverged from origin/master, and the merge commit required to synchronize your repositories is likely to confuse and frustrate your team.
 

@@ -44,12 +44,12 @@ output:
 
 ---
 
-![Create a repo](manual-git/create-a-repo.png)
+![Create a repo](images/create-a-repo.png)
     
 
 ---
 
-![Result of creating a repo](manual-git/create-repo-result.png)
+![Result of creating a repo](images/create-repo-result.png)
 
 ---
 
@@ -71,7 +71,7 @@ output:
 
 ### Make a commit
 
-![Local commit](manual-git/local-commit.png)
+![Local commit](images/local-commit.png)
 
 ---
 
@@ -83,7 +83,7 @@ click `Sync`
 
 ### Go to your repo on GitHub to verify
 
-![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
+![Verify your commits on GitHub](images/local-commit-on-github.png)
 
 ---
 
@@ -97,13 +97,13 @@ click `Sync`
 
 ### Create logical commits
 
-![Logical commit 1](manual-git/logical-commit-1.png)
+![Logical commit 1](images/logical-commit-1.png)
 
 ---
 
 ### Create logical commits
 
-![Logical commit 2](manual-git/logical-commit-2.png)
+![Logical commit 2](images/logical-commit-2.png)
 
 ---
 
@@ -112,7 +112,7 @@ click `Sync`
 Update your `README.md` on GitHub,<br/>
 on a line you also edited locally
 
-![Commit to create conflict](manual-git/commit-to-create-conflict.png)
+![Commit to create conflict](images/commit-to-create-conflict.png)
 
 ---
 
@@ -120,7 +120,7 @@ on a line you also edited locally
 
 Try to push your local changes
 
-![Conflict](manual-git/conflict.png)
+![Conflict](images/conflict.png)
 
 ---
 
@@ -151,19 +151,19 @@ Try to push your local changes
 
 ### Add a file
 
-![Add a file](manual-git/add-file.png)
+![Add a file](images/add-file.png)
 
 ---
 
 ### Undo or adapt last commit
 
-![Undo](manual-git/undo.png)
+![Undo](images/undo.png)
 
 ---
 
 ### View history
 
-![View history](manual-git/view-history.png)
+![View history](images/view-history.png)
 
 ---
 
@@ -178,13 +178,13 @@ Try to push your local changes
 
 ### Create a branch to experiment
 
-![View history](manual-git/create-branch.png)
+![View history](images/create-branch.png)
 
 ---
 
 ### Create a branch to experiment
 
-![View history](manual-git/add-file-to-branch.png)
+![View history](images/add-file-to-branch.png)
 
 ---
 
@@ -192,13 +192,13 @@ Try to push your local changes
 
 TODO: adapt, as we do this ONLINE instead
 
-![Create a pull request](manual-git/create-local-pr.png)
+![Create a pull request](images/create-local-pr.png)
 
 ---
 
 ### Review your pull request
 
-![See pull request](manual-git/pr.png)
+![See pull request](images/pr.png)
 
 ---
 
@@ -223,13 +223,13 @@ TODO: adapt, as we do this ONLINE instead
 
 ### Exclude files
 
-![Ignore file](manual-git/ignore-1.png)
+![Ignore file](images/ignore-1.png)
 
 ---
 
 ### Exclude files
 
-![Ignore file](manual-git/ignore-2.png)
+![Ignore file](images/ignore-2.png)
 
 ---
 
@@ -246,13 +246,13 @@ TODO: adapt, as we do this ONLINE instead
 
 ### Invite collaborators
 
-![Invite collaborator](manual-git/invite-collaborator.png)
+![Invite collaborator](images/invite-collaborator.png)
 
 ---
 
 ### Invite collaborators
 
-![react to collaborator](manual-git/react-collaborator.png)
+![react to collaborator](images/react-collaborator.png)
 
 ---
 

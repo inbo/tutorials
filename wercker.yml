@@ -3,6 +3,7 @@ build:
   steps:
     - script:
         code: |
+          Rscript "render.R"
           Rscript -e "blogdown::build_site()"
 deploy:
   steps:

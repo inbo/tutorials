@@ -44,12 +44,12 @@ output:
 
 ---
 
-![Create a repo](manual-git/create-a-repo.png)
+![Create a repo](images/create-a-repo.png)
     
 
 ---
 
-![Result of creating a repo](manual-git/create-repo-result.png)
+![Result of creating a repo](images/create-repo-result.png)
 
 ---
 
@@ -101,7 +101,7 @@ git push origin master
 
 ### Go to your repo on GitHub to verify
 
-![Verify your commits on GitHub](manual-git/local-commit-on-github.png)
+![Verify your commits on GitHub](images/local-commit-on-github.png)
 
 ---
 
@@ -119,7 +119,7 @@ git push origin master
 git add -p README.md
 ```
 
-![Logical commit cmd 1](manual-git/logical-commit-1-cmd.png)
+![Logical commit cmd 1](images/logical-commit-1-cmd.png)
 
 ---
 
@@ -128,7 +128,7 @@ git add -p README.md
 Update your `README.md` on GitHub,<br/>
 on a line you also edited locally
 
-![Commit to create conflict](manual-git/commit-to-create-conflict.png)
+![Commit to create conflict](images/commit-to-create-conflict.png)
 
 ---
 
@@ -138,7 +138,7 @@ on a line you also edited locally
 git pull origin master
 ```
 
-![Conflict cmd](manual-git/conflict-cmd.png)
+![Conflict cmd](images/conflict-cmd.png)
 
 ---
 
@@ -166,7 +166,7 @@ git pull origin master
 
 ### Resolve conflict
 
-![Conflict resolve cmd](manual-git/resolve-conflict-cmd.png)
+![Conflict resolve cmd](images/resolve-conflict-cmd.png)
 
 ---
 
@@ -252,13 +252,13 @@ git revert HEAD
 git push origin analysis-script
 ```
 
-![Github pull request note](manual-git/pull-request-self.png)
+![Github pull request note](images/pull-request-self.png)
 
 ---
 
 ### Review your pull request
 
-![See pull request](manual-git/pr.png)
+![See pull request](images/pr.png)
 
 ---
 
@@ -320,13 +320,13 @@ git branch -d analysis-script
 
 ### Invite collaborators
 
-![Invite collaborator](manual-git/invite-collaborator.png)
+![Invite collaborator](images/invite-collaborator.png)
 
 ---
 
 ### Invite collaborators
 
-![react to collaborator](manual-git/react-collaborator.png)
+![react to collaborator](images/react-collaborator.png)
 
 ---
 

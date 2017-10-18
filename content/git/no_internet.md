@@ -1,8 +1,8 @@
 ---
-title: "Working with Git without internet connection"
+date: 2017-10-18T15:23:04+02:00
+description: ""
 author: "Stijn Van Hoey"
-date: "March 29, 2017"
-output: html_document
+title: "Without internet"
 ---
 
 When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.

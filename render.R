@@ -1,0 +1,5 @@
+setwd("source/git")
+rmarkdown::render("cmd.Rmd", output_dir = "../../content/git")
+rmarkdown::render("desktop.Rmd", output_dir = "../../content/git")
+rmarkdown::render("rstudio.Rmd", output_dir = "../../content/git")
+setwd("../..")

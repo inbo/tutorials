@@ -1,8 +1,7 @@
 ---
-title: "Git collaborative workflow for command line"
-author: "Stijn Van Hoey"
-date: "March 29, 2017"
-output: html_document
+date: 2017-10-18T14:42:43+02:00
+description: "Git collaborative workflow for command line"
+title: Workflow
 ---
 
 ### BEFORE I START WORKING
