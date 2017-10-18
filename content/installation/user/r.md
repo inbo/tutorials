@@ -1,6 +1,8 @@
 ---
-title: "Bijwerken van R als gebruiker"
-maintainer: "Thierry Onkelinx"
+date: 2017-10-18T15:43:32+02:00
+description: ""
+title: R
+weight: 10
 ---
 
 ## Na de eerste installatie

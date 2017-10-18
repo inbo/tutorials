@@ -1,6 +1,7 @@
 ---
-title: "Bijwerken van RStudio als gebruiker"
-maintainer: "Thierry Onkelinx"
+date: 2017-10-18T15:43:44+02:00
+description: ""
+title: Rstudio
 ---
 
 ## Na de eerste installatie
