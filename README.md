@@ -2,7 +2,7 @@
 
 # Tutorials
 
-Here you can find the source files for the instructions on the use, installation, and development of freeware open source research software at the Research Institute of Nature and Forest (INBO). Visit <http://inbo.github.io/tutorials> to see the rendered version.
+Here you can find the source files for the instructions on the use, installation, and development of freeware open source research software at the Research Institute of Nature and Forest (INBO). Visit <https://inbo-tutorials.netlify.com> to see the rendered version.
 
 The repository is based on [blogdown](https://bookdown.org/yihui/blogdown/). New content should go in an appropriate subfolder of `content`. Use plain markdown files (`.md`) as much a possible. Use Rmarkdown files (`.Rmd`) when calculations in R are required.
 
