@@ -2,7 +2,9 @@
 title: "Read data from INBO databases (SQL Server) with R(ODBC)"
 maintainer: "Stijn Van Hoey"
 date: "February 3, 2017"
-output: html_document
+output:
+  md_document:
+    variant: markdown
 ---
 
 ```{r setup, include=FALSE}

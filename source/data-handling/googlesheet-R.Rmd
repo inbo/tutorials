@@ -1,6 +1,9 @@
 ---
 title: "Read data from google sheet"
 maintainer: "Stijn Van Hoey"
+output:
+  md_document:
+    variant: markdown
 ---
 
 ```{r, warning = FALSE, message = FALSE}
