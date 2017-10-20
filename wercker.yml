@@ -1,0 +1,16 @@
+box: emarginatus/render_website
+build:
+  steps:
+    - script:
+        code: |
+          Rscript "render.R"
+          Rscript -e "blogdown::build_site()"
+deploy:
+  steps:
+    - script:
+        code: |
+          zip -r website.zip public
+          curl -H "Content-Type: application/zip" \
+               -H "Authorization: Bearer $NETLIFY_KEY" \
+               --data-binary "@website.zip" \
+               https://api.netlify.com/api/v1/sites/$NETLIFY_SITEID/deploys

@@ -1,0 +1,28 @@
+baseURL = "https://inbo-tutorials.netlify.com/"
+languageCode = "en-us"
+DefaultContentLanguage = "en"
+
+title = "INBO tutorials"
+theme = "hugo-theme-docdock"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[params]
+editURL = "https://github.com/inbo/tutorials/edit/master/content/"
+showVisitedLinks = true # default is false
+themeStyle = "theme" # overide base css
+themeVariant = "" # choose theme variant "green", "gold" , "gray", "blue" (default)
+ordersectionsby = "weight" # ordersectionsby = "title"
+disableHomeIcon = false # default is false
+disableSearch = false # default is false
+disableNavChevron = false # set true to hide next/prev chevron, default is false
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+
+[[menu.shortcuts]]
+pre = "<h3>More</h3>"
+name = "<i class='fa fa-github'></i> Github repo"
+identifier = "ds"
+url = "https://github.com/inbo/tutorials"
+weight = 10

@@ -1,0 +1,323 @@
+---
+title: "Git hands-on session with Github Desktop"
+author: "Stijn Van Hoey, Peter Desmet"
+output:
+  revealjs::revealjs_presentation:
+    theme: solarized
+    highlight: zenburn
+    transition: none
+    center: true
+    fig_caption: false
+    fig_width: 5
+    fig_height: 4
+    reveal_options:
+      slideNumber: true
+      previewLinks: true    
+---
+
+<style type="text/css">
+    .reveal section img { 
+        border:none; 
+        box-shadow:none; 
+        }
+    .reveal code {
+    	font-family: monospace;
+    	color: #c04384;
+        }
+    .reveal pre code {
+    	font-family: monospace;
+    	color: #1a1a1a;
+    	background: ##ececec;
+        }
+</style>
+
+
+
+## Working on your own {data-background=#c2c444}
+
+---
+
+### Create a repo
+
+1. Go to [GitHub](https://github.com) and login
+2. Follow [this tutorial](https://help.github.com/articles/create-a-repo/) to create a repo
+
+---
+
+![Create a repo](images/create-a-repo.png)
+    
+
+---
+
+![Result of creating a repo](images/create-repo-result.png)
+
+---
+
+### Clone a repo to work locally
+
+1. Install [GitHub Desktop](https://desktop.github.com/)
+2. [Configure git](https://help.github.com/desktop/guides/getting-started/configuring-git-for-github-desktop/)
+3. Follow [this tutorial](https://help.github.com/desktop/guides/contributing/cloning-a-repository-from-github-to-github-desktop/) to clone your repo
+
+---
+
+### Make a commit
+
+1. Open your favourite text editor
+2. Update the `README.md`
+3. Commit your changes
+
+---
+
+### Make a commit
+
+![Local commit](images/local-commit.png)
+
+---
+
+### Push your changes to backup your work
+
+click `Sync`
+
+---
+
+### Go to your repo on GitHub to verify
+
+![Verify your commits on GitHub](images/local-commit-on-github.png)
+
+---
+
+### Create logical commits
+
+1. Make 2 unrelated changes to your `README.md` locally
+2. Create one commit for each change.
+3. Do not push (yet)
+
+---
+
+### Create logical commits
+
+![Logical commit 1](images/logical-commit-1.png)
+
+---
+
+### Create logical commits
+
+![Logical commit 2](images/logical-commit-2.png)
+
+---
+
+### Create a conflict
+
+Update your `README.md` on GitHub,<br/>
+on a line you also edited locally
+
+![Commit to create conflict](images/commit-to-create-conflict.png)
+
+---
+
+### Conflict!
+
+Try to push your local changes
+
+![Conflict](images/conflict.png)
+
+---
+
+### Keep calm and resolve conflict
+
+1. Open `README.md` in text editor:
+
+        <<<<<<< HEAD
+        A simple analysis to visualize my favourite fruit colour.
+        =======
+        A simple analysis to discover my favourite fruit color.
+        >>>>>>> origin/master
+
+2. Choose what you want to keep:
+
+        A simple analysis to discover my favourite fruit colour.
+
+3. Commit and sync
+
+---
+
+### Add a file
+
+1. Add a `fruits.csv` file in a `/data` directory
+2. Link to this file in the `README.md`
+
+---
+
+### Add a file
+
+![Add a file](images/add-file.png)
+
+---
+
+### Undo or adapt last commit
+
+![Undo](images/undo.png)
+
+---
+
+### View history
+
+![View history](images/view-history.png)
+
+---
+
+### Create a branch to experiment
+
+1. Create a branch
+2. Add an analysis file in a `/src` directory
+3. Commit
+4. Switch between branches
+
+---
+
+### Create a branch to experiment
+
+![View history](images/create-branch.png)
+
+---
+
+### Create a branch to experiment
+
+![View history](images/add-file-to-branch.png)
+
+---
+
+### Create a pull request to include your work 
+
+TODO: adapt, as we do this ONLINE instead
+
+![Create a pull request](images/create-local-pr.png)
+
+---
+
+### Review your pull request
+
+![See pull request](images/pr.png)
+
+---
+
+### Review your pull request
+
+1. Review
+2. If OK, merge pull request
+3. Delete branch
+
+---
+
+### Exclude files
+
+* in any programming language, some files are _derivatives_
+* sensitive information (passwords,...)
+* a folder with large data files that should not be in the history (and backuped elsewhere!)
+* a _temp/_ folder for just garbage you create/...
+
+`.gitignore` to the rescue!
+
+---
+
+### Exclude files
+
+![Ignore file](images/ignore-1.png)
+
+---
+
+### Exclude files
+
+![Ignore file](images/ignore-2.png)
+
+---
+
+## Working together {data-background=#c2c444}
+
+---
+
+### Teaming up
+
+* Team up with two or three persons
+* Let one person invite the others, provide them with read/write access as explained in [this tutorial](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/)
+
+---
+
+### Invite collaborators
+
+![Invite collaborator](images/invite-collaborator.png)
+
+---
+
+### Invite collaborators
+
+![react to collaborator](images/react-collaborator.png)
+
+---
+
+### Collaboration: issues
+
+* Raise an **issue** online
+* Provide issues with an appropriate label
+* Assign your colleague to the issue
+
+---
+
+### Collaboration: online adaptations
+
+* Make an adaptation to an online file
+* Propose a **pull request** and assign your collaborator
+* Merge the adaptation to the `master` branch
+
+---
+
+### Collaboration: local adaptations
+
+**Working local - merging online**
+
+* As collaborator, `clone` the other repository to your local computer
+* Create a new `branch` with a different name
+* Adapt the content of a file
+* `commit` your adaptation
+* `push` your `branch` to the remote repository
+* Go to GitHub and make a `pull request`
+* Revise the work and `merge` online when appropriate
+* Update your local work
+* Check if all adaptations are represented in your local files
+
+**Tip**: All functionalities are available in the previous sections
+
+---
+
+### Release
+
+Once you are satisfied with the status of your analysis, it makes sense to create a release:
+
+* For publications (DOI)
+* For code/software development versions
+* For course notes
+
+Follow [this tutorial](https://help.github.com/articles/creating-releases/) to create a release.
+
+---
+
+### Some more advice:
+
+* Commit often, make small commits
+* Don’t mix changes in 1 commit
+* Think about your commit messages
+* Keep your code clean, avoid huge one-liners
+* Use branches (!)
+* Don’t keep long-lived branches (form of technical debt)
+
+---
+
+**There’s no such thing, as a free lunch...**
+
+---
+
+Information combined at [INBO Tutorials website](https://inbo.github.io/tutorials/). <br/>You're welcome to provide issues, pull requests,...
+
+
+

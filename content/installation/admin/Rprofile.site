@@ -1,0 +1,33 @@
+options(
+  papersize = "a4",
+  tab.width = 2,
+  width = 80,
+  help_type = "html",
+  stringsAsFactors = TRUE,
+  keep.source.pkgs = TRUE,
+  xpinch = 300,
+  ypinch = 300,
+  repos = c(
+    RStudio = "https://cran.rstudio.com/",
+    INLA = "https://inla.r-inla-download.org/R/stable"
+  ),
+  install.packages.check.source = "no",
+  install.packages.compile.from.source = "never"
+)
+
+if (length(find.package("drat")) == 0) {
+  install.packages("drat")
+}
+drat::addRepo("inbo")
+
+if (interactive()) {
+  if (length(find.package("fortunes")) == 0) {
+    install.packages("fortunes")
+  }
+  tryCatch(
+    print(fortunes::fortune()),
+    error = function(e){
+      invisible(NULL)
+    }
+  )
+}
