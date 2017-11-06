@@ -15,13 +15,13 @@ options(
   install.packages.compile.from.source = "never"
 )
 
-if (length(find.package("drat")) == 0) {
+if (length(find.package("drat", quiet = TRUE)) == 0) {
   install.packages("drat")
 }
 drat::addRepo("inbo")
 
 if (interactive()) {
-  if (length(find.package("fortunes")) == 0) {
+  if (length(find.package("fortunes", quiet = TRUE)) == 0) {
     install.packages("fortunes")
   }
   tryCatch(
