@@ -29,21 +29,25 @@ You should see a list similar to the list underneath, with the names of the avai
 An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*): 
 ![access-dsn](./data-handling-database-R/access_dsn.png)
 
-For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument (Notice, you have to change the comments when running the tutorial in windows):
+For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
+
+For Windows users:
+
+```{r eval = FALSE}
+my_connection <- odbcConnect("UserFlora")
+```
+
+For Linux/Mac users:
 
 ```{r sqlconnection}
-# WINDOWS USERS (uncomment when working in Windows)
-#my_connection <- odbcConnect("UserFlora") # uncomment for windows users
-
-# LINUX/MAC USERS (comment out when working in Windows)
 my_connection <- odbcDriverConnect("Driver={ODBC Driver 13 for SQL Server};Server=inbosql04.inbo.be;Database=UserFlora;Trusted_Connection=yes;")
 ```
 
-Once this connection is sucessfully established, the database can be queried. 
+Once this connection is successfully established, the database can be queried. 
 
 **Remark for linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality will be provided in an upcoming tutorial.
 
-## Get a complete table from the databse
+## Get a complete table from the database
 
 The function `sqlFetch` can be used to load an entire table from a database. For example, to extract the `tblTaxon` table from the flora database:
 
