@@ -1,7 +1,7 @@
 ---
 date: 2018-01-03
-description: "kerberos authentification on linux"
-title: Using kerberos authentification for database connection
+description: "kerberos authentication on linux"
+title: Using kerberos authentication for database connection
 weight: 10
 ---
 
@@ -17,7 +17,7 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 
 ## Installation
 
-### Libraries for authentification
+### Libraries for authentication
 
 For debian/ubuntu users (make sure you're `sudo`):
 
@@ -125,7 +125,7 @@ Valid starting     Expires            Service principal
 
 #### SQL database connections
 
-When the ticketing is working, the next step is to use the authentification to connect to the databases itself. For this test, we'll do thistest with the `sqlcmd` command line tool. In a next section, we'll focus on the ODBC settings.
+When the ticketing is working, the next step is to use the authentication to connect to the databases itself. For this test, we'll do thistest with the `sqlcmd` command line tool. In a next section, we'll focus on the ODBC settings.
 
 Testing with `sqlcmd` (make sure you have an active ticket):
 
