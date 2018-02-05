@@ -125,7 +125,7 @@ Valid starting     Expires            Service principal
 
 #### SQL database connections
 
-When the ticketing is working, the next step is to use the authentication to connect to the databases itself. For this test, we'll do thistest with the `sqlcmd` command line tool. In a next section, we'll focus on the ODBC settings.
+When the ticketing is working, the next step is to use the authentication to connect to the databases itself. To test this, we'll use the `sqlcmd` command line tool. In a next section, we'll focus on the ODBC settings.
 
 Testing with `sqlcmd` (make sure you have an active ticket):
 
