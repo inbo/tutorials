@@ -38,6 +38,7 @@ Download and install the [Microsoft ODBC Driver for SQL Server](https://www.micr
 
 ```
 sudo su
+apt-get install curl
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssqlrelease.list
 exit
@@ -58,7 +59,8 @@ The instructions for different platforms are explained [here](https://docs.micro
 You could also decide to go for the binaries: Download the binaries [here](Downloading => https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb) and install with:
 
 ```
-dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
+sudo apt-get install libgss3
+sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
 ```
 
 ### Configure Kerberos client
