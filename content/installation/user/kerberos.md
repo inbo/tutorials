@@ -22,7 +22,7 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 For debian/ubuntu users (make sure you're `sudo`):
 
 ```
-sudo apt install krb5-user libpam-krb5 libpam-ccreds auth-client-config
+sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
 sudo apt-get install openssl
 ```
 
