@@ -19,7 +19,7 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 
 ### Libraries for authentication
 
-For debian/ubuntu users (make sure you're `sudo`):
+For debian/ubuntu users (make sure you belong to the `sudo` group):
 
 ```
 sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
@@ -34,7 +34,7 @@ As most of the databases at INBO are SQL Server, an appropriate driver and the c
 
 #### ODBC driver
 
-Download and install the [Microsoft ODBC Driver for SQL Server](https://www.microsoft.com/en-us/download/details.aspx?id=53339).   The installation instructions for different linux flavours can be downloaded together with the ODBC driver. For `Ubuntu 16.04`,  following instructions apply:
+Download and install the [Microsoft ODBC Driver for SQL Server](https://www.microsoft.com/en-us/download/details.aspx?id=53339).   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For `Ubuntu 16.04` (and most distributions based on it),  following instructions apply:
 
 ```
 sudo su
@@ -65,7 +65,7 @@ sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
 
 ### Configure Kerberos client
 
-*(again, the commands assume sudo)*
+*(again, the commands assume root privileges)*
 
 Start with the kerberos configuration dialogue:
 
@@ -75,7 +75,7 @@ dpkg-reconfigure krb5-config
 Use `INBO.BE` as the realm (this is the realm of the kerberos servers):
 ![](./images/kerberos_config_1.png)
 
-Make sure to use DNS to find these servers:
+Make sure to use DNS to find these servers, so choose 'NO' if you get the below question:
 ![](./images/kerberos_config_2.png)
 
 Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add the following sections with configurations to the file:
