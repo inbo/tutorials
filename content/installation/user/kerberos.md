@@ -26,7 +26,7 @@ sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
 sudo apt-get install openssl
 ```
 
-These libraries will be used later on. The following section if for interaction with MS SQL databases.
+These libraries will be used later on. The following section is for interaction with MS SQL databases.
 
 ### MS SQL Server tools
 
@@ -108,7 +108,7 @@ After installation, check if the following two files do exist:
 
 #### kerberos ticket system
 
-To check if the Kerberos configuration is successfull, ask for a ticket by initiating with `kinit`:
+To check if the Kerberos configuration is successful, ask for a ticket by initiating with `kinit`:
 ```
 kinit your_user_name
 ```
