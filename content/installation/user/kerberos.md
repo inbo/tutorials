@@ -19,14 +19,14 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 
 ### Libraries for authentication
 
-For debian/ubuntu users (make sure you're `sudo`):
+For debian/ubuntu users (make sure you belong to the `sudo` group):
 
 ```
-sudo apt install krb5-user libpam-krb5 libpam-ccreds auth-client-config
+sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
 sudo apt-get install openssl
 ```
 
-These libraries will be used later on. The following section if for interaction with MS SQL databases.
+These libraries will be used later on. The following section is for interaction with MS SQL databases.
 
 ### MS SQL Server tools
 
@@ -34,7 +34,7 @@ As most of the databases at INBO are SQL Server, an appropriate driver and the c
 
 #### ODBC driver
 
-Download and install the [Microsoft ODBC Driver for SQL Server](https://www.microsoft.com/en-us/download/details.aspx?id=53339).   The installation instructions for different linux flavours can be downloaded together with the ODBC driver. For `Ubuntu 16.04`,  following instructions apply:
+Download and install the [Microsoft ODBC Driver for SQL Server](https://www.microsoft.com/en-us/download/details.aspx?id=53339).   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For `Ubuntu 16.04` (and most distributions based on it),  following instructions apply:
 
 ```
 sudo su
@@ -56,7 +56,7 @@ Install the MS SQL tools as well:
 
 The instructions for different platforms are explained [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools). In order to test the SQL connection later in this tutorial, add `/opt/mssql-tools/bin/` to your PATH environment variable.
 
-You could also decide to go for the binaries: Download the binaries [here](Downloading => https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb) and install with:
+You could also decide to go for the binaries: download [the debian package of mssql-tools](https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb) and install with:
 
 ```
 sudo apt-get install libgss3
@@ -65,7 +65,7 @@ sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
 
 ### Configure Kerberos client
 
-*(again, the commands assume sudo)*
+*(again, the commands assume root privileges)*
 
 Start with the kerberos configuration dialogue:
 
@@ -75,7 +75,7 @@ dpkg-reconfigure krb5-config
 Use `INBO.BE` as the realm (this is the realm of the kerberos servers):
 ![](./images/kerberos_config_1.png)
 
-Make sure to use DNS to find these servers:
+Make sure to use DNS to find these servers, so choose 'NO' if you get the below question:
 ![](./images/kerberos_config_2.png)
 
 Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add the following sections with configurations to the file:
@@ -108,7 +108,7 @@ After installation, check if the following two files do exist:
 
 #### kerberos ticket system
 
-To check if the Kerberos configuration is successfull, ask for a ticket by initiating with `kinit`:
+To check if the Kerberos configuration is successful, ask for a ticket by initiating with `kinit`:
 ```
 kinit your_user_name
 ```
