@@ -1,0 +1,54 @@
+---
+title: "Transforming spatial objects"
+date: 2018-02-19T14:52:22+01:00
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE
+)
+```
+
+
+Sometimes we have a layer in one coordinate system and need to transform it into another coordinate system. The first thing we need to do is identifying both coordinate systems. Let's create an example and identify the coordinates system with `proj4string()`. We used the coordinates posted on the contact page of [NGI](http://www.ngi.be/NL/NL5.shtm).
+
+```{r}
+library(sp)
+library(leaflet)
+```
+
+```{r}
+ngi <- data.frame(x = 650381.78, y = 667603.12)
+coordinates(ngi) <- ~x + y
+proj4string(ngi)
+```
+
+`NA` indicates that the coordinate systems isn't set. So we need to set it manually. In this case we know it is "Lambert 2008". We need to know the related projection string. The projection string is often a rather long string of parameters. However, more projections have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) number which you can find at http://epsg.io/. The EPSG number for "Lambert 2008" is 3812. Let's set this projection to our dataset. `CRS()` defines the projection based on a text string.
+
+```{r}
+proj4string(ngi) <- CRS("+init=epsg:3812")
+proj4string(ngi)
+```
+
+We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGSS84" coordinates system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the projection string itself is easier to memorise: "+proj=longlat".
+
+```{r}
+ngi_ll <- spTransform(ngi, CRS("+proj=longlat"))
+proj4string(ngi_ll)
+leaflet(ngi_ll) %>%
+  addTiles() %>%
+  addMarkers()
+```
+
+```{r echo = FALSE}
+kable(
+  data.frame(
+    Projection = c("WGS84", "Lambert 72", "Lambert 2008", "web Mercator"),
+    EPSG = c(4326, 31370, 3812, 3857),
+    CRS = c("+proj=longlat", "+init=epsg:31370", "+init=epsg:3812", "+init=epsg:3857")
+  ),
+  caption = "Relevant projections for Belgian data"
+)
+```
+
