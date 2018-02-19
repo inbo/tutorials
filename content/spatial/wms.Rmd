@@ -1,0 +1,40 @@
+---
+title: "Using WMS service in R"
+date: 2018-02-19T12:09:22+01:00
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE
+)
+```
+
+WMS stands for [Web Map Service](https://en.wikipedia.org/wiki/Web_Map_Service). The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps. 
+
+There is currently only one example on this page. We plan to add more examples in the future. Feel free to add more examples through a pull request at https://github.com/inbo/tutorials/pulls. Or create an issue at https://github.com/inbo/tutorials/issues.
+
+```{r}
+wms_grb <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms"
+```
+
+# As background of interactive maps
+
+WMS layers can be added to a `leaflet` map using the `addWMSTiles()` function.
+
+```{r}
+library(leaflet)
+leaflet() %>% 
+  setView(lng = 4.287638, lat = 50.703039, zoom = 15) %>% 
+  addTiles(group = "OSM") %>%
+  addWMSTiles(
+    wms_grb,
+    layers = "GRB_BSK",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    group = "GRB"
+  ) %>%
+  addLayersControl(
+    overlayGroups = c("OSM", "GRB", "CartoWeb"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+```
