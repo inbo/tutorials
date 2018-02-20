@@ -81,6 +81,18 @@ Make sure to use DNS to find these servers, so choose 'NO' if you get the below 
 Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add the following sections with configurations to the file:
 
 ```
+[realms]
+        INBO.BE = {
+                kdc = inbo-ad-aws-01-prd.inbo.be
+                kdc = inbo-ad-aws-02-prd.inbo.be
+                kdc = inbogerdc.inbo.be
+                kdc = inbogrodc01.inbo.be
+                kdc = inbolindc01.inbo.be
+                deafult_domain = inbo.be
+        }
+``` 
+
+```
 [logging]
 	default = FILE:/var/log/krblibs.log
 	kdc = FILE:/var/log/krbkdc.log
@@ -89,7 +101,7 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 [libdefaults]
 	default_realm = INBO.BE
 	dns_lookup_realm = false
-	dns_lookup_kdc = true
+	dns_lookup_kdc = false
 	ticket_lifetime = 24h
 	renew_lifetime = 7d
 	forwardable=  true
