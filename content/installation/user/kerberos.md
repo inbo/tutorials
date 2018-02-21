@@ -88,11 +88,9 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
                 kdc = inbogerdc.inbo.be
                 kdc = inbogrodc01.inbo.be
                 kdc = inbolindc01.inbo.be
-                deafult_domain = inbo.be
+                default_domain = inbo.be
         }
-``` 
 
-```
 [logging]
 	default = FILE:/var/log/krblibs.log
 	kdc = FILE:/var/log/krbkdc.log
