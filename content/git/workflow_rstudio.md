@@ -72,7 +72,7 @@ Go to your repo on Github.com and click the `Compare & pull request` button.
 
 ![](../images/workflow_rstudio_github_1.png)
 
-Add information about the Pull request, add reviewerrs, labels,... Finally, `Create pull request`:
+Add information about the Pull request, add reviewers, labels,... Finally, `Create pull request`:
 ![](../images/workflow_rstudio_github_2.png)
 
 ## STEP 5: Code review!
