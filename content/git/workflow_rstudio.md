@@ -98,7 +98,7 @@ Make sure you are working on the master branch:
 
 Remove the local branch, since obsolete. In the Git shell, type:
 ```
-git branch -D analysis-script
+git branch -d analysis-script
 ```
 ![](../images/workflow_rstudio_4.png)
 
