@@ -31,7 +31,7 @@ proj4string(ngi) <- CRS("+init=epsg:3812")
 proj4string(ngi)
 ```
 
-We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGSS84" coordinates system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the projection string itself is easier to memorise: "+proj=longlat".
+We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGS84" coordinates system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the projection string itself is easier to memorise: "+proj=longlat".
 
 ```{r}
 ngi_ll <- spTransform(ngi, CRS("+proj=longlat"))
