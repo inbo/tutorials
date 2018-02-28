@@ -181,7 +181,7 @@ import pyodbc
 conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
 ```
 
-In RStudio, you can also make the connection with the GUI.
+In RStudio, you can also make the connection with the GUI:
 
 - Go to the _Connections_ pane and click 'New Connection'.
 - In the window that opens, choose the _ODBC Driver for SQL Server_.
@@ -191,7 +191,7 @@ In RStudio, you can also make the connection with the GUI.
     - If connection is unsuccessful, try again after explicitly adding your username to the connection string: `User ID=your_username;`
 - If the test is successful, click _OK_ to make the connection.
 
-Beside the fact that the connection has been made (see RStudio's R console), you also get a list of all databases in the Connections pane that reside on the specific SQL Server. You can use this for exploratory purposes. Click [here](https://db.rstudio.com/rstudio/connections/) for more information on using RStudio's Connections pane.
+Beside the fact that the connection has been made (see RStudio's R console), you also get a list of all databases (of the specific SQL Server) in the Connections pane. You can use this for exploratory purposes. Click [here](https://db.rstudio.com/rstudio/connections/) for more information on using RStudio's Connections pane.
 
 
 #### UNTESTED: Connecting after configuring `odbc.ini`
