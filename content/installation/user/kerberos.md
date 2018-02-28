@@ -162,7 +162,7 @@ At this moment, you can actually connect using typical ODBC libraries//packages 
 
 ```python
 import pyodbc
-conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=NBNData_IPT;Trusted_Connection=yes;")
+conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
 ```
 
 However, it is probably easier to provide the configuration to specific databases directly, using the `/etc/odbc.ini` file. For example, the `NBNData_IPT` database can be defined as follows:
@@ -172,8 +172,8 @@ However, it is probably easier to provide the configuration to specific database
 Driver      = ODBC Driver 13 for SQL Server
 Description = INBOSQL07\PRD
 Trace       = No
-Server      = 172.16.203.57  #TODO ADAPT
-Database    = NBNData_IPT
+Server      = inbo-sql07-prd.inbo.be
+Database    = D0017_00_NBNData
 Port        = 1433
 ```
 
