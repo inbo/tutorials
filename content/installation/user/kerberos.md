@@ -158,12 +158,43 @@ Description=Microsoft ODBC Driver 13 for SQL Server
 Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
 UsageCount=2
 ```
-At this moment, you can actually connect using typical ODBC libraries//packages provided by R or Python:
+
+To get a list of all databases on a server (make sure you have an active ticket):
+
+```
+sqlcmd -S inbo-sql07-prd.inbo.be -E
+1> Select name from sys.databases;
+2> Go
+```
+
+#### Connecting by explicitly providing the SQL connection string to ODBC libraries/packages
+
+At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
+
+```r
+library(DBI)
+con <- dbConnect(odbc::odbc(), .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
+```
 
 ```python
 import pyodbc
 conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
 ```
+
+In RStudio, you can also make the connection with the GUI.
+
+- Go to the _Connections_ pane and click 'New Connection'.
+- In the window that opens, choose the _ODBC Driver for SQL Server_.
+- In the _Parameters_ field that comes next, add `Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;`.
+    - Note that the `DBI` connection statement is visible at the bottom field of the dialog window.
+- Click _Test_ to verify successful connection.
+    - If connection is unsuccessful, try again after explicitly adding your username to the connection string: `User ID=your_username;`
+- If the test is successful, click _OK_ to make the connection.
+
+Beside the fact that the connection has been made (see RStudio's R console), you also get a list of all databases in the Connections pane that reside on the specific SQL Server. You can use this for exploratory purposes. Click [here](https://db.rstudio.com/rstudio/connections/) for more information on using RStudio's Connections pane.
+
+
+#### UNTESTED: Connecting after configuring `odbc.ini`
 
 However, it is probably easier to provide the configuration to specific databases directly, using the `/etc/odbc.ini` file. For example, the `NBNData_IPT` database can be defined as follows:
 
