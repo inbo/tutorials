@@ -31,7 +31,7 @@ proj4string(ngi) <- CRS("+init=epsg:3812")
 proj4string(ngi)
 ```
 
-We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGSS84" coordinates system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the projection string itself is easier to memorise: "+proj=longlat".
+We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGS84" coordinates system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the projection string itself is easier to memorise: "+proj=longlat".
 
 ```{r}
 ngi_ll <- spTransform(ngi, CRS("+proj=longlat"))
@@ -44,11 +44,11 @@ leaflet(ngi_ll) %>%
 ```{r echo = FALSE}
 kable(
   data.frame(
-    Projection = c("WGS84", "Lambert 72", "Lambert 2008", "web Mercator"),
+    CRS = c("WGS 84", "Belge 1972 / Belgian Lambert 72", "ETRS89 / Belgian Lambert 2008", "WGS 84 / Pseudo-Mercator"),
     EPSG = c(4326, 31370, 3812, 3857),
-    CRS = c("+proj=longlat", "+init=epsg:31370", "+init=epsg:3812", "+init=epsg:3857")
+    shortened_PROJ.4_string = c("+init=epsg:4326", "+init=epsg:31370", "+init=epsg:3812", "+init=epsg:3857")
   ),
-  caption = "Relevant projections for Belgian data"
+  caption = "Relevant projections for Belgian data. CRS = Coordinate reference system, EPSG = CRS number in the EPSG dataset."
 )
 ```
 
