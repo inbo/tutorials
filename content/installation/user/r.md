@@ -2,7 +2,7 @@
 date: 2017-10-18T15:43:32+02:00
 description: ""
 title: R
-weight: 10
+weight: 1
 ---
 
 ## Na de eerste installatie
