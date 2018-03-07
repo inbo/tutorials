@@ -5,7 +5,7 @@ date: 2018-02-09T14:14:49+01:00
 
 Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the [`tidyverse`](https://www.tidyverse.org) collection of packages. The command `library(tidyverse)` will actually load the following packages: `ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr` and `forecats`.
 
-Where to find good information on these packages:
+## Where to find good information on these packages:
 
 - official [tidyverse](https://www.tidyverse.org/) website
 - the R for data science book ([R4DS](http://r4ds.had.co.nz/)) by Garrett Grolemund

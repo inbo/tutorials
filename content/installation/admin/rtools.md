@@ -1,6 +1,7 @@
 ---
 title: "Rtools"
 date: 2017-10-18T00:30:16+02:00
+description: "Installation instructions for Rtools (in Dutch). Rtools is a collection of resources for building packages for R under Microsoft Windows."
 ---
 
 ## Windows
