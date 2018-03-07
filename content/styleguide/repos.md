@@ -1,6 +1,6 @@
 ---
 date: 2017-10-18T16:02:35+02:00
-description: ""
+description: "Guidelines for structuring git repositories"
 title: git repositories
 ---
 
