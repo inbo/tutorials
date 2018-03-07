@@ -2,6 +2,7 @@
 date: 2017-10-18T15:43:44+02:00
 description: ""
 title: Rstudio
+weight: 2
 ---
 
 ## Na de eerste installatie

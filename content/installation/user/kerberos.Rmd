@@ -2,7 +2,7 @@
 date: 2018-01-03
 description: "kerberos authentication on linux"
 title: Using kerberos authentication for database connection
-weight: 10
+weight: 11
 ---
 
 ## Introduction
@@ -147,6 +147,8 @@ sqlcmd -S inbo-sql07-prd.inbo.be -E
 2> Go
 ```
 
+Type `quit` to exit.
+
 ### SQL ODBC connections
 
 To support  database connections from other applications (e.g. GUI environments, but also R, Python,...), the configuration of database drivers and connections should be provided in the `/etc/odbc.ini` and `/etc/odbcinst.ini`.
@@ -158,6 +160,7 @@ Description=Microsoft ODBC Driver 13 for SQL Server
 Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
 UsageCount=2
 ```
+<<<<<<< HEAD:content/installation/user/kerberos.md
 
 To get a list of all databases on a server (make sure you have an active ticket):
 
@@ -171,12 +174,16 @@ sqlcmd -S inbo-sql07-prd.inbo.be -E
 
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
 
-```r
+```{r eval = FALSE}
 library(DBI)
-con <- dbConnect(odbc::odbc(), .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
+connection <- dbConnect(
+  odbc::odbc(), 
+  .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;"
+)
+dbListTables(connection)
 ```
 
-```python
+```{python, eval = FALSE}
 import pyodbc
 conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
 ```
@@ -208,7 +215,7 @@ Database    = D0017_00_NBNData
 Port        = 1433
 ```
 
-Next,  add the 
+Next, add the 
 
 inbosql04.inbo.be
 
