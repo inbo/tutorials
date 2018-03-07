@@ -1,6 +1,7 @@
 ---
 title: "Git"
 date: 2017-10-18T00:29:14+02:00
+description: "Installation instructions for Git (in Dutch). Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
 ---
 
 ## Windows

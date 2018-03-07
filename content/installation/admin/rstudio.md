@@ -1,6 +1,7 @@
 ---
-title: "Rstudio"
+title: "RStudio Desktop"
 date: 2017-10-18T00:30:40+02:00
+description: "Installation instructions for RStudio Desktop (in Dutch). RStudio is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management."
 ---
 
 De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/ 
