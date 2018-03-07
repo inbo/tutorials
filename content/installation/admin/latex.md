@@ -1,6 +1,7 @@
 ---
-title: "Latex"
+title: "LaTeX"
 date: 2017-10-18T00:29:35+02:00
+description: "Installation instructions for LaTeX compilers (in Dutch). LaTeX is a high-quality typesetting system; it includes features designed for the production of technical and scientific documentation."
 ---
 
 ## Windows

@@ -1,6 +1,6 @@
 ---
 date: 2017-10-18T15:43:44+02:00
-description: ""
+description: "How to set-up RStudio after installation or after an upgrade (in Dutch)"
 title: Rstudio
 ---
 
