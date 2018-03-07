@@ -11,7 +11,7 @@ opts_chunk$set(
 ```
 
 
-Sometimes we have a layer in one coordinate system and need to transform it into another coordinate system. The first thing we need to do is identifying both coordinate systems. Let's create an example and identify the coordinates system with `proj4string()`. We used the coordinates posted on the contact page of [NGI](http://www.ngi.be/NL/NL5.shtm).
+Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let's create an example and identify the coordinate reference system with `proj4string()`. We used the coordinates posted on the contact page of [NGI](http://www.ngi.be/NL/NL5.shtm).
 
 ```{r}
 library(sp)
@@ -24,14 +24,14 @@ coordinates(ngi) <- ~x + y
 proj4string(ngi)
 ```
 
-`NA` indicates that the coordinate systems isn't set. So we need to set it manually. In this case we know it is "Lambert 2008". We need to know the related projection string. The projection string is often a rather long string of parameters. However, more projections have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) number which you can find at http://epsg.io/. The EPSG number for "Lambert 2008" is 3812. Let's set this projection to our dataset. `CRS()` defines the projection based on a text string.
+`NA` indicates that the coordinate reference system isn't set. So we need to set it manually. In this case we know it is "Lambert 2008". We need to know the related projection string. The projection string is often a rather long string of parameters. However, most coordinate reference systems have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) number which you can find at http://epsg.io/. The EPSG number for "Lambert 2008" is 3812. Let's set this coordinate reference system to our dataset. `CRS()` defines the coordinate reference system based on a text string.
 
 ```{r}
 proj4string(ngi) <- CRS("+init=epsg:3812")
 proj4string(ngi)
 ```
 
-We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGS84" coordinates system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the projection string itself is easier to memorise: "+proj=longlat".
+We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGS84" coordinate reference system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the coordinate reference system string itself is easier to memorise: "+proj=longlat".
 
 ```{r}
 ngi_ll <- spTransform(ngi, CRS("+proj=longlat"))
@@ -51,4 +51,3 @@ kable(
   caption = "Relevant projections for Belgian data. CRS = Coordinate reference system, EPSG = CRS number in the EPSG dataset."
 )
 ```
-
