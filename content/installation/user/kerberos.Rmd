@@ -173,7 +173,7 @@ connection <- dbConnect(
 dbListTables(connection)
 ```
 
-```{python, eval = FALSE}
+```{python, eval = FALSE, python.reticulate = FALSE}
 import pyodbc
 conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
 ```

@@ -3,8 +3,6 @@ build:
   steps:
     - script:
         code: |
-          apt-get install -y --no-install-recommends python3-pip
-          Rscript -e "install.packages('reticulate')"
           Rscript "render.R"
           Rscript -e "blogdown::build_site()"
 deploy:
