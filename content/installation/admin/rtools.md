@@ -1,6 +1,7 @@
 ---
 title: "Rtools"
 date: 2017-10-18T00:30:16+02:00
+description: "Installation instructions for Rtools (in Dutch). Rtools is a collection of resources for building packages for R under Microsoft Windows."
 ---
 
 ## Windows
@@ -12,7 +13,7 @@ De installatiebestanden zijn beschikbaar via http://cran.r-project.org/bin/windo
 1. Kies `Nederlands` als taal voor de installatie en klik _volgende_.
 1. Klik _volgende_.
 1. Klik _volgende_.
-1. Wijzig de installatiemap naar `C:\R\Rtools` en klik _volgende_.
+1. Klik _volgende_.
 1. Selecteer in de dropdown box `Package authoring installation` en klik _volgende_.
 1. Vink _Edit the system PATH_ aan, vink _Save versions information to registry_ aan en klik op _volgende_.
 1. Klik _volgende_.
@@ -21,4 +22,4 @@ De installatiebestanden zijn beschikbaar via http://cran.r-project.org/bin/windo
 
 ### Afwijkingen t.o.v. default installatie
 
-- Installeren naar `C:\R\Rtools` i.p.v. `C:\Rtools`
+- Aanvinken van _Edit the system PATH_ en _Save versions information to registry_ 

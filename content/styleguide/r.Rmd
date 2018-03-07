@@ -1,12 +1,12 @@
 ---
 date: 2017-10-18T16:01:34+02:00
-description: ""
+description: "This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines."
 title: R
 ---
 
 ## Scope
 
-This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). It is likely to have consequences on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.
+This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.
 
 1. Don't apply the style guide to existing code.
 1. R users are free to apply the style guide to new personal R code.
@@ -14,40 +14,6 @@ This style guide is a recommendation for all R code written for the Research Ins
 1. The style guide is mandatory for new or revised R packages distributed by INBO.
 
 Please note that the RStudio editor has some handy features that automatically highlights errors against the code style in a non intrusive way. **RStudio hints** in this document are the instructions to activate these diagnostics in RStudio.
-
-## Recommended packages
-
-### Data import
-
-- `readr`: import text files
-- `readxl`: import Excel files
-- `googlesheets`: import Google Sheets
-- `DBI`: connect to databases PostgreSQL, SQLite, MySQL, Oracle, ...
-- `RODBC`: connect to databases SQL Server, Access
-
-### Data manipulation & transformation
-
-- `dplyr`:
-    - subsetting observations
-    - subsetting variables
-    - changing variables
-    - aggregation
-    - combining dataframes
-- `tidyr`:
-    - changing a dataframe from wide to long format and vice versa
-    - nesting and unnesting dataframes
-    - splitting a single variable into multiple variables
-
-### Graphics
-
-- `ggplot2`:all static graphics, charts and plots
-- `INBOtheme`: INBO corporate identity for `ggplot2` graphics
-
-### Quality control
-
-- `lintr`: checking coding style
-- `testthat`: writing unit tests
-- `covr`: check which part of the code is not covered by unit tests
 
 ## Syntax
 
@@ -79,6 +45,14 @@ some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = 'Some text
 ```
 
 ### Whitespace
+
+{{% notice warning %}}
+naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
+{{% /notice %}}
+
+{{% notice tip %}}
+Natural languages use whitespace and punctuation to make texts more readable. Programming languages are no exception to this rule.
+{{% /notice %}}
 
 - don't use tabs, use two spaces instead
     - **RStudio hint**: _Tools > Global options > Code > Editing_: Check _Insert spaces for tab_ and set _Tab width_ to 2
@@ -321,3 +295,38 @@ if (requireNamespace("lintr", quietly = TRUE)) {
 - avoid writing code that generates Markdown
     - use (parametrised) child documents instead
 - use the bookdown version for long reports: this makes it easy to split a long report into several child documents
+
+## Recommended packages
+
+### Data import
+
+- `readr`: import text files
+- `readxl`: import Excel files
+- `googlesheets`: import Google Sheets
+- `DBI`: connect to databases PostgreSQL, SQLite, MySQL, Oracle, ...
+- `RODBC`: connect to databases SQL Server, Access
+
+### Data manipulation & transformation
+
+- `dplyr`:
+    - subsetting observations
+    - subsetting variables
+    - changing variables
+    - aggregation
+    - combining dataframes
+- `tidyr`:
+    - changing a dataframe from wide to long format and vice versa
+    - nesting and unnesting dataframes
+    - splitting a single variable into multiple variables
+
+### Graphics
+
+- `ggplot2`:all static graphics, charts and plots
+- `INBOtheme`: INBO corporate identity for `ggplot2` graphics
+
+### Quality control
+
+- `lintr`: checking coding style
+- `testthat`: writing unit tests
+- `covr`: check which part of the code is not covered by unit tests
+
