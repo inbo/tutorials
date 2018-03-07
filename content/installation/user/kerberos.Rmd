@@ -2,7 +2,7 @@
 date: 2018-01-03
 description: "kerberos authentication on linux"
 title: Using kerberos authentication for database connection
-weight: 10
+weight: 11
 ---
 
 ## Introduction
@@ -147,6 +147,8 @@ sqlcmd -S inbo-sql07-prd.inbo.be -E
 2> Go
 ```
 
+Type `quit` to exit.
+
 ### SQL ODBC connections
 
 To support  database connections from other applications (e.g. GUI environments, but also R, Python,...), the configuration of database drivers and connections should be provided in the `/etc/odbc.ini` and `/etc/odbcinst.ini`.
@@ -158,11 +160,20 @@ Description=Microsoft ODBC Driver 13 for SQL Server
 Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
 UsageCount=2
 ```
-At this moment, you can actually connect using typical ODBC libraries//packages provided by R or Python:
+At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
 
-```python
+```{python, eval = FALSE}
 import pyodbc
 conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=NBNData_IPT;Trusted_Connection=yes;")
+```
+
+```{r eval = FALSE}
+library(odbc)
+connection <- dbConnect(
+  odbc::odbc(), 
+  .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;"
+)
+dbListTables(connection)
 ```
 
 However, it is probably easier to provide the configuration to specific databases directly, using the `/etc/odbc.ini` file. For example, the `NBNData_IPT` database can be defined as follows:
@@ -177,7 +188,7 @@ Database    = NBNData_IPT
 Port        = 1433
 ```
 
-Next,  add the 
+Next, add the 
 
 inbosql04.inbo.be
 
