@@ -83,12 +83,12 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 ```
 [realms]
         INBO.BE = {
-                kdc = inbo-ad-aws-01-prd.inbo.be
-                kdc = inbo-ad-aws-02-prd.inbo.be
-                kdc = inbogerdc.inbo.be
-                kdc = inbogrodc01.inbo.be
-                kdc = inbolindc01.inbo.be
-                default_domain = inbo.be
+                kdc = DNS_Name_DomainController1.domain.be
+                kdc = DNS_Name_DomainController2.domain.be
+                kdc = DNS_Name_DomainController3.domain.be
+                kdc = DNS_Name_DomainController4.domain.be
+                kdc = DNS_Name_DomainController5.domain.be
+                default_domain = domain.be
         }
 
 [logging]
@@ -97,7 +97,7 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 	admin_server = FILE:/var/log/kadmind.log
 
 [libdefaults]
-	default_realm = INBO.BE
+	default_realm = DOMAIN.BE
 	dns_lookup_realm = false
 	dns_lookup_kdc = false
 	ticket_lifetime = 24h
@@ -105,6 +105,7 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 	forwardable=  true
 ```
 
+Inbo staff can download a preconfigured krb5.conf file here:"https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing".
 In order to sync the timing of the domain controller server and client side, install `ntp`:
 
 ```
