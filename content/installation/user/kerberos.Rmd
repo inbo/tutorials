@@ -142,8 +142,11 @@ When the ticketing is working, the next step is to use the authentication to con
 
 Testing with `sqlcmd` (make sure you have an active ticket). Type `quit` to exit.
 
+Inbo staff can consult a list of connection strings ( including server names ) for a server to query
+[link](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing)
+
 ```
-sqlcmd -S inbo-sql07-prd.inbo.be -E
+sqlcmd -S DBServerName -E
 1> Select top 10 name from sys.databases;
 2> Go
 ```
@@ -163,27 +166,28 @@ UsageCount=2
 
 #### Connecting by explicitly providing the SQL connection string to ODBC libraries/packages
 
+Inbo staff can consult a list of connection strings [here](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing)
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
 
 ```{r eval = FALSE}
 library(DBI)
 connection <- dbConnect(
   odbc::odbc(), 
-  .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;"
+  .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;"
 )
 dbListTables(connection)
 ```
 
 ```python
 import pyodbc
-conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;")
+conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;")
 ```
 
 In RStudio, you can also make the connection with the GUI:
 
 - Go to the _Connections_ pane and click 'New Connection'.
 - In the window that opens, choose the _ODBC Driver for SQL Server_.
-- In the _Parameters_ field that comes next, add `Server=inbo-sql07-prd.inbo.be;Database=D0017_00_NBNData;Trusted_Connection=yes;`.
+- In the _Parameters_ field that comes next, add `Server=DBServerName;Database=DBName;Trusted_Connection=yes;`.
     - Note that the `DBI` connection statement is visible at the bottom field of the dialog window.
 - Click _Test_ to verify successful connection.
     - If connection is unsuccessful, try again after explicitly adding your username to the connection string: `User ID=your_username;`
@@ -194,21 +198,21 @@ Beside the fact that the connection has been made (see RStudio's R console), you
 
 #### UNTESTED: Connecting after configuring `odbc.ini`
 
-However, it is probably easier to provide the configuration to specific databases directly, using the `/etc/odbc.ini` file. For example, the `NBNData_IPT` database can be defined as follows:
+However, it is probably easier to provide the configuration to specific databases directly, using the `/etc/odbc.ini` file. For example, the `DBName` database can be defined as follows:
 
 ```
 [nbn_ipt]
 Driver      = ODBC Driver 13 for SQL Server
-Description = INBOSQL07\PRD
+Description = odbc vebinding naar db
 Trace       = No
-Server      = inbo-sql07-prd.inbo.be
-Database    = D0017_00_NBNData
+Server      = DBServername
+Database    = DBName
 Port        = 1433
 ```
 
 Next, add the 
 
-inbosql04.inbo.be
+DBServername
 
 
 **TODO:**
