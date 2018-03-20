@@ -14,35 +14,33 @@ knitr::opts_chunk$set(
 
 ## Windows
 
-Installatiebestand beschikbaar via http://cloud.r-project.org/bin/windows/base/
+Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/
 
 In de onderstaande tekst moet je in `R-3.x.y` zowel `x` als `y` vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie `R-3.0.0` is `x` = 0 en `y` = 0.
 
 ### Nieuwe installatie van R
 
-1. Maak de map `C:\R\library` aan. Zorg dat alle gebruikers volledige toegangsrechten hebben.
 1. Voer het bestand _R-3.x.y-win.exe_ uit.
 1. Kies _Nederlands_ als taal voor de installatie en klik op _OK_.
 1. klik op _Volgende_.
 1. Aanvaard de licentievoorwaarden door op _Volgende_ te klikken.
-1. Kies als doelmap `C:\R\R-3.x.y` en klik op _Volgende_. Je **MOET** de standaardwaarde dus aanpassen!
+1. Gebruik de standaarddoelmap en klik op _Volgende_.
 1. Selecteer de gewenste componenten en klik op _Volgende_. Je **MOET** deze standaardwaarden laten staan.
 1. Opstartinstelling aanpassen: Kies `Nee` en klik op _Volgende_.
 1. Geef de map voor het start menu en klik op _Volgende_. Je mag de standaardwaarde gebruiken.
 1. Vink de gewenste extra snelkoppelingen _aan_ (default is ok), alle register entries _aan_ en klik op _Volgende_.
 1. R wordt nu geïnstalleerd. Klik op _Voltooien_ als de installatie afgelopen is.
-1. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld `Programma's en variabelen zoeken`. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat^[Het moeten forward slashes zijn.]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
-1. Kopieer het bestand [`Rprofile.site`](../Rprofile.site) naar `C:\R\R-3.x.y\etc` Hierbij moet je het bestaande bestand overschrijven.
-1. Zorg dat de gebruiker schrijfrechten heeft voor `C:\R\R-3.x.y\library`
+1. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld `Programma's en variabelen zoeken`. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `%AppData%/R` bestaat^[Het moeten forward slashes zijn.]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
+1. Kopieer het bestand [`Rprofile.site`](../Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand overschrijven.
+1. Zorg dat de gebruiker schrijfrechten heeft voor `C:\Program Files\R\R-3.x.y\library`
 
 #### Afwijkingen t.o.v. default installatie
 
-- Installeren naar `C:\R\R-3.x.y` i.p.v. `C:\Program Files\R\R-3.x.y`
 - **alle** gebruikers moeten **volledige** rechten hebben in 
     - `C:\R\library`
-    - `C:\R\R-3.x.y\library`
+    - `C:\Program Files\R\R-3.x.y\library`
 - Systeemvariable `R_LIBS_USER` instellen op `C:/R/library` (**verplicht forward slashes**)
-- [`Rprofile.site`](../Rprofile.site) in `C:\R\R-3.x.y\etc` overschrijven
+- [`Rprofile.site`](../Rprofile.site) in `C:\Program Files\R\R-3.x.y\etc` overschrijven
 
 **R mag niet met admininstratorrechten gestart worden.** Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.
 
@@ -53,21 +51,17 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 **Deze instructies veronderstellen dat R en RStudio in het verleden reeds geïnstalleerd werden volgens de bovenstaande instructies. Indien dan niet het geval is, volg dan de instructies voor een nieuwe installatie.**
 
 1. Voer het bestand _R-3.x.y-win.exe_ uit.
-1. Kies Nederlands als taal voor de installatie en klik op _OK_.
+1. Kies _Nederlands_ als taal voor de installatie en klik op _OK_.
 1. klik op _Volgende_.
 1. Aanvaard de licentievoorwaarden door op _Volgende_ te klikken.
-1. Kies als doelmap `C:\R\R-3.x.y` en klik op _Volgende_. Je **MOET** de standaardwaarde dus aanpassen!
+1. Gebruik de standaarddoelmap en klik op _Volgende_.
 1. Selecteer de gewenste componenten en klik op _Volgende_. Je **MOET** deze standaardwaarden laten staan.
 1. Opstartinstelling aanpassen: Kies `Nee` en klik op _Volgende_.
 1. Geef de map voor het start menu en klik op _Volgende_. Je mag de standaardwaarde gebruiken.
-1. Vink alle extra snelkoppelingen _uit_, alle register entries _aan_ en klik op _Volgende_.
+1. Vink de gewenste extra snelkoppelingen _aan_ (default is ok), alle register entries _aan_ en klik op _Volgende_.
 1. R wordt nu geïnstalleerd. Klik op _Voltooien_ als de installatie afgelopen is.
-1. Rechtsklik op de snelkoppeling (in het Start menu) naar `R x64 3.x.y` en kies eigenschappen.
-1. Wijzig _Beginnen in_ naar `C:\R\R-3.x.y`
-1. Voeg achteraan het veld _Doel_ de volgende tekst toe: `--no-save --no-restore`
-1. Herhaal de laatste drie stappen voor de snelkoppeling naar `R i386 3.x.y`
-1. Kopieer het bestand [`Rprofile.site`](../Rprofile.site) naar `C:\R\R-3.x.y\etc` Hierbij moet je het bestaande bestand overschrijven.
-1. Zorg dat de gebruiker schrijfrechten heeft voor `C:\R\R-3.x.y\library`
+1. Kopieer het bestand [`Rprofile.site`](../Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand overschrijven.
+1. Zorg dat de gebruiker schrijfrechten heeft voor `C:\Program Files\R\R-3.x.y\library`
 1. De nieuwe R versie is klaar voor gebruik. De gebruiker moet `RStudio` bijwerken.
 
 **R mag niet met admininstratorrechten gestart worden.** Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.
