@@ -15,7 +15,7 @@ RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
 1. Zorg dat eerst `R` geïnstalleerd is.
 1. Voer het 64-bit installatiebestand uit.
 1. Welkom bij de installatie: klik op _volgende_.
-1. Geef aan dat je `RStudio` wilt installeren in `C:\R\Rstudio` en klik op _volgende_.
+1. Geef de doelmap en klik op _volgende_. Je mag de standaard gebruiken.
 1. Klik op _installeren_.
 1. Klik op _voltooien_.
 
@@ -25,4 +25,4 @@ Test de configuratie door RStudio te starten als een **_gewone_** gebruiker.
 
 ### Afwijkingen t.o.v. default installatie
 
-- Installeren naar `C:\R\RStudio` i.p.v. `C:\Program Files\R\RStudio`
+- Geen
