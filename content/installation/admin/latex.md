@@ -11,7 +11,7 @@ De installatiebestanden zijn beschikbaar via http://miktex.org/download
 1. Start de installer en klik op _Uitvoeren_.
 1. Aanvaard de voorwaarden en klik op _Volgende_
 1. Selecteer _Anyone who uses this computer_ en klik op _volgende_.
-1. In het veld _Install MikTeX to_ vul je `c:\R\MikTeX` in en klik op _volgende_.
+1. In het veld _Install MikTeX to_ vul je `C:\Program files\MikTeX` in en klik op _volgende_.
 1. Wijzig _Install missing packages on-the-fly_ naar `Yes` en klik op _volgende_.
 1. Klik op _Start_.
 1. Klik op _volgende_.
@@ -24,7 +24,6 @@ De installatiebestanden zijn beschikbaar via http://miktex.org/download
 
 ### Afwijkingen t.o.v. default installatie
 
-- Installeren naar `C:\R\MikTex` i.p.v. `C:\Program Files\MikTex`
 - _Install missing packages on-the-fly_: `Yes`
 
 ## Ubuntu
