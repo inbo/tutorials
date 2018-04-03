@@ -203,7 +203,7 @@ However, it is probably easier to provide the configuration to specific database
 ```
 [nbn_ipt]
 Driver      = ODBC Driver 13 for SQL Server
-Description = odbc vebinding naar db
+Description = odbc verbinding naar db
 Trace       = No
 Server      = DBServername
 Database    = DBName
