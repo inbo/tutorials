@@ -1,0 +1,38 @@
+---
+title: "Books and articles on statistics"
+date: 2018-03-21
+link-citations: yes
+csl: ../inbo.csl
+bibliography: reproducible_research.bib
+weight: 1
+---
+
+```{r setup, include = FALSE}
+library(bibtex)
+library(knitr)
+opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+bib <- read.bib("reproducible_research.bib")
+```
+
+```{r results='asis'}
+keys <- c("McElreath2015", "Kass2016", "Quinn2002", "James2013", "VanEmden2008", "Agresti2002a", "VanBelle2008", "Grolemund2016", "Baddeley2015", "Hobbs2015", "Zuur2017", "Zuur2010", "Kelleher2011", "Lohr2010", "Zuur2009c", "Zuur2016", "Gelman2007b", "Lindenmayer2010d", "Bolker2008a")
+abstracts <- sapply(
+  keys, 
+  function(key){
+    this <- bib[[key]]
+    if (!is.null(this$annote)) {
+      return(this$annote)
+    }
+    if (!is.null(this$abstract)) {
+      return(this$abstract)
+    }
+    "no annotation or abstract available"
+  }
+)
+cat(sprintf("- @%s: %s", keys, abstracts), sep = "\n\n")
+```
+
+## Bibliography
