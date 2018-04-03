@@ -4,6 +4,7 @@ date: 2018-03-21
 link-citations: yes
 csl: ../inbo.csl
 bibliography: reproducible_research.bib
+weight: 1
 ---
 
 ```{r setup, include = FALSE}
