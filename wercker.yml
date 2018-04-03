@@ -3,7 +3,9 @@ build:
   steps:
     - script:
         code: |
+          apt-get install -y --no-install-recommends gdal-bin
           Rscript "render.R"
+          Rscript -e "install.packages('bibtex')"
           Rscript -e "blogdown::build_site()"
 deploy:
   steps:

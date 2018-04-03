@@ -8,7 +8,7 @@ description: "Installation instructions for Rtools (in Dutch). Rtools is a colle
 
 ### Installatie en upgrade
 
-De installatiebestanden zijn beschikbaar via http://cran.r-project.org/bin/windows/Rtools/
+De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
 
 1. Kies `Nederlands` als taal voor de installatie en klik _volgende_.
 1. Klik _volgende_.

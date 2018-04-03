@@ -1,0 +1,56 @@
+---
+title: "Using WFS service in R"
+date: 2018-03-07T16:50:01+01:00
+weight: 2
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  cache = TRUE,
+  autodep = TRUE
+)
+```
+
+In computing, the Open Geospatial Consortium **Web Feature Service (WFS)** Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the "source code" behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport. In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. (Source: [Wikipedia](https://en.wikipedia.org/wiki/Web_Feature_Service))
+
+This examples illustrates how you can download information from a WFS for futher use in R. First of all we need to URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to extra some information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
+
+```{r}
+wfs_bwk <- "WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
+wfs_weather <- "WFS:http://opendata.meteo.be/service/aws/ows"
+library(gdalUtils)
+info <- ogrinfo(wfs_bwk, so = TRUE)
+cat(info, sep = "\n")
+```
+
+Let's start by downloading the "BWK:Bwkhab" layer for the Hallerbos area. We use `ogr2ogr()` from the `gdalUtils` package. The main part is defining the input and output. We store the data in [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format which is an open standard format designed for representing simple geographical features, along with their non-spatial attributes. It is based on JSON, the JavaScript Object Notation.
+
+We also add the bounding box from which we want to retrieve the data. This is very important to add. If you omit a bounding box, the service will return the entire map which can be very large.
+
+```{r}
+ogr2ogr(
+  src_datasource_name = wfs_bwk,           # the input source
+  layer = "BWK:Bwkhab",                    # the layer from the input
+  dst_datasource_name = "bwkhab.geojson",  # the target file
+  f = "geojson",                           # the target format
+  spat = c(left = 142600, bottom = 153800, right = 146000, top = 156900),
+                                           # the bounding box
+  t_srs = "EPSG:31370",                    # the coordinate reference system
+  verbose = TRUE
+)
+```
+
+At this point, all features are downloaded and can be used in R as we would we any other local file. So we need to load the file with `readOGR()` from `rgdal`.
+
+```{r}
+library(rgdal)
+bwkhab <- readOGR("bwkhab.geojson", stringsAsFactors = FALSE)
+summary(bwkhab)
+```
+
+Let's make a simple plot of the object. Note that the object contains features outside of the bounding box. Those are features which have only some part within the bounding box.
+
+```{r}
+spplot(bwkhab, zcol = "PHAB1", scales = list(draw = TRUE))
+```
