@@ -18,7 +18,7 @@ In computing, the Open Geospatial Consortium **Web Feature Service (WFS)** Inter
 
 # Download vector data from WFS
 
-This examples illustrates how you can download information from a WFS for futher use in R. First of all we need to URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to extra some information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
+This examples illustrates how you can download information from a WFS for further use in R. First of all we need to URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to extra some information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
 
 ```{r}
 wfs_bwk <- "WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
