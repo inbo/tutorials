@@ -21,19 +21,19 @@ The Wercker test environment can only be set up if the file `wercker.yml` is com
 Add a file "wercker.yml" in the root of the package with:
 
 - **box:** reference to a package with a [Docker](https://www.docker.com/) image that is used as a test environment.  If no specific version is specified, only the last master version is used. Which Docker image to use?
-    - `inbobmk/rstable` which is an image with stable versions of R and a large number of packages (see the [README](https://github.com/inbo/Rstable)). Most of the packages which are often used at INBO are available. The version of the packages is roughly fixed to to date on which the R version in the Docker image was upgraded.
+    - `inbobmk/rstable` which is an image with stable versions of R and a large number of packages (see the [README](https://github.com/inbo/Rstable)). Most of the packages which are often used at INBO are available. The version of the packages is roughly fixed to the date on which the R version in the Docker image was upgraded.
     - `rocker/verse` (https://hub.docker.com/r/rocker/verse/) which has the R, [devtools](https://www.rstudio.com/products/rpackages/devtools/) and all [tidyverse](https://www.tidyverse.org/) packages. The latest version of the image contains the latest version of the packages.
 - **build:**
-    - different steps to be runned
+    - different steps to pass
         - `inbobmk/r-check`: runs R CMD check but assumes that all dependencies are installed. Use this in combination with `inbobmk/rstable` in case you want to check your package against a stable set of packages.
         - `jimhester/r-check`: installs all missing dependencies on the fly and then runs R CMD check. This will install the latest version of the dependencies.
-        - `inbobmk/r-coverage`: check which lines in the code are covered by unit tests and which are not. See our page on [code coverage](codecov.html) for more details. This assumes that the `covr` package is installed.
-        - `jimhester/r-coverage`: install `covr` and run the code coverage
-        - `inbobmk/r-lint`: this check the [style](http://r-pkgs.had.co.nz/style.html) of your code. Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. It assumes the [`lintr`](https://github.com/jimhester/lintr) installed.
-        - `jimhester/r-lint`: installs the `lintr` package and check the style of the code
-    - steps are run along their order in the yaml file
-    - the exection will stop when a step fails
-    - if not all package are available in the docker image, code to install packages have to be added as a first step
+        - `inbobmk/r-coverage`: checks which lines in the code are covered by unit tests and which are not. See our page on [code coverage](codecov.html) for more details. This assumes that the `covr` package is installed.
+        - `jimhester/r-coverage`: installs `covr` and runs the code coverage
+        - `inbobmk/r-lint`: this check the [style](http://r-pkgs.had.co.nz/style.html) of your code. Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. It assumes the [`lintr`](https://github.com/jimhester/lintr) package is installed.
+        - `jimhester/r-lint`: installs the `lintr` package and checks the style of the code
+    - steps are run following their order in the yaml file
+    - the execution will stop when a step fails
+    - if not all packages are available in the docker image, code to install packages has to be added as a first step
 - after a build pipe, one can also add a deploy-pipe
 
 An example of a simple wercker.yml-file:
