@@ -49,7 +49,7 @@ An example of a simple wercker.yml-file:
 
 ### Wercker.com
 
-To add the application to http://www.wercker.com/:
+To add the application to [www.wercker.com](http://www.wercker.com/):
 
 - log in on the website (easiest is to log in via github) and create a username
 - click on the "+" button on the right top and choose "add application"
