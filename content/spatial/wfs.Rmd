@@ -12,9 +12,13 @@ opts_chunk$set(
 )
 ```
 
+# What is WFS?
+
 In computing, the Open Geospatial Consortium **Web Feature Service (WFS)** Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the "source code" behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport. In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. (Source: [Wikipedia](https://en.wikipedia.org/wiki/Web_Feature_Service))
 
-This examples illustrates how you can download information from a WFS for futher use in R. First of all we need to URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to extra some information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
+# Download vector data from WFS
+
+This examples illustrates how you can download information from a WFS for further use in R. First of all we need to URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to extra some information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
 
 ```{r}
 wfs_bwk <- "WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
@@ -54,3 +58,84 @@ Let's make a simple plot of the object. Note that the object contains features o
 ```{r}
 spplot(bwkhab, zcol = "PHAB1", scales = list(draw = TRUE))
 ```
+
+# Download feature attribute data from WFS
+
+In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). Actually, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.
+
+We rely on the `httr`  package to talk to web services:
+
+```{r}
+library(httr)  # generic webservice package
+```
+
+Consider the following use case: You want to extract the attribute data from a [soil map](http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f) for a number of sampling points (point coordinates). This use case can be tackled by relying on the WFS service and the affiliated spatial operators.
+
+Our example data point (in Lambert 72):
+```{r}
+x_lam <- 173995.67
+y_lam <- 212093.44
+```
+
+From this point we know the data, so we can verify the result (in dutch):
+
+* Bodemtype:	s-Pgp3(v)
+* Bodemserie:	Pgp
+* Textuurklasse:	licht zandleem
+* Drainageklasse:	uiterst nat, gereduceerd
+
+Hence, we now want to extract these soil properties from the WFS, for the coordinates defined above. 
+```{r}
+properties_of_interest <- c("Drainageklasse",
+                            "Textuurklasse",
+                            "Bodemserie",
+                            "Bodemtype")
+```
+
+The URL of the wfs service of the soil map of the Flemish region:
+```{r}
+wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
+```
+
+The essential part is to set up the proper query! The required data for the service is defined in the [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs) description. This can look a bit overwhelming in the start, but is a matter of looking for some specific elements of the (XML) document:
+
+* `service` (WFS), `request` (GetFeature) and `version` (1.1.0) are mandatory fields (see below)
+* `typeName`: Look at the different `<FeatureType...` enlisted and pick the `<Name>` of the one you're interested in. In this particular case `bodemkaart:bodemtypes` is the only one available.
+* `outputFormat`: The supported output formats are enlisted in `<ows:Parameter name="outputFormat">`. As the service provides CSV as output, this is a straightforward option. `json` is another popular one.
+* `propertyname`: A list of the attribute table fields (cfr. supra). A full list of the Flanders soil map is provided [here](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType).
+* We also define the `CRS`, using the [EPSG code](http://spatialreference.org/).
+* `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS` of the WFS `geom` and our `POINT` coordinate. The operators are enlisted in the `<fes:SpatialOperators>` field.
+
+Formatting all this information in a query and executing the request (`GET`) towards the service:
+
+```{r}
+query = list(service = "WFS",
+             request = "GetFeature",
+             version = "1.1.0",
+             typeName = "bodemkaart:bodemtypes",
+             outputFormat = "csv",
+             propertyname = as.character(paste(properties_of_interest,
+                                               collapse = ",")),
+             CRS = "EPSG:31370",
+             CQL_FILTER = sprintf("INTERSECTS(geom,POINT(%s %s))",
+                                  x_lam, y_lam)) 
+result <- GET(wfs_bodemtypes, query = query)
+result
+```
+
+The result is not yet formatted to be used as a dataframe. We need to use a small *trick* using the `textConnection` function to get from the result (bits) towards a readable output in a dataframe:
+
+```{r}
+df <- read.csv(textConnection(content(result, 'text')))
+kable(df)
+```
+
+Which indeed corresponds to the data of the coordinate.
+
+
+
+
+
+
+
+
