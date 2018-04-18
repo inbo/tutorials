@@ -17,6 +17,7 @@ Sometimes we have a layer in one coordinate reference system (CRS) and need to t
 ```{r}
 library(sp)
 library(leaflet)
+library(widgetframe)
 ```
 
 ```{r}
@@ -39,7 +40,8 @@ ngi_ll <- spTransform(ngi, CRS("+proj=longlat"))
 proj4string(ngi_ll)
 leaflet(ngi_ll) %>%
   addTiles() %>%
-  addMarkers()
+  addMarkers() %>%
+  frameWidget()
 ```
 
 ```{r echo = FALSE}
