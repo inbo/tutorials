@@ -30,3 +30,5 @@ if (interactive()) {
     }
   )
 }
+# required for RStan and brms
+Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")
