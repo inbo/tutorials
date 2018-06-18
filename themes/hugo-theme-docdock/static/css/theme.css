@@ -23,6 +23,30 @@
   font-weight: 700;
   src: local("Lato Bold"), local("Lato-Bold"), url(../fonts/Lato-Regular.woff2) format("woff2"), url(../fonts/Lato-Bold.ttf) format("truetype"); }
 
+@font-face {
+  font-family: FlandersArtSans-Light;
+  src: url("fonts/FlandersArtSans-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: FlandersArtSans-Regular;
+  src: url("fonts/FlandersArtSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: FlandersArtSans-Medium;
+  src: url("fonts/FlandersArtSans-Medium.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: FlandersArtSans-Bold;
+  src: url("fonts/FlandersArtSans-Bold.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 /* Table of contents */
 .progress ul {
   list-style: none;
@@ -545,7 +569,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
   max-width: 80%; }
 
 #chapter h3 {
-  font-family: "Lato", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: FlandersArtSans-Regular, "Lato", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   font-weight: 300;
   text-align: center; }
 
@@ -566,7 +590,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
   margin: 0; }
 
 body {
-  font-family: "Lato", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: FlandersArtSans-Regular, "Lato", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   font-weight: normal;
   line-height: 1.6;
   font-size: 18px !important; }
@@ -575,16 +599,15 @@ body {
     font-weight: bold; }
 
 h2, h3, h4, h5, h6 {
-  font-family: "Lato", "Work Sans Bold", "Helvetica Bold", "Tahoma Bold", "Geneva Bold", "Arial Bold", sans-serif;
+  font-family: FlandersArtSans-Medium, "Lato", "Work Sans Bold", "Helvetica Bold", "Tahoma Bold", "Geneva Bold", "Arial Bold", sans-serif;
   text-rendering: optimizeLegibility;
   color: #5e5e5e;
   font-weight: 400;
   letter-spacing: -1px; }
 
 h1 {
-  font-family: "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: FlandersArtSans-Bold, "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   text-align: center;
-  text-transform: uppercase;
   color: #060606;
   font-weight: 200; }
 
@@ -1188,7 +1211,7 @@ pre .copy-to-clipboard:hover {
     #sidebar ul.topics label {
       margin-top: 10px;
       /*margin-bottom: 5px;*/
-      font-family: 'Novacento Sans Wide', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
+      font-family: FlandersArtSans-Regular, 'Novacento Sans Wide', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
       font-weight: 100;
       color: white; }
     #sidebar ul.topics.searched ul {
@@ -1288,7 +1311,7 @@ pre .copy-to-clipboard:hover {
   #sidebar.showVisitedLinks ul li a span {
     width: calc(100% - 8px); }
   #sidebar #shortcuts h3 {
-    font-family: 'Novacento Sans Wide', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
+    font-family: FlandersArtSans-Regular, 'Novacento Sans Wide', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
     color: #fff; }
 
 /*
