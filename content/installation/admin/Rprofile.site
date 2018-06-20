@@ -7,6 +7,7 @@ options(
   keep.source.pkgs = TRUE,
   xpinch = 300,
   ypinch = 300,
+  yaml.eval.expr = TRUE,
   repos = c(
     RStudio = "https://cloud.r-project.org/",
     INLA = "https://inla.r-inla-download.org/R/stable"
