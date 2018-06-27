@@ -1,0 +1,60 @@
+---
+title: "Let's create an interactive map!"
+author: "Jeroen Speybroeck"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The required packages are **leaflet** and **sp**.
+
+```{r message=FALSE, warning=FALSE}
+library(leaflet)
+library(sp)
+```
+
+## Dummy data
+
+Let's create a dumy `data.frame` to play around, i.e. the three locations of INBO:
+
+```{r}
+names <- c("VAC HT","Geraardsbergen","Linkebeek")
+lat <- c(50.865664, 50.760201, 50.767950)
+lon <- c(4.349944, 3.874300, 4.333044)
+data <- data.frame(names,lat,lon)
+```
+
+We created three points:
+
+```{r}
+plot(data$lon, data$lat)
+```
+
+## Creating a map
+
+We need to convert the `data.frame` to a `SpatialPointsDataFrame`:
+
+```{r}
+crs_wgs84 <- CRS("+init=epsg:4326")
+pts <- SpatialPointsDataFrame(data[c("lon","lat")], 
+                              data[!(names(data) %in% c("lon","lat"))],
+                              proj4string = crs_wgs84)
+
+```
+
+The `leaflet` package is ideal to create a basic interactive map:
+
+```{r}
+library(leaflet)
+leaflet(pts) %>% 
+  addTiles(group="OSM") %>%
+  addCircleMarkers()
+```
+
+**Nice, no?!**
+
+More information is provided [at the leaflet information website](https://rstudio.github.io/leaflet/)!
