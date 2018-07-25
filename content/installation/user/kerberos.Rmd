@@ -28,6 +28,17 @@ sudo apt-get install openssl
 
 These libraries will be used later on. The following section is for interaction with MS SQL databases.
 
+Modern Linux distributions use PAM to handle the authentication tasks of applications (services) on the system (PAM stands for _Pluggable Authentication Modules_, see `man PAM`). However we do not need that here.
+The above installation may have led to inserting a line into PAM configuration file `/etc/pam.d/common-auth`. The line looks like this (note the defining part `pam_krb5.so`):
+
+```
+auth	[success=4 default=ignore]	pam_krb5.so minimum_uid=1000
+```
+
+This line makes every application that needs authentication on the system (like sudo, screensaver unlock, update manager, ...) first try the Kerberos connection to authenticate.
+This is overkill as we don't want to use Kerberos that way, and it can significantly slow down all other system authentications.
+Therefore, you should _comment out_ the above line in `/etc/pam.d/common-auth`.
+
 ### MS SQL Server tools
 
 As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.
