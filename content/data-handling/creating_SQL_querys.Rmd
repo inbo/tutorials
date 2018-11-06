@@ -1,0 +1,99 @@
+---
+title: "Creating SQL Query's"
+author: "Jo Loos"
+date: "2018-11-06"
+output: html_document
+---
+
+## Introduction
+
+This tutorial will explain how you can create a query on a SQL database.  
+
+We presume you know the tables and their layout.
+
+## The select statement
+
+todo
+
+## The from statement
+
+todo
+
+## The where statement
+
+todo
+
+## Grouping
+
+todo
+
+## Having
+
+todo
+
+## Computing
+
+todo
+
+## Pivot 
+
+todo
+
+## Unpivot 
+
+todo
+
+## Temporal tables
+
+This is best described as a "system versioned table".  Meaning a table where changes are versioned and saved automaticaly by the database engine.
+
+It is used for example within WATINA on the table "dbo.tblDrukmeting". Older versions are stored in the table "tt.tblDrukMetingHistory"
+
+A special fucntion is created to deal with the versioning information. 
+```{sql}
+FOR SYSTEM_TIME <ALL><AS OF {datetime2}>
+```
+It is declared directly after the "versioned" table, in the example "dbo.tblDrukMeting" ( even before the table alias ). The function consists of 2 parts "FOR SYSTEM_TIME" and "ALL". First part indicating you want to use the versioning system, second part indicating what version you are interested in.
+A number of different possibilities, most common used are "ALL" and "AS OF {datetime2}"
+
+
+
+
+
+There are a few different uses:
+
+### only interested in the last version 
+Nothing changed, the original table "dbo.tblDrukmeting" still contains the last version.
+```{sql}
+SELECT *
+FROM dbo.tblDrukMeting dm
+WHERE dm.DRME_ID = 5960579
+```
+
+### only interested in older versions 
+All older versions are stored in table "tt.tblDrukMetingHistory". The layout of the "history" table is identical to the original table. In fact if the original table changes, the "history" table is automaticaly changed accordingly. 
+```{sql}
+SELECT * 
+FROM tt.tblDrukMetingHistory t
+WHERE t.DRME_ID = 5960579
+```
+
+### interested in all versions
+To query all version, previous and present, the versioning function is used with the option "ALL".
+```{sql}
+SELECT *
+FROM dbo.tblDrukMeting FOR SYSTEM_TIME ALL dm 
+WHERE dm.DRME_ID = 5960579
+ORDER BY DRME_USR_UPD_DTE DESC 
+```
+
+### interested in a version valid givin in time
+To query a version witch was active on a certain moment, the versioning fucntion is used with the option "AS OF {dateTime2}" and the datetime expressed preferrably in ISO format.
+```{sql}
+SELECT *
+FROM dbo.tblDrukMeting FOR SYSTEM_TIME AS OF '2018-11-06T08:36:00' dm 
+WHERE dm.DRME_ID = 5960579
+ORDER BY DRME_USR_UPD_DTE DESC 
+```
+
+for more information consult => https://docs.microsoft.com/en-us/sql/relational-databases/tables/temporal-tables?view=sql-server-2017
