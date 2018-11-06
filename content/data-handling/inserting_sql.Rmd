@@ -1,0 +1,128 @@
+---
+title: "Creating SQL Query's"
+author: "Jo Loos en Els De Bie"
+date: "2018-11-06"
+output: html_document
+---
+
+## Introduction
+
+This tutorial will explain how you can insert data into a table on a SQL database.  
+
+We presume you know the tables and their layout.
+
+## first connect to correct database
+examples are based on the futon database ( inboveg )
+
+```{sql}
+USE D0013_00_Futon
+```
+
+## insert record by record using the value statement
+inserting a record by adding information for every column needed
+example creates a temparary table (or a table variable) that is used for inserting into.
+( that makes the example non persistant and thus repeatable, only for example purposes. )
+
+```{sql}
+-- tijdelijk tabelleke ( bestaat enkel in runtime in't geheugen )
+DECLARE @ftActionGroupList TABLE 
+( [ListGIVID] [nchar](18) NOT NULL
+, [ActionGroup] [nvarchar](30) NOT NULL
+, [ListName] [nvarchar](30) NOT NULL
+, [Description] [nvarchar](100) NOT NULL
+, [InUse] [smallint] NULL
+)
+
+--voorbeeld insert , laatste kolom moet een getal ( smallint) zijn
+INSERT  @ftActionGroupList ([ListGIVID], [ActionGroup], [ListName], [Description], [InUse])
+VALUES ( 'eerste kolom', 'tweede kolom', 'derde kolom','vierde kolom',5)
+```
+
+## insert query result into a table
+This is the most used form as one can prepare a query and when finished, insert result into the final table.
+
+again a temparary table is used to insert data into.
+
+```{sql}
+-- tijdelijk tabelleke ( bestaat enkel in runtime in't geheugen )
+DECLARE @ftActionGroupList TABLE 
+( [ListGIVID] [nchar](18) NOT NULL
+, [ActionGroup] [nvarchar](30) NOT NULL
+, [ListName] [nvarchar](30) NOT NULL
+, [Description] [nvarchar](100) NOT NULL
+, [InUse] [smallint] NULL
+)
+
+--toevoegen van resultaat van een query
+INSERT  @ftActionGroupList ([ListGIVID], [ActionGroup], [ListName], [Description])
+SELECT [ListGIVID], [ActionGroup], [ListName], [Description]
+FROM dbo.ftActionGroupList
+```
+
+The insert statement has only 4 columns, the 5'th will be "NULL" ( witch is allowd by the datamodel of the table  ( note the ", [InUse] [smallint] NULL" witch makes the column InUse nullable ) 
+A query on the table "dbo.ftActionGroupList" selects als result only the first 4 columns.
+The columns in the select query need to be an exact match to the columns in the destination table.
+
+The Selecting query can also contain a where statement shown below
+
+```{sql}
+-- tijdelijk tabelleke ( bestaat enkel in runtime in't geheugen )
+DECLARE @ftActionGroupList TABLE 
+( [ListGIVID] [nchar](18) NOT NULL
+, [ActionGroup] [nvarchar](30) NOT NULL
+, [ListName] [nvarchar](30) NOT NULL
+, [Description] [nvarchar](100) NOT NULL
+, [InUse] [smallint] NULL
+)
+
+--toevoegen van resultaat van een query
+INSERT  @ftActionGroupList ([ListGIVID], [ActionGroup], [ListName], [Description])
+SELECT [ListGIVID], [ActionGroup], [ListName], [Description]
+FROM dbo.ftActionGroupList
+WHERE  ListName = 'Beheersmonitoringsscha'
+```
+
+using previous inserted data and inserting data into a linked ( referential integrity ) table
+
+
+```{sql}
+
+-- tijdelijk tabelleke ( bestaat enkel in runtime in't geheugen )
+DECLARE @ftActionGroupList TABLE 
+( [ListGIVID] [nchar](18) NOT NULL
+, [ActionGroup] [nvarchar](30) NOT NULL
+, [ListName] [nvarchar](30) NOT NULL
+, [Description] [nvarchar](100) NOT NULL
+, [InUse] [smallint] NULL
+)
+
+DECLARE @ftCoverValues TABLE
+( [ftCoverValuesId] [int] IDENTITY(1,1) NOT NULL
+, [ListGIVID] [nchar](18) NOT NULL
+, [Code] [nvarchar](11) NOT NULL
+, [SortCode] [int] NOT NULL
+, [PctValue] [numeric](18, 1) NOT NULL
+)
+
+
+--toevoegen van resultaat van een query
+INSERT  @ftActionGroupList ([ListGIVID], [ActionGroup], [ListName], [Description])
+SELECT [ListGIVID], [ActionGroup], [ListName], [Description]
+FROM dbo.ftActionGroupList
+
+
+--hergebruik de juist ingevoerde record(s) hang er nieuwe data aan en insert deze in de volgende tabel
+INSERT @ftCoverValues ( [ListGIVID], [Code], [SortCode], [PctValue] )
+SELECT  AGL.[ListGIVID] , tmp.Code , tmp.SortCode, tmp.PctValue
+FROM @ftActionGroupList AGL
+cross join ( SELECT 1 as [Code], 2 as [SortCode] , 0.3 as [PctValue] UNION ALL 
+			 SELECT 4,5,0.6 ) tmp
+WHERE ListName = 'Beheersmonitoringsscha';
+
+SELECT * FROM @ftCoverValues 
+```
+
+## Naming of SQL objects
+SQL Objects are defined by 4 names 
+ 
+[servernaam].[DatabaseNaam].[schema].[objectNaam]
