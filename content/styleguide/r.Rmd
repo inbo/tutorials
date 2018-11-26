@@ -17,7 +17,7 @@ Please note that the RStudio editor has some handy features that automatically h
 
 ## Syntax
 
-**RStudio hint**: _Tools > Global options > Code > Diagnotics_: Check everything
+**RStudio hint**: _Tools > Global options > Code > Diagnostics_: Check everything
 
 ### General
 
@@ -161,9 +161,9 @@ Adding `# nolint` at the end of a line excludes that line from the automatic che
 
 The code below validate the syntax for an R file, an RMarkdown file or an R package.
 
-**RStudio hint**: Running this code within RStudio will open a _Markers_ pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file a the correct location, making it easy to rectify the problem. 
+**RStudio hint**: Running this code within RStudio will open a _Markers_ pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file at the correct location, making it easy to rectify the problem. 
 
-Extra hint: start correcting for the last lines and work your way forward. This leave the line numbers of the errors intact until you solve them. 
+Extra hint: start correcting for the last lines and work your way forward. This leaves the line numbers of the errors intact until you solve them. 
 
 An example to clarify this. Suppose you have an error at line 10 and an error at line 100. Both errors are `lines should not be more than 80 characters`, so to solve them we have to split the lines over multiple lines. 
 
@@ -268,7 +268,7 @@ Authors@R: c(person("Els", "Lommelen", email = "els.lommelen@inbo.be", role = c(
 - each package should contain the unit for coding style as listed below
     - store this in a file `tests/testthat/test_zzz_coding_style.R`
     - add this file to `.gitignore`
-        - the coding style will be tested separatly when using continuous integration
+        - the coding style will be tested separately when using continuous integration
 
 ```{r eval = FALSE}
 if (requireNamespace("lintr", quietly = TRUE)) {
