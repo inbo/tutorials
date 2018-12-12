@@ -1,0 +1,15 @@
+[build]
+publish = "exampleSite/public"
+
+[context.production]
+command = "ln -s ${PWD} ../minimo && hugo --source=exampleSite --baseURL=${URL}"
+
+[context.branch-deploy]
+command = "ln -s ${PWD} ../minimo && hugo --source=exampleSite --baseURL=${DEPLOY_PRIME_URL}"
+
+[context.deploy-preview]
+command = "ln -s ${PWD} ../minimo && hugo --source=exampleSite --baseURL=${DEPLOY_PRIME_URL}"
+
+[build.environment]
+HUGO_THEMESDIR = "../.."
+HUGO_VERSION = "0.45"

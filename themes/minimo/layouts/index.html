@@ -1,0 +1,19 @@
+{{ partial "header" . }}
+
+{{ if .Content }}
+<div class='entry'>
+  {{ partial "entry/cover" . }}
+  {{ partial "entry/content" . }}
+</div>
+{{ end }}
+
+{{- $homepageWidgets := .Site.Params.widgets.homepage -}}
+{{- if $homepageWidgets -}}
+<div class='home-widgets'>
+  <div class='container sep-before'>
+    {{- partial "extras/widget_area" ( dict "Widgets" $homepageWidgets "Scope" . ) -}}
+  </div>
+</div>
+{{- end -}}
+
+{{ partial "footer" . }}
