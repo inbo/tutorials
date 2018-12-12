@@ -16,5 +16,3 @@ At INBO we currently use 3 systems for continuous integration on R packages:
 - Travis, which is often used and runs on a linux machine
 - Wercker, which also runs on a linux machine
 - AppVeyor, which runs on a windows machine and can automatically release targeted versions to our [drat](https://inbo.github.io/drat)
-
-{{% children description="true"   %}}

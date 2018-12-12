@@ -46,13 +46,9 @@ some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = 'Some text
 
 ### Whitespace
 
-{{% notice warning %}}
 naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
-{{% /notice %}}
 
-{{% notice tip %}}
 Natural languages use whitespace and punctuation to make texts more readable. Programming languages are no exception to this rule.
-{{% /notice %}}
 
 - don't use tabs, use two spaces instead
     - **RStudio hint**: _Tools > Global options > Code > Editing_: Check _Insert spaces for tab_ and set _Tab width_ to 2
