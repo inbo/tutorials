@@ -3,7 +3,8 @@ baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "INBO Tutorials"
 
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
+relativeURLs = true
 
 # for smart copyright line, leave this blank and check [params.copyright]
 copyright = ""
@@ -11,14 +12,14 @@ copyright = ""
 disqusShortname = ""
 googleAnalytics = ""
 
-Paginate = 5
+Paginate = 1000
 preserveTaxonomyNames = true
 
 enableRobotsTXT = true # generate robots.txt
 
 # Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
 pygmentsCodefences = true
-pygmentsStyle = "pastie"
+pygmentsStyle = "autumn"
 
 enableEmoji = true
 
@@ -120,11 +121,13 @@ searchApiKey = ""
 [taxonomies]
 author = "authors"
 category = "categories"
-series = "series"
 tag = "tags"
 
 [permalinks]
-page = "/:slug/"
+#page = "/:slug/"
+#posts = "/posts/:slug/"
+#tutorials = "/tutorials/:filename/"
+content = "/:slug/"
 
 [[menu.main]]
 name = "Source"
