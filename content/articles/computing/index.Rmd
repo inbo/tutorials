@@ -1,0 +1,38 @@
+---
+title: "Scientific computing and data handling workflows"
+date: 2018-03-21
+link-citations: yes
+csl: ../inbo.csl
+bibliography: ../reproducible_research.bib
+categories: ["literature"]
+tags: ["literature", "open science"]
+output: 
+    md_document:
+        preserve_yaml: true
+weight: 2
+---
+
+This page lists **selected** literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site's users.
+
+Several of the resources were added based on an inspiring
+[talk](https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing) 
+by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+
+## Overviews {#overviews}
+
+- @wilson_good_2017: set of **good computing practices** that every researcher can adopt
+- @british_ecological_society_guide_2014: planning the **data life cycle**; creating, processing, documenting, preserving, sharing & reusing data
+- @cooper_guide_2017: file organisation, workflow documentation, **code** reproducibility and readability, writing reproducible reports, version control and code archiving
+- @ibanez_practicing_2014: vision on reproducible science, routine **practices**, collaboration, literate computing
+
+See also some resources related to [learning and education](../skills) and the [discipline of open and reproducible science](../open_science).
+
+## Specific tools
+
+- @ross_declutter_2017: about **tidyverse** workflow and tools
+
+## Focus on version control workflows
+
+- @bryan_excuse_2017: rationale, workflows and tools regarding version control for project organization
+
+## Bibliography

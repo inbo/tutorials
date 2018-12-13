@@ -1,0 +1,34 @@
+---
+title: "Acquiring the skills"
+date: 2018-03-21
+link-citations: yes
+csl: ../inbo.csl
+bibliography: ../reproducible_research.bib
+categories: ["literature"]
+tags: ["literature", "open science"]
+output: 
+    md_document:
+        preserve_yaml: true
+weight: 3
+---
+
+This page lists **selected** literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site's users.
+
+Several of the resources were added based on an inspiring
+[talk](https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing) 
+by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+
+These resources focus on the learning and teaching aspect, while they often also give an overview of [scientific computing workflows](../computing).
+
+## Open data science in general
+
+- @lowndes_our_2017: **learning** open data science tools
+- @hampton_skills_2017: **training approaches and needed skills** in data science
+- @stevens_building_2018: **local community of practice** for scientific programming: why, how (including scheme), challenges
+
+## In relation to statistics teaching
+
+- @kaplan_teaching_2017: ten organizing blocks for **introductory statistics teaching** in the present data science context
+- @cetinkaya-rundel_infrastructure_2017: **computational infrastructure and toolkit choices** to allow for the necessary pedagogical innovations in statistics education
+
+## Bibliography
