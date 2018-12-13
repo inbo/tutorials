@@ -1,0 +1,84 @@
+---
+title: "Match scientific names with the GBIF backbone"
+author: "Dirk Maes, Dimitri Brosens"
+date: 2018-06-14
+categories: ["r"]
+tags: ["API", "webservice", "r", "gbif", "biodiversity"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: markdown_github
+---
+
+## Introduction
+
+This tutorial will explain how you can match a list of 'scientific names' to the GBIF taxonomic backbone
+
+Important is that you have [rgbif](https://github.com/ropensci/rgbif) and [inborutils](https://inbo.github.io/inborutils/) installed and available:
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse) # tidyverse
+library(rgbif)     # To Match GBIF
+library(inborutils) # wrap GBIF api data
+library(knitr)
+library(pander)
+```
+
+## Read data file containing the scientific names
+
+Read file containing the scientific names you want to check against the [GBIF](https://www.gbif.org/species/search?q=) taxonomic backbone:
+
+```{r}
+species_list <- read_csv("https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv", trim_ws = TRUE, col_types = cols())
+```
+   
+Take a look at the data:
+
+```{r}
+pandoc.table(head(as.data.frame(species_list)), style = "rmarkdown")
+```
+
+## Request species information
+
+Match the column containing the scientificName with GBIF, using the `gbif_species_name_match` function from the [inborutils](https://inbo.github.io/inborutils/reference/gbif_species_name_match.html) package:
+
+```{r, message=FALSE, warning=FALSE}
+species_list_matched <- species_list %>% 
+    gbif_species_name_match(name_col = "name") 
+```
+
+The `name_col` argument is the column name containing the scientific names. 
+
+Take a look at the updated data:
+
+```{r}
+pandoc.table(head(as.data.frame(species_list_matched)), style = "rmarkdown")
+```
+
+You can also specify which info (`gbif_terms`) GBIF should return. For example, return a lot of terms: 
+
+```{r, message=FALSE, warning=FALSE}
+species_list %>% 
+    gbif_species_name_match(name_col = "name",
+                            gbif_terms = c('usageKey', 'scientificName', 
+                                           'rank', 'order', 'matchType', 
+                                           'phylum', 'kingdom', 'genus', 
+                                           'class', 'confidence', 'synonym', 
+                                           'status', 'family')) %>%
+    head() %>%
+    as.data.frame() %>%
+    pandoc.table(style = "rmarkdown")
+```
+
+or rather just a subset:
+
+```{r, message=FALSE, warning=FALSE}
+species_list %>% 
+    gbif_species_name_match(name_col = "name",
+                            gbif_terms = c('scientificName', 'family',
+                                           'order', 'matchType')) %>%
+    head() %>%
+    as.data.frame() %>%    
+    pandoc.table(style = "rmarkdown")
+```
+
