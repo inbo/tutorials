@@ -19,3 +19,7 @@ public
 *.html
 # ignore public folder
 public/
+# ignore npm and javascript libraries
+node_modules/
+package-lock.json
+
