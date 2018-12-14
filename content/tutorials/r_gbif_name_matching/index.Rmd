@@ -3,7 +3,7 @@ title: "Match scientific names with the GBIF backbone"
 author: "Dirk Maes, Dimitri Brosens"
 date: 2018-06-14
 categories: ["r"]
-tags: ["API", "webservice", "r", "gbif", "biodiversity"]
+tags: ["api", "webservice", "r", "gbif", "biodiversity"]
 output: 
     md_document:
         preserve_yaml: true
