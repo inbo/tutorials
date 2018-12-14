@@ -1,12 +1,15 @@
 language: go
 
+before_install:
+  - sudo apt-get update && sudo apt-get install -y libusb-1.0-0-dev
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+
 # install - install hugo
 install:
     - go get github.com/gohugoio/hugo
-    - curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-    - sudo apt-get install -y nodejs
-    - sudo apt-get install -y build-essential
-    - npm install -g lunr glob
+    - npm install lunr glob
 
 before_script:
     - rm -rf public 2> /dev/null
