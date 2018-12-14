@@ -21,7 +21,6 @@ library(tidyverse) # tidyverse
 library(rgbif)     # To Match GBIF
 library(inborutils) # wrap GBIF api data
 library(knitr)
-library(pander)
 ```
 
 ## Read data file containing the scientific names
@@ -35,7 +34,7 @@ species_list <- read_csv("https://raw.githubusercontent.com/inbo/inbo-pyutils/ma
 Take a look at the data:
 
 ```{r}
-pandoc.table(head(as.data.frame(species_list)), style = "rmarkdown")
+knitr::kable(head(species_list))
 ```
 
 ## Request species information
@@ -52,7 +51,7 @@ The `name_col` argument is the column name containing the scientific names.
 Take a look at the updated data:
 
 ```{r}
-pandoc.table(head(as.data.frame(species_list_matched)), style = "rmarkdown")
+knitr::kable(head(species_list_matched))
 ```
 
 You can also specify which info (`gbif_terms`) GBIF should return. For example, return a lot of terms: 
@@ -66,8 +65,7 @@ species_list %>%
                                            'class', 'confidence', 'synonym', 
                                            'status', 'family')) %>%
     head() %>%
-    as.data.frame() %>%
-    pandoc.table(style = "rmarkdown")
+    kable()
 ```
 
 or rather just a subset:
@@ -78,7 +76,6 @@ species_list %>%
                             gbif_terms = c('scientificName', 'family',
                                            'order', 'matchType')) %>%
     head() %>%
-    as.data.frame() %>%    
-    pandoc.table(style = "rmarkdown")
+    kable()
 ```
 
