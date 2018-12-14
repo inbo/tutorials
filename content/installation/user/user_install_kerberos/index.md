@@ -1,5 +1,5 @@
 ---
-title: "Using kerberos authentication for database connection"
+title: "Using Kerberos authentication for database connection"
 description: "Kerberos authentication on linux"
 author: "Jo Loos, Floris Vanderhaeghe, Stijn Van Hoey"
 date: 2018-01-03
@@ -29,6 +29,17 @@ sudo apt-get install openssl
 ```
 
 These libraries will be used later on. The following section is for interaction with MS SQL databases.
+
+Modern Linux distributions use PAM to handle the authentication tasks of applications (services) on the system (PAM stands for _Pluggable Authentication Modules_, see `man PAM`). However we do not need that here.
+The above installation may have led to inserting a line into PAM configuration file `/etc/pam.d/common-auth`. The line looks like this (note the defining part `pam_krb5.so`):
+
+```
+auth	[success=4 default=ignore]	pam_krb5.so minimum_uid=1000
+```
+
+This line makes every application that needs authentication on the system (like sudo, screensaver unlock, update manager, ...) first try the Kerberos connection to authenticate.
+This is overkill as we don't want to use Kerberos that way, and it can significantly slow down all other system authentications.
+Therefore, you should _comment out_ the above line in `/etc/pam.d/common-auth`.
 
 ### MS SQL Server tools
 
@@ -117,9 +128,9 @@ After installation, check if the following two files do exist:
 * `/etc/ntp.conf`
 * `/etc/ntp.conf.dhcp` (empty file, just amke sure there is a file)
 
-### Test installations
+## Test installation
 
-#### kerberos ticket system
+### Kerberos ticket system
 
 To check if the Kerberos configuration is successful, ask for a ticket by initiating with `kinit`:
 ```
@@ -138,7 +149,7 @@ Valid starting     Expires            Service principal
 	renew until 10/01/18 15:42:08
 ```
 
-#### SQL database connections
+### SQL database connections
 
 When the ticketing is working, the next step is to use the authentication to connect to the databases itself. To test this, we'll use the `sqlcmd` command line tool. In a next section, we'll focus on the ODBC settings.
 
@@ -154,7 +165,7 @@ sqlcmd -S DBServerName -E
 ```
 
 
-### SQL ODBC connections
+## SQL ODBC connections
 
 To support  database connections from other applications (e.g. GUI environments, but also R, Python,...), the configuration of database drivers and connections should be provided in the `/etc/odbc.ini` and `/etc/odbcinst.ini`.
 
@@ -166,7 +177,7 @@ Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
 UsageCount=2
 ```
 
-#### Connecting by explicitly providing the SQL connection string to ODBC libraries/packages
+### Connecting by explicitly providing the SQL connection string to ODBC libraries/packages
 
 Inbo staff can consult a list of connection strings [here](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing)
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
@@ -198,7 +209,7 @@ In RStudio, you can also make the connection with the GUI:
 Beside the fact that the connection has been made (see RStudio's R console), you also get a list of all databases (of the specific SQL Server) in the Connections pane. You can use this for exploratory purposes. Click [here](https://db.rstudio.com/rstudio/connections/) for more information on using RStudio's Connections pane.
 
 
-#### UNTESTED: Connecting after configuring `odbc.ini`
+### UNTESTED: Connecting after configuring `odbc.ini`
 
 However, it is probably easier to provide the configuration to specific databases directly, using the `/etc/odbc.ini` file. For example, the `DBName` database can be defined as follows:
 
@@ -212,10 +223,7 @@ Database    = DBName
 Port        = 1433
 ```
 
-Next, add the 
-
-DBServername
-
+Next, add the DBServername
 
 **TODO:**
 -> example in R/Python
