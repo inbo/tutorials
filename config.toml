@@ -4,7 +4,7 @@ languageCode = "en-us"
 title = "INBO Tutorials"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
-relativeURLs = true
+# relativeURLs = true
 
 # for smart copyright line, leave this blank and check [params.copyright]
 copyright = ""
