@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>installation on INBO Tutorials</title>
+    <link>http://example.org/tags/installation/</link>
+    <description>Recent content in installation on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Apr 2018 11:01:31 +0200</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/installation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Insync installation</title>
+      <link>http://example.org/installation/user/user_install_insync/</link>
+      <pubDate>Thu, 19 Apr 2018 11:01:31 +0200</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_insync/</guid>
+      <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
+The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
+    </item>
+    
+    <item>
+      <title>Using kerberos authentication for database connection</title>
+      <link>http://example.org/installation/user/user_install_kerberos/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_kerberos/</guid>
+      <description>Introduction (shamelessly taken from wikipedia)
+Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+    </item>
+    
+    <item>
+      <title>Rstudio installation</title>
+      <link>http://example.org/installation/user/user_install_rstudio/</link>
+      <pubDate>Wed, 18 Oct 2017 15:43:44 +0200</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_rstudio/</guid>
+      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/Program Files/R/R-3.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never  In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken  Subtab Saving  Default text encoding: UTF-8  Subtab Diagnostics  Alles aanvinken   In het tabblad Appearance  Stel in naar eigen smaak  In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio  In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex  Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
+    </item>
+    
+    <item>
+      <title>R language installation</title>
+      <link>http://example.org/installation/user/user_install_r/</link>
+      <pubDate>Wed, 18 Oct 2017 15:43:32 +0200</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_r/</guid>
+      <description>Na de eerste installatie Bij een nieuwe R installatie hoeft de gebruiker geen bijkomende stappen te ondernemen.
+Na elke upgrade Voor onderstaande instructies uit telkens een nieuwe R versie geïnstalleerd werd. Je kan dit, indien gewenst, ook frequenter uitvoeren.
+Windows  Zorg dat de computer verbonden is met het internet. Zorg dat er geen enkele R sessie actief is op de computer. Start R x64 via het menu start. Tik het commando update.</description>
+    </item>
+    
+    <item>
+      <title>RStudio Desktop installation</title>
+      <link>http://example.org/installation/administrator/admin_install_rstudio/</link>
+      <pubDate>Wed, 18 Oct 2017 00:30:40 +0200</pubDate>
+      
+      <guid>http://example.org/installation/administrator/admin_install_rstudio/</guid>
+      <description>De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/
+Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
+ Zorg dat eerst R geïnstalleerd is. Voer het 64-bit installatiebestand uit. Welkom bij de installatie: klik op volgende. Geef de doelmap en klik op volgende. Je mag de standaard gebruiken. Klik op installeren.</description>
+    </item>
+    
+    <item>
+      <title>Rtools installation</title>
+      <link>http://example.org/installation/administrator/admin_install_rtools/</link>
+      <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
+      
+      <guid>http://example.org/installation/administrator/admin_install_rtools/</guid>
+      <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
+Bij een upgrade dient eerst de vorige versie te worden verwijderd.
+ Kies Nederlands als taal voor de installatie en klik volgende. Klik volgende. Kies C:\Rtools (standaard) als installatiemap en klik volgende. Kies uit dropdown menu Tools for building R packages from source (standaard) en klik volgende. Vink Add rtools to system path aan en klik volgende. Klik volgende. Klik installeren.</description>
+    </item>
+    
+    <item>
+      <title>Git installation</title>
+      <link>http://example.org/installation/administrator/admin_install_git/</link>
+      <pubDate>Wed, 18 Oct 2017 00:29:14 +0200</pubDate>
+      
+      <guid>http://example.org/installation/administrator/admin_install_git/</guid>
+      <description>Windows De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
+ Voer het installatiebestand uit Welkom bij de installatie: klik op Next Aanvaard de licentievoorwaarden door Next te klikken Installeer git in de voorgesteld standaard directory. Gebruik de standaard componenten door Next te klikken Kies use Git from the Windows Command Prompt en klik Next Kies Checkout Windows-style, commit Unix-style line endings en klik Next Kies use Windows&#39; default console window en klik Next Klik op Finish  Afwijkingen t.</description>
+    </item>
+    
+    <item>
+      <title>Pandoc installation</title>
+      <link>http://example.org/installation/administrator/admin_install_pandoc/</link>
+      <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
+      
+      <guid>http://example.org/installation/administrator/admin_install_pandoc/</guid>
+      <description> Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
+Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster
+wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb   </description>
+    </item>
+    
+    <item>
+      <title>Install R</title>
+      <link>http://example.org/installation/administrator/admin_install_r/</link>
+      <pubDate>Wed, 18 Oct 2017 00:25:57 +0200</pubDate>
+      
+      <guid>http://example.org/installation/administrator/admin_install_r/</guid>
+      <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/
+In de onderstaande tekst moet je in R-3.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-3.0.0 is x = 0 en y = 0.
+Nieuwe installatie van R  Voer het bestand R-3.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
+    </item>
+    
+  </channel>
+</rss>

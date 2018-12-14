@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='How to use WFS (vectors/features) GIS services within R scripts'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Using WFS service in R • INBO Tutorials'>
+<meta property='og:description' content='How to use WFS (vectors/features) GIS services within R scripts'>
+<meta property='og:url' content='http://example.org/tutorials/spatial_wfs_services/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2018-03-07T16:50:01&#43;01:00'/><meta property='article:modified_time' content='2018-03-07T16:50:01&#43;01:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.53-DEV" />
+
+  <title>Using WFS service in R • INBO Tutorials</title>
+  <link rel='canonical' href='http://example.org/tutorials/spatial_wfs_services/'>
+  
+  
+  <link rel='icon' href='../../favicon.ico'>
+<link rel='stylesheet' href='../../assets/css/main.4a10984a.css'><link rel='stylesheet' href='../../css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='../../'>
+        <img src='../../images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='../../'>Home</a></li><li class='item'>
+  <a href='../../articles/'>articles</a></li><li class='item'>
+  <a href='../../tutorials/'>tutorials</a></li><li class='item'>
+  <a href='../../create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='../../installation/'>installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='../../installation/administrator/'>administrator</a></li><li class='item'>
+  <a href='../../installation/user/'>user</a></li></ul></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='../../tags/api/' style='font-size:1em'>API</a>
+      </li><li>
+        <a href='../../tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='../../tags/ci/' style='font-size:1.0588235294117647em'>ci</a>
+      </li><li>
+        <a href='../../tags/data/' style='font-size:1em'>data</a>
+      </li><li>
+        <a href='../../tags/database/' style='font-size:1em'>database</a>
+      </li><li>
+        <a href='../../tags/development/' style='font-size:1.0588235294117647em'>development</a>
+      </li><li>
+        <a href='../../tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='../../tags/gis/' style='font-size:1.1764705882352942em'>gis</a>
+      </li><li>
+        <a href='../../tags/git/' style='font-size:1.2941176470588236em'>git</a>
+      </li><li>
+        <a href='../../tags/github/' style='font-size:1em'>github</a>
+      </li><li>
+        <a href='../../tags/google/' style='font-size:1.0588235294117647em'>google</a>
+      </li><li>
+        <a href='../../tags/installation/' style='font-size:1.4705882352941178em'>installation</a>
+      </li><li>
+        <a href='../../tags/literature/' style='font-size:1.2352941176470589em'>literature</a>
+      </li><li>
+        <a href='../../tags/maps/' style='font-size:1.1764705882352942em'>maps</a>
+      </li><li>
+        <a href='../../tags/markdown/' style='font-size:1em'>markdown</a>
+      </li><li>
+        <a href='../../tags/open-science/' style='font-size:1.2352941176470589em'>open science</a>
+      </li><li>
+        <a href='../../tags/packages/' style='font-size:1.0588235294117647em'>packages</a>
+      </li><li>
+        <a href='../../tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='../../tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='../../tags/rstudio/' style='font-size:1.0588235294117647em'>rstudio</a>
+      </li><li>
+        <a href='../../tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='../../tags/styleguide/' style='font-size:1.0588235294117647em'>styleguide</a>
+      </li><li>
+        <a href='../../tags/tidyverse/' style='font-size:1.1764705882352942em'>tidyverse</a>
+      </li><li>
+        <a href='../../tags/version-control/' style='font-size:1.2352941176470589em'>version control</a>
+      </li><li>
+        <a href='../../tags/webservice/' style='font-size:1.1176470588235294em'>webservice</a>
+      </li><li>
+        <a href='../../tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='../../'>Home</a>
+      </li><li class='item'>
+        <a href='../../articles/'>articles</a>
+      </li><li class='item'>
+        <a href='../../tutorials/'>tutorials</a>
+      </li><li class='item'>
+        <a href='https://github.com/inbo/tutorials'>Source</a>
+      </li><li class='item'>
+        <a href='../../categories/'>Categories</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='../../'>Home</a></li><li><a href='../../tutorials/'>tutorials</a></li><li><span>Using WFS service in R</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'>Technical info about INBO</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Using WFS service in R</h1>
+      
+<p class='desc'>How to use WFS (vectors/features) GIS services within R scripts</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2018-03-07T16:50:01&#43;01:00'>2018, Mar 07</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+8 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="what-is-wfs">What is WFS?</h1>
+
+<p>In computing, the Open Geospatial Consortium <strong>Web Feature Service (WFS)</strong> Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &ldquo;source code&rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport. In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. (Source: <a href="https://en.wikipedia.org/wiki/Web_Feature_Service" target="_blank">Wikipedia</a>)</p>
+
+<h1 id="download-vector-data-from-wfs">Download vector data from WFS</h1>
+
+<p>This examples illustrates how you can download information from a WFS for further use in R. First of all we need to URL of the service. Note that we appended the protocol <code>WFS:</code> in front of the URL. <code>ogrinfo()</code> from <code>gdalUtils</code> is used to extra some information on the service. <code>cat()</code> prints this information. The summary indicates that the service provides three layers: &ldquo;BWK:Bwkhab&rdquo;, &ldquo;BWK:Bwkfauna&rdquo; and &ldquo;BWK:Hab3260&rdquo;. It also reveals the kind of layers, in this case two polygon layers and one line layer.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_bwk &lt;- <span style="color:#a50">&#34;WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs&#34;</span>
+wfs_weather &lt;- <span style="color:#a50">&#34;WFS:http://opendata.meteo.be/service/aws/ows&#34;</span>
+<span style="color:#00a">library</span>(gdalUtils)
+info &lt;- ogrinfo(wfs_bwk, so = <span style="color:#00a">TRUE</span>)
+<span style="color:#00a">cat</span>(info, sep = <span style="color:#a50">&#34;\n&#34;</span>)</code></pre></div>
+<pre><code>## Had to open data source read-only.
+## INFO: Open of `WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs'
+##       using driver `WFS' successful.
+## Metadata:
+##   ABSTRACT=Directe downloadservice voor de Biologische Waarderingskaart en Natura 2000 Habitatkaart.
+##   PROVIDER_NAME=agentschap Informatie Vlaanderen
+##   TITLE=WFS Biologische Waarderingskaart en Natura 2000 Habitatkaart
+## 1: BWK:Bwkhab (Curve Polygon)
+## 2: BWK:Bwkfauna (Curve Polygon)
+## 3: BWK:Hab3260 (Line String)
+</code></pre>
+
+<p>Let&rsquo;s start by downloading the &ldquo;BWK:Bwkhab&rdquo; layer for the Hallerbos area. We use <code>ogr2ogr()</code> from the <code>gdalUtils</code> package. The main part is defining the input and output. We store the data in <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank">GeoJSON</a> format which is an open standard format designed for representing simple geographical features, along with their non-spatial attributes. It is based on JSON, the JavaScript Object Notation.</p>
+
+<p>We also add the bounding box from which we want to retrieve the data. This is very important to add. If you omit a bounding box, the service will return the entire map which can be very large.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ogr2ogr(
+  src_datasource_name = wfs_bwk,           <span style="color:#aaa;font-style:italic"># the input source</span>
+  layer = <span style="color:#a50">&#34;BWK:Bwkhab&#34;</span>,                    <span style="color:#aaa;font-style:italic"># the layer from the input</span>
+  dst_datasource_name = <span style="color:#a50">&#34;bwkhab.geojson&#34;</span>,  <span style="color:#aaa;font-style:italic"># the target file</span>
+  f = <span style="color:#a50">&#34;geojson&#34;</span>,                           <span style="color:#aaa;font-style:italic"># the target format</span>
+  spat = <span style="color:#0aa">c</span>(left = <span style="color:#099">142600</span>, bottom = <span style="color:#099">153800</span>, right = <span style="color:#099">146000</span>, top = <span style="color:#099">156900</span>),
+                                           <span style="color:#aaa;font-style:italic"># the bounding box</span>
+  t_srs = <span style="color:#a50">&#34;EPSG:31370&#34;</span>,                    <span style="color:#aaa;font-style:italic"># the coordinate reference system</span>
+  verbose = <span style="color:#00a">TRUE</span>
+)</code></pre></div>
+<pre><code>## Checking gdal_installation...
+
+## Scanning for GDAL installations...
+
+## Checking the gdalUtils_gdalPath option...
+
+## GDAL version 2.2.2
+
+## GDAL command being used: &quot;/usr/bin/ogr2ogr&quot; -spat 142600 153800 146000 156900 -f &quot;geojson&quot; -t_srs &quot;EPSG:31370&quot; &quot;bwkhab.geojson&quot; &quot;WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs&quot; &quot;BWK:Bwkhab&quot;
+
+## character(0)
+</code></pre>
+
+<p>At this point, all features are downloaded and can be used in R as we would we any other local file. So we need to load the file with <code>readOGR()</code> from <code>rgdal</code>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(rgdal)</code></pre></div>
+<pre><code>## Loading required package: sp
+
+## rgdal: version: 1.3-6, (SVN revision 773)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 2.2.2, released 2017/09/15
+##  Path to GDAL shared files: /usr/share/gdal/2.2
+##  GDAL binary built with GEOS: TRUE 
+##  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
+##  Path to PROJ.4 shared files: (autodetected)
+##  Linking to sp version: 1.2-3
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwkhab &lt;- readOGR(<span style="color:#a50">&#34;bwkhab.geojson&#34;</span>, stringsAsFactors = <span style="color:#00a">FALSE</span>)</code></pre></div>
+<pre><code>## OGR data source with driver: GeoJSON 
+## Source: &quot;/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/spatial_wfs_services/bwkhab.geojson&quot;, layer: &quot;BWK:Bwkhab&quot;
+## with 314 features
+## It has 32 fields
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">summary</span>(bwkhab)</code></pre></div>
+<pre><code>## Object of class SpatialPolygonsDataFrame
+## Coordinates:
+##        min      max
+## x 137307.1 146356.1
+## y 153734.4 165353.8
+## Is projected: TRUE 
+## proj4string :
+## [+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90
+## +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438
+## +ellps=intl
+## +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747
+## +units=m +no_defs]
+## Data attributes:
+##     gml_id               UIDN             OIDN            TAG           
+##  Length:314         Min.   :  1184   Min.   :  1184   Length:314        
+##  Class :character   1st Qu.:175124   1st Qu.:173440   Class :character  
+##  Mode  :character   Median :338130   Median :335492   Mode  :character  
+##                     Mean   :332296   Mean   :327872                     
+##                     3rd Qu.:491850   3rd Qu.:488782                     
+##                     Max.   :659382   Max.   :637654                     
+##      EVAL              EENH1              EENH2          
+##  Length:314         Length:314         Length:314        
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##     EENH3              EENH4              EENH5          
+##  Length:314         Length:314         Length:314        
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##     EENH6              EENH7              EENH8          
+##  Length:314         Length:314         Length:314        
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##       V1                 V2                 V3           
+##  Length:314         Length:314         Length:314        
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##      HERK               INFO             BWKLABEL        
+##  Length:314         Length:314         Length:314        
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##      HAB1               PHAB1            HAB2               PHAB2       
+##  Length:314         Min.   : 40.00   Length:314         Min.   : 0.000  
+##  Class :character   1st Qu.:100.00   Class :character   1st Qu.: 0.000  
+##  Mode  :character   Median :100.00   Mode  :character   Median : 0.000  
+##                     Mean   : 95.83                      Mean   : 4.108  
+##                     3rd Qu.:100.00                      3rd Qu.: 0.000  
+##                     Max.   :100.00                      Max.   :50.000  
+##      HAB3               PHAB3              HAB4               PHAB4  
+##  Length:314         Min.   : 0.00000   Length:314         Min.   :0  
+##  Class :character   1st Qu.: 0.00000   Class :character   1st Qu.:0  
+##  Mode  :character   Median : 0.00000   Mode  :character   Median :0  
+##                     Mean   : 0.06369                      Mean   :0  
+##                     3rd Qu.: 0.00000                      3rd Qu.:0  
+##                     Max.   :20.00000                      Max.   :0  
+##      HAB5               PHAB5     HERKHAB            HERKPHAB        
+##  Length:314         Min.   :0   Length:314         Length:314        
+##  Class :character   1st Qu.:0   Class :character   Class :character  
+##  Mode  :character   Median :0   Mode  :character   Mode  :character  
+##                     Mean   :0                                        
+##                     3rd Qu.:0                                        
+##                     Max.   :0                                        
+##   HABLEGENDE       
+##  Length:314        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## 
+</code></pre>
+
+<p>Let&rsquo;s make a simple plot of the object. Note that the object contains features outside of the bounding box. Those are features which have only some part within the bounding box.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">spplot(bwkhab, zcol = <span style="color:#a50">&#34;PHAB1&#34;</span>, scales = <span style="color:#0aa">list</span>(draw = <span style="color:#00a">TRUE</span>))</code></pre></div>
+<p><img src="index_files/figure-markdown_github/unnamed-chunk-5-1.png" alt="" /></p>
+
+<h1 id="download-feature-attribute-data-from-wfs">Download feature attribute data from WFS</h1>
+
+<p>In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. <code>within</code>, <code>intersects</code>, <code>contains</code>,&hellip;). Actually, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.</p>
+
+<p>We rely on the <code>httr</code> package to talk to web services:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(httr)  <span style="color:#aaa;font-style:italic"># generic webservice package</span></code></pre></div>
+<p>Consider the following use case: You want to extract the attribute data from a <a href="http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f" target="_blank">soil map</a> for a number of sampling points (point coordinates). This use case can be tackled by relying on the WFS service and the affiliated spatial operators.</p>
+
+<p>Our example data point (in Lambert 72):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x_lam &lt;- <span style="color:#099">173995.67</span>
+y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
+<p>From this point we know the data, so we can verify the result (in dutch):</p>
+
+<ul>
+<li>Bodemtype: s-Pgp3(v)</li>
+<li>Bodemserie: Pgp</li>
+<li>Textuurklasse: licht zandleem</li>
+<li>Drainageklasse: uiterst nat, gereduceerd</li>
+</ul>
+
+<p>Hence, we now want to extract these soil properties from the WFS, for the coordinates defined above.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">properties_of_interest &lt;- <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;Drainageklasse&#34;</span>,
+                            <span style="color:#a50">&#34;Textuurklasse&#34;</span>,
+                            <span style="color:#a50">&#34;Bodemserie&#34;</span>,
+                            <span style="color:#a50">&#34;Bodemtype&#34;</span>)</code></pre></div>
+<p>The URL of the wfs service of the soil map of the Flemish region:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_bodemtypes &lt;- <span style="color:#a50">&#34;https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?&#34;</span></code></pre></div>
+<p>The essential part is to set up the proper query! The required data for the service is defined in the <a href="https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&amp;request=GetCapabilities&amp;service=wfs" target="_blank">metadata</a> description. This can look a bit overwhelming in the start, but is a matter of looking for some specific elements of the (XML) document:</p>
+
+<ul>
+<li><code>service</code> (WFS), <code>request</code> (GetFeature) and <code>version</code> (1.1.0) are mandatory fields (see below)</li>
+<li><code>typeName</code>: Look at the different <code>&lt;FeatureType...</code> enlisted and pick the <code>&lt;Name&gt;</code> of the one you&rsquo;re interested in. In this particular case <code>bodemkaart:bodemtypes</code> is the only one available.</li>
+<li><code>outputFormat</code>: The supported output formats are enlisted in <code>&lt;ows:Parameter name=&quot;outputFormat&quot;&gt;</code>. As the service provides CSV as output, this is a straightforward option. <code>json</code> is another popular one.</li>
+<li><code>propertyname</code>: A list of the attribute table fields (cfr. supra). A full list of the Flanders soil map is provided <a href="https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType" target="_blank">here</a>.</li>
+<li>We also define the <code>CRS</code>, using the <a href="http://spatialreference.org/" target="_blank">EPSG code</a>.</li>
+<li><code>CQL_FILTER</code>: Define the spatial operator, in this case <code>INTERSECTS</code> of the WFS <code>geom</code> and our <code>POINT</code> coordinate. The operators are enlisted in the <code>&lt;fes:SpatialOperators&gt;</code> field.</li>
+</ul>
+
+<p>Formatting all this information in a query and executing the request (<code>GET</code>) towards the service:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">query = <span style="color:#0aa">list</span>(service = <span style="color:#a50">&#34;WFS&#34;</span>,
+             request = <span style="color:#a50">&#34;GetFeature&#34;</span>,
+             version = <span style="color:#a50">&#34;1.1.0&#34;</span>,
+             typeName = <span style="color:#a50">&#34;bodemkaart:bodemtypes&#34;</span>,
+             outputFormat = <span style="color:#a50">&#34;csv&#34;</span>,
+             propertyname = <span style="color:#00a">as.character</span>(<span style="color:#00a">paste</span>(properties_of_interest,
+                                               collapse = <span style="color:#a50">&#34;,&#34;</span>)),
+             CRS = <span style="color:#a50">&#34;EPSG:31370&#34;</span>,
+             CQL_FILTER = <span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;INTERSECTS(geom,POINT(%s %s))&#34;</span>,
+                                  x_lam, y_lam)) 
+result &lt;- GET(wfs_bodemtypes, query = query)
+result</code></pre></div>
+<pre><code>## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&amp;request=GetFeature&amp;version=1.1.0&amp;typeName=bodemkaart%3Abodemtypes&amp;outputFormat=csv&amp;propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&amp;CRS=EPSG%3A31370&amp;CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
+##   Date: 2018-12-13 15:13
+##   Status: 200
+##   Content-Type: text/csv;charset=UTF-8
+##   Size: 129 B
+## FID,Bodemtype,Bodemserie,Textuurklasse,Drainageklasse
+## bodemtypes.72727,s-Pgp3(v),Pgp,licht zandleem,&quot;uiterst nat, gereduceerd&quot;
+</code></pre>
+
+<p>The result is not yet formatted to be used as a dataframe. We need to use a small <em>trick</em> using the <code>textConnection</code> function to get from the result (bits) towards a readable output in a dataframe:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">df &lt;- read.csv(<span style="color:#00a">textConnection</span>(content(result, <span style="color:#a50">&#39;text&#39;</span>)))
+kable(df)</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">FID</th>
+<th align="left">Bodemtype</th>
+<th align="left">Bodemserie</th>
+<th align="left">Textuurklasse</th>
+<th align="left">Drainageklasse</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">bodemtypes.72727</td>
+<td align="left">s-Pgp3(v)</td>
+<td align="left">Pgp</td>
+<td align="left">licht zandleem</td>
+<td align="left">uiterst nat, gereduceerd</td>
+</tr>
+</tbody>
+</table>
+
+<p>Which indeed corresponds to the data of the coordinate.</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='../../categories/r/'>r</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='../../tags/gis/'>gis</a>, <a class='tag' href='../../tags/webservice/'>webservice</a>, <a class='tag' href='../../tags/r/'>r</a>, <a class='tag' href='../../tags/maps/'>maps</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='../../tutorials/spatial_transform_crs/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Transforming spatial objects</a>
+    </div><div class='next-entry sep-before'>
+      <a href='../../tutorials/development_wercker/'>
+        <span class='screen-reader-text'>Next post: </span>Wercker<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:contact@example.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2018 Institute of Nature and Forest research </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='../../assets/js/main.fae8ed32.js'></script><script src='../../js/custom.js'></script>
+
+</body>
+
+</html>
+

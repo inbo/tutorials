@@ -1,0 +1,35 @@
+options(
+  papersize = "a4",
+  tab.width = 2,
+  width = 80,
+  help_type = "html",
+  stringsAsFactors = TRUE,
+  keep.source.pkgs = TRUE,
+  xpinch = 300,
+  ypinch = 300,
+  yaml.eval.expr = TRUE,
+  repos = c(
+    RStudio = "http://cloud.r-project.org/",
+    INLA = "http://inla.r-inla-download.org/R/stable"
+  ),
+  install.packages.check.source = "no",
+  install.packages.compile.from.source = "never"
+)
+
+if (interactive()) {
+  if (length(find.package("drat", quiet = TRUE)) == 0) {
+    utils::install.packages("drat")
+  }
+  drat::addRepo("inbo")
+  if (length(find.package("fortunes", quiet = TRUE)) == 0) {
+    utils::install.packages("fortunes")
+  }
+  tryCatch(
+    print(fortunes::fortune()),
+    error = function(e){
+      invisible(NULL)
+    }
+  )
+}
+# required for RStan and brms
+Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")

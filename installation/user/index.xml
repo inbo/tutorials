@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>User installation notes on INBO Tutorials</title>
+    <link>http://example.org/installation/user/</link>
+    <description>Recent content in User installation notes on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/installation/user/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Insync installation</title>
+      <link>http://example.org/installation/user/user_install_insync/</link>
+      <pubDate>Thu, 19 Apr 2018 11:01:31 +0200</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_insync/</guid>
+      <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
+The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
+    </item>
+    
+    <item>
+      <title>Using kerberos authentication for database connection</title>
+      <link>http://example.org/installation/user/user_install_kerberos/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_kerberos/</guid>
+      <description>Introduction (shamelessly taken from wikipedia)
+Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+    </item>
+    
+    <item>
+      <title>Rstudio installation</title>
+      <link>http://example.org/installation/user/user_install_rstudio/</link>
+      <pubDate>Wed, 18 Oct 2017 15:43:44 +0200</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_rstudio/</guid>
+      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/Program Files/R/R-3.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never  In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken  Subtab Saving  Default text encoding: UTF-8  Subtab Diagnostics  Alles aanvinken   In het tabblad Appearance  Stel in naar eigen smaak  In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio  In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex  Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
+    </item>
+    
+    <item>
+      <title>R language installation</title>
+      <link>http://example.org/installation/user/user_install_r/</link>
+      <pubDate>Wed, 18 Oct 2017 15:43:32 +0200</pubDate>
+      
+      <guid>http://example.org/installation/user/user_install_r/</guid>
+      <description>Na de eerste installatie Bij een nieuwe R installatie hoeft de gebruiker geen bijkomende stappen te ondernemen.
+Na elke upgrade Voor onderstaande instructies uit telkens een nieuwe R versie geïnstalleerd werd. Je kan dit, indien gewenst, ook frequenter uitvoeren.
+Windows  Zorg dat de computer verbonden is met het internet. Zorg dat er geen enkele R sessie actief is op de computer. Start R x64 via het menu start. Tik het commando update.</description>
+    </item>
+    
+  </channel>
+</rss>

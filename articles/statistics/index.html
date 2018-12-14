@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&rsquo;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Books and articles on statistics • INBO Tutorials'>
+<meta property='og:description' content='McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&rsquo;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.'>
+<meta property='og:url' content='http://example.org/articles/statistics/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='articles'><meta property='article:tag' content='literature'><meta property='article:tag' content='open science'><meta property='article:published_time' content='2018-03-21T00:00:00Z'/><meta property='article:modified_time' content='2018-03-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.53-DEV" />
+
+  <title>Books and articles on statistics • INBO Tutorials</title>
+  <link rel='canonical' href='http://example.org/articles/statistics/'>
+  
+  
+  <link rel='icon' href='../../favicon.ico'>
+<link rel='stylesheet' href='../../assets/css/main.4a10984a.css'><link rel='stylesheet' href='../../css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-articles has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='../../'>
+        <img src='../../images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='../../'>Home</a></li><li class='item'>
+  <a href='../../articles/'>articles</a></li><li class='item'>
+  <a href='../../tutorials/'>tutorials</a></li><li class='item'>
+  <a href='../../create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='../../installation/'>installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='../../installation/administrator/'>administrator</a></li><li class='item'>
+  <a href='../../installation/user/'>user</a></li></ul></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='../../tags/api/' style='font-size:1em'>API</a>
+      </li><li>
+        <a href='../../tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='../../tags/ci/' style='font-size:1.0588235294117647em'>ci</a>
+      </li><li>
+        <a href='../../tags/data/' style='font-size:1em'>data</a>
+      </li><li>
+        <a href='../../tags/database/' style='font-size:1em'>database</a>
+      </li><li>
+        <a href='../../tags/development/' style='font-size:1.0588235294117647em'>development</a>
+      </li><li>
+        <a href='../../tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='../../tags/gis/' style='font-size:1.1764705882352942em'>gis</a>
+      </li><li>
+        <a href='../../tags/git/' style='font-size:1.2941176470588236em'>git</a>
+      </li><li>
+        <a href='../../tags/github/' style='font-size:1em'>github</a>
+      </li><li>
+        <a href='../../tags/google/' style='font-size:1.0588235294117647em'>google</a>
+      </li><li>
+        <a href='../../tags/installation/' style='font-size:1.4705882352941178em'>installation</a>
+      </li><li>
+        <a href='../../tags/literature/' style='font-size:1.2352941176470589em'>literature</a>
+      </li><li>
+        <a href='../../tags/maps/' style='font-size:1.1764705882352942em'>maps</a>
+      </li><li>
+        <a href='../../tags/markdown/' style='font-size:1em'>markdown</a>
+      </li><li>
+        <a href='../../tags/open-science/' style='font-size:1.2352941176470589em'>open science</a>
+      </li><li>
+        <a href='../../tags/packages/' style='font-size:1.0588235294117647em'>packages</a>
+      </li><li>
+        <a href='../../tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='../../tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='../../tags/rstudio/' style='font-size:1.0588235294117647em'>rstudio</a>
+      </li><li>
+        <a href='../../tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='../../tags/styleguide/' style='font-size:1.0588235294117647em'>styleguide</a>
+      </li><li>
+        <a href='../../tags/tidyverse/' style='font-size:1.1764705882352942em'>tidyverse</a>
+      </li><li>
+        <a href='../../tags/version-control/' style='font-size:1.2352941176470589em'>version control</a>
+      </li><li>
+        <a href='../../tags/webservice/' style='font-size:1.1176470588235294em'>webservice</a>
+      </li><li>
+        <a href='../../tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='../../'>Home</a>
+      </li><li class='item'>
+        <a href='../../articles/'>articles</a>
+      </li><li class='item'>
+        <a href='../../tutorials/'>tutorials</a>
+      </li><li class='item'>
+        <a href='https://github.com/inbo/tutorials'>Source</a>
+      </li><li class='item'>
+        <a href='../../categories/'>Categories</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='../../'>Home</a></li><li><a href='../../articles/'>articles</a></li><li><span>Books and articles on statistics</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'>Technical info about INBO</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Books and articles on statistics</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2018-03-21T00:00:00Z'>2018, Mar 21</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+17 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<ul>
+<li><p>McElreath (<a href="#ref-McElreath2015">2015</a>): Statistical Rethinking is an
+introduction to applied Bayesian data analysis, aimed at PhD
+students and researchers in the natural and social sciences. This
+audience has had some calculus and linear algebra, and one or two
+joyless undergraduate courses in statistics. I&rsquo;ve been teaching
+applied statistics to this audience for about a decade now, and this
+book has evolved from that experience. The book teaches generalized
+linear multilevel modeling (GLMMs) from a Bayesian perspective,
+relying on a simple logical interpretation of Bayesian probability
+and maximum entropy. The book covers the basics of regression
+through multilevel models, as well as touching on measurement error,
+missing data, and Gaussian process models for spatial and network
+autocorrelation. This is not a traditional mathematical statistics
+book. Instead the approach is computational, using complete R code
+examples, aimed at developing skilled and skeptical scientists.
+Theory is explained through simulation exercises, using R code. And
+modeling examples are fully worked, with R code displayed within the
+main text. Mathematical depth is given in optional
+{&ldquo;}overthinking{&rdquo;} boxes throughout.</p></li>
+
+<li><p>Kass <em>et al.</em> (<a href="#ref-Kass2016">2016</a>): The authors propose a set of
+10 simple rules for effective statistical practice</p></li>
+
+<li><p>Quinn &amp; Keough (<a href="#ref-Quinn2002">2002</a>): An essential textbook for
+any student or researcher in biology needing to design experiments,
+sample programs or analyse the resulting data. The text begins with
+a revision of estimation and hypothesis testing methods, covering
+both classical and Bayesian philosophies, before advancing to the
+analysis of linear and generalized linear models. Topics covered
+include linear and logistic regression, simple and complex ANOVA
+models (for factorial, nested, block, split-plot and repeated
+measures and covariance designs), and log-linear models.
+Multivariate techniques, including classification and ordination,
+are then introduced. Special emphasis is placed on checking
+assumptions, exploratory data analysis and presentation of results.
+The main analyses are illustrated with many examples from published
+papers and there is an extensive reference list to both the
+statistical and biological literature. The book is supported by a
+website that provides all data sets, questions for each chapter and
+links to software.</p></li>
+
+<li><p>James <em>et al.</em> (<a href="#ref-James2013">2013</a>): An Introduction to
+Statistical Learning provides an accessible overview of the field of
+statistical learning, an essential toolset for making sense of the
+vast and complex data sets that have emerged in fields ranging from
+biology to finance to marketing to astrophysics in the past twenty
+years. This book presents some of the most important modeling and
+prediction techniques, along with relevant applications. Topics
+include linear regression, classification, resampling methods,
+shrinkage approaches, tree-based methods, support vector machines,
+clustering, and more. Color graphics and real-world examples are
+used to illustrate the methods presented. Since the goal of this
+textbook is to facilitate the use of these statistical learning
+techniques by practitioners in science, industry, and other fields,
+each chapter contains a tutorial on implementing the analyses and
+methods presented in R, an extremely popular open source statistical
+software platform. Two of the authors co-wrote The Elements of
+Statistical Learning (Hastie, Tibshirani and Friedman, 2nd edition
+2009), a popular reference book for statistics and machine learning
+researchers. An Introduction to Statistical Learning covers many of
+the same topics, but at a level accessible to a much broader
+audience. This book is targeted at statisticians and
+non-statisticians alike who wish to use cutting-edge statistical
+learning techniques to analyze their data. The text assumes only a
+previous course in linear regression and no knowledge of matrix
+algebra.</p></li>
+
+<li><p>Emden (<a href="#ref-VanEmden2008">2008</a>): The typical biology student is
+“hardwired” to be wary of any tasks involving the application of
+mathematics and statistical analyses, but the plain fact is much of
+biology requires interpretation of experimental data through the use
+of statistical methods. This unique textbook aims to demystify
+statistical formulae for the average biology student. Written in a
+lively and engaging style, Statistics for Terrified Biologists draws
+on the author&rsquo;s 30 years of lecturing experience. One of the
+foremost entomologists of his generation, van Emden has an extensive
+track record for successfully teaching statistical methods to even
+the most guarded of biology students. For the first time basic
+methods are presented using straightforward, jargon-free language.
+Students are taught to use simple formulae accurately to interpret
+what is being measured with each test and statistic, while at the
+same time learning to recognize overall patterns and guiding
+principles. Complemented by simple illustrations and useful case
+studies, this is an ideal statistics resource tool for undergraduate
+biology and environmental science students who lack confidence in
+their mathematical abilities.</p></li>
+
+<li><p>Agresti (<a href="#ref-Agresti2002a">2002</a>): The use of statistical methods
+for categorical data has increased dramatically, particularly for
+applications in the biomedical and social sciences. Responding to
+new developments in the field as well as to the needs of a new
+generation of professionals and students, this new edition of the
+classic Categorical Data Analysis offers a comprehensive
+introduction to the most important methods for categorical data
+analysis. Designed for statisticians and biostatisticians as well as
+scientists and graduate students practicing statistics, Categorical
+Data Analysis, Second Edition summarizes the latest methods for
+univariate and correlated multivariate categorical responses.
+Readers will find a unified generalized linear models approach that
+connects logistic regression and Poisson and negative binomial
+regression for discrete data with normal regression for continuous
+data.</p></li>
+
+<li><p>van Belle (<a href="#ref-VanBelle2008">2008</a>): This book contains chapters
+titled:</p>
+
+<ul>
+<li>Begin with a Basic Formula for Sample Size–Lehr&rsquo;s Equation</li>
+<li>Calculating Sample Size Using the Coefficient of Variation</li>
+<li>Ignore the Finite Population Correction in Calculating Sample
+Size for a Survey</li>
+<li>The Range of the Observations Provides Bounds for the Standard
+Deviation * Do not Formulate a Study Solely in Terms of Effect
+Size</li>
+<li>Overlapping Confidence Intervals do not Imply Nonsignificance</li>
+<li>Sample Size Calculation for the Poisson Distribution</li>
+<li>Sample Size Calculation for Poisson Distribution with Background
+Rate</li>
+<li>Sample Size Calculation for the Binomial Distribution</li>
+<li>When Unequal Sample Sizes Matter; When They Don&rsquo;t * Determining
+Sample Size when there are Different Costs Associated with the
+Two Samples</li>
+<li>Use the Rule of Threes for 95% Upper Bounds when there Have Been
+No Events</li>
+<li>Sample Size Calculations Should be Based on the Way the Data
+will be Analyzed</li>
+</ul></li>
+
+<li><p>Grolemund &amp; Wickham (<a href="#ref-Grolemund2016">2016</a>): This is the
+website for {&ldquo;}R for Data Science{&rdquo;}. This book will teach you how
+to do data science with R: You&rsquo;ll learn how to get your data into R,
+get it into the most useful structure, transform it, visualise it
+and model it. In this book, you will find a practicum of skills for
+data science. Just as a chemist learns how to clean test tubes and
+stock a lab, you&rsquo;ll learn how to clean data and draw plots—and many
+other things besides. These are the skills that allow data science
+to happen, and here you will find the best practices for doing each
+of these things with R. You&rsquo;ll learn how to use the grammar of
+graphics, literate programming, and reproducible research to save
+time. You&rsquo;ll also learn how to manage cognitive resources to
+facilitate discoveries when wrangling, visualising, and exploring
+data.</p></li>
+
+<li><p>Baddeley <em>et al.</em> (<a href="#ref-Baddeley2015">2015</a>): Spatial Point
+Patterns: Methodology and Applications with R shows scientific
+researchers and applied statisticians from a wide range of fields
+how to analyze their spatial point pattern data. Making the
+techniques accessible to non-mathematicians, the authors draw on
+their 25 years of software development experiences, methodological
+research, and broad scientific collaborations to deliver a book that
+clearly and succinctly explains concepts and addresses real
+scientific questions. Practical Advice on Data Analysis and Guidance
+on the Validity and Applicability of Methods The first part of the
+book gives an introduction to R software, advice about collecting
+data, information about handling and manipulating data, and an
+accessible introduction to the basic concepts of point processes.
+The second part presents tools for exploratory data analysis,
+including non-parametric estimation of intensity, correlation, and
+spacing properties. The third part discusses model-fitting and
+statistical inference for point patterns. The final part describes
+point patterns with additional {&ldquo;}structure,{&rdquo;} such as complicated
+marks, space-time observations, three- and higher-dimensional
+spaces, replicated observations, and point patterns constrained to a
+network of lines. Easily Analyze Your Own Data Throughout the book,
+the authors use their spatstat package, which is free, open-source
+code written in the R language. This package provides a wide range
+of capabilities for spatial point pattern data, from basic data
+handling to advanced analytic tools. The book focuses on practical
+needs from the user&rsquo;s perspective, offering answers to the most
+frequently asked questions in each chapter.</p></li>
+
+<li><p>Hobbs &amp; Hooten (<a href="#ref-Hobbs2015">2015</a>): Bayesian modeling has
+become an indispensable tool for ecological research because it is
+uniquely suited to deal with complexity in a statistically coherent
+way. This textbook provides a comprehensive and accessible
+introduction to the latest Bayesian methods—in language ecologists
+can understand. Unlike other books on the subject, this one
+emphasizes the principles behind the computations, giving ecologists
+a big-picture understanding of how to implement this powerful
+statistical approach. Bayesian Models is an essential primer for
+non-statisticians. It begins with a definition of probability and
+develops a step-by-step sequence of connected ideas, including basic
+distribution theory, network diagrams, hierarchical models, Markov
+chain Monte Carlo, and inference from single and multiple models.
+This unique book places less emphasis on computer coding, favoring
+instead a concise presentation of the mathematical statistics needed
+to understand how and why Bayesian analysis works. It also explains
+how to write out properly formulated hierarchical Bayesian models
+and use them in computing, research papers, and proposals. This
+primer enables ecologists to understand the statistical principles
+behind Bayesian modeling and apply them to research, teaching,
+policy, and management.</p>
+
+<ul>
+<li>Presents the mathematical and statistical foundations of
+Bayesian modeling in language accessible to non-statisticians</li>
+<li>Covers basic distribution theory, network diagrams, hierarchical
+models, Markov chain Monte Carlo, and more - Deemphasizes
+computer coding in favor of basic principles</li>
+<li>Explains how to write out properly factored statistical
+expressions representing Bayesian models</li>
+</ul></li>
+
+<li><p>Zuur <em>et al.</em> (<a href="#ref-Zuur2017">2017</a>): In Volume I we explain how to
+apply linear regression models, generalised linear models (GLM), and
+generalised linear mixed-effects models (GLMM) to spatial, temporal,
+and spatial-temporal data. The models that will be employed use the
+Gaussian and gamma distributions for continuous data, the Poisson
+and negative binomial distributions for count data, the Bernoulli
+distribution for absence–presence data, and the binomial
+distribution for proportional data.In Volume II we apply
+zero-inflated models and generalised additive (mixed-effects) models
+to spatial and spatial-temporal data. We also discuss models with
+more exotic distributions like the generalised Poisson distribution
+to deal with underdispersion and the beta distribution to analyse
+proportional data.</p></li>
+
+<li><p>Zuur <em>et al.</em> (<a href="#ref-Zuur2010">2010</a>):</p>
+
+<ol>
+<li>While teaching statistics to ecologists, the lead authors of
+this paper have noticed common statistical problems. If a
+randomsample of theirwork (including scientific papers) produced
+before doing these courses were selected, half would probably
+contain violations of the underlying assumptions of the
+statistical techniquesemployed.</li>
+<li>Some violations have little impact on the results or ecological
+conclusions; yet others increase type I or type II errors,
+potentially resulting in wrong ecological conclusions. Most of
+these violations can be avoided by applying better data
+exploration. These problems are especially trouble- somein
+applied ecology, wheremanagement and policy decisions are often
+at stake.</li>
+<li>Here, we provide a protocol for data exploration; discuss
+current tools to detect outliers, heterogeneity of variance,
+collinearity, dependence of observations, problems with
+interactions, double zeros in multivariate analysis, zero
+inflation in generalized linear modelling, and the correct type
+of relationships between dependent and independent variables;
+and provide advice on how to address these problems when they
+arise. We also address misconceptions about normality, and
+provide advice on data transformations.</li>
+<li>Data exploration avoids type I and type II errors, among other
+problems, thereby reducing the chance ofmaking wrong ecological
+conclusions and poor recommendations. It is therefore essential
+for good quality management and policy based on statistical
+analyses. Key-words:</li>
+</ol></li>
+
+<li><p>Kelleher &amp; Wagener (<a href="#ref-Kelleher2011">2011</a>): Our ability to
+visualize scientific data has evolved significantly over the last 40
+years. However, this advancement does not necessarily alleviate many
+common pitfalls in visualization for scientific journals, which can
+inhibit the ability of readers to effectively understand the
+information presented. To address this issue within the context of
+visualizing environmental data, we list ten guidelines for effective
+data visualization in scientific publications. These guidelines
+support the primary objective of data visualization, i.e. to
+effectively convey information. We believe that this small set of
+guidelines based on a review of key visualization literature can
+help researchers improve the communication of their results using
+effective visualization. Enhancement of environmental data
+visualization will further improve research presentation and
+communication within and across disciplines.</p></li>
+
+<li><p>Lohr (<a href="#ref-Lohr2010">2010</a>): Sharon L. Lohr&rsquo;s SAMPLING: DESIGN AND
+ANALYSIS, 2ND EDITION, provides a modern introduction to the field
+of survey sampling intended for a wide audience of statistics
+students. Practical and authoritative, the book is listed as a
+standard reference for training on real-world survey problems by a
+number of prominent surveying organizations. Lohr concentrates on
+the statistical aspects of taking and analyzing a sample,
+incorporating a multitude of applications from a variety of
+disciplines. The text gives guidance on how to tell when a sample is
+valid or not, and how to design and analyze many different forms of
+sample surveys. Recent research on theoretical and applied aspects
+of sampling is included, as well as optional technology instructions
+for using statistical software with survey data.</p></li>
+
+<li><p>Zuur <em>et al.</em> (<a href="#ref-Zuur2009c">2009</a>): Building on the successful
+Analysing Ecological Data (Zuur <em>et al.</em>, <a href="#ref-Zuur2007a">2007</a>),
+the authors now provide an expanded introduction to using regression
+and its extensions in analysing ecological data. As with the earlier
+book, real data sets from postgraduate ecological studies or
+research projects are used throughout. The first part of the book is
+a largely non-mathematical introduction to linear mixed effects
+modelling, GLM and GAM, zero inflated models, GEE, GLMM and GAMM.
+The second part provides ten case studies that range from koalas to
+deep sea research. These chapters provide an invaluable insight into
+analysing complex ecological datasets, including comparisons of
+different approaches to the same problem. By matching ecological
+questions and data structure to a case study, these chapters provide
+an excellent starting point to analysing your own data. Data and R
+code from all chapters are available from www.highstat.com.</p></li>
+
+<li><p>Zuur &amp; Ieno (<a href="#ref-Zuur2016">2016</a>):</p>
+
+<ol>
+<li>Scientific investigation is of value only insofar as relevant
+results are obtained and communicated, a task that requires
+organizing, evaluating, analysing and unambiguously
+communicating the significance of data. In this context, working
+with ecological data, reflecting the complexities and
+interactions of the natural world, can be a challenge. Recent
+innovations for statistical analysis ofmultifaceted interrelated
+datamake obtaining more accu- rate andmeaningful results
+possible, but key decisions of the analyses to use, and which
+components to present in a scientific paper or report, may be
+overwhelming.</li>
+<li>We offer a 10-step protocol to streamline analysis of data
+thatwill enhance understanding of the data, the statistical
+models and the results, and optimize communication with the
+reader with respect to both the procedure and the outcomes. The
+protocol takes the investigator from study design and
+organization of data (formulating relevant questions,
+visualizing data collection, data exploration, identifying
+dependency), through conducting analysis (presenting, fitting
+and validating the model) and presenting output (numerically and
+visually), to extending themodel via simulation. Each step
+includes procedures to clarify aspects of the data that affect
+statistical analysis, as well as guidelines for written
+presentation. Steps are illustrated with examples using data
+from the literature.</li>
+<li>Following this protocol will reduce the organization, analysis
+and presentation ofwhatmay be an overwhelming information
+avalanche into sequential and, more to the point, manageable,
+steps. It provides guidelines for selecting optimal statistical
+tools to assess data relevance and significance, for choosing
+aspects of the analysis to include in a published report and for
+clearly communicating information.</li>
+</ol></li>
+
+<li><p>Gelman &amp; Hill (<a href="#ref-Gelman2007b">2007</a>): Data Analysis Using
+Regression and Multilevel/Hierarchical Models is a comprehensive
+manual for the applied researcher who wants to perform data analysis
+using linear and nonlinear regression and multilevel models. The
+book introduces a wide variety of models, whilst at the same time
+instructing the reader in how to fit these models using available
+software packages. The book illustrates the concepts by working
+through scores of real data examples that have arisen from the
+authors&rsquo; own applied research, with programming codes provided for
+each one. Topics covered include causal inference, including
+regression, poststratification, matching, regression discontinuity,
+and instrumental variables, as well as multilevel logistic
+regression and missing-data imputation. Practical tips regarding
+building, fitting, and understanding are provided throughout.</p></li>
+
+<li><p>Lindenmayer &amp; Likens (<a href="#ref-Lindenmayer2010d">2010</a>): Long-term
+monitoring programs are fundamental to understanding the natural
+environment and effectively tackling major environmental problems.
+Yet they are often done very poorly and ineffectively. Effective
+Ecological Monitoring describes what makes successful and
+unsuccessful long-term monitoring programs. Short and to the point,
+it illustrates key aspects with case studies and examples. It is
+based on the collective experience of running long-term research and
+monitoring programs of the two authors &ndash; experience which spans
+more than 70 years. The book first outlines why long-term monitoring
+is important, then discusses why long-term monitoring programs often
+fail. The authors then highlight what makes good and effective
+monitoring. These good and bad aspects of long-term monitoring
+programs are further illustrated in the fourth chapter of the book.
+The final chapter sums up the future of long-term monitoring
+programs and how to make them better, more effective and better
+targeted.</p></li>
+
+<li><p>Bolker (<a href="#ref-Bolker2008a">2008</a>): Ecological Models and Data in R
+is the first truly practical introduction to modern statistical
+methods for ecology. In step-by-step detail, the book teaches
+ecology graduate students and researchers everything they need to
+know in order to use maximum likelihood, information-theoretic, and
+Bayesian techniques to analyze their own data using the programming
+language R. Drawing on extensive experience teaching these
+techniques to graduate students in ecology, Benjamin Bolker shows
+how to choose among and construct statistical models for data,
+estimate their parameters and confidence limits, and interpret the
+results. The book also covers statistical frameworks, the philosophy
+of statistical modeling, and critical mathematical functions and
+probability distributions. It requires no programming
+background&ndash;only basic calculus and statistics.</p>
+
+<ul>
+<li>Practical, beginner-friendly introduction to modern statistical
+techniques for ecology using the programming language R</li>
+<li>Step-by-step instructions for fitting models to messy,
+real-world data</li>
+<li>Balanced view of different statistical approaches</li>
+<li>Wide coverage of techniques &ndash; from simple (distribution
+fitting) to complex (state-space modeling)</li>
+<li>Techniques for data manipulation and graphical display</li>
+<li>Companion Web site with data and R code for all examples</li>
+</ul></li>
+</ul>
+
+<h2 id="bibliography">Bibliography</h2>
+
+<p>Agresti A. (2002). Categorical Data Analysis (Second Edition). John
+Wiley &amp; Sons, Inc.</p>
+
+<p>Baddeley A., Rubak E. &amp; Turner R. (2015). Spatial Point Patterns:
+Methodology and Applications with R. Chapman; Hall/CRC, Boca Raton.</p>
+
+<p>Bolker B.M. (2008). Ecological Models and Data in R. Princeton
+University Press, Princeton, NJ.</p>
+
+<p>Emden H. van (2008). Statistics for Terrified Biologists. Blackwell
+Publishing.</p>
+
+<p>Gelman A. &amp; Hill J. (2007). Data analysis using regression and
+multilevel/hierarchical models. Cambridge University Press, Cambridge.
+URL: <a href="http://www.loc.gov/catdir/enhancements/fy0668/2006040566-t.html" target="_blank">http://www.loc.gov/catdir/enhancements/fy0668/2006040566-t.html</a>.</p>
+
+<p>Grolemund G. &amp; Wickham H. (2016). R for Data Science. URL:
+<a href="http://r4ds.had.co.nz/" target="_blank">http://r4ds.had.co.nz/</a>.</p>
+
+<p>Hobbs N.T. &amp; Hooten M.B. (2015). Bayesian Models: A Statistical Primer
+for Ecologists. Princeton University Press.</p>
+
+<p>James G., Witten D., Hastie T. &amp; Tibshirani R. (2013). An Introduction
+to Statistical Learning with Applications in R. Springer.</p>
+
+<p>Kass R.E., Caffo B.S., Davidian M., Meng X.-L., Yu B. &amp; Reid N. (2016).
+Ten Simple Rules for Effective Statistical Practice. PLOS Computational
+Biology 12 (6): e1004961. URL:
+<a href="http://dx.plos.org/10.1371/journal.pcbi.1004961" target="_blank">http://dx.plos.org/10.1371/journal.pcbi.1004961</a>. DOI:
+<a href="https://doi.org/10.1371/journal.pcbi.1004961" target="_blank">10.1371/journal.pcbi.1004961</a>.</p>
+
+<p>Kelleher C. &amp; Wagener T. (2011). Ten guidelines for effective data
+visualization in scientific publications. Environmental Modelling &amp;
+Software 26 (6): 822–827. URL:
+<a href="https://www.sciencedirect.com/science/article/pii/S1364815210003270" target="_blank">https://www.sciencedirect.com/science/article/pii/S1364815210003270</a>.
+DOI:
+<a href="https://doi.org/10.1016/J.ENVSOFT.2010.12.006" target="_blank">10.1016/J.ENVSOFT.2010.12.006</a>.</p>
+
+<p>Lindenmayer D. &amp; Likens G.E. (2010). Effective ecological monitoring.
+Earthscan, London, UK.</p>
+
+<p>Lohr S.L. (2010). Sampling: Design and Analysis, Second Edi. ed.
+Brooks/Cole.</p>
+
+<p>McElreath R. (2015). Statistical rethinking : a Bayesian course with
+examples in R and Stan. Chapman; Hall/CRC, Boca Raton.</p>
+
+<p>Quinn G. &amp; Keough M. (2002). Experimental design and data analysis for
+biologists. Cambridge University Press. URL: <a href="http://www.cambridge.org" target="_blank">http://www.cambridge.org</a>.</p>
+
+<p>van Belle G. (2008). Statistical Rules of Thumb: Second Edition. John
+Wiley &amp; Sons, Inc. DOI:
+<a href="https://doi.org/10.1002/9780470377963" target="_blank">10.<sup>1002</sup>&frasl;<sub>9780470377963</sub></a>.</p>
+
+<p>Zuur A.F. &amp; Ieno E.N. (2016). A protocol for conducting and presenting
+results of regression-type analyses. Methods in Ecology and Evolution 7
+(6): 636–645. URL: <a href="http://doi.wiley.com/10.1111/2041-210X.12577" target="_blank">http://doi.wiley.com/10.1111/2041-210X.12577</a>. DOI:
+<a href="https://doi.org/10.1111/2041-210X.12577" target="_blank">10.<sup>1111</sup>&frasl;<sub>2041</sub>-210X.12577</a>.</p>
+
+<p>Zuur A.F., Ieno E.N. &amp; Elphick C.S. (2010). A protocol for data
+exploration to avoid common statistical problems. Methods in Ecology and
+Evolution 1 (9999): 3–14.</p>
+
+<p>Zuur A.F., Ieno E.N. &amp; Smith G.M. (2007). Analysing ecological data.
+Springer Verlag.</p>
+
+<p>Zuur A.F., Ieno E.N., Anatoly, A &amp; Saveliev (2017). Beginner’s guide to
+spatial, temporal, and spatial-temporal ecological data analysis with
+R-INLA. Highland Statistics Ltd. URL:
+<a href="http://www.highstat.com/Books/BGS/SpatialTemp/Zuuretal2017_TOCOnline.pdf" target="_blank">http://www.highstat.com/Books/BGS/SpatialTemp/Zuuretal2017_TOCOnline.pdf</a>.</p>
+
+<p>Zuur A.F., Ieno E.N., Walker N.J., Saveliev A.A. &amp; Smith G.M. (2009).
+Mixed effects models and extensions in ecology with R. Springer.</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='../../categories/literature/'>literature</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='../../tags/literature/'>literature</a>, <a class='tag' href='../../tags/open-science/'>open science</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='../../articles/computing/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Scientific computing and data handling workflows</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:contact@example.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2018 Institute of Nature and Forest research </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='../../assets/js/main.fae8ed32.js'></script><script src='../../js/custom.js'></script>
+
+</body>
+
+</html>
+

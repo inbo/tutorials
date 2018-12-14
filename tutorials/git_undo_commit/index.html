@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Undo git commits using the command line'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Undo a git commit • INBO Tutorials'>
+<meta property='og:description' content='Undo git commits using the command line'>
+<meta property='og:url' content='http://example.org/tutorials/git_undo_commit/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='git'><meta property='article:tag' content='version control'><meta property='article:published_time' content='2017-10-18T15:31:53&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T15:31:53&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.53-DEV" />
+
+  <title>Undo a git commit • INBO Tutorials</title>
+  <link rel='canonical' href='http://example.org/tutorials/git_undo_commit/'>
+  
+  
+  <link rel='icon' href='../../favicon.ico'>
+<link rel='stylesheet' href='../../assets/css/main.4a10984a.css'><link rel='stylesheet' href='../../css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='../../'>
+        <img src='../../images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='../../'>Home</a></li><li class='item'>
+  <a href='../../articles/'>articles</a></li><li class='item'>
+  <a href='../../tutorials/'>tutorials</a></li><li class='item'>
+  <a href='../../create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='../../installation/'>installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='../../installation/administrator/'>administrator</a></li><li class='item'>
+  <a href='../../installation/user/'>user</a></li></ul></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='../../tags/api/' style='font-size:1em'>API</a>
+      </li><li>
+        <a href='../../tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='../../tags/ci/' style='font-size:1.0588235294117647em'>ci</a>
+      </li><li>
+        <a href='../../tags/data/' style='font-size:1em'>data</a>
+      </li><li>
+        <a href='../../tags/database/' style='font-size:1em'>database</a>
+      </li><li>
+        <a href='../../tags/development/' style='font-size:1.0588235294117647em'>development</a>
+      </li><li>
+        <a href='../../tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='../../tags/gis/' style='font-size:1.1764705882352942em'>gis</a>
+      </li><li>
+        <a href='../../tags/git/' style='font-size:1.2941176470588236em'>git</a>
+      </li><li>
+        <a href='../../tags/github/' style='font-size:1em'>github</a>
+      </li><li>
+        <a href='../../tags/google/' style='font-size:1.0588235294117647em'>google</a>
+      </li><li>
+        <a href='../../tags/installation/' style='font-size:1.4705882352941178em'>installation</a>
+      </li><li>
+        <a href='../../tags/literature/' style='font-size:1.2352941176470589em'>literature</a>
+      </li><li>
+        <a href='../../tags/maps/' style='font-size:1.1764705882352942em'>maps</a>
+      </li><li>
+        <a href='../../tags/markdown/' style='font-size:1em'>markdown</a>
+      </li><li>
+        <a href='../../tags/open-science/' style='font-size:1.2352941176470589em'>open science</a>
+      </li><li>
+        <a href='../../tags/packages/' style='font-size:1.0588235294117647em'>packages</a>
+      </li><li>
+        <a href='../../tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='../../tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='../../tags/rstudio/' style='font-size:1.0588235294117647em'>rstudio</a>
+      </li><li>
+        <a href='../../tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='../../tags/styleguide/' style='font-size:1.0588235294117647em'>styleguide</a>
+      </li><li>
+        <a href='../../tags/tidyverse/' style='font-size:1.1764705882352942em'>tidyverse</a>
+      </li><li>
+        <a href='../../tags/version-control/' style='font-size:1.2352941176470589em'>version control</a>
+      </li><li>
+        <a href='../../tags/webservice/' style='font-size:1.1176470588235294em'>webservice</a>
+      </li><li>
+        <a href='../../tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='../../'>Home</a>
+      </li><li class='item'>
+        <a href='../../articles/'>articles</a>
+      </li><li class='item'>
+        <a href='../../tutorials/'>tutorials</a>
+      </li><li class='item'>
+        <a href='https://github.com/inbo/tutorials'>Source</a>
+      </li><li class='item'>
+        <a href='../../categories/'>Categories</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='../../'>Home</a></li><li><a href='../../tutorials/'>tutorials</a></li><li><span>Undo a git commit</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'>Technical info about INBO</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Undo a git commit</h1>
+      
+<p class='desc'>Undo git commits using the command line</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2017-10-18T15:31:53&#43;02:00'>2017, Oct 18</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+9 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h2 id="introduction">Introduction</h2>
+
+<p>You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.</p>
+
+<p>First, check your history of commits to see which commits are the faulty ones.</p>
+
+<pre><code>git log --oneline
+</code></pre>
+
+<p><em>Example output</em></p>
+
+<pre><code>b7119f2 Continue doing crazy things
+872fa7e Try something crazy
+a1e8fb5 Make some important changes to hello.py
+435b61d Create hello.py
+9773e52 Initial import
+</code></pre>
+
+<h2 id="git-checkout">Git checkout</h2>
+
+<p>The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches. In this part, only the first two configurations are addressed. Checking out a commit makes the entire working directory match that commit. This can be used to view an old state of your project without altering your current state in any way. Checking out a file lets you see an old version of that particular file, <strong>leaving the rest of your working directory untouched</strong>. (This will put you in a detached HEAD state.)</p>
+
+<p><img src="./undo_commits_images/01.svg" alt="" /></p>
+
+<p>You can use git checkout to view the “Make some import changes to hello.py” commit as follows:</p>
+
+<pre><code>git checkout a1e8fb5
+</code></pre>
+
+<p>This makes your working directory match the exact state of the a1e8fb5 commit. You can look at files, and even edit files without worrying about losing the current state of the project. Nothing you do in here will be saved in your repository. Checking out an old commit is a read-only operation. It’s impossible to harm your repository while viewing an old revision. To continue developing, you need to get back to the “current” state of your project (assuming your master branch is the head of the project):</p>
+
+<pre><code>git checkout master
+</code></pre>
+
+<p>If you’re only interested in a single file, you can also use git checkout to fetch an old version of it. For example, if you only wanted to see the <code>hello.py</code> file from the old commit, you could use the following command:</p>
+
+<pre><code>git checkout a1e8fb5 hello.py
+</code></pre>
+
+<p>Remember, unlike checking out a commit, this <strong>does affect the current state of your project</strong>. The old file revision will show up as a “Change to be committed,” giving you the opportunity to revert back to the previous version of the file. If you decide you don’t want to keep the old version, you can check out the most recent version with the following:</p>
+
+<pre><code>git checkout HEAD hello.py
+</code></pre>
+
+<p>This concludes the part on checking your previous commits. In the following part, some methods of rollback to a previous state will be elucidated.</p>
+
+<h2 id="git-revert">git revert</h2>
+
+<p>The git revert command undoes a committed snapshot. But, instead of removing the commit from the project history, it figures out how to undo the changes introduced by the commit and appends a new commit with the resulting content. This prevents Git from losing history, which is important for the integrity of your revision history and for reliable collaboration.</p>
+
+<p><img src="./undo_commits_images/03.svg" alt="" /></p>
+
+<p>Usage:</p>
+
+<pre><code>git revert &lt;commit&gt;
+</code></pre>
+
+<p>Generate a new commit that undoes all of the changes introduced in <commit>, then apply it to the current branch.</p>
+
+<p>Reverting should be used when you want to remove an entire commit from your project history. This can be useful, for example, if you’re tracking down a bug and find that it was introduced by a single commit. Instead of manually going in, fixing it, and committing a new snapshot, you can use git revert to automatically do all of this for you.</p>
+
+<p>It&rsquo;s important to understand that git revert undoes a single commit—it does not “revert” back to the previous state of a project by removing all subsequent commits. In Git, this is actually called a reset, not a revert.</p>
+
+<p><img src="./undo_commits_images/04.svg" alt="" /></p>
+
+<p>Reverting has two important advantages over resetting. First, it doesn’t change the project history, which makes it a “safe” operation for commits that have already been published to a shared repository. For details about why altering shared history is dangerous, please see the git reset page.</p>
+
+<p>Second, git revert is able to target an individual commit at an arbitrary point in the history, whereas git reset can only work backwards from the current commit. For example, if you wanted to undo an old commit with git reset, you would have to remove all of the commits that occurred after the target commit, remove it, then re-commit all of the subsequent commits. Needless to say, this is not an elegant undo solution.</p>
+
+<p>Example</p>
+
+<p>The following example is a simple demonstration of git revert. It commits a snapshot, then immediately undoes it with a revert.</p>
+
+<pre><code>// edit some tracked files
+
+// commit a snapshot
+git commit -m 'make some changes that will be undone'
+
+// revert the commit we have just created
+git revert HEAD
+</code></pre>
+
+<p>This can be visualized as the following:</p>
+
+<p><img src="undo_commits_images/05.svg" alt="" /></p>
+
+<p>Note that the 4th commit is still in the project history after the revert. Instead of deleting it, git revert added a new commit to undo its changes. As a result, the 3rd and 5th commits represent the exact same code base, and the 4th commit is still in our history just in case we want to go back to it down the road.</p>
+
+<h2 id="git-reset">git reset</h2>
+
+<p>If git revert is a “safe” way to undo changes, you can think of git reset as the dangerous method. When you undo with git reset(and the commits are no longer referenced by any ref or the reflog), there is no way to retrieve the original copy—it is a permanent undo. Care must be taken when using this tool, as it’s one of the only Git commands that has the potential to lose your work.</p>
+
+<p>Like git checkout, git reset is a versatile command with many configurations. It can be used to remove committed snapshots, although it’s more often used to undo changes in the staging area and the working directory. In either case, it should only be used to undo local changes—you should never reset snapshots that have been shared with other developers.</p>
+
+<p>Usage:</p>
+
+<pre><code>git reset &lt;file&gt;
+</code></pre>
+
+<p>Remove the specified file from the staging area, but leave the working directory unchanged. This unstages a file without overwriting any changes.</p>
+
+<pre><code>git reset
+</code></pre>
+
+<p>Reset the staging area to match the most recent commit, but leave the working directory unchanged. This unstages all files without overwriting any changes, giving you the opportunity to re-build the staged snapshot from scratch.</p>
+
+<pre><code>git reset --hard
+</code></pre>
+
+<p>Reset the staging area and the working directory to match the most recent commit. In addition to unstaging changes, the &ndash;hard flag tells Git to overwrite all changes in the working directory, too. Put another way: this obliterates all uncommitted changes, so make sure you really want to throw away your local developments before using it.</p>
+
+<pre><code>git reset &lt;commit&gt;
+</code></pre>
+
+<p>Move the current branch tip backward to <commit>, reset the staging area to match, but leave the working directory alone. All changes made since <commit> will reside in the working directory, which lets you re-commit the project history using cleaner, more atomic snapshots.</p>
+
+<pre><code>git reset --hard &lt;commit&gt;
+</code></pre>
+
+<p>Move the current branch tip backward to <commit> and reset both the staging area and the working directory to match. This obliterates not only the uncommitted changes, but all commits after <commit>, as well.</p>
+
+<p>Discussion</p>
+
+<p>All of the above invocations are used to remove changes from a repository. Without the &ndash;hard flag, git reset is a way to clean up a repository by unstaging changes or uncommitting a series of snapshots and re-building them from scratch. The &ndash;hard flag comes in handy when an experiment has gone horribly wrong and you need a clean slate to work with.</p>
+
+<p>Whereas reverting is designed to safely undo a public commit, git reset is designed to undo local changes. Because of their distinct goals, the two commands are implemented differently: resetting completely removes a changeset, whereas reverting maintains the original changeset and uses a new commit to apply the undo.</p>
+
+<p><img src="undo_commits_images/06.svg" alt="" /></p>
+
+<p>Don’t Reset Public History</p>
+
+<p>You should never use git reset <commit> when any snapshots after <commit> have been pushed to a public repository. After publishing a commit, you have to assume that other developers are reliant upon it.</p>
+
+<p>Removing a commit that other team members have continued developing poses serious problems for collaboration. When they try to sync up with your repository, it will look like a chunk of the project history abruptly disappeared. The sequence below demonstrates what happens when you try to reset a public commit. The origin/master branch is the central repository’s version of your local master branch.</p>
+
+<p><img src="undo_commits_images/07.svg" alt="" /></p>
+
+<p>As soon as you add new commits after the reset, Git will think that your local history has diverged from origin/master, and the merge commit required to synchronize your repositories is likely to confuse and frustrate your team.</p>
+
+<p>The point is, make sure that you’re using git reset <commit> on a local experiment that went wrong—not on published changes. If you need to fix a public commit, the git revert command was designed specifically for this purpose.</p>
+
+<h2 id="examples">Examples:</h2>
+
+<h3 id="unstaging-a-file"><em>unstaging a file</em></h3>
+
+<p>The git reset command is frequently encountered while preparing the staged snapshot. The next example assumes you have two files called <code>hello.py</code> and <code>main.py</code> that you’ve already added to the repository.</p>
+
+<pre><code># Edit both hello.py and main.py
+
+# Stage everything in the current directory
+git add .
+
+# Realize that the changes in hello.py and main.py
+# should be committed in different snapshots
+
+# Unstage main.py
+git reset main.py
+
+# Commit only hello.py
+git commit -m &quot;Make some changes to hello.py&quot;
+
+# Commit main.py in a separate snapshot
+git add main.py
+git commit -m &quot;Edit main.py&quot;
+</code></pre>
+
+<p>As you can see, git reset helps you keep your commits highly-focused by letting you unstage changes that aren’t related to the next commit.</p>
+
+<h3 id="removing-local-commits"><em>removing local commits</em></h3>
+
+<p>The next example shows a more advanced use case. It demonstrates what happens when you’ve been working on a new experiment for a while, but decide to completely throw it away after committing a few snapshots.</p>
+
+<pre><code># Create a new file called `foo.py` and add some code to it
+
+# Commit it to the project history
+git add foo.py
+git commit -m &quot;Start developing a crazy feature&quot;
+
+# Edit `foo.py` again and change some other tracked files, too
+
+# Commit another snapshot
+git commit -a -m &quot;Continue my crazy feature&quot;
+
+# Decide to scrap the feature and remove the associated commits
+git reset --hard HEAD~2
+</code></pre>
+
+<p>The <code>git reset HEAD~2</code> command moves the current branch backward by two commits, effectively removing the two snapshots we just created from the project history. Remember that this kind of reset should only be used on unpublished commits. Never perform the above operation if you’ve already pushed your commits to a shared repository.</p>
+
+<h2 id="usage-statement">Usage statement</h2>
+
+<p>The content of this Rmarkdown tutorial is a transformation from <a href="https://www.atlassian.com/git/tutorials/undoing-changes" target="_blank">this source</a> and is licensed under a Creative Commons Attribution 2.5 Australia License.</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='../../categories/version-control/'>version control</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='../../tags/git/'>git</a>, <a class='tag' href='../../tags/version-control/'>version control</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='../../tutorials/git_no_internet/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Git without internet</a>
+    </div><div class='next-entry sep-before'>
+      <a href='../../tutorials/styleguide_r_code/'>
+        <span class='screen-reader-text'>Next post: </span>Styleguide R code<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:contact@example.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2018 Institute of Nature and Forest research </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='../../assets/js/main.fae8ed32.js'></script><script src='../../js/custom.js'></script>
+
+</body>
+
+</html>
+

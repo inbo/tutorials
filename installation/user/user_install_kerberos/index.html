@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Kerberos authentication on linux'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Using kerberos authentication for database connection • INBO Tutorials'>
+<meta property='og:description' content='Kerberos authentication on linux'>
+<meta property='og:url' content='http://example.org/installation/user/user_install_kerberos/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='database'><meta property='article:tag' content='data'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2018-01-03T00:00:00Z'/><meta property='article:modified_time' content='2018-01-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.53-DEV" />
+
+  <title>Using kerberos authentication for database connection • INBO Tutorials</title>
+  <link rel='canonical' href='http://example.org/installation/user/user_install_kerberos/'>
+  
+  
+  <link rel='icon' href='../../../favicon.ico'>
+<link rel='stylesheet' href='../../../assets/css/main.4a10984a.css'><link rel='stylesheet' href='../../../css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-installation has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='../../../'>
+        <img src='../../../images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='../../../'>Home</a></li><li class='item'>
+  <a href='../../../articles/'>articles</a></li><li class='item'>
+  <a href='../../../tutorials/'>tutorials</a></li><li class='item'>
+  <a href='../../../create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='../../../installation/'>installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='../../../installation/administrator/'>administrator</a></li><li class='item'>
+  <a href='../../../installation/user/'>user</a></li></ul></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='../../../tags/api/' style='font-size:1em'>API</a>
+      </li><li>
+        <a href='../../../tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='../../../tags/ci/' style='font-size:1.0588235294117647em'>ci</a>
+      </li><li>
+        <a href='../../../tags/data/' style='font-size:1em'>data</a>
+      </li><li>
+        <a href='../../../tags/database/' style='font-size:1em'>database</a>
+      </li><li>
+        <a href='../../../tags/development/' style='font-size:1.0588235294117647em'>development</a>
+      </li><li>
+        <a href='../../../tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='../../../tags/gis/' style='font-size:1.1764705882352942em'>gis</a>
+      </li><li>
+        <a href='../../../tags/git/' style='font-size:1.2941176470588236em'>git</a>
+      </li><li>
+        <a href='../../../tags/github/' style='font-size:1em'>github</a>
+      </li><li>
+        <a href='../../../tags/google/' style='font-size:1.0588235294117647em'>google</a>
+      </li><li>
+        <a href='../../../tags/installation/' style='font-size:1.4705882352941178em'>installation</a>
+      </li><li>
+        <a href='../../../tags/literature/' style='font-size:1.2352941176470589em'>literature</a>
+      </li><li>
+        <a href='../../../tags/maps/' style='font-size:1.1764705882352942em'>maps</a>
+      </li><li>
+        <a href='../../../tags/markdown/' style='font-size:1em'>markdown</a>
+      </li><li>
+        <a href='../../../tags/open-science/' style='font-size:1.2352941176470589em'>open science</a>
+      </li><li>
+        <a href='../../../tags/packages/' style='font-size:1.0588235294117647em'>packages</a>
+      </li><li>
+        <a href='../../../tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='../../../tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='../../../tags/rstudio/' style='font-size:1.0588235294117647em'>rstudio</a>
+      </li><li>
+        <a href='../../../tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='../../../tags/styleguide/' style='font-size:1.0588235294117647em'>styleguide</a>
+      </li><li>
+        <a href='../../../tags/tidyverse/' style='font-size:1.1764705882352942em'>tidyverse</a>
+      </li><li>
+        <a href='../../../tags/version-control/' style='font-size:1.2352941176470589em'>version control</a>
+      </li><li>
+        <a href='../../../tags/webservice/' style='font-size:1.1176470588235294em'>webservice</a>
+      </li><li>
+        <a href='../../../tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='../../../'>Home</a>
+      </li><li class='item'>
+        <a href='../../../articles/'>articles</a>
+      </li><li class='item'>
+        <a href='../../../tutorials/'>tutorials</a>
+      </li><li class='item'>
+        <a href='https://github.com/inbo/tutorials'>Source</a>
+      </li><li class='item'>
+        <a href='../../../categories/'>Categories</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='../../../'>Home</a></li><li><a href='../../../installation/'>installation</a></li><li><a href='../../../installation/user/'>user</a></li><li><span>Using kerberos authentication for database connection</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'>Technical info about INBO</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Using kerberos authentication for database connection</h1>
+      
+<p class='desc'>Kerberos authentication on linux</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2018-01-03T00:00:00Z'>2018, Jan 03</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+5 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h2 id="introduction">Introduction</h2>
+
+<p><em>(shamelessly taken from <a href="https://en.wikipedia.org/wiki/Kerberos_(protocol)" target="_blank">wikipedia</a>)</em></p>
+
+<p>Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.</p>
+
+<p>Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including <a href="https://en.wikipedia.org/wiki/FreeBSD" target="_blank">FreeBSD</a>, Apple&rsquo;s <a href="https://en.wikipedia.org/wiki/Mac_OS_X" target="_blank">Mac OS X</a>, <a href="https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux" target="_blank">Red Hat Enterprise Linux</a>, <a href="https://en.wikipedia.org/wiki/Sun_microsystems" target="_blank">Oracle</a>&rsquo;s <a href="https://en.wikipedia.org/wiki/Solaris_(operating_system)" target="_blank">Solaris</a>, IBM&rsquo;s <a href="https://en.wikipedia.org/wiki/AIX" target="_blank">AIX</a> and <a href="https://en.wikipedia.org/wiki/Z/OS" target="_blank">Z/OS</a>, HP&rsquo;s <a href="https://en.wikipedia.org/wiki/HP-UX" target="_blank">HP-UX</a> and <a href="https://en.wikipedia.org/wiki/OpenVMS" target="_blank">OpenVMS</a> and others, include software for Kerberos authentication of users or services.</p>
+
+<p>Hence, we can use the protocol to have an OS independent solution for authentication across different databases. In this document, the installation and configuration for <strong>linux/mac users</strong> is provided as well as an introduction to the usage of the authentication service to connect to databases. For windows users (in the domain) the authentication is provided by default.</p>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="libraries-for-authentication">Libraries for authentication</h3>
+
+<p>For debian/ubuntu users (make sure you belong to the <code>sudo</code> group):</p>
+
+<pre><code>sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
+sudo apt-get install openssl
+</code></pre>
+
+<p>These libraries will be used later on. The following section is for interaction with MS SQL databases.</p>
+
+<h3 id="ms-sql-server-tools">MS SQL Server tools</h3>
+
+<p>As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.</p>
+
+<h4 id="odbc-driver">ODBC driver</h4>
+
+<p>Download and install the <a href="https://www.microsoft.com/en-us/download/details.aspx?id=53339" target="_blank">Microsoft ODBC Driver for SQL Server</a>.   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For <code>Ubuntu 16.04</code> (and most distributions based on it),  following instructions apply:</p>
+
+<pre><code>sudo su
+apt-get install curl
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list &gt; /etc/apt/sources.list.d/mssqlrelease.list
+exit
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install msodbcsql=13.1.4.0-1
+sudo apt-get install unixodbc-dev
+</code></pre>
+
+<h4 id="mssql-tools">mssql-tools</h4>
+
+<p>Install the MS SQL tools as well:</p>
+
+<ul>
+<li><strong>sqlcmd</strong>: Command-line query utility.</li>
+<li><strong>bcp</strong>: Bulk import-export utility.</li>
+</ul>
+
+<p>The instructions for different platforms are explained <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools" target="_blank">here</a>. In order to test the SQL connection later in this tutorial, add <code>/opt/mssql-tools/bin/</code> to your PATH environment variable.</p>
+
+<p>You could also decide to go for the binaries: download <a href="https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb" target="_blank">the debian package of mssql-tools</a> and install with:</p>
+
+<pre><code>sudo apt-get install libgss3
+sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
+</code></pre>
+
+<h3 id="configure-kerberos-client">Configure Kerberos client</h3>
+
+<p><em>(again, the commands assume root privileges)</em></p>
+
+<p>Start with the kerberos configuration dialogue:</p>
+
+<pre><code>dpkg-reconfigure krb5-config
+</code></pre>
+
+<p>Use <code>INBO.BE</code> as the realm (this is the realm of the kerberos servers):
+<img src="./images/kerberos_config_1.png" alt="" /></p>
+
+<p>Make sure to use DNS to find these servers, so choose &lsquo;NO&rsquo; if you get the below question:
+<img src="./images/kerberos_config_2.png" alt="" /></p>
+
+<p>Next, adapt the <code>krb5.conf</code>, probably available in the <code>/etc</code> directory.  Add the following sections with configurations to the file:</p>
+
+<pre><code>[realms]
+        INBO.BE = {
+                kdc = DNS_Name_DomainController1.domain.be
+                kdc = DNS_Name_DomainController2.domain.be
+                kdc = DNS_Name_DomainController3.domain.be
+                kdc = DNS_Name_DomainController4.domain.be
+                kdc = DNS_Name_DomainController5.domain.be
+                default_domain = domain.be
+        }
+
+[logging]
+	default = FILE:/var/log/krblibs.log
+	kdc = FILE:/var/log/krbkdc.log
+	admin_server = FILE:/var/log/kadmind.log
+
+[libdefaults]
+	default_realm = DOMAIN.BE
+	dns_lookup_realm = false
+	dns_lookup_kdc = false
+	ticket_lifetime = 24h
+	renew_lifetime = 7d
+	forwardable=  true
+</code></pre>
+
+<p>Inbo staff can download a preconfigured krb5.conf file here:&ldquo;<a href="https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing&quot;" target="_blank">https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing&quot;</a>.
+In order to sync the timing of the domain controller server and client side, install <code>ntp</code>:</p>
+
+<pre><code>sudo apt-get install ntp
+</code></pre>
+
+<p>After installation, check if the following two files do exist:
+* <code>/etc/ntp.conf</code>
+* <code>/etc/ntp.conf.dhcp</code> (empty file, just amke sure there is a file)</p>
+
+<h3 id="test-installations">Test installations</h3>
+
+<h4 id="kerberos-ticket-system">kerberos ticket system</h4>
+
+<p>To check if the Kerberos configuration is successful, ask for a ticket by initiating with <code>kinit</code>:</p>
+
+<pre><code>kinit your_user_name
+</code></pre>
+
+<p>If no errors are prodused, check the existing tickets with <code>klist</code>:</p>
+
+<pre><code>klist
+</code></pre>
+
+<p>This should produce a list of successfully granted tickets, so something similar as:</p>
+
+<pre><code>Valid starting     Expires            Service principal
+03/01/18 15:42:08  04/01/18 01:42:08  krbtgt/INBO.BE@INBO.BE
+	renew until 10/01/18 15:42:08
+</code></pre>
+
+<h4 id="sql-database-connections">SQL database connections</h4>
+
+<p>When the ticketing is working, the next step is to use the authentication to connect to the databases itself. To test this, we&rsquo;ll use the <code>sqlcmd</code> command line tool. In a next section, we&rsquo;ll focus on the ODBC settings.</p>
+
+<p>Testing with <code>sqlcmd</code> (make sure you have an active ticket). Type <code>quit</code> to exit.</p>
+
+<p>Inbo staff can consult a list of connection strings ( including server names ) for a server to query
+<a href="https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing" target="_blank">link</a></p>
+
+<pre><code>sqlcmd -S DBServerName -E
+1&gt; Select top 10 name from sys.databases;
+2&gt; Go
+</code></pre>
+
+<h3 id="sql-odbc-connections">SQL ODBC connections</h3>
+
+<p>To support  database connections from other applications (e.g. GUI environments, but also R, Python,&hellip;), the configuration of database drivers and connections should be provided in the <code>/etc/odbc.ini</code> and <code>/etc/odbcinst.ini</code>.</p>
+
+<p>Make sure the ODBC driver for SQL Server is available with a recognizable name in the <code>/etc/odbcinst.ini</code> file:</p>
+
+<pre><code>[ODBC Driver 13 for SQL Server]
+Description=Microsoft ODBC Driver 13 for SQL Server
+Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
+UsageCount=2
+</code></pre>
+
+<h4 id="connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-libraries-packages">Connecting by explicitly providing the SQL connection string to ODBC libraries/packages</h4>
+
+<p>Inbo staff can consult a list of connection strings <a href="https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing" target="_blank">here</a>
+At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r eval = FALSE" data-lang="r eval = FALSE">library(DBI)
+connection &lt;- dbConnect(
+  odbc::odbc(), 
+  .connection_string = &#34;Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;&#34;
+)
+dbListTables(connection)</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00a">import</span> <span style="color:#0aa;text-decoration:underline">pyodbc</span>
+conn = pyodbc.connect(<span style="color:#a50">&#34;Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;&#34;</span>)</code></pre></div>
+<p>In RStudio, you can also make the connection with the GUI:</p>
+
+<ul>
+<li>Go to the <em>Connections</em> pane and click &lsquo;New Connection&rsquo;.</li>
+<li>In the window that opens, choose the <em>ODBC Driver for SQL Server</em>.</li>
+<li>In the <em>Parameters</em> field that comes next, add <code>Server=DBServerName;Database=DBName;Trusted_Connection=yes;</code>.
+
+<ul>
+<li>Note that the <code>DBI</code> connection statement is visible at the bottom field of the dialog window.</li>
+</ul></li>
+<li>Click <em>Test</em> to verify successful connection.
+
+<ul>
+<li>If connection is unsuccessful, try again after explicitly adding your username to the connection string: <code>User ID=your_username;</code></li>
+</ul></li>
+<li>If the test is successful, click <em>OK</em> to make the connection.</li>
+</ul>
+
+<p>Beside the fact that the connection has been made (see RStudio&rsquo;s R console), you also get a list of all databases (of the specific SQL Server) in the Connections pane. You can use this for exploratory purposes. Click <a href="https://db.rstudio.com/rstudio/connections/" target="_blank">here</a> for more information on using RStudio&rsquo;s Connections pane.</p>
+
+<h4 id="untested-connecting-after-configuring-odbc-ini">UNTESTED: Connecting after configuring <code>odbc.ini</code></h4>
+
+<p>However, it is probably easier to provide the configuration to specific databases directly, using the <code>/etc/odbc.ini</code> file. For example, the <code>DBName</code> database can be defined as follows:</p>
+
+<pre><code>[nbn_ipt]
+Driver      = ODBC Driver 13 for SQL Server
+Description = odbc verbinding naar db
+Trace       = No
+Server      = DBServername
+Database    = DBName
+Port        = 1433
+</code></pre>
+
+<p>Next, add the</p>
+
+<p>DBServername</p>
+
+<p><strong>TODO:</strong>
+-&gt; example in R/Python
+-&gt; also available in Rstudio!</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='../../../categories/installation/'>installation</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='../../../tags/database/'>database</a>, <a class='tag' href='../../../tags/data/'>data</a>, <a class='tag' href='../../../tags/installation/'>installation</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='../../../installation/user/user_install_rstudio/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Rstudio installation</a>
+    </div><div class='next-entry sep-before'>
+      <a href='../../../installation/user/user_install_insync/'>
+        <span class='screen-reader-text'>Next post: </span>Insync installation<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:contact@example.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2018 Institute of Nature and Forest research </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='../../../assets/js/main.fae8ed32.js'></script><script src='../../../js/custom.js'></script>
+
+</body>
+
+</html>
+

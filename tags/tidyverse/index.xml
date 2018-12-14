@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tidyverse on INBO Tutorials</title>
+    <link>http://example.org/tags/tidyverse/</link>
+    <description>Recent content in tidyverse on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Headers and navigation in R code</title>
+      <link>http://example.org/tutorials/r_script_sections/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tutorials/r_script_sections/</guid>
+      <description>Introduction R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
+Creating sections manually To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.
+# 1. Header 1 #### # 2. Header 2 ---- # 3.</description>
+    </item>
+    
+    <item>
+      <title>Using `%&gt;%` pipes in R</title>
+      <link>http://example.org/tutorials/r_tidyverse_piping/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tutorials/r_tidyverse_piping/</guid>
+      <description>library(dplyr) How to use piping in R Normally, you would do this:
+head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
+    </item>
+    
+    <item>
+      <title>Data wrangling with tidyverse</title>
+      <link>http://example.org/tutorials/r_tidyverse_info/</link>
+      <pubDate>Fri, 09 Feb 2018 14:14:49 +0100</pubDate>
+      
+      <guid>http://example.org/tutorials/r_tidyverse_info/</guid>
+      <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
+    </item>
+    
+    <item>
+      <title>Reading large data files in R</title>
+      <link>http://example.org/tutorials/r_large_data_files_handling/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tutorials/r_large_data_files_handling/</guid>
+      <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
+tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
+    </item>
+    
+  </channel>
+</rss>

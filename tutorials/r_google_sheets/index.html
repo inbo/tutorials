@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Extracting data driectly from google spreadhseets'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Read data from google sheet • INBO Tutorials'>
+<meta property='og:description' content='Extracting data driectly from google spreadhseets'>
+<meta property='og:url' content='http://example.org/tutorials/r_google_sheets/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='google'><meta property='article:tag' content='r'><meta property='article:tag' content='spreadsheet'><meta property='article:published_time' content='2017-01-03T00:00:00Z'/><meta property='article:modified_time' content='2017-01-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.53-DEV" />
+
+  <title>Read data from google sheet • INBO Tutorials</title>
+  <link rel='canonical' href='http://example.org/tutorials/r_google_sheets/'>
+  
+  
+  <link rel='icon' href='../../favicon.ico'>
+<link rel='stylesheet' href='../../assets/css/main.4a10984a.css'><link rel='stylesheet' href='../../css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='../../'>
+        <img src='../../images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'>Search</h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='../../'>Home</a></li><li class='item'>
+  <a href='../../articles/'>articles</a></li><li class='item'>
+  <a href='../../tutorials/'>tutorials</a></li><li class='item'>
+  <a href='../../create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='../../installation/'>installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='../../installation/administrator/'>administrator</a></li><li class='item'>
+  <a href='../../installation/user/'>user</a></li></ul></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud'><li>
+        <a href='../../tags/api/' style='font-size:1em'>API</a>
+      </li><li>
+        <a href='../../tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='../../tags/ci/' style='font-size:1.0588235294117647em'>ci</a>
+      </li><li>
+        <a href='../../tags/data/' style='font-size:1em'>data</a>
+      </li><li>
+        <a href='../../tags/database/' style='font-size:1em'>database</a>
+      </li><li>
+        <a href='../../tags/development/' style='font-size:1.0588235294117647em'>development</a>
+      </li><li>
+        <a href='../../tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='../../tags/gis/' style='font-size:1.1764705882352942em'>gis</a>
+      </li><li>
+        <a href='../../tags/git/' style='font-size:1.2941176470588236em'>git</a>
+      </li><li>
+        <a href='../../tags/github/' style='font-size:1em'>github</a>
+      </li><li>
+        <a href='../../tags/google/' style='font-size:1.0588235294117647em'>google</a>
+      </li><li>
+        <a href='../../tags/installation/' style='font-size:1.4705882352941178em'>installation</a>
+      </li><li>
+        <a href='../../tags/literature/' style='font-size:1.2352941176470589em'>literature</a>
+      </li><li>
+        <a href='../../tags/maps/' style='font-size:1.1764705882352942em'>maps</a>
+      </li><li>
+        <a href='../../tags/markdown/' style='font-size:1em'>markdown</a>
+      </li><li>
+        <a href='../../tags/open-science/' style='font-size:1.2352941176470589em'>open science</a>
+      </li><li>
+        <a href='../../tags/packages/' style='font-size:1.0588235294117647em'>packages</a>
+      </li><li>
+        <a href='../../tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='../../tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='../../tags/rstudio/' style='font-size:1.0588235294117647em'>rstudio</a>
+      </li><li>
+        <a href='../../tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='../../tags/styleguide/' style='font-size:1.0588235294117647em'>styleguide</a>
+      </li><li>
+        <a href='../../tags/tidyverse/' style='font-size:1.1764705882352942em'>tidyverse</a>
+      </li><li>
+        <a href='../../tags/version-control/' style='font-size:1.2352941176470589em'>version control</a>
+      </li><li>
+        <a href='../../tags/webservice/' style='font-size:1.1176470588235294em'>webservice</a>
+      </li><li>
+        <a href='../../tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+</div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='../../'>Home</a>
+      </li><li class='item'>
+        <a href='../../articles/'>articles</a>
+      </li><li class='item'>
+        <a href='../../tutorials/'>tutorials</a>
+      </li><li class='item'>
+        <a href='https://github.com/inbo/tutorials'>Source</a>
+      </li><li class='item'>
+        <a href='../../categories/'>Categories</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='../../'>Home</a></li><li><a href='../../tutorials/'>tutorials</a></li><li><span>Read data from google sheet</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'>Technical info about INBO</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Read data from google sheet</h1>
+      
+<p class='desc'>Extracting data driectly from google spreadhseets</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2017-01-03T00:00:00Z'>2017, Jan 03</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+3 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(googlesheets)
+<span style="color:#00a">library</span>(dplyr)
+<span style="color:#00a">library</span>(ggplot2)</code></pre></div>
+<h2 id="setup">Setup</h2>
+
+<p>The R package <a href="https://github.com/jennybc/googlesheets/blob/master/README.md" target="_blank">googlesheets</a> provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the <code>gs_auth</code> command.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gs_auth()</code></pre></div>
+<p>Google will ask to grant the package the permission to access your drive. This token is saved to in a file <code>.httr-oauth</code> in your current working directory. Make sure this is not part of your version control system. However, as we want to be able to make the running independent from the user authentification or without needing an interactive environment. Therefore, we can store the token in a file and get the authentification from there. The code loads the token from the file if the file exists. Otherwise a new token is created and stored in the file.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">if</span> (file_test(<span style="color:#a50">&#34;-f&#34;</span>, <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)) {
+  gs_auth(token = <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)
+} <span style="color:#00a">else</span> {
+  <span style="color:#aaa;font-style:italic"># first get the token, but not caching it in a local file</span>
+  token &lt;- gs_auth(cache = <span style="color:#00a">FALSE</span>)
+  <span style="color:#aaa;font-style:italic"># save the token into a file in the current directory</span>
+  <span style="color:#00a">saveRDS</span>(token, file = <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)
+}</code></pre></div>
+<p>Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in <a href="https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html" target="_blank">this manual</a>.</p>
+
+<p>Once registered, an overview of your available google sheets is provided as follows, with the option to provide a (regular) expression to search for in the names:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gs_ls(<span style="color:#a50">&#34;tutorial_example&#34;</span>)</code></pre></div>
+<pre><code>## # A tibble: 2 x 10
+##   sheet_title author perm  version updated             sheet_key ws_feed
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dttm&gt;              &lt;chr&gt;     &lt;chr&gt;  
+## 1 tutorial_e… stijn… rw    old     2018-12-13 16:37:58 1O9W_c0A… https:…
+## 2 tutorial_e… stijn… rw    old     2018-12-13 16:36:56 124Od346… https:…
+## # ... with 3 more variables: alternate &lt;chr&gt;, self &lt;chr&gt;, alt_key &lt;chr&gt;
+</code></pre>
+
+<h2 id="i-just-want-to-load-a-google-spreadsheet">I just want to load a google spreadsheet</h2>
+
+<p>Consider you have the authentification. You know the name, URL or key of the spreadheet and want to read this in, well use one of the functions <code>gs_title()</code>, <code>gs_url()</code> or <code>gs_key()</code>.</p>
+
+<p>As an example, I want to work on the sheet called <code>TraitsRedListSpecies</code>. Finding the spreadheet is done as follows:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose &lt;- gs_title(<span style="color:#a50">&#34;tutorial_example_spreadsheet_2&#34;</span>)</code></pre></div>
+<pre><code>## Sheet successfully identified: &quot;tutorial_example_spreadsheet_2&quot;
+</code></pre>
+
+<p>An overview of the different sheets provides sufficient information to retrieve the dataset and work with them:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gs_ws_ls(goose)</code></pre></div>
+<pre><code>## [1] &quot;Tbl1 Ringgegevens&quot;     &quot;Tbl2 Koppels&quot;          &quot;Tbl3 Waarnemingen&quot;    
+## [4] &quot;Tbl4 Nesten&quot;           &quot;Tbl5 Nestcontroles&quot;    &quot;Tbl6 Uitkipsucces&quot;    
+## [7] &quot;Tbl7 Kuikenoverleving&quot; &quot;Tbl8 Datums&quot;
+</code></pre>
+
+<p>So, getting the <code>BreedingBirds</code> sheet into a native R object can be done by reading the specific worksheet:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose_data &lt;- goose %&gt;% 
+        gs_read(ws = <span style="color:#a50">&#34;Tbl1 Ringgegevens&#34;</span>)</code></pre></div>
+<pre><code>## Accessing worksheet titled 'Tbl1 Ringgegevens'.
+
+## Parsed with column specification:
+## cols(
+##   Ringnummer = col_character(),
+##   Kleurring = col_character(),
+##   Soort = col_character(),
+##   Leeftijdscategorie = col_character(),
+##   Geslacht = col_character(),
+##   `Datum vangst` = col_character(),
+##   `Locatie vangst` = col_character(),
+##   Vangtype = col_character(),
+##   Gestorven = col_character()
+## )
+</code></pre>
+
+<p>Inspecting the data of the sheet:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">class</span>(goose_data)</code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">head</span>(goose_data)</code></pre></div>
+<pre><code>## # A tibble: 6 x 9
+##   Ringnummer Kleurring Soort Leeftijdscatego… Geslacht `Datum vangst`
+##   &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;         
+## 1 B1634      162       Bran… Adult            Vrouw    7/20/2000     
+## 2 B3204      181       Bran… Adult            &lt;NA&gt;     8/9/2009      
+## 3 K23913     636       Bran… Adult            &lt;NA&gt;     8/9/2009      
+## 4 K46701     &lt;NA&gt;      Bran… Adult            Onbekend 7/2/2012      
+## 5 &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt;  &lt;NA&gt;             &lt;NA&gt;     &lt;NA&gt;          
+## 6 K46702     &lt;NA&gt;      Bran… Adult            Onbekend 7/2/2012      
+## # ... with 3 more variables: `Locatie vangst` &lt;chr&gt;, Vangtype &lt;chr&gt;,
+## #   Gestorven &lt;chr&gt;
+</code></pre>
+
+<p>We can now start working on the data, e.g. make a plot of the number of species in each location:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ggplot(data = goose_data %&gt;% filter(!<span style="color:#00a">is.na</span>(<span style="color:#a50">`Locatie vangst`</span>)), 
+       aes(x = <span style="color:#a50">`Locatie vangst`</span>)) +
+    geom_bar()</code></pre></div>
+<p><img src="index_files/figure-markdown_github/unnamed-chunk-10-1.png" alt="" /></p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='../../categories/r/'>r</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='../../tags/google/'>google</a>, <a class='tag' href='../../tags/r/'>r</a>, <a class='tag' href='../../tags/spreadsheet/'>spreadsheet</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='next-entry sep-before'>
+      <a href='../../tutorials/r_large_data_files_handling/'>
+        <span class='screen-reader-text'>Next post: </span>Reading large data files in R<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBO' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='mailto:contact@example.com' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+  <polyline points="22,6 12,13 2,6"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2018 Institute of Nature and Forest research </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/assets\/js\/'</script>
+
+<script src='../../assets/js/main.fae8ed32.js'></script><script src='../../js/custom.js'></script>
+
+</body>
+
+</html>
+

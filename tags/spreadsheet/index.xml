@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spreadsheet on INBO Tutorials</title>
+    <link>http://example.org/tags/spreadsheet/</link>
+    <description>Recent content in spreadsheet on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Read data from google sheet</title>
+      <link>http://example.org/tutorials/r_google_sheets/</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tutorials/r_google_sheets/</guid>
+      <description>library(googlesheets) library(dplyr) library(ggplot2) Setup The R package googlesheets provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the gs_auth command.
+gs_auth() Google will ask to grant the package the permission to access your drive. This token is saved to in a file .</description>
+    </item>
+    
+  </channel>
+</rss>

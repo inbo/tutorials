@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://example.org/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/articles/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/create_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/articles/statistics/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/articles/computing/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/articles/skills/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/articles/communicating/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/articles/open_science/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/r_script_sections/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/spatial_create_leaflet_map/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/r_gbif_name_matching/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/r_tidyverse_piping/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/user/user_install_insync/</loc>
+    <lastmod>2018-04-19T11:01:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/development_wercker/</loc>
+    <lastmod>2018-03-23T11:23:07+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/spatial_wfs_services/</loc>
+    <lastmod>2018-03-07T16:50:01+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/spatial_transform_crs/</loc>
+    <lastmod>2018-02-19T14:52:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/spatial_wms_services/</loc>
+    <lastmod>2018-02-19T12:09:22+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/r_tidyverse_info/</loc>
+    <lastmod>2018-02-09T14:14:49+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/user/user_install_kerberos/</loc>
+    <lastmod>2018-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/styleguide_repos/</loc>
+    <lastmod>2017-10-18T16:02:35+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/styleguide_r_code/</loc>
+    <lastmod>2017-10-18T16:01:34+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/user/user_install_rstudio/</loc>
+    <lastmod>2017-10-18T15:43:44+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/user/user_install_r/</loc>
+    <lastmod>2017-10-18T15:43:32+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/git_undo_commit/</loc>
+    <lastmod>2017-10-18T15:31:53+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/git_no_internet/</loc>
+    <lastmod>2017-10-18T15:30:15+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/git_conflict/</loc>
+    <lastmod>2017-10-18T15:30:15+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/git_workflow/</loc>
+    <lastmod>2017-10-18T14:42:43+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/administrator/</loc>
+    <lastmod>2017-10-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/user/</loc>
+    <lastmod>2017-10-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/administrator/admin_install_rstudio/</loc>
+    <lastmod>2017-10-18T00:30:40+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/administrator/admin_install_rtools/</loc>
+    <lastmod>2017-10-18T00:30:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/administrator/admin_install_git/</loc>
+    <lastmod>2017-10-18T00:29:14+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/administrator/admin_install_pandoc/</loc>
+    <lastmod>2017-10-18T00:28:40+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/administrator/admin_install_r/</loc>
+    <lastmod>2017-10-18T00:25:57+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/development_codecov/</loc>
+    <lastmod>2017-10-18T00:25:24+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/r_large_data_files_handling/</loc>
+    <lastmod>2017-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tutorials/r_google_sheets/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/api/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/authors/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/search/</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/biodiversity/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/ci/</loc>
+    <lastmod>2018-03-23T11:23:07+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/data/</loc>
+    <lastmod>2018-01-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/database/</loc>
+    <lastmod>2018-01-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/development/</loc>
+    <lastmod>2018-03-23T11:23:07+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/development/</loc>
+    <lastmod>2018-03-23T11:23:07+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/gbif/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/gis/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/git/</loc>
+    <lastmod>2017-10-18T16:02:35+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/github/</loc>
+    <lastmod>2017-10-18T16:02:35+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/google/</loc>
+    <lastmod>2018-04-19T11:01:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/installation/</loc>
+    <lastmod>2018-04-19T11:01:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/installation/</loc>
+    <lastmod>2018-04-19T11:01:31+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/installation/</loc>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/literature/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/literature/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/maps/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/markdown/</loc>
+    <lastmod>2017-10-18T00:28:40+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/open-science/</loc>
+    <lastmod>2018-03-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/packages/</loc>
+    <lastmod>2018-03-23T11:23:07+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/pandoc/</loc>
+    <lastmod>2017-10-18T00:28:40+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/r/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/r/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/rstudio/</loc>
+    <lastmod>2017-10-18T15:43:44+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/spreadsheet/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/styleguide/</loc>
+    <lastmod>2017-10-18T16:02:35+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/styleguide/</loc>
+    <lastmod>2017-10-18T16:02:35+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/tidyverse/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/version-control/</loc>
+    <lastmod>2017-10-18T15:31:53+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/version-control/</loc>
+    <lastmod>2017-10-18T15:31:53+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/webservice/</loc>
+    <lastmod>2018-06-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/windows/</loc>
+    <lastmod>2017-10-18T00:30:16+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

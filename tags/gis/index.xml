@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gis on INBO Tutorials</title>
+    <link>http://example.org/tags/gis/</link>
+    <description>Recent content in gis on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/gis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Let&#39;s create an interactive map!</title>
+      <link>http://example.org/tutorials/spatial_create_leaflet_map/</link>
+      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tutorials/spatial_create_leaflet_map/</guid>
+      <description>Introduction The required packages are leaflet and sp.
+library(leaflet) library(sp) Dummy data Let&amp;rsquo;s create a dumy data.frame to play around, i.e. the three locations of INBO:
+names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
+plot(data$lon, data$lat) Creating a map We need to convert the data.frame to a SpatialPointsDataFrame:
+crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- SpatialPointsDataFrame(data[c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;)], data[!(names(data) %in% c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;))], proj4string = crs_wgs84) The leaflet package is ideal to create a basic interactive map:</description>
+    </item>
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>http://example.org/tutorials/spatial_wfs_services/</link>
+      <pubDate>Wed, 07 Mar 2018 16:50:01 +0100</pubDate>
+      
+      <guid>http://example.org/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &amp;ldquo;source code&amp;rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport.</description>
+    </item>
+    
+    <item>
+      <title>Transforming spatial objects</title>
+      <link>http://example.org/tutorials/spatial_transform_crs/</link>
+      <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
+      
+      <guid>http://example.org/tutorials/spatial_transform_crs/</guid>
+      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&amp;rsquo;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
+library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
+    </item>
+    
+    <item>
+      <title>Using WMS service in R</title>
+      <link>http://example.org/tutorials/spatial_wms_services/</link>
+      <pubDate>Mon, 19 Feb 2018 12:09:22 +0100</pubDate>
+      
+      <guid>http://example.org/tutorials/spatial_wms_services/</guid>
+      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
+wms_grb links to the WMS of the GRB-basiskaart, the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
+wms_ortho contains a mosaic of recent orthophotos made during the winter. The layer Ortho contains the images, the layer Vliegdagcontour detail on the time when the pictures were taken.</description>
+    </item>
+    
+  </channel>
+</rss>
