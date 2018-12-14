@@ -5,7 +5,7 @@ title = "INBO Tutorials"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
 # relativeURLs = true
-canonifyurls = true
+# canonifyurls = treu
 
 # for smart copyright line, leave this blank and check [params.copyright]
 copyright = ""
@@ -124,10 +124,12 @@ category = "categories"
 tag = "tags"
 
 [permalinks]
-#page = "/:slug/"
-#posts = "/posts/:slug/"
-#tutorials = "/tutorials/:filename/"
-content = "/:slug/"
+page = "/:slug/"
+articles = "/posts/:slug/"
+tutorials = "/tutorials/:filename/"
+search = "/:slug/"
+categories = "/categories/"
+#content = "/:slug/"
 
 [[menu.main]]
 name = "Source"
