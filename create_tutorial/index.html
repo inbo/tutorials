@@ -229,7 +229,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-One min read
+4 mins read
 </span>
 
 
@@ -245,9 +245,72 @@ One min read
   <div class='container entry-content'>
   
 
-<h1 id="create-and-add-a-tutorial">Create and add a tutorial</h1>
+<h2 id="introduction">Introduction</h2>
 
-<p>First of all, thanks to consider making a new tutorial&hellip;</p>
+<p>First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.</p>
+
+<p>In this page, the roadmap towards a new tutorial will be explained.</p>
+
+<h2 id="writing-a-tutorial">Writing a tutorial</h2>
+
+<p>Each tutorial is setup in a subfolder of the <code>content/tutorials</code> folder. Within this folder, different files and formats may exist as you create them, but a file with the name <code>index.md</code> will be used for the tutorials website. So, you can create the tutorial directly in markdown or create it based on a <a href="https://rmarkdown.rstudio.com/" target="_blank">Rmarkdown</a>, a <a href="https://jupyter.org/" target="_blank">Jupyter notebook</a> or any other format, as long as there is a single markdown file with the name <code>index.md</code> in your tutorial folder.</p>
+
+<p>There are different ways to create this file. We will provide in this document specific instructions for markdown an Rmarkdown based tutorials. Still, if you got useful information or text in another format or you got stuck with the description, do not hesitate to describe your submission in a <a href="https://github.com/inbo/tutorials/issues/new" target="_blank">new issue </a>. If you do not have a Github account, ask the <a href="mailto:ict.helpdesk@inbo.be" target="_blank">IT helpdesk</a>. We will try to support you as soon as possible.</p>
+
+<h3 id="markdown-file">markdown file</h3>
+
+<p>If you are directly writing your documentation in markdown syntax, you can either work online using <a href="https://github.com/inbo/tutorials" target="_blank">Github</a> or work on your own computer while using git.</p>
+
+<h4 id="online-submission">Online submission</h4>
+
+<p>Although providing less functionalities (adding custom images is not directly supported), the Github interface provides already a powerfull interface to add new content.</p>
+
+<p>To write a new tutorial <strong>online</strong>, go to the INBO-tutorials Github repository and navigate to the <code>/content/tutorials</code> page, or use <a href="https://github.com/inbo/tutorials/tree/master/content/tutorials" target="_blank">this link</a>.</p>
+
+<p>Next, click the <code>Create new file</code> button</p>
+
+<p><img src="images/new_file.png" alt="" /></p>
+
+<p>You will be directed to a new page and asked to <em>Name your file&hellip;</em></p>
+
+<p><img src="images/folder_file_name.png" alt="" /></p>
+
+<p>Providing this name is <strong>very important,</strong> so make sure:</p>
+
+<ul>
+<li>provide a folder name  + <code>/</code> + <code>index.md</code></li>
+<li>the folder name needs to be all lowercase</li>
+<li>the folder name should not have spaces, but you can use <code>_</code> to separate words</li>
+<li>provide a meaningful name without dates or names</li>
+</ul>
+
+<p>For example: <code>r_tidy_data/index.md</code>, <code>database_query_inboveg/index.md</code> or <code>statistics_regression/index.md</code></p>
+
+<p><strong>Notice:</strong> The moment you type the <code>/</code>, Github will guide you by translating this to a folder name.</p>
+
+<p>Next, in the edit field you can start typing your tutorial. use the <code>Preview</code> button to check how it would look like rendered on a website.</p>
+
+<p><strong>Notice:</strong> You can add images from online source by using the URL of the image, e.g. <code>![short image description](http://.../my_image.jpg)</code>. For example, <code>https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png</code> will impor the INBO logo into your document:</p>
+
+<p><img src="https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png" alt="" /></p>
+
+<p>If you are ready, commit your file to the website maintainers by filling in the boxes:</p>
+
+<p><img src="images/propose_file.png" alt="" /></p>
+
+<ul>
+<li><code>Create new file</code>: exchange this by a short message about the additions, e.g. <em>Add tutorial to explain tidy data in R</em> or <em>Add tutorial about database queries in inboveg,&hellip;</em></li>
+<li><code>Add an optional extended description</code>: If you think more background info is suitable, add that in this box.</li>
+<li><code>yourgithubnam-patch</code> you can replace this by the same name as your folder name above (e..g. <code>r_tidy_data</code>) to clarify your submission.</li>
+</ul>
+
+<p>(the checkbox will always be on <code>create a new branch</code>, this is also the required option)</p>
+
+<p>Next, click <code>commit new file</code> and your submission will be reviewed by the website maintainers. If accepted, the tutorial will be automatically integrated in the tutorials website.</p>
+
+<h4 id="using-git">Using git</h4>
+
+<p>When you ever used git or Github before, either using the command line, rstudio, Github Desktop,&hellip; you can work on your computer</p>
 
 <h2 id="todo">TODO</h2>
 
@@ -270,14 +333,13 @@ One min read
 <a href="https://stackoverflow.com/questions/53464336/hugo-relative-paths-in-page-bundles" target="_blank">https://stackoverflow.com/questions/53464336/hugo-relative-paths-in-page-bundles</a></p>
 
 <p>TODO:
- - travis build script for hugo build
- - interactive maps solution
+ OK - travis build script for hugo build
  - tutorial about how to tutorial
  - check script if for each Rmd an equivalent md exists&hellip; (use R/build.R?)</p>
 
 <h2 id="header-structure">Header structure</h2>
 
-<h3 id="markdown-file">markdown file</h3>
+<h3 id="markdown-file-1">markdown file</h3>
 
 <pre><code>
 ---
@@ -291,6 +353,8 @@ tags: [&quot;first_tag&quot;, &quot;second_tag&quot;, &quot;...&quot;]
 
 # your tutorial starts here...
 </code></pre>
+
+<p>categories/tags are lower case</p>
 
 <h3 id="rmarkdown-file">Rmarkdown file</h3>
 
@@ -309,6 +373,13 @@ output:
 
 # your tutorial starts here...
 </code></pre>
+
+<h3 id="caveats">caveats</h3>
+
+<ul>
+<li>interne linken voor de bibliografie</li>
+<li>interactive maps solution</li>
+</ul>
 
 </div>
 

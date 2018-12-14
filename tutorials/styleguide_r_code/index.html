@@ -261,7 +261,7 @@
 
 <h2 id="syntax">Syntax</h2>
 
-<p><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Diagnotics</em>: Check everything</p>
+<p><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Diagnostics</em>: Check everything</p>
 
 <h3 id="general">General</h3>
 
@@ -297,7 +297,8 @@ example_text &lt;- example_function(
 some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span style="color:#a50">&#39;Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;More text&#39;</span>)</code></pre></div>
 <h3 id="whitespace">Whitespace</h3>
 
-<p>naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule</p>
+<pre><code>naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
+</code></pre>
 
 <p>Natural languages use whitespace and punctuation to make texts more readable. Programming languages are no exception to this rule.</p>
 
@@ -326,6 +327,7 @@ some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span s
 <ul>
 <li>only create an object when you will use it later on</li>
 <li>always use <code>&lt;-</code> for assignment</li>
+<li>always put the new variable on the left and never use <code>-&gt;</code></li>
 <li>use <code>=</code> only for passing arguments in a function</li>
 <li>at least one space before and at least one space after <code>&lt;-</code> and <code>=</code>
 
@@ -339,6 +341,7 @@ x &lt;- <span style="color:#0aa">data.frame</span>(z = <span style="color:#099">
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
 x=<span style="color:#0aa">data.frame</span>(z&lt;-<span style="color:#099">1</span>:<span style="color:#099">10</span>)
+<span style="color:#099">5</span> -&gt; a
 
 <span style="color:#aaa;font-style:italic"># Improved readability example</span>
 a   &lt;-   <span style="color:#099">5</span>
@@ -441,13 +444,31 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 
 <p>Adding <code># nolint</code> at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.</p>
 
+<h3 id="functions">Functions</h3>
+
+<ul>
+<li>always explicitly mention <code>return</code> in functions</li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
+sum &lt;- <span style="color:#00a">function</span>(x, y) {
+  z &lt;- x + y
+  <span style="color:#00a">return</span>(z)
+}
+sum &lt;- <span style="color:#00a">function</span>(x, y) {
+  <span style="color:#00a">return</span>(x + y)
+}
+
+<span style="color:#aaa;font-style:italic"># Bad</span>
+sum &lt;- <span style="color:#00a">function</span>(x, y) {
+  x + y
+}</code></pre></div>
 <h3 id="validating-syntax">Validating syntax</h3>
 
 <p>The code below validate the syntax for an R file, an RMarkdown file or an R package.</p>
 
-<p><strong>RStudio hint</strong>: Running this code within RStudio will open a <em>Markers</em> pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file a the correct location, making it easy to rectify the problem.</p>
+<p><strong>RStudio hint</strong>: Running this code within RStudio will open a <em>Markers</em> pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file at the correct location, making it easy to rectify the problem.</p>
 
-<p>Extra hint: start correcting for the last lines and work your way forward. This leave the line numbers of the errors intact until you solve them.</p>
+<p>Extra hint: start correcting for the last lines and work your way forward. This leaves the line numbers of the errors intact until you solve them.</p>
 
 <p>An example to clarify this. Suppose you have an error at line 10 and an error at line 100. Both errors are <code>lines should not be more than 80 characters</code>, so to solve them we have to split the lines over multiple lines.</p>
 
@@ -462,7 +483,7 @@ lintr::lint(filename = <span style="color:#a50">&#34;file.Rmd&#34;</span>)
 lintr::lint_package(path = <span style="color:#a50">&#34;.&#34;</span>)</code></pre></div>
 <h2 id="documentation">Documentation</h2>
 
-<h3 id="functions">Functions</h3>
+<h3 id="functions-1">Functions</h3>
 
 <ul>
 <li>Add documentation above each function with <code>Roxygen</code> markup</li>
@@ -514,7 +535,7 @@ lintr::lint_package(path = <span style="color:#a50">&#34;.&#34;</span>)</code></
 
 <h3 id="r-package">R Package</h3>
 
-<h4 id="functions-1">Functions</h4>
+<h4 id="functions-2">Functions</h4>
 
 <ul>
 <li>all generic R functions should be distributed as an R package</li>
@@ -578,7 +599,7 @@ lintr::lint_package(path = <span style="color:#a50">&#34;.&#34;</span>)</code></
 <li>add this file to <code>.gitignore</code>
 
 <ul>
-<li>the coding style will be tested separatly when using continuous integration</li>
+<li>the coding style will be tested separately when using continuous integration</li>
 </ul></li>
 </ul></li>
 </ul>
