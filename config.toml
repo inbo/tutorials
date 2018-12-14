@@ -52,7 +52,7 @@ hideEntryNavigation = ["page"] # boolean / array of sections
 hideEntryMeta = ["page"] # boolean / array of sections
 showReadingTime = true
 showLastmod = true
-taxonomyCloudShuffle = true
+taxonomyCloudShuffle = false
 accentColor = "#c04384"
 hideMainMenu = false
 
