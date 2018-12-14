@@ -5,7 +5,7 @@
 <meta name='description' content='Kerberos authentication on linux'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Using kerberos authentication for database connection • INBO Tutorials'>
+<meta property='og:title' content='Using Kerberos authentication for database connection • INBO Tutorials'>
 <meta property='og:description' content='Kerberos authentication on linux'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/installation/user/user_install_kerberos/'>
 <meta property='og:site_name' content='INBO Tutorials'>
@@ -13,7 +13,7 @@
 
 <meta name="generator" content="Hugo 0.53-DEV" />
 
-  <title>Using kerberos authentication for database connection • INBO Tutorials</title>
+  <title>Using Kerberos authentication for database connection • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/installation/user/user_install_kerberos/'>
   
   
@@ -185,7 +185,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/installation/'>installation</a></li><li><a href='/tutorials/installation/user/'>user</a></li><li><span>Using kerberos authentication for database connection</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/installation/'>installation</a></li><li><a href='/tutorials/installation/user/'>user</a></li><li><span>Using Kerberos authentication for database connection</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -204,7 +204,7 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Using kerberos authentication for database connection</h1>
+      <h1 class='title'>Using Kerberos authentication for database connection</h1>
       
 <p class='desc'>Kerberos authentication on linux</p>
 
@@ -231,7 +231,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-5 mins read
+6 mins read
 </span>
 
 
@@ -268,6 +268,16 @@ sudo apt-get install openssl
 </code></pre>
 
 <p>These libraries will be used later on. The following section is for interaction with MS SQL databases.</p>
+
+<p>Modern Linux distributions use PAM to handle the authentication tasks of applications (services) on the system (PAM stands for <em>Pluggable Authentication Modules</em>, see <code>man PAM</code>). However we do not need that here.
+The above installation may have led to inserting a line into PAM configuration file <code>/etc/pam.d/common-auth</code>. The line looks like this (note the defining part <code>pam_krb5.so</code>):</p>
+
+<pre><code>auth	[success=4 default=ignore]	pam_krb5.so minimum_uid=1000
+</code></pre>
+
+<p>This line makes every application that needs authentication on the system (like sudo, screensaver unlock, update manager, &hellip;) first try the Kerberos connection to authenticate.
+This is overkill as we don&rsquo;t want to use Kerberos that way, and it can significantly slow down all other system authentications.
+Therefore, you should <em>comment out</em> the above line in <code>/etc/pam.d/common-auth</code>.</p>
 
 <h3 id="ms-sql-server-tools">MS SQL Server tools</h3>
 
@@ -355,9 +365,9 @@ In order to sync the timing of the domain controller server and client side, ins
 * <code>/etc/ntp.conf</code>
 * <code>/etc/ntp.conf.dhcp</code> (empty file, just amke sure there is a file)</p>
 
-<h3 id="test-installations">Test installations</h3>
+<h2 id="test-installation">Test installation</h2>
 
-<h4 id="kerberos-ticket-system">kerberos ticket system</h4>
+<h3 id="kerberos-ticket-system">Kerberos ticket system</h3>
 
 <p>To check if the Kerberos configuration is successful, ask for a ticket by initiating with <code>kinit</code>:</p>
 
@@ -376,7 +386,7 @@ In order to sync the timing of the domain controller server and client side, ins
 	renew until 10/01/18 15:42:08
 </code></pre>
 
-<h4 id="sql-database-connections">SQL database connections</h4>
+<h3 id="sql-database-connections">SQL database connections</h3>
 
 <p>When the ticketing is working, the next step is to use the authentication to connect to the databases itself. To test this, we&rsquo;ll use the <code>sqlcmd</code> command line tool. In a next section, we&rsquo;ll focus on the ODBC settings.</p>
 
@@ -390,7 +400,7 @@ In order to sync the timing of the domain controller server and client side, ins
 2&gt; Go
 </code></pre>
 
-<h3 id="sql-odbc-connections">SQL ODBC connections</h3>
+<h2 id="sql-odbc-connections">SQL ODBC connections</h2>
 
 <p>To support  database connections from other applications (e.g. GUI environments, but also R, Python,&hellip;), the configuration of database drivers and connections should be provided in the <code>/etc/odbc.ini</code> and <code>/etc/odbcinst.ini</code>.</p>
 
@@ -402,7 +412,7 @@ Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
 UsageCount=2
 </code></pre>
 
-<h4 id="connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-libraries-packages">Connecting by explicitly providing the SQL connection string to ODBC libraries/packages</h4>
+<h3 id="connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-libraries-packages">Connecting by explicitly providing the SQL connection string to ODBC libraries/packages</h3>
 
 <p>Inbo staff can consult a list of connection strings <a href="https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing" target="_blank">here</a>
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:</p>
@@ -433,7 +443,7 @@ conn = pyodbc.connect(<span style="color:#a50">&#34;Driver={ODBC Driver 13 for S
 
 <p>Beside the fact that the connection has been made (see RStudio&rsquo;s R console), you also get a list of all databases (of the specific SQL Server) in the Connections pane. You can use this for exploratory purposes. Click <a href="https://db.rstudio.com/rstudio/connections/" target="_blank">here</a> for more information on using RStudio&rsquo;s Connections pane.</p>
 
-<h4 id="untested-connecting-after-configuring-odbc-ini">UNTESTED: Connecting after configuring <code>odbc.ini</code></h4>
+<h3 id="untested-connecting-after-configuring-odbc-ini">UNTESTED: Connecting after configuring <code>odbc.ini</code></h3>
 
 <p>However, it is probably easier to provide the configuration to specific databases directly, using the <code>/etc/odbc.ini</code> file. For example, the <code>DBName</code> database can be defined as follows:</p>
 
@@ -446,9 +456,7 @@ Database    = DBName
 Port        = 1433
 </code></pre>
 
-<p>Next, add the</p>
-
-<p>DBServername</p>
+<p>Next, add the DBServername</p>
 
 <p><strong>TODO:</strong>
 -&gt; example in R/Python
