@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Administrator installation notes on INBO Tutorials</title>
-    <link>https://inbo.github.io/installation/administrator/</link>
+    <link>https://inbo.github.io/tutorials/installation/administrator/</link>
     <description>Recent content in Administrator installation notes on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://inbo.github.io/installation/administrator/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tutorials/installation/administrator/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>RStudio Desktop installation</title>
-      <link>https://inbo.github.io/installation/administrator/admin_install_rstudio/</link>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_rstudio/</link>
       <pubDate>Wed, 18 Oct 2017 00:30:40 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/administrator/admin_install_rstudio/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_rstudio/</guid>
       <description>De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/
 Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
  Zorg dat eerst R geïnstalleerd is. Voer het 64-bit installatiebestand uit. Welkom bij de installatie: klik op volgende. Geef de doelmap en klik op volgende. Je mag de standaard gebruiken. Klik op installeren.</description>
@@ -24,10 +24,10 @@ Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door d
     
     <item>
       <title>Rtools installation</title>
-      <link>https://inbo.github.io/installation/administrator/admin_install_rtools/</link>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_rtools/</link>
       <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/administrator/admin_install_rtools/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_rtools/</guid>
       <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
 Bij een upgrade dient eerst de vorige versie te worden verwijderd.
  Kies Nederlands als taal voor de installatie en klik volgende. Klik volgende. Kies C:\Rtools (standaard) als installatiemap en klik volgende. Kies uit dropdown menu Tools for building R packages from source (standaard) en klik volgende. Vink Add rtools to system path aan en klik volgende. Klik volgende. Klik installeren.</description>
@@ -35,20 +35,20 @@ Bij een upgrade dient eerst de vorige versie te worden verwijderd.
     
     <item>
       <title>Git installation</title>
-      <link>https://inbo.github.io/installation/administrator/admin_install_git/</link>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_git/</link>
       <pubDate>Wed, 18 Oct 2017 00:29:14 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/administrator/admin_install_git/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_git/</guid>
       <description>Windows De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
  Voer het installatiebestand uit Welkom bij de installatie: klik op Next Aanvaard de licentievoorwaarden door Next te klikken Installeer git in de voorgesteld standaard directory. Gebruik de standaard componenten door Next te klikken Kies use Git from the Windows Command Prompt en klik Next Kies Checkout Windows-style, commit Unix-style line endings en klik Next Kies use Windows&#39; default console window en klik Next Klik op Finish  Afwijkingen t.</description>
     </item>
     
     <item>
       <title>Pandoc installation</title>
-      <link>https://inbo.github.io/installation/administrator/admin_install_pandoc/</link>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</link>
       <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/administrator/admin_install_pandoc/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</guid>
       <description> Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
 Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster
 wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb   </description>
@@ -56,10 +56,10 @@ wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.de
     
     <item>
       <title>Install R</title>
-      <link>https://inbo.github.io/installation/administrator/admin_install_r/</link>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
       <pubDate>Wed, 18 Oct 2017 00:25:57 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/administrator/admin_install_r/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
       <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/
 In de onderstaande tekst moet je in R-3.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-3.0.0 is x = 0 en y = 0.
 Nieuwe installatie van R  Voer het bestand R-3.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>

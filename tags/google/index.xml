@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>google on INBO Tutorials</title>
-    <link>https://inbo.github.io/tags/google/</link>
+    <link>https://inbo.github.io/tutorials/tags/google/</link>
     <description>Recent content in google on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 19 Apr 2018 11:01:31 +0200</lastBuildDate>
     
-	<atom:link href="https://inbo.github.io/tags/google/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tutorials/tags/google/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Insync installation</title>
-      <link>https://inbo.github.io/installation/user/user_install_insync/</link>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_insync/</link>
       <pubDate>Thu, 19 Apr 2018 11:01:31 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/user/user_install_insync/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
 The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>
     
     <item>
       <title>Read data from google sheet</title>
-      <link>https://inbo.github.io/tutorials/r_google_sheets/</link>
+      <link>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/r_google_sheets/</guid>
+      <guid>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</guid>
       <description>library(googlesheets) library(dplyr) library(ggplot2) Setup The R package googlesheets provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the gs_auth command.
 gs_auth() Google will ask to grant the package the permission to access your drive. This token is saved to in a file .</description>
     </item>

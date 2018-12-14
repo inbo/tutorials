@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>markdown on INBO Tutorials</title>
-    <link>https://inbo.github.io/tags/markdown/</link>
+    <link>https://inbo.github.io/tutorials/tags/markdown/</link>
     <description>Recent content in markdown on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Oct 2017 00:28:40 +0200</lastBuildDate>
     
-	<atom:link href="https://inbo.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tutorials/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Pandoc installation</title>
-      <link>https://inbo.github.io/installation/administrator/admin_install_pandoc/</link>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</link>
       <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
       
-      <guid>https://inbo.github.io/installation/administrator/admin_install_pandoc/</guid>
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</guid>
       <description> Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
 Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster
 wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb   </description>
