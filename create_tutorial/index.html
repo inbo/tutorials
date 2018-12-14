@@ -229,7 +229,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-4 mins read
+8 mins read
 </span>
 
 
@@ -257,7 +257,7 @@
 
 <p>There are different ways to create this file. We will provide in this document specific instructions for markdown an Rmarkdown based tutorials. Still, if you got useful information or text in another format or you got stuck with the description, do not hesitate to describe your submission in a <a href="https://github.com/inbo/tutorials/issues/new" target="_blank">new issue </a>. If you do not have a Github account, ask the <a href="mailto:ict.helpdesk@inbo.be" target="_blank">IT helpdesk</a>. We will try to support you as soon as possible.</p>
 
-<h3 id="markdown-file">markdown file</h3>
+<h3 id="1-writing-a-markdown-tutorial">1. writing a markdown tutorial</h3>
 
 <p>If you are directly writing your documentation in markdown syntax, you can either work online using <a href="https://github.com/inbo/tutorials" target="_blank">Github</a> or work on your own computer while using git.</p>
 
@@ -288,7 +288,28 @@
 
 <p><strong>Notice:</strong> The moment you type the <code>/</code>, Github will guide you by translating this to a folder name.</p>
 
-<p>Next, in the edit field you can start typing your tutorial. use the <code>Preview</code> button to check how it would look like rendered on a website.</p>
+<p>Next, in the edit field you can start typing your tutorial. The header has an agreed format and you should copy paste this to start with:</p>
+
+<pre><code>---
+title: &quot;YOUR TITLE&quot;
+description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
+author: &quot;YOUR NAME&quot;
+date: YYYY-MM-DD
+categories: [&quot;YOUR_CATEGORY&quot;]
+tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
+---
+
+# your text starts here...
+</code></pre>
+
+<p>Replace tall the CAPTITAL words with appropriate information:
+- a short clear title
+- a single or two line description
+- your name
+- one or two categories from the specified list available <a href="https://github.com/inbo/tutorials/blob/master/static/list_of_categories" target="_blank">here</a>
+- multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/" target="_blank">wordcloud</a> to check which would be useful for your submission.</p>
+
+<p>Underneath the last triple dahs (<code>---</code>), you can write the tutorial as you like using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">markdown syntax</a>. Use the <code>Preview</code> button to check how it would look like rendered on a website.</p>
 
 <p><strong>Notice:</strong> You can add images from online source by using the URL of the image, e.g. <code>![short image description](http://.../my_image.jpg)</code>. For example, <code>https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png</code> will impor the INBO logo into your document:</p>
 
@@ -308,78 +329,103 @@
 
 <p>Next, click <code>commit new file</code> and your submission will be reviewed by the website maintainers. If accepted, the tutorial will be automatically integrated in the tutorials website.</p>
 
-<h4 id="using-git">Using git</h4>
+<h4 id="using-git-or-github-desktop-rstudio">Using git (or Github Desktop, Rstudio,&hellip;)</h4>
 
-<p>When you ever used git or Github before, either using the command line, rstudio, Github Desktop,&hellip; you can work on your computer</p>
+<p>When you ever used git or Github before, either using the command line, rstudio, Github Desktop,&hellip; you can work on your own computer and submit the tutorial using git.  In this section, we assume you are familiar to the git command or interface and have some basic knowledge. If not, no worries, we have a dedicated course to get you up to speed, see the <a href="https://inbo.github.io/git-course/" target="_blank">INBO git course</a>.</p>
 
-<h2 id="todo">TODO</h2>
+<p><em><strong>Notice</strong>: The links in the different steps will refer to the Rstudio steps in the INBO git tutorial, but can be done using other interfaces or the command line as well. Pick the one you prefer</em></p>
 
-<p>De idee:</p>
+<p>If it is your first submission using your computer, <a href="https://inbo.github.io/git-course/course_rstudio.html#23_clone_a_repo_to_work_locally" target="_blank">clone</a> the <a href="https://github.com/inbo/tutorials" target="_blank">INBO tutorials</a> repository (<em>so use the clone button on the <a href="https://github.com/inbo/tutorials" target="_blank">https://github.com/inbo/tutorials</a> page!</em>).</p>
 
-<ul>
-<li>maak Rmd (met bepaalde headers,&hellip;) -&gt; genereer zelf .md versie
-(- Rmd wordt niet bekeken door blogdown/hugo)</li>
-<li>alle md&rsquo;s -&gt; website
+<p>Next, we use the <a href="https://inbo.github.io/git-course/workflow_rstudio.html" target="_blank">git workflow</a> to submit the new tutorial:</p>
 
 <ul>
-<li>update van de search, <code>node ./themes/minimo/scripts/generate-search-index-lunr.js</code>
-(! dat script nog te verplaatsen, zodat afzonderlijk staat)</li>
-</ul></li>
-<li>voor files waarbij interactieve componenten: blogdown gebruiken</li>
-</ul>
+<li>Update your code and create a new branch, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with" target="_blank">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
+<li>Navigate to the subfolder <code>content/tutorials</code> and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name.</li>
 
-<p><a href="https://owi.usgs.gov/blog/leaflet/" target="_blank">https://owi.usgs.gov/blog/leaflet/</a>
-<a href="https://www.bryanwhiting.com/2018/07/debugging-leaflet-and-googlesheets-on-blogdown/" target="_blank">https://www.bryanwhiting.com/2018/07/debugging-leaflet-and-googlesheets-on-blogdown/</a>
-<a href="https://stackoverflow.com/questions/53464336/hugo-relative-paths-in-page-bundles" target="_blank">https://stackoverflow.com/questions/53464336/hugo-relative-paths-in-page-bundles</a></p>
-
-<p>TODO:
- OK - travis build script for hugo build
- - tutorial about how to tutorial
- - check script if for each Rmd an equivalent md exists&hellip; (use R/build.R?)</p>
-
-<h2 id="header-structure">Header structure</h2>
-
-<h3 id="markdown-file-1">markdown file</h3>
-
-<pre><code>
----
-title: &quot;YOUR TITLE&quot;
-description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
-author: &quot;YOUR NAME&quot;
-date: YYYY-MM-DD
-categories: [&quot;YOUR_CATEGORY&quot;]
-tags: [&quot;first_tag&quot;, &quot;second_tag&quot;, &quot;...&quot;]
----
-
-# your tutorial starts here...
-</code></pre>
-
-<p>categories/tags are lower case</p>
-
-<h3 id="rmarkdown-file">Rmarkdown file</h3>
+<li><p>Within the folder, create a new file markdown <code>index.md</code>.  The header of this file has an agreed format and you should copy paste this to start with:</p>
 
 <pre><code>---
 title: &quot;YOUR TITLE&quot;
 description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
 author: &quot;YOUR NAME&quot;
 date: YYYY-MM-DD
-categories:
-  - YOUR_CATEGORY
-tags: [&quot;first_tag&quot;, &quot;second_tag&quot;, &quot;...&quot;]
-output: 
-    md_document:
-        preserve_yaml: true
+categories: [&quot;YOUR_CATEGORY&quot;]
+tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 ---
 
-# your tutorial starts here...
-</code></pre>
+# your text starts here...
+</code></pre></li>
+</ul>
 
-<h3 id="caveats">caveats</h3>
+<p>Replace tall the CAPTITAL words with appropriate information:
+- a short clear title
+- a single or two line description
+- your name
+- one or two categories from the specified list available <a href="https://github.com/inbo/tutorials/blob/master/static/list_of_categories" target="_blank">here</a>
+- multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/" target="_blank">wordcloud</a> to check which would be useful for your submission.</p>
+
+<p>Underneath the last triple dahs (<code>---</code>), you can write the tutorial as you like using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">markdown syntax</a>.</p>
 
 <ul>
-<li>interne linken voor de bibliografie</li>
-<li>interactive maps solution</li>
+<li><code>add</code>/<code>commit</code> the file to git, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#while_editing" target="_blank">STEP 2 of the workflow</a>. You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, <code>push</code> the tutorial as in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github" target="_blank">STEP 3 of the workflow</a>.</li>
+<li>When ready, <code>push</code> your tutorial a last time and create a <code>Pull request</code> to the website maintainers as explained in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master" target="_blank">STEP 4 of the workflow</a>.</li>
 </ul>
+
+<p>After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.</p>
+
+<h3 id="2-writing-an-rmarkdown-tutorial">2. Writing an Rmarkdown tutorial</h3>
+
+<p>As you are writing the tutorial in Rmarkdown, we assume you are using Rstudio to write the tutorial. In this section, we assume you are familiar to the Rstudio git interface and have some basic knowledge. If not, no worries, we have a dedicated course to get you up to speed with git in Rstudio, see the <a href="https://inbo.github.io/git-course/" target="_blank">INBO git course</a>.</p>
+
+<p>If it is your first submission using your computer, <a href="https://inbo.github.io/git-course/course_rstudio.html#23_clone_a_repo_to_work_locally" target="_blank">clone</a> the <a href="https://github.com/inbo/tutorials" target="_blank">INBO tutorials</a> repository (<em>so use the clone button on the <a href="https://github.com/inbo/tutorials" target="_blank">https://github.com/inbo/tutorials</a> page!</em>).</p>
+
+<p>Next, we use the <a href="https://inbo.github.io/git-course/workflow_rstudio.html" target="_blank">git workflow</a> to submit the new tutorial:</p>
+
+<ul>
+<li>Update your code and create a new branch, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with" target="_blank">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
+<li>Navigate to the subfolder <code>content/tutorials</code> and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name.</li>
+
+<li><p>Within the folder, create a new file markdown <code>index.Rmd</code>.  The header of this file has an agreed format and you should copy paste this to start with:</p>
+
+<pre><code>---
+title: &quot;YOUR TITLE&quot;
+description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
+author: &quot;YOUR NAME&quot;
+date: YYYY-MM-DD
+categories: [&quot;YOUR_CATEGORY&quot;]
+tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
+output: 
+md_document:
+    preserve_yaml: true
+---
+
+# your text starts here...
+</code></pre></li>
+</ul>
+
+<p>Replace tall the CAPTITAL words with appropriate information:
+- a short clear title
+- a single or two line description
+- your name
+- one or two categories from the specified list available <a href="https://github.com/inbo/tutorials/blob/master/static/list_of_categories" target="_blank">here</a>
+- multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/" target="_blank">wordcloud</a> to check which would be useful for your submission.
+- leave the <code>output</code> section as it is</p>
+
+<p>Underneath the last triple dahs (<code>---</code>), you can write the tutorial as you like using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">markdown syntax</a> and add code chunks to run R code.</p>
+
+<p>As the Rmarkown file will not be part of the website, make sure to click the <code>knit</code> button to create the equivalent markdown file (<code>index.md</code>) in the same directory:</p>
+
+<p><img src="images/knit_md.png" alt="" /></p>
+
+<p><strong>Notice</strong>: always knit the Rmarkdown file before you start committing the changes!</p>
+
+<ul>
+<li><code>add</code>/<code>commit</code> <strong>both files</strong> to git, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#while_editing" target="_blank">STEP 2 of the workflow</a>. You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, <code>push</code> the tutorial as in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github" target="_blank">STEP 3 of the workflow</a>.</li>
+<li>When ready, <code>push</code> your tutorial a last time and create a <code>Pull request</code> to the website maintainers as explained in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master" target="_blank">STEP 4 of the workflow</a>.</li>
+</ul>
+
+<p>After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.</p>
 
 </div>
 
