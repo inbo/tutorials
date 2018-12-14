@@ -3,6 +3,8 @@ language: go
 # install - install hugo
 install:
     - go get github.com/gohugoio/hugo
+    - sudo apt install nodejs npm
+    - npm install -g lunr glob
 
 before_script:
     - rm -rf public 2> /dev/null
@@ -12,6 +14,8 @@ script:
     - hugo
 
 # need to add post build for the search functionality...
+before_deploy:
+    - node themes/minimo/scripts/generate-search-index-lunr.js
 
 deploy:
   provider: pages
