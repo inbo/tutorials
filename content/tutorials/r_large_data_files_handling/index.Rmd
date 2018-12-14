@@ -172,7 +172,7 @@ qplot(n, execTime, data = pdata, color = algorithm,
 
 ### Working with SQLite databases {#sqlitestrat}
 
-SQLite databases are single file databases meaning you can simply download them, store them in a folder or share them with colleages. Similar to a csv. They are however more powerful than csv's because of two important features:
+SQLite databases are single file databases meaning you can simply download them, store them in a folder or share them with colleagues. Similar to a csv. They are however more powerful than csv's because of two important features:
 
 * Support for SQL: this allows you to execute intelligent filters on your data, similar to the `sqldf` package or database environments you are familiar with. That way, you can reduce the amount of data that's stored in memory by filtering out rows or columns.
 * Indexes: SQLite databases contain indexes. An index is something like an ordered version of a column. When enabled on a column, you can search through the column much faster. We will demonstrate this below.
