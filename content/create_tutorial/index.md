@@ -1,6 +1,8 @@
 ---
 title: Create tutorial
 description: Guidelines to create a new tutorial
+date: 2018-12-14
+author: Stijn Van Hoey
 type: page
 menu: sidebar
 weight: -230
