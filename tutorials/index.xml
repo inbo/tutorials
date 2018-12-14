@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials on INBO Tutorials</title>
-    <link>http://example.org/tutorials/</link>
+    <link>https://inbo.github.io/tutorials/</link>
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/tutorials/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Headers and navigation in R code</title>
-      <link>http://example.org/tutorials/r_script_sections/</link>
+      <link>https://inbo.github.io/tutorials/r_script_sections/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_script_sections/</guid>
+      <guid>https://inbo.github.io/tutorials/r_script_sections/</guid>
       <description>Introduction R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
 Creating sections manually To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.
 # 1. Header 1 #### # 2. Header 2 ---- # 3.</description>
@@ -24,10 +24,10 @@ Creating sections manually To create a header of a section, different methods ca
     
     <item>
       <title>Let&#39;s create an interactive map!</title>
-      <link>http://example.org/tutorials/spatial_create_leaflet_map/</link>
+      <link>https://inbo.github.io/tutorials/spatial_create_leaflet_map/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_create_leaflet_map/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_create_leaflet_map/</guid>
       <description>Introduction The required packages are leaflet and sp.
 library(leaflet) library(sp) Dummy data Let&amp;rsquo;s create a dumy data.frame to play around, i.e. the three locations of INBO:
 names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
@@ -37,10 +37,10 @@ crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- Spatial
     
     <item>
       <title>Match scientific names with the GBIF backbone</title>
-      <link>http://example.org/tutorials/r_gbif_name_matching/</link>
+      <link>https://inbo.github.io/tutorials/r_gbif_name_matching/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_gbif_name_matching/</guid>
+      <guid>https://inbo.github.io/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of &amp;lsquo;scientific names&amp;rsquo; to the GBIF taxonomic backbone
 Important is that you have rgbif and inborutils installed and available:
 library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) library(pander) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
@@ -49,20 +49,20 @@ species_list &amp;lt;- read_csv(&amp;#34;https://raw.</description>
     
     <item>
       <title>Using `%&gt;%` pipes in R</title>
-      <link>http://example.org/tutorials/r_tidyverse_piping/</link>
+      <link>https://inbo.github.io/tutorials/r_tidyverse_piping/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_tidyverse_piping/</guid>
+      <guid>https://inbo.github.io/tutorials/r_tidyverse_piping/</guid>
       <description>library(dplyr) How to use piping in R Normally, you would do this:
 head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
     </item>
     
     <item>
       <title>Wercker</title>
-      <link>http://example.org/tutorials/development_wercker/</link>
+      <link>https://inbo.github.io/tutorials/development_wercker/</link>
       <pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/development_wercker/</guid>
+      <guid>https://inbo.github.io/tutorials/development_wercker/</guid>
       <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
  create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
 The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
@@ -70,29 +70,29 @@ The Wercker test environment can only be set up if the file wercker.yml is commi
     
     <item>
       <title>Using WFS service in R</title>
-      <link>http://example.org/tutorials/spatial_wfs_services/</link>
+      <link>https://inbo.github.io/tutorials/spatial_wfs_services/</link>
       <pubDate>Wed, 07 Mar 2018 16:50:01 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_wfs_services/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &amp;ldquo;source code&amp;rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport.</description>
     </item>
     
     <item>
       <title>Transforming spatial objects</title>
-      <link>http://example.org/tutorials/spatial_transform_crs/</link>
+      <link>https://inbo.github.io/tutorials/spatial_transform_crs/</link>
       <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_transform_crs/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_transform_crs/</guid>
       <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&amp;rsquo;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
 library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
     </item>
     
     <item>
       <title>Using WMS service in R</title>
-      <link>http://example.org/tutorials/spatial_wms_services/</link>
+      <link>https://inbo.github.io/tutorials/spatial_wms_services/</link>
       <pubDate>Mon, 19 Feb 2018 12:09:22 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_wms_services/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 wms_grb links to the WMS of the GRB-basiskaart, the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
 wms_ortho contains a mosaic of recent orthophotos made during the winter. The layer Ortho contains the images, the layer Vliegdagcontour detail on the time when the pictures were taken.</description>
@@ -100,19 +100,19 @@ wms_ortho contains a mosaic of recent orthophotos made during the winter. The la
     
     <item>
       <title>Data wrangling with tidyverse</title>
-      <link>http://example.org/tutorials/r_tidyverse_info/</link>
+      <link>https://inbo.github.io/tutorials/r_tidyverse_info/</link>
       <pubDate>Fri, 09 Feb 2018 14:14:49 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/r_tidyverse_info/</guid>
+      <guid>https://inbo.github.io/tutorials/r_tidyverse_info/</guid>
       <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
     </item>
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>http://example.org/tutorials/styleguide_repos/</link>
+      <link>https://inbo.github.io/tutorials/styleguide_repos/</link>
       <pubDate>Wed, 18 Oct 2017 16:02:35 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/styleguide_repos/</guid>
+      <guid>https://inbo.github.io/tutorials/styleguide_repos/</guid>
       <description> Naming  Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
 https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use dash (-) to separate words in repository, directory, and file names. Don&amp;rsquo;t use underscores.
 .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql   READMEs </description>
@@ -120,19 +120,19 @@ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use das
     
     <item>
       <title>Styleguide R code</title>
-      <link>http://example.org/tutorials/styleguide_r_code/</link>
+      <link>https://inbo.github.io/tutorials/styleguide_r_code/</link>
       <pubDate>Wed, 18 Oct 2017 16:01:34 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/styleguide_r_code/</guid>
+      <guid>https://inbo.github.io/tutorials/styleguide_r_code/</guid>
       <description>Scope This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO.</description>
     </item>
     
     <item>
       <title>Undo a git commit</title>
-      <link>http://example.org/tutorials/git_undo_commit/</link>
+      <link>https://inbo.github.io/tutorials/git_undo_commit/</link>
       <pubDate>Wed, 18 Oct 2017 15:31:53 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_undo_commit/</guid>
+      <guid>https://inbo.github.io/tutorials/git_undo_commit/</guid>
       <description>Introduction You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
 First, check your history of commits to see which commits are the faulty ones.
 git log --oneline  Example output
@@ -141,10 +141,10 @@ b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make som
     
     <item>
       <title>Git without internet</title>
-      <link>http://example.org/tutorials/git_no_internet/</link>
+      <link>https://inbo.github.io/tutorials/git_no_internet/</link>
       <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_no_internet/</guid>
+      <guid>https://inbo.github.io/tutorials/git_no_internet/</guid>
       <description>When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.
 One can commit changes, branch off, revert and reset changes, the same as when there exists an internet connection.
 Example workflow: start offline mode
@@ -155,10 +155,10 @@ git fetch origin  push changes to the server</description>
     
     <item>
       <title>Handle conflicts</title>
-      <link>http://example.org/tutorials/git_conflict/</link>
+      <link>https://inbo.github.io/tutorials/git_conflict/</link>
       <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_conflict/</guid>
+      <guid>https://inbo.github.io/tutorials/git_conflict/</guid>
       <description>Fix merge conflict with a pull request You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
 Locally on your computer:
 git fetch origin  Rebase your feature branch with your master
@@ -167,10 +167,10 @@ git rebase origin/master  Git will now state that there are merge conflicts.</de
     
     <item>
       <title>Git workflow</title>
-      <link>http://example.org/tutorials/git_workflow/</link>
+      <link>https://inbo.github.io/tutorials/git_workflow/</link>
       <pubDate>Wed, 18 Oct 2017 14:42:43 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_workflow/</guid>
+      <guid>https://inbo.github.io/tutorials/git_workflow/</guid>
       <description>BEFORE I START WORKING  STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
 git fetch origin git checkout master git merge --ff-only origin/master  STEP 2: Choose your option:
  OPTION 2A: I already have a branch I want to continue working on:
@@ -180,29 +180,29 @@ git checkout name_existing_branch git fetch origin git rebase origin/master  OPT
     
     <item>
       <title>Code coverage</title>
-      <link>http://example.org/tutorials/development_codecov/</link>
+      <link>https://inbo.github.io/tutorials/development_codecov/</link>
       <pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/development_codecov/</guid>
+      <guid>https://inbo.github.io/tutorials/development_codecov/</guid>
       <description>R CMD check has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, R CMD check does run a set unit tests. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the testthat framework for writing unit tests.</description>
     </item>
     
     <item>
       <title>Reading large data files in R</title>
-      <link>http://example.org/tutorials/r_large_data_files_handling/</link>
+      <link>https://inbo.github.io/tutorials/r_large_data_files_handling/</link>
       <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_large_data_files_handling/</guid>
+      <guid>https://inbo.github.io/tutorials/r_large_data_files_handling/</guid>
       <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
 tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
     </item>
     
     <item>
       <title>Read data from google sheet</title>
-      <link>http://example.org/tutorials/r_google_sheets/</link>
+      <link>https://inbo.github.io/tutorials/r_google_sheets/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_google_sheets/</guid>
+      <guid>https://inbo.github.io/tutorials/r_google_sheets/</guid>
       <description>library(googlesheets) library(dplyr) library(ggplot2) Setup The R package googlesheets provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the gs_auth command.
 gs_auth() Google will ask to grant the package the permission to access your drive. This token is saved to in a file .</description>
     </item>

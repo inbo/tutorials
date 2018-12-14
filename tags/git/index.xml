@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on INBO Tutorials</title>
-    <link>http://example.org/tags/git/</link>
+    <link>https://inbo.github.io/tags/git/</link>
     <description>Recent content in git on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Oct 2017 16:02:35 +0200</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>http://example.org/tutorials/styleguide_repos/</link>
+      <link>https://inbo.github.io/tutorials/styleguide_repos/</link>
       <pubDate>Wed, 18 Oct 2017 16:02:35 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/styleguide_repos/</guid>
+      <guid>https://inbo.github.io/tutorials/styleguide_repos/</guid>
       <description> Naming  Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
 https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use dash (-) to separate words in repository, directory, and file names. Don&amp;rsquo;t use underscores.
 .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql   READMEs </description>
@@ -24,10 +24,10 @@ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use das
     
     <item>
       <title>Undo a git commit</title>
-      <link>http://example.org/tutorials/git_undo_commit/</link>
+      <link>https://inbo.github.io/tutorials/git_undo_commit/</link>
       <pubDate>Wed, 18 Oct 2017 15:31:53 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_undo_commit/</guid>
+      <guid>https://inbo.github.io/tutorials/git_undo_commit/</guid>
       <description>Introduction You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
 First, check your history of commits to see which commits are the faulty ones.
 git log --oneline  Example output
@@ -36,10 +36,10 @@ b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make som
     
     <item>
       <title>Git without internet</title>
-      <link>http://example.org/tutorials/git_no_internet/</link>
+      <link>https://inbo.github.io/tutorials/git_no_internet/</link>
       <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_no_internet/</guid>
+      <guid>https://inbo.github.io/tutorials/git_no_internet/</guid>
       <description>When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.
 One can commit changes, branch off, revert and reset changes, the same as when there exists an internet connection.
 Example workflow: start offline mode
@@ -50,10 +50,10 @@ git fetch origin  push changes to the server</description>
     
     <item>
       <title>Handle conflicts</title>
-      <link>http://example.org/tutorials/git_conflict/</link>
+      <link>https://inbo.github.io/tutorials/git_conflict/</link>
       <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_conflict/</guid>
+      <guid>https://inbo.github.io/tutorials/git_conflict/</guid>
       <description>Fix merge conflict with a pull request You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
 Locally on your computer:
 git fetch origin  Rebase your feature branch with your master
@@ -62,10 +62,10 @@ git rebase origin/master  Git will now state that there are merge conflicts.</de
     
     <item>
       <title>Git workflow</title>
-      <link>http://example.org/tutorials/git_workflow/</link>
+      <link>https://inbo.github.io/tutorials/git_workflow/</link>
       <pubDate>Wed, 18 Oct 2017 14:42:43 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/git_workflow/</guid>
+      <guid>https://inbo.github.io/tutorials/git_workflow/</guid>
       <description>BEFORE I START WORKING  STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
 git fetch origin git checkout master git merge --ff-only origin/master  STEP 2: Choose your option:
  OPTION 2A: I already have a branch I want to continue working on:
@@ -75,10 +75,10 @@ git checkout name_existing_branch git fetch origin git rebase origin/master  OPT
     
     <item>
       <title>Git installation</title>
-      <link>http://example.org/installation/administrator/admin_install_git/</link>
+      <link>https://inbo.github.io/installation/administrator/admin_install_git/</link>
       <pubDate>Wed, 18 Oct 2017 00:29:14 +0200</pubDate>
       
-      <guid>http://example.org/installation/administrator/admin_install_git/</guid>
+      <guid>https://inbo.github.io/installation/administrator/admin_install_git/</guid>
       <description>Windows De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
  Voer het installatiebestand uit Welkom bij de installatie: klik op Next Aanvaard de licentievoorwaarden door Next te klikken Installeer git in de voorgesteld standaard directory. Gebruik de standaard componenten door Next te klikken Kies use Git from the Windows Command Prompt en klik Next Kies Checkout Windows-style, commit Unix-style line endings en klik Next Kies use Windows&#39; default console window en klik Next Klik op Finish  Afwijkingen t.</description>
     </item>

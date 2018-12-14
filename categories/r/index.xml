@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>r on INBO Tutorials</title>
-    <link>http://example.org/categories/r/</link>
+    <link>https://inbo.github.io/categories/r/</link>
     <description>Recent content in r on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/categories/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Headers and navigation in R code</title>
-      <link>http://example.org/tutorials/r_script_sections/</link>
+      <link>https://inbo.github.io/tutorials/r_script_sections/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_script_sections/</guid>
+      <guid>https://inbo.github.io/tutorials/r_script_sections/</guid>
       <description>Introduction R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
 Creating sections manually To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.
 # 1. Header 1 #### # 2. Header 2 ---- # 3.</description>
@@ -24,10 +24,10 @@ Creating sections manually To create a header of a section, different methods ca
     
     <item>
       <title>Let&#39;s create an interactive map!</title>
-      <link>http://example.org/tutorials/spatial_create_leaflet_map/</link>
+      <link>https://inbo.github.io/tutorials/spatial_create_leaflet_map/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_create_leaflet_map/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_create_leaflet_map/</guid>
       <description>Introduction The required packages are leaflet and sp.
 library(leaflet) library(sp) Dummy data Let&amp;rsquo;s create a dumy data.frame to play around, i.e. the three locations of INBO:
 names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
@@ -37,10 +37,10 @@ crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- Spatial
     
     <item>
       <title>Match scientific names with the GBIF backbone</title>
-      <link>http://example.org/tutorials/r_gbif_name_matching/</link>
+      <link>https://inbo.github.io/tutorials/r_gbif_name_matching/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_gbif_name_matching/</guid>
+      <guid>https://inbo.github.io/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of &amp;lsquo;scientific names&amp;rsquo; to the GBIF taxonomic backbone
 Important is that you have rgbif and inborutils installed and available:
 library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) library(pander) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
@@ -49,39 +49,39 @@ species_list &amp;lt;- read_csv(&amp;#34;https://raw.</description>
     
     <item>
       <title>Using `%&gt;%` pipes in R</title>
-      <link>http://example.org/tutorials/r_tidyverse_piping/</link>
+      <link>https://inbo.github.io/tutorials/r_tidyverse_piping/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_tidyverse_piping/</guid>
+      <guid>https://inbo.github.io/tutorials/r_tidyverse_piping/</guid>
       <description>library(dplyr) How to use piping in R Normally, you would do this:
 head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
     </item>
     
     <item>
       <title>Using WFS service in R</title>
-      <link>http://example.org/tutorials/spatial_wfs_services/</link>
+      <link>https://inbo.github.io/tutorials/spatial_wfs_services/</link>
       <pubDate>Wed, 07 Mar 2018 16:50:01 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_wfs_services/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &amp;ldquo;source code&amp;rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport.</description>
     </item>
     
     <item>
       <title>Transforming spatial objects</title>
-      <link>http://example.org/tutorials/spatial_transform_crs/</link>
+      <link>https://inbo.github.io/tutorials/spatial_transform_crs/</link>
       <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_transform_crs/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_transform_crs/</guid>
       <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&amp;rsquo;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
 library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
     </item>
     
     <item>
       <title>Using WMS service in R</title>
-      <link>http://example.org/tutorials/spatial_wms_services/</link>
+      <link>https://inbo.github.io/tutorials/spatial_wms_services/</link>
       <pubDate>Mon, 19 Feb 2018 12:09:22 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/spatial_wms_services/</guid>
+      <guid>https://inbo.github.io/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 wms_grb links to the WMS of the GRB-basiskaart, the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
 wms_ortho contains a mosaic of recent orthophotos made during the winter. The layer Ortho contains the images, the layer Vliegdagcontour detail on the time when the pictures were taken.</description>
@@ -89,29 +89,29 @@ wms_ortho contains a mosaic of recent orthophotos made during the winter. The la
     
     <item>
       <title>Data wrangling with tidyverse</title>
-      <link>http://example.org/tutorials/r_tidyverse_info/</link>
+      <link>https://inbo.github.io/tutorials/r_tidyverse_info/</link>
       <pubDate>Fri, 09 Feb 2018 14:14:49 +0100</pubDate>
       
-      <guid>http://example.org/tutorials/r_tidyverse_info/</guid>
+      <guid>https://inbo.github.io/tutorials/r_tidyverse_info/</guid>
       <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
     </item>
     
     <item>
       <title>Reading large data files in R</title>
-      <link>http://example.org/tutorials/r_large_data_files_handling/</link>
+      <link>https://inbo.github.io/tutorials/r_large_data_files_handling/</link>
       <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_large_data_files_handling/</guid>
+      <guid>https://inbo.github.io/tutorials/r_large_data_files_handling/</guid>
       <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
 tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
     </item>
     
     <item>
       <title>Read data from google sheet</title>
-      <link>http://example.org/tutorials/r_google_sheets/</link>
+      <link>https://inbo.github.io/tutorials/r_google_sheets/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_google_sheets/</guid>
+      <guid>https://inbo.github.io/tutorials/r_google_sheets/</guid>
       <description>library(googlesheets) library(dplyr) library(ggplot2) Setup The R package googlesheets provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the gs_auth command.
 gs_auth() Google will ask to grant the package the permission to access your drive. This token is saved to in a file .</description>
     </item>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>biodiversity on INBO Tutorials</title>
-    <link>http://example.org/tags/biodiversity/</link>
+    <link>https://inbo.github.io/tags/biodiversity/</link>
     <description>Recent content in biodiversity on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/biodiversity/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tags/biodiversity/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Match scientific names with the GBIF backbone</title>
-      <link>http://example.org/tutorials/r_gbif_name_matching/</link>
+      <link>https://inbo.github.io/tutorials/r_gbif_name_matching/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tutorials/r_gbif_name_matching/</guid>
+      <guid>https://inbo.github.io/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of &amp;lsquo;scientific names&amp;rsquo; to the GBIF taxonomic backbone
 Important is that you have rgbif and inborutils installed and available:
 library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) library(pander) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:

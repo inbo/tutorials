@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>github on INBO Tutorials</title>
-    <link>http://example.org/tags/github/</link>
+    <link>https://inbo.github.io/tags/github/</link>
     <description>Recent content in github on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Oct 2017 16:02:35 +0200</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/github/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>http://example.org/tutorials/styleguide_repos/</link>
+      <link>https://inbo.github.io/tutorials/styleguide_repos/</link>
       <pubDate>Wed, 18 Oct 2017 16:02:35 +0200</pubDate>
       
-      <guid>http://example.org/tutorials/styleguide_repos/</guid>
+      <guid>https://inbo.github.io/tutorials/styleguide_repos/</guid>
       <description> Naming  Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
 https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use dash (-) to separate words in repository, directory, and file names. Don&amp;rsquo;t use underscores.
 .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql   READMEs </description>

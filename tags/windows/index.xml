@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>windows on INBO Tutorials</title>
-    <link>http://example.org/tags/windows/</link>
+    <link>https://inbo.github.io/tags/windows/</link>
     <description>Recent content in windows on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Oct 2017 00:30:16 +0200</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Rtools installation</title>
-      <link>http://example.org/installation/administrator/admin_install_rtools/</link>
+      <link>https://inbo.github.io/installation/administrator/admin_install_rtools/</link>
       <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
       
-      <guid>http://example.org/installation/administrator/admin_install_rtools/</guid>
+      <guid>https://inbo.github.io/installation/administrator/admin_install_rtools/</guid>
       <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
 Bij een upgrade dient eerst de vorige versie te worden verwijderd.
  Kies Nederlands als taal voor de installatie en klik volgende. Klik volgende. Kies C:\Rtools (standaard) als installatiemap en klik volgende. Kies uit dropdown menu Tools for building R packages from source (standaard) en klik volgende. Vink Add rtools to system path aan en klik volgende. Klik volgende. Klik installeren.</description>
