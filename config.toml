@@ -129,7 +129,7 @@ tag = "tags"
 #tutorials = "/tutorials/:filename/"
 #search = "/:slug/"
 #categories = "/categories/"
-#content = "/:slug/"
+content = "/:slug/"
 
 [[menu.main]]
 name = "Source"
