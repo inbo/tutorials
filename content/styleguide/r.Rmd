@@ -67,6 +67,7 @@ Natural languages use whitespace and punctuation to make texts more readable. Pr
 
 - only create an object when you will use it later on
 - always use `<-` for assignment
+- always put the new variable on the left and never use `->`
 - use `=` only for passing arguments in a function
 - at least one space before and at least one space after `<-` and `=`
     - use multiple spaces if it improves readability
@@ -78,6 +79,7 @@ summary(x)
 
 # Bad
 x=data.frame(z<-1:10)
+5 -> a
 
 # Improved readability example
 a   <-   5
@@ -156,6 +158,27 @@ relevant_subset <- original_dataframe[original_dataframe$x > some_value | origin
 **Important notice**
 
 Adding `# nolint` at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.
+
+### Functions
+
+- always explicitly mention `return` in functions
+
+```{r eval = FALSE}
+# Good
+sum <- function(x, y) {
+  z <- x + y
+  return(z)
+}
+sum <- function(x, y) {
+  return(x + y)
+}
+
+# Bad
+sum <- function(x, y) {
+  x + y
+}
+```
+
 
 ### Validating syntax
 
