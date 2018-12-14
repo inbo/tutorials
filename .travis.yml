@@ -3,7 +3,9 @@ language: go
 # install - install hugo
 install:
     - go get github.com/gohugoio/hugo
-    - sudo apt install nodejs npm
+    - curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+    - sudo apt-get install -y nodejs
+    - sudo apt-get install -y build-essential
     - npm install -g lunr glob
 
 before_script:
