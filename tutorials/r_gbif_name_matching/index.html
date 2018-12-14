@@ -4,14 +4,14 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Introduction This tutorial will explain how you can match a list of &lsquo;scientific names&rsquo; to the GBIF taxonomic backbone
 Important is that you have rgbif and inborutils installed and available:
-library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) library(pander) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
+library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
 species_list &lt;- read_csv(&#34;https://raw.'>
 <meta name='theme-color' content='#c04384'>
 
 <meta property='og:title' content='Match scientific names with the GBIF backbone • INBO Tutorials'>
 <meta property='og:description' content='Introduction This tutorial will explain how you can match a list of &lsquo;scientific names&rsquo; to the GBIF taxonomic backbone
 Important is that you have rgbif and inborutils installed and available:
-library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) library(pander) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
+library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
 species_list &lt;- read_csv(&#34;https://raw.'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/'>
 <meta property='og:site_name' content='INBO Tutorials'>
@@ -234,7 +234,7 @@ species_list &lt;- read_csv(&#34;https://raw.'>
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-5 mins read
+3 mins read
 </span>
 
 
@@ -258,24 +258,54 @@ species_list &lt;- read_csv(&#34;https://raw.'>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(tidyverse) <span style="color:#aaa;font-style:italic"># tidyverse</span>
 <span style="color:#00a">library</span>(rgbif)     <span style="color:#aaa;font-style:italic"># To Match GBIF</span>
 <span style="color:#00a">library</span>(inborutils) <span style="color:#aaa;font-style:italic"># wrap GBIF api data</span>
-<span style="color:#00a">library</span>(knitr)
-<span style="color:#00a">library</span>(pander)</code></pre></div>
+<span style="color:#00a">library</span>(knitr)</code></pre></div>
 <h2 id="read-data-file-containing-the-scientific-names">Read data file containing the scientific names</h2>
 
 <p>Read file containing the scientific names you want to check against the <a href="https://www.gbif.org/species/search?q=" target="_blank">GBIF</a> taxonomic backbone:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list &lt;- read_csv(<span style="color:#a50">&#34;https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = cols())</code></pre></div>
 <p>Take a look at the data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pandoc.table(<span style="color:#00a">head</span>(<span style="color:#00a">as.data.frame</span>(species_list)), style = <span style="color:#a50">&#34;rmarkdown&#34;</span>)</code></pre></div>
-<pre><code>## 
-## 
-## |           name            |  kingdom  |   euConcernStatus   |
-## |:-------------------------:|:---------:|:-------------------:|
-## |   Alopochen aegyptiaca    | Animalia  | under consideration |
-## | Cotoneaster ganghobaensis |  Plantae  |         NA          |
-## |    Cotoneaster hylmoei    |  Plantae  |         NA          |
-## |  Cotoneaster x suecicus   |  Plantae  |         NA          |
-## |   Euthamia graminifolia   |  Plantae  |  under preparation  |
-</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::kable(<span style="color:#00a">head</span>(species_list))</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="left">kingdom</th>
+<th align="left">euConcernStatus</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Alopochen aegyptiaca</td>
+<td align="left">Animalia</td>
+<td align="left">under consideration</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster ganghobaensis</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster hylmoei</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster x suecicus</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+</tr>
+
+<tr>
+<td align="left">Euthamia graminifolia</td>
+<td align="left">Plantae</td>
+<td align="left">under preparation</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="request-species-information">Request species information</h2>
 
@@ -288,53 +318,120 @@ species_list &lt;- read_csv(&#34;https://raw.'>
 <p>The <code>name_col</code> argument is the column name containing the scientific names.</p>
 
 <p>Take a look at the updated data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pandoc.table(<span style="color:#00a">head</span>(<span style="color:#00a">as.data.frame</span>(species_list_matched)), style = <span style="color:#a50">&#34;rmarkdown&#34;</span>)</code></pre></div>
-<pre><code>## 
-## 
-## |           name            |  kingdom  |   euConcernStatus   |  usageKey  |
-## |:-------------------------:|:---------:|:-------------------:|:----------:|
-## |   Alopochen aegyptiaca    | Animalia  | under consideration |  2498252   |
-## | Cotoneaster ganghobaensis |  Plantae  |         NA          |  3025989   |
-## |    Cotoneaster hylmoei    |  Plantae  |         NA          |  3025758   |
-## |  Cotoneaster x suecicus   |  Plantae  |         NA          |  3026040   |
-## |   Euthamia graminifolia   |  Plantae  |  under preparation  |  3092782   |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |               scientificName                |  rank   |    order     |
-## |:-------------------------------------------:|:-------:|:------------:|
-## |    Alopochen aegyptiaca (Linnaeus, 1766)    | SPECIES | Anseriformes |
-## | Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö | SPECIES |   Rosales    |
-## |  Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer   | SPECIES |   Rosales    |
-## |        Cotoneaster suecicus G.Klotz         | SPECIES |   Rosales    |
-## |      Euthamia graminifolia (L.) Nutt.       | SPECIES |  Asterales   |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |  matchType  |    phylum    |    genus    |     class     |  confidence  |
-## |:-----------:|:------------:|:-----------:|:-------------:|:------------:|
-## |    EXACT    |   Chordata   |  Alopochen  |     Aves      |      98      |
-## |    EXACT    | Tracheophyta | Cotoneaster | Magnoliopsida |      98      |
-## |    EXACT    | Tracheophyta | Cotoneaster | Magnoliopsida |      98      |
-## |    EXACT    | Tracheophyta | Cotoneaster | Magnoliopsida |      98      |
-## |    EXACT    | Tracheophyta |  Euthamia   | Magnoliopsida |      98      |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |  synonym  |  status  |   family   |
-## |:---------:|:--------:|:----------:|
-## |   FALSE   | ACCEPTED |  Anatidae  |
-## |   FALSE   | ACCEPTED |  Rosaceae  |
-## |   FALSE   | ACCEPTED |  Rosaceae  |
-## |   FALSE   | ACCEPTED |  Rosaceae  |
-## |   FALSE   | ACCEPTED | Asteraceae |
-</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::kable(<span style="color:#00a">head</span>(species_list_matched))</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="left">kingdom</th>
+<th align="left">euConcernStatus</th>
+<th align="right">usageKey</th>
+<th align="left">scientificName</th>
+<th align="left">rank</th>
+<th align="left">order</th>
+<th align="left">matchType</th>
+<th align="left">phylum</th>
+<th align="left">genus</th>
+<th align="left">class</th>
+<th align="right">confidence</th>
+<th align="left">synonym</th>
+<th align="left">status</th>
+<th align="left">family</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Alopochen aegyptiaca</td>
+<td align="left">Animalia</td>
+<td align="left">under consideration</td>
+<td align="right">2498252</td>
+<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td align="left">SPECIES</td>
+<td align="left">Anseriformes</td>
+<td align="left">EXACT</td>
+<td align="left">Chordata</td>
+<td align="left">Alopochen</td>
+<td align="left">Aves</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Anatidae</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster ganghobaensis</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="right">3025989</td>
+<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö</td>
+<td align="left">SPECIES</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Cotoneaster</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Rosaceae</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster hylmoei</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="right">3025758</td>
+<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td align="left">SPECIES</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Cotoneaster</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Rosaceae</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster x suecicus</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="right">3026040</td>
+<td align="left">Cotoneaster suecicus G.Klotz</td>
+<td align="left">SPECIES</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Cotoneaster</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Rosaceae</td>
+</tr>
+
+<tr>
+<td align="left">Euthamia graminifolia</td>
+<td align="left">Plantae</td>
+<td align="left">under preparation</td>
+<td align="right">3092782</td>
+<td align="left">Euthamia graminifolia (L.) Nutt.</td>
+<td align="left">SPECIES</td>
+<td align="left">Asterales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Euthamia</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Asteraceae</td>
+</tr>
+</tbody>
+</table>
 
 <p>You can also specify which info (<code>gbif_terms</code>) GBIF should return. For example, return a lot of terms:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list %&gt;% 
@@ -345,55 +442,123 @@ species_list &lt;- read_csv(&#34;https://raw.'>
                                            <span style="color:#a50">&#39;class&#39;</span>, <span style="color:#a50">&#39;confidence&#39;</span>, <span style="color:#a50">&#39;synonym&#39;</span>, 
                                            <span style="color:#a50">&#39;status&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>)) %&gt;%
     <span style="color:#00a">head</span>() %&gt;%
-    <span style="color:#00a">as.data.frame</span>() %&gt;%
-    pandoc.table(style = <span style="color:#a50">&#34;rmarkdown&#34;</span>)</code></pre></div>
+    kable()</code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
-## 
-## 
-## |           name            |  kingdom  |   euConcernStatus   |  usageKey  |
-## |:-------------------------:|:---------:|:-------------------:|:----------:|
-## |   Alopochen aegyptiaca    | Animalia  | under consideration |  2498252   |
-## | Cotoneaster ganghobaensis |  Plantae  |         NA          |  3025989   |
-## |    Cotoneaster hylmoei    |  Plantae  |         NA          |  3025758   |
-## |  Cotoneaster x suecicus   |  Plantae  |         NA          |  3026040   |
-## |   Euthamia graminifolia   |  Plantae  |  under preparation  |  3092782   |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |               scientificName                |  rank   |    order     |
-## |:-------------------------------------------:|:-------:|:------------:|
-## |    Alopochen aegyptiaca (Linnaeus, 1766)    | SPECIES | Anseriformes |
-## | Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö | SPECIES |   Rosales    |
-## |  Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer   | SPECIES |   Rosales    |
-## |        Cotoneaster suecicus G.Klotz         | SPECIES |   Rosales    |
-## |      Euthamia graminifolia (L.) Nutt.       | SPECIES |  Asterales   |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |  matchType  |    phylum    |    genus    |     class     |  confidence  |
-## |:-----------:|:------------:|:-----------:|:-------------:|:------------:|
-## |    EXACT    |   Chordata   |  Alopochen  |     Aves      |      98      |
-## |    EXACT    | Tracheophyta | Cotoneaster | Magnoliopsida |      98      |
-## |    EXACT    | Tracheophyta | Cotoneaster | Magnoliopsida |      98      |
-## |    EXACT    | Tracheophyta | Cotoneaster | Magnoliopsida |      98      |
-## |    EXACT    | Tracheophyta |  Euthamia   | Magnoliopsida |      98      |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |  synonym  |  status  |   family   |
-## |:---------:|:--------:|:----------:|
-## |   FALSE   | ACCEPTED |  Anatidae  |
-## |   FALSE   | ACCEPTED |  Rosaceae  |
-## |   FALSE   | ACCEPTED |  Rosaceae  |
-## |   FALSE   | ACCEPTED |  Rosaceae  |
-## |   FALSE   | ACCEPTED | Asteraceae |
 </code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="left">kingdom</th>
+<th align="left">euConcernStatus</th>
+<th align="right">usageKey</th>
+<th align="left">scientificName</th>
+<th align="left">rank</th>
+<th align="left">order</th>
+<th align="left">matchType</th>
+<th align="left">phylum</th>
+<th align="left">genus</th>
+<th align="left">class</th>
+<th align="right">confidence</th>
+<th align="left">synonym</th>
+<th align="left">status</th>
+<th align="left">family</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Alopochen aegyptiaca</td>
+<td align="left">Animalia</td>
+<td align="left">under consideration</td>
+<td align="right">2498252</td>
+<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td align="left">SPECIES</td>
+<td align="left">Anseriformes</td>
+<td align="left">EXACT</td>
+<td align="left">Chordata</td>
+<td align="left">Alopochen</td>
+<td align="left">Aves</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Anatidae</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster ganghobaensis</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="right">3025989</td>
+<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö</td>
+<td align="left">SPECIES</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Cotoneaster</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Rosaceae</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster hylmoei</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="right">3025758</td>
+<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td align="left">SPECIES</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Cotoneaster</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Rosaceae</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster x suecicus</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="right">3026040</td>
+<td align="left">Cotoneaster suecicus G.Klotz</td>
+<td align="left">SPECIES</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Cotoneaster</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Rosaceae</td>
+</tr>
+
+<tr>
+<td align="left">Euthamia graminifolia</td>
+<td align="left">Plantae</td>
+<td align="left">under preparation</td>
+<td align="right">3092782</td>
+<td align="left">Euthamia graminifolia (L.) Nutt.</td>
+<td align="left">SPECIES</td>
+<td align="left">Asterales</td>
+<td align="left">EXACT</td>
+<td align="left">Tracheophyta</td>
+<td align="left">Euthamia</td>
+<td align="left">Magnoliopsida</td>
+<td align="right">98</td>
+<td align="left">FALSE</td>
+<td align="left">ACCEPTED</td>
+<td align="left">Asteraceae</td>
+</tr>
+</tbody>
+</table>
 
 <p>or rather just a subset:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list %&gt;% 
@@ -401,43 +566,75 @@ species_list &lt;- read_csv(&#34;https://raw.'>
                             gbif_terms = <span style="color:#0aa">c</span>(<span style="color:#a50">&#39;scientificName&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>,
                                            <span style="color:#a50">&#39;order&#39;</span>, <span style="color:#a50">&#39;matchType&#39;</span>)) %&gt;%
     <span style="color:#00a">head</span>() %&gt;%
-    <span style="color:#00a">as.data.frame</span>() %&gt;%    
-    pandoc.table(style = <span style="color:#a50">&#34;rmarkdown&#34;</span>)</code></pre></div>
+    kable()</code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
-## 
-## 
-## |           name            |  kingdom  |   euConcernStatus   |
-## |:-------------------------:|:---------:|:-------------------:|
-## |   Alopochen aegyptiaca    | Animalia  | under consideration |
-## | Cotoneaster ganghobaensis |  Plantae  |         NA          |
-## |    Cotoneaster hylmoei    |  Plantae  |         NA          |
-## |  Cotoneaster x suecicus   |  Plantae  |         NA          |
-## |   Euthamia graminifolia   |  Plantae  |  under preparation  |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |               scientificName                |   family   |    order     |
-## |:-------------------------------------------:|:----------:|:------------:|
-## |    Alopochen aegyptiaca (Linnaeus, 1766)    |  Anatidae  | Anseriformes |
-## | Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö |  Rosaceae  |   Rosales    |
-## |  Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer   |  Rosaceae  |   Rosales    |
-## |        Cotoneaster suecicus G.Klotz         |  Rosaceae  |   Rosales    |
-## |      Euthamia graminifolia (L.) Nutt.       | Asteraceae |  Asterales   |
-## 
-## Table: Table continues below
-## 
-##  
-## 
-## |  matchType  |
-## |:-----------:|
-## |    EXACT    |
-## |    EXACT    |
-## |    EXACT    |
-## |    EXACT    |
-## |    EXACT    |
 </code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="left">kingdom</th>
+<th align="left">euConcernStatus</th>
+<th align="left">scientificName</th>
+<th align="left">family</th>
+<th align="left">order</th>
+<th align="left">matchType</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Alopochen aegyptiaca</td>
+<td align="left">Animalia</td>
+<td align="left">under consideration</td>
+<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td align="left">Anatidae</td>
+<td align="left">Anseriformes</td>
+<td align="left">EXACT</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster ganghobaensis</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö</td>
+<td align="left">Rosaceae</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster hylmoei</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td align="left">Rosaceae</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster x suecicus</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="left">Cotoneaster suecicus G.Klotz</td>
+<td align="left">Rosaceae</td>
+<td align="left">Rosales</td>
+<td align="left">EXACT</td>
+</tr>
+
+<tr>
+<td align="left">Euthamia graminifolia</td>
+<td align="left">Plantae</td>
+<td align="left">under preparation</td>
+<td align="left">Euthamia graminifolia (L.) Nutt.</td>
+<td align="left">Asteraceae</td>
+<td align="left">Asterales</td>
+<td align="left">EXACT</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 

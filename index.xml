@@ -108,7 +108,7 @@ crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- Spatial
       <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of &amp;lsquo;scientific names&amp;rsquo; to the GBIF taxonomic backbone
 Important is that you have rgbif and inborutils installed and available:
-library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) library(pander) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
+library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
 species_list &amp;lt;- read_csv(&amp;#34;https://raw.</description>
     </item>
     
