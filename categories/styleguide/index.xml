@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>styleguide on INBO Tutorials</title>
+    <link>https://inbo.github.io/categories/styleguide/</link>
+    <description>Recent content in styleguide on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Oct 2017 16:02:35 +0200</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/categories/styleguide/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Styleguide new git repositories</title>
+      <link>https://inbo.github.io/tutorials/styleguide_repos/</link>
+      <pubDate>Wed, 18 Oct 2017 16:02:35 +0200</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/styleguide_repos/</guid>
+      <description> Naming  Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
+https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use dash (-) to separate words in repository, directory, and file names. Don&amp;rsquo;t use underscores.
+.../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql   READMEs </description>
+    </item>
+    
+    <item>
+      <title>Styleguide R code</title>
+      <link>https://inbo.github.io/tutorials/styleguide_r_code/</link>
+      <pubDate>Wed, 18 Oct 2017 16:01:34 +0200</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/styleguide_r_code/</guid>
+      <description>Scope This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO.</description>
+    </item>
+    
+  </channel>
+</rss>
