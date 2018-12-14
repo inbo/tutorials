@@ -24,7 +24,7 @@ Please note that the RStudio editor has some handy features that automatically h
 
 ## Syntax
 
-**RStudio hint**: _Tools > Global options > Code > Diagnotics_: Check everything
+**RStudio hint**: _Tools > Global options > Code > Diagnostics_: Check everything
 
 ### General
 
@@ -53,7 +53,9 @@ some.really.long.dot.separated.name <- MyCoolFunction(FirstArgument = 'Some text
 
 ### Whitespace
 
+```
 naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
+```
 
 Natural languages use whitespace and punctuation to make texts more readable. Programming languages are no exception to this rule.
 
@@ -70,6 +72,7 @@ Natural languages use whitespace and punctuation to make texts more readable. Pr
 
 - only create an object when you will use it later on
 - always use `<-` for assignment
+- always put the new variable on the left and never use `->`
 - use `=` only for passing arguments in a function
 - at least one space before and at least one space after `<-` and `=`
     - use multiple spaces if it improves readability
@@ -81,6 +84,7 @@ summary(x)
 
 # Bad
 x=data.frame(z<-1:10)
+5 -> a
 
 # Improved readability example
 a   <-   5
@@ -160,13 +164,34 @@ relevant_subset <- original_dataframe[original_dataframe$x > some_value | origin
 
 Adding `# nolint` at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.
 
+### Functions
+
+- always explicitly mention `return` in functions
+
+```{r eval = FALSE}
+# Good
+sum <- function(x, y) {
+  z <- x + y
+  return(z)
+}
+sum <- function(x, y) {
+  return(x + y)
+}
+
+# Bad
+sum <- function(x, y) {
+  x + y
+}
+```
+
+
 ### Validating syntax
 
 The code below validate the syntax for an R file, an RMarkdown file or an R package.
 
-**RStudio hint**: Running this code within RStudio will open a _Markers_ pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file a the correct location, making it easy to rectify the problem. 
+**RStudio hint**: Running this code within RStudio will open a _Markers_ pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file at the correct location, making it easy to rectify the problem. 
 
-Extra hint: start correcting for the last lines and work your way forward. This leave the line numbers of the errors intact until you solve them. 
+Extra hint: start correcting for the last lines and work your way forward. This leaves the line numbers of the errors intact until you solve them. 
 
 An example to clarify this. Suppose you have an error at line 10 and an error at line 100. Both errors are `lines should not be more than 80 characters`, so to solve them we have to split the lines over multiple lines. 
 
@@ -271,7 +296,7 @@ Authors@R: c(person("Els", "Lommelen", email = "els.lommelen@inbo.be", role = c(
 - each package should contain the unit for coding style as listed below
     - store this in a file `tests/testthat/test_zzz_coding_style.R`
     - add this file to `.gitignore`
-        - the coding style will be tested separatly when using continuous integration
+        - the coding style will be tested separately when using continuous integration
 
 ```{r eval = FALSE}
 if (requireNamespace("lintr", quietly = TRUE)) {
@@ -332,4 +357,3 @@ if (requireNamespace("lintr", quietly = TRUE)) {
 - `lintr`: checking coding style
 - `testthat`: writing unit tests
 - `covr`: check which part of the code is not covered by unit tests
-
