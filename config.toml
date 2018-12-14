@@ -1,5 +1,5 @@
 theme = "minimo"
-baseURL = "http://example.org/"
+baseURL = "https://inbo.github.io/"
 languageCode = "en-us"
 title = "INBO Tutorials"
 
@@ -77,9 +77,8 @@ page = "" # Twitter page username
 titleSeparator = "•"
 
 [params.social]
-email = "contact@example.com"
-facebook = "INBO"
-github = "INBO"
+facebook = "INBOVlaanderen"
+github = "inbo"
 twitter = "inbovlaanderen"
 
 [params.comments]
@@ -131,7 +130,7 @@ content = "/:slug/"
 
 [[menu.main]]
 name = "Source"
-weight = -10
+weight = -100
 identifier = "repository"
 url = "https://github.com/inbo/tutorials"
 
