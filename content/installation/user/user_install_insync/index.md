@@ -1,6 +1,7 @@
 ---
 title: "Insync installation"
-description: "Installation instructions for Git (in Dutch). Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
+description: "
+[Insync](https://www.insynchq.com/) is a thirth party tool that synchronises files with [Google Drive](https://www.google.be/drive/about.html). It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, "GoogleDrive" refers to the sync tools provided by Google."
 author: "Thierry Onkelinx"
 date: 2018-04-19T11:01:31+02:00
 categories: ["installation"]
