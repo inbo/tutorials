@@ -24,9 +24,9 @@ When this is your first time checking this website, welcome! You are always free
 
 Apart from the navigation options explained in the previous section, pages are divided into 3 main section accessible with the menu:
 
-- Tutorials: The main bulk of pages, providing tutorials on a variety of topics.
-- Articles: Provides useful background information about topics, links to literature, etc.
-- Installation: Installation instructions for both system administrators and users
+- [Tutorials]({{< relref "/tutorials/_index.md" >}}): The main bulk of pages, providing tutorials on a variety of topics.
+- [Articles]({{< relref "/articles/_index.md" >}}): Provides useful background information about topics, links to literature, etc.
+- [installation]({{< relref "/installation/_index.md" >}}): Installation instructions for both system administrators and users
 
 The absence of a more granular menu is a deliberate decision to overcome the requirement to recreate a website menu when new tutorials are written. By using categories and tags, more flexibility is provided. The tags list, categories overview and search options are automatically updated when a new tutorial is added to the website.
 
