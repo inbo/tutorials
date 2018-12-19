@@ -36,4 +36,8 @@ Great news! By sharing information, we can effectively help each other. Moreover
 
 Check the [_create tutorial_]({{< relref "/create_tutorial/index.md" >}}) page for more information on how to contribute to this website!
 
+## Questions?
+
+If you have any questions, do not hesitate to contact the website maintainers (main contributors listed [here](https://github.com/inbo/tutorials/graphs/contributors)), provide an [new issue ](https://github.com/inbo/tutorials/issues/new) if you already have a Github account or just ask the [IT helpdesk](mailto:ict.helpdesk@inbo.be) for more information. 
+
 
