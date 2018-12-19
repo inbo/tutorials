@@ -10,7 +10,7 @@ weight: -270
 
 ## Introduction
 
-The tutorials website of INBO provides a wide range of instructions on the installation, use and development of (research) software at the [Research Institute of Nature and Forest (INBO)](https://www.inbo.be/en). It provies a collection of tips and tricks, more in depth tutorials, instructions, links to interesting resources and howto's written for and by INBO people.
+The tutorials website of INBO provides a wide range of instructions on the installation, use and development of (research) software at the [Research Institute of Nature and Forest (INBO)](https://www.inbo.be/en). It provides a collection of tips and tricks, more in depth tutorials, instructions, links to interesting resources and howto's written for and by INBO people.
 
 ## Getting started
 
