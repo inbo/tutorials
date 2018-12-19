@@ -28,7 +28,7 @@ enableEmoji = true
 defaultContentLanguage = "en"
 
 [params.info]
-description = "Technical info about INBO"
+description = ""
 title404 = "Nothing's here..."
 
 [params.assets]
@@ -61,7 +61,7 @@ enable = true
 
 [params.widgets]
 header = ["breadcrumbs"]
-homepage = [] # "recent_posts"
+homepage = ["recent_posts"] # "recent_posts"
 sidebar = ["about","search","sidebar_menu","taxonomy_cloud"]
 footer = ["social_menu"]
 
