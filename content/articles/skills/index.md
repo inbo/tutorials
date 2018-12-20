@@ -1,7 +1,6 @@
 ---
 title: "Acquiring the skills"
 date: 2018-03-21
-link-citations: yes
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
@@ -27,24 +26,20 @@ workflows](../computing).
 Open data science in general
 ----------------------------
 
--   Lowndes *et al.* ([2017](#ref-lowndes_our_2017)): **learning** open
-    data science tools
--   Hampton *et al.* ([2017](#ref-hampton_skills_2017)): **training
-    approaches and needed skills** in data science
--   Stevens *et al.* ([2018](#ref-stevens_building_2018)): **local
-    community of practice** for scientific programming: why, how
-    (including scheme), challenges
+-   Lowndes *et al.* (2017): **learning** open data science tools
+-   Hampton *et al.* (2017): **training approaches and needed skills**
+    in data science
+-   Stevens *et al.* (2018): **local community of practice** for
+    scientific programming: why, how (including scheme), challenges
 
 In relation to statistics teaching
 ----------------------------------
 
--   Kaplan ([2017](#ref-kaplan_teaching_2017)): ten organizing blocks
-    for **introductory statistics teaching** in the present data science
-    context
--   Cetinkaya-Rundel & Rundel
-    ([2017](#ref-cetinkaya-rundel_infrastructure_2017)): **computational
-    infrastructure and toolkit choices** to allow for the necessary
-    pedagogical innovations in statistics education
+-   Kaplan (2017): ten organizing blocks for **introductory statistics
+    teaching** in the present data science context
+-   Cetinkaya-Rundel & Rundel (2017): **computational infrastructure and
+    toolkit choices** to allow for the necessary pedagogical innovations
+    in statistics education
 
 Bibliography
 ------------

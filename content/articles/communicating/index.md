@@ -1,7 +1,6 @@
 ---
 title: "Sharing and communicating"
 date: 2018-03-21
-link-citations: yes
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
@@ -23,22 +22,20 @@ by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Sharing data
 ------------
 
--   Ellis & Leek ([2017](#ref-ellis_how_2017)): guidelines for
-    **providing data** to a scientist / statistician: provide raw data,
-    format consistently, include metadata & preprocessing steps
--   Wilkinson *et al.* ([2016](#ref-wilkinson_fair_2016)): the **FAIR
-    data principles**: date are to be findable, accessible,
-    interoperable and reusable
--   Culina *et al.* ([2018](#ref-culina_navigating_2018)): overview of
-    online **data infrastructures** and considerations to be made
--   Perkel ([2016](#ref-perkel_democratic_2016)): **data repository
-    sites** like github and others
+-   Ellis & Leek (2017): guidelines for **providing data** to a
+    scientist / statistician: provide raw data, format consistently,
+    include metadata & preprocessing steps
+-   Wilkinson *et al.* (2016): the **FAIR data principles**: date are to
+    be findable, accessible, interoperable and reusable
+-   Culina *et al.* (2018): overview of online **data infrastructures**
+    and considerations to be made
+-   Perkel (2016): **data repository sites** like github and others
 
 Communicating
 -------------
 
--   Smith *et al.* ([2016](#ref-smith_software_2016)): recommendations
-    of the FORCE11 Software Citation Working Group
+-   Smith *et al.* (2016): recommendations of the FORCE11 Software
+    Citation Working Group
 
 Bibliography
 ------------

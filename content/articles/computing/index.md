@@ -1,7 +1,6 @@
 ---
 title: "Scientific computing and data handling workflows"
 date: 2018-03-21
-link-citations: true
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
@@ -23,18 +22,16 @@ by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Overviews
 ---------
 
--   Wilson *et al.* ([2017](#ref-wilson_good_2017)): set of **good
-    computing practices** that every researcher can adopt
--   British Ecological Society
-    ([2014](#ref-british_ecological_society_guide_2014)): planning the
-    **data life cycle**; creating, processing, documenting, preserving,
-    sharing & reusing data
--   Cooper & Hsing ([2017](#ref-cooper_guide_2017)): file organisation,
-    workflow documentation, **code** reproducibility and readability,
-    writing reproducible reports, version control and code archiving
--   Ibanez *et al.* ([2014](#ref-ibanez_practicing_2014)): vision on
-    reproducible science, routine **practices**, collaboration, literate
-    computing
+-   Wilson *et al.* (2017): set of **good computing practices** that
+    every researcher can adopt
+-   British Ecological Society (2014): planning the **data life cycle**;
+    creating, processing, documenting, preserving, sharing & reusing
+    data
+-   Cooper & Hsing (2017): file organisation, workflow documentation,
+    **code** reproducibility and readability, writing reproducible
+    reports, version control and code archiving
+-   Ibanez *et al.* (2014): vision on reproducible science, routine
+    **practices**, collaboration, literate computing
 
 See also some resources related to [learning and education](../skills)
 and the [discipline of open and reproducible science](../open_science).
@@ -42,14 +39,13 @@ and the [discipline of open and reproducible science](../open_science).
 Specific tools
 --------------
 
--   Ross *et al.* ([2017](#ref-ross_declutter_2017)): about
-    **tidyverse** workflow and tools
+-   Ross *et al.* (2017): about **tidyverse** workflow and tools
 
 Focus on version control workflows
 ----------------------------------
 
--   Bryan ([2017](#ref-bryan_excuse_2017)): rationale, workflows and
-    tools regarding version control for project organization
+-   Bryan (2017): rationale, workflows and tools regarding version
+    control for project organization
 
 Bibliography
 ------------

@@ -1,7 +1,6 @@
 ---
 title: "The discipline of open science"
 date: 2018-03-21
-link-citations: yes
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
@@ -24,24 +23,23 @@ These resources focus on the discipline as a whole, its perception,
 principles ,etc., while they often also give an overview of [scientific
 computing workflows](../computing).
 
--   Ibanez *et al.* ([2014](#ref-ibanez_practicing_2014)): open and
-    reproducible science: vision, routine practices, collaboration,
-    literate computing
--   Hampton *et al.* ([2015](#ref-hampton_tao_2015)): workflows, tools,
-    obstacles and needed mindshifts for open science
--   Donati & Woolston ([2017](#ref-donati_information_2017)): how data
-    science is becoming a large discipline
+-   Ibanez *et al.* (2014): open and reproducible science: vision,
+    routine practices, collaboration, literate computing
+-   Hampton *et al.* (2015): workflows, tools, obstacles and needed
+    mindshifts for open science
+-   Donati & Woolston (2017): how data science is becoming a large
+    discipline
 
 Focus on reproducible research
 ------------------------------
 
--   Stodden *et al.* ([2014](#ref-stodden_implementing_2014)): **book**
-    on computational reproducibility and (experiment) replicability; the
-    three parts are *Tools*, *Practices and Guidelines*, *Platforms*
--   Stodden & Miguez ([2014](#ref-stodden_best_2014)): a formalized set
-    of **best practice recommendations** for reproducible research
--   Begley *et al.* ([2015](#ref-begley_institutions_2015)): current
-    **irreproducibility** and good institutional practice
+-   Stodden *et al.* (2014): **book** on computational reproducibility
+    and (experiment) replicability; the three parts are *Tools*,
+    *Practices and Guidelines*, *Platforms*
+-   Stodden & Miguez (2014): a formalized set of **best practice
+    recommendations** for reproducible research
+-   Begley *et al.* (2015): current **irreproducibility** and good
+    institutional practice
 
 Bibliography
 ------------

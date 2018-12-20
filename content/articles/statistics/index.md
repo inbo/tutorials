@@ -1,7 +1,6 @@
 ---
 title: "Books and articles on statistics"
 date: 2018-03-21
-link-citations: yes
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
@@ -12,13 +11,13 @@ output:
 weight: 1
 ---
 
--   McElreath ([2015](#ref-McElreath2015)): Statistical Rethinking is an
-    introduction to applied Bayesian data analysis, aimed at PhD
-    students and researchers in the natural and social sciences. This
-    audience has had some calculus and linear algebra, and one or two
-    joyless undergraduate courses in statistics. I've been teaching
-    applied statistics to this audience for about a decade now, and this
-    book has evolved from that experience. The book teaches generalized
+-   McElreath (2015): Statistical Rethinking is an introduction to
+    applied Bayesian data analysis, aimed at PhD students and
+    researchers in the natural and social sciences. This audience has
+    had some calculus and linear algebra, and one or two joyless
+    undergraduate courses in statistics. I've been teaching applied
+    statistics to this audience for about a decade now, and this book
+    has evolved from that experience. The book teaches generalized
     linear multilevel modeling (GLMMs) from a Bayesian perspective,
     relying on a simple logical interpretation of Bayesian probability
     and maximum entropy. The book covers the basics of regression
@@ -32,33 +31,32 @@ weight: 1
     main text. Mathematical depth is given in optional
     {"}overthinking{"} boxes throughout.
 
--   Kass *et al.* ([2016](#ref-Kass2016)): The authors propose a set of
-    10 simple rules for effective statistical practice
+-   Kass *et al.* (2016): The authors propose a set of 10 simple rules
+    for effective statistical practice
 
--   Quinn & Keough ([2002](#ref-Quinn2002)): An essential textbook for
-    any student or researcher in biology needing to design experiments,
-    sample programs or analyse the resulting data. The text begins with
-    a revision of estimation and hypothesis testing methods, covering
-    both classical and Bayesian philosophies, before advancing to the
-    analysis of linear and generalized linear models. Topics covered
-    include linear and logistic regression, simple and complex ANOVA
-    models (for factorial, nested, block, split-plot and repeated
-    measures and covariance designs), and log-linear models.
-    Multivariate techniques, including classification and ordination,
-    are then introduced. Special emphasis is placed on checking
-    assumptions, exploratory data analysis and presentation of results.
-    The main analyses are illustrated with many examples from published
-    papers and there is an extensive reference list to both the
-    statistical and biological literature. The book is supported by a
-    website that provides all data sets, questions for each chapter and
-    links to software.
+-   Quinn & Keough (2002): An essential textbook for any student or
+    researcher in biology needing to design experiments, sample programs
+    or analyse the resulting data. The text begins with a revision of
+    estimation and hypothesis testing methods, covering both classical
+    and Bayesian philosophies, before advancing to the analysis of
+    linear and generalized linear models. Topics covered include linear
+    and logistic regression, simple and complex ANOVA models (for
+    factorial, nested, block, split-plot and repeated measures and
+    covariance designs), and log-linear models. Multivariate techniques,
+    including classification and ordination, are then introduced.
+    Special emphasis is placed on checking assumptions, exploratory data
+    analysis and presentation of results. The main analyses are
+    illustrated with many examples from published papers and there is an
+    extensive reference list to both the statistical and biological
+    literature. The book is supported by a website that provides all
+    data sets, questions for each chapter and links to software.
 
--   James *et al.* ([2013](#ref-James2013)): An Introduction to
-    Statistical Learning provides an accessible overview of the field of
-    statistical learning, an essential toolset for making sense of the
-    vast and complex data sets that have emerged in fields ranging from
-    biology to finance to marketing to astrophysics in the past twenty
-    years. This book presents some of the most important modeling and
+-   James *et al.* (2013): An Introduction to Statistical Learning
+    provides an accessible overview of the field of statistical
+    learning, an essential toolset for making sense of the vast and
+    complex data sets that have emerged in fields ranging from biology
+    to finance to marketing to astrophysics in the past twenty years.
+    This book presents some of the most important modeling and
     prediction techniques, along with relevant applications. Topics
     include linear regression, classification, resampling methods,
     shrinkage approaches, tree-based methods, support vector machines,
@@ -79,44 +77,42 @@ weight: 1
     previous course in linear regression and no knowledge of matrix
     algebra.
 
--   Emden ([2008](#ref-VanEmden2008)): The typical biology student is
-    “hardwired” to be wary of any tasks involving the application of
-    mathematics and statistical analyses, but the plain fact is much of
-    biology requires interpretation of experimental data through the use
-    of statistical methods. This unique textbook aims to demystify
-    statistical formulae for the average biology student. Written in a
-    lively and engaging style, Statistics for Terrified Biologists draws
-    on the author's 30 years of lecturing experience. One of the
-    foremost entomologists of his generation, van Emden has an extensive
-    track record for successfully teaching statistical methods to even
-    the most guarded of biology students. For the first time basic
-    methods are presented using straightforward, jargon-free language.
-    Students are taught to use simple formulae accurately to interpret
-    what is being measured with each test and statistic, while at the
-    same time learning to recognize overall patterns and guiding
-    principles. Complemented by simple illustrations and useful case
-    studies, this is an ideal statistics resource tool for undergraduate
-    biology and environmental science students who lack confidence in
-    their mathematical abilities.
+-   Emden (2008): The typical biology student is “hardwired” to be wary
+    of any tasks involving the application of mathematics and
+    statistical analyses, but the plain fact is much of biology requires
+    interpretation of experimental data through the use of statistical
+    methods. This unique textbook aims to demystify statistical formulae
+    for the average biology student. Written in a lively and engaging
+    style, Statistics for Terrified Biologists draws on the author's 30
+    years of lecturing experience. One of the foremost entomologists of
+    his generation, van Emden has an extensive track record for
+    successfully teaching statistical methods to even the most guarded
+    of biology students. For the first time basic methods are presented
+    using straightforward, jargon-free language. Students are taught to
+    use simple formulae accurately to interpret what is being measured
+    with each test and statistic, while at the same time learning to
+    recognize overall patterns and guiding principles. Complemented by
+    simple illustrations and useful case studies, this is an ideal
+    statistics resource tool for undergraduate biology and environmental
+    science students who lack confidence in their mathematical
+    abilities.
 
--   Agresti ([2002](#ref-Agresti2002a)): The use of statistical methods
-    for categorical data has increased dramatically, particularly for
-    applications in the biomedical and social sciences. Responding to
-    new developments in the field as well as to the needs of a new
-    generation of professionals and students, this new edition of the
-    classic Categorical Data Analysis offers a comprehensive
-    introduction to the most important methods for categorical data
-    analysis. Designed for statisticians and biostatisticians as well as
-    scientists and graduate students practicing statistics, Categorical
-    Data Analysis, Second Edition summarizes the latest methods for
-    univariate and correlated multivariate categorical responses.
-    Readers will find a unified generalized linear models approach that
-    connects logistic regression and Poisson and negative binomial
-    regression for discrete data with normal regression for continuous
-    data.
+-   Agresti (2002): The use of statistical methods for categorical data
+    has increased dramatically, particularly for applications in the
+    biomedical and social sciences. Responding to new developments in
+    the field as well as to the needs of a new generation of
+    professionals and students, this new edition of the classic
+    Categorical Data Analysis offers a comprehensive introduction to the
+    most important methods for categorical data analysis. Designed for
+    statisticians and biostatisticians as well as scientists and
+    graduate students practicing statistics, Categorical Data Analysis,
+    Second Edition summarizes the latest methods for univariate and
+    correlated multivariate categorical responses. Readers will find a
+    unified generalized linear models approach that connects logistic
+    regression and Poisson and negative binomial regression for discrete
+    data with normal regression for continuous data.
 
--   van Belle ([2008](#ref-VanBelle2008)): This book contains chapters
-    titled:
+-   van Belle (2008): This book contains chapters titled:
 
     -   Begin with a Basic Formula for Sample Size–Lehr's Equation
     -   Calculating Sample Size Using the Coefficient of Variation
@@ -138,70 +134,69 @@ weight: 1
     -   Sample Size Calculations Should be Based on the Way the Data
         will be Analyzed
 
--   Grolemund & Wickham ([2016](#ref-Grolemund2016)): This is the
-    website for {"}R for Data Science{"}. This book will teach you how
-    to do data science with R: You'll learn how to get your data into R,
-    get it into the most useful structure, transform it, visualise it
-    and model it. In this book, you will find a practicum of skills for
-    data science. Just as a chemist learns how to clean test tubes and
-    stock a lab, you'll learn how to clean data and draw plots—and many
-    other things besides. These are the skills that allow data science
-    to happen, and here you will find the best practices for doing each
-    of these things with R. You'll learn how to use the grammar of
-    graphics, literate programming, and reproducible research to save
-    time. You'll also learn how to manage cognitive resources to
-    facilitate discoveries when wrangling, visualising, and exploring
-    data.
+-   Grolemund & Wickham (2016): This is the website for {"}R for Data
+    Science{"}. This book will teach you how to do data science with R:
+    You'll learn how to get your data into R, get it into the most
+    useful structure, transform it, visualise it and model it. In this
+    book, you will find a practicum of skills for data science. Just as
+    a chemist learns how to clean test tubes and stock a lab, you'll
+    learn how to clean data and draw plots—and many other things
+    besides. These are the skills that allow data science to happen, and
+    here you will find the best practices for doing each of these things
+    with R. You'll learn how to use the grammar of graphics, literate
+    programming, and reproducible research to save time. You'll also
+    learn how to manage cognitive resources to facilitate discoveries
+    when wrangling, visualising, and exploring data.
 
--   Baddeley *et al.* ([2015](#ref-Baddeley2015)): Spatial Point
-    Patterns: Methodology and Applications with R shows scientific
-    researchers and applied statisticians from a wide range of fields
-    how to analyze their spatial point pattern data. Making the
-    techniques accessible to non-mathematicians, the authors draw on
-    their 25 years of software development experiences, methodological
-    research, and broad scientific collaborations to deliver a book that
-    clearly and succinctly explains concepts and addresses real
-    scientific questions. Practical Advice on Data Analysis and Guidance
-    on the Validity and Applicability of Methods The first part of the
-    book gives an introduction to R software, advice about collecting
-    data, information about handling and manipulating data, and an
-    accessible introduction to the basic concepts of point processes.
-    The second part presents tools for exploratory data analysis,
-    including non-parametric estimation of intensity, correlation, and
-    spacing properties. The third part discusses model-fitting and
-    statistical inference for point patterns. The final part describes
-    point patterns with additional {"}structure,{"} such as complicated
-    marks, space-time observations, three- and higher-dimensional
-    spaces, replicated observations, and point patterns constrained to a
-    network of lines. Easily Analyze Your Own Data Throughout the book,
-    the authors use their spatstat package, which is free, open-source
-    code written in the R language. This package provides a wide range
-    of capabilities for spatial point pattern data, from basic data
+-   Baddeley *et al.* (2015): Spatial Point Patterns: Methodology and
+    Applications with R shows scientific researchers and applied
+    statisticians from a wide range of fields how to analyze their
+    spatial point pattern data. Making the techniques accessible to
+    non-mathematicians, the authors draw on their 25 years of software
+    development experiences, methodological research, and broad
+    scientific collaborations to deliver a book that clearly and
+    succinctly explains concepts and addresses real scientific
+    questions. Practical Advice on Data Analysis and Guidance on the
+    Validity and Applicability of Methods The first part of the book
+    gives an introduction to R software, advice about collecting data,
+    information about handling and manipulating data, and an accessible
+    introduction to the basic concepts of point processes. The second
+    part presents tools for exploratory data analysis, including
+    non-parametric estimation of intensity, correlation, and spacing
+    properties. The third part discusses model-fitting and statistical
+    inference for point patterns. The final part describes point
+    patterns with additional {"}structure,{"} such as complicated marks,
+    space-time observations, three- and higher-dimensional spaces,
+    replicated observations, and point patterns constrained to a network
+    of lines. Easily Analyze Your Own Data Throughout the book, the
+    authors use their spatstat package, which is free, open-source code
+    written in the R language. This package provides a wide range of
+    capabilities for spatial point pattern data, from basic data
     handling to advanced analytic tools. The book focuses on practical
     needs from the user's perspective, offering answers to the most
     frequently asked questions in each chapter.
 
--   Hobbs & Hooten ([2015](#ref-Hobbs2015)): Bayesian modeling has
-    become an indispensable tool for ecological research because it is
-    uniquely suited to deal with complexity in a statistically coherent
-    way. This textbook provides a comprehensive and accessible
-    introduction to the latest Bayesian methods—in language ecologists
-    can understand. Unlike other books on the subject, this one
-    emphasizes the principles behind the computations, giving ecologists
-    a big-picture understanding of how to implement this powerful
-    statistical approach. Bayesian Models is an essential primer for
-    non-statisticians. It begins with a definition of probability and
-    develops a step-by-step sequence of connected ideas, including basic
-    distribution theory, network diagrams, hierarchical models, Markov
-    chain Monte Carlo, and inference from single and multiple models.
-    This unique book places less emphasis on computer coding, favoring
-    instead a concise presentation of the mathematical statistics needed
-    to understand how and why Bayesian analysis works. It also explains
-    how to write out properly formulated hierarchical Bayesian models
-    and use them in computing, research papers, and proposals. This
-    primer enables ecologists to understand the statistical principles
-    behind Bayesian modeling and apply them to research, teaching,
-    policy, and management.
+-   Hobbs & Hooten (2015): Bayesian modeling has become an indispensable
+    tool for ecological research because it is uniquely suited to deal
+    with complexity in a statistically coherent way. This textbook
+    provides a comprehensive and accessible introduction to the latest
+    Bayesian methods—in language ecologists can understand. Unlike other
+    books on the subject, this one emphasizes the principles behind the
+    computations, giving ecologists a big-picture understanding of how
+    to implement this powerful statistical approach. Bayesian Models is
+    an essential primer for non-statisticians. It begins with a
+    definition of probability and develops a step-by-step sequence of
+    connected ideas, including basic distribution theory, network
+    diagrams, hierarchical models, Markov chain Monte Carlo, and
+    inference from single and multiple models. This unique book places
+    less emphasis on computer coding, favoring instead a concise
+    presentation of the mathematical statistics needed to understand how
+    and why Bayesian analysis works. It also explains how to write out
+    properly formulated hierarchical Bayesian models and use them in
+    computing, research papers, and proposals. This primer enables
+    ecologists to understand the statistical principles behind Bayesian
+    modeling and apply them to research, teaching, policy, and
+    management.
 
     -   Presents the mathematical and statistical foundations of
         Bayesian modeling in language accessible to non-statisticians
@@ -211,10 +206,10 @@ weight: 1
     -   Explains how to write out properly factored statistical
         expressions representing Bayesian models
 
--   Zuur *et al.* ([2017](#ref-Zuur2017)): In Volume I we explain how to
-    apply linear regression models, generalised linear models (GLM), and
-    generalised linear mixed-effects models (GLMM) to spatial, temporal,
-    and spatial-temporal data. The models that will be employed use the
+-   Zuur *et al.* (2017): In Volume I we explain how to apply linear
+    regression models, generalised linear models (GLM), and generalised
+    linear mixed-effects models (GLMM) to spatial, temporal, and
+    spatial-temporal data. The models that will be employed use the
     Gaussian and gamma distributions for continuous data, the Poisson
     and negative binomial distributions for count data, the Bernoulli
     distribution for absence–presence data, and the binomial
@@ -225,7 +220,7 @@ weight: 1
     to deal with underdispersion and the beta distribution to analyse
     proportional data.
 
--   Zuur *et al.* ([2010](#ref-Zuur2010)):
+-   Zuur *et al.* (2010):
 
     1.  While teaching statistics to ecologists, the lead authors of
         this paper have noticed common statistical problems. If a
@@ -255,53 +250,53 @@ weight: 1
         for good quality management and policy based on statistical
         analyses. Key-words:
 
--   Kelleher & Wagener ([2011](#ref-Kelleher2011)): Our ability to
-    visualize scientific data has evolved significantly over the last 40
-    years. However, this advancement does not necessarily alleviate many
-    common pitfalls in visualization for scientific journals, which can
-    inhibit the ability of readers to effectively understand the
-    information presented. To address this issue within the context of
-    visualizing environmental data, we list ten guidelines for effective
-    data visualization in scientific publications. These guidelines
-    support the primary objective of data visualization, i.e. to
-    effectively convey information. We believe that this small set of
-    guidelines based on a review of key visualization literature can
-    help researchers improve the communication of their results using
-    effective visualization. Enhancement of environmental data
-    visualization will further improve research presentation and
-    communication within and across disciplines.
+-   Kelleher & Wagener (2011): Our ability to visualize scientific data
+    has evolved significantly over the last 40 years. However, this
+    advancement does not necessarily alleviate many common pitfalls in
+    visualization for scientific journals, which can inhibit the ability
+    of readers to effectively understand the information presented. To
+    address this issue within the context of visualizing environmental
+    data, we list ten guidelines for effective data visualization in
+    scientific publications. These guidelines support the primary
+    objective of data visualization, i.e. to effectively convey
+    information. We believe that this small set of guidelines based on a
+    review of key visualization literature can help researchers improve
+    the communication of their results using effective visualization.
+    Enhancement of environmental data visualization will further improve
+    research presentation and communication within and across
+    disciplines.
 
--   Lohr ([2010](#ref-Lohr2010)): Sharon L. Lohr's SAMPLING: DESIGN AND
-    ANALYSIS, 2ND EDITION, provides a modern introduction to the field
-    of survey sampling intended for a wide audience of statistics
-    students. Practical and authoritative, the book is listed as a
-    standard reference for training on real-world survey problems by a
-    number of prominent surveying organizations. Lohr concentrates on
-    the statistical aspects of taking and analyzing a sample,
-    incorporating a multitude of applications from a variety of
-    disciplines. The text gives guidance on how to tell when a sample is
-    valid or not, and how to design and analyze many different forms of
-    sample surveys. Recent research on theoretical and applied aspects
-    of sampling is included, as well as optional technology instructions
-    for using statistical software with survey data.
+-   Lohr (2010): Sharon L. Lohr's SAMPLING: DESIGN AND ANALYSIS, 2ND
+    EDITION, provides a modern introduction to the field of survey
+    sampling intended for a wide audience of statistics students.
+    Practical and authoritative, the book is listed as a standard
+    reference for training on real-world survey problems by a number of
+    prominent surveying organizations. Lohr concentrates on the
+    statistical aspects of taking and analyzing a sample, incorporating
+    a multitude of applications from a variety of disciplines. The text
+    gives guidance on how to tell when a sample is valid or not, and how
+    to design and analyze many different forms of sample surveys. Recent
+    research on theoretical and applied aspects of sampling is included,
+    as well as optional technology instructions for using statistical
+    software with survey data.
 
--   Zuur *et al.* ([2009](#ref-Zuur2009c)): Building on the successful
-    Analysing Ecological Data (Zuur *et al.*, [2007](#ref-Zuur2007a)),
-    the authors now provide an expanded introduction to using regression
-    and its extensions in analysing ecological data. As with the earlier
-    book, real data sets from postgraduate ecological studies or
-    research projects are used throughout. The first part of the book is
-    a largely non-mathematical introduction to linear mixed effects
-    modelling, GLM and GAM, zero inflated models, GEE, GLMM and GAMM.
-    The second part provides ten case studies that range from koalas to
-    deep sea research. These chapters provide an invaluable insight into
-    analysing complex ecological datasets, including comparisons of
-    different approaches to the same problem. By matching ecological
-    questions and data structure to a case study, these chapters provide
-    an excellent starting point to analysing your own data. Data and R
-    code from all chapters are available from www.highstat.com.
+-   Zuur *et al.* (2009): Building on the successful Analysing
+    Ecological Data (Zuur *et al.*, 2007), the authors now provide an
+    expanded introduction to using regression and its extensions in
+    analysing ecological data. As with the earlier book, real data sets
+    from postgraduate ecological studies or research projects are used
+    throughout. The first part of the book is a largely non-mathematical
+    introduction to linear mixed effects modelling, GLM and GAM, zero
+    inflated models, GEE, GLMM and GAMM. The second part provides ten
+    case studies that range from koalas to deep sea research. These
+    chapters provide an invaluable insight into analysing complex
+    ecological datasets, including comparisons of different approaches
+    to the same problem. By matching ecological questions and data
+    structure to a case study, these chapters provide an excellent
+    starting point to analysing your own data. Data and R code from all
+    chapters are available from www.highstat.com.
 
--   Zuur & Ieno ([2016](#ref-Zuur2016)):
+-   Zuur & Ieno (2016):
 
     1.  Scientific investigation is of value only insofar as relevant
         results are obtained and communicated, a task that requires
@@ -336,53 +331,52 @@ weight: 1
         aspects of the analysis to include in a published report and for
         clearly communicating information.
 
--   Gelman & Hill ([2007](#ref-Gelman2007b)): Data Analysis Using
-    Regression and Multilevel/Hierarchical Models is a comprehensive
-    manual for the applied researcher who wants to perform data analysis
-    using linear and nonlinear regression and multilevel models. The
-    book introduces a wide variety of models, whilst at the same time
-    instructing the reader in how to fit these models using available
-    software packages. The book illustrates the concepts by working
-    through scores of real data examples that have arisen from the
-    authors' own applied research, with programming codes provided for
-    each one. Topics covered include causal inference, including
-    regression, poststratification, matching, regression discontinuity,
-    and instrumental variables, as well as multilevel logistic
-    regression and missing-data imputation. Practical tips regarding
-    building, fitting, and understanding are provided throughout.
+-   Gelman & Hill (2007): Data Analysis Using Regression and
+    Multilevel/Hierarchical Models is a comprehensive manual for the
+    applied researcher who wants to perform data analysis using linear
+    and nonlinear regression and multilevel models. The book introduces
+    a wide variety of models, whilst at the same time instructing the
+    reader in how to fit these models using available software packages.
+    The book illustrates the concepts by working through scores of real
+    data examples that have arisen from the authors' own applied
+    research, with programming codes provided for each one. Topics
+    covered include causal inference, including regression,
+    poststratification, matching, regression discontinuity, and
+    instrumental variables, as well as multilevel logistic regression
+    and missing-data imputation. Practical tips regarding building,
+    fitting, and understanding are provided throughout.
 
--   Lindenmayer & Likens ([2010](#ref-Lindenmayer2010d)): Long-term
-    monitoring programs are fundamental to understanding the natural
-    environment and effectively tackling major environmental problems.
-    Yet they are often done very poorly and ineffectively. Effective
-    Ecological Monitoring describes what makes successful and
-    unsuccessful long-term monitoring programs. Short and to the point,
-    it illustrates key aspects with case studies and examples. It is
-    based on the collective experience of running long-term research and
-    monitoring programs of the two authors -- experience which spans
-    more than 70 years. The book first outlines why long-term monitoring
-    is important, then discusses why long-term monitoring programs often
-    fail. The authors then highlight what makes good and effective
-    monitoring. These good and bad aspects of long-term monitoring
-    programs are further illustrated in the fourth chapter of the book.
-    The final chapter sums up the future of long-term monitoring
-    programs and how to make them better, more effective and better
-    targeted.
+-   Lindenmayer & Likens (2010): Long-term monitoring programs are
+    fundamental to understanding the natural environment and effectively
+    tackling major environmental problems. Yet they are often done very
+    poorly and ineffectively. Effective Ecological Monitoring describes
+    what makes successful and unsuccessful long-term monitoring
+    programs. Short and to the point, it illustrates key aspects with
+    case studies and examples. It is based on the collective experience
+    of running long-term research and monitoring programs of the two
+    authors -- experience which spans more than 70 years. The book first
+    outlines why long-term monitoring is important, then discusses why
+    long-term monitoring programs often fail. The authors then highlight
+    what makes good and effective monitoring. These good and bad aspects
+    of long-term monitoring programs are further illustrated in the
+    fourth chapter of the book. The final chapter sums up the future of
+    long-term monitoring programs and how to make them better, more
+    effective and better targeted.
 
--   Bolker ([2008](#ref-Bolker2008a)): Ecological Models and Data in R
-    is the first truly practical introduction to modern statistical
-    methods for ecology. In step-by-step detail, the book teaches
-    ecology graduate students and researchers everything they need to
-    know in order to use maximum likelihood, information-theoretic, and
-    Bayesian techniques to analyze their own data using the programming
-    language R. Drawing on extensive experience teaching these
-    techniques to graduate students in ecology, Benjamin Bolker shows
-    how to choose among and construct statistical models for data,
-    estimate their parameters and confidence limits, and interpret the
-    results. The book also covers statistical frameworks, the philosophy
-    of statistical modeling, and critical mathematical functions and
-    probability distributions. It requires no programming
-    background--only basic calculus and statistics.
+-   Bolker (2008): Ecological Models and Data in R is the first truly
+    practical introduction to modern statistical methods for ecology. In
+    step-by-step detail, the book teaches ecology graduate students and
+    researchers everything they need to know in order to use maximum
+    likelihood, information-theoretic, and Bayesian techniques to
+    analyze their own data using the programming language R. Drawing on
+    extensive experience teaching these techniques to graduate students
+    in ecology, Benjamin Bolker shows how to choose among and construct
+    statistical models for data, estimate their parameters and
+    confidence limits, and interpret the results. The book also covers
+    statistical frameworks, the philosophy of statistical modeling, and
+    critical mathematical functions and probability distributions. It
+    requires no programming background--only basic calculus and
+    statistics.
 
     -   Practical, beginner-friendly introduction to modern statistical
         techniques for ecology using the programming language R
