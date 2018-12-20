@@ -118,6 +118,10 @@ appId = ""
 indexName = ""
 searchApiKey = ""
 
+[params.githublink]
+GithubEditLink = "https://github.com/inbo/tutorials/edit/theme-update/content/"
+GithubContentLink = "https://github.com/inbo/tutorials/tree/theme-update/content/"
+
 [taxonomies]
 author = "authors"
 category = "categories"
