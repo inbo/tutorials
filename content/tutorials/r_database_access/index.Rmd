@@ -57,7 +57,7 @@ print(my_connection)
 
 Once this connection is successfully established, the database can be queried. 
 
-**Remark for linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality will be provided in an upcoming tutorial.
+**Remark for Linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
 
 ## Get a complete table from the database
 
