@@ -1,5 +1,5 @@
 ---
-title: "Read data from INBO databases (SQL Server) with R(ODBC)"
+title: "Read data from INBO databases (SQL Server) with R"
 description: "Database access using R"
 author: "Stijn Van Hoey"
 date: 2017-02-03
@@ -15,7 +15,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html). This package enables the link in between R and the (remote) database. After installation of the package (`install.packages('RODBC')`), the package can be loaded:
+To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R.
+Here we provide the approach using the package DBI, which is also used by RStudio and which plays well with dplyr-syntax.^[
+Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)].
+This package enables the link between R and the (remote) database.
+After installation of the package (`install.packages('DBI')`), the package can be loaded:
 
 ```{r, loadpackage, warning = FALSE, message = FALSE}
 library(DBI)
