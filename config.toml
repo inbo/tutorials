@@ -119,8 +119,8 @@ indexName = ""
 searchApiKey = ""
 
 [params.githublink]
-GithubEditLink = "https://github.com/inbo/tutorials/edit/theme-update/content/"
-GithubContentLink = "https://github.com/inbo/tutorials/tree/theme-update/content/"
+GithubEditLink = "https://github.com/inbo/tutorials/edit/master/content/"
+GithubContentLink = "https://github.com/inbo/tutorials/tree/master/content/"
 
 [taxonomies]
 author = "authors"
