@@ -1,5 +1,5 @@
 ---
-title: "Read data from INBO databases (SQL Server) with R(ODBC)"
+title: "Read data from INBO databases (SQL Server) with R"
 description: "Database access using R"
 author: "Stijn Van Hoey"
 date: 2017-02-03
@@ -13,8 +13,11 @@ output:
 
 
 
-To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html). This package enables the link in between R and the (remote) database. After installation of the package (`install.packages('RODBC')`), the package can be loaded:
-
+To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R.
+Here we provide the approach using the package DBI, which is also used by RStudio.^[
+Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)].
+This package enables the link between R and the (remote) database.
+After installation of the needed packages (`install.packages(c("DBI", "glue", "tidyverse"))`), the packages can be loaded:
 
 ```r
 library(DBI)
@@ -60,7 +63,7 @@ print(my_connection)
 
 Once this connection is successfully established, the database can be queried. 
 
-**Remark for linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality will be provided in an upcoming tutorial.
+**Remark for Linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
 
 ## Get a complete table from the database
 
@@ -83,7 +86,7 @@ head(rel_taxa) %>% knitr::kable()
 |  5|            4|       5|
 |  6|            4|       6|
 
-with the connection `my_connection` made earlier is used as the first argument, the table name is the second argument.
+The connection `my_connection`, made earlier, is used as the first argument. The table name is the second argument.
 
 **Remark:** If you have no idea about the size of the table you're trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.
 
@@ -151,7 +154,7 @@ head(subset_meting) %>% knitr::kable()
 | 106107| 182343|GDGA             |Wilde hyacint  |Hyacinthoides non-scripta (L.) Chouard ex Rothm. |      5217|
 | 105765| 180785|GDGA             |Wilde hyacint  |Hyacinthoides non-scripta (L.) Chouard ex Rothm. |      4830|
 
-If we need this query regularly, but each time using a different `tax.NaamNederlands` (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let's create a function `flora_records_on_dutch_name` that takes a valid database connection and a given dutch name and returns the relevant subset of the data for this query:
+If we need this query regularly, but each time using a different `tax.NaamNederlands` (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let's create a function `flora_records_on_dutch_name` that takes a valid database connection and a given Dutch name and returns the relevant subset of the data for this query:
 
 
 ```r
@@ -224,7 +227,7 @@ head(bosanemoon) %>% knitr::kable()
 |  72874| 198735|GDGA             |Bosanemoon     |Anemone nemorosa L.  |      8824|
 |  72887| 198660|GDGA             |Bosanemoon     |Anemone nemorosa L.  |      8824|
 
-**Remark:** Do not forget to close your connection when done finished. 
+**Remark:** Do not forget to close your connection when finished. 
 
 
 ```r
