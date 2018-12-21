@@ -26,7 +26,7 @@ Apart from the navigation options explained in the previous section, pages are d
 
 - [Tutorials]({{< relref "/tutorials/_index.md" >}}): The main bulk of pages, providing tutorials on a variety of topics.
 - [Articles]({{< relref "/articles/_index.md" >}}): Provides useful background information about topics, links to literature, etc.
-- [installation]({{< relref "/installation/_index.md" >}}): Installation instructions for both system administrators and users
+- [Installation]({{< relref "/installation/_index.md" >}}): Installation instructions for both system administrators and users
 
 The absence of a more granular menu is a deliberate decision to overcome the requirement to recreate a website menu when new tutorials are written. By using categories and tags, more flexibility is provided. The tags list, categories overview and search options are automatically updated when a new tutorial is added to the website.
 
@@ -38,6 +38,6 @@ Check the [_create tutorial_]({{< relref "/create_tutorial/index.md" >}}) page f
 
 ## Questions?
 
-If you have any questions, do not hesitate to contact the website maintainers (main contributors listed [here](https://github.com/inbo/tutorials/graphs/contributors)), provide an [new issue ](https://github.com/inbo/tutorials/issues/new) if you already have a Github account or just ask the [IT helpdesk](mailto:ict.helpdesk@inbo.be) for more information. 
+If you have any questions, do not hesitate to contact the website maintainers (main contributors listed [here](https://github.com/inbo/tutorials/graphs/contributors)), provide a [new issue](https://github.com/inbo/tutorials/issues/new) if you already have a Github account or just ask the [IT helpdesk](mailto:ict.helpdesk@inbo.be) for more information. 
 
 

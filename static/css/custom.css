@@ -1,1 +1,12 @@
 /* Custom CSS */
+
+pre {
+    background: #F5F5F5;
+    color: #808080;
+    border: 0;
+}
+
+.highlight pre {
+    border: 1px solid #dcdcdc;
+    color: #212121;
+}
