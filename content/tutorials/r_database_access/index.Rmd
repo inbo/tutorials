@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R.
-Here we provide the approach using the package DBI, which is also used by RStudio and which plays well with dplyr-syntax.^[
+Here we provide the approach using the package DBI, which is also used by RStudio.^[
 Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)].
 This package enables the link between R and the (remote) database.
 After installation of the package (`install.packages('DBI')`), the package can be loaded:
