@@ -35,4 +35,4 @@ deploy:
   verbose: true
   keep-history: true
   on:
-    branch: master # to adapt
+    branch: theme-update # to adapt
