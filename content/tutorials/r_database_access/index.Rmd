@@ -19,7 +19,7 @@ To query data from a SQL database that is already accessible using MSAccess, suc
 Here we provide the approach using the package DBI, which is also used by RStudio.^[
 Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)].
 This package enables the link between R and the (remote) database.
-After installation of the package (`install.packages('DBI')`), the package can be loaded:
+After installation of the needed packages (`install.packages(c("DBI", "glue", "tidyverse"))`), the packages can be loaded:
 
 ```{r, loadpackage, warning = FALSE, message = FALSE}
 library(DBI)
