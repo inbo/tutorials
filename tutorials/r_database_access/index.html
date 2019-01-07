@@ -5,15 +5,15 @@
 <meta name='description' content='Database access using R'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Read data from INBO databases (SQL Server) with R(ODBC) • INBO Tutorials'>
+<meta property='og:title' content='Read data from INBO databases (SQL Server) with R • INBO Tutorials'>
 <meta property='og:description' content='Database access using R'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_database_access/'>
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='database'><meta property='article:tag' content='r'><meta property='article:tag' content='data'><meta property='article:published_time' content='2017-02-03T00:00:00Z'/><meta property='article:modified_time' content='2017-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.53-DEV" />
+<meta name="generator" content="Hugo 0.54-DEV" />
 
-  <title>Read data from INBO databases (SQL Server) with R(ODBC) • INBO Tutorials</title>
+  <title>Read data from INBO databases (SQL Server) with R • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_database_access/'>
   
   
@@ -184,7 +184,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>tutorials</a></li><li><span>Read data from INBO databases (SQL Server) with R(ODBC)</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>tutorials</a></li><li><span>Read data from INBO databases (SQL Server) with R</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -203,7 +203,7 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Read data from INBO databases (SQL Server) with R(ODBC)</h1>
+      <h1 class='title'>Read data from INBO databases (SQL Server) with R</h1>
       
 <p class='desc'>Database access using R</p>
 
@@ -268,7 +268,10 @@ Improve this page</a>
   <div class='container entry-content'>
   
 
-<p>To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R using the package <a href="https://cran.r-project.org/web/packages/RODBC/index.html" target="_blank">RODBC</a>. This package enables the link in between R and the (remote) database. After installation of the package (<code>install.packages('RODBC')</code>), the package can be loaded:</p>
+<p>To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R.
+Here we provide the approach using the package DBI, which is also used by RStudio.<sup class="footnote-ref" id="fnref:Formerly-connect"><a href="#fn:Formerly-connect">1</a></sup>.
+This package enables the link between R and the (remote) database.
+After installation of the needed packages (<code>install.packages(c(&quot;DBI&quot;, &quot;glue&quot;, &quot;tidyverse&quot;))</code>), the packages can be loaded:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(DBI)
 <span style="color:#00a">library</span>(glue)
 <span style="color:#00a">library</span>(tidyverse)</code></pre></div>
@@ -300,7 +303,7 @@ Improve this page</a>
 
 <p>Once this connection is successfully established, the database can be queried.</p>
 
-<p><strong>Remark for linux users:</strong> When working in Linux, this setup requires an active <em>kerberos</em> session. More information about the setup and functionality will be provided in an upcoming tutorial.</p>
+<p><strong>Remark for Linux users:</strong> When working in Linux, this setup requires an active <em>kerberos</em> session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.</p>
 
 <h2 id="get-a-complete-table-from-the-database">Get a complete table from the database</h2>
 
@@ -355,7 +358,7 @@ Improve this page</a>
 </tbody>
 </table>
 
-<p>with the connection <code>my_connection</code> made earlier is used as the first argument, the table name is the second argument.</p>
+<p>The connection <code>my_connection</code>, made earlier, is used as the first argument. The table name is the second argument.</p>
 
 <p><strong>Remark:</strong> If you have no idea about the size of the table you&rsquo;re trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.</p>
 
@@ -566,7 +569,7 @@ Improve this page</a>
 </tbody>
 </table>
 
-<p>If we need this query regularly, but each time using a different <code>tax.NaamNederlands</code> (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let&rsquo;s create a function <code>flora_records_on_dutch_name</code> that takes a valid database connection and a given dutch name and returns the relevant subset of the data for this query:</p>
+<p>If we need this query regularly, but each time using a different <code>tax.NaamNederlands</code> (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let&rsquo;s create a function <code>flora_records_on_dutch_name</code> that takes a valid database connection and a given Dutch name and returns the relevant subset of the data for this query:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">flora_records_on_dutch_name &lt;- <span style="color:#00a">function</span>(dbase_connection, dutch_name) {
      dbGetQuery(dbase_connection, glue_sql(
             <span style="color:#a50">&#34;SELECT meet.Cor_X
@@ -730,7 +733,7 @@ Improve this page</a>
 </tbody>
 </table>
 
-<p><strong>Remark:</strong> Do not forget to close your connection when done finished.</p>
+<p><strong>Remark:</strong> Do not forget to close your connection when finished.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dbDisconnect(my_connection)</code></pre></div>
 <h2 id="glue_sql">The <code>glue_sql</code> function</h2>
 
@@ -743,6 +746,14 @@ glue(<span style="color:#a50">&#39;This prints a combination of a name: {dutch_n
 </code></pre>
 
 <p>Whereas the <code>glue</code> function is a general function for strings, the <code>glue_sql</code> function is specifically created to setup queries to databases. More information is provided <a href="https://db.rstudio.com/best-practices/run-queries-safely/#using-glue_sql" target="_blank">here</a> and <a href="https://glue.tidyverse.org/reference/glue_sql.html" target="_blank">here</a>.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:Formerly-connect"> Formerly, connections were made using the package <a href="https://cran.r-project.org/web/packages/RODBC/index.html" target="_blank">RODBC</a> <a class="footnote-return" href="#fnref:Formerly-connect"><sup>[return]</sup></a></li>
+</ol>
+</div>
 
 </div>
 
@@ -826,7 +837,7 @@ glue(<span style="color:#a50">&#39;This prints a combination of a name: {dutch_n
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2018 Institute of Nature and Forest research </p>
+  <p> &copy; 2018-2019 Institute of Nature and Forest research </p>
 </div>
 
         </div>
