@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='{{ .Site.Language.Lang }}'>
+
+{{- partial "head/head" . -}}
+
+<body class='{{ partial "header/bodyClasses" . }}'>
+
+  <div class='site'>
+
+    {{- partial "sidebar/sidebar" . -}}
+
+    <div class='main'>
+
+      {{- partial "nav/menus/main" . -}}
+
+      {{- $headerWidgets := .Site.Params.widgets.header -}}
+      <div class='header-widgets'>
+        <div class='container'>
+          {{- partial "extras/widget_area" ( dict "Widgets" $headerWidgets "Scope" . ) -}}
+        </div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'>
+            {{- if eq .Kind "home" -}}
+              <h1 class='site-title title'>{{ .Site.Title }}</h1>
+            {{- else -}}
+              <p class='site-title title'>{{ .Site.Title }}</p>
+            {{- end -}}
+            <p class='desc site-desc'>{{ .Site.Params.info.description }}</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>

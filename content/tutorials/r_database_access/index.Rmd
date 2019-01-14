@@ -1,0 +1,163 @@
+---
+title: "Read data from INBO databases (SQL Server) with R"
+description: "Database access using R"
+author: "Stijn Van Hoey"
+date: 2017-02-03
+categories: ["r"]
+tags: ["database", "r", "data"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R.
+Here we provide the approach using the package DBI, which is also used by RStudio.^[
+Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)].
+This package enables the link between R and the (remote) database.
+After installation of the needed packages (`install.packages(c("DBI", "glue", "tidyverse"))`), the packages can be loaded:
+
+```{r, loadpackage, warning = FALSE, message = FALSE}
+library(DBI)
+library(glue)
+library(tidyverse)
+```
+
+For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the [*registered ODBC connections*](http://www.stata.com/support/faqs/data-management/configuring-odbc-win/) in the administrator tools menu. 
+
+For Dutch-speaking Windows 7 users: 
+
+    > Kies in het Configuratiescherm van Windows de optie Systeembeheer > Gegevensbronnen (ODBC). De optie Systeembeheer verschijnt in de categorie Systeem en onderhoud.
+
+You should see a list similar to the list underneath, with the names of the available DSN names enlisted:
+![odbc-connecties](./database-R/odbc_gegevensbron.png)
+
+An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*): 
+![access-dsn](./database-R/access_dsn.png)
+
+For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
+
+For Windows users:
+
+```{r eval = FALSE}
+my_connection <- odbcConnect("UserFlora")
+```
+
+For Linux/Mac users:
+
+```{r sqlconnection}
+my_connection <- DBI::dbConnect(odbc::odbc(), 
+                                .connection_string = "Driver={ODBC Driver 17 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0021_00_userFlora;Trusted_Connection=yes;")
+print(my_connection)
+```
+
+Once this connection is successfully established, the database can be queried. 
+
+**Remark for Linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
+
+## Get a complete table from the database
+
+The function `dbReadTable` can be used to load an entire table from a database. For example, to extract the `tblTaxon` table from the flora database:
+
+```{r querytable}
+rel_taxa <- dbReadTable(my_connection, "relTaxonTaxonGroep")
+head(rel_taxa) %>% knitr::kable()
+```
+
+The connection `my_connection`, made earlier, is used as the first argument. The table name is the second argument.
+
+**Remark:** If you have no idea about the size of the table you're trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.
+
+## Execute a query to the database
+
+The function `dbGetQuery` provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here. We will focus on the application and the reusage of a query.
+
+```{r queryrun}
+meting <- dbGetQuery(my_connection, paste("SELECT TOP 10 * FROM dbo.tblMeting", 
+                                          "WHERE COR_X IS NOT NULL"))
+head(meting) %>% knitr::kable()
+```
+
+## Create and use query templates
+
+When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the entire query. It is prone to errors and you're script will become verbose. It is advisable to create query *templates*, that can be used within the `dbGetQuery` function. 
+
+Consider the execution of the following query. We are interested in those records with valid X and Y coordinates for the measurement, based on a given dutch name:
+
+```{r queryexample}
+subset_meting <- dbGetQuery(my_connection, 
+    "SELECT meet.COR_X
+    	 , meet.Cor_Y
+    	 , meet.MetingStatusCode
+    	 , tax.NaamNederlands
+    	 , tax.NaamWetenschappelijk
+    	 , waar.IFBLHokID
+    FROM  tblMeting AS meet
+    	LEFT JOIN tblTaxon AS tax ON tax.ID = meet.TaxonID
+    	LEFT JOIN tblWaarneming AS waar ON waar.ID = meet.WaarnemingID
+    WHERE meet.Cor_X IS NOT NULL
+    	AND meet.Cor_X != 0
+    	AND tax.NaamNederlands LIKE 'Wilde hyacint'")
+head(subset_meting) %>% knitr::kable()
+```
+
+If we need this query regularly, but each time using a different `tax.NaamNederlands` (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let's create a function `flora_records_on_dutch_name` that takes a valid database connection and a given Dutch name and returns the relevant subset of the data for this query:
+
+```{r querytemplate}
+flora_records_on_dutch_name <- function(dbase_connection, dutch_name) {
+     dbGetQuery(dbase_connection, glue_sql(
+            "SELECT meet.Cor_X
+            	 , meet.COr_Y
+            	 , meet.MetingStatusCode
+            	 , tax.NaamNederlands
+            	 , tax.NaamWetenschappelijk
+            	 , waar.IFBLHokID
+            FROM  dbo.tblMeting meet
+            	LEFT JOIN dbo.tblTaxon AS tax ON tax.ID = meet.TaxonID
+            	LEFT JOIN dbo.tblWaarneming AS waar ON waar.ID = meet.WaarnemingID
+            WHERE meet.Cor_X IS NOT NULL
+            	AND meet.Cor_X != 0
+            	AND tax.NaamNederlands LIKE {dutch_name}",
+            dutch_name = dutch_name,
+            .con = dbase_connection))
+}
+```
+
+Hence, instead of copy-pasting the whole query each time (which could be error-prone), we can reuse the function for different names:
+
+```{r}
+hyacint <- flora_records_on_dutch_name(my_connection, "Wilde hyacint")
+head(hyacint) %>% knitr::kable()
+```
+
+```{r}
+bosanemoon <- flora_records_on_dutch_name(my_connection, "Bosanemoon")
+head(bosanemoon) %>% knitr::kable()
+```
+
+**Remark:** Do not forget to close your connection when finished. 
+
+```{r closeit}
+dbDisconnect(my_connection)
+```
+
+## The `glue_sql` function {#glue_sql}
+
+In order to accomplish the re-usage of a query for different input names (`dutch_name`), the `glue_sql` function is used from the [glue package](https://glue.tidyverse.org/reference/glue_sql.html). The `glue_sql` function (and the more general `glue` function) provides the ability to combine text and variable values in a single charactor string (i.e. the query to execute). For each variable name required in the query (any part of your query you want to have interchangeable), a representation in the query is given by the variable name you use in R, put in between curly brackets. For example, if you have the `dutch_name` variable in R, you can use it inside the query as `{dutch_name}`:
+
+```{r sprintfex1}
+dutch_name <- 'Jan'
+an_integer <- 3
+a_float <- 2.8
+glue('This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}')
+```
+
+Whereas the `glue` function is a general function for strings, the `glue_sql` function is specifically created to setup queries to databases. More information is provided [here](https://db.rstudio.com/best-practices/run-queries-safely/#using-glue_sql) and [here](https://glue.tidyverse.org/reference/glue_sql.html).
+
+
+
+

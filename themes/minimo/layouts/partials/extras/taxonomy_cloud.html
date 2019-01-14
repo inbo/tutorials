@@ -1,0 +1,44 @@
+{{- $Scope := .Scope -}}
+{{- $Site := $Scope.Site -}}
+{{- $Scratch := $Scope.Scratch -}}
+{{- $Shuffle := ( .Shuffle | default true ) -}}
+{{- $TaxonomyPage := ( $Site.GetPage ( print "/" .Taxonomy ) ) -}}
+{{- $Data := $TaxonomyPage.Data -}}
+
+<div class='container list-container'>
+  <ul class='list taxonomy-cloud {{- if not $Shuffle }} no-shuffle {{- end -}}'>
+  {{- if gt ( len $Data.Terms ) 0 -}}
+    {{- $maxSize := 2.0 -}}
+    {{- $minSize := 1.0 -}}
+    {{- $sizeSpread := ( sub $maxSize $minSize ) -}}
+
+    {{- $maxCount := ( index $Data.Terms.ByCount 0 ).Count -}}
+    {{- $minCount := ( index $Data.Terms.ByCount.Reverse 0 ).Count -}}
+    {{- $countSpread := ( sub $maxCount $minCount ) -}}
+
+    {{- $Scratch.Set "sizeStep" 0 -}}
+    {{- if gt $countSpread 0 -}}
+      {{- $Scratch.Set "sizeStep" ( div $sizeSpread $countSpread ) -}}
+    {{- end -}}
+
+    {{- range $Data.Terms.Alphabetical -}}
+      {{- $count := .Count -}}
+      {{- $sizeStep := ( $Scratch.Get "sizeStep" ) -}}
+      {{- $size := ( add $minSize ( mul $sizeStep ( sub $count $minCount ) ) ) -}}
+
+      {{- with $Site.GetPage ( print "/" $Data.Plural "/" .Term ) -}}
+      <li>
+        <a href='{{ .RelPermalink }}' style='font-size:{{ $size }}em'>
+          {{- .Title -}}
+        </a>
+      </li>
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    <span>
+      {{- $term := ( ( ( i18n $Data.Singular 1 ) | default $Data.Singular ) ) -}}
+      {{- i18n "noTerm" ( dict "Term" $term ) -}}
+    </span>
+  {{- end -}}
+  </ul>
+</div>

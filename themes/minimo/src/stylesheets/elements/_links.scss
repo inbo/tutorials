@@ -1,0 +1,25 @@
+a {
+  color: $color__link;
+  text-decoration: none;
+  transition: color 0.1s ease-in-out;
+
+  &:focus {
+    outline-color: $color__accent;
+    outline-color: var(--color-accent);
+  }
+
+  &:active,
+  &:hover {
+    outline: 0;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: $color__link-hover;
+  }
+
+  &.button {
+    display: inline-block;
+  }
+}

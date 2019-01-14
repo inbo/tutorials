@@ -1,7 +1,10 @@
 ---
-title: "Software installation"
-date: 2017-10-18T00:24:50+02:00
-weight: 1
+title: Installation notes
+linkTitle: installation
+menu:
+   sidebar:
+      identifier: installation
+slug: installation
 ---
 
-The section for 'administrators' focusses on the actual installation. The section for 'users' focusses on the settings of the software. The individual pages are currently still in Dutch. We are working on an English translation.
+Check the administrator or user pages in function of the administrator rights on your computer.
