@@ -7,5 +7,5 @@ menu:
 slug: installation
 ---
 
-Check the [administrator installation]({{< relref "/installation/administrator/_index.md" >}}) or [user installation]({{< relref "/installation/user/_index.md" >}}) pages in function of the administrator rights on your computer.
+Check the [administrator installation]({{< relref "/administrator/_index.md" >}}) or [user installation]({{< relref "/user/_index.md" >}}) pages in function of the administrator rights on your computer.
 
