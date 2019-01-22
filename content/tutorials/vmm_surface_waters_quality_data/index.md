@@ -2,7 +2,7 @@
 title: "VMM surface waters - quality data"
 description: "How to consult the INBO-copy of the VMM-database with physicochemical data and quality indices of surface waters"
 author: "Gert Van Spaendonk"
-date: YYYY-MM-DD
+date: 2019-01-21
 categories: ["databases"]
 tags: ["database", "vmm", "reports"]
 ---
