@@ -64,10 +64,12 @@ tags: ["FIRST_TAG", "SECOND_TAG", "..."]
 # your text starts here...
 ```
 
-Replace tall the CAPTITAL words with appropriate information:
+Replace all the CAPITAL words with appropriate information:
+
 - a short clear title
 - a single or two line description
 - your name
+- the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
 
@@ -116,10 +118,12 @@ tags: ["FIRST_TAG", "SECOND_TAG", "..."]
 # your text starts here...
 ```
 
-Replace tall the CAPTITAL words with appropriate information:
+Replace all the CAPITAL words with appropriate information:
+
 - a short clear title
 - a single or two line description
 - your name
+- the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
 
@@ -158,10 +162,12 @@ output:
 # your text starts here...
 ```
 
-Replace tall the CAPTITAL words with appropriate information:
+Replace all the CAPITAL words with appropriate information:
+
 - a short clear title
 - a single or two line description
 - your name
+- the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
 - leave the `output` section as it is
