@@ -22,7 +22,8 @@ The git course provides an introduction on main terminology of Git based on 5 im
 4. Backup your work
 5. Collaborate on projects
 
-Next, a hands-on session to use [git with Rstudio](https://inbo.github.io/git-course/course_rstudio.html) is 
-part of the course. It can also be used as a reference to the indidivual steps when using git. When looking 
-for a step-wise workflow to use git(hub) with Rstudio, check the 
+The hands-on session [git with Rstudio](https://inbo.github.io/git-course/course_rstudio.html) is 
+part of the course. It can also be used as a reference to the indidivual steps when using git. 
+
+When looking for a quick day-to-day workflow to use git(hub) with Rstudio, check the 
 [Rstudio workflow](https://inbo.github.io/git-course/workflow_rstudio.html).
