@@ -101,9 +101,9 @@
       </li><li>
         <a href='/tutorials/tags/gis/' style='font-size:1.1666666666666667em'>gis</a>
       </li><li>
-        <a href='/tutorials/tags/git/' style='font-size:1.2777777777777777em'>git</a>
+        <a href='/tutorials/tags/git/' style='font-size:1.3333333333333333em'>git</a>
       </li><li>
-        <a href='/tutorials/tags/github/' style='font-size:1em'>github</a>
+        <a href='/tutorials/tags/github/' style='font-size:1.0555555555555556em'>github</a>
       </li><li>
         <a href='/tutorials/tags/google/' style='font-size:1.0555555555555556em'>google</a>
       </li><li>
@@ -133,7 +133,7 @@
       </li><li>
         <a href='/tutorials/tags/tidyverse/' style='font-size:1.1666666666666667em'>tidyverse</a>
       </li><li>
-        <a href='/tutorials/tags/version-control/' style='font-size:1.2222222222222223em'>version control</a>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.2777777777777777em'>version control</a>
       </li><li>
         <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
       </li><li>
@@ -307,20 +307,22 @@ Improve this page</a>
 <li>function names with a single dot are allowed</li>
 </ul></li>
 <li>use double quotes (<code>&quot;</code>) around characters and not single quotes (<code>'</code>)</li>
-<li>don&rsquo;t add commented code
+
+<li><p>don&rsquo;t add commented code</p>
 
 <ul>
-<li>use version control if you want to keep old versions of code</li>
-</ul></li>
-</ul>
+<li><p>use version control if you want to keep old versions of code</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 example_text &lt;- example_function(
-  first_argument = <span style="color:#a50">&#34;Some text&#34;</span>,
-  second_argument = <span style="color:#a50">&#34;More text&#34;</span>
+first_argument = <span style="color:#a50">&#34;Some text&#34;</span>,
+second_argument = <span style="color:#a50">&#34;More text&#34;</span>
 )
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
-some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span style="color:#a50">&#39;Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;More text&#39;</span>)</code></pre></div>
+some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span style="color:#a50">&#39;Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;More text&#39;</span>)</code></pre></div></li>
+</ul></li>
+</ul>
+
 <h3 id="whitespace">Whitespace</h3>
 
 <pre><code>naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
@@ -355,12 +357,11 @@ some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span s
 <li>always use <code>&lt;-</code> for assignment</li>
 <li>always put the new variable on the left and never use <code>-&gt;</code></li>
 <li>use <code>=</code> only for passing arguments in a function</li>
-<li>at least one space before and at least one space after <code>&lt;-</code> and <code>=</code>
+
+<li><p>at least one space before and at least one space after <code>&lt;-</code> and <code>=</code></p>
 
 <ul>
-<li>use multiple spaces if it improves readability</li>
-</ul></li>
-</ul>
+<li><p>use multiple spaces if it improves readability</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 x &lt;- <span style="color:#0aa">data.frame</span>(z = <span style="color:#099">1</span>:<span style="color:#099">10</span>)
 <span style="color:#00a">summary</span>(x)
@@ -373,7 +374,10 @@ x=<span style="color:#0aa">data.frame</span>(z&lt;-<span style="color:#099">1</s
 a   &lt;-   <span style="color:#099">5</span>
 ab  &lt;-  <span style="color:#099">10</span>
 abc &lt;-   <span style="color:#099">7</span>
-d   &lt;- <span style="color:#099">245</span></code></pre></div>
+d   &lt;- <span style="color:#099">245</span></code></pre></div></li>
+</ul></li>
+</ul>
+
 <h3 id="brackets">Brackets</h3>
 
 <p>R uses three types of brackets: round <code>(...)</code>, square <code>[...]</code> and curly <code>{...}</code>.</p>
@@ -392,20 +396,20 @@ d   &lt;- <span style="color:#099">245</span></code></pre></div>
 <li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
 </ul></li>
 <li><code>{</code> should not start on a newline and is always the end of a line</li>
-<li>apply indentation when splitting long text inside brackets over multiple lines</li>
-</ul>
+
+<li><p>apply indentation when splitting long text inside brackets over multiple lines</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 y &lt;- <span style="color:#00a">seq</span>(<span style="color:#099">0</span>, <span style="color:#099">2</span>)
 <span style="color:#00a">if</span> (<span style="color:#00a">max</span>(y) &lt;= <span style="color:#099">10</span>) {
-  x &lt;- <span style="color:#099">1</span>
+x &lt;- <span style="color:#099">1</span>
 } <span style="color:#00a">else</span> {
-  x &lt;- <span style="color:#099">2</span>
+x &lt;- <span style="color:#099">2</span>
 }
 <span style="color:#00a">sapply</span>(
-  y,
-  <span style="color:#00a">function</span>(x){
-    <span style="color:#00a">return</span>(x)
-  }
+y,
+<span style="color:#00a">function</span>(x){
+<span style="color:#00a">return</span>(x)
+}
 )
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
@@ -413,11 +417,13 @@ y &lt;- seq (<span style="color:#099">0</span>, <span style="color:#099">2</span
 <span style="color:#00a">if</span>(   <span style="color:#00a">max</span>( y ) &lt;= <span style="color:#099">10</span>    )        
 { x &lt;- <span style="color:#099">1</span> } <span style="color:#00a">else</span> 
 { x &lt;- <span style="color:#099">2</span> }
-<span style="color:#00a">sapply</span>( y , <span style="color:#00a">function</span> ( x ) { <span style="color:#00a">return</span>(x)})</code></pre></div>
+<span style="color:#00a">sapply</span>( y , <span style="color:#00a">function</span> ( x ) { <span style="color:#00a">return</span>(x)})</code></pre></div></li>
+</ul>
+
 <h3 id="special-cases-and-exceptions">Special cases and exceptions</h3>
 
 <ul>
-<li>selecting rows with square brackets <code>df[selection, ]</code>
+<li><p>selecting rows with square brackets <code>df[selection, ]</code></p>
 
 <ul>
 <li>this results in two conflicting rules
@@ -431,21 +437,21 @@ y &lt;- seq (<span style="color:#099">0</span>, <span style="color:#099">2</span
 <ul>
 <li><code>df[selection, ] # nolint</code></li>
 </ul></li>
-<li>solution in case of a long command: split the command over several lines</li>
-</ul></li>
-</ul>
+
+<li><p>solution in case of a long command: split the command over several lines</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 relevant_subset &lt;- original_dataframe[
-  original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value,
+original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value,
 ]
 <span style="color:#aaa;font-style:italic"># Recommended dplyr alternative</span>
 relevant_subset &lt;- original_dataframe %&gt;%
-  filter(x &gt; some_value | y &lt; some_other_value)
+filter(x &gt; some_value | y &lt; some_other_value)
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
-relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, ] <span style="color:#aaa;font-style:italic"># nolint</span></code></pre></div>
-<ul>
-<li>a really long text
+relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, ] <span style="color:#aaa;font-style:italic"># nolint</span></code></pre></div></li>
+</ul></li>
+
+<li><p>a really long text</p>
 
 <ul>
 <li>text shorter than 80 characters but passed the 80 character limit due to the indentitation
@@ -459,7 +465,8 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <li>solution: add <code># nolint</code> at the end of the line</li>
 </ul></li>
 </ul></li>
-<li>functions from other packages with names that don&rsquo;t comply with this style guide
+
+<li><p>functions from other packages with names that don&rsquo;t comply with this style guide</p>
 
 <ul>
 <li>solution: add <code># nolint</code> at the end of the line</li>
@@ -473,21 +480,22 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <h3 id="functions">Functions</h3>
 
 <ul>
-<li>always explicitly mention <code>return</code> in functions</li>
-</ul>
+<li><p>always explicitly mention <code>return</code> in functions</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 sum &lt;- <span style="color:#00a">function</span>(x, y) {
-  z &lt;- x + y
-  <span style="color:#00a">return</span>(z)
+z &lt;- x + y
+<span style="color:#00a">return</span>(z)
 }
 sum &lt;- <span style="color:#00a">function</span>(x, y) {
-  <span style="color:#00a">return</span>(x + y)
+<span style="color:#00a">return</span>(x + y)
 }
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
 sum &lt;- <span style="color:#00a">function</span>(x, y) {
-  x + y
-}</code></pre></div>
+x + y
+}</code></pre></div></li>
+</ul>
+
 <h3 id="validating-syntax">Validating syntax</h3>
 
 <p>The code below validate the syntax for an R file, an RMarkdown file or an R package.</p>
@@ -618,23 +626,26 @@ lintr::lint_package(path = <span style="color:#a50">&#34;.&#34;</span>)</code></
 </ul></li>
 <li>unit test files can be larger than source files</li>
 <li>a unit test file can contain tests for several functions in case the functions are strongly related (e.g. subfunctions) and reuse test cases</li>
-<li>each package should contain the unit for coding style as listed below
+
+<li><p>each package should contain the unit for coding style as listed below</p>
 
 <ul>
 <li>store this in a file <code>tests/testthat/test_zzz_coding_style.R</code></li>
-<li>add this file to <code>.gitignore</code>
+
+<li><p>add this file to <code>.gitignore</code></p>
 
 <ul>
-<li>the coding style will be tested separately when using continuous integration</li>
+<li><p>the coding style will be tested separately when using continuous integration</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">if</span> (<span style="color:#00a">requireNamespace</span>(<span style="color:#a50">&#34;lintr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) {
+context(<span style="color:#a50">&#34;lints&#34;</span>)
+test_that(<span style="color:#a50">&#34;Package Style&#34;</span>, {
+lintr::expect_lint_free()
+})
+}</code></pre></div></li>
 </ul></li>
 </ul></li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">if</span> (<span style="color:#00a">requireNamespace</span>(<span style="color:#a50">&#34;lintr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) {
-  context(<span style="color:#a50">&#34;lints&#34;</span>)
-  test_that(<span style="color:#a50">&#34;Package Style&#34;</span>, {
-    lintr::expect_lint_free()
-  })
-}</code></pre></div>
+
 <h3 id="r-script">R script</h3>
 
 <ul>

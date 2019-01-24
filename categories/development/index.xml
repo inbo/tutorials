@@ -6,10 +6,21 @@
     <description>Recent content in development on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Mar 2018 11:23:07 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 24 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git(hub) introduction</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_introduction/</link>
+      <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_introduction/</guid>
+      <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
+To introduce the concept of version control with Git and Github, a separate git course website is available here.
+The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>
+    </item>
     
     <item>
       <title>Wercker</title>
