@@ -50,7 +50,7 @@
 </section>
 <section class='widget widget-search sep-after'>
   <header>
-    <h4 class='title widget-title'>Search</h4>
+    <h4 class='title widget-title'> </h4>
   </header>
 
   <form action='/tutorials/search' id='search-form' class='search-form'>
@@ -64,17 +64,19 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>articles</a></li><li class='item'>
-  <a href='/tutorials/tutorials/'>tutorials</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
-  <a href='/tutorials/installation/'>installation</a><button class='sub-menu-toggler'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
     <span class='screen-reader-text'>expand sub menu</span>
     <span class='sign'></span>
   </button>
 
   <ul class='sub-menu'><li class='item'>
-  <a href='/tutorials/installation/administrator/'>administrator</a></li><li class='item'>
-  <a href='/tutorials/installation/user/'>user</a></li></ul></li></ul>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
     </div>
   </nav>
 
@@ -84,7 +86,7 @@
   </header>
 
   <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><li>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
         <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
       </li><li>
         <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
@@ -145,12 +147,37 @@
 
 
 </section>
-</div>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section></div>
 
   <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
 
 <button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
   <span class='screen-reader-text'>Toggle Sidebar</span>
@@ -169,26 +196,13 @@
   
 </svg>
 </span>
-</button>
-    <ul><li class='item'>
-        <a href='/tutorials/'>Home</a>
-      </li><li class='item'>
-        <a href='/tutorials/articles/'>articles</a>
-      </li><li class='item'>
-        <a href='/tutorials/tutorials/'>tutorials</a>
-      </li><li class='item'>
-        <a href='/tutorials/categories/'>Categories</a>
-      </li><li class='item'>
-        <a href='https://github.com/inbo/tutorials'>Source</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
+</button><div class='header-widgets'>
         <div class='container'>
     
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>tutorials</a></li><li><span>Headers and navigation in R code</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Headers and navigation in R code</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -260,6 +274,7 @@ Improve this page</a>
         
     
 </span>
+
 </div>
 
 
@@ -270,13 +285,12 @@ Improve this page</a>
   
 
   <div class='container entry-content'>
-  
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.</p>
 
-<h2 id="creating-sections-manually">Creating sections manually</h2>
+<h2 id="creating-sections-manually">Creating sections manually<a href="#creating-sections-manually" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># 1. Header 1 ####</span>
@@ -288,11 +302,11 @@ Improve this page</a>
 
 <p>Another way of navigation is via the button with the name of the selected header On the bottom of the code editor.</p>
 
-<h2 id="creating-sections-automatically">Creating sections automatically</h2>
+<h2 id="creating-sections-automatically">Creating sections automatically<a href="#creating-sections-automatically" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>It is also possible to add sections automatically by clicking on the tab <strong>Code</strong> and select <strong>Insert Section&hellip;</strong></p>
 
-<h2 id="drop-down">Drop down</h2>
+<h2 id="drop-down">Drop down<a href="#drop-down" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>Note there is a drop down button next to each header, allowing to collapse or expand your code. Yet, there are shortcuts to this:</p>
 
@@ -303,7 +317,7 @@ Improve this page</a>
 <li><strong>Expand All</strong> — Shift+Alt+O</li>
 </ol>
 
-<h2 id="an-example">An example</h2>
+<h2 id="an-example">An example<a href="#an-example" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>Now we will illustrate its use with an example of an analysis.</p>
 
@@ -368,8 +382,7 @@ weight_density &lt;- ggplot(surveys,
   geom_density()
 
 <span style="color:#aaa;font-style:italic"># two plots in one window</span>
-plot_grid(weight_scatter, weight_density, labels = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;A&#34;</span>, <span style="color:#a50">&#34;B&#34;</span>))</code></pre></div>
-</div>
+plot_grid(weight_scatter, weight_density, labels = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;A&#34;</span>, <span style="color:#a50">&#34;B&#34;</span>))</code></pre></div></div>
 
   
 <footer class='entry-footer'>
@@ -423,34 +436,7 @@ plot_grid(weight_scatter, weight_density, labels = <span style="color:#0aa">c</s
       </main>
 
       <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
+        <div class='container sep-before'><div class='copyright'>
   <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
 </div>
 

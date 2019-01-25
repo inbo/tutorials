@@ -50,7 +50,7 @@
 </section>
 <section class='widget widget-search sep-after'>
   <header>
-    <h4 class='title widget-title'>Search</h4>
+    <h4 class='title widget-title'> </h4>
   </header>
 
   <form action='/tutorials/search' id='search-form' class='search-form'>
@@ -64,17 +64,19 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>articles</a></li><li class='item'>
-  <a href='/tutorials/tutorials/'>tutorials</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
-  <a href='/tutorials/installation/'>installation</a><button class='sub-menu-toggler'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
     <span class='screen-reader-text'>expand sub menu</span>
     <span class='sign'></span>
   </button>
 
   <ul class='sub-menu'><li class='item'>
-  <a href='/tutorials/installation/administrator/'>administrator</a></li><li class='item'>
-  <a href='/tutorials/installation/user/'>user</a></li></ul></li></ul>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
     </div>
   </nav>
 
@@ -84,7 +86,7 @@
   </header>
 
   <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><li>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
         <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
       </li><li>
         <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
@@ -145,12 +147,37 @@
 
 
 </section>
-</div>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section></div>
 
   <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
 
 <button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
   <span class='screen-reader-text'>Toggle Sidebar</span>
@@ -169,27 +196,14 @@
   
 </svg>
 </span>
-</button>
-    <ul><li class='item'>
-        <a href='/tutorials/'>Home</a>
-      </li><li class='item'>
-        <a href='/tutorials/articles/'>articles</a>
-      </li><li class='item'>
-        <a href='/tutorials/tutorials/'>tutorials</a>
-      </li><li class='item'>
-        <a href='/tutorials/categories/'>Categories</a>
-      </li><li class='item'>
-        <a href='https://github.com/inbo/tutorials'>Source</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
+</button><div class='header-widgets'>
         <div class='container'>
     
     
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/installation/'>installation</a></li><li><a href='/tutorials/installation/user/'>user</a></li><li><span>Using Kerberos authentication for database connection</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/installation/'>Installation</a></li><li><a href='/tutorials/installation/user/'>For users</a></li><li><span>Using Kerberos authentication for database connection</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -261,6 +275,7 @@ Improve this page</a>
         
     
 </span>
+
 </div>
 
 
@@ -271,9 +286,8 @@ Improve this page</a>
   
 
   <div class='container entry-content'>
-  
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p><em>(shamelessly taken from <a href="https://en.wikipedia.org/wiki/Kerberos_(protocol)" target="_blank">wikipedia</a>)</em></p>
 
@@ -283,9 +297,9 @@ Improve this page</a>
 
 <p>Hence, we can use the protocol to have an OS independent solution for authentication across different databases. In this document, the installation and configuration for <strong>linux/mac users</strong> is provided as well as an introduction to the usage of the authentication service to connect to databases. For windows users (in the domain) the authentication is provided by default.</p>
 
-<h2 id="installation">Installation</h2>
+<h2 id="installation">Installation<a href="#installation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<h3 id="libraries-for-authentication">Libraries for authentication</h3>
+<h3 id="libraries-for-authentication">Libraries for authentication<a href="#libraries-for-authentication" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>For debian/ubuntu users (make sure you belong to the <code>sudo</code> group):</p>
 
@@ -305,11 +319,11 @@ The above installation may have led to inserting a line into PAM configuration f
 This is overkill as we don&rsquo;t want to use Kerberos that way, and it can significantly slow down all other system authentications.
 Therefore, you should <em>comment out</em> the above line in <code>/etc/pam.d/common-auth</code>.</p>
 
-<h3 id="ms-sql-server-tools">MS SQL Server tools</h3>
+<h3 id="ms-sql-server-tools">MS SQL Server tools<a href="#ms-sql-server-tools" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.</p>
 
-<h4 id="odbc-driver">ODBC driver</h4>
+<h4 id="odbc-driver">ODBC driver<a href="#odbc-driver" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 
 <p>Download and install the <a href="https://www.microsoft.com/en-us/download/details.aspx?id=53339" target="_blank">Microsoft ODBC Driver for SQL Server</a>.   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For <code>Ubuntu 16.04</code> (and most distributions based on it),  following instructions apply:</p>
 
@@ -323,7 +337,7 @@ sudo ACCEPT_EULA=Y apt-get install msodbcsql=13.1.4.0-1
 sudo apt-get install unixodbc-dev
 </code></pre>
 
-<h4 id="mssql-tools">mssql-tools</h4>
+<h4 id="mssql-tools">mssql-tools<a href="#mssql-tools" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 
 <p>Install the MS SQL tools as well:</p>
 
@@ -340,7 +354,7 @@ sudo apt-get install unixodbc-dev
 sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
 </code></pre>
 
-<h3 id="configure-kerberos-client">Configure Kerberos client</h3>
+<h3 id="configure-kerberos-client">Configure Kerberos client<a href="#configure-kerberos-client" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p><em>(again, the commands assume root privileges)</em></p>
 
@@ -391,9 +405,9 @@ In order to sync the timing of the domain controller server and client side, ins
 * <code>/etc/ntp.conf</code>
 * <code>/etc/ntp.conf.dhcp</code> (empty file, just amke sure there is a file)</p>
 
-<h2 id="test-installation">Test installation</h2>
+<h2 id="test-installation">Test installation<a href="#test-installation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<h3 id="kerberos-ticket-system">Kerberos ticket system</h3>
+<h3 id="kerberos-ticket-system">Kerberos ticket system<a href="#kerberos-ticket-system" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>To check if the Kerberos configuration is successful, ask for a ticket by initiating with <code>kinit</code>:</p>
 
@@ -412,7 +426,7 @@ In order to sync the timing of the domain controller server and client side, ins
 	renew until 10/01/18 15:42:08
 </code></pre>
 
-<h3 id="sql-database-connections">SQL database connections</h3>
+<h3 id="sql-database-connections">SQL database connections<a href="#sql-database-connections" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>When the ticketing is working, the next step is to use the authentication to connect to the databases itself. To test this, we&rsquo;ll use the <code>sqlcmd</code> command line tool. In a next section, we&rsquo;ll focus on the ODBC settings.</p>
 
@@ -426,7 +440,7 @@ In order to sync the timing of the domain controller server and client side, ins
 2&gt; Go
 </code></pre>
 
-<h2 id="sql-odbc-connections">SQL ODBC connections</h2>
+<h2 id="sql-odbc-connections">SQL ODBC connections<a href="#sql-odbc-connections" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>To support  database connections from other applications (e.g. GUI environments, but also R, Python,&hellip;), the configuration of database drivers and connections should be provided in the <code>/etc/odbc.ini</code> and <code>/etc/odbcinst.ini</code>.</p>
 
@@ -438,7 +452,7 @@ Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
 UsageCount=2
 </code></pre>
 
-<h3 id="connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-libraries-packages">Connecting by explicitly providing the SQL connection string to ODBC libraries/packages</h3>
+<h3 id="connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-libraries-packages">Connecting by explicitly providing the SQL connection string to ODBC libraries/packages<a href="#connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-libraries-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>Inbo staff can consult a list of connection strings <a href="https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing" target="_blank">here</a>
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:</p>
@@ -469,7 +483,7 @@ conn = pyodbc.connect(<span style="color:#a50">&#34;Driver={ODBC Driver 13 for S
 
 <p>Beside the fact that the connection has been made (see RStudio&rsquo;s R console), you also get a list of all databases (of the specific SQL Server) in the Connections pane. You can use this for exploratory purposes. Click <a href="https://db.rstudio.com/rstudio/connections/" target="_blank">here</a> for more information on using RStudio&rsquo;s Connections pane.</p>
 
-<h3 id="untested-connecting-after-configuring-odbc-ini">UNTESTED: Connecting after configuring <code>odbc.ini</code></h3>
+<h3 id="untested-connecting-after-configuring-odbc-ini">UNTESTED: Connecting after configuring <code>odbc.ini</code><a href="#untested-connecting-after-configuring-odbc-ini" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>However, it is probably easier to provide the configuration to specific databases directly, using the <code>/etc/odbc.ini</code> file. For example, the <code>DBName</code> database can be defined as follows:</p>
 
@@ -487,7 +501,6 @@ Port        = 1433
 <p><strong>TODO:</strong>
 -&gt; example in R/Python
 -&gt; also available in Rstudio!</p>
-
 </div>
 
   
@@ -542,34 +555,7 @@ Port        = 1433
       </main>
 
       <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
+        <div class='container sep-before'><div class='copyright'>
   <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
 </div>
 

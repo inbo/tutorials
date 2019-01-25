@@ -50,7 +50,7 @@
 </section>
 <section class='widget widget-search sep-after'>
   <header>
-    <h4 class='title widget-title'>Search</h4>
+    <h4 class='title widget-title'> </h4>
   </header>
 
   <form action='/tutorials/search' id='search-form' class='search-form'>
@@ -64,17 +64,19 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>articles</a></li><li class='item'>
-  <a href='/tutorials/tutorials/'>tutorials</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
-  <a href='/tutorials/installation/'>installation</a><button class='sub-menu-toggler'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
     <span class='screen-reader-text'>expand sub menu</span>
     <span class='sign'></span>
   </button>
 
   <ul class='sub-menu'><li class='item'>
-  <a href='/tutorials/installation/administrator/'>administrator</a></li><li class='item'>
-  <a href='/tutorials/installation/user/'>user</a></li></ul></li></ul>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
     </div>
   </nav>
 
@@ -84,7 +86,7 @@
   </header>
 
   <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><li>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
         <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
       </li><li>
         <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
@@ -145,12 +147,37 @@
 
 
 </section>
-</div>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section></div>
 
   <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
 
 <button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
   <span class='screen-reader-text'>Toggle Sidebar</span>
@@ -169,26 +196,13 @@
   
 </svg>
 </span>
-</button>
-    <ul><li class='item'>
-        <a href='/tutorials/'>Home</a>
-      </li><li class='item'>
-        <a href='/tutorials/articles/'>articles</a>
-      </li><li class='item'>
-        <a href='/tutorials/tutorials/'>tutorials</a>
-      </li><li class='item'>
-        <a href='/tutorials/categories/'>Categories</a>
-      </li><li class='item'>
-        <a href='https://github.com/inbo/tutorials'>Source</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
+</button><div class='header-widgets'>
         <div class='container'>
     
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>tutorials</a></li><li><span>Reading large data files in R</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Reading large data files in R</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -260,6 +274,7 @@ Improve this page</a>
         
     
 </span>
+
 </div>
 
 
@@ -270,13 +285,12 @@ Improve this page</a>
   
 
   <div class='container entry-content'>
-  
 
-<h2 id="intro">Intro</h2>
+<h2 id="intro">Intro<a href="#intro" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.</p>
 
-<h2 id="tl-dr">tl;dr</h2>
+<h2 id="tl-dr">tl;dr<a href="#tl-dr" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <ul>
 <li>If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the <code>data.table</code> package and <a href="#loadentire">read the file with its <code>fread</code> function</a>.</li>
@@ -289,7 +303,7 @@ Improve this page</a>
 </ul></li>
 </ul>
 
-<h2 id="downloading-the-example-files">Downloading the example files</h2>
+<h2 id="downloading-the-example-files">Downloading the example files<a href="#downloading-the-example-files" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>While you can directly test this tutorial on your own large data files, we will use bird tracking data from the <a href="https://doi.org/10.3897/zookeys.555.6173" target="_blank">LifeWatch bird tracking network</a> for the examples. We have made two versions of some tracking data available for download: a <code>.csv</code> file (text data) and a <code>.db</code> file (sqlite data). Both contain processed log files; for more information on the processing, see the <a href="https://github.com/inbo/bird-tracking-etl" target="_blank">BirdTrackingEtl package</a>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">csv.name &lt;- <span style="color:#a50">&#34;2016-04-20-processed-logs-big-file-example.csv&#34;</span>
@@ -311,7 +325,7 @@ db.url &lt;- <span style="color:#00a">paste</span>(<span style="color:#a50">&#34
     download.file(db.url, destfile = <span style="color:#00a">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
     gunzip(<span style="color:#00a">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
 }</code></pre></div>
-<h2 id="loading-a-large-dataset-use-fread-or-readr-instead-of-read">Loading a large dataset: use <code>fread</code> or <code>readr</code> instead of <code>read</code>.</h2>
+<h2 id="loading-a-large-dataset-use-fread-or-readr-instead-of-read">Loading a large dataset: use <code>fread</code> or <code>readr</code> instead of <code>read</code>.<a href="#loading-a-large-dataset-use-fread-or-readr-instead-of-read" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(<span style="color:#a50">&#34;data.table&#34;</span>)
 <span style="color:#00a">library</span>(<span style="color:#a50">&#34;readr&#34;</span>)</code></pre></div>
 <p>If you really need to read an entire csv in memory, by default, R users use the <code>read.table</code> method or variations thereof (such as <code>read.csv</code>). However, <code>fread</code> from the <code>data.table</code> package is a lot faster. Furthermore, the <code>readr</code> package also provides more optimized reading functions (<code>read_csv</code>, <code>read_delim</code>,&hellip;). Let&rsquo;s measure the time to read in the data using these three different methods.</p>
@@ -331,7 +345,7 @@ data</code></pre></div>
 
 <p>You can find the <code>data.table</code> package on <a href="https://cran.r-project.org/web/packages/data.table/index.html" target="_blank">CRAN</a>. A good place to learn this package are the package vignettes. The <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html" target="_blank">introduction to data.table</a> should be enough to get started. You can also find the The <code>readr</code> package is also on <a href="https://cran.r-project.org/web/packages/readr/index.html" target="_blank">CRAN</a>. It belongs to a suite of R packages aiming to improve data manipulation in R, called <a href="http://tidyverse.org/" target="_blank">tidyverse</a>. More examples and explanation about <code>readr</code> is provided on the <a href="http://readr.tidyverse.org/" target="_blank">readr website</a>.</p>
 
-<h2 id="data-files-that-don-t-fit-in-memory">Data files that don&rsquo;t fit in memory</h2>
+<h2 id="data-files-that-don-t-fit-in-memory">Data files that don&rsquo;t fit in memory<a href="#data-files-that-don-t-fit-in-memory" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>If you are not able to read in the data file, because it does not fit in memory (or because R becomes too slow when you load the entire dataset), you will need to limit the amount of data that will actually be stored in memory. There are a couple of options which we will investigate:</p>
 
@@ -342,7 +356,7 @@ data</code></pre></div>
 <li>stream the data.</li>
 </ol>
 
-<h3 id="1-limit-the-number-of-lines-you-read-fread">1. Limit the number of lines you read (<code>fread</code>)</h3>
+<h3 id="1-limit-the-number-of-lines-you-read-fread">1. Limit the number of lines you read (<code>fread</code>)<a href="#1-limit-the-number-of-lines-you-read-fread" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>Limiting the number of lines you read is easy. Just use the <code>nrows</code> and/or <code>skip</code> option (available to both <code>read.table</code> and <code>fread</code>). <code>skip</code> can be used to skip a number of rows, but you can also pass a string to this parameter causing <code>fread</code> to only start reading lines from the first line matching that string. Let&rsquo;s say we only want to start reading lines after we find a line matching the pattern <code>801,2014-06-29</code>. We can do that like this:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;Number of lines in full data set: %s&#34;</span>, <span style="color:#00a">nrow</span>(allData))</code></pre></div>
@@ -355,7 +369,7 @@ data</code></pre></div>
 
 <p>Skipping rows this way is obviously not giving you the entire dataset, so this strategy is only useful for doing exploratory analysis on a subset of your data. Note that also <code>read_delim</code> provides a <code>n_max</code> argument to limit the number of lines to read. If you want to explore the whole dataset, limiting the number of columns you read can be a more useful strategy.</p>
 
-<h3 id="2-limit-the-number-of-columns-you-read-fread">2. Limit the number of columns you read (<code>fread</code>)</h3>
+<h3 id="2-limit-the-number-of-columns-you-read-fread">2. Limit the number of columns you read (<code>fread</code>)<a href="#2-limit-the-number-of-columns-you-read-fread" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>If you only need 4 columns of the 21 columns present in the file, you can tell <code>fread</code> to only select those 4. This can have a major impact on the memory footprint of your data. The option you need for this is: <code>select</code>. With this, you can specify a number of columns to keep. The opposite - specifying the columns you want to drop - can be accomplished with the <code>drop</code> option.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">fourColumns = fread(csv.name, select = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;device_info_serial&#34;</span>, <span style="color:#a50">&#34;date_time&#34;</span>, 
@@ -370,11 +384,11 @@ data</code></pre></div>
 
 <p>The difference might not be as large as you would expect. R objects claim more memory then needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.</p>
 
-<h3 id="3-limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf">3. Limiting both the number of rows and the number of columns using <code>sqldf</code></h3>
+<h3 id="3-limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf">3. Limiting both the number of rows and the number of columns using <code>sqldf</code><a href="#3-limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>The <a href="https://cran.r-project.org/web/packages/sqldf/sqldf.pdf" target="_blank">sqldf package</a> allows you to run SQL-like queries on a file, resulting in only a selection of the file being read. It allows you to limit both the number of lines and the number of rows at the same time. In the background, this actually creates a sqlite database on the fly to execute the query. Consider using the package when starting from a csv file, but the actual strategy boils down to making a sqlite database file of your data. See <a href="#the-database-file-strategy">this section below</a> to learn how to interact with those and create a SQlite database from a CSV-file.</p>
 
-<h3 id="4-streaming-data">4. Streaming data</h3>
+<h3 id="4-streaming-data">4. Streaming data<a href="#4-streaming-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p><strong>Short:</strong> streaming a file in R is a bad idea. If you are interested why, read the rest of this section.</p>
 
@@ -420,9 +434,9 @@ qplot(n, execTime, data = pdata, color = algorithm,
       xlab = <span style="color:#a50">&#34;number of lines read&#34;</span>, ylab = <span style="color:#a50">&#34;execution time (s)&#34;</span>)</code></pre></div>
 <p><img src="index_files/figure-markdown_github/streamexample-1.png" alt="" /></p>
 
-<h2 id="the-database-file-strategy">The database file strategy</h2>
+<h2 id="the-database-file-strategy">The database file strategy<a href="#the-database-file-strategy" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<h3 id="working-with-sqlite-databases">Working with SQLite databases</h3>
+<h3 id="working-with-sqlite-databases">Working with SQLite databases<a href="#working-with-sqlite-databases" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>SQLite databases are single file databases meaning you can simply download them, store them in a folder or share them with colleagues. Similar to a csv. They are however more powerful than csv&rsquo;s because of two important features:</p>
 
@@ -500,7 +514,7 @@ dbListTables(db)</code></pre></div>
 
 <p>Remark that we use the <code>sprintf</code> function to dynamically replace the serial id in the sqlite query we will execute. For each loop, the <code>%d</code> is replaced by the value of the serial id of the respective loop. Read the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/sprintf.html" target="_blank">manual</a> of the <code>sprintf</code> function for more information and options.</p>
 
-<h3 id="interacting-with-sqlite-databases-using-dplyr">Interacting with SQLite databases using <code>dplyr</code></h3>
+<h3 id="interacting-with-sqlite-databases-using-dplyr">Interacting with SQLite databases using <code>dplyr</code><a href="#interacting-with-sqlite-databases-using-dplyr" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>If you&rsquo;re not comfortable with writing queries in SQL, R has a great alternative: <code>dplyr</code>. <code>dplyr</code> can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(dplyr)
@@ -527,7 +541,7 @@ results &lt;- bird_tracking %&gt;%
 
 <p>Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use <code>dplyr</code> with a SQLite database, head over to <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html" target="_blank">this vignette</a>.</p>
 
-<h3 id="create-a-sqlite-databases-from-a-csv-file">Create a SQLite databases from a CSV file</h3>
+<h3 id="create-a-sqlite-databases-from-a-csv-file">Create a SQLite databases from a CSV file<a href="#create-a-sqlite-databases-from-a-csv-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>In the case you have a CSV file available and you would like to query the data using SQL queries or with <code>dplyr</code> as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with <code>dplyr</code> as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with.</p>
 
@@ -593,7 +607,6 @@ results &lt;- bird_tracking %&gt;%
 </code></pre>
 
 <p>Remark that the dates are properly handled, by making sure the date representation inside SQlite is the converted string version.</p>
-
 </div>
 
   
@@ -648,34 +661,7 @@ results &lt;- bird_tracking %&gt;%
       </main>
 
       <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/inbovlaanderen' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
+        <div class='container sep-before'><div class='copyright'>
   <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
 </div>
 

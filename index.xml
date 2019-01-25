@@ -6,21 +6,10 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Create tutorial</title>
-      <link>https://inbo.github.io/tutorials/create_tutorial/</link>
-      <pubDate>Fri, 14 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/create_tutorial/</guid>
-      <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
-In this page, the roadmap towards a new tutorial will be explained.
-Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
-    </item>
     
     <item>
       <title>Books and articles on statistics</title>
@@ -73,6 +62,17 @@ Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a sc
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&amp;rsquo;s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the discipline as a whole, its perception, principles ,etc., while they often also give an overview of scientific computing workflows.</description>
+    </item>
+    
+    <item>
+      <title>Create tutorial</title>
+      <link>https://inbo.github.io/tutorials/create_tutorial/</link>
+      <pubDate>Fri, 14 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/create_tutorial/</guid>
+      <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
+In this page, the roadmap towards a new tutorial will be explained.
+Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
     </item>
     
     <item>

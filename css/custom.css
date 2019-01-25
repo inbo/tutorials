@@ -1,12 +1,74 @@
 /* Custom CSS */
 
-pre {
-    background: #F5F5F5;
-    color: #808080;
-    border: 0;
-}
+/* SIDEBAR */
 
-.highlight pre {
-    border: 1px solid #dcdcdc;
-    color: #212121;
-}
+/* Add gray background to sidebar */
+.sidebar {
+    background-color: #f5f5f5;
+    }
+
+    .sidebar .sub-menu-toggler {
+        background-color: transparent;
+    }
+
+/* CONTENT */
+
+#content {
+    }
+
+    /* Use fuchsia links in content */
+    #content a,
+    #content a:hover,
+    #content a:active,
+    #content a:visited {
+        color: #c04384!important;
+        border-bottom: none!important;
+        }
+
+        #content a:hover {
+            text-decoration: underline;
+        }
+
+    /* Style anchor links (set in layouts/partials/entry.html) */
+    #content .anchor {
+        margin-left: 10px;
+        text-decoration: none;
+        visibility: hidden;
+        }
+        #content .anchor svg path {
+            fill: #c04384;
+        }
+
+        #content h1:hover .anchor,
+        #content h2:hover .anchor,
+        #content h3:hover .anchor,
+        #content h4:hover .anchor {
+            visibility: visible;
+        }
+
+    /* Use white code blocks */
+    #content .highlight pre {
+        border: 1px solid #bdbdbd;
+        color: #212121;
+    }
+
+    /* Use gray output blocks */
+    #content pre {
+        background: #f5f5f5;
+        border: 0;
+        color: #808080;
+    }
+
+    /* Don't squize wide tables, but add horizontal scroll */
+    #content table {
+        border: none;
+        border-collapse: collapse;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        }
+
+        #content th,
+        #content td {
+            border-width: 1px;
+        }
