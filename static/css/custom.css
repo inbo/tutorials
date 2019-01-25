@@ -9,6 +9,18 @@
         background-color: transparent;
     }
 
+/* Use fuchsia links in content */
+#content a,
+#content a:focus,
+#content a:hover,
+#content a:visited {
+    color: #c04384!important;
+    border-bottom: none!important;
+    }
+
+    #content a:hover {
+        text-decoration: underline;
+    }
 
 /* Use white code blocks */
 .highlight pre {
