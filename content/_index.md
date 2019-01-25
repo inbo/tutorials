@@ -1,9 +1,7 @@
 ---
 title: Home
-menu:
-  - main
-  - sidebar
-weight: -270
+menu: sidebar
+weight: -100
 ---
 
 > Welcome to the INBO tutorial pages

@@ -54,7 +54,7 @@ showReadingTime = true
 showLastmod = true
 taxonomyCloudShuffle = false
 accentColor = "#c04384"
-hideMainMenu = false
+hideMainMenu = true
 
 [params.sidebar]
 enable = true
@@ -135,11 +135,11 @@ tag = "tags"
 #categories = "/categories/"
 content = "/:slug/"
 
-[[menu.main]]
-name = "Source"
-weight = -100
+[[menu.sidebar]]
+name = "Repository"
 identifier = "repository"
 url = "https://github.com/inbo/tutorials"
+weight = 110
 
 [blackfriday]
 hrefTargetBlank = true

@@ -1,5 +1,5 @@
 ---
 title: Categories
-menu: main
-weight: -200
+menu: sidebar
+weight: 100
 ---
