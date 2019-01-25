@@ -1,16 +1,12 @@
 ---
 title: Home
-menu:
-  - main
-  - sidebar
-weight: -270
+menu: sidebar
+weight: -100
 ---
-
-> Welcome to the INBO tutorial pages
 
 ## Introduction
 
-The tutorials website of INBO provides a wide range of instructions on the installation, use and development of (research) software at the [Research Institute of Nature and Forest (INBO)](https://www.inbo.be/en). It provides a collection of tips and tricks, more in depth tutorials, instructions, links to interesting resources and howto's written for and by INBO people.
+Welcome to the tutorials website of the [Research Institute for Nature and Forest (INBO)](https://www.inbo.be/en). It contains a collection of guides, tutorials and further reading material on the installation, use and development of **(research) software** at our institute.
 
 ## Getting started
 

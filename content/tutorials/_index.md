@@ -1,10 +1,5 @@
 ---
 title: Tutorials
-linkTitle: tutorials
-menu:
-  main:
-  sidebar:
-    identifier: tutorials
-weight: -250
-slug: tutorials
+menu: sidebar
+weight: 20
 ---
