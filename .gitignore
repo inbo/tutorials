@@ -43,12 +43,15 @@ rsconnect/
 *.rds
 token
 
-# Public folder
-public/
-
 # npm & JS libaries
 node_modules/
 package-lock.json
+
+# Public folder
+public/
+
+# Certain content files
+content/**/*.html
 
 # Temporary download files
 2016-04-20-processed-logs*
