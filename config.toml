@@ -39,9 +39,9 @@ gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 
 [params.copyright]
 prefix = ""
-holder = "Institute of Nature and Forest research"
+holder = "Research Institute for Nature and Forest (INBO)"
 startYear = "2018"
-suffix = ""
+suffix = "<a href='http://creativecommons.org/licenses/by/4.0/'>Some rights reserved</a>."
 
 [params.settings]
 # date & time format: https://golang.org/pkg/time/
