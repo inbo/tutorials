@@ -1,13 +1,13 @@
 # About Widget config
 [about]
-title = " "                            # default: .Site.Title
-description = " "                      # default: .Site.Params.info.description
+title = " "                           # default: .Site.Title
+description = " "                     # default: .Site.Params.info.description
 logo = "/images/logo.png"             # default: "/images/logo.png"
 
 # Breadcrumbs Widget config
 [breadcrumbs]
-separator = "/"                      # default: "/"
-excludeParents = ["page"]            # default: ["page"]
+separator = "/"                       # default: "/"
+excludeParents = ["page"]             # default: ["page"]
 
 # Recent Posts Widget config
 [recent_posts]
@@ -33,4 +33,4 @@ platforms = ["github", "twitter", "facebook", "email"]
 [taxonomy_cloud]
 title = ""                            # default: Plural Name for `taxonomyCloud.taxonomy`
 taxonomy = "tags"                     # default: "tags"
-shuffle = true                        # default: true
+shuffle = false                       # default: true
