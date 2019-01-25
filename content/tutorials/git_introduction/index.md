@@ -3,7 +3,7 @@ title: Git(hub) introduction
 description: INBO Git workshop and workflow
 author: Stijn Van Hoey
 date: 2019-01-24
-categories: ["development"]
+categories: ["version control"]
 tags: ["git", "github", "version control"]
 ---
 
