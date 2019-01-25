@@ -11,8 +11,8 @@ excludeParents = ["page"]             # default: ["page"]
 
 # Recent Posts Widget config
 [recent_posts]
-title = "Recent tutorials"                            # default: "Recent Posts"
-length = 5                            # default: 5
+title = "Recent entries"              # default: "Recent Posts"
+length = 10                           # default: 5
 excludeTypes = ["page"]               # default: ["page"]
 
 # Search Widget config
