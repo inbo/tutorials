@@ -35,3 +35,15 @@ pre {
     color: #808080;
 }
 
+/* Don't squize wide tables, but add horizontal scroll */
+table {
+    border: none;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    }
+
+    th, td {
+        border-width: 1px;
+    }
