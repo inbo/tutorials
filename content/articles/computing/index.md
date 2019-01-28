@@ -46,6 +46,8 @@ Focus on version control workflows
 
 -   Bryan (2017): rationale, workflows and tools regarding version
     control for project organization
+-   Bryan *et al.* (2019): getting started with git and github workflows
+    in RStudio
 
 Bibliography
 ------------
@@ -58,6 +60,9 @@ Bryan J. (2017). Excuse me, do you have a moment to talk about version
 control? PeerJ Preprints 5: e3159v2. URL:
 <https://peerj.com/preprints/3159>. DOI:
 [10.7287/peerj.preprints.3159v2](https://doi.org/10.7287/peerj.preprints.3159v2).
+
+Bryan J., the STAT 545 TAs & Hester J. (2019). Happy Git and GitHub for
+the useR. URL: <https://happygitwithr.com/>.
 
 Cooper N. & Hsing P.-Y. (Eds.) (2017). A guide to reproducible code in
 ecology and evolution. BES Guides to Better Science. British Ecological
