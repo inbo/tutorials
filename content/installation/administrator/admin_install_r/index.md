@@ -81,8 +81,8 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
       ypinch = 300,
       yaml.eval.expr = TRUE,
       repos = c(
-        RStudio = "http://cloud.r-project.org/",
-        INLA = "http://inla.r-inla-download.org/R/stable"
+        RStudio = "https://cloud.r-project.org/",
+        INLA = "https://inla.r-inla-download.org/R/stable"
       ),
       install.packages.check.source = "no",
       install.packages.compile.from.source = "never"
