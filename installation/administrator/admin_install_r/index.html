@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='r'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2017-10-18T00:25:57&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T00:25:57&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.54-DEV" />
+<meta name="generator" content="Hugo 0.55.0-DEV" />
 
   <title>Install R • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/installation/administrator/admin_install_r/'>
@@ -307,7 +307,7 @@ Improve this page</a>
 <li>Vink de gewenste extra snelkoppelingen <em>aan</em> (default is ok), alle register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
 <li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie afgelopen is.</li>
 <li>Ga naar <code>Start</code> en tik &ldquo;Omgevingsvariabelen&rdquo; in het veld <code>Programma's en variabelen zoeken</code>. Selecteer <code>De omgevingsvariabelen van het systeem bewerken</code>. Selecteer het tabblad <code>Geavanceerd</code> en klik op de knop <code>Omgevingsvariabelen</code>. Ga na of er een systeemvariabele <code>R_LIBS_USER</code> met waarde <code>C:/R/library</code> bestaat[1]. Indien niet, maak deze aan met de knop <code>Nieuw</code>. Sluit al deze schermen via de <code>OK</code> knop.</li>
-<li>Kopieer het bestand <a href="../Rprofile.site"><code>Rprofile.site</code></a> naar <code>etc</code> in de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand overschrijven.</li>
+<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand overschrijven.</li>
 <li>Zorg dat de gebruiker schrijfrechten heeft voor <code>C:\Program Files\R\R-3.x.y\library</code> en <code>C:\R\library</code></li>
 </ol>
 
@@ -321,7 +321,7 @@ Improve this page</a>
 <li><code>C:\Program Files\R\R-3.x.y\library</code></li>
 </ul></li>
 <li>Systeemvariable <code>R_LIBS_USER</code> instellen op <code>C:/R/library</code> (<strong>verplicht forward slashes</strong>)</li>
-<li><a href="../Rprofile.site"><code>Rprofile.site</code></a> in <code>C:\Program Files\R\R-3.x.y\etc</code> overschrijven</li>
+<li><a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> in <code>C:\Program Files\R\R-3.x.y\etc</code> overschrijven</li>
 </ul>
 
 <p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.</p>
@@ -343,7 +343,7 @@ Improve this page</a>
 <li>Geef de map voor het start menu en klik op <em>Volgende</em>. Je mag de standaardwaarde gebruiken.</li>
 <li>Vink de gewenste extra snelkoppelingen <em>aan</em> (default is ok), alle register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
 <li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie afgelopen is.</li>
-<li>Kopieer het bestand <a href="../Rprofile.site"><code>Rprofile.site</code></a> naar <code>etc</code> in de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand overschrijven.</li>
+<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand overschrijven.</li>
 <li>Zorg dat de gebruiker schrijfrechten heeft voor <code>C:\Program Files\R\R-3.x.y\library</code></li>
 <li>De nieuwe R versie is klaar voor gebruik. De gebruiker moet <code>RStudio</code> bijwerken.</li>
 </ol>
@@ -365,8 +365,8 @@ Improve this page</a>
   ypinch = 300,
   yaml.eval.expr = TRUE,
   repos = c(
-    RStudio = &quot;http://cloud.r-project.org/&quot;,
-    INLA = &quot;http://inla.r-inla-download.org/R/stable&quot;
+    RStudio = &quot;https://cloud.r-project.org/&quot;,
+    INLA = &quot;https://inla.r-inla-download.org/R/stable&quot;
   ),
   install.packages.check.source = &quot;no&quot;,
   install.packages.compile.from.source = &quot;never&quot;
