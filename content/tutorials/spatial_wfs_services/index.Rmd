@@ -118,7 +118,7 @@ The essential part is to set up the proper query! The required data for the serv
 Formatting all this information in a query and executing the request (`GET`) towards the service:
 
 ```{r}
-query = list(service = "WFS",
+query <- list(service = "WFS",
              request = "GetFeature",
              version = "1.1.0",
              typeName = "bodemkaart:bodemtypes",
