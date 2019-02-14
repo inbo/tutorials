@@ -292,14 +292,15 @@ Improve this page</a>
 
 <h1 id="download-vector-data-from-wfs">Download vector data from WFS<a href="#download-vector-data-from-wfs" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 
-<p>This examples illustrates how you can download information from a WFS for further use in R. First of all we need to URL of the service. Note that we appended the protocol <code>WFS:</code> in front of the URL. <code>ogrinfo()</code> from <code>gdalUtils</code> is used to extra some information on the service. <code>cat()</code> prints this information. The summary indicates that the service provides three layers: &ldquo;BWK:Bwkhab&rdquo;, &ldquo;BWK:Bwkfauna&rdquo; and &ldquo;BWK:Hab3260&rdquo;. It also reveals the kind of layers, in this case two polygon layers and one line layer.</p>
+<p>This examples illustrates how you can download information from a WFS for further use in R. First of all we need the URL of the service. Note that we appended the protocol <code>WFS:</code> in front of the URL. <code>ogrinfo()</code> from <code>gdalUtils</code> is used to return some extra information on the service. <code>cat()</code> prints this information. The summary indicates that the service provides three layers: &ldquo;BWK:Bwkhab&rdquo;, &ldquo;BWK:Bwkfauna&rdquo; and &ldquo;BWK:Hab3260&rdquo;. It also reveals the kind of layers, in this case two polygon layers and one line layer.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_bwk &lt;- <span style="color:#a50">&#34;WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs&#34;</span>
 wfs_weather &lt;- <span style="color:#a50">&#34;WFS:http://opendata.meteo.be/service/aws/ows&#34;</span>
 <span style="color:#00a">library</span>(gdalUtils)
-info &lt;- ogrinfo(wfs_bwk, so = <span style="color:#00a">TRUE</span>)
+info &lt;- ogrinfo(wfs_bwk, 
+                so = <span style="color:#00a">TRUE</span>, 
+                ro = <span style="color:#00a">TRUE</span>)
 <span style="color:#00a">cat</span>(info, sep = <span style="color:#a50">&#34;\n&#34;</span>)</code></pre></div>
-<pre><code>## Had to open data source read-only.
-## INFO: Open of `WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs'
+<pre><code>## INFO: Open of `WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs'
 ##       using driver `WFS' successful.
 ## Metadata:
 ##   ABSTRACT=Directe downloadservice voor de Biologische Waarderingskaart en Natura 2000 Habitatkaart.
@@ -347,93 +348,123 @@ info &lt;- ogrinfo(wfs_bwk, so = <span style="color:#00a">TRUE</span>)
 ##  GDAL binary built with GEOS: TRUE 
 ##  Loaded PROJ.4 runtime: Rel. 4.9.2, 08 September 2015, [PJ_VERSION: 492]
 ##  Path to PROJ.4 shared files: (autodetected)
-##  Linking to sp version: 1.2-3
+##  Linking to sp version: 1.3-1
 </code></pre>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwkhab &lt;- readOGR(<span style="color:#a50">&#34;bwkhab.geojson&#34;</span>, stringsAsFactors = <span style="color:#00a">FALSE</span>)</code></pre></div>
 <pre><code>## OGR data source with driver: GeoJSON 
-## Source: &quot;/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/spatial_wfs_services/bwkhab.geojson&quot;, layer: &quot;BWK:Bwkhab&quot;
-## with 314 features
-## It has 32 fields
+## Source: &quot;/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_wfs_services/bwkhab.geojson&quot;, layer: &quot;BWK:Bwkhab&quot;
+## with 551 features
+## It has 28 fields
 </code></pre>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">summary</span>(bwkhab)</code></pre></div>
 <pre><code>## Object of class SpatialPolygonsDataFrame
 ## Coordinates:
 ##        min      max
-## x 137307.1 146356.1
-## y 153734.4 165353.8
+## x 137307.1 146355.7
+## y 153734.4 165353.4
 ## Is projected: TRUE 
 ## proj4string :
-## [+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90
-## +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438
+## [+proj=lcc +lat_1=51.16666723333333
+## +lat_2=49.8333339 +lat_0=90
+## +lon_0=4.367486666666666
+## +x_0=150000.013 +y_0=5400088.438
 ## +ellps=intl
 ## +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747
 ## +units=m +no_defs]
 ## Data attributes:
-##     gml_id               UIDN             OIDN            TAG           
-##  Length:314         Min.   :  1184   Min.   :  1184   Length:314        
-##  Class :character   1st Qu.:175124   1st Qu.:173440   Class :character  
-##  Mode  :character   Median :338130   Median :335492   Mode  :character  
-##                     Mean   :332296   Mean   :327872                     
-##                     3rd Qu.:491850   3rd Qu.:488782                     
-##                     Max.   :659382   Max.   :637654                     
-##      EVAL              EENH1              EENH2          
-##  Length:314         Length:314         Length:314        
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##     EENH3              EENH4              EENH5          
-##  Length:314         Length:314         Length:314        
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##     EENH6              EENH7              EENH8          
-##  Length:314         Length:314         Length:314        
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##       V1                 V2                 V3           
-##  Length:314         Length:314         Length:314        
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##      HERK               INFO             BWKLABEL        
-##  Length:314         Length:314         Length:314        
-##  Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character  
-##                                                          
-##                                                          
-##                                                          
-##      HAB1               PHAB1            HAB2               PHAB2       
-##  Length:314         Min.   : 40.00   Length:314         Min.   : 0.000  
-##  Class :character   1st Qu.:100.00   Class :character   1st Qu.: 0.000  
-##  Mode  :character   Median :100.00   Mode  :character   Median : 0.000  
-##                     Mean   : 95.83                      Mean   : 4.108  
-##                     3rd Qu.:100.00                      3rd Qu.: 0.000  
-##                     Max.   :100.00                      Max.   :50.000  
-##      HAB3               PHAB3              HAB4               PHAB4  
-##  Length:314         Min.   : 0.00000   Length:314         Min.   :0  
-##  Class :character   1st Qu.: 0.00000   Class :character   1st Qu.:0  
-##  Mode  :character   Median : 0.00000   Mode  :character   Median :0  
-##                     Mean   : 0.06369                      Mean   :0  
-##                     3rd Qu.: 0.00000                      3rd Qu.:0  
-##                     Max.   :20.00000                      Max.   :0  
-##      HAB5               PHAB5     HERKHAB            HERKPHAB        
-##  Length:314         Min.   :0   Length:314         Length:314        
-##  Class :character   1st Qu.:0   Class :character   Class :character  
-##  Mode  :character   Median :0   Mode  :character   Mode  :character  
-##                     Mean   :0                                        
-##                     3rd Qu.:0                                        
-##                     Max.   :0                                        
-##   HABLEGENDE       
-##  Length:314        
+##     gml_id               UIDN        
+##  Length:551         Min.   : 703488  
+##  Class :character   1st Qu.: 725390  
+##  Mode  :character   Median : 735106  
+##                     Mean   : 798615  
+##                     3rd Qu.: 749762  
+##                     Max.   :1263600  
+##       OIDN            TAG           
+##  Min.   :  1184   Length:551        
+##  1st Qu.:701212   Class :character  
+##  Median :706243   Mode  :character  
+##  Mean   :659684                     
+##  3rd Qu.:712642                     
+##  Max.   :740174                     
+##      EVAL              EENH1          
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##      HERK             BWKLABEL        
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##      HAB1               PHAB1       
+##  Length:551         Min.   : 50.00  
+##  Class :character   1st Qu.:100.00  
+##  Mode  :character   Median :100.00  
+##                     Mean   : 97.08  
+##                     3rd Qu.:100.00  
+##                     Max.   :100.00  
+##      PHAB2            PHAB3        
+##  Min.   : 0.000   Min.   : 0.0000  
+##  1st Qu.: 0.000   1st Qu.: 0.0000  
+##  Median : 0.000   Median : 0.0000  
+##  Mean   : 2.786   Mean   : 0.1361  
+##  3rd Qu.: 0.000   3rd Qu.: 0.0000  
+##  Max.   :45.000   Max.   :20.0000  
+##      PHAB4       PHAB5     HERKHAB         
+##  Min.   :0   Min.   :0   Length:551        
+##  1st Qu.:0   1st Qu.:0   Class :character  
+##  Median :0   Median :0   Mode  :character  
+##  Mean   :0   Mean   :0                     
+##  3rd Qu.:0   3rd Qu.:0                     
+##  Max.   :0   Max.   :0                     
+##    HERKPHAB          HABLEGENDE       
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##     EENH2              EENH3          
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##     EENH4               HAB2          
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##      HAB3              EENH5          
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##      INFO                V1           
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##      HAB4              EENH6          
+##  Length:551         Length:551        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+##                                       
+##       V2           
+##  Length:551        
 ##  Class :character  
 ##  Mode  :character  
 ##                    
@@ -456,7 +487,7 @@ info &lt;- ogrinfo(wfs_bwk, so = <span style="color:#00a">TRUE</span>)
 <p>Our example data point (in Lambert 72):</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x_lam &lt;- <span style="color:#099">173995.67</span>
 y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
-<p>From this point we know the data, so we can verify the result (in dutch):</p>
+<p>From this point we know the data, so we can verify the result (in Dutch):</p>
 
 <ul>
 <li>Bodemtype: s-Pgp3(v)</li>
@@ -472,7 +503,7 @@ y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
                             <span style="color:#a50">&#34;Bodemtype&#34;</span>)</code></pre></div>
 <p>The URL of the wfs service of the soil map of the Flemish region:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_bodemtypes &lt;- <span style="color:#a50">&#34;https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?&#34;</span></code></pre></div>
-<p>The essential part is to set up the proper query! The required data for the service is defined in the <a href="https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&amp;request=GetCapabilities&amp;service=wfs" target="_blank">metadata</a> description. This can look a bit overwhelming in the start, but is a matter of looking for some specific elements of the (XML) document:</p>
+<p>The essential part is to set up the proper query! The required data for the service is defined in the <a href="https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&amp;request=GetCapabilities&amp;service=wfs" target="_blank">metadata</a> description. This can look a bit overwhelming at the start, but is a matter of looking for some specific elements of the (XML) document:</p>
 
 <ul>
 <li><code>service</code> (WFS), <code>request</code> (GetFeature) and <code>version</code> (1.1.0) are mandatory fields (see below)</li>
@@ -480,11 +511,11 @@ y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
 <li><code>outputFormat</code>: The supported output formats are enlisted in <code>&lt;ows:Parameter name=&quot;outputFormat&quot;&gt;</code>. As the service provides CSV as output, this is a straightforward option. <code>json</code> is another popular one.</li>
 <li><code>propertyname</code>: A list of the attribute table fields (cfr. supra). A full list of the Flanders soil map is provided <a href="https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType" target="_blank">here</a>.</li>
 <li>We also define the <code>CRS</code>, using the <a href="http://spatialreference.org/" target="_blank">EPSG code</a>.</li>
-<li><code>CQL_FILTER</code>: Define the spatial operator, in this case <code>INTERSECTS</code> of the WFS <code>geom</code> and our <code>POINT</code> coordinate. The operators are enlisted in the <code>&lt;fes:SpatialOperators&gt;</code> field.</li>
+<li><code>CQL_FILTER</code>: Define the spatial operator, in this case <code>INTERSECTS</code> of the WFS <code>geom</code> and our <code>POINT</code> coordinate. The operators are enlisted in the <code>&lt;ogc:SpatialOperators&gt;</code> field.</li>
 </ul>
 
 <p>Formatting all this information in a query and executing the request (<code>GET</code>) towards the service:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">query = <span style="color:#0aa">list</span>(service = <span style="color:#a50">&#34;WFS&#34;</span>,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">query &lt;- <span style="color:#0aa">list</span>(service = <span style="color:#a50">&#34;WFS&#34;</span>,
              request = <span style="color:#a50">&#34;GetFeature&#34;</span>,
              version = <span style="color:#a50">&#34;1.1.0&#34;</span>,
              typeName = <span style="color:#a50">&#34;bodemkaart:bodemtypes&#34;</span>,
@@ -497,12 +528,12 @@ y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
 result &lt;- GET(wfs_bodemtypes, query = query)
 result</code></pre></div>
 <pre><code>## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&amp;request=GetFeature&amp;version=1.1.0&amp;typeName=bodemkaart%3Abodemtypes&amp;outputFormat=csv&amp;propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&amp;CRS=EPSG%3A31370&amp;CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-##   Date: 2018-12-13 15:13
+##   Date: 2019-02-14 21:25
 ##   Status: 200
 ##   Content-Type: text/csv;charset=UTF-8
 ##   Size: 129 B
-## FID,Bodemtype,Bodemserie,Textuurklasse,Drainageklasse
-## bodemtypes.72727,s-Pgp3(v),Pgp,licht zandleem,&quot;uiterst nat, gereduceerd&quot;
+## FID,Bodemtype,Bodemserie,Textuurklasse,Dra...
+## bodemtypes.72727,s-Pgp3(v),Pgp,licht zandl...
 </code></pre>
 
 <p>The result is not yet formatted to be used as a dataframe. We need to use a small <em>trick</em> using the <code>textConnection</code> function to get from the result (bits) towards a readable output in a dataframe:</p>
