@@ -25,7 +25,7 @@ In computing, the Open Geospatial Consortium **Web Feature Service (WFS)** Inter
 
 # Download vector data from WFS
 
-This examples illustrates how you can download information from a WFS for further use in R. First of all we need to URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to extra some information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
+This examples illustrates how you can download information from a WFS for further use in R. First of all we need the URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to return some extra information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
 
 ```{r}
 wfs_bwk <- "WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
@@ -84,7 +84,7 @@ x_lam <- 173995.67
 y_lam <- 212093.44
 ```
 
-From this point we know the data, so we can verify the result (in dutch):
+From this point we know the data, so we can verify the result (in Dutch):
 
 * Bodemtype:	s-Pgp3(v)
 * Bodemserie:	Pgp
@@ -104,7 +104,7 @@ The URL of the wfs service of the soil map of the Flemish region:
 wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
 ```
 
-The essential part is to set up the proper query! The required data for the service is defined in the [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs) description. This can look a bit overwhelming in the start, but is a matter of looking for some specific elements of the (XML) document:
+The essential part is to set up the proper query! The required data for the service is defined in the [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs) description. This can look a bit overwhelming at the start, but is a matter of looking for some specific elements of the (XML) document:
 
 * `service` (WFS), `request` (GetFeature) and `version` (1.1.0) are mandatory fields (see below)
 * `typeName`: Look at the different `<FeatureType...` enlisted and pick the `<Name>` of the one you're interested in. In this particular case `bodemkaart:bodemtypes` is the only one available.
