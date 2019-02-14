@@ -31,7 +31,9 @@ This examples illustrates how you can download information from a WFS for furthe
 wfs_bwk <- "WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
 wfs_weather <- "WFS:http://opendata.meteo.be/service/aws/ows"
 library(gdalUtils)
-info <- ogrinfo(wfs_bwk, so = TRUE)
+info <- ogrinfo(wfs_bwk, 
+                so = TRUE, 
+                ro = TRUE)
 cat(info, sep = "\n")
 ```
 
