@@ -31,7 +31,7 @@ In de onderstaande tekst moet je in `R-3.x.y` zowel `x` als `y` vervangen door e
 9.  Vink de gewenste extra snelkoppelingen *aan* (default is ok), alle register entries *aan* en klik op *Volgende*.
 10. R wordt nu geïnstalleerd. Klik op *Voltooien* als de installatie afgelopen is.
 11. Ga naar `Start` en tik "Omgevingsvariabelen" in het veld `Programma's en variabelen zoeken`. Selecteer `De omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat[1]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit al deze schermen via de `OK` knop.
-12. Kopieer het bestand [`Rprofile.site`](../Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand overschrijven.
+12. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand overschrijven.
 13. Zorg dat de gebruiker schrijfrechten heeft voor `C:\Program Files\R\R-3.x.y\library` en `C:\R\library`
 
 #### Afwijkingen t.o.v. default installatie
@@ -40,7 +40,7 @@ In de onderstaande tekst moet je in `R-3.x.y` zowel `x` als `y` vervangen door e
     -   `C:\R\library`
     -   `C:\Program Files\R\R-3.x.y\library`
 -   Systeemvariable `R_LIBS_USER` instellen op `C:/R/library` (**verplicht forward slashes**)
--   [`Rprofile.site`](../Rprofile.site) in `C:\Program Files\R\R-3.x.y\etc` overschrijven
+-   [`Rprofile.site`](Rprofile.site) in `C:\Program Files\R\R-3.x.y\etc` overschrijven
 
 **R mag niet met admininstratorrechten gestart worden.** Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.
 
@@ -60,7 +60,7 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 8.  Geef de map voor het start menu en klik op *Volgende*. Je mag de standaardwaarde gebruiken.
 9.  Vink de gewenste extra snelkoppelingen *aan* (default is ok), alle register entries *aan* en klik op *Volgende*.
 10. R wordt nu geïnstalleerd. Klik op *Voltooien* als de installatie afgelopen is.
-11. Kopieer het bestand [`Rprofile.site`](../Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand overschrijven.
+11. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand overschrijven.
 12. Zorg dat de gebruiker schrijfrechten heeft voor `C:\Program Files\R\R-3.x.y\library`
 13. De nieuwe R versie is klaar voor gebruik. De gebruiker moet `RStudio` bijwerken.
 
@@ -81,8 +81,8 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
       ypinch = 300,
       yaml.eval.expr = TRUE,
       repos = c(
-        RStudio = "http://cloud.r-project.org/",
-        INLA = "http://inla.r-inla-download.org/R/stable"
+        RStudio = "https://cloud.r-project.org/",
+        INLA = "https://inla.r-inla-download.org/R/stable"
       ),
       install.packages.check.source = "no",
       install.packages.compile.from.source = "never"
