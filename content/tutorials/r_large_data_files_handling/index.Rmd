@@ -57,7 +57,7 @@ if (!file.exists(db.name)) {
 }
 ```
 
-## Loading a large dataset: use `fread` or `readr` instead of `read`. {#loadentire}
+## Loading a large dataset: use `fread()` or functions from `readr` instead of `read.xxx()`. {#loadentire}
 
 ```{r loaddatatable, warning=FALSE, message=FALSE}
 library("data.table")
