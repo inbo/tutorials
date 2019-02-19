@@ -96,7 +96,7 @@ If you are not able to read in the data file, because it does not fit in memory 
 
 ### 1. Limit the number of lines you read (`fread`)
 
-Limiting the number of lines you read is easy. Just use the `nrows` and/or `skip` option (available to both `read.table` and `fread`). `skip` can be used to skip a number of rows, but you can also pass a string to this parameter causing `fread` to only start reading lines from the first line matching that string. Let's say we only want to start reading lines after we find a line matching the pattern `801,2014-06-29`. We can do that like this:
+Limiting the number of lines you read is easy. Just use the `nrows` and/or `skip` option (available to both `read.table` and `fread`). `skip` can be used to skip a number of rows, but you can also pass a string to this parameter causing `fread` to only start reading lines from the first line matching that string. Let's say we only want to start reading lines after we find a line matching the pattern `2015-06-12 15:14:39`. We can do that like this:
 
 ``` r
 sprintf("Number of lines in full data set: %s", nrow(allData))
