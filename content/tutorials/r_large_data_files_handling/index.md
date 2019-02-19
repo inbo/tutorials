@@ -4,7 +4,7 @@ description: "Handling large text files in R"
 author: "Bart Aelterman, Stijn Van Hoey"
 date: 2017-02-10
 categories: ["r"]
-tags: ["tidyverse", "r"]
+tags: ["tidyverse", "r", "database"]
 output: 
     md_document:
         preserve_yaml: true
@@ -56,8 +56,8 @@ if (!file.exists(db.name)) {
 }
 ```
 
-Loading a large dataset: use `fread` or `readr` instead of `read`.
-------------------------------------------------------------------
+Loading a large dataset: use `fread()` or functions from `readr` instead of `read.xxx()`.
+-----------------------------------------------------------------------------------------
 
 ``` r
 library("data.table")
@@ -82,7 +82,7 @@ data
 
 `fread` and `read_delim` are indeed much faster then the default `read.table`. However, the result of `fread` is a `data.table` and the result of `read_delim` is a `tibble`. Both are not a `data.frame`. The `data.table` package describes the `data.table` object as a more performant replacement for the `data.frame`. This means that selecting, filtering and aggregating data is much faster on a `data.table` compared to the standard `data.frame` but it requires you to use a slightly different syntax. A `tibble` is very similar to a `data.frame`, but provides more convenience when printing or subsetting the data table.
 
-You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started. You can also find the The `readr` package is also on [CRAN](https://cran.r-project.org/web/packages/readr/index.html). It belongs to a suite of R packages aiming to improve data manipulation in R, called [tidyverse](http://tidyverse.org/). More examples and explanation about `readr` is provided on the [readr website](http://readr.tidyverse.org/).
+You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started. The `readr` package is also on [CRAN](https://cran.r-project.org/web/packages/readr/index.html). It belongs to a suite of R packages aiming to improve data manipulation in R, called [tidyverse](http://tidyverse.org/). More examples and explanation about `readr` is provided on the [readr website](http://readr.tidyverse.org/).
 
 Data files that don't fit in memory
 -----------------------------------
@@ -96,7 +96,7 @@ If you are not able to read in the data file, because it does not fit in memory 
 
 ### 1. Limit the number of lines you read (`fread`)
 
-Limiting the number of lines you read is easy. Just use the `nrows` and/or `skip` option (available to both `read.table` and `fread`). `skip` can be used to skip a number of rows, but you can also pass a string to this parameter causing `fread` to only start reading lines from the first line matching that string. Let's say we only want to start reading lines after we find a line matching the pattern `801,2014-06-29`. We can do that like this:
+Limiting the number of lines you read is easy. Just use the `nrows` and/or `skip` option (available to both `read.table` and `fread`). `skip` can be used to skip a number of rows, but you can also pass a string to this parameter causing `fread` to only start reading lines from the first line matching that string. Let's say we only want to start reading lines after we find a line matching the pattern `2015-06-12 15:14:39`. We can do that like this:
 
 ``` r
 sprintf("Number of lines in full data set: %s", nrow(allData))
@@ -132,7 +132,7 @@ sprintf("Size of only four columns in memory: %s MB", utils::object.size(fourCol
 
     ## [1] "Size of only four columns in memory: 365.90692 MB"
 
-The difference might not be as large as you would expect. R objects claim more memory then needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.
+The difference might not be as large as you would expect. R objects claim more memory than needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.
 
 ### 3. Limiting both the number of rows and the number of columns using `sqldf`
 
