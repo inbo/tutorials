@@ -33,6 +33,16 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
     </item>
     
     <item>
+      <title>Reading large data files in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</guid>
+      <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
+tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
+    </item>
+    
+    <item>
       <title>Read data from INBO databases (SQL Server) with R</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_database_access/</link>
       <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>

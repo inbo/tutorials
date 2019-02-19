@@ -9,7 +9,7 @@
 <meta property='og:description' content='Handling large text files in R'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='tidyverse'><meta property='article:tag' content='r'><meta property='article:published_time' content='2017-02-10T00:00:00Z'/><meta property='article:modified_time' content='2017-02-10T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='tidyverse'><meta property='article:tag' content='r'><meta property='article:tag' content='database'><meta property='article:published_time' content='2017-02-10T00:00:00Z'/><meta property='article:modified_time' content='2017-02-10T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.55.0-DEV" />
 
@@ -95,7 +95,7 @@
       </li><li>
         <a href='/tutorials/tags/data/' style='font-size:1.0555555555555556em'>data</a>
       </li><li>
-        <a href='/tutorials/tags/database/' style='font-size:1.1111111111111112em'>database</a>
+        <a href='/tutorials/tags/database/' style='font-size:1.1666666666666667em'>database</a>
       </li><li>
         <a href='/tutorials/tags/development/' style='font-size:1.0555555555555556em'>development</a>
       </li><li>
@@ -325,7 +325,7 @@ db.url &lt;- <span style="color:#00a">paste</span>(<span style="color:#a50">&#34
     download.file(db.url, destfile = <span style="color:#00a">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
     gunzip(<span style="color:#00a">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
 }</code></pre></div>
-<h2 id="loading-a-large-dataset-use-fread-or-readr-instead-of-read">Loading a large dataset: use <code>fread</code> or <code>readr</code> instead of <code>read</code>.<a href="#loading-a-large-dataset-use-fread-or-readr-instead-of-read" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h2 id="loading-a-large-dataset-use-fread-or-functions-from-readr-instead-of-read-xxx">Loading a large dataset: use <code>fread()</code> or functions from <code>readr</code> instead of <code>read.xxx()</code>.<a href="#loading-a-large-dataset-use-fread-or-functions-from-readr-instead-of-read-xxx" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(<span style="color:#a50">&#34;data.table&#34;</span>)
 <span style="color:#00a">library</span>(<span style="color:#a50">&#34;readr&#34;</span>)</code></pre></div>
 <p>If you really need to read an entire csv in memory, by default, R users use the <code>read.table</code> method or variations thereof (such as <code>read.csv</code>). However, <code>fread</code> from the <code>data.table</code> package is a lot faster. Furthermore, the <code>readr</code> package also provides more optimized reading functions (<code>read_csv</code>, <code>read_delim</code>,&hellip;). Let&rsquo;s measure the time to read in the data using these three different methods.</p>
@@ -343,7 +343,7 @@ data</code></pre></div>
 
 <p><code>fread</code> and <code>read_delim</code> are indeed much faster then the default <code>read.table</code>. However, the result of <code>fread</code> is a <code>data.table</code> and the result of <code>read_delim</code> is a <code>tibble</code>. Both are not a <code>data.frame</code>. The <code>data.table</code> package describes the <code>data.table</code> object as a more performant replacement for the <code>data.frame</code>. This means that selecting, filtering and aggregating data is much faster on a <code>data.table</code> compared to the standard <code>data.frame</code> but it requires you to use a slightly different syntax. A <code>tibble</code> is very similar to a <code>data.frame</code>, but provides more convenience when printing or subsetting the data table.</p>
 
-<p>You can find the <code>data.table</code> package on <a href="https://cran.r-project.org/web/packages/data.table/index.html" target="_blank">CRAN</a>. A good place to learn this package are the package vignettes. The <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html" target="_blank">introduction to data.table</a> should be enough to get started. You can also find the The <code>readr</code> package is also on <a href="https://cran.r-project.org/web/packages/readr/index.html" target="_blank">CRAN</a>. It belongs to a suite of R packages aiming to improve data manipulation in R, called <a href="http://tidyverse.org/" target="_blank">tidyverse</a>. More examples and explanation about <code>readr</code> is provided on the <a href="http://readr.tidyverse.org/" target="_blank">readr website</a>.</p>
+<p>You can find the <code>data.table</code> package on <a href="https://cran.r-project.org/web/packages/data.table/index.html" target="_blank">CRAN</a>. A good place to learn this package are the package vignettes. The <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html" target="_blank">introduction to data.table</a> should be enough to get started. The <code>readr</code> package is also on <a href="https://cran.r-project.org/web/packages/readr/index.html" target="_blank">CRAN</a>. It belongs to a suite of R packages aiming to improve data manipulation in R, called <a href="http://tidyverse.org/" target="_blank">tidyverse</a>. More examples and explanation about <code>readr</code> is provided on the <a href="http://readr.tidyverse.org/" target="_blank">readr website</a>.</p>
 
 <h2 id="data-files-that-don-t-fit-in-memory">Data files that don&rsquo;t fit in memory<a href="#data-files-that-don-t-fit-in-memory" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
@@ -358,7 +358,7 @@ data</code></pre></div>
 
 <h3 id="1-limit-the-number-of-lines-you-read-fread">1. Limit the number of lines you read (<code>fread</code>)<a href="#1-limit-the-number-of-lines-you-read-fread" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
-<p>Limiting the number of lines you read is easy. Just use the <code>nrows</code> and/or <code>skip</code> option (available to both <code>read.table</code> and <code>fread</code>). <code>skip</code> can be used to skip a number of rows, but you can also pass a string to this parameter causing <code>fread</code> to only start reading lines from the first line matching that string. Let&rsquo;s say we only want to start reading lines after we find a line matching the pattern <code>801,2014-06-29</code>. We can do that like this:</p>
+<p>Limiting the number of lines you read is easy. Just use the <code>nrows</code> and/or <code>skip</code> option (available to both <code>read.table</code> and <code>fread</code>). <code>skip</code> can be used to skip a number of rows, but you can also pass a string to this parameter causing <code>fread</code> to only start reading lines from the first line matching that string. Let&rsquo;s say we only want to start reading lines after we find a line matching the pattern <code>2015-06-12 15:14:39</code>. We can do that like this:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;Number of lines in full data set: %s&#34;</span>, <span style="color:#00a">nrow</span>(allData))</code></pre></div>
 <pre><code>## [1] &quot;Number of lines in full data set: 3761058&quot;
 </code></pre>
@@ -382,7 +382,7 @@ data</code></pre></div>
 <pre><code>## [1] &quot;Size of only four columns in memory: 365.90692 MB&quot;
 </code></pre>
 
-<p>The difference might not be as large as you would expect. R objects claim more memory then needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.</p>
+<p>The difference might not be as large as you would expect. R objects claim more memory than needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.</p>
 
 <h3 id="3-limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf">3. Limiting both the number of rows and the number of columns using <code>sqldf</code><a href="#3-limiting-both-the-number-of-rows-and-the-number-of-columns-using-sqldf" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
@@ -623,7 +623,7 @@ results &lt;- bird_tracking %&gt;%
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/tidyverse/'>tidyverse</a>, <a class='tag' href='/tutorials/tags/r/'>r</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/tidyverse/'>tidyverse</a>, <a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/database/'>database</a></div>
 
   </div>
 </footer>
