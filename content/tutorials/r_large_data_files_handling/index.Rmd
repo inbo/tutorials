@@ -78,7 +78,7 @@ data
 
 `fread` and `read_delim` are indeed much faster then the default `read.table`. However, the result of `fread` is a `data.table` and the result of `read_delim` is a `tibble`. Both are not a `data.frame`. The `data.table` package describes the `data.table` object as a more performant replacement for the `data.frame`. This means that selecting, filtering and aggregating data is much faster on a `data.table` compared to the standard `data.frame` but it requires you to use a slightly different syntax. A `tibble` is very similar to a `data.frame`, but provides more convenience when printing or subsetting the data table.
 
-You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started. You can also find the The `readr` package is also on [CRAN](https://cran.r-project.org/web/packages/readr/index.html). It belongs to a suite of R packages aiming to improve data manipulation in R, called [tidyverse](http://tidyverse.org/). More examples and explanation about `readr` is provided on the [readr website](http://readr.tidyverse.org/).
+You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started. The `readr` package is also on [CRAN](https://cran.r-project.org/web/packages/readr/index.html). It belongs to a suite of R packages aiming to improve data manipulation in R, called [tidyverse](http://tidyverse.org/). More examples and explanation about `readr` is provided on the [readr website](http://readr.tidyverse.org/).
 
 ## Data files that don't fit in memory
 
@@ -114,7 +114,7 @@ sprintf("Size of total data in memory: %s MB", utils::object.size(allData)/10000
 sprintf("Size of only four columns in memory: %s MB", utils::object.size(fourColumns)/1000000)
 ```
 
-The difference might not be as large as you would expect. R objects claim more memory then needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.
+The difference might not be as large as you would expect. R objects claim more memory than needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.
 
 ### 3. Limiting both the number of rows and the number of columns using `sqldf` {#sqldftit}
 
