@@ -6,10 +6,19 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>INLA workshops</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_inla/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_inla/</guid>
+      <description>These workshops are a follow-up of the course on &amp;ldquo;Spatial, temporal and spatial-temporal models using R-INLA&amp;rdquo; by Alain Zuur and Elena Ieno (Highland Statistics Ltd.). The main goal is the get people using R-INLA with their own data in a workshop setting so they can tap into the knowledge of others. The workshops are not a copy of the Highstat course but elaborate certain topics. We also introduce the inlatools and inlabru.</description>
+    </item>
     
     <item>
       <title>Git(hub) introduction</title>
