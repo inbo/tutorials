@@ -3,7 +3,7 @@ title: "INLA workshops"
 description: "Slides, code and data used during the INLA workshop"
 author: "Thierry Onkelinx"
 date: 2019-03-10
-categories: ["statistical analysis"]
+categories: ["statistics"]
 tags: ["r", "INLA", "inlabru", "analysis", "mixed model"]
 ---
 
