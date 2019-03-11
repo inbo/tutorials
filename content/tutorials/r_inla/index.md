@@ -13,8 +13,8 @@ These workshops are a follow-up of the course on "Spatial, temporal and spatial-
 
 Fitting models with only fixed effects, random intercepts and first order random walk.
 
-- [slides](https://inbo.github.io/tutorials/tutorials/r-inla/random_intercept.pdf)
-- [source code and data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r-inla/random_intercept)
+- [slides](https://inbo.github.io/tutorials/tutorials/r_inla/random_intercept.pdf)
+- [source code and data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_inla/random_intercept)
 - [HackMD](https://hackmd.io/mzLJIfJZRySKzrmTXWi0Zg), a place to share your code related to this workshop.
 
 ## Workshop 2
