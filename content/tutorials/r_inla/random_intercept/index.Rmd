@@ -48,7 +48,7 @@ set.seed(200190307)
 - stuck? ask your neighbour for help
 - still stuck? ask me
 
-slides, code, data and HackMD: https://inbo.github.io/tutorials/tutorials/r-inla
+slides, code, data and HackMD: https://inbo.github.io/tutorials/tutorials/r_inla/
 
 # Fixed effect model
 
@@ -416,14 +416,14 @@ plot(select_poly(rw1, coefs = c(0, -1)), link = "log")
 1. ponder on a relevant $\sigma$ for that model
 1. fit model with 'rw1' component and `pc.prec` prior
 
-## Data exploration `NLowBranches`
+## Default data exploration `NLowBranches`
 
 ```{r eda-nlowbranches, warning = FALSE, message = FALSE}
 ggplot(butterfly, aes(x = NLowBranches, y = NEggs)) +
   geom_smooth() + geom_point()
 ```
 
-## Data exploration `NLowBranches`
+## Better data exploration `NLowBranches`
 
 ```{r eda-nlowbranches2}
 ggplot(butterfly, aes(x = NLowBranches, y = NEggs)) +
