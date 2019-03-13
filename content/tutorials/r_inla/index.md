@@ -31,6 +31,7 @@ Work in progress
 
 ## Literature
 
+- Bachl, F. et al, 2019 inlabru: an R package for Bayesian spatial modelling from ecological survey data https://doi.org/10.1111/2041-210X.13168
 - Blangiardo, M. and Cameletti, M. 2015 Spatial and Spatio-temporal Bayesian Models with R-INLA https://sites.google.com/a/r-inla.org/stbook/ ISBN: 978-1-118-32655-8
 - Gómez-Rubio, V. 2019 Bayesian inference with INLA and R-INLA https://becarioprecario.bitbucket.io/inla-gitbook/index.html
 - Krainski, E. et al 2018 Advanced Spatial Modeling with Stochastic Partial Differential Equations Using R and INLA https://becarioprecario.bitbucket.io/spde-gitbook/index.html
