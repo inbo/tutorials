@@ -116,7 +116,7 @@ m1_inlabru$summary.fixed
 
 ## `inlabru` works slightly different
 
-- you can use any name instead of `f()`
+- use any name instead of `f()`
 - use `map` to link the random effect to the data (cfr. `ggplot2::aes()`)
 - use integer indices in case of a factor
 - you need to provide the number of levels in case of a factor
@@ -164,7 +164,7 @@ m3_inlabru2$summary.fixed
 
 ## Prepare a model with rw1 and iid component
 
-```{r plot-intercept}
+```{r plot-intercept-data}
 pc_prior <- list(theta = list(prior = "pc.prec", param = c(1, 0.01)))
 goose %>%
   mutate(iyear = cyear - min(cyear) + 1) -> goose
