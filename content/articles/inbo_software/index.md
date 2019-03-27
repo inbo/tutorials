@@ -39,7 +39,7 @@ The following table gives a **quick overview**:
 <tbody>
 <tr class="odd">
 <td>Study design</td>
-<td><a href="https://github.com/ThierryO/grts">grts</a>,</td>
+<td><a href="https://github.com/ThierryO/grts">grts</a></td>
 </tr>
 <tr class="even">
 <td>Retrieve data: environmental</td>
