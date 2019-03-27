@@ -31,9 +31,9 @@ Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/
 Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/)
 Store data  | [git2rdata](https://inbo.github.io/git2rdata/)
 Validate data | [pywhip](https://inbo.github.io/pywhip/)
-Analyze data: graphs | [INBOtheme](https://inbo.github.io/INBOtheme/), [inboggvegan](https://github.com/inbo/inboggvegan)
+Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan)
 Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/)
-Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html)
+Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)
 Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)
 
 
@@ -84,9 +84,6 @@ a package to validate data against [whip specifications](https://github.com/inbo
 
 ### Make graphs
 
-- **R package [INBOtheme](https://inbo.github.io/INBOtheme/)**:
-contains `ggplot2` themes for INBO, the Flemish government and Elsevier journals.
-The documentation website includes a set of example figures for each available theme.
 - **R package [inboggvegan](https://github.com/inbo/inboggvegan)**:
 provides R functions for multivariate plots.
 More specifically, extended biplot and screeplot functionality is offered for the `vegan` package.
@@ -121,6 +118,9 @@ and several templates to generate reports, presentations and posters.
 The styles are based on the corporate identity of INBO and the Flemish government.
 All templates are based on `bookdown`, which is an extension of `rmarkdown`.
 `bookdown` is taylored towards writing books and technical documentation.
+- **R package [INBOtheme](https://inbo.github.io/INBOtheme/)**:
+contains `ggplot2` themes for INBO, the Flemish government and Elsevier journals.
+The documentation website includes a set of example figures for each available theme.
 
 
 ## Last but _not least_: miscellaneous!

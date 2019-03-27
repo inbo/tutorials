@@ -59,7 +59,7 @@ The following table gives a **quick overview**:
 </tr>
 <tr class="even">
 <td>Analyze data: graphs</td>
-<td><a href="https://inbo.github.io/INBOtheme/">INBOtheme</a>, <a href="https://github.com/inbo/inboggvegan">inboggvegan</a></td>
+<td><a href="https://github.com/inbo/inboggvegan">inboggvegan</a></td>
 </tr>
 <tr class="odd">
 <td>Analyze data: models</td>
@@ -67,7 +67,7 @@ The following table gives a **quick overview**:
 </tr>
 <tr class="even">
 <td>Publish</td>
-<td><a href="https://inbomd.netlify.com/articles/introduction.html">INBOmd</a></td>
+<td><a href="https://inbomd.netlify.com/articles/introduction.html">INBOmd</a>, <a href="https://inbo.github.io/INBOtheme/">INBOtheme</a></td>
 </tr>
 <tr class="odd">
 <td>Miscellaneous (mixed content)</td>
@@ -151,10 +151,6 @@ Analyze data
 
 ### Make graphs
 
--   **R package [INBOtheme](https://inbo.github.io/INBOtheme/)**:
-    contains `ggplot2` themes for INBO, the Flemish government and
-    Elsevier journals. The documentation website includes a set of
-    example figures for each available theme.
 -   **R package [inboggvegan](https://github.com/inbo/inboggvegan)**:
     provides R functions for multivariate plots. More specifically,
     extended biplot and screeplot functionality is offered for the
@@ -194,6 +190,10 @@ Publish your workflow and discuss your results
     templates are based on `bookdown`, which is an extension of
     `rmarkdown`. `bookdown` is taylored towards writing books and
     technical documentation.
+-   **R package [INBOtheme](https://inbo.github.io/INBOtheme/)**:
+    contains `ggplot2` themes for INBO, the Flemish government and
+    Elsevier journals. The documentation website includes a set of
+    example figures for each available theme.
 
 Last but *not least*: miscellaneous!
 ------------------------------------
