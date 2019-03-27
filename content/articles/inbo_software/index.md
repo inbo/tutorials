@@ -27,6 +27,55 @@ website**, if available. When there is no documentation website, often
 one or more **vignettes** are available within the package, describing
 the package's purpose and demonstrating its use.
 
+The following table gives a **quick overview**:
+
+<table>
+<thead>
+<tr class="header">
+<th>Research stage</th>
+<th>Related INBO packages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Study design</td>
+<td><a href="https://github.com/ThierryO/grts">grts</a>,</td>
+</tr>
+<tr class="even">
+<td>Retrieve data: environmental</td>
+<td><a href="https://ropensci.github.io/wateRinfo/">wateRinfo</a>, <a href="https://pydov.readthedocs.io/">pydov</a></td>
+</tr>
+<tr class="odd">
+<td>Retrieve data: biological</td>
+<td><a href="https://github.com/inbo/pyinaturalist">pyinaturalist</a>, <a href="https://inbo.github.io/uvabits/">uvabits</a>, <a href="https://inbo.github.io/etn/">etn</a></td>
+</tr>
+<tr class="even">
+<td>Store data</td>
+<td><a href="https://inbo.github.io/git2rdata/">git2rdata</a></td>
+</tr>
+<tr class="odd">
+<td>Validate data</td>
+<td><a href="https://inbo.github.io/pywhip/">pywhip</a></td>
+</tr>
+<tr class="even">
+<td>Analyze data: graphs</td>
+<td><a href="https://inbo.github.io/INBOtheme/">INBOtheme</a>, <a href="https://github.com/inbo/inboggvegan">inboggvegan</a></td>
+</tr>
+<tr class="odd">
+<td>Analyze data: models</td>
+<td><a href="https://inlatools.netlify.com/">inlatools</a>, <a href="https://github.com/inbo/multimput">multimput</a>, <a href="https://inbo.github.io/niche_vlaanderen/">niche_vlaanderen</a></td>
+</tr>
+<tr class="even">
+<td>Publish</td>
+<td><a href="https://inbomd.netlify.com/articles/introduction.html">INBOmd</a></td>
+</tr>
+<tr class="odd">
+<td>Miscellaneous (mixed content)</td>
+<td><a href="https://inbo.github.io/inborutils/">inborutils</a></td>
+</tr>
+</tbody>
+</table>
+
 Study design
 ------------
 

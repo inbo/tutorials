@@ -22,6 +22,21 @@ You can also directly contribute improvements with a pull request.
 The package hyperlinks below refer to the package's **documentation website**, if available.
 When there is no documentation website, often one or more **vignettes** are available within the package, describing the package's purpose and demonstrating its use.
 
+The following table gives a **quick overview**:
+
+Research stage | Related INBO packages
+-------------|--------------------------------------
+Study design | [grts](https://github.com/ThierryO/grts),
+Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/)
+Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/)
+Store data  | [git2rdata](https://inbo.github.io/git2rdata/)
+Validate data | [pywhip](https://inbo.github.io/pywhip/)
+Analyze data: graphs | [INBOtheme](https://inbo.github.io/INBOtheme/), [inboggvegan](https://github.com/inbo/inboggvegan)
+Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/)
+Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html)
+Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)
+
+
 
 ## Study design
 
