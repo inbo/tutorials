@@ -63,7 +63,6 @@ Introductie tot het maken van een reproduceerbaar document met Rmarkdown
 - Tabellen
 
 [Handleiding Rmarkdown](https://inbo.github.io/tutorials/tutorials/r_beginners/Les3/Scripts/Les3_Rmarkdown.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/Les3/data)  
 [Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les3/Scripts/OmtezettenTekst.txt)  
 [Oefening](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les3/Scripts/OmtezettenTekst.html)  
 [Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/Les3/Scripts/Les3_huistaak.pdf)  
