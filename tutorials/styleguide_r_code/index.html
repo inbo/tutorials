@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='styleguide'><meta property='article:tag' content='r'><meta property='article:published_time' content='2017-10-18T16:01:34&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T16:01:34&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.55.0-DEV" />
+<meta name="generator" content="Hugo 0.52" />
 
   <title>Styleguide R code • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/styleguide_r_code/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.4a10984a.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -63,15 +63,20 @@
 <section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
     <div class='container'>
       <ul><li class='item'>
-  <a href='https://github.com/inbo/tutorials'>Repository</a></li><li class='item has-children'>
-  <a href=''>Installation</a><button class='sub-menu-toggler'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
     <span class='screen-reader-text'>expand sub menu</span>
     <span class='sign'></span>
   </button>
 
   <ul class='sub-menu'><li class='item'>
   <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
-  <a href='/tutorials/installation/user/'>For users</a></li></ul></li></ul>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
     </div>
   </nav>
 
@@ -82,6 +87,8 @@
 
   <div class='container list-container'>
   <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
+      </li><li>
         <a href='/tutorials/tags/analysis/' style='font-size:1em'>analysis</a>
       </li><li>
         <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
@@ -109,8 +116,6 @@
         <a href='/tutorials/tags/github/' style='font-size:1.05em'>github</a>
       </li><li>
         <a href='/tutorials/tags/google/' style='font-size:1.05em'>google</a>
-      </li><li>
-        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
       </li><li>
         <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
       </li><li>
@@ -330,22 +335,20 @@ Improve this page</a>
 <li>function names with a single dot are allowed</li>
 </ul></li>
 <li>use double quotes (<code>&quot;</code>) around characters and not single quotes (<code>'</code>)</li>
-
-<li><p>don&rsquo;t add commented code</p>
+<li>don&rsquo;t add commented code
 
 <ul>
-<li><p>use version control if you want to keep old versions of code</p>
+<li>use version control if you want to keep old versions of code</li>
+</ul></li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 example_text &lt;- example_function(
-first_argument = <span style="color:#a50">&#34;Some text&#34;</span>,
-second_argument = <span style="color:#a50">&#34;More text&#34;</span>
+  first_argument = <span style="color:#a50">&#34;Some text&#34;</span>,
+  second_argument = <span style="color:#a50">&#34;More text&#34;</span>
 )
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
-some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span style="color:#a50">&#39;Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;More text&#39;</span>)</code></pre></div></li>
-</ul></li>
-</ul>
-
+some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span style="color:#a50">&#39;Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;More text&#39;</span>)</code></pre></div>
 <h3 id="whitespace">Whitespace<a href="#whitespace" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <pre><code>naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
@@ -380,11 +383,12 @@ some.really.long.dot.separated.name &lt;- MyCoolFunction(FirstArgument = <span s
 <li>always use <code>&lt;-</code> for assignment</li>
 <li>always put the new variable on the left and never use <code>-&gt;</code></li>
 <li>use <code>=</code> only for passing arguments in a function</li>
-
-<li><p>at least one space before and at least one space after <code>&lt;-</code> and <code>=</code></p>
+<li>at least one space before and at least one space after <code>&lt;-</code> and <code>=</code>
 
 <ul>
-<li><p>use multiple spaces if it improves readability</p>
+<li>use multiple spaces if it improves readability</li>
+</ul></li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 x &lt;- <span style="color:#0aa">data.frame</span>(z = <span style="color:#099">1</span>:<span style="color:#099">10</span>)
 <span style="color:#00a">summary</span>(x)
@@ -397,10 +401,7 @@ x=<span style="color:#0aa">data.frame</span>(z&lt;-<span style="color:#099">1</s
 a   &lt;-   <span style="color:#099">5</span>
 ab  &lt;-  <span style="color:#099">10</span>
 abc &lt;-   <span style="color:#099">7</span>
-d   &lt;- <span style="color:#099">245</span></code></pre></div></li>
-</ul></li>
-</ul>
-
+d   &lt;- <span style="color:#099">245</span></code></pre></div>
 <h3 id="brackets">Brackets<a href="#brackets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>R uses three types of brackets: round <code>(...)</code>, square <code>[...]</code> and curly <code>{...}</code>.</p>
@@ -419,20 +420,20 @@ d   &lt;- <span style="color:#099">245</span></code></pre></div></li>
 <li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
 </ul></li>
 <li><code>{</code> should not start on a newline and is always the end of a line</li>
-
-<li><p>apply indentation when splitting long text inside brackets over multiple lines</p>
+<li>apply indentation when splitting long text inside brackets over multiple lines</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 y &lt;- <span style="color:#00a">seq</span>(<span style="color:#099">0</span>, <span style="color:#099">2</span>)
 <span style="color:#00a">if</span> (<span style="color:#00a">max</span>(y) &lt;= <span style="color:#099">10</span>) {
-x &lt;- <span style="color:#099">1</span>
+  x &lt;- <span style="color:#099">1</span>
 } <span style="color:#00a">else</span> {
-x &lt;- <span style="color:#099">2</span>
+  x &lt;- <span style="color:#099">2</span>
 }
 <span style="color:#00a">sapply</span>(
-y,
-<span style="color:#00a">function</span>(x){
-<span style="color:#00a">return</span>(x)
-}
+  y,
+  <span style="color:#00a">function</span>(x){
+    <span style="color:#00a">return</span>(x)
+  }
 )
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
@@ -440,13 +441,11 @@ y &lt;- seq (<span style="color:#099">0</span>, <span style="color:#099">2</span
 <span style="color:#00a">if</span>(   <span style="color:#00a">max</span>( y ) &lt;= <span style="color:#099">10</span>    )        
 { x &lt;- <span style="color:#099">1</span> } <span style="color:#00a">else</span> 
 { x &lt;- <span style="color:#099">2</span> }
-<span style="color:#00a">sapply</span>( y , <span style="color:#00a">function</span> ( x ) { <span style="color:#00a">return</span>(x)})</code></pre></div></li>
-</ul>
-
+<span style="color:#00a">sapply</span>( y , <span style="color:#00a">function</span> ( x ) { <span style="color:#00a">return</span>(x)})</code></pre></div>
 <h3 id="special-cases-and-exceptions">Special cases and exceptions<a href="#special-cases-and-exceptions" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <ul>
-<li><p>selecting rows with square brackets <code>df[selection, ]</code></p>
+<li>selecting rows with square brackets <code>df[selection, ]</code>
 
 <ul>
 <li>this results in two conflicting rules
@@ -460,21 +459,21 @@ y &lt;- seq (<span style="color:#099">0</span>, <span style="color:#099">2</span
 <ul>
 <li><code>df[selection, ] # nolint</code></li>
 </ul></li>
-
-<li><p>solution in case of a long command: split the command over several lines</p>
+<li>solution in case of a long command: split the command over several lines</li>
+</ul></li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 relevant_subset &lt;- original_dataframe[
-original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value,
+  original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value,
 ]
 <span style="color:#aaa;font-style:italic"># Recommended dplyr alternative</span>
 relevant_subset &lt;- original_dataframe %&gt;%
-filter(x &gt; some_value | y &lt; some_other_value)
+  filter(x &gt; some_value | y &lt; some_other_value)
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
-relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, ] <span style="color:#aaa;font-style:italic"># nolint</span></code></pre></div></li>
-</ul></li>
-
-<li><p>a really long text</p>
+relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value, ] <span style="color:#aaa;font-style:italic"># nolint</span></code></pre></div>
+<ul>
+<li>a really long text
 
 <ul>
 <li>text shorter than 80 characters but passed the 80 character limit due to the indentitation
@@ -488,8 +487,7 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <li>solution: add <code># nolint</code> at the end of the line</li>
 </ul></li>
 </ul></li>
-
-<li><p>functions from other packages with names that don&rsquo;t comply with this style guide</p>
+<li>functions from other packages with names that don&rsquo;t comply with this style guide
 
 <ul>
 <li>solution: add <code># nolint</code> at the end of the line</li>
@@ -503,22 +501,21 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <h3 id="functions">Functions<a href="#functions" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <ul>
-<li><p>always explicitly mention <code>return</code> in functions</p>
+<li>always explicitly mention <code>return</code> in functions</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 sum &lt;- <span style="color:#00a">function</span>(x, y) {
-z &lt;- x + y
-<span style="color:#00a">return</span>(z)
+  z &lt;- x + y
+  <span style="color:#00a">return</span>(z)
 }
 sum &lt;- <span style="color:#00a">function</span>(x, y) {
-<span style="color:#00a">return</span>(x + y)
+  <span style="color:#00a">return</span>(x + y)
 }
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
 sum &lt;- <span style="color:#00a">function</span>(x, y) {
-x + y
-}</code></pre></div></li>
-</ul>
-
+  x + y
+}</code></pre></div>
 <h3 id="validating-syntax">Validating syntax<a href="#validating-syntax" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>The code below validate the syntax for an R file, an RMarkdown file or an R package.</p>
@@ -649,26 +646,23 @@ lintr::lint_package(path = <span style="color:#a50">&#34;.&#34;</span>)</code></
 </ul></li>
 <li>unit test files can be larger than source files</li>
 <li>a unit test file can contain tests for several functions in case the functions are strongly related (e.g. subfunctions) and reuse test cases</li>
-
-<li><p>each package should contain the unit for coding style as listed below</p>
+<li>each package should contain the unit for coding style as listed below
 
 <ul>
 <li>store this in a file <code>tests/testthat/test_zzz_coding_style.R</code></li>
-
-<li><p>add this file to <code>.gitignore</code></p>
+<li>add this file to <code>.gitignore</code>
 
 <ul>
-<li><p>the coding style will be tested separately when using continuous integration</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">if</span> (<span style="color:#00a">requireNamespace</span>(<span style="color:#a50">&#34;lintr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) {
-context(<span style="color:#a50">&#34;lints&#34;</span>)
-test_that(<span style="color:#a50">&#34;Package Style&#34;</span>, {
-lintr::expect_lint_free()
-})
-}</code></pre></div></li>
+<li>the coding style will be tested separately when using continuous integration</li>
 </ul></li>
 </ul></li>
 </ul>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">if</span> (<span style="color:#00a">requireNamespace</span>(<span style="color:#a50">&#34;lintr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) {
+  context(<span style="color:#a50">&#34;lints&#34;</span>)
+  test_that(<span style="color:#a50">&#34;Package Style&#34;</span>, {
+    lintr::expect_lint_free()
+  })
+}</code></pre></div>
 <h3 id="r-script">R script<a href="#r-script" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <ul>
@@ -810,7 +804,7 @@ lintr::expect_lint_free()
     </div>
   </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
 
-<script src='/tutorials/assets/js/main.fae8ed32.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 
