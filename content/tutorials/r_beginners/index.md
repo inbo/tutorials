@@ -23,10 +23,11 @@ Introductie tot R en Rstudio
 - Vectoren en dataframes
 - Inlezen van gegevens in verschillende formaten
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_inla/random_intercept.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_inla/random_intercept)  
-[Oefening]()  
-[Huistaak]()
+[Handleiding R en RStudio](https://inbo.github.io/tutorials/tutorials/r_beginners/Les1/Scripts/Les1_R_en_RStudio.pdf)  
+[Handleiding Inlezen gegevens](https://inbo.github.io/tutorials/tutorials/r_beginners/Les1/Scripts/Les1b_data_inlezen.pdf)   
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/Les1/data)  
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les1/Scripts/Les1b_Data_inlezen_Vereenvoudigd.R)  
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/Les1/Scripts/Les1_huistaak.pdf)
 
 
 
@@ -42,11 +43,11 @@ Introductie tot grafieken maken met ggplot2
 - Titels
 - Plot bewaren
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_inla/random_intercept.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_inla/random_intercept)  
-[Code]()  
-[Oefening]()  
-[Huistaak]()  
+[Handleiding ggplot2](https://inbo.github.io/tutorials/tutorials/r_beginners/Les2/Scripts/Les2_ggplot.pdf)  
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/Les2/data)  
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les2/Scripts/Les2_ggplot.R)  
+[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/Les2/Scripts/Les2_oefening.pdf)  
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/Les2/Scripts/Les2_huistaak.pdf)  
 
 
 
@@ -61,11 +62,11 @@ Introductie tot het maken van een reproduceerbaar document met Rmarkdown
 - YAML header
 - Tabellen
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_inla/random_intercept.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_inla/random_intercept)  
-[Code]()  
-[Oefening]()  
-[Huistaak]()  
+[Handleiding Rmarkdown](https://inbo.github.io/tutorials/tutorials/r_beginners/Les3/Scripts/Les3_Rmarkdown.pdf)  
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/Les3/data)  
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les3/Scripts/OmtezettenTekst.txt)  
+[Oefening](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les3/Scripts/OmtezettenTekst.html)  
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/Les3/Scripts/Les3_huistaak.pdf)  
 
 
 
@@ -80,8 +81,8 @@ Introductie tot data manipulatie met dplyr
 - YAML header
 - Tidy data: gather, spread
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_inla/random_intercept.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_inla/random_intercept)  
-[Code]()  
-[Oefening]()  
-[Huistaak]()  
+[Handleiding dplyr](https://inbo.github.io/tutorials/tutorials/r_beginners/Les4/Scripts/Les4_dplyr.pdf)  
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/Les4/data)  
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Les4/Scripts/Les4_dplyr.R)  
+[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/Les4/Scripts/Les4_oefening.pdf)  
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/Les4/Scripts/Les4_huistaak.pdf)  
