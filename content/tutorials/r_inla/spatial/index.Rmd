@@ -1,0 +1,224 @@
+--- 
+title: "INLA and inlabru with spatial patterns"
+author: "Thierry Onkelinx"
+site: bookdown::bookdown_site
+output:
+  bookdown::pdf_book:
+    base_format: INBOmd::inbo_slides
+    toc: FALSE
+    slide_level: 3
+    theme: inboenglish
+    flandersfont: TRUE
+    cover: aerial-aerial-shot-aerial-view-753868.jpg # Photo by Stephan Müller from Pexels https://www.pexels.com/photo/herd-of-brown-and-white-cows-on-green-grass-field-753868/
+    cover_horizontal: FALSE
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+  message = FALSE,
+  dev = "cairo_pdf"
+)
+library(tidyverse)
+library(INLA)
+library(inlabru)
+library(gstat)
+library(INBOtheme)
+if (interactive()) {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 12, 
+      transparent = "plot"
+    )
+  )
+} else {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 8, 
+      transparent = "plot"
+    )
+  )
+  update_geom_defaults("text", list(size = 3))
+}
+set.seed(200190307)
+```
+
+# Checking spatial autocorrelation
+
+## Pearson residuals
+
+### Definition
+
+> - components?
+> - observed value ($y_i$), fitted value ($\hat{y}_i$), mean squared error ($MSE$)
+> - formula
+> - $$pr_i = \frac{y_i - \hat{y}_i}{\sqrt{MSE}}$$
+> - $MSE$ (variance) depends on distribution! Check it using `inla.doc("name_of_your_distribution")`.
+
+### Example data: rainfall in Parana state, Brazil
+
+```{r rain-raw, echo = FALSE}
+data(PRprec)
+PRprec %>%
+  transmute(Longitude, Latitude, Altitude, Rain = d0701) %>%
+  filter(!is.na(Rain), Rain > 0) -> dataset
+ggplot(dataset, aes(x = Longitude, y = Latitude, colour = Rain, size = Rain)) +
+  geom_point() + coord_map()
+```
+
+```{r project, echo = FALSE}
+coordinates(dataset) <- ~ Longitude + Latitude
+dataset@proj4string <- CRS("+proj=longlat")
+spTransform(dataset, CRS("+init=epsg:5880")) %>%
+  as.data.frame() %>%
+  rename(X = Longitude, Y = Latitude) %>%
+  mutate(X = X / 100000, Y = Y / 100000) %>%
+  mutate(X = X - mean(X), Y = Y - mean(Y)) -> dataset
+```
+
+### Calculate Pearson residuals
+
+```{r model-iid}
+model_iid <- inla(Rain ~ X + Y, family = "gamma", data = dataset, 
+                  control.compute = list(waic = TRUE))
+dataset %>%
+  mutate(
+    mu = model_iid$summary.fitted.values$mean,
+    sigma2 = mu ^ 2 / model_iid$summary.hyperpar[1, "mean"],
+    Pearson_iid = (Rain - mu) / sqrt(sigma2)
+  ) -> dataset
+```
+
+## Variogram
+
+### Definition
+
+```{r vg-default}
+vg_default <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset, 
+                cressie = TRUE)
+```
+
+```{r vg-default-plot, echo = FALSE}
+vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+  fit.variogram(object = vg_default) -> vgm_default
+characteristics <- tribble(
+  ~id, ~label, ~x, ~xend, ~y, ~yend,
+  1, "range", 0, 3 * vgm_default$range[2], 0.25, 0.25,
+  3, "nugget", 0, 0, 0, vgm_default$psill[1],
+  2, "sill", 0.1, 0.1, 0, sum(vgm_default$psill),
+  4, "partial sill", 0, 0, vgm_default$psill[1], sum(vgm_default$psill)
+)
+vgl_default <- variogramLine(vgm_default, maxdist = max(vg_default$dist))
+ggplot(vg_default, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_default) +
+  geom_point() +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+```
+
+### Important characteristics
+
+```{r vg-default-char, echo = FALSE}
+ggplot(vg_default, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_default) +
+  geom_point() +
+  geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
+  geom_vline(xintercept = 3 * vgm_default$range[2], linetype = 3) +
+  geom_segment(data = characteristics, arrow = arrow(ends = "both"),
+               aes(x = x, xend = xend, y = y, yend = yend)) +
+  geom_label(data = characteristics, hjust = 0,
+             aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+```
+
+### Important characteristics
+
+```{r vg-default-char-lab, echo = FALSE}
+ggplot(vg_default, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_default) +
+  geom_point() +
+  geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
+  geom_vline(xintercept = 3 * vgm_default$range[2], linetype = 3) +
+  geom_segment(data = characteristics, arrow = arrow(ends = "both"),
+               aes(x = x, xend = xend, y = y, yend = yend)) +
+  geom_label(data = characteristics, hjust = 0,
+             aes(x = (x + xend) / 2, y = (y + yend) / 2, label = label)) +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+```
+
+### Projected example data
+
+```{r rainfall-projected, echo = FALSE}
+ggplot(dataset, aes(x = X, y = Y, colour = Rain, size = Rain)) +
+  geom_point() + coord_fixed() + labs(x = "X (100 km)", y = "Y (100 km)")
+```
+
+### Increased cutoff
+
+```{r vg-large-cutoff}
+vg_large <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset,
+                      cutoff = 6, cressie = TRUE)
+```
+
+```{r vg-large-cutoff-plot, echo = FALSE}
+vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+  fit.variogram(object = vg_large) -> vgm_large
+vgl_large <- variogramLine(vgm_large, maxdist = max(vg_large$dist))
+ggplot(vg_large, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_large) +
+  geom_point() +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+```
+
+### Number of point pairs is important
+
+```{r vg-large-np, echo = FALSE}
+ggplot(vg_large, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_large) + geom_point(aes(size = np)) + 
+  scale_size("number of\npoint pairs", limits = c(0, NA)) +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+```
+
+### Too small width leads to unstable variograms
+
+```{r vg-small}
+vg_small <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset, 
+                      width = 0.01, cressie = TRUE)
+```
+
+```{r vg-small-plot, echo = FALSE}
+vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+  fit.variogram(object = vg_small) -> vgm_small
+vgl_small <- variogramLine(vgm_small, maxdist = max(vg_default$dist))
+ggplot(vg_small, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_small) +
+  geom_point(aes(colour = cut(np, c(0, 10, 20, 50, 100, 200, 500, Inf)))) +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA)) +
+  labs(colour = "number of\npoint pairs")
+```
+
+### Sensible small width yields the most informative variogram
+
+```{r vg-final}
+vg_final <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset, 
+                      width = 0.1, cressie = TRUE)
+```
+
+```{r vg-final-plot, echo = FALSE}
+vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+  fit.variogram(object = vg_final) -> vgm_final
+vgl_final <- variogramLine(vgm_final, maxdist = max(vg_default$dist))
+ggplot(vg_final, aes(x = dist, y = gamma)) +
+  geom_line(data = vgl_final) +
+  geom_point(aes(colour = cut(np, c(0, 10, 20, 50, 100, 200, 500, Inf)))) +
+  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA)) +
+  labs(colour = "number of\npoint pairs")
+```
