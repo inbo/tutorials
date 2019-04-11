@@ -66,10 +66,14 @@ The following table gives a **quick overview**:
 <td><a href="https://inlatools.netlify.com/">inlatools</a>, <a href="https://github.com/inbo/multimput">multimput</a>, <a href="https://inbo.github.io/niche_vlaanderen/">niche_vlaanderen</a></td>
 </tr>
 <tr class="even">
+<td>Analyze data: indices</td>
+<td><a href="https://github.com/inbo/LSVI">LSVI</a></td>
+</tr>
+<tr class="odd">
 <td>Publish</td>
 <td><a href="https://inbomd.netlify.com/articles/introduction.html">INBOmd</a>, <a href="https://inbo.github.io/INBOtheme/">INBOtheme</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Miscellaneous (mixed content)</td>
 <td><a href="https://inbo.github.io/inborutils/">inborutils</a></td>
 </tr>
@@ -178,6 +182,15 @@ Analyze data
     predicted vegetations are compatible with a particular flooding
     regime. The package is a redevelopment of an existing ArcGIS plugin
     in Python, without external non-open source dependencies.
+
+### Calculate indices
+
+-   **R package [LSVI](https://github.com/inbo/LSVI)**: bundles a number
+    of functions to support researchers in determining the local
+    conservation status ('LSVI') of Natura 2000 habitats in Flanders.
+    Several functions retrieve the criteria and/or associated species
+    lists for determining the LSVI. A specific function allows to
+    calculate the LSVI. The package is written in Dutch.
 
 Publish your workflow and discuss your results
 ----------------------------------------------

@@ -33,6 +33,7 @@ Store data  | [git2rdata](https://inbo.github.io/git2rdata/)
 Validate data | [pywhip](https://inbo.github.io/pywhip/)
 Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan)
 Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/)
+Analyze data: indices | [LSVI](https://github.com/inbo/LSVI)
 Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)
 Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)
 
@@ -108,6 +109,15 @@ Python package to run the NICHE Vlaanderen model.
 Based on calculated abiotic properties of the location, NICHE Vlaanderen determines whether certain vegetation types can develop.
 An additional flooding module allows the user to test whether the predicted vegetations are compatible with a particular flooding regime.
 The package is a redevelopment of an existing ArcGIS plugin in Python, without external non-open source dependencies.
+
+
+### Calculate indices
+
+- **R package [LSVI](https://github.com/inbo/LSVI)**:
+bundles a number of functions to support researchers in determining the local conservation status ('LSVI') of Natura 2000 habitats in Flanders.
+Several functions retrieve the criteria and/or associated species lists for determining the LSVI.
+A specific function allows to calculate the LSVI.
+The package is written in Dutch.
 
 
 ## Publish your workflow and discuss your results
