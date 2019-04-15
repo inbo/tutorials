@@ -46,6 +46,7 @@ if (interactive()) {
     )
   )
   update_geom_defaults("text", list(size = 3))
+  update_geom_defaults("point", list(size = 0.5))
 }
 set.seed(200190307)
 ```
@@ -138,7 +139,7 @@ ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   geom_vline(xintercept = 3 * vgm_default$range[2] / 1000, linetype = 3) +
   geom_segment(data = characteristics, arrow = arrow(ends = "both"),
                aes(x = x, xend = xend, y = y, yend = yend)) +
-  geom_label(data = characteristics, hjust = 0,
+  geom_label(data = characteristics,
              aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
   scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
@@ -370,10 +371,10 @@ ggplot(dataset) + gg(mesh2) + geom_sf() +
 - `prior.sigma = c(s, alpha_s)`: $P(\sigma > s) < \alpha_s$
 
 ```{r spde1}
-spde1 <- inla.spde2.pcmatern(mesh1, prior.range = c(100e3, 0.05), 
-                             prior.sigma = c(0.9, 0.1))
-spde2 <- inla.spde2.pcmatern(mesh2, prior.range = c(100e3, 0.05), 
-                             prior.sigma = c(0.9, 0.1))
+spde1 <- inla.spde2.pcmatern(mesh1, prior.range = c(100e3, 0.5), 
+                             prior.sigma = c(0.9, 0.05))
+spde2 <- inla.spde2.pcmatern(mesh2, prior.range = c(100e3, 0.5), 
+                             prior.sigma = c(0.9, 0.05))
 ```
 
 ### Challenge 4
@@ -391,7 +392,7 @@ spde2 <- inla.spde2.pcmatern(mesh2, prior.range = c(100e3, 0.05),
 ```{r stacks}
 A1 <- inla.spde.make.A(mesh = mesh1, loc = st_coordinates(dataset))
 stack1 <- inla.stack(
-  tag = 'estimation', ## tag
+  tag = "estimation", ## tag
   data = list(Rain = dataset$Rain), ## response
   A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
   effects = list(
@@ -410,15 +411,20 @@ stack1 <- inla.stack(
 ```{r model-fit-INLA}
 model_spde1 <- inla(Rain ~ 0 + Intercept + Xc + Yc + f(site, model = spde1), 
                     family = "gamma", data = inla.stack.data(stack1),
-                    control.predictor = list(A = inla.stack.A(stack1))
+                    control.predictor = list(A = inla.stack.A(stack1)),
+                    control.compute = list(waic = TRUE)
                   )
 ```
 
 #### inlabru
 
-```{r model-fit-inlabru}
-bru_spde1 <- bru(Rain ~ Xc + Yc + location(map = st_coordinates, model = spde1), 
+```{r model-fit-inlabru0, eval = FALSE}
+bru_spde1 <- bru(Rain ~ Xc + Yc + site(map = st_coordinates, model = spde1), 
                  family = "gamma", data = dataset)
+```
+```{r model-fit-inlabru}
+bru_spde1 <- bru(Rain ~ Xc + Yc + site(map = coordinates, model = spde1), 
+                 family = "gamma", data = as_Spatial(dataset))
 ```
 
 ### Comparison of fixed effect parameters
@@ -435,3 +441,154 @@ model_spde1$summary.fixed %>%
   ggplot(aes(x = model, y = mean, ymin = `0.025quant`, ymax = `0.975quant`)) +
   geom_errorbar() + geom_point() + facet_wrap(~parameter, scales = "free_y")
 ```
+
+### Comparing hyperparameters
+
+```{r comparison-hp, echo = FALSE}
+model_spde1$summary.hyperpar %>%
+  rownames_to_column("parameter") %>%
+  mutate(model = "INLA") %>%
+  bind_rows(
+    bru_spde1$summary.hyperpar %>%
+    rownames_to_column("parameter") %>%
+    mutate(model = "inlabru")
+  ) %>%
+  ggplot(aes(x = model, y = mean, ymin = `0.025quant`, ymax = `0.975quant`)) +
+  geom_errorbar() + geom_point() + facet_wrap(~parameter, scales = "free_y")
+```
+
+### Correlation structure
+
+```{r corstruct}
+spde.posterior(bru_spde1, "site", what = "matern.covariance") -> covplot
+spde.posterior(bru_spde1, "site", what = "matern.correlation") -> corplot
+multiplot(plot(covplot), plot(corplot))
+```
+
+### Calculate Pearson residuals
+
+```{r vg-new, error = TRUE}
+dataset %>%
+  mutate(
+    mu = model_spde1$summary.fitted.values$mean,
+    sigma2 = mu ^ 2 / model_spde1$summary.hyperpar[1, "mean"],
+    Pearson_iid = (Rain - mu) / sqrt(sigma2)
+  ) -> dataset
+```
+
+### Using the stack index
+
+```{r}
+si <- inla.stack.index(stack1, "estimation")$data
+dataset %>%
+  mutate(
+    mu = model_spde1$summary.fitted.values$mean[si],
+    sigma2 = mu ^ 2 / model_spde1$summary.hyperpar[1, "mean"],
+    Pearson_spde = (Rain - mu) / sqrt(sigma2)
+  ) -> dataset
+```
+
+### Using inlabru
+
+```{r}
+fit <- predict(bru_spde1, as_Spatial(dataset), ~exp(Intercept + Xc + Yc + site))
+dataset %>%
+  mutate(
+    mu = fit$mean, sigma2 = mu ^ 2 / model_spde1$summary.hyperpar[1, "mean"],
+    Pearson_spde = (Rain - mu) / sqrt(sigma2)
+  ) -> dataset
+```
+
+### Variogram
+
+```{r vg-fit}
+vg_fit <- variogram(Pearson_spde ~ 1, cressie = TRUE, 
+                    data = as_Spatial(dataset), width = 10e3)
+```
+
+```{r vg-fit-plot, echo = FALSE}
+ggplot(vg_fit, aes(x = dist / 1000, y = gamma)) +
+  geom_point() +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
+  scale_y_continuous("variance", limits = c(0, NA))
+```
+
+### Interpolate GMRF
+
+```{r spde_eta}
+A1.grid <- inla.mesh.projector(mesh1, dims = c(41, 41))
+inla.mesh.project(A1.grid, model_spde1$summary.random$site) %>%
+  as.matrix() %>%
+  as.data.frame() %>%
+  bind_cols(
+    expand.grid(x = A1.grid$x, y = A1.grid$y)
+  ) %>%
+  filter(!is.na(ID)) -> eta_spde
+```
+
+### Plot GMRF
+
+```{r spde-eta-plot}
+ggplot(dataset) + geom_tile(data = eta_spde, aes(x = x, y = y, fill = mean)) +
+  geom_sf() + scale_fill_gradient2()
+```
+
+## Predictions
+
+### Prediction stack for SPDE grid + fixed effects
+
+```{r stack_grid}
+expand.grid(X = A1.grid$x, Y = A1.grid$y) %>%
+  mutate(Intercept = 1, Xc = X / 1e5 - 53, Yc = Y / 1e5 - 71) -> grid_data
+stack1_grid <- inla.stack(
+  tag = "grid", ## tag
+  data = list(Rain = NA), ## response
+  A = list(A1.grid$proj$A, 1), ## projector matrices (SPDE and fixed effects)
+  effects = list(
+    list(site = seq_len(spde1$n.spde)), ## random field index
+    grid_data  ## covariates at grid locations
+  )
+)
+```
+
+### Refit the model with the combinated stack
+
+```{r fit_grid}
+stack_all <- inla.stack(stack1, stack1_grid)
+model_grid <- inla(Rain ~ 0 + Intercept + Xc + Yc + f(site, model = spde1), 
+                   family = "gamma", data = inla.stack.data(stack_all),
+                   control.predictor = list(A = inla.stack.A(stack_all), 
+                                            link = 1),
+                   control.compute = list(waic = TRUE),
+                   control.mode = list(theta = model_spde1$mode$theta, 
+                                       restart = FALSE),
+                   control.results = list(return.marginals.random = FALSE,
+                                          return.marginals.predictor = FALSE)
+                   )
+```
+
+### Plot grid {.allowframebreaks}
+
+```{r plot-grid}
+si <- inla.stack.index(stack_all, "grid")$data
+grid_data %>%
+  bind_cols(model_grid$summary.fitted.values[si, ]) %>%
+  `coordinates<-`(~X + Y) %>%
+  `proj4string<-`(CRS("+init=epsg:5880")) -> gd
+gd[!is.na(over(gd, boundary)), ] %>%
+  as.data.frame() %>%
+  ggplot() + geom_tile(aes(x = X, y = Y, fill = mean)) + coord_fixed()
+```
+
+### Using inlabru
+
+```{r}
+pred_mesh <- predict(bru_spde1, pixels(mesh1), ~exp(Intercept + Xc + Yc + site))
+ggplot() + gg(pred_mesh) + gg(boundary)
+```
+
+### Challenge 5
+
+- Fit the model using the SPDE
+- Plot a map of the GMRF
+- Plot a map of the predictions and their credible interval
