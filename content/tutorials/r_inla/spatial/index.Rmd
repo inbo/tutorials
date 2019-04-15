@@ -17,12 +17,17 @@ output:
 library(knitr)
 opts_chunk$set(
   message = FALSE,
-  dev = "cairo_pdf"
+  dev = "cairo_pdf",
+  dpi = 300
 )
+library(raster)
+library(sf)
 library(tidyverse)
-library(INLA)
 library(inlabru)
+library(INLA)
 library(gstat)
+# devtools::install_github("AckerDWM/gg3D")
+library(gg3D)
 library(INBOtheme)
 if (interactive()) {
   theme_set(
@@ -69,19 +74,18 @@ ggplot(dataset, aes(x = Longitude, y = Latitude, colour = Rain, size = Rain)) +
 ```
 
 ```{r project, echo = FALSE}
-coordinates(dataset) <- ~ Longitude + Latitude
-dataset@proj4string <- CRS("+proj=longlat")
-spTransform(dataset, CRS("+init=epsg:5880")) %>%
-  as.data.frame() %>%
-  rename(X = Longitude, Y = Latitude) %>%
-  mutate(X = X / 100000, Y = Y / 100000) %>%
-  mutate(X = X - mean(X), Y = Y - mean(Y)) -> dataset
+st_as_sf(dataset, coords = c("Longitude", "Latitude"), crs = 4326) %>%
+  st_transform(crs = 5880) -> dataset
+dataset %>%
+  bind_cols(st_coordinates(dataset) %>%
+  as.data.frame()) %>%
+  mutate(Xc = X / 100e3 - 53, Yc = Y / 100e3 - 71) -> dataset
 ```
 
 ### Calculate Pearson residuals
 
 ```{r model-iid}
-model_iid <- inla(Rain ~ X + Y, family = "gamma", data = dataset, 
+model_iid <- inla(Rain ~ Xc + Yc, family = "gamma", data = dataset, 
                   control.compute = list(waic = TRUE))
 dataset %>%
   mutate(
@@ -91,115 +95,121 @@ dataset %>%
   ) -> dataset
 ```
 
+### Challenge 1
+
+- What is the mean for your model?
+- What is the variance for your model? Hint: `inla.doc("your distribution")`
+- Calculate the Pearson residuals for your model
+
 ## Variogram
 
 ### Definition
 
 ```{r vg-default}
-vg_default <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset, 
-                cressie = TRUE)
+vg_default <- variogram(Pearson_iid ~ 1, locations = ~X + Y, 
+                        data = as.data.frame(dataset), cressie = TRUE)
 ```
 
 ```{r vg-default-plot, echo = FALSE}
-vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+vgm(psill = 0.5, model = "Mat", range = 170e3, nugget = 0.375) %>%
   fit.variogram(object = vg_default) -> vgm_default
-characteristics <- tribble(
-  ~id, ~label, ~x, ~xend, ~y, ~yend,
-  1, "range", 0, 3 * vgm_default$range[2], 0.25, 0.25,
-  3, "nugget", 0, 0, 0, vgm_default$psill[1],
-  2, "sill", 0.1, 0.1, 0, sum(vgm_default$psill),
-  4, "partial sill", 0, 0, vgm_default$psill[1], sum(vgm_default$psill)
-)
 vgl_default <- variogramLine(vgm_default, maxdist = max(vg_default$dist))
-ggplot(vg_default, aes(x = dist, y = gamma)) +
+ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_default) +
   geom_point() +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 ```
 
 ### Important characteristics
 
 ```{r vg-default-char, echo = FALSE}
-ggplot(vg_default, aes(x = dist, y = gamma)) +
+characteristics <- tribble(
+  ~id, ~label, ~x, ~xend, ~y, ~yend,
+  1, "range", 0, 3 * vgm_default$range[2] / 1000, 0.25, 0.25,
+  3, "nugget", 0, 0, 0, vgm_default$psill[1],
+  2, "sill", 10, 10, 0, sum(vgm_default$psill),
+  4, "partial sill", 0, 0, vgm_default$psill[1], sum(vgm_default$psill)
+)
+ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_default) +
   geom_point() +
   geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
-  geom_vline(xintercept = 3 * vgm_default$range[2], linetype = 3) +
+  geom_vline(xintercept = 3 * vgm_default$range[2] / 1000, linetype = 3) +
   geom_segment(data = characteristics, arrow = arrow(ends = "both"),
                aes(x = x, xend = xend, y = y, yend = yend)) +
   geom_label(data = characteristics, hjust = 0,
              aes(x = (x + xend) / 2, y = (y + yend) / 2, label = id)) +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 ```
 
 ### Important characteristics
 
 ```{r vg-default-char-lab, echo = FALSE}
-ggplot(vg_default, aes(x = dist, y = gamma)) +
+ggplot(vg_default, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_default) +
   geom_point() +
   geom_hline(yintercept = cumsum(vgm_default$psill), linetype = 2) +
-  geom_vline(xintercept = 3 * vgm_default$range[2], linetype = 3) +
+  geom_vline(xintercept = 3 * vgm_default$range[2] / 1000, linetype = 3) +
   geom_segment(data = characteristics, arrow = arrow(ends = "both"),
                aes(x = x, xend = xend, y = y, yend = yend)) +
   geom_label(data = characteristics, hjust = 0,
              aes(x = (x + xend) / 2, y = (y + yend) / 2, label = label)) +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 ```
 
 ### Projected example data
 
 ```{r rainfall-projected, echo = FALSE}
-ggplot(dataset, aes(x = X, y = Y, colour = Rain, size = Rain)) +
-  geom_point() + coord_fixed() + labs(x = "X (100 km)", y = "Y (100 km)")
+ggplot(dataset) + geom_sf(aes(colour = Rain, size = Rain)) + 
+  coord_sf(datum = st_crs(5880))
 ```
 
 ### Increased cutoff
 
 ```{r vg-large-cutoff}
-vg_large <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset,
-                      cutoff = 6, cressie = TRUE)
+vg_large <- variogram(Pearson_iid ~ 1, locations = ~X + Y, cressie = TRUE, 
+                      data = as.data.frame(dataset), cutoff = 600e3)
 ```
 
 ```{r vg-large-cutoff-plot, echo = FALSE}
-vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+vgm(psill = 0.5, model = "Mat", range = 170e3, nugget = 0.375) %>%
   fit.variogram(object = vg_large) -> vgm_large
 vgl_large <- variogramLine(vgm_large, maxdist = max(vg_large$dist))
-ggplot(vg_large, aes(x = dist, y = gamma)) +
+ggplot(vg_large, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_large) +
   geom_point() +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 ```
 
 ### Number of point pairs is important
 
 ```{r vg-large-np, echo = FALSE}
-ggplot(vg_large, aes(x = dist, y = gamma)) +
+ggplot(vg_large, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_large) + geom_point(aes(size = np)) + 
   scale_size("number of\npoint pairs", limits = c(0, NA)) +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 ```
 
 ### Too small width leads to unstable variograms
 
 ```{r vg-small}
-vg_small <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset, 
-                      width = 0.01, cressie = TRUE)
+vg_small <- variogram(Pearson_iid ~ 1, locations = ~X + Y, cressie = TRUE, 
+                      data = as.data.frame(dataset), width = 1e3)
 ```
 
 ```{r vg-small-plot, echo = FALSE}
-vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+vgm(psill = 0.5, model = "Mat", range = 170e3, nugget = 0.375) %>%
   fit.variogram(object = vg_small) -> vgm_small
 vgl_small <- variogramLine(vgm_small, maxdist = max(vg_default$dist))
-ggplot(vg_small, aes(x = dist, y = gamma)) +
+ggplot(vg_small, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_small) +
   geom_point(aes(colour = cut(np, c(0, 10, 20, 50, 100, 200, 500, Inf)))) +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA)) +
   labs(colour = "number of\npoint pairs")
 ```
@@ -207,18 +217,221 @@ ggplot(vg_small, aes(x = dist, y = gamma)) +
 ### Sensible small width yields the most informative variogram
 
 ```{r vg-final}
-vg_final <- variogram(Pearson_iid ~ 1, locations = ~X + Y, data = dataset, 
-                      width = 0.1, cressie = TRUE)
+vg_final <- variogram(Pearson_iid ~ 1, locations = ~X + Y, cressie = TRUE, 
+                      data = as.data.frame(dataset), width = 10e3)
 ```
 
 ```{r vg-final-plot, echo = FALSE}
-vgm(psill = 0.5, model = "Mat", range = 1.7, nugget = 0.375) %>%
+vgm(psill = 0.5, model = "Mat", range = 170e3, nugget = 0.375) %>%
   fit.variogram(object = vg_final) -> vgm_final
 vgl_final <- variogramLine(vgm_final, maxdist = max(vg_default$dist))
-ggplot(vg_final, aes(x = dist, y = gamma)) +
+ggplot(vg_final, aes(x = dist / 1000, y = gamma)) +
   geom_line(data = vgl_final) +
   geom_point(aes(colour = cut(np, c(0, 10, 20, 50, 100, 200, 500, Inf)))) +
-  scale_x_continuous("distance (100 km)", limits = c(0, NA)) +
+  scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA)) +
   labs(colour = "number of\npoint pairs")
+```
+
+### Challenge 2
+
+- What is the minimum binwidth for your data?
+- Calculate the variogram for your model
+- What is the approximate range of of the variogram?
+- What is the nugget, sill and partial sill?
+
+# Prepare the model
+
+## Creating a mesh
+
+### Size of a mesh {.allowframebreaks}
+
+```{r volcano, echo = FALSE, warning = FALSE}
+data(volcano)
+vr <- raster(volcano)
+aggregate(vr, 16) %>%
+  as.data.frame(xy = TRUE) %>%
+  ggplot(aes(x = x, y = y, z = layer)) +
+  theme_void() +
+  stat_wireframe()
+aggregate(vr, 8) %>%
+  as.data.frame(xy = TRUE) %>%
+  ggplot(aes(x = x, y = y, z = layer)) +
+  theme_void() +
+  stat_wireframe()
+aggregate(vr, 4) %>%
+  as.data.frame(xy = TRUE) %>%
+  ggplot(aes(x = x, y = y, z = layer)) +
+  theme_void() +
+  stat_wireframe()
+aggregate(vr, 2) %>%
+  as.data.frame(xy = TRUE) %>%
+  ggplot(aes(x = x, y = y, z = layer)) +
+  theme_void() +
+  stat_wireframe()
+vr %>%
+  as.data.frame(xy = TRUE) %>%
+  ggplot(aes(x = x, y = y, z = layer)) +
+  theme_void() +
+  stat_wireframe()
+```
+
+### Guidelines
+
+- equilateral triangles work best
+- edge length should be around a third to a tenth of the range
+- avoid narrow triangles
+- avoid small edges
+- add extra, larger triangles around the border
+- simplify the border
+
+### Mesh only within the border
+
+```{r dummy-border, echo = FALSE}
+list(
+  Polygons(
+    list(
+      Polygon(matrix(c(0, 0, 1, 1, 0, 1, 1, 0), ncol = 2)),
+      Polygon(matrix(c(0.3, 0.3, 0.7, 0.7, 0.3, 0.7, 0.7, 0.3), ncol = 2), 
+              hole = TRUE)
+    ), 1
+  ),
+  Polygons(
+    list(Polygon(matrix(c(2, 2, 3, 3, 0, 1, 1, 0), ncol = 2))), 2
+  )
+) %>%
+  SpatialPolygons() -> border
+```
+
+```{r mesh-inside}
+mesh <- inla.mesh.2d(boundary = border, max.edge = 0.15)
+ggplot() + gg(mesh) + coord_fixed() + theme_map() + 
+  ggtitle(paste("Vertices: ", mesh$n))
+```
+
+### Mesh going outside the border
+
+```{r mesh-outside}
+mesh <- inla.mesh.2d(boundary = border, max.edge = c(0.15, 0.3))
+ggplot() + gg(mesh) + coord_fixed() + theme_map() + 
+  ggtitle(paste("Vertices: ", mesh$n))
+```
+
+### Mesh for rainfall data
+
+```{r project-boundary, echo = FALSE}
+data(PRborder)
+PRborder %>%
+  Polygon() %>%
+  list() %>%
+  Polygons(ID = 1) %>%
+  list() %>%
+  SpatialPolygons(proj4string = CRS("+init=epsg:4326")) %>%
+  spTransform(CRS("+init=epsg:5880")) -> boundary
+```
+
+```{r mesh-rainfall-1}
+mesh <- inla.mesh.2d(boundary = boundary, max.edge = c(30e3, 100e3))
+ggplot(dataset) + gg(mesh) + geom_sf() + ggtitle(paste("Vertices: ", mesh$n)) +
+  coord_sf(datum = st_crs(5880))
+```
+
+### Use `cutoff` to simplify mesh
+
+```{r mesh-rainfall-simple}
+mesh1 <- inla.mesh.2d(boundary = boundary, max.edge = c(30e3, 100e3), 
+                      cutoff = 10e3)
+ggplot(dataset) + gg(mesh1) + geom_sf() + 
+  ggtitle(paste("Vertices: ", mesh1$n)) + coord_sf(datum = st_crs(5880))
+```
+
+### Finer mesh for final model run
+
+```{r mesh-rainfall-simple2}
+mesh2 <- inla.mesh.2d(boundary = boundary, max.edge = c(10e3, 30e3), 
+                      cutoff = 10e3)
+ggplot(dataset) + gg(mesh2) + geom_sf() + 
+  ggtitle(paste("Vertices: ", mesh2$n)) + coord_sf(datum = st_crs(5880))
+```
+
+### Challenge 3
+
+- What are the relevant `max.edge` and `cutoff` for a course mesh?
+- What are the relevant `max.edge` and `cutoff` for a smooth mesh?
+- Create a course and a smooth mesh for your data
+
+## Creating an SPDE model
+
+### SPDE using penalised complexity priors
+
+**S**tochastic **P**artial **D**ifferential **E**quations
+
+- `prior.range = c(r, alpha_r)`: $P(\rho < r) < \alpha_r$
+- `prior.sigma = c(s, alpha_s)`: $P(\sigma > s) < \alpha_s$
+
+```{r spde1}
+spde1 <- inla.spde2.pcmatern(mesh1, prior.range = c(100e3, 0.05), 
+                             prior.sigma = c(0.9, 0.1))
+spde2 <- inla.spde2.pcmatern(mesh2, prior.range = c(100e3, 0.05), 
+                             prior.sigma = c(0.9, 0.1))
+```
+
+### Challenge 4
+
+- What are relevant priors for the range and sigma for your data
+    - Hint: see challenge 2
+- Make the SPDE models for your data
+
+# Fitting the model
+
+## Only the data
+
+### The stack for the observed data
+
+```{r stacks}
+A1 <- inla.spde.make.A(mesh = mesh1, loc = st_coordinates(dataset))
+stack1 <- inla.stack(
+  tag = 'estimation', ## tag
+  data = list(Rain = dataset$Rain), ## response
+  A = list(A1, 1), ## projector matrices (SPDE and fixed effects)
+  effects = list(
+    list(site = seq_len(spde1$n.spde)), ## random field index
+    dataset %>%
+      as.data.frame() %>%
+      transmute(Intercept = 1, Xc, Yc) ## fixed effect covariates
+  )
+)
+```
+
+### Model fit
+
+#### INLA
+
+```{r model-fit-INLA}
+model_spde1 <- inla(Rain ~ 0 + Intercept + Xc + Yc + f(site, model = spde1), 
+                    family = "gamma", data = inla.stack.data(stack1),
+                    control.predictor = list(A = inla.stack.A(stack1))
+                  )
+```
+
+#### inlabru
+
+```{r model-fit-inlabru}
+bru_spde1 <- bru(Rain ~ Xc + Yc + location(map = st_coordinates, model = spde1), 
+                 family = "gamma", data = dataset)
+```
+
+### Comparison of fixed effect parameters
+
+```{r comparison-fe, echo = FALSE}
+model_spde1$summary.fixed %>%
+  rownames_to_column("parameter") %>%
+  mutate(model = "INLA") %>%
+  bind_rows(
+    bru_spde1$summary.fixed %>%
+    rownames_to_column("parameter") %>%
+    mutate(model = "inlabru")
+  ) %>%
+  ggplot(aes(x = model, y = mean, ymin = `0.025quant`, ymax = `0.975quant`)) +
+  geom_errorbar() + geom_point() + facet_wrap(~parameter, scales = "free_y")
 ```
