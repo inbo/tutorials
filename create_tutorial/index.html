@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content=''><meta property='article:published_time' content='2018-12-14T00:00:00Z'/><meta property='article:modified_time' content='2018-12-14T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.52" />
+<meta name="generator" content="Hugo 0.56.0-DEV" />
 
   <title>Create tutorial • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/create_tutorial/'>
@@ -87,8 +87,6 @@
 
   <div class='container list-container'>
   <ul class='list taxonomy-cloud no-shuffle'><li>
-        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
-      </li><li>
         <a href='/tutorials/tags/analysis/' style='font-size:1em'>analysis</a>
       </li><li>
         <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
@@ -116,6 +114,8 @@
         <a href='/tutorials/tags/github/' style='font-size:1.05em'>github</a>
       </li><li>
         <a href='/tutorials/tags/google/' style='font-size:1.05em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
       </li><li>
         <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
       </li><li>
@@ -400,8 +400,8 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <ul>
 <li>Update your code and create a new branch, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with" target="_blank">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
 <li>Navigate to the subfolder <code>content/tutorials</code> and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name.</li>
-<li>Within the folder, create a new file markdown <code>index.md</code>.  The header of this file has an agreed format and you should copy paste this to start with:</li>
-</ul>
+
+<li><p>Within the folder, create a new file markdown <code>index.md</code>.  The header of this file has an agreed format and you should copy paste this to start with:</p>
 
 <pre><code>---
 title: &quot;YOUR TITLE&quot;
@@ -413,7 +413,8 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 ---
 
 # your text starts here...
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p>Replace all the CAPITAL words with appropriate information:</p>
 
@@ -446,8 +447,8 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <ul>
 <li>Update your code and create a new branch, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with" target="_blank">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
 <li>Navigate to the subfolder <code>content/tutorials</code> and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name.</li>
-<li>Within the folder, create a new file markdown <code>index.Rmd</code>.  The header of this file has an agreed format and you should copy paste this to start with:</li>
-</ul>
+
+<li><p>Within the folder, create a new file markdown <code>index.Rmd</code>.  The header of this file has an agreed format and you should copy paste this to start with:</p>
 
 <pre><code>---
 title: &quot;YOUR TITLE&quot;
@@ -457,12 +458,13 @@ date: YYYY-MM-DD
 categories: [&quot;YOUR_CATEGORY&quot;]
 tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 output: 
-    md_document:
-        preserve_yaml: true
+md_document:
+    preserve_yaml: true
 ---
 
 # your text starts here...
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p>Replace all the CAPITAL words with appropriate information:</p>
 
@@ -502,7 +504,17 @@ output:
 </article>
 
 <nav class='entry-nav'>
-  <div class='container'></div>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/search/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Search</a>
+    </div></div>
 </nav>
 
 
