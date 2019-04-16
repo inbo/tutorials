@@ -27,7 +27,10 @@ Fitting models with only fixed effects, random intercepts and first order random
 
 ## Workshop 3
 
-Work in progress
+Fitting models with spatial correlation
+
+- [slides](https://inbo.github.io/tutorials/tutorials/r_inla/spatial.pdf)
+- [source code and data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_inla/spatial)
 
 ## Literature
 
