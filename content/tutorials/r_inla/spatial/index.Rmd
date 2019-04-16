@@ -5,7 +5,6 @@ site: bookdown::bookdown_site
 output:
   bookdown::pdf_book:
     base_format: INBOmd::inbo_slides
-    toc: FALSE
     slide_level: 3
     theme: inboenglish
     flandersfont: TRUE
@@ -47,6 +46,10 @@ if (interactive()) {
   )
   update_geom_defaults("text", list(size = 3))
   update_geom_defaults("point", list(size = 0.5))
+  update_geom_defaults("line", list(size = 0.2))
+  update_geom_defaults("hline", list(size = 0.2))
+  update_geom_defaults("vline", list(size = 0.2))
+  update_geom_defaults("segment", list(size = 0.2))
 }
 set.seed(200190307)
 ```
@@ -190,8 +193,8 @@ ggplot(vg_large, aes(x = dist / 1000, y = gamma)) +
 
 ```{r vg-large-np, echo = FALSE}
 ggplot(vg_large, aes(x = dist / 1000, y = gamma)) +
-  geom_line(data = vgl_large) + geom_point(aes(size = np)) + 
-  scale_size("number of\npoint pairs", limits = c(0, NA)) +
+  geom_line(data = vgl_large) + geom_point() + 
+  geom_text(aes(label = np), hjust = -0.2, vjust = 1.2) + 
   scale_x_continuous("distance (km)", limits = c(0, NA)) +
   scale_y_continuous("variance", limits = c(0, NA))
 ```
@@ -227,11 +230,10 @@ vgm(psill = 0.5, model = "Mat", range = 170e3, nugget = 0.375) %>%
   fit.variogram(object = vg_final) -> vgm_final
 vgl_final <- variogramLine(vgm_final, maxdist = max(vg_default$dist))
 ggplot(vg_final, aes(x = dist / 1000, y = gamma)) +
-  geom_line(data = vgl_final) +
-  geom_point(aes(colour = cut(np, c(0, 10, 20, 50, 100, 200, 500, Inf)))) +
+  geom_line(data = vgl_final) + geom_point() +
+  geom_text(aes(label = np), hjust = -0.2, vjust = 1.2) + 
   scale_x_continuous("distance (km)", limits = c(0, NA)) +
-  scale_y_continuous("variance", limits = c(0, NA)) +
-  labs(colour = "number of\npoint pairs")
+  scale_y_continuous("variance", limits = c(0, NA))
 ```
 
 ### Challenge 2
@@ -350,7 +352,7 @@ ggplot(dataset) + gg(mesh1) + geom_sf() +
 
 ```{r mesh-rainfall-simple2}
 mesh2 <- inla.mesh.2d(boundary = boundary, max.edge = c(10e3, 30e3), 
-                      cutoff = 10e3)
+                      cutoff = 5e3)
 ggplot(dataset) + gg(mesh2) + geom_sf() + 
   ggtitle(paste("Vertices: ", mesh2$n)) + coord_sf(datum = st_crs(5880))
 ```
@@ -494,7 +496,8 @@ dataset %>%
 fit <- predict(bru_spde1, as_Spatial(dataset), ~exp(Intercept + Xc + Yc + site))
 dataset %>%
   mutate(
-    mu = fit$mean, sigma2 = mu ^ 2 / model_spde1$summary.hyperpar[1, "mean"],
+    mu = fit$mean, 
+    sigma2 = mu ^ 2 / model_spde1$summary.hyperpar[1, "mean"],
     Pearson_spde = (Rain - mu) / sqrt(sigma2)
   ) -> dataset
 ```
