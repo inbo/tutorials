@@ -307,6 +307,15 @@ if (requireNamespace("lintr", quietly = TRUE)) {
 }
 ```
 
+#### Data
+
+- to make data available to package users, store them in the `data` folder by using `usethis::use_data(xyz)`
+- to make data available for loading and parsing examples, store them in the folder `inst/extdata`. Access this data with `system.file("xyz", package = "abc")`
+- to keep data internal for use by your functions, store them in the file `R/Sysdata.rda` by using `usethis::use_data(xyz, internal = TRUE)`. Access this data with `abc::xyz`
+- add scripts for generating these data in the folder `data-raw` and create this folder by using `usethis::use_data_raw()` (to ignore them during build)
+
+(In the above examples, `xyz` are data and `abc` is the package in which they are stored.)
+
 ### R script
 
 - group a long set of commands with similar functionality into a dedicated function
