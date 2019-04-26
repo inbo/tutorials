@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>statistics on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/categories/statistics/</link>
-    <description>Recent content in statistics on INBO Tutorials</description>
+    <title>python on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/tags/python/</link>
+    <description>Recent content in python on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://inbo.github.io/tutorials/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://inbo.github.io/tutorials/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&amp;rsquo;s code repository.</description>
-    </item>
-    
-    <item>
-      <title>INLA workshops</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_inla/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/r_inla/</guid>
-      <description>These workshops are a follow-up of the course on &amp;ldquo;Spatial, temporal and spatial-temporal models using R-INLA&amp;rdquo; by Alain Zuur and Elena Ieno (Highland Statistics Ltd.). The main goal is the get people using R-INLA with their own data in a workshop setting so they can tap into the knowledge of others. The workshops are not a copy of the Highstat course but elaborate certain topics. We also introduce the inlatools and inlabru.</description>
     </item>
     
   </channel>
