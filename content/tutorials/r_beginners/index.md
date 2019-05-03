@@ -2,7 +2,7 @@
 title: "R voor beginners"
 description: "Handleiding, code en data ter ondersteuning van de 'R voor beginners' workshop"
 author: "Ivy Jansen en Pieter Verschelde"
-date: 2019-05-07
+date: 2019-05-03
 categories: ["r"]
 tags: ["r", "rstudio", "ggplot2", "rmarkdown", "dplyr"]
 ---
