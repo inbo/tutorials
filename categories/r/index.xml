@@ -6,7 +6,7 @@
     <description>Recent content in r on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,16 @@
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&amp;rsquo;s code repository.</description>
+    </item>
+    
+    <item>
+      <title>R voor beginners</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_beginners/</link>
+      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_beginners/</guid>
+      <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
+ Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
     </item>
     
     <item>
