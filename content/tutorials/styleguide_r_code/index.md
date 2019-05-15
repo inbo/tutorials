@@ -307,6 +307,30 @@ if (requireNamespace("lintr", quietly = TRUE)) {
 }
 ```
 
+#### Data
+
+To make data available for users, they can be stored in a package in 3 different file types:
+
+-   plain text file (`.txt`, `.csv`,...): use if
+    -   your package is under version control and the data often change
+    -   you want to keep track on the changes using version control
+    -   consider to keep row and column order fixed
+-   binary file (`.Rdata` or `.rda`): use if
+    -   your dataset is large and data do not change between different versions
+    -   you are not interested in keeping track on the exact changes
+    -   you want to keep the exact format of the data (e.g. factors with levels) (possible in plain text with [git2rdata](https://inbo.github.io/git2rdata))
+-   code (`.r`) generating a table: use if the data can easily be generated with code
+
+Data can be stored in 3 places:
+
+-   to make data available for loading and parsing examples, store them in the folder `inst/extdata`. Access this data with `system.file("xyz", package = "abc")`. Possible for all data types.
+-   to make data available to package users, store them in the `data` folder. Access this data with `data(xyz)`. Possible only for data formats that can be handled by `data()`. Binary `.rda`-files can be stored by using `usethis::use_data(xyz)`.
+-   to keep data internal for use by your functions, store them in the file `R/Sysdata.rda` by using `usethis::use_data(xyz, internal = TRUE)`. Access this data with `abc::xyz`.
+
+(In the above examples, `xyz` are data and `abc` is the package in which they are stored.)
+
+Add scripts for generating these data in the folder `data-raw` and create this folder by using `usethis::use_data_raw()` (ignores folder during build).
+
 ### R script
 
 -   group a long set of commands with similar functionality into a dedicated function
