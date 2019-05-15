@@ -264,7 +264,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-10 mins read
+12 mins read
 </span>
 
 
@@ -675,6 +675,40 @@ lintr::expect_lint_free()
 </ul></li>
 </ul></li>
 </ul>
+
+<h4 id="data">Data<a href="#data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+
+<p>To make data available for users, they can be stored in a package in 3 different file types:</p>
+
+<ul>
+<li>plain text file (<code>.txt</code>, <code>.csv</code>,&hellip;): use if
+
+<ul>
+<li>your package is under version control and the data often change</li>
+<li>you want to keep track on the changes using version control</li>
+<li>consider to keep row and column order fixed</li>
+</ul></li>
+<li>binary file (<code>.Rdata</code> or <code>.rda</code>): use if
+
+<ul>
+<li>your dataset is large and data do not change between different versions</li>
+<li>you are not interested in keeping track on the exact changes</li>
+<li>you want to keep the exact format of the data (e.g. factors with levels) (possible in plain text with <a href="https://inbo.github.io/git2rdata" target="_blank">git2rdata</a>)</li>
+</ul></li>
+<li>code (<code>.r</code>) generating a table: use if the data can easily be generated with code</li>
+</ul>
+
+<p>Data can be stored in 3 places:</p>
+
+<ul>
+<li>to make data available for loading and parsing examples, store them in the folder <code>inst/extdata</code>. Access this data with <code>system.file(&quot;xyz&quot;, package = &quot;abc&quot;)</code>. Possible for all data types.</li>
+<li>to make data available to package users, store them in the <code>data</code> folder. Access this data with <code>data(xyz)</code>. Possible only for data formats that can be handled by <code>data()</code>. Binary <code>.rda</code>-files can be stored by using <code>usethis::use_data(xyz)</code>.</li>
+<li>to keep data internal for use by your functions, store them in the file <code>R/Sysdata.rda</code> by using <code>usethis::use_data(xyz, internal = TRUE)</code>. Access this data with <code>abc::xyz</code>.</li>
+</ul>
+
+<p>(In the above examples, <code>xyz</code> are data and <code>abc</code> is the package in which they are stored.)</p>
+
+<p>Add scripts for generating these data in the folder <code>data-raw</code> and create this folder by using <code>usethis::use_data_raw()</code> (ignores folder during build).</p>
 
 <h3 id="r-script">R script<a href="#r-script" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
