@@ -15,10 +15,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R.
-Here we provide the approach using the package DBI, which is also used by RStudio.^[
-Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)].
-This package enables the link between R and the (remote) database.
+## Connection to INBO database
+
+Here we provide the approach using the package DBI, which is also used by RStudio.^[Formerly, connections were made using the package [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)]. This package enables the link between R and the (remote) database.
 After installation of the needed packages (`install.packages(c("DBI", "glue", "tidyverse"))`), the packages can be loaded:
 
 ```{r, loadpackage, warning = FALSE, message = FALSE}
@@ -27,7 +26,52 @@ library(glue)
 library(tidyverse)
 ```
 
-For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the [*registered ODBC connections*](http://www.stata.com/support/faqs/data-management/configuring-odbc-win/) in the administrator tools menu. 
+### Inborutils function
+
+To support the connection to INBO databases, a dedicated function is available in the [inboRutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and use the _Connections pane_ in the Rstudio interface:
+
+![odbc-connecties](./database-R/connections_pane.png)
+
+To use the `connect_inbo_dbase` function, make sure to install the `inborutils` package, following the [installation instructions](https://inbo.github.io/inborutils/#installation). After a successfull installation, load the library and create a database connection:
+
+```{r connect-fn-default, eval=FALSE, include=FALSE}
+library(inborutils)
+my_connection <- connect_inbo_dbase("D0021_00_userFlora")
+```
+
+Once the connection is successfully established, the database can be queried.
+
+__Note For Linux/Mac users__:
+
+As the default driver `SQL Server` is used by default and this is not available for linux/mac, a custom driver can be provided as well, for example using the `ODBC Driver 17 for SQL Server`:
+
+```{r}
+library(inborutils)
+my_connection <- connect_inbo_dbase("D0021_00_userFlora", 
+                                 sql_driver = "ODBC Driver 17 for SQL Server")
+```
+
+__Remark for Linux users__: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
+
+### Setting up the connection yourself
+
+In case you want to setup the connection yourself (e.g. errors using inborutils), it is also possible to setup the connection yourself by providing the necessary parameters:
+
+
+```{r eval=FALSE, include=FALSE}
+my_connection <- DBI::dbConnect(odbc::odbc(),
+                                driver = "SQL Server",
+                                server = "inbo-sql07-prd.inbo.be", # or inbo-sql08-prd.inbo.be
+                                port = 1433,
+                                database = "D0021_00_userFlora",
+                                trusted_connection = "Yes")
+```
+
+The most important parameters are `server` and `database`. For the first one, remember that database names starting with `M`, `S` or `W` can be accessed using the `inbo-sql08-prd.inbo.be` server and others (mostly with `D`) use the `inbo-sql07-prd.inbo.be` server. The database name is the name of the database (if you can't remember the name, connect with a database you do know, e.g. _D0021_00_userFlora_ and you'll see an overview after connecting.)
+
+### Use existing MSAccess connection name
+
+When you query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R. For Windows users, the most important element is to know the so-called `DSN` (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the `DSN` is to check the [*registered ODBC connections*](http://www.stata.com/support/faqs/data-management/configuring-odbc-win/) in the administrator tools menu. 
 
 For Dutch-speaking Windows 7 users: 
 
@@ -39,6 +83,7 @@ You should see a list similar to the list underneath, with the names of the avai
 An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*): 
 ![access-dsn](./database-R/access_dsn.png)
 
+
 For example, the DSN name `UserFlora` or `Cydonia-prd` can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the `odbcConnect` function, providing the DSN name as argument:
 
 For Windows users:
@@ -47,17 +92,7 @@ For Windows users:
 my_connection <- odbcConnect("UserFlora")
 ```
 
-For Linux/Mac users:
-
-```{r sqlconnection}
-my_connection <- DBI::dbConnect(odbc::odbc(), 
-                                .connection_string = "Driver={ODBC Driver 17 for SQL Server};Server=inbo-sql07-prd.inbo.be;Database=D0021_00_userFlora;Trusted_Connection=yes;")
-print(my_connection)
-```
-
-Once this connection is successfully established, the database can be queried. 
-
-**Remark for Linux users:** When working in Linux, this setup requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
+Once the connection is successfully established, the database can be queried. 
 
 ## Get a complete table from the database
 
