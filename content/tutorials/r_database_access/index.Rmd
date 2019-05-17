@@ -26,15 +26,21 @@ library(glue)
 library(tidyverse)
 ```
 
+To create a database connection, different approaches are available as explained in the next section:
+
+1. Use the dedicated `connect_inbo_dbase` function in the inborutils package
+2. Setup the required parameters yourself
+3. Reuse existing registered connections on your computer
+
 ### Inborutils function
 
-To support the connection to INBO databases, a dedicated function is available in the [inboRutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and use the _Connections pane_ in the Rstudio interface:
+To support the connection to INBO databases, a dedicated function is available in the [inborutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and use the _Connections pane_ in the Rstudio interface:
 
 ![odbc-connecties](./database-R/connections_pane.png)
 
 To use the `connect_inbo_dbase` function, make sure to install the `inborutils` package, following the [installation instructions](https://inbo.github.io/inborutils/#installation). After a successfull installation, load the library and create a database connection:
 
-```{r connect-fn-default, eval=FALSE, include=FALSE}
+```{r connect-fn-default, eval=FALSE}
 library(inborutils)
 my_connection <- connect_inbo_dbase("D0021_00_userFlora")
 ```
@@ -58,16 +64,16 @@ __Remark for Linux users__: When working in Linux, this setup (using `Trusted co
 In case you want to setup the connection yourself (e.g. errors using inborutils), it is also possible to setup the connection yourself by providing the necessary parameters:
 
 
-```{r eval=FALSE, include=FALSE}
+```{r eval=FALSE}
 my_connection <- DBI::dbConnect(odbc::odbc(),
-                                driver = "SQL Server",
-                                server = "inbo-sql07-prd.inbo.be", # or inbo-sql08-prd.inbo.be
-                                port = 1433,
-                                database = "D0021_00_userFlora",
-                                trusted_connection = "Yes")
+      driver = "SQL Server",
+      server = "inbo-sql07-prd.inbo.be", # or inbo-sql08-prd.inbo.be
+      port = 1433,
+      database = "D0021_00_userFlora", # or your database of interest
+      trusted_connection = "Yes")
 ```
 
-The most important parameters are `server` and `database`. For the first one, remember that database names starting with `M`, `S` or `W` can be accessed using the `inbo-sql08-prd.inbo.be` server and others (mostly with `D`) use the `inbo-sql07-prd.inbo.be` server. The database name is the name of the database (if you can't remember the name, connect with a database you do know, e.g. _D0021_00_userFlora_ and you'll see an overview after connecting.)
+The most important parameters are `server` and `database`, the others should normally be kept as such. For the first one, remember that database names starting with `M`, `S` or `W` can be accessed using the `inbo-sql08-prd.inbo.be` server and others (mostly with `D`) use the `inbo-sql07-prd.inbo.be` server. The database name is the name of the database (if you can't remember the name, connect with a database you do know, e.g. _D0021_00_userFlora_ and you'll see an overview of the existing databases on that server after connecting.)
 
 ### Use existing MSAccess connection name
 
@@ -78,9 +84,12 @@ For Dutch-speaking Windows 7 users:
     > Kies in het Configuratiescherm van Windows de optie Systeembeheer > Gegevensbronnen (ODBC). De optie Systeembeheer verschijnt in de categorie Systeem en onderhoud.
 
 You should see a list similar to the list underneath, with the names of the available DSN names enlisted:
+
 ![odbc-connecties](./database-R/odbc_gegevensbron.png)
 
+
 An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item *Koppelingsbeheer*): 
+
 ![access-dsn](./database-R/access_dsn.png)
 
 
