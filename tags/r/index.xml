@@ -223,8 +223,9 @@ tl;dr  If you can comfortably work with the entire file in memory, but reading t
       <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_database_access/</guid>
-      <description>To query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R. Here we provide the approach using the package DBI, which is also used by RStudio.1. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
-library(DBI) library(glue) library(tidyverse) For Windows users, the most important element is to know the so-called DSN (i.</description>
+      <description>Connection to INBO database Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
+library(DBI) library(glue) library(tidyverse) To create a database connection, different approaches are available as explained in the next section:
+ Use the dedicated connect_inbo_dbase function in the inborutils package Setup the required parameters yourself Reuse existing registered connections on your computer  Inborutils function To support the connection to INBO databases, a dedicated function is available in the inborutils package, called connect_inbo_dbase.</description>
     </item>
     
     <item>
