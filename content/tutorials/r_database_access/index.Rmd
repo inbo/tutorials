@@ -57,7 +57,7 @@ my_connection <- connect_inbo_dbase("D0021_00_userFlora",
                                  sql_driver = "ODBC Driver 17 for SQL Server")
 ```
 
-__Remark for Linux users__: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
+__Remark for Linux users__: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the [tutorial on kerberos installation](https://inbo.github.io/tutorials/installation/user/user_install_kerberos/).
 
 ### Setting up the connection yourself
 
