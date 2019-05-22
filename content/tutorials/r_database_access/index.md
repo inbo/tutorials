@@ -30,7 +30,7 @@ To create a database connection, different approaches are available as explained
 
 ### Inborutils function
 
-To support the connection to INBO databases, a dedicated function is available in the [inborutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and use the *Connections pane* in the Rstudio interface:
+To support the connection to INBO databases, a dedicated function is available in the [inborutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and uses the *Connections pane* in the Rstudio interface:
 
 ![odbc-connecties](./database-R/connections_pane.png)
 
@@ -45,7 +45,7 @@ Once the connection is successfully established, the database can be queried.
 
 **Note For Linux/Mac users**:
 
-As the default driver `SQL Server` is used by default and this is not available for linux/mac, a custom driver can be provided as well, for example using the `ODBC Driver 17 for SQL Server`:
+As the function uses the `SQL Server` driver by default and this driver is not available for Linux/Mac, a custom driver can be provided as well, for example using the `ODBC Driver 17 for SQL Server`:
 
 ``` r
 library(inborutils)
@@ -57,7 +57,8 @@ my_connection <- connect_inbo_dbase("D0021_00_userFlora",
 
 ### Setting up the connection yourself
 
-In case you want to setup the connection yourself (e.g. errors using inborutils), it is also possible to setup the connection yourself by providing the necessary parameters:
+In case you want to setup the connection yourself (e.g. errors using inborutils), 
+you can do so by providing the necessary parameters:
 
 ``` r
 my_connection <- DBI::dbConnect(odbc::odbc(),
