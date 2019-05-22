@@ -30,7 +30,7 @@ To create a database connection, different approaches are available as explained
 
 ### Inborutils function
 
-To support the connection to INBO databases, a dedicated function is available in the [inborutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and use the *Connections pane* in the Rstudio interface:
+To support the connection to INBO databases, a dedicated function is available in the [inborutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and uses the *Connections pane* in the Rstudio interface:
 
 ![odbc-connecties](./database-R/connections_pane.png)
 
@@ -43,11 +43,11 @@ my_connection <- connect_inbo_dbase("D0021_00_userFlora")
 
 Once the connection is successfully established, the database can be queried.
 
-**Remark for Linux users**: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
+**Remark for Linux users**: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the [tutorial on kerberos installation](https://inbo.github.io/tutorials/installation/user/user_install_kerberos/).
 
 ### Setting up the connection yourself
 
-In case you want to setup the connection yourself (e.g. errors using inborutils), it is also possible to setup the connection yourself by providing the necessary parameters:
+In case you want to setup the connection yourself (e.g. errors using inborutils), you can do so by providing the necessary parameters:
 
 ``` r
 my_connection <- DBI::dbConnect(odbc::odbc(),
