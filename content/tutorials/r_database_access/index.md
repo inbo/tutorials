@@ -43,16 +43,6 @@ my_connection <- connect_inbo_dbase("D0021_00_userFlora")
 
 Once the connection is successfully established, the database can be queried.
 
-**Note For Linux/Mac users**:
-
-As the default driver `SQL Server` is used by default and this is not available for linux/mac, a custom driver can be provided as well, for example using the `ODBC Driver 17 for SQL Server`:
-
-``` r
-library(inborutils)
-my_connection <- connect_inbo_dbase("D0021_00_userFlora", 
-                                 sql_driver = "ODBC Driver 17 for SQL Server")
-```
-
 **Remark for Linux users**: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
 
 ### Setting up the connection yourself
@@ -203,12 +193,12 @@ head(hyacint) %>% knitr::kable()
 
 |  Cor\_X|  COr\_Y| MetingStatusCode | NaamNederlands | NaamWetenschappelijk                             |  IFBLHokID|
 |-------:|-------:|:-----------------|:---------------|:-------------------------------------------------|----------:|
-|   88720|  208327| GDGA             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |      11195|
 |   24106|  199925| GDGA             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       9601|
 |  103111|  190915| GDGA             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       6990|
+|   88720|  208327| GDGA             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |      11195|
 |   68959|  173070| GDGK             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       3197|
-|   77618|  175718| GDGK             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       4043|
-|   77414|  175841| GDGK             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       4043|
+|  118123|  183942| GDGA             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       5672|
+|  106107|  182343| GDGA             | Wilde hyacint  | Hyacinthoides non-scripta (L.) Chouard ex Rothm. |       5217|
 
 ``` r
 bosanemoon <- flora_records_on_dutch_name(my_connection, "Bosanemoon")
@@ -217,12 +207,12 @@ head(bosanemoon) %>% knitr::kable()
 
 |  Cor\_X|  COr\_Y| MetingStatusCode | NaamNederlands | NaamWetenschappelijk |  IFBLHokID|
 |-------:|-------:|:-----------------|:---------------|:---------------------|----------:|
+|   72921|  198828| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       8824|
+|   72874|  198735| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       8824|
+|   72887|  198660| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       8824|
+|   72451|  199639| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       9423|
 |  196274|  178260| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       4219|
 |  118355|  185697| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       5670|
-|  117793|  185887| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       5673|
-|   72451|  199639| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       9423|
-|   72887|  198660| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       8824|
-|  126842|  188379| GDGA             | Bosanemoon     | Anemone nemorosa L.  |       6544|
 
 **Remark:** Do not forget to close your connection when finished.
 

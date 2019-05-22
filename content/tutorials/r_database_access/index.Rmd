@@ -40,22 +40,12 @@ To support the connection to INBO databases, a dedicated function is available i
 
 To use the `connect_inbo_dbase` function, make sure to install the `inborutils` package, following the [installation instructions](https://inbo.github.io/inborutils/#installation). After a successfull installation, load the library and create a database connection:
 
-```{r connect-fn-default, eval=FALSE}
+```{r connect-fn-default}
 library(inborutils)
 my_connection <- connect_inbo_dbase("D0021_00_userFlora")
 ```
 
 Once the connection is successfully established, the database can be queried.
-
-__Note For Linux/Mac users__:
-
-As the default driver `SQL Server` is used by default and this is not available for linux/mac, a custom driver can be provided as well, for example using the `ODBC Driver 17 for SQL Server`:
-
-```{r}
-library(inborutils)
-my_connection <- connect_inbo_dbase("D0021_00_userFlora", 
-                                 sql_driver = "ODBC Driver 17 for SQL Server")
-```
 
 __Remark for Linux users__: When working in Linux, this setup (using `Trusted connection`) requires an active *kerberos* session. More information about the setup and functionality is to be found in the tutorial on kerberos installation.
 
