@@ -1,5 +1,5 @@
 ---
-title: "Les 3 - R Markdown"
+title: "R Markdown"
 author: "Ivy Jansen, Pieter Verschelde"
 papersize: a4
 output: pdf_document
@@ -107,7 +107,7 @@ Een beperkte set van conventies om platte tekst te formatteren, die eenvoudig te
     ```
     **bold**   __bold__
     ```
-- `Code`: accent grave (` ` `) rond de tekst
+- `Code` (tekst met vaste breedte): accent grave (` ` `) rond de tekst
     ```
     `code`
     ```
@@ -151,7 +151,7 @@ Een beperkte set van conventies om platte tekst te formatteren, die eenvoudig te
 - Genummerde lijst
     ```
     1.  Numbered list item 1
-    1.  Item 2. The numbers are incremented automatically in the output.
+    1.  Item 2. 
     ```
     - Een (willekeurig) cijfer of letter gevolgd door een `.`
     - In het gerenderde document verhogen de cijfers (letters) automatisch
@@ -170,11 +170,11 @@ Een beperkte set van conventies om platte tekst te formatteren, die eenvoudig te
     ```
     [een stuk tekst](http://www.inbo.be)
     ```
-- Figuur met optionele titel, afmetingen kunnen gespecifieerd worden (ZONDER spaties)
+- Figuur met optionele titel, afmetingen kunnen gespecifieerd worden (ZONDER spaties rond `=`)
     ```
-    ![Logo INBO](../Figuren/logo_inbo_0.jpg){width=4cm, height=2cm}
+    ![Optionele titel](../Figuren/logo_inbo_0.jpg){width=4cm, height=2cm}
     ```
-    ![Logo INBO](../Figuren/logo_inbo_0.jpg){width=4cm}\
+    ![Optionele titel](../Figuren/logo_inbo_0.jpg){width=4cm}\
 
 
 
@@ -206,7 +206,7 @@ Binnen de accolades (op de eerste regel van de chunk, na de `r`) kunnen nog een 
 
 ## Chunk naam
 
-Er kan een **unieke** naam gegeven worden aan elke chunk (**vermijd spaties en punten**). Deze volgt na de `r` en een spatie: ```` ```{r by-name} ````. Dit heeft 3 voordelen:
+Er kan een **unieke** naam gegeven worden aan elke chunk (**vermijd spaties, punten en underscores**). Deze volgt na de `r` en een spatie: ```` ```{r chunknaam} ````. Dit heeft 3 voordelen:
 
 1. Je kan gemakkelijker navigeren tussen de verschillende chunks, door gebruik te maken van de drop-down navigator links onder in de script editor.  
     ![](../Figuren/rmarkdown-chunk-nav.png){width=5cm}\
@@ -270,6 +270,10 @@ Normaal begint elke compilatie van een R Markdown document met een schone lei. W
 Er moet wel zorgvuldig omgesprongen worden met het cachen, want er wordt enkel naar de code van de desbetreffende chunk gekeken, niet naar de dependencies (bvb eerdere chunks waar data ingelezen en/of bewerkt worden). Dit kan vermeden worden door deze afhankelijkheden mee te nemen als chunk optie:
 
 - `dependson = ""`: character vector met **alle** chunks waarvan deze chunk afhankelijk is
+
+of de volgende globale optie te specifiëren:
+
+- `autodep = TRUE`: achterhaal de afhankelijkheden tussen chunks automatisch door de globale variabelen in de code te analyseren
 
 Toch is het goed om regelmatig de cache volledig te verwijderen met het commando `knitr::clean_cache()` (in de console).
 

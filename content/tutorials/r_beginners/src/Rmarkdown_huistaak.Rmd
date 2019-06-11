@@ -1,5 +1,5 @@
 ---
-title: "Les 3 - Huistaak"
+title: "Huistaak"
 author: "Ivy Jansen, Pieter Verschelde"
 output: pdf_document
 urlcolor: blue
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Herhaling lesmateriaal
 
-- Download het materiaal in de [map van de derde les](https://drive.google.com/open?id=1J051rXElnLvWvwCJTCl_6vpLEANt5bbW3)
+- Download het materiaal van de [tutorials website](https://inbo.github.io/tutorials/tutorials/r_beginners/)
 - Doorloop het [document rond Rmarkdown](https://drive.google.com/open?id=1FYb8r4OxgEbVLaZFrbYhkD8gLVkTmd_z)
     - Indien er iets niet duidelijk is, zoek online hulp, of in [een van de 2](https://drive.google.com/open?id=1Ff8Fknki8YtUwvgud9zgg1hTtM25Sg-U) [cheatsheets](https://drive.google.com/open?id=104g2kGA4GL6JGOOQCyRTtNEZUVPzVkcj).
     - Geraak je er nog niet wijs uit, mail dan je vraag met het stukje code naar Ivy (ivy.jansen@inbo.be).
@@ -22,13 +22,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Opdracht
 
-- Neem het uitgewerkte script van de oefening (of huistaak) van les 2
-    - Plots van de `airquality` dataset
-    - Plots van de **Pilootstudie**
+- Neem het uitgewerkte script van de oefening (of huistaak) van les 2 of les 3
+    - `airquality` dataset
+    - **Pilootstudie**
+    - Demografie provincie hoofdsteden
+    - Neerslaggegevens
 - Maak een Rmarkdown document van het script
     - Zet alle code in kleine chunks
         - Geef elke chunk een duidelijke naam
-        - Denk goed na over de opties (wat wil je tonen in het rapport)
+        - Denk goed na over de opties (wat wil je tonen in het rapport?)
     - Voeg formattering toe
         - Titels die verwijzen naar de verschillende onderdelen in de opgave
         - Lijsten om de nummering te volgen
@@ -40,5 +42,5 @@ knitr::opts_chunk$set(echo = TRUE)
         - Alternatieve oplossingen
     - Voorzie het document van een titel, en jouw naam
 - `Knit` dit document naar een html-file
-- Mail de .Rmd file en de html-output naar Ivy, **ten laatste 31 maart 23u59**
+- Mail de .Rmd file en de html-output naar Ivy, **ten laatste 30 juni 23u59**
 
