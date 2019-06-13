@@ -6,7 +6,7 @@
     <description>Recent content in r on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,17 @@
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&amp;rsquo;s code repository.</description>
+    </item>
+    
+    <item>
+      <title>Applying the INBO corporate identity to bookdown documents</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_inbomd/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_inbomd/</guid>
+      <description>During this workshop you learn how to turn a regular Rmarkdown file into a bookdown document using the INBO corporate identity. A lot of tips and trics use plain bookdown. So you can use them with other bookdown output formats.
+The slides are available on the INBOmd examples website.
+The source code is avalaible in the INBOmd example GitHub repository.</description>
     </item>
     
     <item>

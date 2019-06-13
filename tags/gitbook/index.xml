@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gitbook on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/tags/gitbook/</link>
+    <description>Recent content in gitbook on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 13 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/tags/gitbook/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Applying the INBO corporate identity to bookdown documents</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_inbomd/</link>
+      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_inbomd/</guid>
+      <description>During this workshop you learn how to turn a regular Rmarkdown file into a bookdown document using the INBO corporate identity. A lot of tips and trics use plain bookdown. So you can use them with other bookdown output formats.
+The slides are available on the INBOmd examples website.
+The source code is avalaible in the INBOmd example GitHub repository.</description>
+    </item>
+    
+  </channel>
+</rss>
