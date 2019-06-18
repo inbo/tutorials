@@ -11,11 +11,11 @@ before_install:
   - nvm install stable
   - nvm use stable
 
-# Install hugo & minimo theme
+# Install hugo, lunr (search) & minimo theme (v2.7.0)
 install:
   - go get github.com/gohugoio/hugo
   - npm install lunr glob
-  - git clone https://github.com/MunifTanjim/minimo.git themes/minimo-cloned
+  - git clone https://github.com/MunifTanjim/minimo.git --branch v2.7.0 themes/minimo
 
 before_script:
     - rm -rf public 2> /dev/null
