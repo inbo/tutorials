@@ -13,3 +13,10 @@ New tutorials should go in a new directory in `content/tutorials`. Use plain mar
 
 The technology used to create the website is [Hugo](https://gohugo.io/), a static website generator. Hugo will process all the markdown files - ignoring Rmd, which is why these need to be knit beforehand - and create the necessary files (html, css, js) for the website. These are served from the [`gh-pages` branch](https://github.com/inbo/tutorials/tree/gh-pages).
 
+## Contributors
+
+[List of contributors](https://github.com/inbo/tutorials/graphs/contributors)
+
+## License
+
+[MIT License](https://github.com/inbo/tutorials/blob/master/LICENSE)
