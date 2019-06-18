@@ -43,4 +43,5 @@ For more information, see the [Hugo theme customization documentation](https://g
 
 ## License
 
-[MIT License](https://github.com/inbo/tutorials/blob/master/LICENSE)
+[Creative Commons Attribution](https://creativecommons.org/licenses/by/4.0/) for [content](content) / [MIT License](https://github.com/inbo/tutorials/blob/master/LICENSE) for source code.
+
