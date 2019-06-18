@@ -11,21 +11,22 @@ before_install:
   - nvm install stable
   - nvm use stable
 
-# install - install hugo
+# Install hugo & minimo theme
 install:
-    - go get github.com/gohugoio/hugo
-    - npm install lunr glob
+  - go get github.com/gohugoio/hugo
+  - npm install lunr glob
+  - git clone https://github.com/MunifTanjim/minimo.git themes/minimo-cloned
 
 before_script:
     - rm -rf public 2> /dev/null
 
-# script - run the build script
+# Run the build script
 script:
-    - hugo
+  - hugo
 
-# need to add post build for the search functionality...
+# Need to add post build for the search functionality...
 before_deploy:
-    - node themes/minimo/scripts/generate-search-index-lunr.js
+  - node themes/minimo/scripts/generate-search-index-lunr.js
 
 deploy:
   provider: pages
