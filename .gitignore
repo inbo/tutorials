@@ -50,6 +50,9 @@ package-lock.json
 # Public folder
 public/
 
+# Hugo themes directory
+themes/
+
 # Certain content files
 content/**/*.html
 
