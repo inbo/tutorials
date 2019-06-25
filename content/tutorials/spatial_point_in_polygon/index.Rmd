@@ -135,7 +135,7 @@ be10grid
 
 We can see that the spatial information now resides in a `GEOMETRY` list column.
 
-Similarly, the package has built-in functions to convert a data.frame containing coordinates to a spatial data.frame:
+Similarly, the package has built-in functions to convert a `data.frame` containing coordinates to a spatial `sf` object:
 
 ```{r}
 invasive_spatial <- st_as_sf(invasive_species,
