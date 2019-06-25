@@ -127,12 +127,13 @@ Instead of a SpatialPolygonsDataframe, we now get a "sf" object which is also a 
 class(be10grid)
 ```
 
-The spatial information now resides in a GEOMETRY variable:
+Let's have a look at this object:
 
-```{r}
-be10grid$GEOMETRY
+```{r paged.print = FALSE}
+be10grid
 ```
 
+We can see that the spatial information now resides in a `GEOMETRY` list column.
 
 Similarly, the package has built-in functions to convert a data.frame containing coordinates to a spatial data.frame:
 
@@ -145,6 +146,13 @@ invasive_spatial <- st_as_sf(invasive_species,
   st_transform(crs = 31370)
 ```
 
+Resulting in:
+
+```{r paged.print = FALSE}
+invasive_spatial
+```
+
+
 Now we are ready to make the spatial overlay. This is done with the aid of `sf::st_join`. We set the join type to `st_within` and join the information from the grid to the points through a left join. See [the DE-9IM topological model](https://en.wikipedia.org/wiki/DE-9IM) for explanations about all possible spatial joins. 
 
 
@@ -155,6 +163,13 @@ invasive_be10grid <- invasive_spatial %>%
           left = TRUE) %>%
   select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
 ```
+
+Looking at the resulting object:
+
+```{r paged.print = FALSE}
+invasive_be10grid
+```
+
 
 ## What have we done?
 
