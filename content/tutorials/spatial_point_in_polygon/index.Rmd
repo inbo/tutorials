@@ -112,12 +112,12 @@ invasive_species_be10grid %>%
 
 The same spatial query can be done with the aid of the `sf` package. The package has built-in functions to read spatial data (which also uses GDAL as backbone). 
 
-We will project the data to Lambert72, because the join assumes planar coordinates.
+We will project the data to Belgian Lambert 72 (<https://epsg.io/31370>), because the join assumes planar coordinates.
 
 ```{r}
 be10grid <- read_sf(file.path(tempdir(), "Belgium.sqlite"), 
                     layer = "be_10km")  %>%
-  # convert to Lambert72
+  # convert to Belgian Lambert 72
   st_transform(crs = 31370)
 ```
 
