@@ -54,16 +54,16 @@ We will use the European reference grid system from the European Environmental A
 
 ```{r}
 # explicitly set mode = "wb", otherwise zip file will be corrupt
-download.file("https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2/gis-files/belgium-spatialite/at_download/file", destfile = paste0(tempdir(), "\\Belgium_spatialite.zip"), mode = "wb")
+download.file("https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2/gis-files/belgium-spatialite/at_download/file", destfile = file.path(tempdir(), "Belgium_spatialite.zip"), mode = "wb")
 
 # this will extract a file Belgium.sqlite to the temporary folder
-unzip(zipfile = paste0(tempdir(), "\\Belgium_spatialite.zip"), exdir = tempdir())  
+unzip(zipfile = file.path(tempdir(), "Belgium_spatialite.zip"), exdir = tempdir())  
 ```
 
 Next, we use `rgdal::readOGR` to connect with the sqlite/spatialite database and extract the Belgium 10 km x 10 km grid as a SpatialPolygonsDataFrame. Apart from the 10 km x 10 km grid, the database also contains 1 km x 1 km and 100 km x 100 km grids as raster or vector files.
 
 ```{r}
-be10grid <- readOGR(dsn = paste0(tempdir(), "\\Belgium.sqlite"), 
+be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"), 
                   layer = "be_10km")
 ```
 
@@ -115,7 +115,7 @@ The same spatial query can be done with the aid of the `sf` package. The package
 We will project the data to Lambert72, because the join assumes planar coordinates.
 
 ```{r}
-be10grid <- read_sf(paste0(tempdir(), "\\Belgium.sqlite"), 
+be10grid <- read_sf(file.path(tempdir(), "Belgium.sqlite"), 
                     layer = "be_10km")  %>%
   # convert to Lambert72
   st_transform(crs = 31370)
