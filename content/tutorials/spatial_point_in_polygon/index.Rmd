@@ -40,7 +40,7 @@ Typically, both data sources contain information (apart from the spatial locatio
 
 For the point data, we will work with data on the invasive species - Chinese mitten crab (**Eriocheir sinensis**) in  Flanders, Belgium, from the year 2008 (GBIF.org (20th June 2019) GBIF Occurrence Download https://doi.org/10.15468/dl.decefb).
 
-We will use to convenience functions from the `rgbif` package to download the data as a zip file and to import the data as a `tibble` in the R environment. 
+We will use convenience functions from the `rgbif` package to download the data as a zip file and to import the data as a `tibble` in the R environment. 
 
 ```{r}
 invasive_species <- occ_download_get("0032582-190415153152247",
@@ -50,7 +50,7 @@ invasive_species <- occ_download_get("0032582-190415153152247",
   filter(!is.na(decimalLongitude), !is.na(decimalLatitude))
 ```
 
-We will use the European reference grid system from the European Environmental Agency as an example of a GIS vector layer (each grid cell is a polygon). The Belgium part of the grid system can be downloaded as a sqlite/spatialite database from the EEA website using the following code:
+We will use the European reference grid system from the European Environmental Agency as an example of a GIS vector layer (each grid cell is a polygon). The Belgian part of the grid system can be downloaded as a sqlite/spatialite database from the EEA website using the following code:
 
 ```{r}
 # explicitly set mode = "wb", otherwise zip file will be corrupt
@@ -60,7 +60,7 @@ download.file("https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-
 unzip(zipfile = file.path(tempdir(), "Belgium_spatialite.zip"), exdir = tempdir())  
 ```
 
-Next, we use `rgdal::readOGR` to connect with the sqlite/spatialite database and extract the Belgium 10 km x 10 km grid as a SpatialPolygonsDataFrame. Apart from the 10 km x 10 km grid, the database also contains 1 km x 1 km and 100 km x 100 km grids as raster or vector files.
+Next, we use `rgdal::readOGR` to connect with the sqlite/spatialite database and extract the Belgium 10 km x 10 km grid as a `SpatialPolygonsDataFrame`. Apart from the 10 km x 10 km grid, the database also contains 1 km x 1 km and 100 km x 100 km grids as raster or vector files.
 
 ```{r}
 be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"), 
@@ -71,7 +71,7 @@ be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"),
 
 ## Point in polygon with the `sp` package
 
-First, we need to convert the data.frame with point locations to a spatial data.frame. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.
+First, we need to convert the `data.frame` with point locations to a `SpatialPointsDataFrame`. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.
 
 ```{r}
 crs_wgs84 <- CRS("+init=epsg:4326")
@@ -88,8 +88,8 @@ We transform the 10 km x 10 km grid to the same CRS system:
 be10grid <- spTransform(be10grid, crs_wgs84)
 ```
 
-Now we are ready to spatially join (overlay) the SpatialPointsDataFrame wth the 10 km x 10 km grid. This can be done using `sp::over`. The first two arguments of the function give, respectively, the geometry (locations) of the queries, and the layer from which the geometries or attributes are queried. See `?sp::over`. In this case, when x = "SpatialPoints" and  y = "SpatialPolygonsDataFrame", it
-returns a data.frame of the second argument with row entries corresponding to the first argument.
+Now we are ready to spatially join (overlay) the `SpatialPointsDataFrame` wth the 10 km x 10 km grid. This can be done using `sp::over`. The first two arguments of the function give, respectively, the geometry (locations) of the queries, and the layer from which the geometries or attributes are queried. See `?sp::over`. In this case, when x = "SpatialPoints" and  y = "SpatialPolygonsDataFrame", it
+returns a `data.frame` of the second argument with row entries corresponding to the first argument.
 
 ```{r}
 invasive_be10grid <- over(x = invasive_spatial, y = be10grid)
@@ -121,7 +121,7 @@ be10grid <- read_sf(file.path(tempdir(), "Belgium.sqlite"),
   st_transform(crs = 31370)
 ```
 
-Instead of a SpatialPolygonsDataframe, we now get a "sf" object which is also a data.frame and a tbl:
+Instead of a `SpatialPolygonsDataframe`, we now get a `sf` object which is also a `data.frame` and a `tbl`:
 
 ```{r}
 class(be10grid)
@@ -173,7 +173,7 @@ invasive_be10grid
 
 ## What have we done?
 
-To rap this up, we make a map that shows what we have done. We will use the results obtained with the `sf` package. 
+To wrap this up, we make a map that shows what we have done. We will use the results obtained with the `sf` package. 
 
 First, we need to transform back to WGS84 (the background maps in leaflet are in WGS84).
 
