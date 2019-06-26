@@ -19,7 +19,7 @@ opts_chunk$set(
 ```
 
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 library(R.utils)
 library(rgdal)
 library(tidyverse)
@@ -119,10 +119,11 @@ invasive_be10grid_sf <- invasive_spatial %>%
   select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
 ```
 
-Looking at the resulting object:
+Looking at selected columns of the resulting object:
 
 ```{r paged.print = FALSE}
-invasive_be10grid_sf
+invasive_be10grid_sf %>%
+  select(species, eventDate, cellcode, geometry)
 ```
 
 ## Point in polygon with the `sp` package

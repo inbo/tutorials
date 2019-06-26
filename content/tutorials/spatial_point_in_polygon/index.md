@@ -13,97 +13,11 @@ output:
 
 ``` r
 library(R.utils)
-```
-
-    ## Loading required package: R.oo
-
-    ## Loading required package: R.methodsS3
-
-    ## R.methodsS3 v1.7.1 (2016-02-15) successfully loaded. See ?R.methodsS3 for help.
-
-    ## R.oo v1.22.0 (2018-04-21) successfully loaded. See ?R.oo for help.
-
-    ## 
-    ## Attaching package: 'R.oo'
-
-    ## The following objects are masked from 'package:methods':
-    ## 
-    ##     getClasses, getMethods
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     attach, detach, gc, load, save
-
-    ## R.utils v2.8.0 successfully loaded. See ?R.utils for help.
-
-    ## 
-    ## Attaching package: 'R.utils'
-
-    ## The following object is masked from 'package:utils':
-    ## 
-    ##     timestamp
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     cat, commandArgs, getOption, inherits, isOpen, parse, warnings
-
-``` r
 library(rgdal)
-```
-
-    ## Loading required package: sp
-
-    ## rgdal: version: 1.3-6, (SVN revision 773)
-    ##  Geospatial Data Abstraction Library extensions to R successfully loaded
-    ##  Loaded GDAL runtime: GDAL 2.2.3, released 2017/11/20
-    ##  Path to GDAL shared files: C:/R/Library/rgdal/gdal
-    ##  GDAL binary built with GEOS: TRUE 
-    ##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
-    ##  Path to PROJ.4 shared files: C:/R/Library/rgdal/proj
-    ##  Linking to sp version: 1.3-1
-
-    ## 
-    ## Attaching package: 'rgdal'
-
-    ## The following object is masked from 'package:R.oo':
-    ## 
-    ##     getDescription
-
-``` r
 library(tidyverse)
-```
-
-    ## Warning: package 'tidyverse' was built under R version 3.5.3
-
-    ## -- Attaching packages ---------------------------------------------------------------------------------- tidyverse 1.2.1 --
-
-    ## v ggplot2 3.1.1     v purrr   0.3.2
-    ## v tibble  2.1.1     v dplyr   0.8.1
-    ## v tidyr   0.8.2     v stringr 1.4.0
-    ## v readr   1.3.1     v forcats 0.4.0
-
-    ## Warning: package 'ggplot2' was built under R version 3.5.3
-
-    ## Warning: package 'tibble' was built under R version 3.5.3
-
-    ## Warning: package 'purrr' was built under R version 3.5.3
-
-    ## Warning: package 'dplyr' was built under R version 3.5.3
-
-    ## -- Conflicts ------------------------------------------------------------------------------------- tidyverse_conflicts() --
-    ## x tidyr::extract() masks R.utils::extract()
-    ## x dplyr::filter()  masks stats::filter()
-    ## x dplyr::lag()     masks stats::lag()
-
-``` r
 library(leaflet)
 library(sp)
 library(sf)
-```
-
-    ## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
-
-``` r
 library(rgbif)
 library(DBI)
 ```
@@ -132,7 +46,7 @@ invasive_species <- occ_download_get("0032582-190415153152247",
 
     ## Download file size: 0.01 MB
 
-    ## On disk at C:\Users\HANS_V~1\AppData\Local\Temp\Rtmpa8Ea0C\0032582-190415153152247.zip
+    ## On disk at C:\Users\HANS_V~1\AppData\Local\Temp\RtmpaaoJx1\0032582-190415153152247.zip
 
 We will use the European reference grid system from the European Environmental Agency as an example of a GIS vector layer (each grid cell is a polygon). The Belgian part of the grid system can be downloaded as a sqlite/spatialite database from the EEA website using the following code:
 
@@ -256,140 +170,42 @@ invasive_be10grid_sf <- invasive_spatial %>%
   select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
 ```
 
-Looking at the resulting object:
+Looking at selected columns of the resulting object:
 
 ``` r
-invasive_be10grid_sf
+invasive_be10grid_sf %>%
+  select(species, eventDate, cellcode, geometry)
 ```
 
-    ## Simple feature collection with 513 features and 44 fields
+    ## Simple feature collection with 513 features and 3 fields
     ## geometry type:  POINT
     ## dimension:      XY
     ## bbox:           xmin: 35125.7 ymin: 188235.3 xmax: 153743.2 ymax: 220135
     ## epsg (SRID):    31370
     ## proj4string:    +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
     ## First 10 features:
-    ##        gbifID                           datasetKey      occurrenceID
-    ## 1  1146738051 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00749170
-    ## 2  1146738044 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00748773
-    ## 3  1146738029 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00759838
-    ## 4  1146738026 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00746956
-    ## 5  1146737979 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00749169
-    ## 6  1146737949 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00748450
-    ## 7  1146737902 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00722473
-    ## 8  1146737751 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00738847
-    ## 9  1146737736 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00738889
-    ## 10 1146737717 258c9ce5-1bda-4001-a192-347c9e7fb186 INBO:VIS:00759840
-    ##     kingdom     phylum        class    order             family     genus
-    ## 1  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 2  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 3  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 4  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 5  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 6  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 7  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 8  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 9  Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ## 10 Animalia Arthropoda Malacostraca Decapoda Pseudothelphusidae Eriocheir
-    ##               species infraspecificEpithet taxonRank
-    ## 1  Eriocheir sinensis                   NA   SPECIES
-    ## 2  Eriocheir sinensis                   NA   SPECIES
-    ## 3  Eriocheir sinensis                   NA   SPECIES
-    ## 4  Eriocheir sinensis                   NA   SPECIES
-    ## 5  Eriocheir sinensis                   NA   SPECIES
-    ## 6  Eriocheir sinensis                   NA   SPECIES
-    ## 7  Eriocheir sinensis                   NA   SPECIES
-    ## 8  Eriocheir sinensis                   NA   SPECIES
-    ## 9  Eriocheir sinensis                   NA   SPECIES
-    ## 10 Eriocheir sinensis                   NA   SPECIES
-    ##                              scientificName countryCode locality
-    ## 1  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 2  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 3  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 4  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 5  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 6  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 7  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 8  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 9  Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ## 10 Eriocheir sinensis H.Milne Edwards, 1853          BE       NA
-    ##                        publishingOrgKey coordinateUncertaintyInMeters
-    ## 1  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 2  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 3  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 4  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 5  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 6  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 7  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 8  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 9  1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ## 10 1cd669d0-80ea-11de-a9d0-f1765f95f18b                           250
-    ##    coordinatePrecision elevation elevationAccuracy depth depthAccuracy
-    ## 1                   NA        NA                NA    NA            NA
-    ## 2                   NA        NA                NA    NA            NA
-    ## 3                   NA        NA                NA    NA            NA
-    ## 4                   NA        NA                NA    NA            NA
-    ## 5                   NA        NA                NA    NA            NA
-    ## 6                   NA        NA                NA    NA            NA
-    ## 7                   NA        NA                NA    NA            NA
-    ## 8                   NA        NA                NA    NA            NA
-    ## 9                   NA        NA                NA    NA            NA
-    ## 10                  NA        NA                NA    NA            NA
-    ##               eventDate day month year taxonKey speciesKey
-    ## 1  2008-09-17T00:00:00Z  17     9 2008  2225776    2225776
-    ## 2  2008-06-03T00:00:00Z   3     6 2008  2225776    2225776
-    ## 3  2008-03-20T00:00:00Z  20     3 2008  2225776    2225776
-    ## 4  2008-07-03T00:00:00Z   3     7 2008  2225776    2225776
-    ## 5  2008-09-17T00:00:00Z  17     9 2008  2225776    2225776
-    ## 6  2008-04-10T00:00:00Z  10     4 2008  2225776    2225776
-    ## 7  2008-03-13T00:00:00Z  13     3 2008  2225776    2225776
-    ## 8  2008-03-19T00:00:00Z  19     3 2008  2225776    2225776
-    ## 9  2008-03-19T00:00:00Z  19     3 2008  2225776    2225776
-    ## 10 2008-10-28T00:00:00Z  28    10 2008  2225776    2225776
-    ##        basisOfRecord institutionCode collectionCode catalogNumber
-    ## 1  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 2  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 3  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 4  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 5  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 6  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 7  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 8  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 9  HUMAN_OBSERVATION            INBO             NA            NA
-    ## 10 HUMAN_OBSERVATION            INBO             NA            NA
-    ##    recordNumber identifiedBy dateIdentified license rightsHolder
-    ## 1            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 2            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 3            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 4            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 5            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 6            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 7            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 8            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 9            NA   Jan Breine             NA CC0_1_0         INBO
-    ## 10           NA   Jan Breine             NA CC0_1_0         INBO
-    ##    recordedBy typeStatus establishmentMeans          lastInterpreted
-    ## 1  Jan Breine         NA                 NA 2018-12-06T16:48:49.929Z
-    ## 2  Jan Breine         NA                 NA 2018-12-06T16:48:49.930Z
-    ## 3  Jan Breine         NA                 NA 2018-12-06T16:48:49.913Z
-    ## 4  Jan Breine         NA                 NA 2018-12-06T16:48:49.900Z
-    ## 5  Jan Breine         NA                 NA 2018-12-06T16:48:49.885Z
-    ## 6  Jan Breine         NA                 NA 2018-12-06T16:48:49.880Z
-    ## 7  Jan Breine         NA                 NA 2018-12-06T16:48:49.860Z
-    ## 8  Jan Breine         NA                 NA 2018-12-06T16:48:49.762Z
-    ## 9  Jan Breine         NA                 NA 2018-12-06T16:48:49.773Z
-    ## 10 Jan Breine         NA                 NA 2018-12-06T16:48:49.773Z
-    ##    mediaType                  issue     cellcode                  geometry
-    ## 1         NA REFERENCES_URI_INVALID 10kmE392N312 POINT (143788.9 201487.1)
-    ## 2         NA REFERENCES_URI_INVALID 10kmE392N312 POINT (143788.9 201487.1)
-    ## 3         NA REFERENCES_URI_INVALID 10kmE389N311 POINT (114822.9 188235.3)
-    ## 4         NA REFERENCES_URI_INVALID 10kmE393N311 POINT (153743.2 191634.8)
-    ## 5         NA REFERENCES_URI_INVALID 10kmE392N312 POINT (143788.9 201487.1)
-    ## 6         NA REFERENCES_URI_INVALID 10kmE392N312 POINT (147138.3 199035.5)
-    ## 7         NA REFERENCES_URI_INVALID 10kmE381N314  POINT (35125.7 205808.5)
-    ## 8         NA REFERENCES_URI_INVALID 10kmE391N312 POINT (136197.7 197300.8)
-    ## 9         NA REFERENCES_URI_INVALID 10kmE391N312 POINT (136197.7 197300.8)
-    ## 10        NA REFERENCES_URI_INVALID 10kmE389N311 POINT (121593.8 190203.2)
+    ##               species            eventDate     cellcode
+    ## 1  Eriocheir sinensis 2008-09-17T00:00:00Z 10kmE392N312
+    ## 2  Eriocheir sinensis 2008-06-03T00:00:00Z 10kmE392N312
+    ## 3  Eriocheir sinensis 2008-03-20T00:00:00Z 10kmE389N311
+    ## 4  Eriocheir sinensis 2008-07-03T00:00:00Z 10kmE393N311
+    ## 5  Eriocheir sinensis 2008-09-17T00:00:00Z 10kmE392N312
+    ## 6  Eriocheir sinensis 2008-04-10T00:00:00Z 10kmE392N312
+    ## 7  Eriocheir sinensis 2008-03-13T00:00:00Z 10kmE381N314
+    ## 8  Eriocheir sinensis 2008-03-19T00:00:00Z 10kmE391N312
+    ## 9  Eriocheir sinensis 2008-03-19T00:00:00Z 10kmE391N312
+    ## 10 Eriocheir sinensis 2008-10-28T00:00:00Z 10kmE389N311
+    ##                     geometry
+    ## 1  POINT (143788.9 201487.1)
+    ## 2  POINT (143788.9 201487.1)
+    ## 3  POINT (114822.9 188235.3)
+    ## 4  POINT (153743.2 191634.8)
+    ## 5  POINT (143788.9 201487.1)
+    ## 6  POINT (147138.3 199035.5)
+    ## 7   POINT (35125.7 205808.5)
+    ## 8  POINT (136197.7 197300.8)
+    ## 9  POINT (136197.7 197300.8)
+    ## 10 POINT (121593.8 190203.2)
 
 Point in polygon with the `sp` package
 --------------------------------------
@@ -415,7 +231,7 @@ be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"),
 ```
 
     ## OGR data source with driver: SQLite 
-    ## Source: "C:\Users\hans_vancalster\AppData\Local\Temp\Rtmpa8Ea0C\Belgium.sqlite", layer: "be_10km"
+    ## Source: "C:\Users\hans_vancalster\AppData\Local\Temp\RtmpaaoJx1\Belgium.sqlite", layer: "be_10km"
     ## with 580 features
     ## It has 3 fields
 
