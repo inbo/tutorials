@@ -60,16 +60,74 @@ download.file("https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-
 unzip(zipfile = file.path(tempdir(), "Belgium_spatialite.zip"), exdir = tempdir())  
 ```
 
-Next, we use `rgdal::readOGR` to connect with the sqlite/spatialite database and extract the Belgium 10 km x 10 km grid as a `SpatialPolygonsDataFrame`. Apart from the 10 km x 10 km grid, the database also contains 1 km x 1 km and 100 km x 100 km grids as raster or vector files.
+
+## Point in polygon with the `sf` package
+
+The spatial query can be done with the aid of the [`sf` package](https://r-spatial.github.io/sf/). The package has built-in functions to read spatial data (which uses GDAL as backbone). 
+
+We will project the data to Belgian Lambert 72 (<https://epsg.io/31370>), because the join assumes planar coordinates.
 
 ```{r}
-be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"), 
-                  layer = "be_10km")
+be10grid <- read_sf(file.path(tempdir(), "Belgium.sqlite"), 
+                    layer = "be_10km")  %>%
+  # convert to Belgian Lambert 72
+  st_transform(crs = 31370)
+```
+
+We now get a `sf` object which is also a `data.frame` and a `tbl`:
+
+```{r}
+class(be10grid)
+```
+
+Let's have a look at this object:
+
+```{r paged.print = FALSE}
+be10grid
+```
+
+We can see that the spatial information resides in a `GEOMETRY` list column.
+
+Similarly, the package has built-in functions to convert a `data.frame` containing coordinates to a spatial `sf` object:
+
+```{r}
+invasive_spatial <- st_as_sf(invasive_species,
+                             coords = c("decimalLongitude",
+                                        "decimalLatitude"),
+                             crs = 4326) %>%
+  # convert to Lambert72
+  st_transform(crs = 31370)
+```
+
+Resulting in:
+
+```{r paged.print = FALSE}
+invasive_spatial
 ```
 
 
+Now we are ready to make the spatial overlay. This is done with the aid of `sf::st_join`. The default join type is `st_intersects`. This will result in the same spatial overlay as `sp::over` (see next section). We join the information from the grid to the points through a left join. See [the DE-9IM topological model](https://en.wikipedia.org/wiki/DE-9IM) for explanations about all possible spatial joins. 
+
+Note that with `st_intersects` points on a polygon boundary and points corresponding to a polygon vertex are considered to be inside the polygon. In the case where points are joined with polygons, `st_intersects` and `st_covered_by` will give the same result. The join type `st_within` can be used if we want to join only when points are completely within (excluding polygon boundary).
+
+
+```{r}
+invasive_be10grid_sf <- invasive_spatial %>%
+  st_join(be10grid,
+          join = st_intersects, 
+          left = TRUE) %>%
+  select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
+```
+
+Looking at the resulting object:
+
+```{r paged.print = FALSE}
+invasive_be10grid_sf
+```
 
 ## Point in polygon with the `sp` package
+
+Instead of `sf` objects (= `data.frames` or `tibbles` with a geometry list-column), the `sp` package works with `Spatial` spatial data classes (which has many derived spatial data classes for points, polygons, ...).
 
 First, we need to convert the `data.frame` with point locations to a `SpatialPointsDataFrame`. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.
 
@@ -81,6 +139,14 @@ invasive_spatial <- SpatialPointsDataFrame(coord,
                                            data = invasive_species,
                                            proj4string = crs_wgs84)
 ```
+
+The `sp` package has no native methods to read the Belgium 10 km x 10 km grid, but we can use `rgdal::readOGR` to connect with the sqlite/spatialite database and extract the Belgium 10 km x 10 km grid as a `SpatialPolygonsDataFrame`. Apart from the 10 km x 10 km grid, the database also contains 1 km x 1 km and 100 km x 100 km grids as raster or vector files.
+
+```{r}
+be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"), 
+                  layer = "be_10km")
+```
+
 
 We transform the 10 km x 10 km grid to the same CRS system:
 
@@ -107,82 +173,14 @@ invasive_species_be10grid %>%
 ```
 
 
-
-## Point in polygon with the `sf` package
-
-The same spatial query can be done with the aid of the `sf` package. The package has built-in functions to read spatial data (which also uses GDAL as backbone). 
-
-We will project the data to Belgian Lambert 72 (<https://epsg.io/31370>), because the join assumes planar coordinates.
-
-```{r}
-be10grid <- read_sf(file.path(tempdir(), "Belgium.sqlite"), 
-                    layer = "be_10km")  %>%
-  # convert to Belgian Lambert 72
-  st_transform(crs = 31370)
-```
-
-Instead of a `SpatialPolygonsDataframe`, we now get a `sf` object which is also a `data.frame` and a `tbl`:
-
-```{r}
-class(be10grid)
-```
-
-Let's have a look at this object:
-
-```{r paged.print = FALSE}
-be10grid
-```
-
-We can see that the spatial information now resides in a `GEOMETRY` list column.
-
-Similarly, the package has built-in functions to convert a `data.frame` containing coordinates to a spatial `sf` object:
-
-```{r}
-invasive_spatial <- st_as_sf(invasive_species,
-                             coords = c("decimalLongitude",
-                                        "decimalLatitude"),
-                             crs = 4326) %>%
-  # convert to Lambert72
-  st_transform(crs = 31370)
-```
-
-Resulting in:
-
-```{r paged.print = FALSE}
-invasive_spatial
-```
-
-
-Now we are ready to make the spatial overlay. This is done with the aid of `sf::st_join`. The default join type is `st_intersects`. This will result in the same spatial overlay as `sp::over` (see next section). We join the information from the grid to the points through a left join. See [the DE-9IM topological model](https://en.wikipedia.org/wiki/DE-9IM) for explanations about all possible spatial joins. 
-
-Note that with `st_intersects` points on a polygon boundary and points corresponding to a polygon vertex are considered to be inside the polygon. In the case where points are joined with polygons, `st_intersects` and `st_covered_by` will give the same result. The join type `st_within` can be used if we want to join only when points are completely within (excluding polygon boundary).
-
-
-```{r}
-invasive_be10grid <- invasive_spatial %>%
-  st_join(be10grid,
-          join = st_intersects, 
-          left = TRUE) %>%
-  select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
-```
-
-Looking at the resulting object:
-
-```{r paged.print = FALSE}
-invasive_be10grid
-```
-
-
 ## What have we done?
 
 To wrap this up, we make a map that shows what we have done. We will use the results obtained with the `sf` package. 
 
-First, we need to transform back to WGS84 (the background maps in leaflet are in WGS84).
+First, we need to transform `invasive_be10grid_sf` back to WGS84 (the background maps in leaflet are in WGS84) (`be10grid` is already in WGS84 format).
 
 ```{r}
-invasive_be10grid <- invasive_be10grid %>%
-  st_transform(crs = 4326)
-be10grid <- be10grid %>%
+invasive_be10grid_sf <- invasive_be10grid_sf %>%
   st_transform(crs = 4326)
 ```
 
@@ -193,7 +191,7 @@ Zooming in on the point markers and hovering over a marker will show the referen
 leaflet(be10grid) %>%
   addTiles() %>%
   addPolygons(popup = ~cellcode) %>%
-  addMarkers(data = invasive_be10grid,
+  addMarkers(data = invasive_be10grid_sf,
              label = ~cellcode)
 ```
 
