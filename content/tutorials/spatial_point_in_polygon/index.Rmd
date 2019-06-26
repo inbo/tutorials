@@ -153,13 +153,15 @@ invasive_spatial
 ```
 
 
-Now we are ready to make the spatial overlay. This is done with the aid of `sf::st_join`. We set the join type to `st_within` and join the information from the grid to the points through a left join. See [the DE-9IM topological model](https://en.wikipedia.org/wiki/DE-9IM) for explanations about all possible spatial joins. 
+Now we are ready to make the spatial overlay. This is done with the aid of `sf::st_join`. The default join type is `st_intersects`. This will result in the same spatial overlay as `sp::over` (see next section). We join the information from the grid to the points through a left join. See [the DE-9IM topological model](https://en.wikipedia.org/wiki/DE-9IM) for explanations about all possible spatial joins. 
+
+Note that with `st_intersects` points on a polygon boundary and points corresponding to a polygon vertex are considered to be inside the polygon. In the case where points are joined with polygons, `st_intersects` and `st_covered_by` will give the same result. The join type `st_within` can be used if we want to join only when points are completely within (excluding polygon boundary).
 
 
 ```{r}
 invasive_be10grid <- invasive_spatial %>%
   st_join(be10grid,
-          join = st_within, 
+          join = st_intersects, 
           left = TRUE) %>%
   select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
 ```
