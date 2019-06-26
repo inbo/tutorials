@@ -164,10 +164,11 @@ invasive_be10grid <- invasive_spatial %>%
   select(-eoforigin, -noforigin)  # exclude the EofOrigin NofOrigin columns
 ```
 
-Looking at the resulting object:
+Looking at selected columns of the resulting object:
 
 ```{r paged.print = FALSE}
-invasive_be10grid
+invasive_be10grid %>% 
+  select(species, eventDate, cellcode)
 ```
 
 
