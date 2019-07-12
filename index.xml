@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
@@ -83,6 +83,16 @@ These resources focus on the discipline as a whole, its perception, principles ,
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>How to make spatial joins (point in polygon)?</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</link>
+      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</guid>
+      <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
+Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
     </item>
     
     <item>
