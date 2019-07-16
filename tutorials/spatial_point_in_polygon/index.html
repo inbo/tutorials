@@ -310,14 +310,14 @@ Improve this page</a>
 
   <div class='container entry-content'>
 
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(R.utils)
-<span style="color:#00a">library</span>(rgdal)
-<span style="color:#00a">library</span>(tidyverse)
-<span style="color:#00a">library</span>(leaflet)
-<span style="color:#00a">library</span>(sp)
-<span style="color:#00a">library</span>(sf)
-<span style="color:#00a">library</span>(rgbif)
-<span style="color:#00a">library</span>(DBI)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(R.utils)
+<span style="color:#0a0">library</span>(rgdal)
+<span style="color:#0a0">library</span>(tidyverse)
+<span style="color:#0a0">library</span>(leaflet)
+<span style="color:#0a0">library</span>(sp)
+<span style="color:#0a0">library</span>(sf)
+<span style="color:#0a0">library</span>(rgbif)
+<span style="color:#0a0">library</span>(DBI)</code></pre></div>
 <h2 id="what-we-want-to-do">What we want to do<a href="#what-we-want-to-do" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.</p>
@@ -329,11 +329,11 @@ Improve this page</a>
 <p>For the point data, we will work with data on the invasive species - Chinese mitten crab (<strong>Eriocheir sinensis</strong>) in Flanders, Belgium, from the year 2008 (GBIF.org (20th June 2019) GBIF Occurrence Download <a href="https://doi.org/10.15468/dl.decefb" target="_blank">https://doi.org/10.15468/dl.decefb</a>).</p>
 
 <p>We will use convenience functions from the <code>rgbif</code> package to download the data as a zip file and to import the data as a <code>tibble</code> in the R environment.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_species &lt;- occ_download_get(<span style="color:#a50">&#34;0032582-190415153152247&#34;</span>,
-                                     path = <span style="color:#00a">tempdir</span>(),
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_species &lt;- <span style="color:#0a0">occ_download_get</span>(<span style="color:#a50">&#34;0032582-190415153152247&#34;</span>,
+                                     path = <span style="color:#0a0">tempdir</span>(),
                                      overwrite = <span style="color:#00a">TRUE</span>) %&gt;% 
-  occ_download_import() %&gt;%
-  filter(!<span style="color:#00a">is.na</span>(decimalLongitude), !<span style="color:#00a">is.na</span>(decimalLatitude))</code></pre></div>
+  <span style="color:#0a0">occ_download_import</span>() %&gt;%
+  <span style="color:#0a0">filter</span>(!<span style="color:#0a0">is.na</span>(decimalLongitude), !<span style="color:#0a0">is.na</span>(decimalLatitude))</code></pre></div>
 <pre><code>## Download file size: 0.01 MB
 
 ## On disk at C:\Users\HANS_V~1\AppData\Local\Temp\RtmpaaoJx1\0032582-190415153152247.zip
@@ -341,21 +341,21 @@ Improve this page</a>
 
 <p>We will use the European reference grid system from the European Environmental Agency as an example of a GIS vector layer (each grid cell is a polygon). The Belgian part of the grid system can be downloaded as a sqlite/spatialite database from the EEA website using the following code:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># explicitly set mode = &#34;wb&#34;, otherwise zip file will be corrupt</span>
-download.file(<span style="color:#a50">&#34;https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2/gis-files/belgium-spatialite/at_download/file&#34;</span>, destfile = <span style="color:#00a">file.path</span>(<span style="color:#00a">tempdir</span>(), <span style="color:#a50">&#34;Belgium_spatialite.zip&#34;</span>), mode = <span style="color:#a50">&#34;wb&#34;</span>)
+<span style="color:#0a0">download.file</span>(<span style="color:#a50">&#34;https://www.eea.europa.eu/data-and-maps/data/eea-reference-grids-2/gis-files/belgium-spatialite/at_download/file&#34;</span>, destfile = <span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;Belgium_spatialite.zip&#34;</span>), mode = <span style="color:#a50">&#34;wb&#34;</span>)
 
 <span style="color:#aaa;font-style:italic"># this will extract a file Belgium.sqlite to the temporary folder</span>
-unzip(zipfile = <span style="color:#00a">file.path</span>(<span style="color:#00a">tempdir</span>(), <span style="color:#a50">&#34;Belgium_spatialite.zip&#34;</span>), exdir = <span style="color:#00a">tempdir</span>())  </code></pre></div>
+<span style="color:#0a0">unzip</span>(zipfile = <span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;Belgium_spatialite.zip&#34;</span>), exdir = <span style="color:#0a0">tempdir</span>())  </code></pre></div>
 <h2 id="point-in-polygon-with-the-sf-package">Point in polygon with the <code>sf</code> package<a href="#point-in-polygon-with-the-sf-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>The spatial query can be done with the aid of the <a href="https://r-spatial.github.io/sf/" target="_blank"><code>sf</code> package</a>. The package has built-in functions to read spatial data (which uses GDAL as backbone).</p>
 
 <p>We will project the data to Belgian Lambert 72 (<a href="https://epsg.io/31370" target="_blank">https://epsg.io/31370</a>), because the join assumes planar coordinates.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid &lt;- read_sf(<span style="color:#00a">file.path</span>(<span style="color:#00a">tempdir</span>(), <span style="color:#a50">&#34;Belgium.sqlite&#34;</span>), 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid &lt;- <span style="color:#0a0">read_sf</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;Belgium.sqlite&#34;</span>), 
                     layer = <span style="color:#a50">&#34;be_10km&#34;</span>)  %&gt;%
   <span style="color:#aaa;font-style:italic"># convert to Belgian Lambert 72</span>
-  st_transform(crs = <span style="color:#099">31370</span>)</code></pre></div>
+  <span style="color:#0a0">st_transform</span>(crs = <span style="color:#099">31370</span>)</code></pre></div>
 <p>We now get a <code>sf</code> object which is also a <code>data.frame</code> and a <code>tbl</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">class</span>(be10grid)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">class</span>(be10grid)</code></pre></div>
 <pre><code>## [1] &quot;sf&quot;         &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
 </code></pre>
 
@@ -386,12 +386,12 @@ unzip(zipfile = <span style="color:#00a">file.path</span>(<span style="color:#00
 <p>We can see that the spatial information resides in a <code>GEOMETRY</code> list column.</p>
 
 <p>Similarly, the package has built-in functions to convert a <code>data.frame</code> containing coordinates to a spatial <code>sf</code> object:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_spatial &lt;- st_as_sf(invasive_species,
-                             coords = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;decimalLongitude&#34;</span>,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_spatial &lt;- <span style="color:#0a0">st_as_sf</span>(invasive_species,
+                             coords = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;decimalLongitude&#34;</span>,
                                         <span style="color:#a50">&#34;decimalLatitude&#34;</span>),
                              crs = <span style="color:#099">4326</span>) %&gt;%
   <span style="color:#aaa;font-style:italic"># convert to Lambert72</span>
-  st_transform(crs = <span style="color:#099">31370</span>)</code></pre></div>
+  <span style="color:#0a0">st_transform</span>(crs = <span style="color:#099">31370</span>)</code></pre></div>
 <p>Resulting in:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_spatial</code></pre></div>
 <pre><code>## Simple feature collection with 513 features and 43 fields
@@ -431,13 +431,13 @@ unzip(zipfile = <span style="color:#00a">file.path</span>(<span style="color:#00
 
 <p>Note that with <code>st_intersects</code> points on a polygon boundary and points corresponding to a polygon vertex are considered to be inside the polygon. In the case where points are joined with polygons, <code>st_intersects</code> and <code>st_covered_by</code> will give the same result. The join type <code>st_within</code> can be used if we want to join only when points are completely within (excluding polygon boundary).</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_be10grid_sf &lt;- invasive_spatial %&gt;%
-  st_join(be10grid,
+  <span style="color:#0a0">st_join</span>(be10grid,
           join = st_intersects, 
           left = <span style="color:#00a">TRUE</span>) %&gt;%
-  select(-eoforigin, -noforigin)  <span style="color:#aaa;font-style:italic"># exclude the EofOrigin NofOrigin columns</span></code></pre></div>
+  <span style="color:#0a0">select</span>(-eoforigin, -noforigin)  <span style="color:#aaa;font-style:italic"># exclude the EofOrigin NofOrigin columns</span></code></pre></div>
 <p>Looking at selected columns of the resulting object:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_be10grid_sf %&gt;%
-  select(species, eventDate, cellcode, geometry)</code></pre></div>
+  <span style="color:#0a0">select</span>(species, eventDate, cellcode, geometry)</code></pre></div>
 <pre><code>## Simple feature collection with 513 features and 3 fields
 ## geometry type:  POINT
 ## dimension:      XY
@@ -474,14 +474,14 @@ unzip(zipfile = <span style="color:#00a">file.path</span>(<span style="color:#00
 <p>Instead of <code>sf</code> objects (= <code>data.frames</code> or <code>tibbles</code> with a geometry list-column), the <code>sp</code> package works with <code>Spatial</code> spatial data classes (which has many derived spatial data classes for points, polygons, &hellip;).</p>
 
 <p>First, we need to convert the <code>data.frame</code> with point locations to a <code>SpatialPointsDataFrame</code>. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- CRS(<span style="color:#a50">&#34;+init=epsg:4326&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">CRS</span>(<span style="color:#a50">&#34;+init=epsg:4326&#34;</span>)
 coord &lt;- invasive_species %&gt;%
-    select(decimalLongitude, decimalLatitude)
-invasive_spatial &lt;- SpatialPointsDataFrame(coord,
+    <span style="color:#0a0">select</span>(decimalLongitude, decimalLatitude)
+invasive_spatial &lt;- <span style="color:#0a0">SpatialPointsDataFrame</span>(coord,
                                            data = invasive_species,
                                            proj4string = crs_wgs84)</code></pre></div>
 <p>The <code>sp</code> package has no native methods to read the Belgium 10 km x 10 km grid, but we can use <code>rgdal::readOGR</code> to connect with the sqlite/spatialite database and extract the Belgium 10 km x 10 km grid as a <code>SpatialPolygonsDataFrame</code>. Apart from the 10 km x 10 km grid, the database also contains 1 km x 1 km and 100 km x 100 km grids as raster or vector files.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid &lt;- readOGR(dsn = <span style="color:#00a">file.path</span>(<span style="color:#00a">tempdir</span>(), <span style="color:#a50">&#34;Belgium.sqlite&#34;</span>), 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid &lt;- <span style="color:#0a0">readOGR</span>(dsn = <span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;Belgium.sqlite&#34;</span>), 
                   layer = <span style="color:#a50">&#34;be_10km&#34;</span>)</code></pre></div>
 <pre><code>## OGR data source with driver: SQLite 
 ## Source: &quot;C:\Users\hans_vancalster\AppData\Local\Temp\RtmpaaoJx1\Belgium.sqlite&quot;, layer: &quot;be_10km&quot;
@@ -490,16 +490,16 @@ invasive_spatial &lt;- SpatialPointsDataFrame(coord,
 </code></pre>
 
 <p>We transform the 10 km x 10 km grid to the same CRS system:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid &lt;- spTransform(be10grid, crs_wgs84)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid &lt;- <span style="color:#0a0">spTransform</span>(be10grid, crs_wgs84)</code></pre></div>
 <p>Now we are ready to spatially join (overlay) the <code>SpatialPointsDataFrame</code> wth the 10 km x 10 km grid. This can be done using <code>sp::over</code>. The first two arguments of the function give, respectively, the geometry (locations) of the queries, and the layer from which the geometries or attributes are queried. See <code>?sp::over</code>. In this case, when x = &ldquo;SpatialPoints&rdquo; and y = &ldquo;SpatialPolygonsDataFrame&rdquo;, it returns a <code>data.frame</code> of the second argument with row entries corresponding to the first argument.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_be10grid &lt;- over(x = invasive_spatial, y = be10grid)
-invasive_species_be10grid &lt;- bind_cols(invasive_species,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_be10grid &lt;- <span style="color:#0a0">over</span>(x = invasive_spatial, y = be10grid)
+invasive_species_be10grid &lt;- <span style="color:#0a0">bind_cols</span>(invasive_species,
                                        invasive_be10grid)</code></pre></div>
 <p>To see what the result looks like, we can select the most relevant variables and print it (first ten rows).</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_species_be10grid %&gt;%
-  select(species, starts_with(<span style="color:#a50">&#34;decimal&#34;</span>),
+  <span style="color:#0a0">select</span>(species, <span style="color:#0a0">starts_with</span>(<span style="color:#a50">&#34;decimal&#34;</span>),
          eventDate, cellcode) %&gt;%
-  <span style="color:#00a">head</span>(<span style="color:#099">10</span>)</code></pre></div>
+  <span style="color:#0a0">head</span>(<span style="color:#099">10</span>)</code></pre></div>
 <pre><code>## # A tibble: 10 x 5
 ##    species       decimalLatitude decimalLongitude eventDate      cellcode  
 ##    &lt;chr&gt;                   &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;          &lt;fct&gt;     
@@ -521,12 +521,12 @@ invasive_species_be10grid &lt;- bind_cols(invasive_species,
 
 <p>First, we need to transform <code>invasive_be10grid_sf</code> back to WGS84 (the background maps in leaflet are in WGS84) (<code>be10grid</code> is already in WGS84 format).</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_be10grid_sf &lt;- invasive_be10grid_sf %&gt;%
-  st_transform(crs = <span style="color:#099">4326</span>)</code></pre></div>
+  <span style="color:#0a0">st_transform</span>(crs = <span style="color:#099">4326</span>)</code></pre></div>
 <p>Zooming in on the point markers and hovering over a marker will show the reference grid identifier for the grid cell as it is joined to spatial points object <code>invasive_be10grid</code>. Clicking in a grid cell will bring up a popup showing the reference grid identifier for the grid cell as it is named in <code>be10grid</code>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">leaflet(be10grid) %&gt;%
-  addTiles() %&gt;%
-  addPolygons(popup = ~cellcode) %&gt;%
-  addMarkers(data = invasive_be10grid_sf,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>(be10grid) %&gt;%
+  <span style="color:#0a0">addTiles</span>() %&gt;%
+  <span style="color:#0a0">addPolygons</span>(popup = ~cellcode) %&gt;%
+  <span style="color:#0a0">addMarkers</span>(data = invasive_be10grid_sf,
              label = ~cellcode)</code></pre></div>
 <p><img src="index_files/figure-markdown_github/unnamed-chunk-18-1.png" alt="" /></p>
 </div>

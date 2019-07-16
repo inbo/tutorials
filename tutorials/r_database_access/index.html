@@ -313,9 +313,9 @@ Improve this page</a>
 <h2 id="connection-to-inbo-database">Connection to INBO database<a href="#connection-to-inbo-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (<code>install.packages(c(&quot;DBI&quot;, &quot;glue&quot;, &quot;tidyverse&quot;))</code>), the packages can be loaded:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(DBI)
-<span style="color:#00a">library</span>(glue)
-<span style="color:#00a">library</span>(tidyverse)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(DBI)
+<span style="color:#0a0">library</span>(glue)
+<span style="color:#0a0">library</span>(tidyverse)</code></pre></div>
 <p>To create a database connection, different approaches are available as explained in the next section:</p>
 
 <ol>
@@ -331,8 +331,8 @@ Improve this page</a>
 <p><img src="./database-R/connections_pane.png" alt="odbc-connecties" /></p>
 
 <p>To use the <code>connect_inbo_dbase</code> function, make sure to install the <code>inborutils</code> package, following the <a href="https://inbo.github.io/inborutils/#installation" target="_blank">installation instructions</a>. After a successfull installation, load the library and create a database connection:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(inborutils)
-my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inborutils)
+my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>)</code></pre></div>
 <p>Once the connection is successfully established, the database can be queried.</p>
 
 <p><strong>Remark for Linux users</strong>: When working in Linux, this setup (using <code>Trusted connection</code>) requires an active <em>kerberos</em> session. More information about the setup and functionality is to be found in the <a href="https://inbo.github.io/tutorials/installation/user/user_install_kerberos/" target="_blank">tutorial on kerberos installation</a>.</p>
@@ -340,7 +340,7 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 <h3 id="setting-up-the-connection-yourself">Setting up the connection yourself<a href="#setting-up-the-connection-yourself" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>In case you want to setup the connection yourself (e.g. errors using inborutils), you can do so by providing the necessary parameters:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::dbConnect(odbc::odbc(),
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(odbc::<span style="color:#0a0">odbc</span>(),
       driver = <span style="color:#a50">&#34;SQL Server&#34;</span>,
       server = <span style="color:#a50">&#34;inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
       port = <span style="color:#099">1433</span>,
@@ -368,14 +368,14 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 <p>For example, the DSN name <code>UserFlora</code> or <code>Cydonia-prd</code> can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the <code>odbcConnect</code> function, providing the DSN name as argument:</p>
 
 <p>For Windows users:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- odbcConnect(<span style="color:#a50">&#34;UserFlora&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- <span style="color:#0a0">odbcConnect</span>(<span style="color:#a50">&#34;UserFlora&#34;</span>)</code></pre></div>
 <p>Once the connection is successfully established, the database can be queried.</p>
 
 <h2 id="get-a-complete-table-from-the-database">Get a complete table from the database<a href="#get-a-complete-table-from-the-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>The function <code>dbReadTable</code> can be used to load an entire table from a database. For example, to extract the <code>tblTaxon</code> table from the flora database:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rel_taxa &lt;- dbReadTable(my_connection, <span style="color:#a50">&#34;relTaxonTaxonGroep&#34;</span>)
-<span style="color:#00a">head</span>(rel_taxa) %&gt;% knitr::kable()</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rel_taxa &lt;- <span style="color:#0a0">dbReadTable</span>(my_connection, <span style="color:#a50">&#34;relTaxonTaxonGroep&#34;</span>)
+<span style="color:#0a0">head</span>(rel_taxa) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -431,9 +431,9 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 <h2 id="execute-a-query-to-the-database">Execute a query to the database<a href="#execute-a-query-to-the-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>The function <code>dbGetQuery</code> provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here. We will focus on the application and the reusage of a query.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meting &lt;- dbGetQuery(my_connection, <span style="color:#00a">paste</span>(<span style="color:#a50">&#34;SELECT TOP 10 * FROM dbo.tblMeting&#34;</span>, 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;SELECT TOP 10 * FROM dbo.tblMeting&#34;</span>, 
                                           <span style="color:#a50">&#34;WHERE COR_X IS NOT NULL&#34;</span>))
-<span style="color:#00a">head</span>(meting) %&gt;% knitr::kable()</code></pre></div>
+<span style="color:#0a0">head</span>(meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -550,7 +550,7 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 <p>When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the entire query. It is prone to errors and you&rsquo;re script will become verbose. It is advisable to create query <em>templates</em>, that can be used within the <code>dbGetQuery</code> function.</p>
 
 <p>Consider the execution of the following query. We are interested in those records with valid X and Y coordinates for the measurement, based on a given dutch name:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subset_meting &lt;- dbGetQuery(my_connection, 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subset_meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, 
     <span style="color:#a50">&#34;SELECT meet.COR_X
 </span><span style="color:#a50">         , meet.Cor_Y
 </span><span style="color:#a50">         , meet.MetingStatusCode
@@ -563,7 +563,7 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 </span><span style="color:#a50">    WHERE meet.Cor_X IS NOT NULL
 </span><span style="color:#a50">        AND meet.Cor_X != 0
 </span><span style="color:#a50">        AND tax.NaamNederlands LIKE &#39;Wilde hyacint&#39;&#34;</span>)
-<span style="color:#00a">head</span>(subset_meting) %&gt;% knitr::kable()</code></pre></div>
+<span style="color:#0a0">head</span>(subset_meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -634,8 +634,8 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 </table>
 
 <p>If we need this query regularly, but each time using a different <code>tax.NaamNederlands</code> (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let&rsquo;s create a function <code>flora_records_on_dutch_name</code> that takes a valid database connection and a given Dutch name and returns the relevant subset of the data for this query:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">flora_records_on_dutch_name &lt;- <span style="color:#00a">function</span>(dbase_connection, dutch_name) {
-     dbGetQuery(dbase_connection, glue_sql(
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">flora_records_on_dutch_name &lt;- <span style="color:#0a0">function</span>(dbase_connection, dutch_name) {
+     <span style="color:#0a0">dbGetQuery</span>(dbase_connection, <span style="color:#0a0">glue_sql</span>(
             <span style="color:#a50">&#34;SELECT meet.Cor_X
 </span><span style="color:#a50">                 , meet.COr_Y
 </span><span style="color:#a50">                 , meet.MetingStatusCode
@@ -649,11 +649,11 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 </span><span style="color:#a50">                AND meet.Cor_X != 0
 </span><span style="color:#a50">                AND tax.NaamNederlands LIKE {dutch_name}&#34;</span>,
             dutch_name = dutch_name,
-            <span style="color:#099">.</span>con = dbase_connection))
+            .con = dbase_connection))
 }</code></pre></div>
 <p>Hence, instead of copy-pasting the whole query each time (which could be error-prone), we can reuse the function for different names:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">hyacint &lt;- flora_records_on_dutch_name(my_connection, <span style="color:#a50">&#34;Wilde hyacint&#34;</span>)
-<span style="color:#00a">head</span>(hyacint) %&gt;% knitr::kable()</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">hyacint &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;Wilde hyacint&#34;</span>)
+<span style="color:#0a0">head</span>(hyacint) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -722,8 +722,8 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bosanemoon &lt;- flora_records_on_dutch_name(my_connection, <span style="color:#a50">&#34;Bosanemoon&#34;</span>)
-<span style="color:#00a">head</span>(bosanemoon) %&gt;% knitr::kable()</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bosanemoon &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;Bosanemoon&#34;</span>)
+<span style="color:#0a0">head</span>(bosanemoon) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -794,14 +794,14 @@ my_connection &lt;- connect_inbo_dbase(<span style="color:#a50">&#34;D0021_00_us
 </table>
 
 <p><strong>Remark:</strong> Do not forget to close your connection when finished.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dbDisconnect(my_connection)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">dbDisconnect</span>(my_connection)</code></pre></div>
 <h2 id="the-glue-sql-function">The <code>glue_sql</code> function<a href="#the-glue-sql-function" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>In order to accomplish the re-usage of a query for different input names (<code>dutch_name</code>), the <code>glue_sql</code> function is used from the <a href="https://glue.tidyverse.org/reference/glue_sql.html" target="_blank">glue package</a>. The <code>glue_sql</code> function (and the more general <code>glue</code> function) provides the ability to combine text and variable values in a single charactor string (i.e. the query to execute). For each variable name required in the query (any part of your query you want to have interchangeable), a representation in the query is given by the variable name you use in R, put in between curly brackets. For example, if you have the <code>dutch_name</code> variable in R, you can use it inside the query as <code>{dutch_name}</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dutch_name &lt;- <span style="color:#a50">&#39;Jan&#39;</span>
 an_integer &lt;- <span style="color:#099">3</span>
 a_float &lt;- <span style="color:#099">2.8</span>
-glue(<span style="color:#a50">&#39;This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}&#39;</span>)</code></pre></div>
+<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}&#39;</span>)</code></pre></div>
 <pre><code>## This prints a combination of a name: Jan, an integer: 3 and a float value: 2.8
 </code></pre>
 

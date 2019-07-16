@@ -310,26 +310,26 @@ Improve this page</a>
 
   <div class='container entry-content'>
 
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(googlesheets)
-<span style="color:#00a">library</span>(dplyr)
-<span style="color:#00a">library</span>(ggplot2)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(googlesheets)
+<span style="color:#0a0">library</span>(dplyr)
+<span style="color:#0a0">library</span>(ggplot2)</code></pre></div>
 <h2 id="setup">Setup<a href="#setup" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>The R package <a href="https://github.com/jennybc/googlesheets/blob/master/README.md" target="_blank">googlesheets</a> provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the <code>gs_auth</code> command.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gs_auth()</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gs_auth</span>()</code></pre></div>
 <p>Google will ask to grant the package the permission to access your drive. This token is saved to in a file <code>.httr-oauth</code> in your current working directory. Make sure this is not part of your version control system. However, as we want to be able to make the running independent from the user authentification or without needing an interactive environment. Therefore, we can store the token in a file and get the authentification from there. The code loads the token from the file if the file exists. Otherwise a new token is created and stored in the file.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">if</span> (file_test(<span style="color:#a50">&#34;-f&#34;</span>, <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)) {
-  gs_auth(token = <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)
-} <span style="color:#00a">else</span> {
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(<span style="color:#0a0">file_test</span>(<span style="color:#a50">&#34;-f&#34;</span>, <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)) {
+  <span style="color:#0a0">gs_auth</span>(token = <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)
+} else {
   <span style="color:#aaa;font-style:italic"># first get the token, but not caching it in a local file</span>
-  token &lt;- gs_auth(cache = <span style="color:#00a">FALSE</span>)
+  token &lt;- <span style="color:#0a0">gs_auth</span>(cache = <span style="color:#00a">FALSE</span>)
   <span style="color:#aaa;font-style:italic"># save the token into a file in the current directory</span>
-  <span style="color:#00a">saveRDS</span>(token, file = <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)
+  <span style="color:#0a0">saveRDS</span>(token, file = <span style="color:#a50">&#34;googlesheets_token.rds&#34;</span>)
 }</code></pre></div>
 <p>Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in <a href="https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html" target="_blank">this manual</a>.</p>
 
 <p>Once registered, an overview of your available google sheets is provided as follows, with the option to provide a (regular) expression to search for in the names:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gs_ls(<span style="color:#a50">&#34;tutorial_example&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gs_ls</span>(<span style="color:#a50">&#34;tutorial_example&#34;</span>)</code></pre></div>
 <pre><code>## # A tibble: 2 x 10
 ##   sheet_title author perm  version updated             sheet_key ws_feed
 ##   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dttm&gt;              &lt;chr&gt;     &lt;chr&gt;  
@@ -343,12 +343,12 @@ Improve this page</a>
 <p>Consider you have the authentification. You know the name, URL or key of the spreadheet and want to read this in, well use one of the functions <code>gs_title()</code>, <code>gs_url()</code> or <code>gs_key()</code>.</p>
 
 <p>As an example, I want to work on the sheet called <code>TraitsRedListSpecies</code>. Finding the spreadheet is done as follows:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose &lt;- gs_title(<span style="color:#a50">&#34;tutorial_example_spreadsheet_2&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose &lt;- <span style="color:#0a0">gs_title</span>(<span style="color:#a50">&#34;tutorial_example_spreadsheet_2&#34;</span>)</code></pre></div>
 <pre><code>## Sheet successfully identified: &quot;tutorial_example_spreadsheet_2&quot;
 </code></pre>
 
 <p>An overview of the different sheets provides sufficient information to retrieve the dataset and work with them:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gs_ws_ls(goose)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gs_ws_ls</span>(goose)</code></pre></div>
 <pre><code>## [1] &quot;Tbl1 Ringgegevens&quot;     &quot;Tbl2 Koppels&quot;          &quot;Tbl3 Waarnemingen&quot;    
 ## [4] &quot;Tbl4 Nesten&quot;           &quot;Tbl5 Nestcontroles&quot;    &quot;Tbl6 Uitkipsucces&quot;    
 ## [7] &quot;Tbl7 Kuikenoverleving&quot; &quot;Tbl8 Datums&quot;
@@ -356,7 +356,7 @@ Improve this page</a>
 
 <p>So, getting the <code>BreedingBirds</code> sheet into a native R object can be done by reading the specific worksheet:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose_data &lt;- goose %&gt;% 
-        gs_read(ws = <span style="color:#a50">&#34;Tbl1 Ringgegevens&#34;</span>)</code></pre></div>
+        <span style="color:#0a0">gs_read</span>(ws = <span style="color:#a50">&#34;Tbl1 Ringgegevens&#34;</span>)</code></pre></div>
 <pre><code>## Accessing worksheet titled 'Tbl1 Ringgegevens'.
 
 ## Parsed with column specification:
@@ -374,10 +374,10 @@ Improve this page</a>
 </code></pre>
 
 <p>Inspecting the data of the sheet:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">class</span>(goose_data)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">class</span>(goose_data)</code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">head</span>(goose_data)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">head</span>(goose_data)</code></pre></div>
 <pre><code>## # A tibble: 6 x 9
 ##   Ringnummer Kleurring Soort Leeftijdscatego… Geslacht `Datum vangst`
 ##   &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;         
@@ -392,9 +392,9 @@ Improve this page</a>
 </code></pre>
 
 <p>We can now start working on the data, e.g. make a plot of the number of species in each location:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ggplot(data = goose_data %&gt;% filter(!<span style="color:#00a">is.na</span>(<span style="color:#a50">`Locatie vangst`</span>)), 
-       aes(x = <span style="color:#a50">`Locatie vangst`</span>)) +
-    geom_bar()</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = goose_data %&gt;% <span style="color:#0a0">filter</span>(!<span style="color:#0a0">is.na</span>(`Locatie vangst`)), 
+       <span style="color:#0a0">aes</span>(x = `Locatie vangst`)) +
+    <span style="color:#0a0">geom_bar</span>()</code></pre></div>
 <p><img src="index_files/figure-markdown_github/unnamed-chunk-10-1.png" alt="" /></p>
 </div>
 

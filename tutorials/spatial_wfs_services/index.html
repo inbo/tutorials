@@ -319,11 +319,11 @@ Improve this page</a>
 <p>This examples illustrates how you can download information from a WFS for further use in R. First of all we need the URL of the service. Note that we appended the protocol <code>WFS:</code> in front of the URL. <code>ogrinfo()</code> from <code>gdalUtils</code> is used to return some extra information on the service. <code>cat()</code> prints this information. The summary indicates that the service provides three layers: &ldquo;BWK:Bwkhab&rdquo;, &ldquo;BWK:Bwkfauna&rdquo; and &ldquo;BWK:Hab3260&rdquo;. It also reveals the kind of layers, in this case two polygon layers and one line layer.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_bwk &lt;- <span style="color:#a50">&#34;WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs&#34;</span>
 wfs_weather &lt;- <span style="color:#a50">&#34;WFS:http://opendata.meteo.be/service/aws/ows&#34;</span>
-<span style="color:#00a">library</span>(gdalUtils)
-info &lt;- ogrinfo(wfs_bwk, 
+<span style="color:#0a0">library</span>(gdalUtils)
+info &lt;- <span style="color:#0a0">ogrinfo</span>(wfs_bwk, 
                 so = <span style="color:#00a">TRUE</span>, 
                 ro = <span style="color:#00a">TRUE</span>)
-<span style="color:#00a">cat</span>(info, sep = <span style="color:#a50">&#34;\n&#34;</span>)</code></pre></div>
+<span style="color:#0a0">cat</span>(info, sep = <span style="color:#a50">&#34;\n&#34;</span>)</code></pre></div>
 <pre><code>## INFO: Open of `WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs'
 ##       using driver `WFS' successful.
 ## Metadata:
@@ -338,12 +338,12 @@ info &lt;- ogrinfo(wfs_bwk,
 <p>Let&rsquo;s start by downloading the &ldquo;BWK:Bwkhab&rdquo; layer for the Hallerbos area. We use <code>ogr2ogr()</code> from the <code>gdalUtils</code> package. The main part is defining the input and output. We store the data in <a href="https://en.wikipedia.org/wiki/GeoJSON" target="_blank">GeoJSON</a> format which is an open standard format designed for representing simple geographical features, along with their non-spatial attributes. It is based on JSON, the JavaScript Object Notation.</p>
 
 <p>We also add the bounding box from which we want to retrieve the data. This is very important to add. If you omit a bounding box, the service will return the entire map which can be very large.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ogr2ogr(
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ogr2ogr</span>(
   src_datasource_name = wfs_bwk,           <span style="color:#aaa;font-style:italic"># the input source</span>
   layer = <span style="color:#a50">&#34;BWK:Bwkhab&#34;</span>,                    <span style="color:#aaa;font-style:italic"># the layer from the input</span>
   dst_datasource_name = <span style="color:#a50">&#34;bwkhab.geojson&#34;</span>,  <span style="color:#aaa;font-style:italic"># the target file</span>
   f = <span style="color:#a50">&#34;geojson&#34;</span>,                           <span style="color:#aaa;font-style:italic"># the target format</span>
-  spat = <span style="color:#0aa">c</span>(left = <span style="color:#099">142600</span>, bottom = <span style="color:#099">153800</span>, right = <span style="color:#099">146000</span>, top = <span style="color:#099">156900</span>),
+  spat = <span style="color:#0a0">c</span>(left = <span style="color:#099">142600</span>, bottom = <span style="color:#099">153800</span>, right = <span style="color:#099">146000</span>, top = <span style="color:#099">156900</span>),
                                            <span style="color:#aaa;font-style:italic"># the bounding box</span>
   t_srs = <span style="color:#a50">&#34;EPSG:31370&#34;</span>,                    <span style="color:#aaa;font-style:italic"># the coordinate reference system</span>
   verbose = <span style="color:#00a">TRUE</span>
@@ -362,7 +362,7 @@ info &lt;- ogrinfo(wfs_bwk,
 </code></pre>
 
 <p>At this point, all features are downloaded and can be used in R as we would we any other local file. So we need to load the file with <code>readOGR()</code> from <code>rgdal</code>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(rgdal)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(rgdal)</code></pre></div>
 <pre><code>## Loading required package: sp
 
 ## rgdal: version: 1.3-6, (SVN revision 773)
@@ -374,13 +374,13 @@ info &lt;- ogrinfo(wfs_bwk,
 ##  Path to PROJ.4 shared files: (autodetected)
 ##  Linking to sp version: 1.3-1
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwkhab &lt;- readOGR(<span style="color:#a50">&#34;bwkhab.geojson&#34;</span>, stringsAsFactors = <span style="color:#00a">FALSE</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwkhab &lt;- <span style="color:#0a0">readOGR</span>(<span style="color:#a50">&#34;bwkhab.geojson&#34;</span>, stringsAsFactors = <span style="color:#00a">FALSE</span>)</code></pre></div>
 <pre><code>## OGR data source with driver: GeoJSON 
 ## Source: &quot;/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_wfs_services/bwkhab.geojson&quot;, layer: &quot;BWK:Bwkhab&quot;
 ## with 551 features
 ## It has 28 fields
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">summary</span>(bwkhab)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">summary</span>(bwkhab)</code></pre></div>
 <pre><code>## Object of class SpatialPolygonsDataFrame
 ## Coordinates:
 ##        min      max
@@ -497,7 +497,7 @@ info &lt;- ogrinfo(wfs_bwk,
 </code></pre>
 
 <p>Let&rsquo;s make a simple plot of the object. Note that the object contains features outside of the bounding box. Those are features which have only some part within the bounding box.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">spplot(bwkhab, zcol = <span style="color:#a50">&#34;PHAB1&#34;</span>, scales = <span style="color:#0aa">list</span>(draw = <span style="color:#00a">TRUE</span>))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">spplot</span>(bwkhab, zcol = <span style="color:#a50">&#34;PHAB1&#34;</span>, scales = <span style="color:#0a0">list</span>(draw = <span style="color:#00a">TRUE</span>))</code></pre></div>
 <p><img src="index_files/figure-markdown_github/unnamed-chunk-5-1.png" alt="" /></p>
 
 <h1 id="download-feature-attribute-data-from-wfs">Download feature attribute data from WFS<a href="#download-feature-attribute-data-from-wfs" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
@@ -505,7 +505,7 @@ info &lt;- ogrinfo(wfs_bwk,
 <p>In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. <code>within</code>, <code>intersects</code>, <code>contains</code>,&hellip;). Actually, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.</p>
 
 <p>We rely on the <code>httr</code> package to talk to web services:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(httr)  <span style="color:#aaa;font-style:italic"># generic webservice package</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(httr)  <span style="color:#aaa;font-style:italic"># generic webservice package</span></code></pre></div>
 <p>Consider the following use case: You want to extract the attribute data from a <a href="http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f" target="_blank">soil map</a> for a number of sampling points (point coordinates). This use case can be tackled by relying on the WFS service and the affiliated spatial operators.</p>
 
 <p>Our example data point (in Lambert 72):</p>
@@ -521,7 +521,7 @@ y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
 </ul>
 
 <p>Hence, we now want to extract these soil properties from the WFS, for the coordinates defined above.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">properties_of_interest &lt;- <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;Drainageklasse&#34;</span>,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">properties_of_interest &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;Drainageklasse&#34;</span>,
                             <span style="color:#a50">&#34;Textuurklasse&#34;</span>,
                             <span style="color:#a50">&#34;Bodemserie&#34;</span>,
                             <span style="color:#a50">&#34;Bodemtype&#34;</span>)</code></pre></div>
@@ -539,17 +539,17 @@ y_lam &lt;- <span style="color:#099">212093.44</span></code></pre></div>
 </ul>
 
 <p>Formatting all this information in a query and executing the request (<code>GET</code>) towards the service:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">query &lt;- <span style="color:#0aa">list</span>(service = <span style="color:#a50">&#34;WFS&#34;</span>,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">query &lt;- <span style="color:#0a0">list</span>(service = <span style="color:#a50">&#34;WFS&#34;</span>,
              request = <span style="color:#a50">&#34;GetFeature&#34;</span>,
              version = <span style="color:#a50">&#34;1.1.0&#34;</span>,
              typeName = <span style="color:#a50">&#34;bodemkaart:bodemtypes&#34;</span>,
              outputFormat = <span style="color:#a50">&#34;csv&#34;</span>,
-             propertyname = <span style="color:#00a">as.character</span>(<span style="color:#00a">paste</span>(properties_of_interest,
+             propertyname = <span style="color:#0a0">as.character</span>(<span style="color:#0a0">paste</span>(properties_of_interest,
                                                collapse = <span style="color:#a50">&#34;,&#34;</span>)),
              CRS = <span style="color:#a50">&#34;EPSG:31370&#34;</span>,
-             CQL_FILTER = <span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;INTERSECTS(geom,POINT(%s %s))&#34;</span>,
+             CQL_FILTER = <span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;INTERSECTS(geom,POINT(%s %s))&#34;</span>,
                                   x_lam, y_lam)) 
-result &lt;- GET(wfs_bodemtypes, query = query)
+result &lt;- <span style="color:#0a0">GET</span>(wfs_bodemtypes, query = query)
 result</code></pre></div>
 <pre><code>## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&amp;request=GetFeature&amp;version=1.1.0&amp;typeName=bodemkaart%3Abodemtypes&amp;outputFormat=csv&amp;propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&amp;CRS=EPSG%3A31370&amp;CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
 ##   Date: 2019-02-14 21:25
@@ -561,8 +561,8 @@ result</code></pre></div>
 </code></pre>
 
 <p>The result is not yet formatted to be used as a dataframe. We need to use a small <em>trick</em> using the <code>textConnection</code> function to get from the result (bits) towards a readable output in a dataframe:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">df &lt;- read.csv(<span style="color:#00a">textConnection</span>(content(result, <span style="color:#a50">&#39;text&#39;</span>)))
-kable(df)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">df &lt;- <span style="color:#0a0">read.csv</span>(<span style="color:#0a0">textConnection</span>(<span style="color:#0a0">content</span>(result, <span style="color:#a50">&#39;text&#39;</span>)))
+<span style="color:#0a0">kable</span>(df)</code></pre></div>
 <table>
 <thead>
 <tr>

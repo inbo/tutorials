@@ -313,9 +313,12 @@ Improve this page</a>
 
 <h2 id="windows">Windows<a href="#windows" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<p>Installatiebestand beschikbaar via <a href="https://cloud.r-project.org/bin/windows/base/" target="_blank">https://cloud.r-project.org/bin/windows/base/</a></p>
+<p>Installatiebestand beschikbaar via
+<a href="https://cloud.r-project.org/bin/windows/base/" class="uri"><a href="https://cloud.r-project.org/bin/windows/base/" target="_blank">https://cloud.r-project.org/bin/windows/base/</a></a></p>
 
-<p>In de onderstaande tekst moet je in <code>R-3.x.y</code> zowel <code>x</code> als <code>y</code> vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie <code>R-3.0.0</code> is <code>x</code> = 0 en <code>y</code> = 0.</p>
+<p>In de onderstaande tekst moet je in <code>R-3.x.y</code> zowel <code>x</code> als <code>y</code>
+vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus
+voor versie <code>R-3.0.0</code> is <code>x</code> = 0 en <code>y</code> = 0.</p>
 
 <h3 id="nieuwe-installatie-van-r">Nieuwe installatie van R<a href="#nieuwe-installatie-van-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
@@ -325,14 +328,28 @@ Improve this page</a>
 <li>klik op <em>Volgende</em>.</li>
 <li>Aanvaard de licentievoorwaarden door op <em>Volgende</em> te klikken.</li>
 <li>Gebruik de standaarddoelmap en klik op <em>Volgende</em>.</li>
-<li>Selecteer de gewenste componenten en klik op <em>Volgende</em>. Je <strong>MOET</strong> deze standaardwaarden laten staan.</li>
+<li>Selecteer de gewenste componenten en klik op <em>Volgende</em>. Je <strong>MOET</strong>
+deze standaardwaarden laten staan.</li>
 <li>Opstartinstelling aanpassen: Kies <code>Nee</code> en klik op <em>Volgende</em>.</li>
-<li>Geef de map voor het start menu en klik op <em>Volgende</em>. Je mag de standaardwaarde gebruiken.</li>
-<li>Vink de gewenste extra snelkoppelingen <em>aan</em> (default is ok), alle register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
-<li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie afgelopen is.</li>
-<li>Ga naar <code>Start</code> en tik &ldquo;Omgevingsvariabelen&rdquo; in het veld <code>Programma's en variabelen zoeken</code>. Selecteer <code>De omgevingsvariabelen van het systeem bewerken</code>. Selecteer het tabblad <code>Geavanceerd</code> en klik op de knop <code>Omgevingsvariabelen</code>. Ga na of er een systeemvariabele <code>R_LIBS_USER</code> met waarde <code>C:/R/library</code> bestaat[1]. Indien niet, maak deze aan met de knop <code>Nieuw</code>. Sluit al deze schermen via de <code>OK</code> knop.</li>
-<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand overschrijven.</li>
-<li>Zorg dat de gebruiker schrijfrechten heeft voor <code>C:\Program Files\R\R-3.x.y\library</code> en <code>C:\R\library</code></li>
+<li>Geef de map voor het start menu en klik op <em>Volgende</em>. Je mag de
+standaardwaarde gebruiken.</li>
+<li>Vink de gewenste extra snelkoppelingen <em>aan</em> (default is ok), alle
+register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
+<li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie
+afgelopen is.</li>
+<li>Ga naar <code>Start</code> en tik “Omgevingsvariabelen” in het veld
+<code>Programma's en variabelen zoeken</code>. Selecteer
+<code>De omgevingsvariabelen van het systeem bewerken</code>. Selecteer het
+tabblad <code>Geavanceerd</code> en klik op de knop <code>Omgevingsvariabelen</code>. Ga
+na of er een systeemvariabele <code>R_LIBS_USER</code> met waarde
+<code>C:/R/library</code> bestaat[1]. Indien niet, maak deze aan met de knop
+<code>Nieuw</code>. Sluit al deze schermen via de <code>OK</code> knop.</li>
+<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in
+de doelmap waar je R geïnstalleerd hebt
+(<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand
+overschrijven.</li>
+<li>Zorg dat de gebruiker schrijfrechten heeft voor
+<code>C:\Program Files\R\R-3.x.y\library</code> en <code>C:\R\library</code></li>
 </ol>
 
 <h4 id="afwijkingen-t-o-v-default-installatie">Afwijkingen t.o.v. default installatie<a href="#afwijkingen-t-o-v-default-installatie" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
@@ -344,17 +361,24 @@ Improve this page</a>
 <li><code>C:\R\library</code></li>
 <li><code>C:\Program Files\R\R-3.x.y\library</code></li>
 </ul></li>
-<li>Systeemvariable <code>R_LIBS_USER</code> instellen op <code>C:/R/library</code> (<strong>verplicht forward slashes</strong>)</li>
-<li><a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> in <code>C:\Program Files\R\R-3.x.y\etc</code> overschrijven</li>
+<li>Systeemvariable <code>R_LIBS_USER</code> instellen op <code>C:/R/library</code>
+(<strong>verplicht forward slashes</strong>)</li>
+<li><a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> in <code>C:\Program Files\R\R-3.x.y\etc</code>
+overschrijven</li>
 </ul>
 
-<p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.</p>
+<p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden
+een aantal packages met administrator rechten geïnstalleerd waardoor de
+gebruiker ze niet meer kan updaten.</p>
 
 <p>Start <code>R</code> als een gewone gebruiker om de configuratie te testen.</p>
 
 <h3 id="upgrade-van-een-bestaande-r-installatie">Upgrade van een bestaande R installatie<a href="#upgrade-van-een-bestaande-r-installatie" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
-<p><strong>Deze instructies veronderstellen dat R en RStudio in het verleden reeds geïnstalleerd werden volgens de bovenstaande instructies. Indien dan niet het geval is, volg dan de instructies voor een nieuwe installatie.</strong></p>
+<p><strong>Deze instructies veronderstellen dat R en RStudio in het verleden
+reeds geïnstalleerd werden volgens de bovenstaande instructies. Indien
+dan niet het geval is, volg dan de instructies voor een nieuwe
+installatie.</strong></p>
 
 <ol>
 <li>Voer het bestand <em>R-3.x.y-win.exe</em> uit.</li>
@@ -362,17 +386,28 @@ Improve this page</a>
 <li>klik op <em>Volgende</em>.</li>
 <li>Aanvaard de licentievoorwaarden door op <em>Volgende</em> te klikken.</li>
 <li>Gebruik de standaarddoelmap en klik op <em>Volgende</em>.</li>
-<li>Selecteer de gewenste componenten en klik op <em>Volgende</em>. Je <strong>MOET</strong> deze standaardwaarden laten staan.</li>
+<li>Selecteer de gewenste componenten en klik op <em>Volgende</em>. Je <strong>MOET</strong>
+deze standaardwaarden laten staan.</li>
 <li>Opstartinstelling aanpassen: Kies <code>Nee</code> en klik op <em>Volgende</em>.</li>
-<li>Geef de map voor het start menu en klik op <em>Volgende</em>. Je mag de standaardwaarde gebruiken.</li>
-<li>Vink de gewenste extra snelkoppelingen <em>aan</em> (default is ok), alle register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
-<li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie afgelopen is.</li>
-<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand overschrijven.</li>
-<li>Zorg dat de gebruiker schrijfrechten heeft voor <code>C:\Program Files\R\R-3.x.y\library</code></li>
-<li>De nieuwe R versie is klaar voor gebruik. De gebruiker moet <code>RStudio</code> bijwerken.</li>
+<li>Geef de map voor het start menu en klik op <em>Volgende</em>. Je mag de
+standaardwaarde gebruiken.</li>
+<li>Vink de gewenste extra snelkoppelingen <em>aan</em> (default is ok), alle
+register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
+<li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie
+afgelopen is.</li>
+<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in
+de doelmap waar je R geïnstalleerd hebt
+(<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand
+overschrijven.</li>
+<li>Zorg dat de gebruiker schrijfrechten heeft voor
+<code>C:\Program Files\R\R-3.x.y\library</code></li>
+<li>De nieuwe R versie is klaar voor gebruik. De gebruiker moet
+<code>RStudio</code> bijwerken.</li>
 </ol>
 
-<p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden een aantal packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.</p>
+<p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden
+een aantal packages met administrator rechten geïnstalleerd waardoor de
+gebruiker ze niet meer kan updaten.</p>
 
 <p>Start <code>R</code> als een gewone gebruiker om de configuratie te testen.</p>
 
@@ -388,6 +423,14 @@ Improve this page</a>
   xpinch = 300,
   ypinch = 300,
   yaml.eval.expr = TRUE,
+  usethis.full_name = &quot;Research Institute for Nature and Forest&quot;,
+  usethis.description = list(
+    `Authors@R` = &quot;c(\n  person(\n    \&quot;Voornaam\&quot;, \&quot;Achternaam\&quot;, role = c(\&quot;aut\&quot;, \&quot;cre\&quot;), \n    email = \&quot;voornaam.achternaam@inbo.be\&quot;, \n    comment = c(ORCID = \&quot;9999-9999-9999-9999\&quot;)),\n  person(\n    \&quot;Research Institute for Nature and Forest\&quot;,\n    role = c(\&quot;cph\&quot;, \&quot;fnd\&quot;), email = \&quot;info@inbo.be\&quot;))&quot;,
+    License = &quot;GPL-3&quot;,
+    Language = &quot;en-GB&quot;,
+    Encoding = &quot;UTF-8&quot;,
+    Roxygen = &quot;list(markdown = TRUE)&quot;
+  ),
   repos = c(
     RStudio = &quot;https://cloud.r-project.org/&quot;,
     INLA = &quot;https://inla.r-inla-download.org/R/stable&quot;
@@ -396,11 +439,8 @@ Improve this page</a>
   install.packages.compile.from.source = &quot;never&quot;
 )
 
+# display fortune when starting new interactive R session
 if (interactive()) {
-  if (length(find.package(&quot;drat&quot;, quiet = TRUE)) == 0) {
-    utils::install.packages(&quot;drat&quot;)
-  }
-  drat::addRepo(&quot;inbo&quot;)
   if (length(find.package(&quot;fortunes&quot;, quiet = TRUE)) == 0) {
     utils::install.packages(&quot;fortunes&quot;)
   }
@@ -411,6 +451,7 @@ if (interactive()) {
     }
   )
 }
+
 # required for RStan and brms
 Sys.setenv(BINPREF = &quot;C:/Rtools/mingw_$(WIN)/bin/&quot;)
 </code></pre>

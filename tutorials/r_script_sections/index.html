@@ -346,7 +346,7 @@ Improve this page</a>
 <p>Now we will illustrate its use with an example of an analysis.</p>
 
 <p>Run tidyverse package</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(tidyverse)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse)</code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
 ## ✔ ggplot2 3.1.0.9000     ✔ purrr   0.2.5     
@@ -362,51 +362,51 @@ Improve this page</a>
 <p>Now different manipulations will be performed on the dataset. To make navigation through the different manipulations more straightforward, we add sections.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># 1. Plot hindfoot length over weight per year ----</span>
 
-surveys &lt;- read_csv(<span style="color:#a50">&#34;../data/20180222_surveys.csv&#34;</span>) %&gt;% 
-  filter(!<span style="color:#00a">is.na</span>(weight),             <span style="color:#aaa;font-style:italic"># remove missing weight</span>
-         !<span style="color:#00a">is.na</span>(hindfoot_length),    <span style="color:#aaa;font-style:italic"># remove missing hindfoot_length</span>
-         !<span style="color:#00a">is.na</span>(sex))                <span style="color:#aaa;font-style:italic"># remove missing sex</span>
+surveys &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;../data/20180222_surveys.csv&#34;</span>) %&gt;% 
+  <span style="color:#0a0">filter</span>(!<span style="color:#0a0">is.na</span>(weight),             <span style="color:#aaa;font-style:italic"># remove missing weight</span>
+         !<span style="color:#0a0">is.na</span>(hindfoot_length),    <span style="color:#aaa;font-style:italic"># remove missing hindfoot_length</span>
+         !<span style="color:#0a0">is.na</span>(sex))                <span style="color:#aaa;font-style:italic"># remove missing sex</span>
 
-ggplot(surveys, aes(x = weight, 
+<span style="color:#0a0">ggplot</span>(surveys, <span style="color:#0a0">aes</span>(x = weight, 
                     y = hindfoot_length)) + 
-  geom_point(aes(colour = species_id), alpha = <span style="color:#099">0.5</span>) +
-  ylab(<span style="color:#a50">&#34;hindfoot length&#34;</span>) +
-  scale_x_log10() +
-  scale_color_discrete() +
-  theme_dark() +
-  facet_wrap(~year)
+  <span style="color:#0a0">geom_point</span>(<span style="color:#0a0">aes</span>(colour = species_id), alpha = <span style="color:#099">0.5</span>) +
+  <span style="color:#0a0">ylab</span>(<span style="color:#a50">&#34;hindfoot length&#34;</span>) +
+  <span style="color:#0a0">scale_x_log10</span>() +
+  <span style="color:#0a0">scale_color_discrete</span>() +
+  <span style="color:#0a0">theme_dark</span>() +
+  <span style="color:#0a0">facet_wrap</span>(~year)
 
 <span style="color:#aaa;font-style:italic"># 2. Create a heatmap of the population growth in Ghent and its districts ----</span>
 
-tidy_bevolking &lt;- read_csv(<span style="color:#a50">&#34;../data/20180522_gent_groeiperwijk_tidy.csv&#34;</span>)
+tidy_bevolking &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;../data/20180522_gent_groeiperwijk_tidy.csv&#34;</span>)
 
-ggplot(tidy_bevolking, aes(x = year, 
+<span style="color:#0a0">ggplot</span>(tidy_bevolking, <span style="color:#0a0">aes</span>(x = year, 
                     y = wijk)) +
-  geom_tile(aes(fill = growth), color = <span style="color:#a50">&#34;red&#34;</span>) +          <span style="color:#aaa;font-style:italic"># fill = colour of content/pane; color = colour of edge</span>
+  <span style="color:#0a0">geom_tile</span>(<span style="color:#0a0">aes</span>(fill = growth), color = <span style="color:#a50">&#34;red&#34;</span>) +          <span style="color:#aaa;font-style:italic"># fill = colour of content/pane; color = colour of edge</span>
 <span style="color:#aaa;font-style:italic"># scale_fill_gradient(low = &#34;white&#34;, high = &#34;steelblue&#34;) +</span>
-  scale_fill_distiller(type = <span style="color:#a50">&#34;div&#34;</span>) +
-  theme(axis.title.x=element_blank(),
-        axis.title.y=element_blank())
+  <span style="color:#0a0">scale_fill_distiller</span>(type = <span style="color:#a50">&#34;div&#34;</span>) +
+  <span style="color:#0a0">theme</span>(axis.title.x=<span style="color:#0a0">element_blank</span>(),
+        axis.title.y=<span style="color:#0a0">element_blank</span>())
 
 <span style="color:#aaa;font-style:italic"># 3. Place two plots in one window ----</span>
 
-install.packages(<span style="color:#a50">&#34;cowplot&#34;</span>)
-devtools::install_github(<span style="color:#a50">&#34;inbo/INBOtheme&#34;</span>) <span style="color:#aaa;font-style:italic"># install inbo theme</span>
-<span style="color:#00a">library</span>(cowplot)
-<span style="color:#00a">library</span>(INBOtheme)
+<span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;cowplot&#34;</span>)
+devtools::<span style="color:#0a0">install_github</span>(<span style="color:#a50">&#34;inbo/INBOtheme&#34;</span>) <span style="color:#aaa;font-style:italic"># install inbo theme</span>
+<span style="color:#0a0">library</span>(cowplot)
+<span style="color:#0a0">library</span>(INBOtheme)
 
-weight_scatter &lt;- ggplot(surveys, aes(x = weight, 
+weight_scatter &lt;- <span style="color:#0a0">ggplot</span>(surveys, <span style="color:#0a0">aes</span>(x = weight, 
                     y = hindfoot_length)) + 
-  geom_point() +
-  ylab(<span style="color:#a50">&#34;hindfoot length&#34;</span>)
+  <span style="color:#0a0">geom_point</span>() +
+  <span style="color:#0a0">ylab</span>(<span style="color:#a50">&#34;hindfoot length&#34;</span>)
 
-weight_density &lt;- ggplot(surveys, 
-                           aes(x = weight, y = <span style="color:#099">..</span>density..) ) +   <span style="color:#aaa;font-style:italic"># the &#39;..&#39; refers to internal calculations of the density</span>
-  geom_histogram() + 
-  geom_density()
+weight_density &lt;- <span style="color:#0a0">ggplot</span>(surveys, 
+                           <span style="color:#0a0">aes</span>(x = weight, y = ..density..) ) +   <span style="color:#aaa;font-style:italic"># the &#39;..&#39; refers to internal calculations of the density</span>
+  <span style="color:#0a0">geom_histogram</span>() + 
+  <span style="color:#0a0">geom_density</span>()
 
 <span style="color:#aaa;font-style:italic"># two plots in one window</span>
-plot_grid(weight_scatter, weight_density, labels = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;A&#34;</span>, <span style="color:#a50">&#34;B&#34;</span>))</code></pre></div></div>
+<span style="color:#0a0">plot_grid</span>(weight_scatter, weight_density, labels = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;A&#34;</span>, <span style="color:#a50">&#34;B&#34;</span>))</code></pre></div></div>
 
   
 <footer class='entry-footer'>

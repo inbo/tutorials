@@ -319,16 +319,16 @@ Improve this page</a>
 <p>This tutorial will explain how you can match a list of &lsquo;scientific names&rsquo; to the GBIF taxonomic backbone</p>
 
 <p>Important is that you have <a href="https://github.com/ropensci/rgbif" target="_blank">rgbif</a> and <a href="https://inbo.github.io/inborutils/" target="_blank">inborutils</a> installed and available:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(tidyverse) <span style="color:#aaa;font-style:italic"># tidyverse</span>
-<span style="color:#00a">library</span>(rgbif)     <span style="color:#aaa;font-style:italic"># To Match GBIF</span>
-<span style="color:#00a">library</span>(inborutils) <span style="color:#aaa;font-style:italic"># wrap GBIF api data</span>
-<span style="color:#00a">library</span>(knitr)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse) <span style="color:#aaa;font-style:italic"># tidyverse</span>
+<span style="color:#0a0">library</span>(rgbif)     <span style="color:#aaa;font-style:italic"># To Match GBIF</span>
+<span style="color:#0a0">library</span>(inborutils) <span style="color:#aaa;font-style:italic"># wrap GBIF api data</span>
+<span style="color:#0a0">library</span>(knitr)</code></pre></div>
 <h2 id="read-data-file-containing-the-scientific-names">Read data file containing the scientific names<a href="#read-data-file-containing-the-scientific-names" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
 <p>Read file containing the scientific names you want to check against the <a href="https://www.gbif.org/species/search?q=" target="_blank">GBIF</a> taxonomic backbone:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list &lt;- read_csv(<span style="color:#a50">&#34;https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = cols())</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = <span style="color:#0a0">cols</span>())</code></pre></div>
 <p>Take a look at the data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::kable(<span style="color:#00a">head</span>(species_list))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(species_list))</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -375,14 +375,14 @@ Improve this page</a>
 
 <p>Match the column containing the scientificName with GBIF, using the <code>gbif_species_name_match</code> function from the <a href="https://inbo.github.io/inborutils/reference/gbif_species_name_match.html" target="_blank">inborutils</a> package:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list_matched &lt;- species_list %&gt;% 
-    gbif_species_name_match(name_col = <span style="color:#a50">&#34;name&#34;</span>) </code></pre></div>
+    <span style="color:#0a0">gbif_species_name_match</span>(name_col = <span style="color:#a50">&#34;name&#34;</span>) </code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
 
 <p>The <code>name_col</code> argument is the column name containing the scientific names.</p>
 
 <p>Take a look at the updated data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::kable(<span style="color:#00a">head</span>(species_list_matched))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(species_list_matched))</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -499,14 +499,14 @@ Improve this page</a>
 
 <p>You can also specify which info (<code>gbif_terms</code>) GBIF should return. For example, return a lot of terms:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list %&gt;% 
-    gbif_species_name_match(name_col = <span style="color:#a50">&#34;name&#34;</span>,
-                            gbif_terms = <span style="color:#0aa">c</span>(<span style="color:#a50">&#39;usageKey&#39;</span>, <span style="color:#a50">&#39;scientificName&#39;</span>, 
+    <span style="color:#0a0">gbif_species_name_match</span>(name_col = <span style="color:#a50">&#34;name&#34;</span>,
+                            gbif_terms = <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;usageKey&#39;</span>, <span style="color:#a50">&#39;scientificName&#39;</span>, 
                                            <span style="color:#a50">&#39;rank&#39;</span>, <span style="color:#a50">&#39;order&#39;</span>, <span style="color:#a50">&#39;matchType&#39;</span>, 
                                            <span style="color:#a50">&#39;phylum&#39;</span>, <span style="color:#a50">&#39;kingdom&#39;</span>, <span style="color:#a50">&#39;genus&#39;</span>, 
                                            <span style="color:#a50">&#39;class&#39;</span>, <span style="color:#a50">&#39;confidence&#39;</span>, <span style="color:#a50">&#39;synonym&#39;</span>, 
                                            <span style="color:#a50">&#39;status&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>)) %&gt;%
-    <span style="color:#00a">head</span>() %&gt;%
-    kable()</code></pre></div>
+    <span style="color:#0a0">head</span>() %&gt;%
+    <span style="color:#0a0">kable</span>()</code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
 
@@ -626,11 +626,11 @@ Improve this page</a>
 
 <p>or rather just a subset:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list %&gt;% 
-    gbif_species_name_match(name_col = <span style="color:#a50">&#34;name&#34;</span>,
-                            gbif_terms = <span style="color:#0aa">c</span>(<span style="color:#a50">&#39;scientificName&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>,
+    <span style="color:#0a0">gbif_species_name_match</span>(name_col = <span style="color:#a50">&#34;name&#34;</span>,
+                            gbif_terms = <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;scientificName&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>,
                                            <span style="color:#a50">&#39;order&#39;</span>, <span style="color:#a50">&#39;matchType&#39;</span>)) %&gt;%
-    <span style="color:#00a">head</span>() %&gt;%
-    kable()</code></pre></div>
+    <span style="color:#0a0">head</span>() %&gt;%
+    <span style="color:#0a0">kable</span>()</code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
 

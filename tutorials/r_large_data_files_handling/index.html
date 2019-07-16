@@ -333,31 +333,31 @@ Improve this page</a>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">csv.name &lt;- <span style="color:#a50">&#34;2016-04-20-processed-logs-big-file-example.csv&#34;</span>
 db.name &lt;- <span style="color:#a50">&#34;2016-04-20-processed-logs-big-file-example.db&#34;</span></code></pre></div>
 <p>The evaluation of the next code chunk is ignored by default as the downloading and unzipping of the files results in more than 3 GB of data. If you do want to download the files yourself and test the other chunks, run the code and download the <code>csv</code> and <code>sqlite</code> examples. Make sure you have the <code>R.utils</code> package available (for unzipping the downloaded files). If not, use the command <code>install.packages(&quot;R.utils&quot;)</code> in your R console to download the package.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(<span style="color:#a50">&#34;R.utils&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(<span style="color:#a50">&#34;R.utils&#34;</span>)
 <span style="color:#aaa;font-style:italic"># download the CSV file example</span>
-csv.url &lt;- <span style="color:#00a">paste</span>(<span style="color:#a50">&#34;https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/&#34;</span>, 
+csv.url &lt;- <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/&#34;</span>, 
                  csv.name, <span style="color:#a50">&#34;.gz&#34;</span>, sep = <span style="color:#a50">&#34;&#34;</span>)
-<span style="color:#00a">if</span> (!<span style="color:#00a">file.exists</span>(csv.name)) {
-    download.file(csv.url, destfile = <span style="color:#00a">paste0</span>(csv.name, <span style="color:#a50">&#34;.gz&#34;</span>))
-    gunzip(<span style="color:#00a">paste0</span>(csv.name, <span style="color:#a50">&#34;.gz&#34;</span>))
+<span style="color:#0a0">if </span>(!<span style="color:#0a0">file.exists</span>(csv.name)) {
+    <span style="color:#0a0">download.file</span>(csv.url, destfile = <span style="color:#0a0">paste0</span>(csv.name, <span style="color:#a50">&#34;.gz&#34;</span>))
+    <span style="color:#0a0">gunzip</span>(<span style="color:#0a0">paste0</span>(csv.name, <span style="color:#a50">&#34;.gz&#34;</span>))
 }
 
 <span style="color:#aaa;font-style:italic"># download the sqlite database example</span>
-db.url &lt;- <span style="color:#00a">paste</span>(<span style="color:#a50">&#34;https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/&#34;</span>, 
+db.url &lt;- <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;https://s3-eu-west-1.amazonaws.com/lw-birdtracking-data/&#34;</span>, 
                 db.name, <span style="color:#a50">&#34;.gz&#34;</span>, sep = <span style="color:#a50">&#34;&#34;</span>)
-<span style="color:#00a">if</span> (!<span style="color:#00a">file.exists</span>(db.name)) {
-    download.file(db.url, destfile = <span style="color:#00a">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
-    gunzip(<span style="color:#00a">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
+<span style="color:#0a0">if </span>(!<span style="color:#0a0">file.exists</span>(db.name)) {
+    <span style="color:#0a0">download.file</span>(db.url, destfile = <span style="color:#0a0">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
+    <span style="color:#0a0">gunzip</span>(<span style="color:#0a0">paste0</span>(db.name, <span style="color:#a50">&#34;.gz&#34;</span>))
 }</code></pre></div>
 <h2 id="loading-a-large-dataset-use-fread-or-functions-from-readr-instead-of-read-xxx">Loading a large dataset: use <code>fread()</code> or functions from <code>readr</code> instead of <code>read.xxx()</code>.<a href="#loading-a-large-dataset-use-fread-or-functions-from-readr-instead-of-read-xxx" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(<span style="color:#a50">&#34;data.table&#34;</span>)
-<span style="color:#00a">library</span>(<span style="color:#a50">&#34;readr&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(<span style="color:#a50">&#34;data.table&#34;</span>)
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;readr&#34;</span>)</code></pre></div>
 <p>If you really need to read an entire csv in memory, by default, R users use the <code>read.table</code> method or variations thereof (such as <code>read.csv</code>). However, <code>fread</code> from the <code>data.table</code> package is a lot faster. Furthermore, the <code>readr</code> package also provides more optimized reading functions (<code>read_csv</code>, <code>read_delim</code>,&hellip;). Let&rsquo;s measure the time to read in the data using these three different methods.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">read.table.timing &lt;- <span style="color:#00a">system.time</span>(read.table(csv.name, header = <span style="color:#00a">TRUE</span>, sep = <span style="color:#a50">&#34;,&#34;</span>))
-readr.timing &lt;- <span style="color:#00a">system.time</span>(read_delim(csv.name, <span style="color:#a50">&#34;,&#34;</span>, col_names = <span style="color:#00a">TRUE</span>))
-data.table.timing &lt;- <span style="color:#00a">system.time</span>(allData &lt;- fread(csv.name, showProgress = <span style="color:#00a">FALSE</span>))
-data &lt;- <span style="color:#0aa">data.frame</span>(method = <span style="color:#0aa">c</span>(<span style="color:#a50">&#39;read.table&#39;</span>, <span style="color:#a50">&#39;readr&#39;</span>, <span style="color:#a50">&#39;fread&#39;</span>), 
-                  timing = <span style="color:#0aa">c</span>(read.table.timing[<span style="color:#099">3</span>], readr.timing[<span style="color:#099">3</span>], data.table.timing[<span style="color:#099">3</span>]))
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">read.table.timing &lt;- <span style="color:#0a0">system.time</span>(<span style="color:#0a0">read.table</span>(csv.name, header = <span style="color:#00a">TRUE</span>, sep = <span style="color:#a50">&#34;,&#34;</span>))
+readr.timing &lt;- <span style="color:#0a0">system.time</span>(<span style="color:#0a0">read_delim</span>(csv.name, <span style="color:#a50">&#34;,&#34;</span>, col_names = <span style="color:#00a">TRUE</span>))
+data.table.timing &lt;- <span style="color:#0a0">system.time</span>(allData &lt;- <span style="color:#0a0">fread</span>(csv.name, showProgress = <span style="color:#00a">FALSE</span>))
+data &lt;- <span style="color:#0a0">data.frame</span>(method = <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;read.table&#39;</span>, <span style="color:#a50">&#39;readr&#39;</span>, <span style="color:#a50">&#39;fread&#39;</span>), 
+                  timing = <span style="color:#0a0">c</span>(read.table.timing[3], readr.timing[3], data.table.timing[3]))
 data</code></pre></div>
 <pre><code>##       method  timing
 ## 1 read.table 362.819
@@ -383,11 +383,11 @@ data</code></pre></div>
 <h3 id="1-limit-the-number-of-lines-you-read-fread">1. Limit the number of lines you read (<code>fread</code>)<a href="#1-limit-the-number-of-lines-you-read-fread" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>Limiting the number of lines you read is easy. Just use the <code>nrows</code> and/or <code>skip</code> option (available to both <code>read.table</code> and <code>fread</code>). <code>skip</code> can be used to skip a number of rows, but you can also pass a string to this parameter causing <code>fread</code> to only start reading lines from the first line matching that string. Let&rsquo;s say we only want to start reading lines after we find a line matching the pattern <code>2015-06-12 15:14:39</code>. We can do that like this:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;Number of lines in full data set: %s&#34;</span>, <span style="color:#00a">nrow</span>(allData))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;Number of lines in full data set: %s&#34;</span>, <span style="color:#0a0">nrow</span>(allData))</code></pre></div>
 <pre><code>## [1] &quot;Number of lines in full data set: 3761058&quot;
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subSet &lt;- fread(csv.name, skip = <span style="color:#a50">&#34;2015-06-12 15:14:39&#34;</span>, showProgress = <span style="color:#00a">FALSE</span>)
-<span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;Number of lines in data set with skipped lines: %s&#34;</span>, <span style="color:#00a">nrow</span>(subSet))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subSet &lt;- <span style="color:#0a0">fread</span>(csv.name, skip = <span style="color:#a50">&#34;2015-06-12 15:14:39&#34;</span>, showProgress = <span style="color:#00a">FALSE</span>)
+<span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;Number of lines in data set with skipped lines: %s&#34;</span>, <span style="color:#0a0">nrow</span>(subSet))</code></pre></div>
 <pre><code>## [1] &quot;Number of lines in data set with skipped lines: 9998&quot;
 </code></pre>
 
@@ -396,13 +396,13 @@ data</code></pre></div>
 <h3 id="2-limit-the-number-of-columns-you-read-fread">2. Limit the number of columns you read (<code>fread</code>)<a href="#2-limit-the-number-of-columns-you-read-fread" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>If you only need 4 columns of the 21 columns present in the file, you can tell <code>fread</code> to only select those 4. This can have a major impact on the memory footprint of your data. The option you need for this is: <code>select</code>. With this, you can specify a number of columns to keep. The opposite - specifying the columns you want to drop - can be accomplished with the <code>drop</code> option.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">fourColumns = fread(csv.name, select = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;device_info_serial&#34;</span>, <span style="color:#a50">&#34;date_time&#34;</span>, 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">fourColumns = <span style="color:#0a0">fread</span>(csv.name, select = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;device_info_serial&#34;</span>, <span style="color:#a50">&#34;date_time&#34;</span>, 
                                          <span style="color:#a50">&#34;latitude&#34;</span>, <span style="color:#a50">&#34;longitude&#34;</span>), 
                     showProgress = <span style="color:#00a">FALSE</span>)
-<span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;Size of total data in memory: %s MB&#34;</span>, utils::object.size(allData)/<span style="color:#099">1000000</span>)</code></pre></div>
+<span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;Size of total data in memory: %s MB&#34;</span>, utils::<span style="color:#0a0">object.size</span>(allData)/<span style="color:#099">1000000</span>)</code></pre></div>
 <pre><code>## [1] &quot;Size of total data in memory: 1434.074264 MB&quot;
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;Size of only four columns in memory: %s MB&#34;</span>, utils::object.size(fourColumns)/<span style="color:#099">1000000</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;Size of only four columns in memory: %s MB&#34;</span>, utils::<span style="color:#0a0">object.size</span>(fourColumns)/<span style="color:#099">1000000</span>)</code></pre></div>
 <pre><code>## [1] &quot;Size of only four columns in memory: 365.90692 MB&quot;
 </code></pre>
 
@@ -419,42 +419,42 @@ data</code></pre></div>
 <p>Streaming a file means reading it line by line and only keeping the lines you need or do stuff with the lines while you read through the file. It turns out that R is really not very efficient in streaming files. The main reason is the memory allocation process that has difficulties with a constantly growing object (which can be a dataframe containing only the selected lines).</p>
 
 <p>In the next code block, we will read parts of our data file once using the <code>fread</code>function, and once line by line. You&rsquo;ll see the performance issue with the streaming solution.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(ggplot2)
-allowedDevices = <span style="color:#0aa">c</span>(<span style="color:#099">753</span>, <span style="color:#099">801</span>, <span style="color:#099">852</span>)
-minDate = <span style="color:#00a">strptime</span>(<span style="color:#a50">&#39;1/3/2014&#39;</span>,format = <span style="color:#a50">&#39;%d/%m/%Y&#39;</span>)
-maxDate = <span style="color:#00a">strptime</span>(<span style="color:#a50">&#39;1/10/2014&#39;</span>,format = <span style="color:#a50">&#39;%d/%m/%Y&#39;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(ggplot2)
+allowedDevices = <span style="color:#0a0">c</span>(<span style="color:#099">753</span>, <span style="color:#099">801</span>, <span style="color:#099">852</span>)
+minDate = <span style="color:#0a0">strptime</span>(<span style="color:#a50">&#39;1/3/2014&#39;</span>,format = <span style="color:#a50">&#39;%d/%m/%Y&#39;</span>)
+maxDate = <span style="color:#0a0">strptime</span>(<span style="color:#a50">&#39;1/10/2014&#39;</span>,format = <span style="color:#a50">&#39;%d/%m/%Y&#39;</span>)
 
-streamFile &lt;- <span style="color:#00a">function</span>(limit) {
-    con &lt;- <span style="color:#00a">file</span>(csv.name, open = <span style="color:#a50">&#34;r&#34;</span>)
-    selectedRecords &lt;- <span style="color:#0aa">list</span>()
+streamFile &lt;- <span style="color:#0a0">function</span>(limit) {
+    con &lt;- <span style="color:#0a0">file</span>(csv.name, open = <span style="color:#a50">&#34;r&#34;</span>)
+    selectedRecords &lt;- <span style="color:#0a0">list</span>()
     i &lt;- <span style="color:#099">0</span>
-    file.streaming.timing &lt;- <span style="color:#00a">system.time</span>(
-        <span style="color:#00a">while</span> (i &lt; limit) {
-            oneLine &lt;- <span style="color:#00a">readLines</span>(con, n = <span style="color:#099">1</span>, warn = <span style="color:#00a">FALSE</span>)
-            vec = (<span style="color:#00a">strsplit</span>(oneLine, <span style="color:#a50">&#34;,&#34;</span>))
-            selectedRecords &lt;- <span style="color:#0aa">c</span>(selectedRecords, vec)
+    file.streaming.timing &lt;- <span style="color:#0a0">system.time</span>(
+        <span style="color:#0a0">while </span>(i &lt; limit) {
+            oneLine &lt;- <span style="color:#0a0">readLines</span>(con, n = <span style="color:#099">1</span>, warn = <span style="color:#00a">FALSE</span>)
+            vec = (<span style="color:#0a0">strsplit</span>(oneLine, <span style="color:#a50">&#34;,&#34;</span>))
+            selectedRecords &lt;- <span style="color:#0a0">c</span>(selectedRecords, vec)
             i &lt;- i + <span style="color:#099">1</span>
         }
     )
-    <span style="color:#00a">close</span>(con)
-    <span style="color:#00a">return</span>(file.streaming.timing[[<span style="color:#099">3</span>]])
+    <span style="color:#0a0">close</span>(con)
+    <span style="color:#0a0">return</span>(file.streaming.timing[[3]])
 }
 
-freadFile &lt;- <span style="color:#00a">function</span>(limit) {
-    file.fread.timing = <span style="color:#00a">system.time</span>(
-        d &lt;- fread(csv.name, showProgress = <span style="color:#00a">FALSE</span>, nrows = limit)
+freadFile &lt;- <span style="color:#0a0">function</span>(limit) {
+    file.fread.timing = <span style="color:#0a0">system.time</span>(
+        d &lt;- <span style="color:#0a0">fread</span>(csv.name, showProgress = <span style="color:#00a">FALSE</span>, nrows = limit)
     )
-    <span style="color:#00a">return</span>(file.fread.timing[[<span style="color:#099">3</span>]])
+    <span style="color:#0a0">return</span>(file.fread.timing[[3]])
 }
 
-maxLines &lt;- <span style="color:#0aa">c</span>(<span style="color:#099">5000</span>, <span style="color:#099">10000</span>, <span style="color:#099">15000</span>, <span style="color:#099">20000</span>, <span style="color:#099">25000</span>, <span style="color:#099">30000</span>)
-streamingTimes &lt;- <span style="color:#00a">sapply</span>(maxLines, streamFile)
-freadTimes &lt;- <span style="color:#00a">sapply</span>(maxLines, freadFile)
-data &lt;- <span style="color:#0aa">data.frame</span>(n = maxLines, streaming = streamingTimes, 
+maxLines &lt;- <span style="color:#0a0">c</span>(<span style="color:#099">5000</span>, <span style="color:#099">10000</span>, <span style="color:#099">15000</span>, <span style="color:#099">20000</span>, <span style="color:#099">25000</span>, <span style="color:#099">30000</span>)
+streamingTimes &lt;- <span style="color:#0a0">sapply</span>(maxLines, streamFile)
+freadTimes &lt;- <span style="color:#0a0">sapply</span>(maxLines, freadFile)
+data &lt;- <span style="color:#0a0">data.frame</span>(n = maxLines, streaming = streamingTimes, 
                    fread = freadTimes)
-pdata &lt;- melt(data, id = <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;n&#34;</span>))
-<span style="color:#00a">colnames</span>(pdata) &lt;- <span style="color:#0aa">c</span>(<span style="color:#a50">&#34;n&#34;</span>, <span style="color:#a50">&#34;algorithm&#34;</span>, <span style="color:#a50">&#34;execTime&#34;</span>)
-qplot(n, execTime, data = pdata, color = algorithm, 
+pdata &lt;- <span style="color:#0a0">melt</span>(data, id = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;n&#34;</span>))
+<span style="color:#0a0">colnames</span>(pdata) &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;n&#34;</span>, <span style="color:#a50">&#34;algorithm&#34;</span>, <span style="color:#a50">&#34;execTime&#34;</span>)
+<span style="color:#0a0">qplot</span>(n, execTime, data = pdata, color = algorithm, 
       xlab = <span style="color:#a50">&#34;number of lines read&#34;</span>, ylab = <span style="color:#a50">&#34;execution time (s)&#34;</span>)</code></pre></div>
 <p><img src="index_files/figure-markdown_github/streamexample-1.png" alt="" /></p>
 
@@ -472,11 +472,11 @@ qplot(n, execTime, data = pdata, color = algorithm,
 <p>We have downloaded a second file <code>2016-04-20-processed-logs-big-file-example.db</code> that contains the same data as the <code>2016-04-20-processed-logs-big-file-example.csv</code> file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, you can first convert your csv into a SQlite as described <a href="#convertsqlite">further in this tutorial</a>.</p>
 
 <p>Let&rsquo;s first connect to the database and list the available tables.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(RSQLite)
-db &lt;- dbConnect(SQLite(), dbname = db.name)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(RSQLite)
+db &lt;- <span style="color:#0a0">dbConnect</span>(<span style="color:#0a0">SQLite</span>(), dbname = db.name)
 
 <span style="color:#aaa;font-style:italic"># show the tables in this database</span>
-dbListTables(db)</code></pre></div>
+<span style="color:#0a0">dbListTables</span>(db)</code></pre></div>
 <pre><code>##  [1] &quot;SpatialIndex&quot;                      
 ##  [2] &quot;geom_cols_ref_sys&quot;                 
 ##  [3] &quot;geometry_columns&quot;                  
@@ -504,7 +504,7 @@ dbListTables(db)</code></pre></div>
 </code></pre>
 
 <p>Let&rsquo;s try to select rows where the device id matches a given value (e.g. 860), and the date time is between two given timestamps. For our analysis, we only need <code>date_time</code>, <code>latitude</code>, <code>longitude</code> and <code>altitude</code> so we will only select those.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sqlTiming &lt;- <span style="color:#00a">system.time</span>(data &lt;-  dbGetQuery(conn = db,
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sqlTiming &lt;- <span style="color:#0a0">system.time</span>(data &lt;-  <span style="color:#0a0">dbGetQuery</span>(conn = db,
    <span style="color:#a50">&#34;SELECT date_time, latitude, longitude, altitude
 </span><span style="color:#a50">    FROM processed_logs 
 </span><span style="color:#a50">    WHERE device_info_serial = 860 
@@ -512,24 +512,24 @@ dbListTables(db)</code></pre></div>
 </span><span style="color:#a50">        AND date_time &gt; &#39;2014-03-01&#39;&#34;</span>
 ))
 
-<span style="color:#00a">print</span>(sqlTiming[<span style="color:#099">3</span>])</code></pre></div>
+<span style="color:#0a0">print</span>(sqlTiming[3])</code></pre></div>
 <pre><code>## elapsed 
 ##   13.48
 </code></pre>
 
 <p>This provides a convenient and fast way to request subsets of data from our large data file. We could do the same analysis for each of the serial numbers, each time only loading that subset of the data. As an example, consider the calculation of the average altitude over the specified period for each of the bird serial identifiers in the list <code>serial_id_list</code>. By using a for loop, the calculation is done for each of the birds separately and the amount of data loaded into memory at the same time is lower:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">serial_id_list &lt;- <span style="color:#0aa">c</span>(<span style="color:#099">853</span>, <span style="color:#099">860</span>, <span style="color:#099">783</span>)
-<span style="color:#00a">print</span>(<span style="color:#a50">&#34;Average altitude between 2014-03-01 and 2014-07-01:&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">serial_id_list &lt;- <span style="color:#0a0">c</span>(<span style="color:#099">853</span>, <span style="color:#099">860</span>, <span style="color:#099">783</span>)
+<span style="color:#0a0">print</span>(<span style="color:#a50">&#34;Average altitude between 2014-03-01 and 2014-07-01:&#34;</span>)</code></pre></div>
 <pre><code>## [1] &quot;Average altitude between 2014-03-01 and 2014-07-01:&quot;
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">for</span> (serialid <span style="color:#00a">in</span> serial_id_list) {
-    data &lt;-  dbGetQuery(conn = db,
-                       <span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;SELECT date_time, latitude, longitude, altitude
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">for </span>(serialid in serial_id_list) {
+    data &lt;-  <span style="color:#0a0">dbGetQuery</span>(conn = db,
+                       <span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;SELECT date_time, latitude, longitude, altitude
 </span><span style="color:#a50">                                FROM processed_logs 
 </span><span style="color:#a50">                                WHERE device_info_serial = %d 
 </span><span style="color:#a50">                                    AND date_time &lt; &#39;2014-07-01&#39; 
 </span><span style="color:#a50">                                    AND date_time &gt; &#39;2014-03-01&#39;&#34;</span>, serialid))
-    <span style="color:#00a">print</span>(<span style="color:#00a">sprintf</span>(<span style="color:#a50">&#34;serialID %d: %f&#34;</span>, serialid, <span style="color:#00a">mean</span>(data$altitude)))
+    <span style="color:#0a0">print</span>(<span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;serialID %d: %f&#34;</span>, serialid, <span style="color:#0a0">mean</span>(data$altitude)))
     }</code></pre></div>
 <pre><code>## [1] &quot;serialID 853: NA&quot;
 ## [1] &quot;serialID 860: 23.550518&quot;
@@ -541,15 +541,15 @@ dbListTables(db)</code></pre></div>
 <h3 id="interacting-with-sqlite-databases-using-dplyr">Interacting with SQLite databases using <code>dplyr</code><a href="#interacting-with-sqlite-databases-using-dplyr" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>If you&rsquo;re not comfortable with writing queries in SQL, R has a great alternative: <code>dplyr</code>. <code>dplyr</code> can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(dplyr)
-my_db &lt;- src_sqlite(db.name, create = <span style="color:#00a">FALSE</span>)
-bird_tracking &lt;- tbl(my_db, <span style="color:#a50">&#34;processed_logs&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)
+my_db &lt;- <span style="color:#0a0">src_sqlite</span>(db.name, create = <span style="color:#00a">FALSE</span>)
+bird_tracking &lt;- <span style="color:#0a0">tbl</span>(my_db, <span style="color:#a50">&#34;processed_logs&#34;</span>)
 results &lt;- bird_tracking %&gt;%
-    filter(device_info_serial == <span style="color:#099">860</span>) %&gt;%
-    select(date_time, latitude, longitude, altitude) %&gt;%
-    filter(date_time &lt; <span style="color:#a50">&#34;2014-07-01&#34;</span>) %&gt;%
-    filter(date_time &gt; <span style="color:#a50">&#34;2014-03-01&#34;</span>)
-<span style="color:#00a">head</span>(results)</code></pre></div>
+    <span style="color:#0a0">filter</span>(device_info_serial == <span style="color:#099">860</span>) %&gt;%
+    <span style="color:#0a0">select</span>(date_time, latitude, longitude, altitude) %&gt;%
+    <span style="color:#0a0">filter</span>(date_time &lt; <span style="color:#a50">&#34;2014-07-01&#34;</span>) %&gt;%
+    <span style="color:#0a0">filter</span>(date_time &gt; <span style="color:#a50">&#34;2014-03-01&#34;</span>)
+<span style="color:#0a0">head</span>(results)</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 4]
 ## # Database: sqlite 3.19.3
 ## #   [/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/r_large_data_files_handling/2016-04-20-processed-logs-big-file-example.db]
@@ -570,18 +570,18 @@ results &lt;- bird_tracking %&gt;%
 <p>In the case you have a CSV file available and you would like to query the data using SQL queries or with <code>dplyr</code> as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with <code>dplyr</code> as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with.</p>
 
 <p>If you already loaded the CSV file into memory, the creation of a SQLITE database is very straighforward and can be achieved in two steps:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">db &lt;- dbConnect(SQLite(), dbname = <span style="color:#a50">&#34;example.sqlite&#34;</span>)
-dbWriteTable(db, <span style="color:#a50">&#34;birdtracks&#34;</span>, allData)
-dbDisconnect(db)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">db &lt;- <span style="color:#0a0">dbConnect</span>(<span style="color:#0a0">SQLite</span>(), dbname = <span style="color:#a50">&#34;example.sqlite&#34;</span>)
+<span style="color:#0a0">dbWriteTable</span>(db, <span style="color:#a50">&#34;birdtracks&#34;</span>, allData)
+<span style="color:#0a0">dbDisconnect</span>(db)</code></pre></div>
 <p>The first command creates a new database when the file <code>example.sqlite</code> does not exist already. The command <code>dbWriteTable</code> writes the table in the database. Hence, we can rerun the query from the previous section, but now on the newly created SQlite database, with the single created table <code>birdtracks</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_db &lt;- src_sqlite(<span style="color:#a50">&#34;example.sqlite&#34;</span>, create = <span style="color:#00a">FALSE</span>)
-bird_tracking &lt;- tbl(my_db, <span style="color:#a50">&#34;birdtracks&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_db &lt;- <span style="color:#0a0">src_sqlite</span>(<span style="color:#a50">&#34;example.sqlite&#34;</span>, create = <span style="color:#00a">FALSE</span>)
+bird_tracking &lt;- <span style="color:#0a0">tbl</span>(my_db, <span style="color:#a50">&#34;birdtracks&#34;</span>)
 results &lt;- bird_tracking %&gt;%
-    filter(device_info_serial == <span style="color:#099">860</span>) %&gt;%
-    select(date_time, latitude, longitude, altitude) %&gt;%
-    filter(date_time &lt; <span style="color:#a50">&#34;2014-07-01&#34;</span>) %&gt;%
-    filter(date_time &gt; <span style="color:#a50">&#34;2014-03-01&#34;</span>)
-<span style="color:#00a">head</span>(results)</code></pre></div>
+    <span style="color:#0a0">filter</span>(device_info_serial == <span style="color:#099">860</span>) %&gt;%
+    <span style="color:#0a0">select</span>(date_time, latitude, longitude, altitude) %&gt;%
+    <span style="color:#0a0">filter</span>(date_time &lt; <span style="color:#a50">&#34;2014-07-01&#34;</span>) %&gt;%
+    <span style="color:#0a0">filter</span>(date_time &gt; <span style="color:#a50">&#34;2014-03-01&#34;</span>)
+<span style="color:#0a0">head</span>(results)</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 4]
 ## # Database: sqlite 3.19.3
 ## #   [/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/r_large_data_files_handling/example.sqlite]
@@ -600,23 +600,23 @@ results &lt;- bird_tracking %&gt;%
 <p>This can be implemented by reading the CSV file in small sections (let&rsquo;s say 50000 lines each time) and move all sections to a given table in a sqlite database. As this is a recurrent task, we will provide the transformation in a custom written function, called <code>csv_to_sqlite</code>. The function is available within the <a href="https://inbo.github.io/inborutils/" target="_blank"><code>inborutils</code> package</a>. Check the function documentation <a href="https://inbo.github.io/inborutils/reference/csv_to_sqlite.html" target="_blank">online</a> or by typing <code>?csv_to_sqlite</code> after installing and loading the <code>inborutils</code> package. As SQlite does not natively support <code>date</code> and <code>datetime</code> representations, the function converts those columns to an appropriate string representation before copying the dates to sqlite. To check for the date handling, the <code>lubridate</code> package is used.</p>
 
 <p>As an example, let&rsquo;s convert the processed bird logs csv file to a sqlite database, called <code>example.sqlite</code> as a table <code>birdtracks</code>. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(inborutils)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inborutils)
 
 sqlite_file &lt;- <span style="color:#a50">&#34;example2.sqlite&#34;</span>
 table_name &lt;- <span style="color:#a50">&#34;birdtracks&#34;</span>
 
-inborutils::csv_to_sqlite(csv_file = csv.name, 
+inborutils::<span style="color:#0a0">csv_to_sqlite</span>(csv_file = csv.name, 
               sqlite_file, table_name, pre_process_size = <span style="color:#099">1000</span>, 
               chunk_size = <span style="color:#099">50000</span>, show_progress_bar = <span style="color:#00a">FALSE</span>)</code></pre></div>
 <p>Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the SQlite database is available to query, similar to the previous examples:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_db &lt;- src_sqlite(<span style="color:#a50">&#34;example2.sqlite&#34;</span>, create = <span style="color:#00a">FALSE</span>)
-bird_tracking &lt;- tbl(my_db, <span style="color:#a50">&#34;birdtracks&#34;</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_db &lt;- <span style="color:#0a0">src_sqlite</span>(<span style="color:#a50">&#34;example2.sqlite&#34;</span>, create = <span style="color:#00a">FALSE</span>)
+bird_tracking &lt;- <span style="color:#0a0">tbl</span>(my_db, <span style="color:#a50">&#34;birdtracks&#34;</span>)
 results &lt;- bird_tracking %&gt;%
-    filter(device_info_serial == <span style="color:#099">860</span>) %&gt;%
-    select(date_time, latitude, longitude, altitude) %&gt;%
-    filter(date_time &lt; <span style="color:#a50">&#34;2014-07-01&#34;</span>) %&gt;%
-    filter(date_time &gt; <span style="color:#a50">&#34;2014-03-01&#34;</span>)
-<span style="color:#00a">head</span>(results)</code></pre></div>
+    <span style="color:#0a0">filter</span>(device_info_serial == <span style="color:#099">860</span>) %&gt;%
+    <span style="color:#0a0">select</span>(date_time, latitude, longitude, altitude) %&gt;%
+    <span style="color:#0a0">filter</span>(date_time &lt; <span style="color:#a50">&#34;2014-07-01&#34;</span>) %&gt;%
+    <span style="color:#0a0">filter</span>(date_time &gt; <span style="color:#a50">&#34;2014-03-01&#34;</span>)
+<span style="color:#0a0">head</span>(results)</code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 4]
 ## # Database: sqlite 3.19.3
 ## #   [/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/r_large_data_files_handling/example2.sqlite]

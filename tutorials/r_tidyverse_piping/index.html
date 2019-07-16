@@ -310,11 +310,11 @@ Improve this page</a>
 
   <div class='container entry-content'>
 
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(dplyr)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)</code></pre></div>
 <h1 id="how-to-use-piping-in-r">How to use piping in R<a href="#how-to-use-piping-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 
 <p>Normally, you would do this:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">head</span>(mtcars)</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">head</span>(mtcars)</code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -325,7 +325,7 @@ Improve this page</a>
 </code></pre>
 
 <p>However, with piping, this would look different:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mtcars %&gt;% <span style="color:#00a">head</span>()</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mtcars %&gt;% <span style="color:#0a0">head</span>()</code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -339,9 +339,9 @@ Improve this page</a>
 
 <p>If you need to apply multiple functions on one dataframe, piping saves you a lot of typing, and makes for tidy R code. An example:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mtcars %&gt;% 
-  mutate(dec = mpg/<span style="color:#099">10</span>) %&gt;%
-  select(mpg, dec, am) %&gt;%
-  filter(am == <span style="color:#a50">&#34;1&#34;</span>)</code></pre></div>
+  <span style="color:#0a0">mutate</span>(dec = mpg/<span style="color:#099">10</span>) %&gt;%
+  <span style="color:#0a0">select</span>(mpg, dec, am) %&gt;%
+  <span style="color:#0a0">filter</span>(am == <span style="color:#a50">&#34;1&#34;</span>)</code></pre></div>
 <pre><code>##     mpg  dec am
 ## 1  21.0 2.10  1
 ## 2  21.0 2.10  1
@@ -372,12 +372,12 @@ Improve this page</a>
 <p>We have created a new column, but this column is not part of our dataframe yet!
 We could do this:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mtcars &lt;- mtcars %&gt;% 
-  mutate(dec = mpg/<span style="color:#099">10</span>)</code></pre></div>
+  <span style="color:#0a0">mutate</span>(dec = mpg/<span style="color:#099">10</span>)</code></pre></div>
 <p><strong>OR</strong>&hellip; we could do this!</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00a">library</span>(magrittr)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(magrittr)
 
 mtcars %&lt;&gt;% 
-  mutate(dec = mpg/<span style="color:#099">10</span>)</code></pre></div>
+  <span style="color:#0a0">mutate</span>(dec = mpg/<span style="color:#099">10</span>)</code></pre></div>
 <h3 id="soooo-easy">Soooo easy!<a href="#soooo-easy" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 
 <p>This has been our first introduction to piping. There is however much more to learn!
