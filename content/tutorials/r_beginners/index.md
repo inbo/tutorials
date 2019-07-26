@@ -4,7 +4,7 @@ description: "Handleiding, code en data ter ondersteuning van de 'R voor beginne
 author: "Ivy Jansen en Pieter Verschelde"
 date: 2019-05-03
 categories: ["r"]
-tags: ["r", "rstudio", "ggplot2", "rmarkdown", "dplyr"]
+tags: ["r", "rstudio", "ggplot2", "rmarkdown", "dplyr", "markdown"]
 ---
 
 ## Doel van de cursus
