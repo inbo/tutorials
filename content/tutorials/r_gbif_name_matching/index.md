@@ -142,10 +142,9 @@ species_list %>%
 | Cotoneaster x suecicus    | Plantae  | NA                  | Cotoneaster suecicus G.Klotz                | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
 | Euthamia graminifolia     | Plantae  | under preparation   | Euthamia graminifolia (L.) Nutt.            | Asteraceae | Asterales    | SPECIES | EXACT     |          98| ACCEPTED |
 
-As `gbif_species_name_match` is a wrapper around rgbif function
-`name_backbone`, the authors thought important to offer the possibility
-to pass any parameter of rgbif function `name_backbone`. So, for
-example, you can set `strict = TRUE` to fuzzy match only the given
+The function `inborutils::gbif_species_name_match` is a wrapper around
+`rgbif::name_backbone`, so you can pass any argument of `name_backbone`.
+For example, you can set `strict = TRUE` to fuzzy match only the given
 names, but never a taxon in the upper classification:
 
 ``` r
