@@ -21,9 +21,9 @@ devtools::install_github("inbo/inboruilts")   # install inboruilts
 ```
 
 ```{r load_libraries, message=FALSE, warning=FALSE}
-library(tidyverse)    # tidyverse
-library(rgbif)        # To Match GBIF
-library(inborutils)   # wrap GBIF API data
+library(tidyverse)    # To do datascience
+library(rgbif)        # To lookup names in the GBIF backbone taxonomy
+library(inborutils)   # To wrap GBIF API data
 library(knitr)
 ```
 
