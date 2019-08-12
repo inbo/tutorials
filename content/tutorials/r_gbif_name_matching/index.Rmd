@@ -50,7 +50,8 @@ species_list_matched <- species_list %>%
     gbif_species_name_match(name = "name") 
 ```
 
-The `name` argument is the column name containing the scientific names. Default value: `name`. So, the code above is equivalent to:
+The `name` argument is the column name containing the scientific names. Default value: `name`. 
+So, the code above is equivalent to:
 
 ```{r similar_code, eval=FALSE}
 species_list_matched <- species_list %>% 
@@ -65,7 +66,8 @@ Take a look at the updated data:
 kable(species_list_matched)
 ```
 
-Notice that GBIF fields whose name is already used as column name are automatically renamed by adding suffix  `1`. In our case, input data.frame `species_list` contains already a column called `kingdom`: the GBIF kingdom values are returned in column `kingdom1`:
+Notice that GBIF fields whose name is already used as column name are automatically renamed by adding suffix  `1`. 
+In our case, input data.frame `species_list` contains already a column called `kingdom`: the GBIF kingdom values are returned in column `kingdom1`:
 
 ```{r zoom_kingdom}
 species_list_matched %>% select(kingdom, kingdom1)
@@ -87,7 +89,8 @@ species_list %>%
     kable()
 ```
 
-As `gbif_species_name_match` is a wrapper around rgbif function `name_backbone`, the authors thought important to offer the possibility to pass any parameter of rgbif function `name_backbone`. So, for example, you can set `strict = TRUE` to fuzzy match only the given names, but never a taxon in the upper classification:
+As `gbif_species_name_match` is a wrapper around rgbif function `name_backbone`, the authors thought important to offer the possibility to pass any parameter of rgbif function `name_backbone`. 
+So, for example, you can set `strict = TRUE` to fuzzy match only the given names, but never a taxon in the upper classification:
 
 ```{r example_strict, message=FALSE, warning=FALSE}
 species_list %>% 
