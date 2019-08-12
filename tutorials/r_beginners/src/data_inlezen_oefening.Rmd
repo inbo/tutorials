@@ -1,0 +1,24 @@
+---
+title: "Data inlezen - Oefening"
+author: "Ivy Jansen, Pieter Verschelde"
+output: pdf_document
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Europese CSV
+
+- Lees de `survey.csv` gegevens in via het menusysteem
+- zorg dat alles onmiddellijk correct staat (standaard immers Amerikaanse csv)
+- Kopieer zeker de code naar een script
+
+
+
+# Excel Data
+
+- Lees van de file `survey.xlsx` de data van `Plot: 3b` in
+- Zijn de geslachten correct ingevuld?

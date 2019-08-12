@@ -1,0 +1,83 @@
+---
+title: "dplyr - Oefening"
+author: "Ivy Jansen, Pieter Verschelde"
+output: pdf_document
+papersize: a4
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+piloot <- read_csv2("../data/pilootstudie.csv")
+```
+
+
+
+# pilootstudie.csv
+
+1. Bereken de gemiddelde hoogte per toestel.
+    ```{r}
+    piloot %>%
+      group_by(Toestel) %>%
+      summarise(GemHoogte = mean(Hoogte))
+    ```
+1. Betekent de vorige output dat beide toestellen altijd exact hetzelfde resultaat geven? Vergelijk hiervoor de gemiddelde hoogte per boom per toestel. 
+    ```{r}
+    piloot %>%
+      filter(!is.na(Toestel)) %>%
+      group_by(Proefvlak, Boom, Toestel) %>%
+      summarise(GemHoogte = mean(Hoogte))
+    ```
+1. Hoeveel `Omtrek` en `Hoogte` metingen heeft elke `Ploeg` gedaan? Opletten met `NA` waarden !!
+    ```{r}
+    piloot %>%
+      group_by(Ploeg) %>%
+      summarise(AantalOmtrek = sum(!is.na(Omtrek)),
+                AantalHoogte = sum(!is.na(Hoogte)))
+    ```
+1. Orden de ploegen van slecht naar goed volgens gemiddelde `Afwijking` van hun `Omtrek` meting t.o.v. de `Referentie`.
+    ```{r}
+    piloot %>%
+      filter(!is.na(Omtrek)) %>%
+      mutate(Afwijking = Omtrek - Referentie) %>%
+      group_by(Ploeg) %>%
+      summarise(GemAfwijking = mean(Afwijking)) %>%
+      arrange(desc(GemAfwijking))
+    ```
+
+
+
+# Untidy data over de provincie hoofdsteden
+
+```{r}
+load("../data/untidy.Rdata")
+kable(untidy)
+```
+```{r, echo = TRUE, eval = FALSE}
+load("data/untidy.Rdata")
+```
+
+1. Maak de bovenstaande dataset `tidy` en sorteer alfabetisch volgens `Locatie`.
+    ```{r}
+    tidy <- untidy %>%
+      select(-Oppervlakte, -Provincie) %>%
+      gather(key = Jaar, value = Inwoners, -Locatie) %>%
+      arrange(Locatie)
+    tidy
+    ```
+1. Bereken het totale inwonersaantal voor deze 5 provinciehoofdsteden.
+    ```{r}
+    tidy %>%
+      group_by(Jaar) %>%
+      summarise(Totaal = sum(Inwoners))
+    ```
+1. Geef in een grafiek de bevolkingsgroei per stad weer.  
+    ```{r, fig.height=4}
+    ggplot(tidy, aes(x = Jaar, y = Inwoners, color = Locatie, group = Locatie)) +
+      geom_line()
+    ```
+
+
+
