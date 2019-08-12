@@ -22,7 +22,7 @@ Important is that you have the most recent version of
 available:
 
 ``` r
-devtools::install_github("inbo/inboruilts")   # install inboruilts
+remotes::install_github("inbo/inborutils")   # install inborutils
 ```
 
 ``` r

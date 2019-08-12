@@ -17,7 +17,7 @@ This tutorial will explain how you can match a list of _scientific names_ agains
 Important is that you have the most recent version of [inborutils](https://inbo.github.io/inborutils/) installed and available:
 
 ```{r install_pkgs, eval=FALSE}
-devtools::install_github("inbo/inboruilts")   # install inboruilts
+remotes::install_github("inbo/inborutils")   # install inborutils
 ```
 
 ```{r load_libraries, message=FALSE, warning=FALSE}
