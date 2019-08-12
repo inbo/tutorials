@@ -45,7 +45,7 @@ species_list <- read_csv("https://raw.githubusercontent.com/inbo/inbo-pyutils/ma
 Take a look at the data:
 
 ``` r
-knitr::kable(species_list)
+kable(species_list)
 ```
 
 | name                      | kingdom  | euConcernStatus     |
@@ -87,7 +87,7 @@ By default, `gbif_species_name_match` returns the following GBIF fields:
 Take a look at the updated data:
 
 ``` r
-knitr::kable(species_list_matched)
+kable(species_list_matched)
 ```
 
 | name                      | kingdom  | euConcernStatus     |  usageKey| scientificName                              | rank    | order        | matchType | phylum       | kingdom1 | genus       | class         |  confidence| synonym | status   | family     |

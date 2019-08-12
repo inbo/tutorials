@@ -38,7 +38,7 @@ species_list <- read_csv("https://raw.githubusercontent.com/inbo/inbo-pyutils/ma
 Take a look at the data:
 
 ```{r preview_species_list}
-knitr::kable(species_list)
+kable(species_list)
 ```
 
 ## Request taxonomic information
@@ -62,7 +62,7 @@ By default, `gbif_species_name_match` returns the following GBIF fields: `usageK
 Take a look at the updated data:
 
 ```{r view_output}
-knitr::kable(species_list_matched)
+kable(species_list_matched)
 ```
 
 Notice that GBIF fields whose name is already used as column name are automatically renamed by adding suffix  `1`. In our case, input data.frame `species_list` contains already a column called `kingdom`: the GBIF kingdom values are returned in column `kingdom1`:
