@@ -45,7 +45,7 @@ kable(species_list)
 
 Match the column containing the scientific name with GBIF, using the `gbif_species_name_match` function from the [inborutils](https://inbo.github.io/inborutils/reference/gbif_species_name_match.html) package:
 
-```{r, message=FALSE, warning=FALSE}
+```{r use_function_first_time, message=FALSE, warning=FALSE}
 species_list_matched <- species_list %>% 
     gbif_species_name_match(name = "name") 
 ```
