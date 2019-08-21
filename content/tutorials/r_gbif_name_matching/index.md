@@ -1,7 +1,7 @@
 ---
 title: "Match scientific names with the GBIF Backbone Taxonomy"
 author: "Dirk Maes, Dimitri Brosens, Damiano Oldoni"
-date: 2018-06-14
+date: 2019-08-21
 categories: ["r"]
 tags: ["api", "webservice", "r", "gbif", "biodiversity"]
 output: 
@@ -90,13 +90,13 @@ Take a look at the updated data:
 kable(species_list_matched)
 ```
 
-| name                      | kingdom  | euConcernStatus     |  usageKey| scientificName                              | rank    | order        | matchType | phylum       | kingdom1 | genus       | class         |  confidence| synonym | status   | family     |
-|:--------------------------|:---------|:--------------------|---------:|:--------------------------------------------|:--------|:-------------|:----------|:-------------|:---------|:------------|:--------------|-----------:|:--------|:---------|:-----------|
-| Alopochen aegyptiaca      | Animalia | under consideration |   2498252| Alopochen aegyptiaca (Linnaeus, 1766)       | SPECIES | Anseriformes | EXACT     | Chordata     | Animalia | Alopochen   | Aves          |          98| FALSE   | ACCEPTED | Anatidae   |
-| Cotoneaster ganghobaensis | Plantae  | NA                  |   3025989| Cotoneaster ganghobaensis J.Fryer & B.Hylmö | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          98| FALSE   | ACCEPTED | Rosaceae   |
-| Cotoneaster hylmoei       | Plantae  | NA                  |   3025758| Cotoneaster hylmoei K.E.Flinck & J.Fryer    | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          98| FALSE   | ACCEPTED | Rosaceae   |
-| Cotoneaster x suecicus    | Plantae  | NA                  |   3026040| Cotoneaster suecicus G.Klotz                | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          98| FALSE   | ACCEPTED | Rosaceae   |
-| Euthamia graminifolia     | Plantae  | under preparation   |   3092782| Euthamia graminifolia (L.) Nutt.            | SPECIES | Asterales    | EXACT     | Tracheophyta | Plantae  | Euthamia    | Magnoliopsida |          98| FALSE   | ACCEPTED | Asteraceae |
+| name                      | kingdom  | euConcernStatus     |  usageKey| scientificName                               | rank    | order        | matchType | phylum       | kingdom1 | genus       | class         |  confidence| synonym | status   | family     |
+|:--------------------------|:---------|:--------------------|---------:|:---------------------------------------------|:--------|:-------------|:----------|:-------------|:---------|:------------|:--------------|-----------:|:--------|:---------|:-----------|
+| Alopochen aegyptiaca      | Animalia | under consideration |   2498252| Alopochen aegyptiaca (Linnaeus, 1766)        | SPECIES | Anseriformes | EXACT     | Chordata     | Animalia | Alopochen   | Aves          |          98| FALSE   | ACCEPTED | Anatidae   |
+| Cotoneaster ganghobaensis | Plantae  | NA                  |   3025989| Cotoneaster ganghobaensis J.Fryer & B.HylmÃ¶ | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          98| FALSE   | ACCEPTED | Rosaceae   |
+| Cotoneaster hylmoei       | Plantae  | NA                  |   3025758| Cotoneaster hylmoei K.E.Flinck & J.Fryer     | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          98| FALSE   | ACCEPTED | Rosaceae   |
+| Cotoneaster x suecicus    | Plantae  | NA                  |   3026040| Cotoneaster suecicus G.Klotz                 | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          98| FALSE   | ACCEPTED | Rosaceae   |
+| Euthamia graminifolia     | Plantae  | under preparation   |   3092782| Euthamia graminifolia (L.) Nutt.             | SPECIES | Asterales    | EXACT     | Tracheophyta | Plantae  | Euthamia    | Magnoliopsida |          98| FALSE   | ACCEPTED | Asteraceae |
 
 Notice that GBIF fields whose name is already used as column name are
 automatically renamed by adding suffix `1`. In our case, input
@@ -134,13 +134,13 @@ species_list %>%
 
     ## [1] "All column names present"
 
-| name                      | kingdom  | euConcernStatus     | scientificName                              | family     | order        | rank    | matchType |  confidence| status   |
-|:--------------------------|:---------|:--------------------|:--------------------------------------------|:-----------|:-------------|:--------|:----------|-----------:|:---------|
-| Alopochen aegyptiaca      | Animalia | under consideration | Alopochen aegyptiaca (Linnaeus, 1766)       | Anatidae   | Anseriformes | SPECIES | EXACT     |          98| ACCEPTED |
-| Cotoneaster ganghobaensis | Plantae  | NA                  | Cotoneaster ganghobaensis J.Fryer & B.Hylmö | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
-| Cotoneaster hylmoei       | Plantae  | NA                  | Cotoneaster hylmoei K.E.Flinck & J.Fryer    | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
-| Cotoneaster x suecicus    | Plantae  | NA                  | Cotoneaster suecicus G.Klotz                | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
-| Euthamia graminifolia     | Plantae  | under preparation   | Euthamia graminifolia (L.) Nutt.            | Asteraceae | Asterales    | SPECIES | EXACT     |          98| ACCEPTED |
+| name                      | kingdom  | euConcernStatus     | scientificName                               | family     | order        | rank    | matchType |  confidence| status   |
+|:--------------------------|:---------|:--------------------|:---------------------------------------------|:-----------|:-------------|:--------|:----------|-----------:|:---------|
+| Alopochen aegyptiaca      | Animalia | under consideration | Alopochen aegyptiaca (Linnaeus, 1766)        | Anatidae   | Anseriformes | SPECIES | EXACT     |          98| ACCEPTED |
+| Cotoneaster ganghobaensis | Plantae  | NA                  | Cotoneaster ganghobaensis J.Fryer & B.HylmÃ¶ | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
+| Cotoneaster hylmoei       | Plantae  | NA                  | Cotoneaster hylmoei K.E.Flinck & J.Fryer     | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
+| Cotoneaster x suecicus    | Plantae  | NA                  | Cotoneaster suecicus G.Klotz                 | Rosaceae   | Rosales      | SPECIES | EXACT     |          98| ACCEPTED |
+| Euthamia graminifolia     | Plantae  | under preparation   | Euthamia graminifolia (L.) Nutt.             | Asteraceae | Asterales    | SPECIES | EXACT     |          98| ACCEPTED |
 
 The function `inborutils::gbif_species_name_match` is a wrapper around
 `rgbif::name_backbone`, so you can pass any argument of `name_backbone`.
@@ -155,13 +155,13 @@ species_list %>%
 
     ## [1] "All column names present"
 
-| name                      | kingdom  | euConcernStatus     |  usageKey| scientificName                              | rank    | order        | matchType | phylum       | kingdom1 | genus       | class         |  confidence| synonym | status   | family     |
-|:--------------------------|:---------|:--------------------|---------:|:--------------------------------------------|:--------|:-------------|:----------|:-------------|:---------|:------------|:--------------|-----------:|:--------|:---------|:-----------|
-| Alopochen aegyptiaca      | Animalia | under consideration |   2498252| Alopochen aegyptiaca (Linnaeus, 1766)       | SPECIES | Anseriformes | EXACT     | Chordata     | Animalia | Alopochen   | Aves          |          99| FALSE   | ACCEPTED | Anatidae   |
-| Cotoneaster ganghobaensis | Plantae  | NA                  |   3025989| Cotoneaster ganghobaensis J.Fryer & B.Hylmö | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
-| Cotoneaster hylmoei       | Plantae  | NA                  |   3025758| Cotoneaster hylmoei K.E.Flinck & J.Fryer    | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
-| Cotoneaster x suecicus    | Plantae  | NA                  |   3026040| Cotoneaster suecicus G.Klotz                | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
-| Euthamia graminifolia     | Plantae  | under preparation   |   3092782| Euthamia graminifolia (L.) Nutt.            | SPECIES | Asterales    | EXACT     | Tracheophyta | Plantae  | Euthamia    | Magnoliopsida |          98| FALSE   | ACCEPTED | Asteraceae |
+| name                      | kingdom  | euConcernStatus     |  usageKey| scientificName                               | rank    | order        | matchType | phylum       | kingdom1 | genus       | class         |  confidence| synonym | status   | family     |
+|:--------------------------|:---------|:--------------------|---------:|:---------------------------------------------|:--------|:-------------|:----------|:-------------|:---------|:------------|:--------------|-----------:|:--------|:---------|:-----------|
+| Alopochen aegyptiaca      | Animalia | under consideration |   2498252| Alopochen aegyptiaca (Linnaeus, 1766)        | SPECIES | Anseriformes | EXACT     | Chordata     | Animalia | Alopochen   | Aves          |          99| FALSE   | ACCEPTED | Anatidae   |
+| Cotoneaster ganghobaensis | Plantae  | NA                  |   3025989| Cotoneaster ganghobaensis J.Fryer & B.HylmÃ¶ | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
+| Cotoneaster hylmoei       | Plantae  | NA                  |   3025758| Cotoneaster hylmoei K.E.Flinck & J.Fryer     | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
+| Cotoneaster x suecicus    | Plantae  | NA                  |   3026040| Cotoneaster suecicus G.Klotz                 | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
+| Euthamia graminifolia     | Plantae  | under preparation   |   3092782| Euthamia graminifolia (L.) Nutt.             | SPECIES | Asterales    | EXACT     | Tracheophyta | Plantae  | Euthamia    | Magnoliopsida |          98| FALSE   | ACCEPTED | Asteraceae |
 
 All accepted parameters of `name_backbone`: ‘rank’, ‘kingdom’, ‘phylum’,
 ‘class’, ‘order’, ‘family’, ‘genus’, ‘strict’, ‘verbose’, ‘start’,
