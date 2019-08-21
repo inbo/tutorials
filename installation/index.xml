@@ -10,23 +10,5 @@
 	<atom:link href="https://inbo.github.io/tutorials/installation/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Administrator installation notes</title>
-      <link>https://inbo.github.io/tutorials/installation/administrator/</link>
-      <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/administrator/</guid>
-      <description>The list below contains all R related software which should be installed on the computers of useRs at INBO. Note that the installation process of most software requires administrator rights.</description>
-    </item>
-    
-    <item>
-      <title>User installation notes</title>
-      <link>https://inbo.github.io/tutorials/installation/user/</link>
-      <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/user/</guid>
-      <description>Here a some pages which describe the steps that the users stil needs to do after an installation or upgrade.</description>
-    </item>
-    
   </channel>
 </rss>

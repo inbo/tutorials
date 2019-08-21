@@ -2,24 +2,22 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Introduction This tutorial will explain how you can match a list of &lsquo;scientific names&rsquo; to the GBIF taxonomic backbone
-Important is that you have rgbif and inborutils installed and available:
-library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
-species_list &lt;- read_csv(&#34;https://raw.'>
+<meta name='description' content='Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
+It is important that you have the most recent version of inborutils installed and available:
+remotes::install_github(&#34;inbo/inborutils&#34;) # install inborutilslibrary(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Match scientific names with the GBIF backbone • INBO Tutorials'>
-<meta property='og:description' content='Introduction This tutorial will explain how you can match a list of &lsquo;scientific names&rsquo; to the GBIF taxonomic backbone
-Important is that you have rgbif and inborutils installed and available:
-library(tidyverse) # tidyverse library(rgbif) # To Match GBIF library(inborutils) # wrap GBIF api data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:
-species_list &lt;- read_csv(&#34;https://raw.'>
+<meta property='og:title' content='Match scientific names with the GBIF Backbone Taxonomy • INBO Tutorials'>
+<meta property='og:description' content='Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
+It is important that you have the most recent version of inborutils installed and available:
+remotes::install_github(&#34;inbo/inborutils&#34;) # install inborutilslibrary(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='api'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='gbif'><meta property='article:tag' content='biodiversity'><meta property='article:published_time' content='2018-06-14T00:00:00Z'/><meta property='article:modified_time' content='2018-06-14T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='api'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='gbif'><meta property='article:tag' content='biodiversity'><meta property='article:published_time' content='2019-08-21T00:00:00Z'/><meta property='article:modified_time' content='2019-08-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.57.0-DEV" />
+<meta name="generator" content="Hugo 0.58.0-DEV" />
 
-  <title>Match scientific names with the GBIF backbone • INBO Tutorials</title>
+  <title>Match scientific names with the GBIF Backbone Taxonomy • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/'>
   
   
@@ -232,7 +230,7 @@ species_list &lt;- read_csv(&#34;https://raw.'>
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Match scientific names with the GBIF backbone</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Match scientific names with the GBIF Backbone Taxonomy</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -251,7 +249,7 @@ species_list &lt;- read_csv(&#34;https://raw.'>
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Match scientific names with the GBIF backbone</h1>
+      <h1 class='title'>Match scientific names with the GBIF Backbone Taxonomy</h1>
       
 
     </div>
@@ -265,7 +263,7 @@ species_list &lt;- read_csv(&#34;https://raw.'>
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2018-06-14T00:00:00Z'>2018, Jun 14</time>
+  <time class='entry-date' datetime='2019-08-21T00:00:00Z'>2019, Aug 21</time>
 </span>
 
   
@@ -276,7 +274,7 @@ species_list &lt;- read_csv(&#34;https://raw.'>
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-3 mins read
+4 mins read
 </span>
 
 
@@ -316,19 +314,24 @@ Improve this page</a>
 
 <h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<p>This tutorial will explain how you can match a list of &lsquo;scientific names&rsquo; to the GBIF taxonomic backbone</p>
+<p>This tutorial will explain how you can match a list of <em>scientific
+names</em> against the <a href="https://www.gbif.org/species/search?dataset_key=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c&amp;advanced=1" target="_blank">GBIF backbone
+taxonomy</a>.</p>
 
-<p>Important is that you have <a href="https://github.com/ropensci/rgbif" target="_blank">rgbif</a> and <a href="https://inbo.github.io/inborutils/" target="_blank">inborutils</a> installed and available:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse) <span style="color:#aaa;font-style:italic"># tidyverse</span>
-<span style="color:#0a0">library</span>(rgbif)     <span style="color:#aaa;font-style:italic"># To Match GBIF</span>
-<span style="color:#0a0">library</span>(inborutils) <span style="color:#aaa;font-style:italic"># wrap GBIF api data</span>
+<p>It is important that you have the most recent version of
+<a href="https://inbo.github.io/inborutils/" target="_blank">inborutils</a> installed and
+available:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remotes::<span style="color:#0a0">install_github</span>(<span style="color:#a50">&#34;inbo/inborutils&#34;</span>)   <span style="color:#aaa;font-style:italic"># install inborutils</span></code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse)    <span style="color:#aaa;font-style:italic"># To do datascience</span>
+<span style="color:#0a0">library</span>(rgbif)        <span style="color:#aaa;font-style:italic"># To lookup names in the GBIF backbone taxonomy</span>
+<span style="color:#0a0">library</span>(inborutils)   <span style="color:#aaa;font-style:italic"># To wrap GBIF API data</span>
 <span style="color:#0a0">library</span>(knitr)</code></pre></div>
 <h2 id="read-data-file-containing-the-scientific-names">Read data file containing the scientific names<a href="#read-data-file-containing-the-scientific-names" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<p>Read file containing the scientific names you want to check against the <a href="https://www.gbif.org/species/search?q=" target="_blank">GBIF</a> taxonomic backbone:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = <span style="color:#0a0">cols</span>())</code></pre></div>
+<p>Read file containing the scientific names you want to check against the
+<a href="https://www.gbif.org/species/search?q=" target="_blank">GBIF</a> taxonomic backbone:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = <span style="color:#0a0">cols</span>())</code></pre></div>
 <p>Take a look at the data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(species_list))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(species_df)</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -371,18 +374,29 @@ Improve this page</a>
 </tbody>
 </table>
 
-<h2 id="request-species-information">Request species information<a href="#request-species-information" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h2 id="request-taxonomic-information">Request taxonomic information<a href="#request-taxonomic-information" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 
-<p>Match the column containing the scientificName with GBIF, using the <code>gbif_species_name_match</code> function from the <a href="https://inbo.github.io/inborutils/reference/gbif_species_name_match.html" target="_blank">inborutils</a> package:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list_matched &lt;- species_list %&gt;% 
-    <span style="color:#0a0">gbif_species_name_match</span>(name_col = <span style="color:#a50">&#34;name&#34;</span>) </code></pre></div>
+<p>Given a data.frame, you can match the column containing the scientific
+name against GBIF Backbone Taxonomy, using the
+<a href="https://inbo.github.io/inborutils/reference/gbif_species_name_match.html" target="_blank"><code>gbif_species_name_match</code></a>
+function from the <a href="https://inbo.github.io/inborutils/" target="_blank">inborutils</a>
+package. You need to pass a data.frame, <code>df</code> and a column name, <code>name</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- <span style="color:#0a0">gbif_species_name_match</span>(df = species_df, name = <span style="color:#a50">&#34;name&#34;</span>)</code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
 
-<p>The <code>name_col</code> argument is the column name containing the scientific names.</p>
+<p>As the <code>name</code> argument has <code>&quot;name&quot;</code> as default value, the code above is
+equivalent to:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- <span style="color:#0a0">gbif_species_name_match</span>(species_df)</code></pre></div>
+<p>or using pipe <code>%&gt;%</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- species_df_matched %&gt;% <span style="color:#0a0">gbif_species_name_match</span>()</code></pre></div>
+<p>By default <code>gbif_species_name_match</code> returns the following GBIF fields:
+<code>usageKey</code>, <code>scientificName</code>, <code>rank</code>, <code>order</code>, <code>matchType</code>, <code>phylum</code>,
+<code>kingdom</code>, <code>genus</code>, <code>class</code>, <code>confidence</code>, <code>synonym</code>, <code>status</code>,
+<code>family</code>.</p>
 
 <p>Take a look at the updated data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(species_list_matched))</code></pre></div>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(species_df_matched)</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -395,6 +409,7 @@ Improve this page</a>
 <th align="left">order</th>
 <th align="left">matchType</th>
 <th align="left">phylum</th>
+<th align="left">kingdom1</th>
 <th align="left">genus</th>
 <th align="left">class</th>
 <th align="right">confidence</th>
@@ -415,6 +430,7 @@ Improve this page</a>
 <td align="left">Anseriformes</td>
 <td align="left">EXACT</td>
 <td align="left">Chordata</td>
+<td align="left">Animalia</td>
 <td align="left">Alopochen</td>
 <td align="left">Aves</td>
 <td align="right">98</td>
@@ -428,11 +444,12 @@ Improve this page</a>
 <td align="left">Plantae</td>
 <td align="left">NA</td>
 <td align="right">3025989</td>
-<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö</td>
+<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
 <td align="left">SPECIES</td>
 <td align="left">Rosales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Cotoneaster</td>
 <td align="left">Magnoliopsida</td>
 <td align="right">98</td>
@@ -451,6 +468,7 @@ Improve this page</a>
 <td align="left">Rosales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Cotoneaster</td>
 <td align="left">Magnoliopsida</td>
 <td align="right">98</td>
@@ -469,6 +487,7 @@ Improve this page</a>
 <td align="left">Rosales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Cotoneaster</td>
 <td align="left">Magnoliopsida</td>
 <td align="right">98</td>
@@ -487,6 +506,7 @@ Improve this page</a>
 <td align="left">Asterales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Euthamia</td>
 <td align="left">Magnoliopsida</td>
 <td align="right">98</td>
@@ -497,15 +517,126 @@ Improve this page</a>
 </tbody>
 </table>
 
-<p>You can also specify which info (<code>gbif_terms</code>) GBIF should return. For example, return a lot of terms:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list %&gt;% 
-    <span style="color:#0a0">gbif_species_name_match</span>(name_col = <span style="color:#a50">&#34;name&#34;</span>,
-                            gbif_terms = <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;usageKey&#39;</span>, <span style="color:#a50">&#39;scientificName&#39;</span>, 
-                                           <span style="color:#a50">&#39;rank&#39;</span>, <span style="color:#a50">&#39;order&#39;</span>, <span style="color:#a50">&#39;matchType&#39;</span>, 
-                                           <span style="color:#a50">&#39;phylum&#39;</span>, <span style="color:#a50">&#39;kingdom&#39;</span>, <span style="color:#a50">&#39;genus&#39;</span>, 
-                                           <span style="color:#a50">&#39;class&#39;</span>, <span style="color:#a50">&#39;confidence&#39;</span>, <span style="color:#a50">&#39;synonym&#39;</span>, 
-                                           <span style="color:#a50">&#39;status&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>)) %&gt;%
-    <span style="color:#0a0">head</span>() %&gt;%
+<p>Notice that GBIF fields whose name is already used as column name are
+automatically renamed by adding suffix <code>1</code>. In our case, input
+data.frame <code>species_df</code> contains already a column called <code>kingdom</code>. The
+GBIF kingdom values are returned in column <code>kingdom1</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched %&gt;% <span style="color:#0a0">select</span>(kingdom, kingdom1)</code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   kingdom  kingdom1
+##   &lt;chr&gt;    &lt;chr&gt;   
+## 1 Animalia Animalia
+## 2 Plantae  Plantae 
+## 3 Plantae  Plantae 
+## 4 Plantae  Plantae 
+## 5 Plantae  Plantae
+</code></pre>
+
+<p>You can also specify which GBIF fields you would like to have:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df %&gt;% 
+    <span style="color:#0a0">gbif_species_name_match</span>(
+      gbif_terms = <span style="color:#0a0">c</span>(
+        <span style="color:#a50">&#39;scientificName&#39;</span>, 
+        <span style="color:#a50">&#39;family&#39;</span>,
+        <span style="color:#a50">&#39;order&#39;</span>,
+        <span style="color:#a50">&#39;rank&#39;</span>,
+        <span style="color:#a50">&#39;matchType&#39;</span>,
+        <span style="color:#a50">&#39;confidence&#39;</span>,
+        <span style="color:#a50">&#39;status&#39;</span>)) %&gt;%
+    <span style="color:#0a0">kable</span>()</code></pre></div>
+<pre><code>## [1] &quot;All column names present&quot;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="left">kingdom</th>
+<th align="left">euConcernStatus</th>
+<th align="left">scientificName</th>
+<th align="left">family</th>
+<th align="left">order</th>
+<th align="left">rank</th>
+<th align="left">matchType</th>
+<th align="right">confidence</th>
+<th align="left">status</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Alopochen aegyptiaca</td>
+<td align="left">Animalia</td>
+<td align="left">under consideration</td>
+<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td align="left">Anatidae</td>
+<td align="left">Anseriformes</td>
+<td align="left">SPECIES</td>
+<td align="left">EXACT</td>
+<td align="right">98</td>
+<td align="left">ACCEPTED</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster ganghobaensis</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
+<td align="left">Rosaceae</td>
+<td align="left">Rosales</td>
+<td align="left">SPECIES</td>
+<td align="left">EXACT</td>
+<td align="right">98</td>
+<td align="left">ACCEPTED</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster hylmoei</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td align="left">Rosaceae</td>
+<td align="left">Rosales</td>
+<td align="left">SPECIES</td>
+<td align="left">EXACT</td>
+<td align="right">98</td>
+<td align="left">ACCEPTED</td>
+</tr>
+
+<tr>
+<td align="left">Cotoneaster x suecicus</td>
+<td align="left">Plantae</td>
+<td align="left">NA</td>
+<td align="left">Cotoneaster suecicus G.Klotz</td>
+<td align="left">Rosaceae</td>
+<td align="left">Rosales</td>
+<td align="left">SPECIES</td>
+<td align="left">EXACT</td>
+<td align="right">98</td>
+<td align="left">ACCEPTED</td>
+</tr>
+
+<tr>
+<td align="left">Euthamia graminifolia</td>
+<td align="left">Plantae</td>
+<td align="left">under preparation</td>
+<td align="left">Euthamia graminifolia (L.) Nutt.</td>
+<td align="left">Asteraceae</td>
+<td align="left">Asterales</td>
+<td align="left">SPECIES</td>
+<td align="left">EXACT</td>
+<td align="right">98</td>
+<td align="left">ACCEPTED</td>
+</tr>
+</tbody>
+</table>
+
+<p>The function <code>inborutils::gbif_species_name_match</code> is a wrapper around
+<code>rgbif::name_backbone</code>, so you can pass any argument of <code>name_backbone</code>.
+For example, you can set <code>strict = TRUE</code> to fuzzy match only the given
+names, but never a taxon in the upper classification:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df %&gt;% 
+    <span style="color:#0a0">gbif_species_name_match</span>(strict = <span style="color:#00a">TRUE</span>) %&gt;%
     <span style="color:#0a0">kable</span>()</code></pre></div>
 <pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
@@ -522,6 +653,7 @@ Improve this page</a>
 <th align="left">order</th>
 <th align="left">matchType</th>
 <th align="left">phylum</th>
+<th align="left">kingdom1</th>
 <th align="left">genus</th>
 <th align="left">class</th>
 <th align="right">confidence</th>
@@ -542,9 +674,10 @@ Improve this page</a>
 <td align="left">Anseriformes</td>
 <td align="left">EXACT</td>
 <td align="left">Chordata</td>
+<td align="left">Animalia</td>
 <td align="left">Alopochen</td>
 <td align="left">Aves</td>
-<td align="right">98</td>
+<td align="right">99</td>
 <td align="left">FALSE</td>
 <td align="left">ACCEPTED</td>
 <td align="left">Anatidae</td>
@@ -555,14 +688,15 @@ Improve this page</a>
 <td align="left">Plantae</td>
 <td align="left">NA</td>
 <td align="right">3025989</td>
-<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö</td>
+<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
 <td align="left">SPECIES</td>
 <td align="left">Rosales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Cotoneaster</td>
 <td align="left">Magnoliopsida</td>
-<td align="right">98</td>
+<td align="right">99</td>
 <td align="left">FALSE</td>
 <td align="left">ACCEPTED</td>
 <td align="left">Rosaceae</td>
@@ -578,9 +712,10 @@ Improve this page</a>
 <td align="left">Rosales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Cotoneaster</td>
 <td align="left">Magnoliopsida</td>
-<td align="right">98</td>
+<td align="right">99</td>
 <td align="left">FALSE</td>
 <td align="left">ACCEPTED</td>
 <td align="left">Rosaceae</td>
@@ -596,9 +731,10 @@ Improve this page</a>
 <td align="left">Rosales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Cotoneaster</td>
 <td align="left">Magnoliopsida</td>
-<td align="right">98</td>
+<td align="right">99</td>
 <td align="left">FALSE</td>
 <td align="left">ACCEPTED</td>
 <td align="left">Rosaceae</td>
@@ -614,6 +750,7 @@ Improve this page</a>
 <td align="left">Asterales</td>
 <td align="left">EXACT</td>
 <td align="left">Tracheophyta</td>
+<td align="left">Plantae</td>
 <td align="left">Euthamia</td>
 <td align="left">Magnoliopsida</td>
 <td align="right">98</td>
@@ -624,81 +761,13 @@ Improve this page</a>
 </tbody>
 </table>
 
-<p>or rather just a subset:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_list %&gt;% 
-    <span style="color:#0a0">gbif_species_name_match</span>(name_col = <span style="color:#a50">&#34;name&#34;</span>,
-                            gbif_terms = <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;scientificName&#39;</span>, <span style="color:#a50">&#39;family&#39;</span>,
-                                           <span style="color:#a50">&#39;order&#39;</span>, <span style="color:#a50">&#39;matchType&#39;</span>)) %&gt;%
-    <span style="color:#0a0">head</span>() %&gt;%
-    <span style="color:#0a0">kable</span>()</code></pre></div>
-<pre><code>## [1] &quot;All column names present&quot;
-</code></pre>
+<p>These are all accepted parameters of <code>name_backbone</code>: ‘rank’, ‘kingdom’,
+‘phylum’, ‘class’, ‘order’, ‘family’, ‘genus’, ‘strict’, ‘verbose’,
+‘start’, ‘limit’, ‘curlopts’. See <code>?name_backbone</code> for more details.</p>
 
-<table>
-<thead>
-<tr>
-<th align="left">name</th>
-<th align="left">kingdom</th>
-<th align="left">euConcernStatus</th>
-<th align="left">scientificName</th>
-<th align="left">family</th>
-<th align="left">order</th>
-<th align="left">matchType</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">Alopochen aegyptiaca</td>
-<td align="left">Animalia</td>
-<td align="left">under consideration</td>
-<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
-<td align="left">Anatidae</td>
-<td align="left">Anseriformes</td>
-<td align="left">EXACT</td>
-</tr>
-
-<tr>
-<td align="left">Cotoneaster ganghobaensis</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.Hylmö</td>
-<td align="left">Rosaceae</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-</tr>
-
-<tr>
-<td align="left">Cotoneaster hylmoei</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
-<td align="left">Rosaceae</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-</tr>
-
-<tr>
-<td align="left">Cotoneaster x suecicus</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="left">Cotoneaster suecicus G.Klotz</td>
-<td align="left">Rosaceae</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-</tr>
-
-<tr>
-<td align="left">Euthamia graminifolia</td>
-<td align="left">Plantae</td>
-<td align="left">under preparation</td>
-<td align="left">Euthamia graminifolia (L.) Nutt.</td>
-<td align="left">Asteraceae</td>
-<td align="left">Asterales</td>
-<td align="left">EXACT</td>
-</tr>
-</tbody>
-</table>
+<p>For Python users, there is a similar (but no longer maintained)
+<a href="https://github.com/inbo/inbo-pyutils/tree/master/gbif/gbif_name_match" target="_blank">function</a>
+in <code>inbo-pyutils</code>.</p>
 </div>
 
   
@@ -725,7 +794,7 @@ Improve this page</a>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/r_tidyverse_piping/'>
+      <a href='/tutorials/tutorials/spatial_point_in_polygon/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -733,17 +802,7 @@ Improve this page</a>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Using `%&gt;%` pipes in R</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/spatial_create_leaflet_map/'>
-        <span class='screen-reader-text'>Next post: </span>Let&#39;s create an interactive map!<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>How to make spatial joins (point in polygon)?</a>
     </div></div>
 </nav>
 
