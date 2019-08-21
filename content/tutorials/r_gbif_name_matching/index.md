@@ -39,13 +39,13 @@ Read file containing the scientific names you want to check against the
 [GBIF](https://www.gbif.org/species/search?q=) taxonomic backbone:
 
 ``` r
-species_list <- read_csv("https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv", trim_ws = TRUE, col_types = cols())
+species_df <- read_csv("https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv", trim_ws = TRUE, col_types = cols())
 ```
 
 Take a look at the data:
 
 ``` r
-kable(species_list)
+kable(species_df)
 ```
 
 | name                      | kingdom  | euConcernStatus     |
@@ -59,27 +59,32 @@ kable(species_list)
 Request taxonomic information
 -----------------------------
 
-Match the column containing the scientific name with GBIF, using the
-`gbif_species_name_match` function from the
-[inborutils](https://inbo.github.io/inborutils/reference/gbif_species_name_match.html)
-package:
+Given a data.frame, you can match the column containing the scientific
+name against GBIF Backbone Taxonomy, using the
+[`gbif_species_name_match`](https://inbo.github.io/inborutils/reference/gbif_species_name_match.html)
+function from the [inborutils](https://inbo.github.io/inborutils/)
+package. You need to pass a data.frame, `df` and a column name, `name`:
 
 ``` r
-species_list_matched <- species_list %>% 
-    gbif_species_name_match(name = "name") 
+species_df_matched <- gbif_species_name_match(df = species_df, name = "name")
 ```
 
     ## [1] "All column names present"
 
-The `name` argument is the column name containing the scientific names.
-Default value: `name`. So, the code above is equivalent to:
+As the `name` argument has `"name"` as default value, the code above is
+equivalent to:
 
 ``` r
-species_list_matched <- species_list %>% 
-    gbif_species_name_match() 
+species_df_matched <- gbif_species_name_match(species_df)
 ```
 
-By default, `gbif_species_name_match` returns the following GBIF fields:
+or using pipe `%>%`:
+
+``` r
+species_df_matched <- species_df_matched %>% gbif_species_name_match()
+```
+
+By default `gbif_species_name_match` returns the following GBIF fields:
 `usageKey`, `scientificName`, `rank`, `order`, `matchType`, `phylum`,
 `kingdom`, `genus`, `class`, `confidence`, `synonym`, `status`,
 `family`.
@@ -87,7 +92,7 @@ By default, `gbif_species_name_match` returns the following GBIF fields:
 Take a look at the updated data:
 
 ``` r
-kable(species_list_matched)
+kable(species_df_matched)
 ```
 
 | name                      | kingdom  | euConcernStatus     |  usageKey| scientificName                               | rank    | order        | matchType | phylum       | kingdom1 | genus       | class         |  confidence| synonym | status   | family     |
@@ -100,11 +105,11 @@ kable(species_list_matched)
 
 Notice that GBIF fields whose name is already used as column name are
 automatically renamed by adding suffix `1`. In our case, input
-data.frame `species_list` contains already a column called `kingdom`:
-the GBIF kingdom values are returned in column `kingdom1`:
+data.frame `species_df` contains already a column called `kingdom`. The
+GBIF kingdom values are returned in column `kingdom1`:
 
 ``` r
-species_list_matched %>% select(kingdom, kingdom1)
+species_df_matched %>% select(kingdom, kingdom1)
 ```
 
     ## # A tibble: 5 x 2
@@ -116,10 +121,10 @@ species_list_matched %>% select(kingdom, kingdom1)
     ## 4 Plantae  Plantae 
     ## 5 Plantae  Plantae
 
-You can specify which GBIF fields you would like to have:
+You can also specify which GBIF fields you would like to have:
 
 ``` r
-species_list %>% 
+species_df %>% 
     gbif_species_name_match(
       gbif_terms = c(
         'scientificName', 
@@ -148,7 +153,7 @@ For example, you can set `strict = TRUE` to fuzzy match only the given
 names, but never a taxon in the upper classification:
 
 ``` r
-species_list %>% 
+species_df %>% 
     gbif_species_name_match(strict = TRUE) %>%
     kable()
 ```
@@ -163,9 +168,9 @@ species_list %>%
 | Cotoneaster x suecicus    | Plantae  | NA                  |   3026040| Cotoneaster suecicus G.Klotz                 | SPECIES | Rosales      | EXACT     | Tracheophyta | Plantae  | Cotoneaster | Magnoliopsida |          99| FALSE   | ACCEPTED | Rosaceae   |
 | Euthamia graminifolia     | Plantae  | under preparation   |   3092782| Euthamia graminifolia (L.) Nutt.             | SPECIES | Asterales    | EXACT     | Tracheophyta | Plantae  | Euthamia    | Magnoliopsida |          98| FALSE   | ACCEPTED | Asteraceae |
 
-All accepted parameters of `name_backbone`: ‘rank’, ‘kingdom’, ‘phylum’,
-‘class’, ‘order’, ‘family’, ‘genus’, ‘strict’, ‘verbose’, ‘start’,
-‘limit’, ‘curlopts’. See `?name_backbone` for more details.
+These are all accepted parameters of `name_backbone`: ‘rank’, ‘kingdom’,
+‘phylum’, ‘class’, ‘order’, ‘family’, ‘genus’, ‘strict’, ‘verbose’,
+‘start’, ‘limit’, ‘curlopts’. See `?name_backbone` for more details.
 
 For Python users, there is a similar (but no longer maintained)
 [function](https://github.com/inbo/inbo-pyutils/tree/master/gbif/gbif_name_match)
