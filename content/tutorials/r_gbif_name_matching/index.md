@@ -17,7 +17,7 @@ This tutorial will explain how you can match a list of *scientific
 names* against the [GBIF backbone
 taxonomy](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c).
 
-Important is that you have the most recent version of
+It is important that you have the most recent version of
 [inborutils](https://inbo.github.io/inborutils/) installed and
 available:
 
