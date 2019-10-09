@@ -1,7 +1,7 @@
 theme = "minimo"
 baseURL = "https://inbo.github.io/tutorials/"
 languageCode = "en-us"
-title = "INBO Tutorials"
+title = "BIOMATH SOPs"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
 # relativeURLs = true
@@ -38,10 +38,10 @@ customJS = ["js/custom.js"]
 gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 
 [params.copyright]
-prefix = ""
+prefix = "Derived from the"
 holder = "Research Institute for Nature and Forest (INBO)"
 startYear = "2018"
-suffix = "<a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a>"
+suffix = "tutorial website <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a>"
 
 [params.settings]
 # date & time format: https://golang.org/pkg/time/

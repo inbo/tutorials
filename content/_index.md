@@ -6,7 +6,7 @@ weight: -100
 
 ## Introduction
 
-Welcome to the tutorials website of the [Research Institute for Nature and Forest (INBO)](https://www.inbo.be/en). It contains a collection of guides, tutorials and further reading material on the installation, use and development of **(research) software** at our institute.
+Welcome to the SOP website of the [BIOMATH](https://biomath.ugent.be). 
 
 ## Getting started
 
