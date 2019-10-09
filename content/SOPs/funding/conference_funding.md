@@ -4,7 +4,7 @@ description: "How to get funding for a conference"
 author: "Bram De Jaegher"
 date: 2017-10-18T15:31:53+02:00
 categories: ["funding"]
-tags: ["_conference", "funding","expenses"]
+tags: ["conference", "funding","expenses"]
 ---
 
 <!---

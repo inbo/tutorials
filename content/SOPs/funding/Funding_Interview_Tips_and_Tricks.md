@@ -4,7 +4,7 @@ description: "The experience at BIOMATH with respect to funding acquisition inte
 author: "Bram De Jaegher"
 date: 1980-10-18T15:31:53+02:00
 categories: ["funding"]
-tags: ["_interview", "funding","questions"]
+tags: ["interview", "funding","questions"]
 ---
 
 <!---
