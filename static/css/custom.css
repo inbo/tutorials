@@ -21,7 +21,7 @@
     #content a:hover,
     #content a:active,
     #content a:visited {
-        color: #c04384!important;
+        color: #165ba8!important;
         border-bottom: none!important;
         }
 
@@ -42,7 +42,7 @@
         visibility: hidden;
         }
         #content .anchor svg path {
-            fill: #c04384;
+            fill: #165ba8;
         }
 
         #content h1:hover .anchor,
