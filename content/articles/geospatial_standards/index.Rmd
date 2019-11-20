@@ -1,0 +1,91 @@
+---
+title: "Meet some popular open geospatial standards!"
+description: "A short introduction to the powerful GeoPackage, GeoJSON and GeoTIFF standards"
+author: "Floris Vanderhaeghe"
+date: 2019-11-19
+csl: ../inbo.csl
+bibliography: ../reproducible_research.bib
+categories: ["r", "gis"]
+tags: ["gis", "r", "open science"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+Some inspiration for this post came from the beautiful books of @lovelace_geocomputation_2019, @pebesma_edzer_spatial_2019 and @heijmans_spatial_2019, and from various websites.
+
+## Why use open standards?
+
+- Open file standards ease collaboration, portability and compatibility between users, machines and applications.
+- Their (file) structure is fully documented.
+  - Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.
+  - And, it guarantees that your data will still be readable in a hundred years from now, independently of which IT corporation or software is dominant at that time...
+  
+Luckily, quite a list of open standards is available!
+Below, some powerful and widely-used single-file formats are introduced.
+Single-file data sources are readily amenable to exchange and publication.
+
+I see you can't wait to start practicing, so you can also head straight over to the [tutorial on vector formats](../../tutorials/spatial_standards_vector/) and the [tutorial on the GeoTIFF raster format](../../tutorials/spatial_standards_raster/)!
+
+## A few words on the GDAL driver
+
+**[GDAL](https://gdal.org)** (Geospatial Data Abstraction Library) is by far the most used open-source driver for:
+
+- [a lot](https://gdal.org/drivers/raster/index.html) of raster formats;
+- [a lot](https://gdal.org/drivers/vector/index.html) of vector formats.
+
+In other words, it is the preferred workhorse for reading and writing many geospatial file formats, used in the background by [a lot](https://gdal.org/software_using_gdal.html#software-using-gdal) of geospatial applications.
+Using GDAL is the easiest way to conform to open standards.
+
+So, in R we use packages that use GDAL in the background, such as `rgdal`, `sp`, `sf`, `raster` and `stars`.
+
+## The GeoPackage file format
+
+- Its website is <https://www.geopackage.org>.
+- It is a standardized implementation of an SQLite database for geospatial data.
+Hence, a GeoPackage is a **binary** file (`filename.gpkg`).
+It shares this property with shapefiles, which however pose multiple limitations ^[
+Some problems with shapefiles is they're not an open format, they consist of multiple files and they have restrictions regarding file size, column name length, number of columns and the feature types that can be accommodated.
+], 
+so the GeoPackage is a more than suitable replacement.
+- The GeoPackage can store one or _multiple_ **vector** layers (points, lines, polygons and related feature types).
+Beside vector data, it can also store **raster** data^[
+For larger rasters however, the GeoTIFF file format will need less disk space and is therefore recommended.
+]
+or extra standalone **tables**.
+- The GeoPackage standard is [maintained](https://www.opengeospatial.org/standards/geopackage) by the Open Geospatial Consortium ([OGC](https://www.opengeospatial.org/)), which stands out as a reference when it comes to open geospatial standards.
+
+## The GeoJSON file format
+
+- One [GeoJSON](https://tools.ietf.org/html/rfc7946) file (`filename.geojson`) contains _one_ **vector** layer.
+[JSON](https://en.wikipedia.org/wiki/JSON) itself is a common and straightforward open data format.
+It is a **text** file readable both by humans and machines (see the [tutorial](../../tutorials/spatial_standards_vector/) for an example).
+GeoJSON adds the necessary specification to JSON for standardized storage of geographic feature data, but it is still a plain JSON text file.
+- The GeoJSON standard is maintained by the Internet Engineering Task Force ([IETF](https://www.ietf.org/)), a large open standards organization that develops Internet standards under the auspices of the Internet Society.
+- Although the previous version of the GeoJSON standard -- GeoJSON 2008 -- is still a lot in use, it is [obsoleted](http://geojson.org/geojson-spec.html) and a new version **[RFC7946](https://tools.ietf.org/html/rfc7946)** is establishing.
+  - This version is strict about the coordinate reference system (CRS) -- it is always [WGS84](https://epsg.io/4326) -- and it also differs on a few other aspects (such as the recommendation for applications [not to inflate](https://tools.ietf.org/html/rfc7946#section-11.2) decimal coordinate precision).
+  - RFC7946 solves the problem that quite some applications, including GDAL, already assumed WGS84 in GeoJSON 2008 by default (without checking or transforming), even though WGS84 was not a resuirement of GeoJSON 2008.
+This resulted in inconveniences (cf. [this post](https://github.com/r-spatial/sf/issues/344#issue-229118527) in the `sf`-package).
+  - A [specific section](https://gdal.org/drivers/vector/geojson.html#rfc-7946-write-support) in the documentation of GDAL's GeoJSON driver gives a summary of the differences between both GeoJSON versions.
+- While GDAL by default still follows the GeoJSON 2008 format ^[
+Though GeoJSON 2008 is obsoleted, the now recommended RFC7946 standard is still officially in a _proposal_ stage.
+That is probably the reason why GDAL does not yet default to RFC7946.
+A somehow confusing stage, it seems.
+], 
+RFC7946 is supported by the option `RFC7946=YES`.
+Here, on-the-fly reprojection to WGS84 will happen automatically.
+It applies 7 decimal places for coordinates, i.e. approximately 1 cm.
+Given the advantages, _we advise to explicitly use RFC7946_: several functions in R allow the user to provide options that are passed to GDAL.
+- In order to be still manageable (text file size, usage in versioning systems) it seems wise to use GeoJSON for more simple cases (points and rather simple lines and polygons), and use the binary GeoPackage format for larger cases.
+
+## The GeoTIFF file format
+
+- [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF) is the most preferred open standard for **raster** data.
+It adheres to the [TIFF](https://en.wikipedia.org/wiki/TIFF) specification; hence it is a TIFF image file (`filename.tif`).
+It [uses](http://docs.opengeospatial.org/is/19-008r4/19-008r4.html#_geotiff_file_structure_and_geotiff_crs_and_models_principles_informative) a small set of reserved TIFF tags to store information about CRS, extent and resolution of the raster.
+- A GeoTIFF file can contain _one_ or _multiple_ rasters with the same CRS, extent and resolution.
+- The GeoTIFF standard is [maintained](https://www.opengeospatial.org/standards/geotiff) by the Open Geospatial Consortium ([OGC](https://www.opengeospatial.org/)).
+
+
+## Literature
