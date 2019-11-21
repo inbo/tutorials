@@ -29,6 +29,10 @@ You find a bit more background about ‘why and what’, regarding the below
 open standards, in [a separate
 post](../../articles/geospatial_standards/) on this website.
 
+In short, the GeoPackage and GeoJSON formats are ideal for exchange,
+publication, interoperability & durability and to open science in
+general.
+
 ## How to make and use GeoPackages (`*.gpkg`)
 
 ### Making a GeoPackage from a geospatial `sf` object in R

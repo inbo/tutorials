@@ -29,6 +29,9 @@ You find bit more background about ‘why and what’, regarding the open
 GeoTIFF standard, in [a separate
 post](../../articles/geospatial_standards/) on this website.
 
+In short, the GeoTIFF format is ideal for exchange, publication,
+interoperability & durability and to open science in general.
+
 ## How to make and use GeoTIFF files (`*.tif`)
 
 ### Making a mono-layered GeoTIFF file from a `RasterLayer` R object
