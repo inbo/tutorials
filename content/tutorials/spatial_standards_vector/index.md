@@ -13,8 +13,10 @@ output:
 
 This tutorial uses a few basic functions from the
 [dplyr](https://dplyr.tidyverse.org) and
-[sf](https://r-spatial.github.io/sf/) packages. With the previous
-hyperlinks you can access their tutorials (package vignettes).
+[sf](https://r-spatial.github.io/sf/) packages. While only a few
+functions are used, you can use the previous hyperlinks to access the
+tutorials (vignettes) of these packages for more functions and
+information.
 
 ``` r
 options(stringsAsFactors = FALSE)
@@ -90,8 +92,8 @@ sac
     ## # … with 606 more rows, and 1 more variable:
     ## #   geometry <POLYGON [m]>
 
-To write the GeoPackage, we just use the powerful
-[GDAL](https://gdal.org)-driver (supporting most open and some closed
+To write the GeoPackage, we just use the GPKG driver of the powerful
+[GDAL](https://gdal.org) library (supporting most open and some closed
 formats), which can be elegantly accessed through `sf::st_write()`:
 
 ``` r
@@ -211,8 +213,8 @@ implementation is now obsoleted (see [the
 post](../../articles/geospatial_standards/) on this tutorials website
 for a bit more background).
 
-The RFC7946 standard is well supported by the GDAL driver, however GDAL
-must be given the explicit option `RFC7946=YES` in order to use it
+The RFC7946 standard is well supported by GDAL’s GeoJSON driver, however
+GDAL must be given the explicit option `RFC7946=YES` in order to use it
 already \[2\].
 
 Write the GeoJSON file as follows:
@@ -240,7 +242,7 @@ So I can just open it as a text file to get an idea of its contents?
 Hence, also use it in versioned workflows?  
 ***Didn’t hear that. (Cool, though…)***
 
-Let’s just look at the top 7 lines:
+Let’s just look at the top 7 lines of the file:
 
     {
     "type": "FeatureCollection",
@@ -250,8 +252,9 @@ Let’s just look at the top 7 lines:
     { "type": "Feature", "properties": { "river_name": "OUDE KALE", "source": "VMM" }, "geometry": { "type": "LineString", "coordinates": [ [ 3.5931564, 51.0803318 ], [ 3.5930966, 51.0803266 ], [ 3.5927771, 51.0802782 ], [ 3.5926209, 51.080259 ], [ 3.5925707, 51.0802465 ], [ 3.5925106, 51.0802316 ], [ 3.592303, 51.0801396 ], [ 3.5921047, 51.0800302 ], [ 3.5920091, 51.0799694 ], [ 3.5919755, 51.0799432 ], [ 3.5919328, 51.07991 ], [ 3.5919165, 51.0798833 ] ] } },
     { "type": "Feature", "properties": { "river_name": "VENLOOP", "source": "EcoInv" }, "geometry": { "type": "LineString", "coordinates": [ [ 4.6443172, 51.1940245 ], [ 4.644403, 51.1938051 ], [ 4.6439364, 51.1937415 ], [ 4.6438717, 51.1936806 ], [ 4.6439146, 51.1934056 ] ] } },
 
-You can see it basically lists the coordinates of the lines’ vertices,
-with each feature starting on a new line.
+You can see it basically lists the feature attributes and the
+coordinates of the lines’ vertices, with each feature starting on a new
+line.
 
 Compare the coordinates with those of the `sf` object `habitatstreams`
 above: the data have been reprojected on the fly to WGS84\!
@@ -259,7 +262,7 @@ above: the data have been reprojected on the fly to WGS84\!
 Note: in order to be still manageable (text file size, usage in
 versioning systems) it seems wise to use GeoJSON for more simple cases –
 **points and rather simple lines and polygons** – and use the binary
-GeoPackage format for larger cases.
+GeoPackage format for larger (more complex) cases.
 
 ### Reading a GeoJSON file
 

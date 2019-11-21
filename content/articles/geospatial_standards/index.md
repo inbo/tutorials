@@ -38,10 +38,10 @@ over to the [tutorial on vector
 formats](../../tutorials/spatial_standards_vector/) and the [tutorial on
 the GeoTIFF raster format](../../tutorials/spatial_standards_raster/)\!
 
-## A few words on the GDAL driver
+## A few words on the GDAL library
 
 **[GDAL](https://gdal.org)** (Geospatial Data Abstraction Library) is by
-far the most used open-source driver for:
+far the most used collection of open-source drivers for:
 
   - [a lot](https://gdal.org/drivers/raster/index.html) of raster
     formats;
@@ -71,9 +71,9 @@ So, in R we use packages that use GDAL in the background, such as
     **tables**.
   - The GeoPackage standard is
     [maintained](https://www.opengeospatial.org/standards/geopackage) by
-    the Open Geospatial Consortium
-    ([OGC](https://www.opengeospatial.org/)), which stands out as a
-    reference when it comes to open geospatial standards.
+    the [Open Geospatial Consortium](https://www.opengeospatial.org/)
+    (OGC), which stands out as a reference when it comes to open
+    geospatial standards.
 
 ## The GeoJSON file format
 
@@ -100,11 +100,11 @@ So, in R we use packages that use GDAL in the background, such as
         applications [not to
         inflate](https://tools.ietf.org/html/rfc7946#section-11.2)
         decimal coordinate precision).
-      - RFC7946 solves the problem that quite some applications,
-        including GDAL, already assumed WGS84 in GeoJSON 2008 by default
-        (without checking or transforming), even though WGS84 was not a
-        resuirement of GeoJSON 2008. This resulted in inconveniences
-        (cf. [this
+      - RFC7946 solves the problem that quite a few libraries –
+        including GDAL – simply assumed WGS84 in GeoJSON 2008 (without
+        checking or transforming), even though WGS84 was not a
+        requirement of GeoJSON 2008 (it did support an explicit *crs*
+        declaration). This resulted in inconveniences (cf. [this
         post](https://github.com/r-spatial/sf/issues/344#issue-229118527)
         in the `sf`-package).
       - A [specific
@@ -115,19 +115,21 @@ So, in R we use packages that use GDAL in the background, such as
     RFC7946 is supported by the option `RFC7946=YES`. Here, on-the-fly
     reprojection to WGS84 will happen automatically. It applies 7
     decimal places for coordinates, i.e. approximately 1 cm. Given the
-    advantages, *we advise to explicitly use RFC7946*: several functions
-    in R allow the user to provide options that are passed to GDAL.
-  - In order to be still manageable (text file size, usage in versioning
-    systems) it seems wise to use GeoJSON for more simple cases (points
+    advantages, ***we advise to explicitly use RFC7946***. Several
+    functions in R allow the user to provide options that are passed to
+    GDAL, so we can ask to deliver RFC7946 (see the
+    [tutorial](../../tutorials/spatial_standards_vector/)).
+  - In order to keep it manageable (text file size, usage in versioning
+    systems) it can be wise to use GeoJSON for more simple cases (points
     and rather simple lines and polygons), and use the binary GeoPackage
-    format for larger cases.
+    format for larger (more complex) cases.
 
 ## The GeoTIFF file format
 
-  - [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF) is the most
-    preferred open standard for **raster** data. It adheres to the
-    [TIFF](https://en.wikipedia.org/wiki/TIFF) specification; hence it
-    is a TIFF image file (`filename.tif`). It
+  - [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF) is the preferred
+    single-file open standard for **raster** data. It adheres to the
+    open [TIFF](https://en.wikipedia.org/wiki/TIFF) specification; hence
+    it is a TIFF image file (`filename.tif`). It
     [uses](http://docs.opengeospatial.org/is/19-008r4/19-008r4.html#_geotiff_file_structure_and_geotiff_crs_and_models_principles_informative)
     a small set of reserved TIFF tags to store information about CRS,
     extent and resolution of the raster.
@@ -135,8 +137,9 @@ So, in R we use packages that use GDAL in the background, such as
     CRS, extent and resolution.
   - The GeoTIFF standard is
     [maintained](https://www.opengeospatial.org/standards/geotiff) by
-    the Open Geospatial Consortium
-    ([OGC](https://www.opengeospatial.org/)).
+    the [Open Geospatial Consortium](https://www.opengeospatial.org/)
+    (OGC), which stands out as a reference when it comes to open
+    geospatial standards.
 
 ## Literature
 

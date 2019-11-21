@@ -21,7 +21,7 @@ unlink(c("sac.*", "habitatstreams.*"))
 
 
 This tutorial uses a few basic functions from the [dplyr](https://dplyr.tidyverse.org) and [sf](https://r-spatial.github.io/sf/) packages.
-With the previous hyperlinks you can access their tutorials (package vignettes).
+While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
 
 ```{r warning=FALSE, message=FALSE}
 options(stringsAsFactors = FALSE)
@@ -63,7 +63,7 @@ Have a look at its contents by printing the object:
 sac
 ```
 
-To write the GeoPackage, we just use the powerful [GDAL](https://gdal.org)-driver (supporting most open and some closed formats), which can be elegantly accessed through `sf::st_write()`:
+To write the GeoPackage, we just use the GPKG driver of the powerful [GDAL](https://gdal.org) library (supporting most open and some closed formats), which can be elegantly accessed through `sf::st_write()`:
 
 ```{r}
 sac %>% 
@@ -135,7 +135,7 @@ Nowadays, it is recommended to use the more recent and strict **RFC7946** implem
 The previous 'GeoJSON 2008' implementation is now obsoleted
 (see [the post](../../articles/geospatial_standards/) on this tutorials website for a bit more background).
 
-The RFC7946 standard is well supported by the GDAL driver, however GDAL must be given the explicit option `RFC7946=YES` in order to use it already ^[
+The RFC7946 standard is well supported by GDAL's GeoJSON driver, however GDAL must be given the explicit option `RFC7946=YES` in order to use it already ^[
 Though GeoJSON 2008 is [obsoleted](http://geojson.org/geojson-spec.html), the now recommended [RFC7946](https://tools.ietf.org/html/rfc7946) standard is still officially in a _proposal_ stage.
 That is probably the reason why GDAL does not yet default to RFC7946.
 A somehow confusing stage, it seems.
@@ -162,18 +162,18 @@ _**Well seen :-)**_
 Hence, also use it in versioned workflows?\
 _**Didn't hear that. (Cool, though...)**_
 
-Let's just look at the top 7 lines:
+Let's just look at the top 7 lines of the file:
 
 ```{r echo=FALSE, comment=""}
 readLines("habitatstreams.geojson", n = 7) %>% 
   cat(sep = "\n")
 ```
 
-You can see it basically lists the coordinates of the lines' vertices, with each feature starting on a new line.
+You can see it basically lists the feature attributes and the coordinates of the lines' vertices, with each feature starting on a new line.
 
 Compare the coordinates with those of the `sf` object `habitatstreams` above: the data have been reprojected on the fly to WGS84!
 
-Note: in order to be still manageable (text file size, usage in versioning systems) it seems wise to use GeoJSON for more simple cases -- **points and rather simple lines and polygons** -- and use the binary GeoPackage format for larger cases.
+Note: in order to be still manageable (text file size, usage in versioning systems) it seems wise to use GeoJSON for more simple cases -- **points and rather simple lines and polygons** -- and use the binary GeoPackage format for larger (more complex) cases.
 
 ### Reading a GeoJSON file
 
