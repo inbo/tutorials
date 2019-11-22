@@ -94,12 +94,34 @@ sac %>%
 Note, `delete_dsn` was set as `TRUE` to replace the whole GeoPackage.
 (There is also a `delete_layer` parameter to overwrite an existing _layer_ with the same name.)
 
+Let's extract a selection of features from the `special_areas_conservation` layer, and add it as a second layer into the GeoPackage file:
+
+```{r}
+sac %>% 
+  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons in the Turnhout area
+  st_write("sac.gpkg",
+           layer = "turnhout")
+```
+
+So yes, adding layers to a GeoPackage is done simply by `st_write()` again to the same GeoPackage file (by default, `delete_dsn` is `FALSE`), and defining the new layer's name.
+
+So, which layers are available in the GeoPackage?
+
+```{r}
+gdalUtils::ogrinfo("sac.gpkg") %>% 
+  cat(sep = "\n")
+```
+
+_**You see?**_
+
 ### Reading a GeoPackage file
 
 Can it become more simple than this?
 
 ```{r}
-sac_test <- st_read("sac.gpkg")
+# (note: the 'layer' argument is unneeded if there's just one layer)
+sac_test <- st_read("sac.gpkg",
+                    layer = "special_areas_conservation")
 ```
 
 Ready!
