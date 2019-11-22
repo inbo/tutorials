@@ -67,7 +67,7 @@ So, in R we use packages that use GDAL in the background, such as
     than suitable replacement.
   - The GeoPackage can store one or *multiple* **vector** layers
     (points, lines, polygons and related feature types). Besides vector
-    data, it can also store **raster** data\[2\] or extra standalone
+    data, it can also store **raster** data or extra standalone
     **tables**.
   - The GeoPackage standard is
     [maintained](https://www.opengeospatial.org/standards/geopackage) by
@@ -111,7 +111,7 @@ So, in R we use packages that use GDAL in the background, such as
         section](https://gdal.org/drivers/vector/geojson.html#rfc-7946-write-support)
         in the documentation of GDAL’s GeoJSON driver gives a summary of
         the differences between both GeoJSON versions.
-  - While GDAL by default still follows the GeoJSON 2008 format,\[3\]
+  - While GDAL by default still follows the GeoJSON 2008 format,\[2\]
     RFC7946 is supported by the option `RFC7946=YES`. Here, on-the-fly
     reprojection to WGS84 will happen automatically. It applies 7
     decimal places for coordinates, i.e. approximately 1 cm. Given the
@@ -173,10 +173,7 @@ Pebesma E. & Bivand R. (2019). Spatial Data Science. URL:
     size, column name length, number of columns and the feature types
     that can be accommodated.
 
-2.   For larger rasters however, the GeoTIFF file format will need less
-    disk space and is therefore recommended.
-
-3.   Though GeoJSON 2008 is obsoleted, the now recommended RFC7946
+2.   Though GeoJSON 2008 is obsoleted, the now recommended RFC7946
     standard is still officially in a *proposal* stage. That is probably
     the reason why GDAL does not yet default to RFC7946. A somehow
     confusing stage, it seems.

@@ -50,9 +50,7 @@ Some problems with shapefiles are: they're not an open format, they consist of m
 ], 
 so the GeoPackage is a more than suitable replacement.
 - The GeoPackage can store one or _multiple_ **vector** layers (points, lines, polygons and related feature types).
-Besides vector data, it can also store **raster** data^[
-For larger rasters however, the GeoTIFF file format will need less disk space and is therefore recommended.
-]
+Besides vector data, it can also store **raster** data
 or extra standalone **tables**.
 - The GeoPackage standard is [maintained](https://www.opengeospatial.org/standards/geopackage) by the [Open Geospatial Consortium](https://www.opengeospatial.org/) (OGC), which stands out as a reference when it comes to open geospatial standards.
 
