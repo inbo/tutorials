@@ -25,8 +25,8 @@ library(tidyverse)
 library(inborutils)
 ```
 
-You find bit more background about ‘why and what’, regarding the open
-GeoTIFF standard, in [a separate
+You will find a bit more background about ‘why and what’, regarding the
+open GeoTIFF standard, in [a separate
 post](../../articles/geospatial_standards/) on this website.
 
 In short, the GeoTIFF format is ideal for exchange, publication,

@@ -66,7 +66,7 @@ So, in R we use packages that use GDAL in the background, such as
     however pose multiple limitations,\[1\] so the GeoPackage is a more
     than suitable replacement.
   - The GeoPackage can store one or *multiple* **vector** layers
-    (points, lines, polygons and related feature types). Beside vector
+    (points, lines, polygons and related feature types). Besides vector
     data, it can also store **raster** data\[2\] or extra standalone
     **tables**.
   - The GeoPackage standard is
@@ -168,7 +168,7 @@ Pebesma E. & Bivand R. (2019). Spatial Data Science. URL:
 
 </div>
 
-1.   Some problems with shapefiles is they’re not an open format, they
+1.   Some problems with shapefiles are: they’re not an open format, they
     consist of multiple files and they have restrictions regarding file
     size, column name length, number of columns and the feature types
     that can be accommodated.

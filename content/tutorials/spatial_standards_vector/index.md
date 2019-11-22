@@ -25,8 +25,8 @@ library(sf)
 library(inborutils)
 ```
 
-You find a bit more background about ‘why and what’, regarding the below
-open standards, in [a separate
+You will find a bit more background about ‘why and what’, regarding the
+below open standards, in [a separate
 post](../../articles/geospatial_standards/) on this website.
 
 In short, the GeoPackage and GeoJSON formats are ideal for exchange,
@@ -135,13 +135,46 @@ Note, `delete_dsn` was set as `TRUE` to replace the whole GeoPackage.
 (There is also a `delete_layer` parameter to overwrite an existing
 *layer* with the same name.)
 
-### Reading a GeoPackage file
-
-Can it become more simple than
-    this?
+Let’s extract a selection of features from the
+`special_areas_conservation` layer, and add it as a second layer into
+the GeoPackage file:
 
 ``` r
-sac_test <- st_read("sac.gpkg")
+sac %>% 
+  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons in the Turnhout area
+  st_write("sac.gpkg",
+           layer = "turnhout")
+```
+
+    ## Updating layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
+    ## Writing 16 features with 4 fields and geometry type Polygon.
+
+So yes, adding layers to a GeoPackage is done simply by `st_write()`
+again to the same GeoPackage file (by default, `delete_dsn` is `FALSE`),
+and defining the new layer’s name.
+
+So, which layers are available in the GeoPackage?
+
+``` r
+gdalUtils::ogrinfo("sac.gpkg") %>% 
+  cat(sep = "\n")
+```
+
+    ## INFO: Open of `sac.gpkg'
+    ##       using driver `GPKG' successful.
+    ## 1: special_areas_conservation (Polygon)
+    ## 2: turnhout (Polygon)
+
+***You see?***
+
+### Reading a GeoPackage file
+
+Can it become more simple than this?
+
+``` r
+# (note: the 'layer' argument is unneeded if there's just one layer)
+sac_test <- st_read("sac.gpkg",
+                    layer = "special_areas_conservation")
 ```
 
     ## Reading layer `special_areas_conservation' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' using driver `GPKG'
@@ -152,7 +185,7 @@ sac_test <- st_read("sac.gpkg")
     ## epsg (SRID):    NA
     ## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
 
-Ready you are\!
+Ready\!
 
 Also other geospatial software will (or should be) able to open the
 GeoPackage format. It is an open standard, after all\!
@@ -173,6 +206,9 @@ download_zenodo(doi = "10.5281/zenodo.3386246")
     ## [1] "md5sum f881f61a6c07741b58cb618d8bbb0b99 for habitatstreams.prj is correct."
     ## [1] "md5sum f8559b033303c7b110df2136d0ec24ee for habitatstreams.shp is correct."
     ## [1] "md5sum 1b9c3f98f63339ea374d10c75399657e for habitatstreams.shx is correct."
+
+*Again: you can visit a website of this dataset by just prefixing the
+DOI string by `doi.org/`\!*
 
 The data source is a shapefile again, in this case consisting of 4
 different files. Similar as above, we read the geospatial data into R as
