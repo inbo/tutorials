@@ -46,11 +46,11 @@ So, in R we use packages that use GDAL in the background, such as `rgdal`, `sp`,
 - It is a standardized implementation of an SQLite database for geospatial data.
 Hence, a GeoPackage is a **binary** file (`filename.gpkg`).
 It shares this property with shapefiles, which however pose multiple limitations ^[
-Some problems with shapefiles is they're not an open format, they consist of multiple files and they have restrictions regarding file size, column name length, number of columns and the feature types that can be accommodated.
+Some problems with shapefiles are: they're not an open format, they consist of multiple files and they have restrictions regarding file size, column name length, number of columns and the feature types that can be accommodated.
 ], 
 so the GeoPackage is a more than suitable replacement.
 - The GeoPackage can store one or _multiple_ **vector** layers (points, lines, polygons and related feature types).
-Beside vector data, it can also store **raster** data^[
+Besides vector data, it can also store **raster** data^[
 For larger rasters however, the GeoTIFF file format will need less disk space and is therefore recommended.
 ]
 or extra standalone **tables**.
