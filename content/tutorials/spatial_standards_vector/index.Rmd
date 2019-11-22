@@ -45,7 +45,7 @@ As an example, we download a geospatial layer of Special Areas of Conservation i
 download_zenodo(doi = "10.5281/zenodo.3386815")
 ```
 
-_Did you know this: you can visit a website of this dataset by just prefixing the DOI string ^[DOI = Digital Object Identifier. See <https://www.doi.org>.] by `doi.org/`!_
+_Did you know this: you can visit a website of this dataset by just prefixing the DOI ^[DOI = Digital Object Identifier. See <https://www.doi.org>.] with `doi.org/`!_
 
 The data source is a shapefile, in this case consisting of 6 different files.
 Read the geospatial data into R as an `sf` object, and let's just keep the essentials (though it doesn't matter for the GeoPackage):
@@ -140,7 +140,7 @@ As another example, let's download a shapefile of stream habitat 3260 in Flander
 download_zenodo(doi = "10.5281/zenodo.3386246")
 ```
 
-_Again: you can visit a website of this dataset by just prefixing the DOI string by `doi.org/`!_
+_Again: you can visit a website of this dataset by just prefixing the DOI with `doi.org/`!_
 
 The data source is a shapefile again, in this case consisting of 4 different files.
 Similar as above, we read the geospatial data into R as an `sf` object and select a few attributes to work with:

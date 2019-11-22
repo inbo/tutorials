@@ -53,7 +53,7 @@ download_zenodo(doi = "10.5281/zenodo.3386815")
     ## [1] "md5sum 91094173055ff88e77355930464853a9 for sac.shx is correct."
 
 *Did you know this: you can visit a website of this dataset by just
-prefixing the DOI string \[1\] by `doi.org/`\!*
+prefixing the DOI \[1\] with `doi.org/`\!*
 
 The data source is a shapefile, in this case consisting of 6 different
 files. Read the geospatial data into R as an `sf` object, and let’s just
@@ -208,7 +208,7 @@ download_zenodo(doi = "10.5281/zenodo.3386246")
     ## [1] "md5sum 1b9c3f98f63339ea374d10c75399657e for habitatstreams.shx is correct."
 
 *Again: you can visit a website of this dataset by just prefixing the
-DOI string by `doi.org/`\!*
+DOI with `doi.org/`\!*
 
 The data source is a shapefile again, in this case consisting of 4
 different files. Similar as above, we read the geospatial data into R as
