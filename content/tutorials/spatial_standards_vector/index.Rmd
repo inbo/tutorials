@@ -118,6 +118,8 @@ As another example, let's download a shapefile of stream habitat 3260 in Flander
 download_zenodo(doi = "10.5281/zenodo.3386246")
 ```
 
+_Again: you can visit a website of this dataset by just prefixing the DOI string by `doi.org/`!_
+
 The data source is a shapefile again, in this case consisting of 4 different files.
 Similar as above, we read the geospatial data into R as an `sf` object and select a few attributes to work with:
 
