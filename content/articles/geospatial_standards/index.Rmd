@@ -32,10 +32,10 @@ I see you can't wait to start practicing, so you can also head straight over to 
 
 **[GDAL](https://gdal.org)** (Geospatial Data Abstraction Library) is by far the most used collection of open-source drivers for:
 
-- [a lot](https://gdal.org/drivers/raster/index.html) of raster formats;
-- [a lot](https://gdal.org/drivers/vector/index.html) of vector formats.
+- a lot of [raster](https://gdal.org/drivers/raster/index.html) formats;
+- a lot of [vector](https://gdal.org/drivers/vector/index.html) formats.
 
-In other words, it is the preferred workhorse for reading and writing many geospatial file formats, used in the background by [a lot](https://gdal.org/software_using_gdal.html#software-using-gdal) of geospatial applications.
+In other words, it is the preferred workhorse for reading and writing many geospatial file formats, used in the background by a lot of [geospatial applications](https://gdal.org/software_using_gdal.html#software-using-gdal) .
 Using GDAL is the easiest way to conform to open standards.
 
 So, in R we use packages that use GDAL in the background, such as `rgdal`, `sp`, `sf`, `raster` and `stars`.

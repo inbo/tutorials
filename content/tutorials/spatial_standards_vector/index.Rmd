@@ -98,7 +98,7 @@ Let's extract a selection of features from the `special_areas_conservation` laye
 
 ```{r}
 sac %>% 
-  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons in the Turnhout area
+  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons having 'Turnhout' in their name field
   st_write("sac.gpkg",
            layer = "turnhout")
 ```
