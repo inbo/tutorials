@@ -79,7 +79,7 @@ Let's create a `RasterBrick` object of three layers:
 ```{r}
 arts <- brick(artwork) # RasterBrick with one layer (the RasterLayer from above)
 arts[[2]] <- artwork + 10 # Add second layer, e.g. based on first one
-arts[[3]] <- calc(arts[[2]], function(x) 20 ^ x) # Making third layer from second
+arts[[3]] <- calc(arts[[2]], function(x) {20 ^ x}) # Making third layer from second
 names(arts) <- paste0("layer", 1:3)
 ```
 
