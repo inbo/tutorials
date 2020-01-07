@@ -1,0 +1,450 @@
+--- 
+title: "Classification and visualisation of estimates and their uncertainty"
+author: "Thierry Onkelinx"
+site: bookdown::bookdown_site
+output:
+  bookdown::pdf_book:
+    base_format: INBOmd::inbo_slides
+    location: "2020-01-23"
+    toc: FALSE
+    slide_level: 2
+    theme: inbo
+    font_flanders: FALSE
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+  dev = "cairo_pdf",
+  echo = FALSE
+)
+library(grid)
+library(tidyverse)
+library(gridExtra)
+library(effectclass)
+library(INBOtheme)
+if (interactive()) {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 12, 
+      transparent = "plot"
+    )
+  )
+} else {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 6, 
+      transparent = "plot"
+    )
+  )
+  update_geom_defaults("text", list(size = 3))
+}
+```
+
+# Uncertainty
+
+## Point estimate
+
+```{r point_estimate}
+effect <- tibble(
+  mean = 0,
+  sd = 1,
+  lcl95 = qnorm(0.025, mean, sd),
+  ucl95 = qnorm(0.975, mean, sd)
+)
+tibble(
+  p = seq(0, 1, by = 0.005)
+) %>%
+  mutate(
+    effect = qnorm(p),
+    density = dnorm(effect)
+  ) %>%
+  filter(is.finite(effect)) -> likelihood
+plot_dens <- ggplot(likelihood, aes(x = effect, y = density)) +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+plot_effect <- ggplot(effect, aes(y = mean, x = 1)) +
+  geom_point() +
+  ylim(range(likelihood$effect)) +
+  coord_flip() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank()
+  )
+g_dens <- ggplotGrob(plot_dens)
+g_effect <- ggplotGrob(plot_effect)
+max_width <- as.list(unit.pmax(g_dens$widths[2:5], g_effect$widths[2:5]))
+g_dens$widths[2:5] <- max_width
+g_effect$widths[2:5] <- max_width
+grid.arrange(
+  grobs = list(g_dens, g_effect), 
+  heights = c(4, 1)
+)
+```
+
+## Confidence interval
+
+```{r interval}
+likelihood %>%
+  filter(0.025 <= p, p <= 0.975) %>%
+  bind_rows(
+    likelihood %>%
+      filter(pmin(abs(p - 0.025), abs(p - 0.975)) < 1e-4) %>%
+      mutate(density = 0) %>%
+      arrange(desc(p))
+  ) -> likelihood_polygon
+plot_dens <- ggplot(likelihood, aes(x = effect, y = density)) +
+  geom_polygon(
+    data = likelihood_polygon,
+    fill = inbo.steun.blauw,
+    alpha = 0.3
+  ) +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_vline(xintercept = c(effect$lcl95, effect$ucl95), linetype = 3) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+plot_effect <- ggplot(effect, aes(y = mean, x = 1, ymin = lcl95, ymax = ucl95)) +
+  geom_point() +
+  geom_errorbar() +
+  ylim(range(likelihood$effect)) +
+  coord_flip() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank()
+  )
+g_dens <- ggplotGrob(plot_dens)
+g_effect <- ggplotGrob(plot_effect)
+g_dens$widths[2:5] <- max_width
+g_effect$widths[2:5] <- max_width
+grid.arrange(
+  grobs = list(g_dens, g_effect), 
+  heights = c(4, 1)
+)
+```
+
+## Confidence interval
+
+```{r interval2}
+likelihood %>%
+  filter(pmin(abs(p - 0.025), abs(p - 0.975)) < 1e-4) %>%
+  mutate(density = c(0, diff(p) / diff(effect))) %>%
+  pivot_wider(names_from = p, values_from = c(effect, density)) -> like_rect
+plot_dens <- ggplot(likelihood, aes(x = effect, y = density)) +
+  geom_rect(
+    data = like_rect,
+    aes(
+      xmin = effect_0.025, ymin = density_0.025, 
+      xmax = effect_0.975, ymax = density_0.975,
+      x = NULL, y = NULL
+    ),
+    alpha = 0.3
+  ) + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_vline(xintercept = c(effect$lcl95, effect$ucl95), linetype = 3) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+plot_effect <- ggplot(effect, aes(y = mean, x = 1, ymin = lcl95, ymax = ucl95)) +
+  geom_point() +
+  geom_errorbar() +
+  ylim(range(likelihood$effect)) +
+  coord_flip() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank()
+  )
+g_dens <- ggplotGrob(plot_dens)
+g_effect <- ggplotGrob(plot_effect)
+g_dens$widths[2:5] <- max_width
+g_effect$widths[2:5] <- max_width
+grid.arrange(
+  grobs = list(g_dens, g_effect), 
+  heights = c(4, 1)
+)
+```
+
+## 30%, 60% and 90% confidence interval
+
+```{r interval3}
+tibble(
+  p = c(0.05, 0.2, 0.35, 0.65, 0.8, 0.95)
+) %>%
+  mutate(
+    end = qnorm(p, effect$mean, effect$sd),
+    start = lag(end),
+    interval = abs(1 - 2 * p) %>%
+      lag(),
+    width = c(0, diff(end)),
+    delta_p = c(0, diff(p)),
+    height = delta_p / width
+  ) %>%
+  filter(!is.na(height)) %>%
+  transmute(start, end, bottom = 0, density = height) -> like_rect
+plot_dens <- ggplot(likelihood, aes(x = effect, y = density)) +
+  geom_rect(
+    data = like_rect,
+    aes(
+      xmin = start, ymin = bottom, 
+      xmax = end, ymax = density,
+      x = NULL, y = NULL
+    ),
+    alpha = 0.2
+  ) + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_vline(
+    xintercept = qnorm(
+      c(0.05, 0.2, 0.35, 0.65, 0.8, 0.95), 
+      effect$mean, 
+      effect$sd
+    ), 
+    linetype = 3
+  ) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+plot_effect <- ggplot(effect, aes(y = mean, x = 1, link_sd = sd)) +
+  geom_point() +
+  stat_fan(geom = "rect") +
+  ylim(range(likelihood$effect)) +
+  coord_flip() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank()
+  )
+g_dens <- ggplotGrob(plot_dens)
+g_effect <- ggplotGrob(plot_effect)
+g_dens$widths[2:5] <- max_width
+g_effect$widths[2:5] <- max_width
+grid.arrange(
+  grobs = list(g_dens, g_effect), 
+  heights = c(4, 1)
+)
+```
+
+## 9 confidence intervals (10% increments)
+
+```{r interval9}
+tibble(
+  p = seq(0.05, 0.95, by = 0.05)
+) %>%
+  mutate(
+    end = qnorm(p, effect$mean, effect$sd),
+    start = lag(end),
+    interval = abs(1 - 2 * p) %>%
+      lag(),
+    width = c(0, diff(end)),
+    delta_p = c(0, diff(p)),
+    height = delta_p / width
+  ) %>%
+  filter(!is.na(height)) %>%
+  transmute(start, end, bottom = 0, density = height) -> like_rect
+plot_dens <- ggplot(likelihood, aes(x = effect, y = density)) +
+  geom_rect(
+    data = like_rect,
+    aes(
+      xmin = start, ymin = bottom, 
+      xmax = end, ymax = density,
+      x = NULL, y = NULL
+    ),
+    alpha = 0.3
+  ) + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_vline(
+    xintercept = qnorm(
+      seq(0.05, 0.95, by = 0.05), 
+      effect$mean, 
+      effect$sd
+    ), 
+    linetype = 3
+  ) +
+  geom_line() +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+plot_effect <- ggplot(effect, aes(y = mean, x = 1, link_sd = sd)) +
+  geom_point() +
+  stat_fan(geom = "rect", fine = TRUE) +
+  ylim(range(likelihood$effect)) +
+  coord_flip() +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank()
+  )
+g_dens <- ggplotGrob(plot_dens)
+g_effect <- ggplotGrob(plot_effect)
+g_dens$widths[2:5] <- max_width
+g_effect$widths[2:5] <- max_width
+grid.arrange(
+  grobs = list(g_dens, g_effect), 
+  heights = c(4, 1)
+)
+```
+
+# Classification of estimates
+
+## Significant effects
+
+```{r reference}
+ds <- data.frame(
+  effect = factor(1:2, labels = c("positive\neffect", "negative\neffect")
+  ),
+  mean = c(2, -2),
+  sd = 1
+)
+ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  scale_y_continuous(
+    breaks = 0, 
+    labels = "reference"
+  ) +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
+## Non significant effects
+
+```{r reference2}
+ds <- data.frame(
+  effect = factor(1:2, labels = c("no\neffect", "unknown\neffect")
+  ),
+  mean = c(0.2, -0.5),
+  sd = c(1, 2)
+)
+ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_hline(yintercept = c(-2, 2), linetype = 3) +
+  scale_y_continuous(
+    breaks = c(-2, 0, 2), 
+    labels = c("lower\nthreshold", "reference", "upper\nthreshold")
+  ) +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
+## Detailed classification of positive effects
+
+```{r positive}
+ds <- data.frame(
+  effect = factor(
+    1:3, 
+    labels = c(
+      "positive\neffect", "moderate\npositive\neffect", 
+      "strong\npositive\neffect"
+    )
+  ),  
+  mean = c(1.95, 1.05, 3.05),
+  sd = c(1, 0.5, 0.5)
+)
+ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_hline(yintercept = c(-2, 2), linetype = 3) +
+  scale_y_continuous(
+    breaks = c(-2, 0, 2), 
+    labels = c("lower\nthreshold", "reference", "upper\nthreshold")
+  ) +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
+## Detailed classification of unknown effects
+
+```{r unknown}
+ds <- data.frame(
+  effect = factor(
+    1:3, 
+    labels = c(
+      "potential positive\neffect", "potential\nnegative\neffect", 
+      "unknown\neffect"
+    )
+  ),  
+  mean = c(1, -1, -0.3),
+  sd = c(1.5, 1.5, 2)
+)
+ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_hline(yintercept = c(-2, 2), linetype = 3) +
+  scale_y_continuous(
+    breaks = c(-2, 0, 2), 
+    labels = c("lower\nthreshold", "reference", "upper\nthreshold")
+  ) +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
+## Overview
+
+```{r overview}
+ds <- data.frame(
+  thresholds = c(3, 2, 2, 1, 1, 1, 0, 0, 0, 0),
+  mean = c(0, 1, -1, 2, 0, -2, 3, 1, -1, -3),
+  sd = c(2, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5)
+) %>%
+  mutate(
+    effect = classification(qnorm(0.05, mean, sd), qnorm(0.95, mean, sd), 2),
+    coarse = coarse_classification(effect),
+    thresholds = sprintf("interval contains\n%i thresholds", thresholds)
+  )
+ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_hline(yintercept = c(-2, 2), linetype = 3) +
+  facet_wrap(~thresholds, scales = "free_x") +
+  scale_y_continuous(
+    breaks = c(-2.5, 0, 2.5), 
+    labels = c("lower\nthreshold", "reference", "upper\nthreshold")
+  ) +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
+## Suggested symbology
+
+```{r symbols, results = "asis"}
+ds %>%
+  arrange(effect) %>%
+  transmute(
+    coarse = coarse_classification(effect),
+    detailed = format(effect, type = "markdown"),
+    arrow = format(effect, type = "arrow"),
+    unsigned = effect %>%
+      remove_sign() %>%
+      format(type = "markdown"),
+    "unsigned arrow" = effect %>%
+      remove_sign() %>%
+      format(type = "arrow"),
+  ) %>%
+  kable(escape = FALSE, format = "markdown", align = "c")
+```
