@@ -9,7 +9,9 @@ output:
     toc: FALSE
     slide_level: 2
     theme: inbo
-    font_flanders: FALSE
+    font_flanders: TRUE
+    cover: photo-of-forest-with-fog-1671324.jpg #https://www.pexels.com/photo/photo-of-forest-with-fog-1671324
+    cover_horizontal: FALSE
 ---
 
 ```{r setup, include = FALSE}
@@ -403,6 +405,32 @@ ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
   )
 ```
 
+## Why not use p-values
+
+```{r p-values}
+data.frame(
+  mean = c(1.2, 10.5, 0, 0),
+  sd = c(0.3, 5, 0.3, 5)
+) %>%
+  mutate(
+    effect = classification(qnorm(0.05, mean, sd), qnorm(0.95, mean, sd), 2),
+    p = sprintf("p = %.4f", 1 - 2 * abs(0.5 - pnorm(mean, sd = sd))),
+    p_y = -10
+  ) %>%
+  ggplot(aes(x = effect, y = mean, link_sd = sd, label = p)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  geom_hline(yintercept = c(-2, 2), linetype = 3) +
+  geom_text(aes(y = p_y)) +
+  scale_y_continuous(
+    breaks = c(-2, 0, 2), 
+    labels = c("lower\nthreshold", "reference", "upper\nthreshold")
+  ) +
+  theme(
+    axis.title = element_blank()
+  )
+```
+
 ## Overview
 
 ```{r overview}
@@ -448,3 +476,36 @@ ds %>%
   ) %>%
   kable(escape = FALSE, format = "markdown", align = "c")
 ```
+
+# Tools
+
+## effectclass R package
+
+- https://github.com/inbo/effectclass
+- `classification()`: classifies intervals based on a reference and thresholds
+- `stat_fan()`: fan plot based on mean and standard error
+- `stat_effect() + scale_effect()`: display point with shape based on classification
+
+## stat_effect()
+
+```{r}
+expand.grid(
+  mean = seq(-3, 3, length = 21),
+  sd = c(0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.7, 1, 1.5, 2, 3)
+) %>%
+  mutate(
+    lcl = qnorm(0.05, mean, sd),
+    ucl = qnorm(0.95, mean, sd)
+  ) %>%
+  ggplot(aes(x = mean, y = sd, colour = mean)) +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_vline(xintercept = c(-2, 2), linetype = 3) +
+  stat_effect(aes(ymin = lcl, ymax = ucl), threshold = 2, size = 3) +
+  scale_effect() +
+  scale_y_continuous(breaks = c(0.1, 0.2, 0.5, 1, 2)) +
+  coord_trans(y = "log10") +
+  scale_colour_gradient2(
+    mid = inbo.lichtgrijs, low = inbo.steun.blauw, high = inbo.rood
+  )
+```
+
