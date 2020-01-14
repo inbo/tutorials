@@ -87,8 +87,8 @@ max_width <- as.list(unit.pmax(g_dens$widths[2:5], g_effect$widths[2:5]))
 g_dens$widths[2:5] <- max_width
 g_effect$widths[2:5] <- max_width
 grid.arrange(
-  grobs = list(g_dens, g_effect), 
-  heights = c(4, 1)
+  grobs = list(g_effect, g_dens), 
+  heights = c(1, 4)
 )
 ```
 
@@ -132,8 +132,8 @@ g_effect <- ggplotGrob(plot_effect)
 g_dens$widths[2:5] <- max_width
 g_effect$widths[2:5] <- max_width
 grid.arrange(
-  grobs = list(g_dens, g_effect), 
-  heights = c(4, 1)
+  grobs = list(g_effect, g_dens), 
+  heights = c(1, 4)
 )
 ```
 
@@ -177,8 +177,8 @@ g_effect <- ggplotGrob(plot_effect)
 g_dens$widths[2:5] <- max_width
 g_effect$widths[2:5] <- max_width
 grid.arrange(
-  grobs = list(g_dens, g_effect), 
-  heights = c(4, 1)
+  grobs = list(g_effect, g_dens), 
+  heights = c(1, 4)
 )
 ```
 
@@ -239,8 +239,8 @@ g_effect <- ggplotGrob(plot_effect)
 g_dens$widths[2:5] <- max_width
 g_effect$widths[2:5] <- max_width
 grid.arrange(
-  grobs = list(g_dens, g_effect), 
-  heights = c(4, 1)
+  grobs = list(g_effect, g_dens), 
+  heights = c(1, 4)
 )
 ```
 
@@ -301,8 +301,8 @@ g_effect <- ggplotGrob(plot_effect)
 g_dens$widths[2:5] <- max_width
 g_effect$widths[2:5] <- max_width
 grid.arrange(
-  grobs = list(g_dens, g_effect), 
-  heights = c(4, 1)
+  grobs = list(g_effect, g_dens), 
+  heights = c(1, 4)
 )
 ```
 
@@ -405,7 +405,7 @@ ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
   )
 ```
 
-## Why not use p-values
+## Why don't you use p-values?
 
 ```{r p-values}
 data.frame(
@@ -464,15 +464,16 @@ ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
 ds %>%
   arrange(effect) %>%
   transmute(
-    coarse = coarse_classification(effect),
-    detailed = format(effect, type = "markdown"),
-    arrow = format(effect, type = "arrow"),
-    unsigned = effect %>%
+    "unsigned coarse" = effect %>%
+      coarse_classification() %>%
       remove_sign() %>%
       format(type = "markdown"),
-    "unsigned arrow" = effect %>%
+    coarse = effect %>%
+      coarse_classification(),
+    detailed = format(effect, type = "markdown"),
+    "unsigned detailed" = effect %>%
       remove_sign() %>%
-      format(type = "arrow"),
+      format(type = "markdown"),
   ) %>%
   kable(escape = FALSE, format = "markdown", align = "c")
 ```
@@ -485,8 +486,9 @@ ds %>%
 - `classification()`: classifies intervals based on a reference and thresholds
 - `stat_fan()`: fan plot based on mean and standard error
 - `stat_effect() + scale_effect()`: display point with shape based on classification
+- `format_ci()`: format an effect size with its confidence interval
 
-## stat_effect()
+## `stat_effect() + scale_effect()`
 
 ```{r}
 expand.grid(
@@ -501,11 +503,62 @@ expand.grid(
   geom_vline(xintercept = 0, linetype = 2) +
   geom_vline(xintercept = c(-2, 2), linetype = 3) +
   stat_effect(aes(ymin = lcl, ymax = ucl), threshold = 2, size = 3) +
-  scale_effect() +
-  scale_y_continuous(breaks = c(0.1, 0.2, 0.5, 1, 2)) +
+  scale_effect(guide = guide_legend(ncol = 3)) +
+  scale_x_continuous("effect size") +
+  scale_y_continuous("uncertainty", breaks = c(0.1, 0.2, 0.5, 1, 2)) +
   coord_trans(y = "log10") +
-  scale_colour_gradient2(
-    mid = inbo.lichtgrijs, low = inbo.steun.blauw, high = inbo.rood
-  )
+  scale_colour_gradient2()
 ```
 
+## `classification(reference = 3, threshold = c(2, 4))` and `format_ci()`
+
+```{r format-ci}
+ds <- expand.grid(
+  estimate = pi * seq(0, 1.9, by = 0.5),
+  sd = c(1, 0.1, 0.01)
+)
+ds$lcl <- qnorm(0.05, ds$estimate, ds$sd)
+ds$ucl <- qnorm(0.95, ds$estimate, ds$sd)
+ds$classifcation <- classification(
+  ds$lcl, ds$ucl, reference = 3, threshold = c(2, 4)
+)
+ds <- ds[order(ds$classifcation, ds$estimate, ds$ucl), ]
+ds$classifcation <- format(ds$classifcation, type = "markdown")
+ds$formatted <- format_ci(ds$estimate, lcl = ds$lcl, ucl = ds$ucl)
+kable(ds[, -2], align = "lllcc", row.names = FALSE, format = "markdown")
+```
+
+
+# How to define reference and thresholds?
+
+## Reference
+
+- Null hypothesis
+- A model parameter is zero
+    - No effect of treatment X
+    - No change in time
+    - e.g. Natura2000: population remains stable
+- A prespecified target
+    - e.g. PARTRIDGE: population increases by 30% over 4 years
+
+## Threshold
+
+- Effect size from power analysis
+    - e.g. Natura 2000: detect -25% over 24 year
+- Expert judgement
+    - What change is relevant?
+
+## Interpretation
+
+Class | Natura2000         | PARTRIDGE                 |
+:---: | ------------------ | ------------------------- |
+`++`  | strong increase    | goal strongly exceeded    |
+`+`   | increase           | goal exceed               |
+`+~`  | moderate increase  | goal moderately exceeded  |
+`~`   | stable             | goal reached              |
+`-~`  | moderate decrease  | goal almost achieved      |
+`-`   | decrease           | goal not achieved         |
+`--`  | strong decrease    | goal clearly not achieved |
+`?+`  | potential increase | goal maybe achieved       |
+`?-`  | potential decrease | goal maybe not achieved   |
+`?`   | unclear            | unknown if goal achieved  |
