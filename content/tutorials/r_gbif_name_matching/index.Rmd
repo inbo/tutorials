@@ -1,5 +1,6 @@
 ---
 title: "Match scientific names with the GBIF Backbone Taxonomy"
+description: "How to use inborutils function gbif_species_name_match() to match a list of scientific names against the GBIF backbone taxonomy."
 author: "Dirk Maes, Dimitri Brosens, Damiano Oldoni"
 date: 2019-08-21
 categories: ["r"]
