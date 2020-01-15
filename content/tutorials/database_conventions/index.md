@@ -24,8 +24,7 @@ tags: ["database", "styleguide"]
 | SQ_ |	sequence               |
 | DR_ |	database role          |
 
-  * (connection strings application name in connectstring, ...)
-  * (English of Nederlands)
+* choose English or Dutch for the naming of objects and be consistent
 
 # Database
   * The database is created by the DBA.
@@ -33,8 +32,8 @@ tags: ["database", "styleguide"]
   * For a list of DB's following the new name conventions, see List of databases.
 
 # Schemas
-* The database is created by the DBA.dbo only.
-* The database is created by the DBA.unless special requirements.
+* dbo only.
+* unless special requirements.
 
 # Tables
   * Meaningful name .
@@ -205,9 +204,6 @@ ALTER TABLE Measurement ADD
   * Naming: \<Application context\>\_\<BusinessRole\>, where
     * \<application context\>: a unique and clear reference to the application that's adressing the database; for INBO-applications this might be the accepted name for the application (e.g. watinawsbusiness, the business service of Watina); for ACD-applications this might be the Nexus group ID (e.g be.inbo.wstaxon, the wstaxon service).
     * \<BusinessRole\>: reporter, user, admin
-  * [ developer  is dba on dev db server ]
-  * [ inbo\users is readonly ]
-  * [ pwd zelfde op dev en zelfde op qas ]
 
 # Documentation
   * Database self explanatory through use of extended properties on
@@ -327,8 +323,6 @@ CREATE  TABLE Method
    , Code nvarchar(10) NOT NULL
    , [Description] nvarchar(200) NOT NULL
    , SortOrder int NOT NULL
-   , ValidFromDate datetime2(7) NOT NULL
-   , ValidTillDate datetime2(7) NULL
    , CreateUser nvarchar(50) NULL
    , CreateDate datetime2(7) NOT NULL
    , UpdateUser nvarchar(50) NULL
@@ -345,16 +339,7 @@ ALTER TABLE Method ADD
      CONSTRAINT CD_Method_SortOrder  DEFAULT (0) FOR SortOrder
    , CONSTRAINT CD_Method_CreateUser  DEFAULT (SUSER_NAME()) FOR CreateUser       
    , CONSTRAINT CD_Method_CreateDate  DEFAULT (GETDATE()) FOR CreateDate
-   , CONSTRAINT CD_Method_ValidFromDate  DEFAULT (GETDATE()) FOR ValidFromDate;
-GO
-/* add unique keys */
-ALTER TABLE Method ADD
-     CONSTRAINT CU_Method_CodeValidFromDate UNIQUE NONCLUSTERED (Code, ValidFromDate) ON INDEXES
-   , CONSTRAINT CU_Method_CodeValidTillDate UNIQUE NONCLUSTERED (Code, ValidTillDate ) ON INDEXES;
-GO
-/* add check constraint */
-ALTER TABLE Method  ADD
-     CONSTRAINT CC_Method_ValidFromLessThenValidTillDate CHECK  (ValidFromDate < ValidTillDate OR ValidTillDate IS NULL);
+  
 GO
 /* add trigger that updates audit columns */
 CREATE TRIGGER [TR_Method_AU]
@@ -402,18 +387,6 @@ EXEC sys.sp_addextendedproperty
    , @level0type=N'SCHEMA',@level0name=N'dbo'
    , @level1type=N'TABLE',@level1name=N'Method'
    , @level2type=N'COLUMN',@level2name=N'SortOrder';
-GO
-EXEC sys.sp_addextendedproperty
-     @name=N'Description', @value=N'Date from which this method is valid.'
-   , @level0type=N'SCHEMA',@level0name=N'dbo'
-   , @level1type=N'TABLE',@level1name=N'Method'
-   , @level2type=N'COLUMN',@level2name=N'ValidFromDate';
-GO
-EXEC sys.sp_addextendedproperty
-     @name=N'Description', @value=N'Date untill which this method is valid. If this column is empty, the method is currently valid.'
-   , @level0type=N'SCHEMA',@level0name=N'dbo'
-   , @level1type=N'TABLE',@level1name=N'Method'
-   , @level2type=N'COLUMN',@level2name=N'ValidTillDate';
 GO
 EXEC sys.sp_addextendedproperty
      @name=N'Description', @value=N'Creation user.'
