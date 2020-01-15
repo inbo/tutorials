@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rstudio on INBO Tutorials</title>
@@ -18,7 +18,7 @@
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_beginners/</guid>
       <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
- Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
+ Rstudio kunnen gebruiken (Les 1a) Commando&#39;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@
       <pubDate>Wed, 18 Oct 2017 15:43:44 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_rstudio/</guid>
-      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/Program Files/R/R-3.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never  In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken  Subtab Saving  Default text encoding: UTF-8  Subtab Diagnostics  Alles aanvinken   In het tabblad Appearance  Stel in naar eigen smaak  In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio  In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex  Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
+      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/Program Files/R/R-3.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never   In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken   Subtab Saving  Default text encoding: UTF-8   Subtab Diagnostics  Alles aanvinken     In het tabblad Appearance  Stel in naar eigen smaak   In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio   In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex   Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
     </item>
     
     <item>

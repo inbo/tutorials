@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>biodiversity on INBO Tutorials</title>
@@ -19,7 +19,7 @@
       <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
-remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutilslibrary(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
+remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
     </item>
     
   </channel>

@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='git'><meta property='article:tag' content='version control'><meta property='article:published_time' content='2017-10-18T00:00:00Z'/><meta property='article:modified_time' content='2017-10-18T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.0-DEV" />
+<meta name="generator" content="Hugo 0.62.0" />
 
   <title>Handle conflicts • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/git_conflict/'>
@@ -308,51 +308,27 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'>
-
-<h2 id="fix-merge-conflict-with-a-pull-request">Fix merge conflict with a pull request<a href="#fix-merge-conflict-with-a-pull-request" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
+  <div class='container entry-content'><h2 id="fix-merge-conflict-with-a-pull-request">Fix merge conflict with a pull request<a href="#fix-merge-conflict-with-a-pull-request" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.</p>
-
 <p>Locally on your computer:</p>
-
 <pre><code>git fetch origin
-</code></pre>
-
-<p>Rebase your feature branch with your master</p>
-
+</code></pre><p>Rebase your feature branch with your master</p>
 <pre><code>git rebase origin/master
-</code></pre>
-
-<p>Git will now state that there are merge conflicts. These will look like this:</p>
-
+</code></pre><p>Git will now state that there are merge conflicts. These will look like this:</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt; HEAD:&lt;some git nonsense&gt;
         This part is from a version of this file
 =====
 	This is from another version of a file
 &gt;&gt;&gt;&gt;&gt; blahdeblahdeblah:&lt;some more git nonsense&gt;
-</code></pre>
-
-<p>The &lt;&lt;&lt;&lt;&lt;, ===== and &gt;&gt;&gt;&gt;&gt; markers show which lines were changed simultaneously. In order to remove the conflict, choose which line you want to keep (first or second), remove the other line and the markers, and finally commit the result.</p>
-
+</code></pre><p>The &laquo;&laquo;&lt;, ===== and &raquo;&raquo;&gt; markers show which lines were changed simultaneously. In order to remove the conflict, choose which line you want to keep (first or second), remove the other line and the markers, and finally commit the result.</p>
 <p>Add your files that you fixed.</p>
-
 <pre><code>git add &lt;fixed files&gt;
-</code></pre>
-
-<p>Continue with your rebase</p>
-
+</code></pre><p>Continue with your rebase</p>
 <pre><code>git rebase --continue
-</code></pre>
-
-<p>If more troubles occur, fix them, add them, and do a <code>git rebase continue</code></p>
-
+</code></pre><p>If more troubles occur, fix them, add them, and do a <code>git rebase continue</code></p>
 <p>Force push your branch to the server. (force because you changed the commit)</p>
-
 <pre><code>git push -f origin branchname
-</code></pre>
-
-<p>On the server, you can now automatically close your Pull Request.</p>
+</code></pre><p>On the server, you can now automatically close your Pull Request.</p>
 </div>
 
   
@@ -408,7 +384,7 @@ Improve this page</a>
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 </div>
 
         </div>

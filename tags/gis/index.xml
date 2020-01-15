@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gis on INBO Tutorials</title>
@@ -28,7 +28,7 @@ Typically, both data sources contain information (apart from the spatial locatio
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</guid>
       <description>Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let&amp;rsquo;s create a dumy data.frame to play around, i.e. the three locations of INBO:
+library(leaflet) library(sp) Dummy data Let&#39;s create a dumy data.frame to play around, i.e. the three locations of INBO:
 names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
 plot(data$lon, data$lat) Creating a map We need to convert the data.frame to a SpatialPointsDataFrame:
 crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- SpatialPointsDataFrame(data[c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;)], data[!(names(data) %in% c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;))], proj4string = crs_wgs84) The leaflet package is ideal to create a basic interactive map:</description>
@@ -49,7 +49,7 @@ crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- Spatial
       <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
-      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&amp;rsquo;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
+      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&#39;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
 library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
     </item>
     

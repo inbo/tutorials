@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='development'><meta property='article:tag' content='r'><meta property='article:tag' content='packages'><meta property='article:tag' content='ci'><meta property='article:published_time' content='2018-03-23T11:23:07&#43;01:00'/><meta property='article:modified_time' content='2018-03-23T11:23:07&#43;01:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.0-DEV" />
+<meta name="generator" content="Hugo 0.62.0" />
 
   <title>Wercker • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/development_wercker/'>
@@ -308,54 +308,43 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'>
-
-<h2 id="set-up-continuous-integration-with-wercker">Set up continuous integration with Wercker<a href="#set-up-continuous-integration-with-wercker" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
+  <div class='container entry-content'><h2 id="set-up-continuous-integration-with-wercker">Set up continuous integration with Wercker<a href="#set-up-continuous-integration-with-wercker" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>There are 2 major steps to set up continuous integration:</p>
-
 <ul>
 <li>create a <code>wercker.yml</code> file in the package</li>
 <li>add the application (package) to Wercker.com</li>
 </ul>
-
 <p>To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.</p>
-
 <p>The Wercker test environment can only be set up if the file <code>wercker.yml</code> is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.com (giving an error if <code>wercker.yml</code> is not commited yet).</p>
-
-<h3 id="wercker-yml">wercker.yml<a href="#wercker-yml" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
+<h3 id="werckeryml">wercker.yml<a href="#werckeryml" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Add a file &ldquo;wercker.yml&rdquo; in the root of the package with:</p>
-
 <ul>
-<li><strong>box:</strong> reference to a package with a <a href="https://www.docker.com/" target="_blank">Docker</a> image that is used as a test environment.  If no specific version is specified, only the last master version is used. Which Docker image to use?
-
+<li><strong>box:</strong> reference to a package with a <a href="https://www.docker.com/">Docker</a> image that is used as a test environment.  If no specific version is specified, only the last master version is used. Which Docker image to use?
 <ul>
-<li><code>inbobmk/rstable</code> which is an image with stable versions of R and a large number of packages (see the <a href="https://github.com/inbo/Rstable" target="_blank">README</a>). Most of the packages which are often used at INBO are available. The version of the packages is roughly fixed to the date on which the R version in the Docker image was upgraded.</li>
-<li><code>rocker/verse</code> (<a href="https://hub.docker.com/r/rocker/verse/" target="_blank">https://hub.docker.com/r/rocker/verse/</a>) which has the R, <a href="https://www.rstudio.com/products/rpackages/devtools/" target="_blank">devtools</a> and all <a href="https://www.tidyverse.org/" target="_blank">tidyverse</a> packages. The latest version of the image contains the latest version of the packages.</li>
-</ul></li>
+<li><code>inbobmk/rstable</code> which is an image with stable versions of R and a large number of packages (see the <a href="https://github.com/inbo/Rstable">README</a>). Most of the packages which are often used at INBO are available. The version of the packages is roughly fixed to the date on which the R version in the Docker image was upgraded.</li>
+<li><code>rocker/verse</code> (<a href="https://hub.docker.com/r/rocker/verse/">https://hub.docker.com/r/rocker/verse/</a>) which has the R, <a href="https://www.rstudio.com/products/rpackages/devtools/">devtools</a> and all <a href="https://www.tidyverse.org/">tidyverse</a> packages. The latest version of the image contains the latest version of the packages.</li>
+</ul>
+</li>
 <li><strong>build:</strong>
-
 <ul>
 <li>different steps to pass
-
 <ul>
 <li><code>inbobmk/r-check</code>: runs R CMD check but assumes that all dependencies are installed. Use this in combination with <code>inbobmk/rstable</code> in case you want to check your package against a stable set of packages.</li>
 <li><code>jimhester/r-check</code>: installs all missing dependencies on the fly and then runs R CMD check. This will install the latest version of the dependencies.</li>
-<li><code>inbobmk/r-coverage</code>: checks which lines in the code are covered by unit tests and which are not. See our page on <a href="codecov.html" target="_blank">code coverage</a> for more details. This assumes that the <code>covr</code> package is installed.</li>
+<li><code>inbobmk/r-coverage</code>: checks which lines in the code are covered by unit tests and which are not. See our page on <a href="codecov.html">code coverage</a> for more details. This assumes that the <code>covr</code> package is installed.</li>
 <li><code>jimhester/r-coverage</code>: installs <code>covr</code> and runs the code coverage</li>
-<li><code>inbobmk/r-lint</code>: this check the <a href="http://r-pkgs.had.co.nz/style.html" target="_blank">style</a> of your code. Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. It assumes the <a href="https://github.com/jimhester/lintr" target="_blank"><code>lintr</code></a> package is installed.</li>
+<li><code>inbobmk/r-lint</code>: this check the <a href="http://r-pkgs.had.co.nz/style.html">style</a> of your code. Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read. It assumes the <a href="https://github.com/jimhester/lintr"><code>lintr</code></a> package is installed.</li>
 <li><code>jimhester/r-lint</code>: installs the <code>lintr</code> package and checks the style of the code</li>
-</ul></li>
+</ul>
+</li>
 <li>steps are run following their order in the yaml file</li>
 <li>the execution will stop when a step fails</li>
 <li>if not all packages are available in the docker image, code to install packages has to be added as a first step</li>
-</ul></li>
+</ul>
+</li>
 <li>after a build pipe, one can also add a deploy-pipe</li>
 </ul>
-
 <p>An example of a simple wercker.yml-file:</p>
-
 <pre><code>box: inbobmk/rstable
 build:
     steps:
@@ -365,11 +354,8 @@ build:
         - inbobmk/r-coverage
         - inbobmk/r-lint
 </code></pre>
-
-<h3 id="wercker-com">Wercker.com<a href="#wercker-com" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
-<p>To add the application to <a href="http://www.wercker.com/" target="_blank">www.wercker.com</a>:</p>
-
+<h3 id="werckercom">Wercker.com<a href="#werckercom" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>To add the application to <a href="http://www.wercker.com/">www.wercker.com</a>:</p>
 <ul>
 <li>log in on the website (easiest is to log in via github) and create a username</li>
 <li>click on the &ldquo;+&rdquo; button on the right top and choose &ldquo;add application&rdquo;</li>
@@ -378,15 +364,12 @@ build:
 <li>choose the recommended option (next)</li>
 <li>you could choose to make the results publicly available and &ldquo;create&rdquo;</li>
 </ul>
-
 <p>After creation, one can under &ldquo;options&rdquo;:</p>
-
 <ul>
 <li>pick a color for the package (useful when adding more than one package)</li>
 <li>read information on Webhook (ensures communication between github, Wercker and other services)</li>
 <li>status badge: markdown-code that allows you to add Wercker-results to your own code (e.g. copy this link to the README-file)</li>
 </ul>
-
 <p>Hitting the avatar on the top right and choosing &ldquo;Settings&rdquo; allows to adjust if and when to receive email notifications.</p>
 </div>
 
@@ -443,7 +426,7 @@ build:
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 </div>
 
         </div>

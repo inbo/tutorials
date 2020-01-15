@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Administrator installation notes on INBO Tutorials</title>
@@ -49,9 +49,8 @@ Bij een upgrade dient eerst de vorige versie te worden verwijderd.
       <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</guid>
-      <description> Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
-Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster
-wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb   </description>
+      <description>Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
+Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster  wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb </description>
     </item>
     
     <item>
@@ -60,7 +59,7 @@ wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.de
       <pubDate>Wed, 18 Oct 2017 00:25:57 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/
+      <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/&amp;lt;/a&amp;gt;
 In de onderstaande tekst moet je in R-3.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-3.0.0 is x = 0 en y = 0.
 Nieuwe installatie van R  Voer het bestand R-3.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>

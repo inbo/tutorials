@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>r on INBO Tutorials</title>
@@ -18,7 +18,7 @@
       
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&amp;rsquo;s code repository.</description>
+Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&#39;s code repository.</description>
     </item>
     
     <item>
@@ -29,7 +29,7 @@ Please, feel invited to try out packages! If you encounter a problem or if you h
       <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
-remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutilslibrary(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
+remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
     </item>
     
     <item>
@@ -60,7 +60,7 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_beginners/</guid>
       <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
- Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
+ Rstudio kunnen gebruiken (Les 1a) Commando&#39;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
     </item>
     
     <item>
@@ -90,7 +90,7 @@ Creating sections manually To create a header of a section, different methods ca
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</guid>
       <description>Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let&amp;rsquo;s create a dumy data.frame to play around, i.e. the three locations of INBO:
+library(leaflet) library(sp) Dummy data Let&#39;s create a dumy data.frame to play around, i.e. the three locations of INBO:
 names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
 plot(data$lon, data$lat) Creating a map We need to convert the data.frame to a SpatialPointsDataFrame:
 crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- SpatialPointsDataFrame(data[c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;)], data[!(names(data) %in% c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;))], proj4string = crs_wgs84) The leaflet package is ideal to create a basic interactive map:</description>
@@ -121,7 +121,7 @@ head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6
       <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
-      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&amp;rsquo;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
+      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&#39;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
 library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
     </item>
     

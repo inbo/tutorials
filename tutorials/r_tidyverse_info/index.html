@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='tidyverse'><meta property='article:tag' content='r'><meta property='article:published_time' content='2018-02-09T14:14:49&#43;01:00'/><meta property='article:modified_time' content='2018-02-09T14:14:49&#43;01:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.0-DEV" />
+<meta name="generator" content="Hugo 0.62.0" />
 
   <title>Data wrangling with tidyverse • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_tidyverse_info/'>
@@ -308,24 +308,20 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'>
-
-<p>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the <a href="https://www.tidyverse.org" target="_blank"><code>tidyverse</code></a> collection of packages. The command <code>library(tidyverse)</code> will actually load the following packages: <code>ggplot2</code>, <code>dplyr</code>, <code>tidyr</code>, <code>readr</code>, <code>purrr</code>, <code>tibble</code>, <code>stringr</code> and <code>forecats</code>.</p>
-
+  <div class='container entry-content'><p>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the <a href="https://www.tidyverse.org"><code>tidyverse</code></a> collection of packages. The command <code>library(tidyverse)</code> will actually load the following packages: <code>ggplot2</code>, <code>dplyr</code>, <code>tidyr</code>, <code>readr</code>, <code>purrr</code>, <code>tibble</code>, <code>stringr</code> and <code>forecats</code>.</p>
 <h2 id="where-to-find-good-information-on-these-packages">Where to find good information on these packages:<a href="#where-to-find-good-information-on-these-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
 <ul>
-<li>official <a href="https://www.tidyverse.org/" target="_blank">tidyverse</a> website</li>
-<li>the R for data science book (<a href="http://r4ds.had.co.nz/" target="_blank">R4DS</a>) by Garrett Grolemund
+<li>official <a href="https://www.tidyverse.org/">tidyverse</a> website</li>
+<li>the R for data science book (<a href="http://r4ds.had.co.nz/">R4DS</a>) by Garrett Grolemund
 and Hadley Wickham. Note that this book is freely available online. A printed version is available at the INBO library.</li>
 <li>video tutorials:
-
 <ul>
-<li><a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/" target="_blank">Data wrangling with R and RStudio</a>: a good introduction on <code>dplyr</code> and <code>tidyr</code> by Garrett Grolemund</li>
-<li><code>dplyr</code> tutorial at <a href="https://www.r-project.org/nosvn/conferences/useR-2014/" target="_blank">useR!2014</a> by Hadley Wickham (video <a href="https://www.youtube.com/watch?v=8SGif63VW6E" target="_blank">part 1</a> and <a href="https://www.youtube.com/watch?v=Ue08LVuk790" target="_blank">part 2</a>)</li>
-<li><a href="https://www.rstudio.com/resources/webinars/tidyverse-visualization-and-manipulation-basics/" target="_blank">tidyverse, visualization, and manipulation basics</a>: a high-level overview of <code>tidyverse</code> by Garrett Grolemund</li>
-</ul></li>
-<li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf" target="_blank">Data Transformation Cheat Sheet</a>: a two page document which covers the most important function for <code>dplyr</code></li>
+<li><a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">Data wrangling with R and RStudio</a>: a good introduction on <code>dplyr</code> and <code>tidyr</code> by Garrett Grolemund</li>
+<li><code>dplyr</code> tutorial at <a href="https://www.r-project.org/nosvn/conferences/useR-2014/">useR!2014</a> by Hadley Wickham (video <a href="https://www.youtube.com/watch?v=8SGif63VW6E">part 1</a> and <a href="https://www.youtube.com/watch?v=Ue08LVuk790">part 2</a>)</li>
+<li><a href="https://www.rstudio.com/resources/webinars/tidyverse-visualization-and-manipulation-basics/">tidyverse, visualization, and manipulation basics</a>: a high-level overview of <code>tidyverse</code> by Garrett Grolemund</li>
+</ul>
+</li>
+<li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">Data Transformation Cheat Sheet</a>: a two page document which covers the most important function for <code>dplyr</code></li>
 </ul>
 </div>
 
@@ -382,7 +378,7 @@ and Hadley Wickham. Note that this book is freely available online. A printed ve
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 </div>
 
         </div>

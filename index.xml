@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on INBO Tutorials</title>
@@ -18,7 +18,7 @@
       
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&amp;rsquo;s code repository.</description>
+Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package&#39;s code repository.</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@ Please, feel invited to try out packages! If you encounter a problem or if you h
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
-      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&amp;rsquo;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
+      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&#39;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
     </item>
     
     <item>
@@ -36,7 +36,7 @@ Please, feel invited to try out packages! If you encounter a problem or if you h
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/articles/computing/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&amp;rsquo;s users.
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&#39;s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Overviews  Wilson et al. (2017): set of good computing practices that every researcher can adopt British Ecological Society (2014): planning the data life cycle; creating, processing, documenting, preserving, sharing &amp;amp; reusing data Cooper &amp;amp; Hsing (2017): file organisation, workflow documentation, code reproducibility and readability, writing reproducible reports, version control and code archiving Ibanez et al.</description>
     </item>
@@ -47,7 +47,7 @@ Overviews  Wilson et al. (2017): set of good computing practices that every rese
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/articles/skills/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&amp;rsquo;s users.
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&#39;s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
     </item>
@@ -58,7 +58,7 @@ These resources focus on the learning and teaching aspect, while they often also
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/articles/communicating/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&amp;rsquo;s users.
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&#39;s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
     </item>
@@ -69,7 +69,7 @@ Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a sc
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/articles/open_science/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&amp;rsquo;s users.
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&#39;s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the discipline as a whole, its perception, principles ,etc., while they often also give an overview of scientific computing workflows.</description>
     </item>
@@ -93,7 +93,7 @@ Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorial
       <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
-remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutilslibrary(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
+remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
     </item>
     
     <item>
@@ -124,7 +124,7 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_beginners/</guid>
       <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
- Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
+ Rstudio kunnen gebruiken (Les 1a) Commando&#39;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
     </item>
     
     <item>
@@ -175,7 +175,7 @@ Creating sections manually To create a header of a section, different methods ca
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</guid>
       <description>Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let&amp;rsquo;s create a dumy data.frame to play around, i.e. the three locations of INBO:
+library(leaflet) library(sp) Dummy data Let&#39;s create a dumy data.frame to play around, i.e. the three locations of INBO:
 names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
 plot(data$lon, data$lat) Creating a map We need to convert the data.frame to a SpatialPointsDataFrame:
 crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- SpatialPointsDataFrame(data[c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;)], data[!(names(data) %in% c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;))], proj4string = crs_wgs84) The leaflet package is ideal to create a basic interactive map:</description>
@@ -198,7 +198,7 @@ head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6
       
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
-The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
+The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination with RStudio projects or Git projects. We&#39;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>
     
     <item>
@@ -227,7 +227,7 @@ The Wercker test environment can only be set up if the file wercker.yml is commi
       <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
-      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&amp;rsquo;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
+      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&#39;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
 library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
     </item>
     
@@ -259,7 +259,7 @@ wms_ortho contains a mosaic of recent orthophotos made during the winter. The la
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
       <description>Introduction (shamelessly taken from wikipedia)
 Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
-Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
     </item>
     
     <item>
@@ -268,9 +268,9 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
       <pubDate>Wed, 18 Oct 2017 16:02:35 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
-      <description> Naming  Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
-https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use dash (-) to separate words in repository, directory, and file names. Don&amp;rsquo;t use underscores.
-.../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql   READMEs </description>
+      <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
+ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in repository, directory, and file names. Don&#39;t use underscores.
+ .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    READMEs </description>
     </item>
     
     <item>
@@ -288,7 +288,7 @@ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd  Use das
       <pubDate>Wed, 18 Oct 2017 15:43:44 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_rstudio/</guid>
-      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/Program Files/R/R-3.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never  In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken  Subtab Saving  Default text encoding: UTF-8  Subtab Diagnostics  Alles aanvinken   In het tabblad Appearance  Stel in naar eigen smaak  In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio  In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex  Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
+      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/Program Files/R/R-3.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never   In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken   Subtab Saving  Default text encoding: UTF-8   Subtab Diagnostics  Alles aanvinken     In het tabblad Appearance  Stel in naar eigen smaak   In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio   In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex   Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
     </item>
     
     <item>
@@ -310,8 +310,8 @@ Windows  Zorg dat de computer verbonden is met het internet. Zorg dat er geen en
       <guid>https://inbo.github.io/tutorials/tutorials/git_undo_commit/</guid>
       <description>Introduction You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
 First, check your history of commits to see which commits are the faulty ones.
-git log --oneline  Example output
-b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make some important changes to hello.py 435b61d Create hello.py 9773e52 Initial import  Git checkout The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches.</description>
+git log --oneline Example output
+b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make some important changes to hello.py 435b61d Create hello.py 9773e52 Initial import Git checkout The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches.</description>
     </item>
     
     <item>
@@ -323,9 +323,9 @@ b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make som
       <description>When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.
 One can commit changes, branch off, revert and reset changes, the same as when there exists an internet connection.
 Example workflow: start offline mode
-while(notBored): commit changes add files branch off new features  end offline mode
+while(notBored): commit changes add files branch off new features end offline mode
 update master branch
-git fetch origin  push changes to the server</description>
+git fetch origin push changes to the server</description>
     </item>
     
     <item>
@@ -334,11 +334,11 @@ git fetch origin  push changes to the server</description>
       <pubDate>Wed, 18 Oct 2017 14:42:43 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/git_workflow/</guid>
-      <description>BEFORE I START WORKING  STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
-git fetch origin git checkout master git merge --ff-only origin/master  STEP 2: Choose your option:
- OPTION 2A: I already have a branch I want to continue working on:
+      <description>BEFORE I START WORKING   STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
+git fetch origin git checkout master git merge --ff-only origin/master   STEP 2: Choose your option:
+  OPTION 2A: I already have a branch I want to continue working on:
 Switch to existing topic branch:
-git checkout name_existing_branch git fetch origin git rebase origin/master  OPTION 2B: I&amp;rsquo;ll make a new branch to work with: Create a new topic branch from master(!</description>
+git checkout name_existing_branch git fetch origin git rebase origin/master   OPTION 2B: I&#39;ll make a new branch to work with: Create a new topic branch from master(!</description>
     </item>
     
     <item>
@@ -349,8 +349,8 @@ git checkout name_existing_branch git fetch origin git rebase origin/master  OPT
       <guid>https://inbo.github.io/tutorials/tutorials/git_conflict/</guid>
       <description>Fix merge conflict with a pull request You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
 Locally on your computer:
-git fetch origin  Rebase your feature branch with your master
-git rebase origin/master  Git will now state that there are merge conflicts.</description>
+git fetch origin Rebase your feature branch with your master
+git rebase origin/master Git will now state that there are merge conflicts. These will look like this:</description>
     </item>
     
     <item>
@@ -391,9 +391,8 @@ Bij een upgrade dient eerst de vorige versie te worden verwijderd.
       <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</guid>
-      <description> Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
-Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster
-wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb   </description>
+      <description>Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
+Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster  wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb </description>
     </item>
     
     <item>
@@ -402,7 +401,7 @@ wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.de
       <pubDate>Wed, 18 Oct 2017 00:25:57 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/
+      <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/&amp;lt;/a&amp;gt;
 In de onderstaande tekst moet je in R-3.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-3.0.0 is x = 0 en y = 0.
 Nieuwe installatie van R  Voer het bestand R-3.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>

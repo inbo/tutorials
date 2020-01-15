@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>pandoc on INBO Tutorials</title>
@@ -17,9 +17,8 @@
       <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</guid>
-      <description> Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
-Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster
-wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb   </description>
+      <description>Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
+Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster  wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb </description>
     </item>
     
   </channel>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>google on INBO Tutorials</title>
@@ -18,7 +18,7 @@
       
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
-The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
+The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination with RStudio projects or Git projects. We&#39;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>
     
     <item>

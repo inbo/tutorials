@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='database'><meta property='article:tag' content='r'><meta property='article:tag' content='data'><meta property='article:published_time' content='2017-02-03T00:00:00Z'/><meta property='article:modified_time' content='2017-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.0-DEV" />
+<meta name="generator" content="Hugo 0.62.0" />
 
   <title>Read data from INBO databases (SQL Server) with R • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_database_access/'>
@@ -308,75 +308,52 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'>
-
-<h2 id="connection-to-inbo-database">Connection to INBO database<a href="#connection-to-inbo-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
+  <div class='container entry-content'><h2 id="connection-to-inbo-database">Connection to INBO database<a href="#connection-to-inbo-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (<code>install.packages(c(&quot;DBI&quot;, &quot;glue&quot;, &quot;tidyverse&quot;))</code>), the packages can be loaded:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(DBI)
 <span style="color:#0a0">library</span>(glue)
-<span style="color:#0a0">library</span>(tidyverse)</code></pre></div>
-<p>To create a database connection, different approaches are available as explained in the next section:</p>
-
+<span style="color:#0a0">library</span>(tidyverse)
+</code></pre></div><p>To create a database connection, different approaches are available as explained in the next section:</p>
 <ol>
 <li>Use the dedicated <code>connect_inbo_dbase</code> function in the inborutils package</li>
 <li>Setup the required parameters yourself</li>
 <li>Reuse existing registered connections on your computer</li>
 </ol>
-
 <h3 id="inborutils-function">Inborutils function<a href="#inborutils-function" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
-<p>To support the connection to INBO databases, a dedicated function is available in the <a href="https://inbo.github.io/inborutils/index.html" target="_blank">inborutils package</a>, called <code>connect_inbo_dbase</code>. The function provides support to connect to INBO databases and uses the <em>Connections pane</em> in the Rstudio interface:</p>
-
-<p><img src="./database-R/connections_pane.png" alt="odbc-connecties" /></p>
-
-<p>To use the <code>connect_inbo_dbase</code> function, make sure to install the <code>inborutils</code> package, following the <a href="https://inbo.github.io/inborutils/#installation" target="_blank">installation instructions</a>. After a successfull installation, load the library and create a database connection:</p>
+<p>To support the connection to INBO databases, a dedicated function is available in the <a href="https://inbo.github.io/inborutils/index.html">inborutils package</a>, called <code>connect_inbo_dbase</code>. The function provides support to connect to INBO databases and uses the <em>Connections pane</em> in the Rstudio interface:</p>
+<p><img src="./database-R/connections_pane.png" alt="odbc-connecties"></p>
+<p>To use the <code>connect_inbo_dbase</code> function, make sure to install the <code>inborutils</code> package, following the <a href="https://inbo.github.io/inborutils/#installation">installation instructions</a>. After a successfull installation, load the library and create a database connection:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inborutils)
-my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>)</code></pre></div>
-<p>Once the connection is successfully established, the database can be queried.</p>
-
-<p><strong>Remark for Linux users</strong>: When working in Linux, this setup (using <code>Trusted connection</code>) requires an active <em>kerberos</em> session. More information about the setup and functionality is to be found in the <a href="https://inbo.github.io/tutorials/installation/user/user_install_kerberos/" target="_blank">tutorial on kerberos installation</a>.</p>
-
+my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">D0021_00_userFlora&#34;</span>)
+</code></pre></div><p>Once the connection is successfully established, the database can be queried.</p>
+<p><strong>Remark for Linux users</strong>: When working in Linux, this setup (using <code>Trusted connection</code>) requires an active <em>kerberos</em> session. More information about the setup and functionality is to be found in the <a href="https://inbo.github.io/tutorials/installation/user/user_install_kerberos/">tutorial on kerberos installation</a>.</p>
 <h3 id="setting-up-the-connection-yourself">Setting up the connection yourself<a href="#setting-up-the-connection-yourself" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
 <p>In case you want to setup the connection yourself (e.g. errors using inborutils), you can do so by providing the necessary parameters:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(odbc::<span style="color:#0a0">odbc</span>(),
-      driver = <span style="color:#a50">&#34;SQL Server&#34;</span>,
-      server = <span style="color:#a50">&#34;inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
+      driver = <span style="color:#a50">&#34;</span><span style="color:#a50">SQL Server&#34;</span>,
+      server = <span style="color:#a50">&#34;</span><span style="color:#a50">inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
       port = <span style="color:#099">1433</span>,
-      database = <span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>, <span style="color:#aaa;font-style:italic"># or your database of interest</span>
-      trusted_connection = <span style="color:#a50">&#34;Yes&#34;</span>)</code></pre></div>
-<p>The most important parameters are <code>server</code> and <code>database</code>, the others should normally be kept as such. For the first one, remember that database names starting with <code>M</code>, <code>S</code> or <code>W</code> can be accessed using the <code>inbo-sql08-prd.inbo.be</code> server and others (mostly with <code>D</code>) use the <code>inbo-sql07-prd.inbo.be</code> server. The database name is the name of the database (if you can&rsquo;t remember the name, connect with a database you do know, e.g. <em>D0021_00_userFlora</em> and you&rsquo;ll see an overview of the existing databases on that server after connecting.)</p>
-
+      database = <span style="color:#a50">&#34;</span><span style="color:#a50">D0021_00_userFlora&#34;</span>, <span style="color:#aaa;font-style:italic"># or your database of interest</span>
+      trusted_connection = <span style="color:#a50">&#34;</span><span style="color:#a50">Yes&#34;</span>)
+</code></pre></div><p>The most important parameters are <code>server</code> and <code>database</code>, the others should normally be kept as such. For the first one, remember that database names starting with <code>M</code>, <code>S</code> or <code>W</code> can be accessed using the <code>inbo-sql08-prd.inbo.be</code> server and others (mostly with <code>D</code>) use the <code>inbo-sql07-prd.inbo.be</code> server. The database name is the name of the database (if you can't remember the name, connect with a database you do know, e.g. <em>D0021_00_userFlora</em> and you'll see an overview of the existing databases on that server after connecting.)</p>
 <h3 id="use-existing-msaccess-connection-name">Use existing MSAccess connection name<a href="#use-existing-msaccess-connection-name" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
-<p>When you query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R. For Windows users, the most important element is to know the so-called <code>DSN</code> (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the <code>DSN</code> is to check the <a href="http://www.stata.com/support/faqs/data-management/configuring-odbc-win/" target="_blank"><em>registered ODBC connections</em></a> in the administrator tools menu.</p>
-
+<p>When you query data from a SQL database that is already accessible using MSAccess, such a database is also accessible from R. For Windows users, the most important element is to know the so-called <code>DSN</code> (i.e. a registered Data Source Name). Actually, it is just the name of the database as it is known by your computer (and MS Access). The easiest way to check the <code>DSN</code> is to check the <a href="http://www.stata.com/support/faqs/data-management/configuring-odbc-win/"><em>registered ODBC connections</em></a> in the administrator tools menu.</p>
 <p>For Dutch-speaking Windows 7 users:</p>
-
 <pre><code>&gt; Kies in het Configuratiescherm van Windows de optie Systeembeheer &gt; Gegevensbronnen (ODBC). De optie Systeembeheer verschijnt in de categorie Systeem en onderhoud.
 </code></pre>
-
 <p>You should see a list similar to the list underneath, with the names of the available DSN names enlisted:</p>
-
-<p><img src="./database-R/odbc_gegevensbron.png" alt="odbc-connecties" /></p>
-
+<p><img src="./database-R/odbc_gegevensbron.png" alt="odbc-connecties"></p>
 <p>An alternative way to check the DSN name of a database already working on with Access, is to check the DSN inside MS Access (in dutch, check menu item <em>Koppelingsbeheer</em>):</p>
-
-<p><img src="./database-R/access_dsn.png" alt="access-dsn" /></p>
-
+<p><img src="./database-R/access_dsn.png" alt="access-dsn"></p>
 <p>For example, the DSN name <code>UserFlora</code> or <code>Cydonia-prd</code> can be used to query these databases and extract data from it with similar queries to the one used in MSAccess. First of all, the connection with the database need to be established, by using the <code>odbcConnect</code> function, providing the DSN name as argument:</p>
-
 <p>For Windows users:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- <span style="color:#0a0">odbcConnect</span>(<span style="color:#a50">&#34;UserFlora&#34;</span>)</code></pre></div>
-<p>Once the connection is successfully established, the database can be queried.</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- <span style="color:#0a0">odbcConnect</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">UserFlora&#34;</span>)
+</code></pre></div><p>Once the connection is successfully established, the database can be queried.</p>
 <h2 id="get-a-complete-table-from-the-database">Get a complete table from the database<a href="#get-a-complete-table-from-the-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
 <p>The function <code>dbReadTable</code> can be used to load an entire table from a database. For example, to extract the <code>tblTaxon</code> table from the flora database:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rel_taxa &lt;- <span style="color:#0a0">dbReadTable</span>(my_connection, <span style="color:#a50">&#34;relTaxonTaxonGroep&#34;</span>)
-<span style="color:#0a0">head</span>(rel_taxa) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
-<table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rel_taxa &lt;- <span style="color:#0a0">dbReadTable</span>(my_connection, <span style="color:#a50">&#34;</span><span style="color:#a50">relTaxonTaxonGroep&#34;</span>)
+<span style="color:#0a0">head</span>(rel_taxa) %&gt;% knitr::<span style="color:#0a0">kable</span>()
+</code></pre></div><table>
 <thead>
 <tr>
 <th align="right">ID</th>
@@ -384,38 +361,32 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <th align="right">TaxonID</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="right">1</td>
 <td align="right">4</td>
 <td align="right">1</td>
 </tr>
-
 <tr>
 <td align="right">2</td>
 <td align="right">4</td>
 <td align="right">2</td>
 </tr>
-
 <tr>
 <td align="right">3</td>
 <td align="right">4</td>
 <td align="right">3</td>
 </tr>
-
 <tr>
 <td align="right">4</td>
 <td align="right">4</td>
 <td align="right">4</td>
 </tr>
-
 <tr>
 <td align="right">5</td>
 <td align="right">4</td>
 <td align="right">5</td>
 </tr>
-
 <tr>
 <td align="right">6</td>
 <td align="right">4</td>
@@ -423,18 +394,14 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </tr>
 </tbody>
 </table>
-
 <p>The connection <code>my_connection</code>, made earlier, is used as the first argument. The table name is the second argument.</p>
-
-<p><strong>Remark:</strong> If you have no idea about the size of the table you&rsquo;re trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.</p>
-
+<p><strong>Remark:</strong> If you have no idea about the size of the table you're trying to load from the database, this could be rather tricky and cumbersome. Hence, it is probably better to only extract a portion of the table using a query.</p>
 <h2 id="execute-a-query-to-the-database">Execute a query to the database<a href="#execute-a-query-to-the-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
 <p>The function <code>dbGetQuery</code> provides more flexibilty as it can be used to try any SQL-query on the database. A complete introduction to the SQL language is out of scope here. We will focus on the application and the reusage of a query.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;SELECT TOP 10 * FROM dbo.tblMeting&#34;</span>, 
-                                          <span style="color:#a50">&#34;WHERE COR_X IS NOT NULL&#34;</span>))
-<span style="color:#0a0">head</span>(meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
-<table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">SELECT TOP 10 * FROM dbo.tblMeting&#34;</span>, 
+                                          <span style="color:#a50">&#34;</span><span style="color:#a50">WHERE COR_X IS NOT NULL&#34;</span>))
+<span style="color:#0a0">head</span>(meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()
+</code></pre></div><table>
 <thead>
 <tr>
 <th align="right">ID</th>
@@ -451,7 +418,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <th align="left">UPDATE_USER</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="right">2</td>
@@ -467,7 +433,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-
 <tr>
 <td align="right">14</td>
 <td align="right">45523</td>
@@ -482,7 +447,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-
 <tr>
 <td align="right">15</td>
 <td align="right">124394</td>
@@ -497,7 +461,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-
 <tr>
 <td align="right">23</td>
 <td align="right">38561</td>
@@ -512,7 +475,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-
 <tr>
 <td align="right">24</td>
 <td align="right">126500</td>
@@ -527,7 +489,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">NA</td>
 <td align="left">NA</td>
 </tr>
-
 <tr>
 <td align="right">173</td>
 <td align="right">73725</td>
@@ -544,14 +505,11 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </tr>
 </tbody>
 </table>
-
 <h2 id="create-and-use-query-templates">Create and use query templates<a href="#create-and-use-query-templates" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
-<p>When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the entire query. It is prone to errors and you&rsquo;re script will become verbose. It is advisable to create query <em>templates</em>, that can be used within the <code>dbGetQuery</code> function.</p>
-
+<p>When you regularly use similar queries, with some minimal alterations, you do not want to copy/paste each time the entire query. It is prone to errors and you're script will become verbose. It is advisable to create query <em>templates</em>, that can be used within the <code>dbGetQuery</code> function.</p>
 <p>Consider the execution of the following query. We are interested in those records with valid X and Y coordinates for the measurement, based on a given dutch name:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subset_meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, 
-    <span style="color:#a50">&#34;SELECT meet.COR_X
+    <span style="color:#a50">&#34;</span><span style="color:#a50">SELECT meet.COR_X
 </span><span style="color:#a50">         , meet.Cor_Y
 </span><span style="color:#a50">         , meet.MetingStatusCode
 </span><span style="color:#a50">         , tax.NaamNederlands
@@ -563,8 +521,8 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </span><span style="color:#a50">    WHERE meet.Cor_X IS NOT NULL
 </span><span style="color:#a50">        AND meet.Cor_X != 0
 </span><span style="color:#a50">        AND tax.NaamNederlands LIKE &#39;Wilde hyacint&#39;&#34;</span>)
-<span style="color:#0a0">head</span>(subset_meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
-<table>
+<span style="color:#0a0">head</span>(subset_meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()
+</code></pre></div><table>
 <thead>
 <tr>
 <th align="right">COR_X</th>
@@ -575,7 +533,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <th align="right">IFBLHokID</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="right">88720</td>
@@ -585,7 +542,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">11195</td>
 </tr>
-
 <tr>
 <td align="right">103111</td>
 <td align="right">190915</td>
@@ -594,7 +550,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">6990</td>
 </tr>
-
 <tr>
 <td align="right">24106</td>
 <td align="right">199925</td>
@@ -603,7 +558,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">9601</td>
 </tr>
-
 <tr>
 <td align="right">77618</td>
 <td align="right">175718</td>
@@ -612,7 +566,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">4043</td>
 </tr>
-
 <tr>
 <td align="right">68959</td>
 <td align="right">173070</td>
@@ -621,7 +574,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">3197</td>
 </tr>
-
 <tr>
 <td align="right">105765</td>
 <td align="right">180785</td>
@@ -632,11 +584,10 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </tr>
 </tbody>
 </table>
-
-<p>If we need this query regularly, but each time using a different <code>tax.NaamNederlands</code> (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let&rsquo;s create a function <code>flora_records_on_dutch_name</code> that takes a valid database connection and a given Dutch name and returns the relevant subset of the data for this query:</p>
+<p>If we need this query regularly, but each time using a different <code>tax.NaamNederlands</code> (only the name changes), it is worthwhile to invest some time in the creation of a small custom function that uses this query as a template. Let's create a function <code>flora_records_on_dutch_name</code> that takes a valid database connection and a given Dutch name and returns the relevant subset of the data for this query:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">flora_records_on_dutch_name &lt;- <span style="color:#0a0">function</span>(dbase_connection, dutch_name) {
      <span style="color:#0a0">dbGetQuery</span>(dbase_connection, <span style="color:#0a0">glue_sql</span>(
-            <span style="color:#a50">&#34;SELECT meet.Cor_X
+            <span style="color:#a50">&#34;</span><span style="color:#a50">SELECT meet.Cor_X
 </span><span style="color:#a50">                 , meet.COr_Y
 </span><span style="color:#a50">                 , meet.MetingStatusCode
 </span><span style="color:#a50">                 , tax.NaamNederlands
@@ -650,11 +601,11 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </span><span style="color:#a50">                AND tax.NaamNederlands LIKE {dutch_name}&#34;</span>,
             dutch_name = dutch_name,
             .con = dbase_connection))
-}</code></pre></div>
-<p>Hence, instead of copy-pasting the whole query each time (which could be error-prone), we can reuse the function for different names:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">hyacint &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;Wilde hyacint&#34;</span>)
-<span style="color:#0a0">head</span>(hyacint) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
-<table>
+}
+</code></pre></div><p>Hence, instead of copy-pasting the whole query each time (which could be error-prone), we can reuse the function for different names:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">hyacint &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;</span><span style="color:#a50">Wilde hyacint&#34;</span>)
+<span style="color:#0a0">head</span>(hyacint) %&gt;% knitr::<span style="color:#0a0">kable</span>()
+</code></pre></div><table>
 <thead>
 <tr>
 <th align="right">Cor_X</th>
@@ -665,7 +616,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <th align="right">IFBLHokID</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="right">24106</td>
@@ -675,7 +625,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">9601</td>
 </tr>
-
 <tr>
 <td align="right">103111</td>
 <td align="right">190915</td>
@@ -684,7 +633,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">6990</td>
 </tr>
-
 <tr>
 <td align="right">88720</td>
 <td align="right">208327</td>
@@ -693,7 +641,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">11195</td>
 </tr>
-
 <tr>
 <td align="right">68959</td>
 <td align="right">173070</td>
@@ -702,7 +649,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">3197</td>
 </tr>
-
 <tr>
 <td align="right">118123</td>
 <td align="right">183942</td>
@@ -711,7 +657,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
 <td align="right">5672</td>
 </tr>
-
 <tr>
 <td align="right">106107</td>
 <td align="right">182343</td>
@@ -722,9 +667,9 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bosanemoon &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;Bosanemoon&#34;</span>)
-<span style="color:#0a0">head</span>(bosanemoon) %&gt;% knitr::<span style="color:#0a0">kable</span>()</code></pre></div>
-<table>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bosanemoon &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;</span><span style="color:#a50">Bosanemoon&#34;</span>)
+<span style="color:#0a0">head</span>(bosanemoon) %&gt;% knitr::<span style="color:#0a0">kable</span>()
+</code></pre></div><table>
 <thead>
 <tr>
 <th align="right">Cor_X</th>
@@ -735,7 +680,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <th align="right">IFBLHokID</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="right">72921</td>
@@ -745,7 +689,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Anemone nemorosa L.</td>
 <td align="right">8824</td>
 </tr>
-
 <tr>
 <td align="right">72874</td>
 <td align="right">198735</td>
@@ -754,7 +697,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Anemone nemorosa L.</td>
 <td align="right">8824</td>
 </tr>
-
 <tr>
 <td align="right">72887</td>
 <td align="right">198660</td>
@@ -763,7 +705,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Anemone nemorosa L.</td>
 <td align="right">8824</td>
 </tr>
-
 <tr>
 <td align="right">72451</td>
 <td align="right">199639</td>
@@ -772,7 +713,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Anemone nemorosa L.</td>
 <td align="right">9423</td>
 </tr>
-
 <tr>
 <td align="right">196274</td>
 <td align="right">178260</td>
@@ -781,7 +721,6 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 <td align="left">Anemone nemorosa L.</td>
 <td align="right">4219</td>
 </tr>
-
 <tr>
 <td align="right">118355</td>
 <td align="right">185697</td>
@@ -792,22 +731,18 @@ my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span sty
 </tr>
 </tbody>
 </table>
-
 <p><strong>Remark:</strong> Do not forget to close your connection when finished.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">dbDisconnect</span>(my_connection)</code></pre></div>
-<h2 id="the-glue-sql-function">The <code>glue_sql</code> function<a href="#the-glue-sql-function" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
-<p>In order to accomplish the re-usage of a query for different input names (<code>dutch_name</code>), the <code>glue_sql</code> function is used from the <a href="https://glue.tidyverse.org/reference/glue_sql.html" target="_blank">glue package</a>. The <code>glue_sql</code> function (and the more general <code>glue</code> function) provides the ability to combine text and variable values in a single charactor string (i.e. the query to execute). For each variable name required in the query (any part of your query you want to have interchangeable), a representation in the query is given by the variable name you use in R, put in between curly brackets. For example, if you have the <code>dutch_name</code> variable in R, you can use it inside the query as <code>{dutch_name}</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dutch_name &lt;- <span style="color:#a50">&#39;Jan&#39;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">dbDisconnect</span>(my_connection)
+</code></pre></div><h2 id="the-glue-sql-function">The <code>glue_sql</code> function<a href="#the-glue-sql-function" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>In order to accomplish the re-usage of a query for different input names (<code>dutch_name</code>), the <code>glue_sql</code> function is used from the <a href="https://glue.tidyverse.org/reference/glue_sql.html">glue package</a>. The <code>glue_sql</code> function (and the more general <code>glue</code> function) provides the ability to combine text and variable values in a single charactor string (i.e. the query to execute). For each variable name required in the query (any part of your query you want to have interchangeable), a representation in the query is given by the variable name you use in R, put in between curly brackets. For example, if you have the <code>dutch_name</code> variable in R, you can use it inside the query as <code>{dutch_name}</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dutch_name &lt;- <span style="color:#a50">&#39;</span><span style="color:#a50">Jan&#39;</span>
 an_integer &lt;- <span style="color:#099">3</span>
 a_float &lt;- <span style="color:#099">2.8</span>
-<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}&#39;</span>)</code></pre></div>
-<pre><code>## This prints a combination of a name: Jan, an integer: 3 and a float value: 2.8
+<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;</span><span style="color:#a50">This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}&#39;</span>)
+</code></pre></div><pre><code>## This prints a combination of a name: Jan, an integer: 3 and a float value: 2.8
 </code></pre>
-
-<p>Whereas the <code>glue</code> function is a general function for strings, the <code>glue_sql</code> function is specifically created to setup queries to databases. More information is provided <a href="https://db.rstudio.com/best-practices/run-queries-safely/#using-glue_sql" target="_blank">here</a> and <a href="https://glue.tidyverse.org/reference/glue_sql.html" target="_blank">here</a>.</p>
-
-<p>[1] Formerly, connections were made using the package <a href="https://cran.r-project.org/web/packages/RODBC/index.html" target="_blank">RODBC</a></p>
+<p>Whereas the <code>glue</code> function is a general function for strings, the <code>glue_sql</code> function is specifically created to setup queries to databases. More information is provided <a href="https://db.rstudio.com/best-practices/run-queries-safely/#using-glue_sql">here</a> and <a href="https://glue.tidyverse.org/reference/glue_sql.html">here</a>.</p>
+<p>[1] Formerly, connections were made using the package <a href="https://cran.r-project.org/web/packages/RODBC/index.html">RODBC</a></p>
 </div>
 
   
@@ -863,7 +798,7 @@ a_float &lt;- <span style="color:#099">2.8</span>
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 </div>
 
         </div>

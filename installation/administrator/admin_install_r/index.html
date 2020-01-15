@@ -11,7 +11,7 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='r'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2017-10-18T00:25:57&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T00:25:57&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.58.0-DEV" />
+<meta name="generator" content="Hugo 0.62.0" />
 
   <title>Install R • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/installation/administrator/admin_install_r/'>
@@ -309,19 +309,13 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'>
-
-<h2 id="windows">Windows<a href="#windows" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
+  <div class='container entry-content'><h2 id="windows">Windows<a href="#windows" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Installatiebestand beschikbaar via
-<a href="https://cloud.r-project.org/bin/windows/base/" class="uri"><a href="https://cloud.r-project.org/bin/windows/base/" target="_blank">https://cloud.r-project.org/bin/windows/base/</a></a></p>
-
+<!-- raw HTML omitted --><a href="https://cloud.r-project.org/bin/windows/base/%3C/a%3E">https://cloud.r-project.org/bin/windows/base/&lt;/a&gt;</a></p>
 <p>In de onderstaande tekst moet je in <code>R-3.x.y</code> zowel <code>x</code> als <code>y</code>
 vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus
 voor versie <code>R-3.0.0</code> is <code>x</code> = 0 en <code>y</code> = 0.</p>
-
 <h3 id="nieuwe-installatie-van-r">Nieuwe installatie van R<a href="#nieuwe-installatie-van-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
 <ol>
 <li>Voer het bestand <em>R-3.x.y-win.exe</em> uit.</li>
 <li>Kies <em>Nederlands</em> als taal voor de installatie en klik op <em>OK</em>.</li>
@@ -344,42 +338,35 @@ tabblad <code>Geavanceerd</code> en klik op de knop <code>Omgevingsvariabelen</c
 na of er een systeemvariabele <code>R_LIBS_USER</code> met waarde
 <code>C:/R/library</code> bestaat[1]. Indien niet, maak deze aan met de knop
 <code>Nieuw</code>. Sluit al deze schermen via de <code>OK</code> knop.</li>
-<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in
+<li>Kopieer het bestand <a href="Rprofile.site"><code>Rprofile.site</code></a> naar <code>etc</code> in
 de doelmap waar je R geïnstalleerd hebt
 (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand
 overschrijven.</li>
 <li>Zorg dat de gebruiker schrijfrechten heeft voor
 <code>C:\Program Files\R\R-3.x.y\library</code> en <code>C:\R\library</code></li>
 </ol>
-
-<h4 id="afwijkingen-t-o-v-default-installatie">Afwijkingen t.o.v. default installatie<a href="#afwijkingen-t-o-v-default-installatie" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-
+<h4 id="afwijkingen-tov-default-installatie">Afwijkingen t.o.v. default installatie<a href="#afwijkingen-tov-default-installatie" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <ul>
 <li><strong>alle</strong> gebruikers moeten <strong>volledige</strong> rechten hebben in
-
 <ul>
 <li><code>C:\R\library</code></li>
 <li><code>C:\Program Files\R\R-3.x.y\library</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Systeemvariable <code>R_LIBS_USER</code> instellen op <code>C:/R/library</code>
 (<strong>verplicht forward slashes</strong>)</li>
-<li><a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> in <code>C:\Program Files\R\R-3.x.y\etc</code>
+<li><a href="Rprofile.site"><code>Rprofile.site</code></a> in <code>C:\Program Files\R\R-3.x.y\etc</code>
 overschrijven</li>
 </ul>
-
 <p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden
 een aantal packages met administrator rechten geïnstalleerd waardoor de
 gebruiker ze niet meer kan updaten.</p>
-
 <p>Start <code>R</code> als een gewone gebruiker om de configuratie te testen.</p>
-
 <h3 id="upgrade-van-een-bestaande-r-installatie">Upgrade van een bestaande R installatie<a href="#upgrade-van-een-bestaande-r-installatie" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
 <p><strong>Deze instructies veronderstellen dat R en RStudio in het verleden
 reeds geïnstalleerd werden volgens de bovenstaande instructies. Indien
 dan niet het geval is, volg dan de instructies voor een nieuwe
 installatie.</strong></p>
-
 <ol>
 <li>Voer het bestand <em>R-3.x.y-win.exe</em> uit.</li>
 <li>Kies <em>Nederlands</em> als taal voor de installatie en klik op <em>OK</em>.</li>
@@ -395,7 +382,7 @@ standaardwaarde gebruiken.</li>
 register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
 <li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie
 afgelopen is.</li>
-<li>Kopieer het bestand <a href="Rprofile.site" target="_blank"><code>Rprofile.site</code></a> naar <code>etc</code> in
+<li>Kopieer het bestand <a href="Rprofile.site"><code>Rprofile.site</code></a> naar <code>etc</code> in
 de doelmap waar je R geïnstalleerd hebt
 (<code>C:\Program Files\R\R-3.x.y</code>) Hierbij moet je het bestaande bestand
 overschrijven.</li>
@@ -404,15 +391,11 @@ overschrijven.</li>
 <li>De nieuwe R versie is klaar voor gebruik. De gebruiker moet
 <code>RStudio</code> bijwerken.</li>
 </ol>
-
 <p><strong>R mag niet met admininstratorrechten gestart worden.</strong> Anders worden
 een aantal packages met administrator rechten geïnstalleerd waardoor de
 gebruiker ze niet meer kan updaten.</p>
-
 <p>Start <code>R</code> als een gewone gebruiker om de configuratie te testen.</p>
-
-<h3 id="inhoud-rprofile-site">Inhoud <code>Rprofile.site</code><a href="#inhoud-rprofile-site" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-
+<h3 id="inhoud-rprofilesite">Inhoud <code>Rprofile.site</code><a href="#inhoud-rprofilesite" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <pre><code>options(
   papersize = &quot;a4&quot;,
   tab.width = 2,
@@ -455,9 +438,7 @@ if (interactive()) {
 # required for RStan and brms
 Sys.setenv(BINPREF = &quot;C:/Rtools/mingw_$(WIN)/bin/&quot;)
 </code></pre>
-
 <h2 id="ubuntu">Ubuntu<a href="#ubuntu" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-
 <pre><code>sudo sh -c 'echo &quot;deb http://cloud.r-project.org/bin/linux/ubuntu xenial/&quot; &gt;&gt; /etc/apt/sources.list'
 sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 sudo gpg -a --export E084DAB9 | apt-key add -
@@ -465,7 +446,6 @@ sudo gpg -a --export E084DAB9 | apt-key add -
 sudo apt-get update
 sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 </code></pre>
-
 <p>[1] Het moeten forward slashes zijn.</p>
 </div>
 
@@ -512,7 +492,7 @@ sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p> &copy; 2018-2019 Research Institute for Nature and Forest (INBO) <a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a></p>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 </div>
 
         </div>
