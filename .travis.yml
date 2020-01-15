@@ -13,7 +13,7 @@ before_install:
 
 # Install hugo, lunr (search) & minimo theme (v2.7.0)
 install:
-  - go get https://github.com/gohugoio/hugo
+  - brew install hugo
   - npm install lunr glob
   - git clone https://github.com/MunifTanjim/minimo.git --branch v2.7.0 themes/minimo
 
