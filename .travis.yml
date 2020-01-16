@@ -32,7 +32,7 @@ before_deploy:
 deploy:
   provider: pages
   local_dir: public
-  github_token: "$GH_TOKEN"
+  github_token: $GITHUB_TOKEN
   skip_cleanup: true
   verbose: true
   keep-history: true
