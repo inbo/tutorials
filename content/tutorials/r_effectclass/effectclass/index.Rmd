@@ -2,13 +2,15 @@
 title: "Classification and visualisation of estimates and their uncertainty"
 author: "Thierry Onkelinx"
 site: bookdown::bookdown_site
+bibliography: references.bib
 output:
   bookdown::pdf_book:
     base_format: INBOmd::inbo_slides
-    location: "2020-01-23"
+    location: "2020-02-03"
     toc: FALSE
     slide_level: 2
     theme: inbo
+    lang: english
     font_flanders: TRUE
     cover: photo-of-forest-with-fog-1671324.jpg #https://www.pexels.com/photo/photo-of-forest-with-fog-1671324
     cover_horizontal: FALSE
@@ -22,13 +24,15 @@ opts_chunk$set(
 )
 library(grid)
 library(tidyverse)
+library(scales)
 library(gridExtra)
 library(effectclass)
+library(qrcode)
 library(INBOtheme)
 if (interactive()) {
   theme_set(
     theme_inbo(
-      base_family = "Flanders Art Sans",
+      base_family = "Calibri",
       base_size = 12, 
       transparent = "plot"
     )
@@ -36,13 +40,78 @@ if (interactive()) {
 } else {
   theme_set(
     theme_inbo(
-      base_family = "Flanders Art Sans",
-      base_size = 6, 
+      base_family = "Calibri",
+      base_size = 10, 
       transparent = "plot"
     )
   )
   update_geom_defaults("text", list(size = 3))
 }
+```
+
+# Introduction
+
+## Interpretation of estimates without information of uncertainty
+
+```{r example1}
+example <- tibble(
+  year = 2008:2019, 
+  log_mean = c(
+    0.0121739367571996, 0.0302943346128291, 0.0543294920787334, 
+    0.0728212525993772, 0.0874232566229058, 0.0776393430910669, 
+    0.0814711880023876, 0.0856695157160183, 0.0846196500557396, 
+    0.100704508903153, 0.109449358322858, 0.0913570454765638
+  ), 
+  log_sd = c(
+    0.0634628387844638, 0.0889342263613141, 0.111204490060904, 
+    0.130038728018353, 0.139808205841085, 0.13830227064554, 
+    0.148274205414618, 0.1488048815632, 0.145743583525741,
+    0.160521118918554, 0.17050538360847, 0.170659007417255
+  )
+) %>%
+  mutate(
+    change = exp(log_mean),
+    lcl = exp(qnorm(0.025, log_mean, log_sd)),
+    ucl = exp(qnorm(0.975, log_mean, log_sd))
+  )
+p <- ggplot(example, aes(x = year, y = change)) +
+  geom_line() +
+  scale_x_continuous(breaks = pretty) +
+  theme(axis.title.x = element_blank())
+grid.arrange(
+  p + scale_y_continuous("Change (2007 = 100%)", labels = percent),
+  p + 
+    scale_y_continuous(
+      "Change (2007 = 100%)", labels = percent, limits = c(0.5, 3)
+    ),
+  nrow = 1
+)
+```
+
+## Estimates with uncertainty
+
+```{r example2}
+p <- ggplot(example, aes(x = year, y = change, ymin = lcl, ymax = ucl)) +
+  geom_ribbon(alpha = 0.2) +
+  geom_line() +
+  scale_x_continuous(breaks = pretty) +
+  theme(axis.title.x = element_blank())
+p + scale_y_continuous("Change (2007 = 100%)", labels = percent)
+```
+
+## Unapproriate limits in combination with uncertainty
+
+```{r example3}
+grid.arrange(
+  p + 
+    scale_y_continuous("Change (2007 = 100%)", labels = percent) +
+    coord_cartesian(ylim = range(example$change)),
+  p + 
+    scale_y_continuous(
+      "Change (2007 = 100%)", labels = percent, limits = c(0.5, 3)
+    ),
+  nrow = 1
+)
 ```
 
 # Uncertainty
@@ -306,6 +375,32 @@ grid.arrange(
 )
 ```
 
+## Example
+
+```{r example4}
+grid.arrange(
+  ggplot(example, aes(x = year, y = change, ymin = lcl, ymax = ucl)) +
+    geom_ribbon(alpha = 0.2) +
+    geom_line() +
+    scale_x_continuous(breaks = pretty) +
+    theme(axis.title.x = element_blank()) + 
+    scale_y_continuous("Change (2007 = 100%)", labels = percent) +
+    ggtitle("95% CI"),
+  ggplot(example, aes(x = year, y = exp(log_mean), link_sd = log_sd)) +
+    stat_fan(link = "log") +
+    geom_line() +
+    scale_x_continuous(breaks = pretty) +
+    scale_y_continuous(
+      "Change (2007 = 100%)", 
+      labels = percent, 
+      limits = c(min(example$lcl), max(example$ucl))
+    ) +
+    theme(axis.title.x = element_blank()) +
+    ggtitle("30%, 60% & 90% CI"),
+  nrow = 1
+)
+```
+
 # Classification of estimates
 
 ## Significant effects
@@ -338,6 +433,22 @@ ds <- data.frame(
   mean = c(0.2, -0.5),
   sd = c(1, 2)
 )
+ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+  stat_fan(geom = "rect") +
+  geom_hline(yintercept = 0, linetype = 2) +
+  scale_y_continuous(
+    breaks = 0, 
+    labels = "reference"
+  ) +
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_blank()
+  )
+```
+
+## Non significant effects
+
+```{r reference3}
 ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
   stat_fan(geom = "rect") +
   geom_hline(yintercept = 0, linetype = 2) +
@@ -434,7 +545,7 @@ data.frame(
 ## Overview
 
 ```{r overview}
-ds <- data.frame(
+overview <- data.frame(
   thresholds = c(3, 2, 2, 1, 1, 1, 0, 0, 0, 0),
   mean = c(0, 1, -1, 2, 0, -2, 3, 1, -1, -3),
   sd = c(2, 1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5)
@@ -442,15 +553,15 @@ ds <- data.frame(
   mutate(
     effect = classification(qnorm(0.05, mean, sd), qnorm(0.95, mean, sd), 2),
     coarse = coarse_classification(effect),
-    thresholds = sprintf("interval contains\n%i thresholds", thresholds)
+    thresholds = sprintf("interval contains %i thresholds", thresholds)
   )
-ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
+ggplot(overview, aes(x = effect, y = mean, link_sd = sd)) +
   stat_fan(geom = "rect") +
   geom_hline(yintercept = 0, linetype = 2) +
   geom_hline(yintercept = c(-2, 2), linetype = 3) +
   facet_wrap(~thresholds, scales = "free_x") +
   scale_y_continuous(
-    breaks = c(-2.5, 0, 2.5), 
+    breaks = c(-2, 0, 2), 
     labels = c("lower\nthreshold", "reference", "upper\nthreshold")
   ) +
   theme(
@@ -458,78 +569,57 @@ ggplot(ds, aes(x = effect, y = mean, link_sd = sd)) +
   )
 ```
 
-## Suggested symbology
+## Example
 
-```{r symbols, results = "asis"}
-ds %>%
-  arrange(effect) %>%
-  transmute(
-    "unsigned coarse" = effect %>%
-      coarse_classification() %>%
-      remove_sign() %>%
-      format(type = "markdown"),
-    coarse = effect %>%
-      coarse_classification(),
-    detailed = format(effect, type = "markdown"),
-    "unsigned detailed" = effect %>%
-      remove_sign() %>%
-      format(type = "markdown"),
-  ) %>%
-  kable(escape = FALSE, format = "markdown", align = "c")
-```
-
-# Tools
-
-## effectclass R package
-
-- https://github.com/inbo/effectclass
-- `classification()`: classifies intervals based on a reference and thresholds
-- `stat_fan()`: fan plot based on mean and standard error
-- `stat_effect() + scale_effect()`: display point with shape based on classification
-- `format_ci()`: format an effect size with its confidence interval
-
-## `stat_effect() + scale_effect()`
-
-```{r}
-expand.grid(
-  mean = seq(-3, 3, length = 21),
-  sd = c(0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.7, 1, 1.5, 2, 3)
-) %>%
-  mutate(
-    lcl = qnorm(0.05, mean, sd),
-    ucl = qnorm(0.95, mean, sd)
-  ) %>%
-  ggplot(aes(x = mean, y = sd, colour = mean)) +
-  geom_vline(xintercept = 0, linetype = 2) +
-  geom_vline(xintercept = c(-2, 2), linetype = 3) +
-  stat_effect(aes(ymin = lcl, ymax = ucl), threshold = 2, size = 3) +
-  scale_effect(guide = guide_legend(ncol = 3)) +
-  scale_x_continuous("effect size") +
-  scale_y_continuous("uncertainty", breaks = c(0.1, 0.2, 0.5, 1, 2)) +
-  coord_trans(y = "log10") +
-  scale_colour_gradient2()
-```
-
-## `classification(reference = 3, threshold = c(2, 4))` and `format_ci()`
-
-```{r format-ci}
-ds <- expand.grid(
-  estimate = pi * seq(0, 1.9, by = 0.5),
-  sd = c(1, 0.1, 0.01)
+```{r example5}
+grid.arrange(
+  ggplot(example, aes(x = year, y = exp(log_mean), link_sd = log_sd)) +
+    geom_hline(yintercept = 1, linetype = 2) +
+    geom_hline(yintercept = c(0.75, 1.33), linetype = 3) +
+    stat_fan(link = "log") +
+    geom_line() +
+    scale_x_continuous(breaks = pretty) +
+    scale_y_continuous(
+      "Change (2007 = 100%)", 
+      breaks = pretty,
+      labels = percent
+    ) +
+    theme(axis.title.x = element_blank()),
+  ggplot(example, aes(x = year, y = exp(log_mean), link_sd = log_sd / 10)) +
+    geom_hline(yintercept = 1, linetype = 2) +
+    geom_hline(yintercept = c(0.75, 1.33), linetype = 3) +
+    stat_fan(link = "log") +
+    geom_line() +
+    scale_x_continuous(breaks = pretty) +
+    scale_y_continuous(
+      "Change (2007 = 100%)", 
+      breaks = pretty,
+      labels = percent
+    ) +
+    theme(axis.title.x = element_blank()),
+  nrow = 1
 )
-ds$lcl <- qnorm(0.05, ds$estimate, ds$sd)
-ds$ucl <- qnorm(0.95, ds$estimate, ds$sd)
-ds$classifcation <- classification(
-  ds$lcl, ds$ucl, reference = 3, threshold = c(2, 4)
-)
-ds <- ds[order(ds$classifcation, ds$estimate, ds$ucl), ]
-ds$classifcation <- format(ds$classifcation, type = "markdown")
-ds$formatted <- format_ci(ds$estimate, lcl = ds$lcl, ucl = ds$ucl)
-kable(ds[, -2], align = "lllcc", row.names = FALSE, format = "markdown")
 ```
-
 
 # How to define reference and thresholds?
+
+## Width of the confidence interval
+
+> "The value for which $p=0.05$, or 1 in 20, is 1.96 or nearly 2; it is convenient to take this point as a limit in judging whether a deviation is to be considered significant or not." [@fisher1925StatisticalMethodsResearch]
+
+- two-sided test with $p = 0.05$ as threshold
+    - $p=0.05/2=0.025$ on each side
+    - 2.5% and 97.5% quantiles = 95% CI
+- smaller CI
+    - larger $p$
+    - more false positives & fewer false negatives
+    
+|                 | no effect | effect |
+| --------------- | :-------: | :----: |
+| not significant | TN        | FN     |
+| significant     | FP        | TP     |
+    
+- Change detection in ecology: fewer false negatives = early warning
 
 ## Reference
 
@@ -546,11 +636,136 @@ kable(ds[, -2], align = "lllcc", row.names = FALSE, format = "markdown")
 - Effect size from power analysis
     - e.g. Natura 2000: detect -25% over 24 year
 - Expert judgement
-    - What change is relevant?
+    - What change is large enough to be relevant / important?
+    - What change is small enough to be irrelevant / not important?
+    - Do consult a statistician
 
-## Interpretation
+# Tools
 
-Class | Natura2000         | PARTRIDGE                 |
+## R package 
+
+### effectclass
+
+https://effectclass.netlify.com [@effectclass]
+
+### functions
+
+- `classification()`: classifies intervals based on a reference and thresholds
+- `format_ci()`: format an effect size with its confidence interval
+- `stat_fan()`: fan plot based on mean and standard error
+- `stat_effect() + scale_effect()`: display point with shape based on classification
+
+## `classification(reference = 3, threshold = c(2, 4))` and `format_ci()`
+
+```{r format-ci}
+ds <- expand.grid(
+  estimate = pi * seq(0, 1.9, by = 0.5),
+  se = c(1, 0.1, 0.01)
+)
+ds$lcl <- qnorm(0.05, ds$estimate, ds$se)
+ds$ucl <- qnorm(0.95, ds$estimate, ds$se)
+ds$class <- classification(
+  ds$lcl, ds$ucl, reference = 3, threshold = c(2, 4)
+)
+ds <- ds[order(ds$class, ds$estimate, ds$ucl), ]
+ds$class <- format(ds$class, type = "markdown")
+ds$formatted <- format_ci(ds$estimate, lcl = ds$lcl, ucl = ds$ucl)
+kable(ds, align = "lllcc", row.names = FALSE, format = "markdown")
+```
+
+## `stat_effect() + scale_effect()`
+
+```{r stat-effect}
+expand.grid(
+  mean = seq(-3, 3, length = 21),
+  sd = c(0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.7, 1, 1.5, 2, 3)
+) %>%
+  mutate(
+    lcl = qnorm(0.05, mean, sd),
+    ucl = qnorm(0.95, mean, sd)
+  ) %>%
+  ggplot(aes(x = mean, y = sd, colour = mean)) +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_vline(xintercept = c(-2, 2), linetype = 3) +
+  stat_effect(aes(ymin = lcl, ymax = ucl), threshold = 2, size = 3) +
+  scale_effect() +
+  scale_x_continuous("effect size") +
+  scale_y_continuous("uncertainty", breaks = c(0.1, 0.2, 0.5, 1, 2)) +
+  coord_trans(y = "log10") +
+  scale_colour_gradient2("effect size", guide = "none")
+```
+
+# Your feedback
+
+## Questions for the audience
+
+- Is the classification easy to understand and use?
+- How do you feel about the fan-plots?
+- Should we use a standardise symbology and terminology?
+
+### effectclass
+
+```{r qrcode, fig.width = 1.5, fig.height = 1.5}
+par(mar = rep(0, 4), mai = rep(0, 4))
+qrcode_gen(
+  "https://effectclass.netlify.com", 
+  bColor = inbo.hoofd, 
+  plotQRcode = FALSE,
+  dataOutput = TRUE
+) %>%
+image(
+  asp = 1, axes = FALSE, col = c(NA, inbo.hoofd)
+)
+```
+
+https://effectclass.netlify.com
+
+## Suggested symbology
+
+```{r symbols, results = "asis", eval = FALSE}
+overview %>%
+  arrange(effect) %>%
+  transmute(
+    "unsigned coarse" = effect %>%
+      coarse_classification() %>%
+      remove_sign() %>%
+      format(type = "markdown"),
+    coarse = effect %>%
+      coarse_classification(),
+    detailed = format(effect, type = "markdown"),
+    "unsigned detailed" = effect %>%
+      remove_sign() %>%
+      format(type = "markdown"),
+  ) %>%
+  kable(escape = FALSE, format = "markdown", align = "c")
+```
+
+```{r overview2}
+overview %>%
+  mutate(effect = reorder(effect, -as.integer(effect))) %>%
+  ggplot(aes(x = effect, y = mean, link_sd = sd)) +
+    stat_fan(geom = "rect") +
+    stat_effect(
+      aes(ymin = qnorm(0.05, mean, sd), ymax = qnorm(0.95, mean, sd)),
+      threshold = 2, 
+      size = 5,
+      colour = inbo.steun.donkerroos
+    ) +
+    geom_hline(yintercept = 0, linetype = 2) +
+    geom_hline(yintercept = c(-2, 2), linetype = 3) +
+    scale_y_continuous(
+      breaks = c(-2, 0, 2), 
+      labels = c("lower\nthreshold", "reference", "upper\nthreshold")
+    ) +
+    scale_effect(guide = guide_legend(ncol = 1)) +
+    theme(
+      axis.title = element_blank()
+    )
+```
+
+## Suggested terminology
+
+Class | trend              | state                     |
 :---: | ------------------ | ------------------------- |
 `++`  | strong increase    | goal strongly exceeded    |
 `+`   | increase           | goal exceed               |
@@ -562,3 +777,7 @@ Class | Natura2000         | PARTRIDGE                 |
 `?+`  | potential increase | goal maybe achieved       |
 `?-`  | potential decrease | goal maybe not achieved   |
 `?`   | unclear            | unknown if goal achieved  |
+
+### effectclass
+
+https://effectclass.netlify.com
