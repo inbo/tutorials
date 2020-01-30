@@ -108,6 +108,8 @@ second order random walk).
 The functions can be useful to choose sensible priors and diagnose the fitted model.
 - **R package [multimput](https://github.com/inbo/multimput)**:
 an R package that assists with analysing datasets with missing values using multiple imputation.
+- **R package [effectclass](https://effectclass.netlify.com)**:
+an R package to classify and visualize modelled effects by comparing their confidence interval with thresholds.
 - **Python package [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/)**:
 Python package to run the NICHE Vlaanderen model.
 Based on calculated abiotic properties of the location, NICHE Vlaanderen determines whether certain vegetation types can develop.
