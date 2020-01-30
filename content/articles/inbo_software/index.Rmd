@@ -68,6 +68,8 @@ The package provides functionality to download data and metadata, calculate some
 It also allows to download the data in a format that can easily be uploaded to [Movebank](https://www.movebank.org/), a free online database for animal tracking data.
 - **R package [etn](https://inbo.github.io/etn/)**:
 provides functionality to access and process data from the [European Tracking Network (ETN)](http://www.lifewatch.be/etn/) database hosted by the Flanders Marine Institute (VLIZ) as part of the Flemish contribution to LifeWatch.
+- **R package [n2khab](https://inbo.github.io/n2khab)**:
+provides preprocessed reference data _(including checklists, spatial habitat distribution, administrative & environmental layers, GRTSmaster_habitats)_ and preprocessing functions, supporting reproducible and transparent analyses on Flemish Natura 2000 (_n2k_) habitats (_hab_) and regionally important biotopes (RIBs).
 
 ## Store data
 
