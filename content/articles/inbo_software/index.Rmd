@@ -55,6 +55,8 @@ The package provides functions to search for stations and variables, and downloa
 to query and download data from [Databank Ondergrond Vlaanderen (DOV)](https://www.dov.vlaanderen.be/).
 DOV aggregates data about soil, subsoil and groundwater of Flanders and makes them publicly available.
 Interactive and human-readable extraction and querying of the data is provided by a web application, whereas the focus of this package is to support machine-based extraction and conversion of the data.
+- **R package [watina](https://inbo.github.io/watina)**:
+provides functions to query and process data from the Watina database (mainly groundwater data).
 
 ### Biological data
 
