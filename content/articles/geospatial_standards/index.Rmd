@@ -58,6 +58,7 @@ or extra standalone **tables**.
 ## The GeoJSON file format
 
 - One [GeoJSON](https://tools.ietf.org/html/rfc7946) file (`filename.geojson`) contains _one_ **vector** layer.
+Note that one vector layer can combine different [feature geometry types](https://r-spatial.github.io/sf/articles/sf1.html#simple-feature-geometry-types), e.g. points and linestrings.
 [JSON](https://en.wikipedia.org/wiki/JSON) itself is a common and straightforward open data format.
 It is a **text** file readable both by humans and machines (see the [tutorial](../../tutorials/spatial_standards_vector/) for an example).
 GeoJSON adds the necessary specification to JSON for standardized storage of geographic feature data, but it is still a plain JSON text file.
