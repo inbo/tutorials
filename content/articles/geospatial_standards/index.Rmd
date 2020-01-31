@@ -78,7 +78,12 @@ Here, on-the-fly reprojection to WGS84 will happen automatically.
 It applies 7 decimal places for coordinates, i.e. approximately 1 cm.
 Given the advantages, _**we advise to explicitly use RFC7946**_.
 Several functions in R allow the user to provide options that are passed to GDAL, so we can ask to deliver RFC7946 (see the [tutorial](../../tutorials/spatial_standards_vector/)).
-- In order to keep it manageable (text file size, usage in versioning systems) it can be wise to use GeoJSON for more simple cases (points and rather simple lines and polygons), and use the binary GeoPackage format for larger (more complex) cases.
+- In order to keep it manageable (text file size, usage in versioning systems^[
+When versioning GeoJSON files, mind the order of your data when rewriting them: reordering could produce large diffs.
+Interested in combining GeoJSON and GitHub?
+[Surprise yourself](https://github.com/lyzidiamond/learn-geojson)!
+]
+) it can be wise to use GeoJSON for more simple cases (points and rather simple lines and polygons), and use the binary GeoPackage format for larger (more complex) cases.
 
 ## The GeoTIFF file format
 
