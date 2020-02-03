@@ -207,7 +207,7 @@ From my experience, raster GeoPackage files are smaller than GeoTIFF files in th
 This, and the capability to combine raster and vector layers, certainly make it worthwile to consider the GeoPackage format for rasters, if you're not hindered by the supported data types.
 
 
-### Writing one raster layer rom a `RasterLayer` object
+### Making a single-raster GeoPackage from a `RasterLayer` R object
 
 This it is no more difficult than:
 
@@ -237,7 +237,43 @@ all.equal(artwork_test[], artwork_gpkg[])
 
 Yeah!
 
-### Writing multiple raster layers
+Given that the GPKG-support of `raster` is limited, we're lucky that Edzer Pebesma -- the creator of `sf` -- has also made the amazing package `stars`!!
+
+```{r}
+unlink("artwork.gpkg") # delete gpkg; we're going to create it here again
+Sys.setenv(GDAL_PAM_ENABLED = "NO") # prevents an auxiliary file being written next to *.gpkg
+library(stars)
+```
+
+We could as well have written `artwork` to a GeoPackage with `stars`, so let's just see what we get by converting the `RasterLayer` object to a `stars` object and then apply `write_stars()`, hm?
+
+```{r}
+artwork %>% 
+  st_as_stars %>% # this converts the RasterLayer to a stars object
+  write_stars("artwork.gpkg",
+              driver = "GPKG")
+```
+
+Reading it back with `stars::read_stars()`, followed by back-conversion to a `RasterLayer`:
+
+```{r}
+artwork_gpkg_stars <- 
+  read_stars("artwork.gpkg") %>% 
+  as("Raster")
+artwork_gpkg_stars
+```
+
+And yes again, the data we've read from the GeoTIFF file are identical to those from the GeoPackage:
+
+```{r}
+all.equal(artwork_test[], artwork_gpkg_stars[])
+```
+
+That's it!
+
+Knowing how to write and read with `stars` will help us for the multi-layer case!
+
+### Making a multi-raster GeoPackage
 
 Indeed, just as with vector layers, GeoPackage can accommodate multiple raster layers (or vector + raster layers).
 
@@ -259,15 +295,9 @@ try(
 )
 ```
 
-OOPS...
-
-But, we're just so lucky that Edzer Pebesma -- the creator of `sf` -- has also made the amazing package `stars` (a little more about this [later](#homework))!!
-
-Let's just see what we get by converting the `RasterLayer` object to a `stars` object and then apply `write_stars()`, hm?
+So let's proceed with `stars`!
 
 ```{r}
-Sys.setenv(GDAL_PAM_ENABLED="NO") # prevents an auxiliary file being written next to *.gpkg
-library(stars)
 arts$layer2 %>% 
   st_as_stars %>% 
   write_stars("artwork.gpkg",
@@ -310,7 +340,7 @@ gdalUtils::gdalinfo("artwork.gpkg",
   cat(sep = "\n")
 ```
 
-`raster` will not help us for reading the layers.\
+`raster` will not help us for reading the layers.
 But `read_stars()` is there to assist us!!
 
 ```{r}
@@ -348,13 +378,12 @@ read_stars("artwork.gpkg", quiet = TRUE)
 
 ## Homework: further explore the amazing `stars` package {#homework}
 
-Enter deep hyperspace and meet the `stars` package, which stores multidimensional hypercubes...
+Enter deep hyperspace and explore the `stars` package, which stores multidimensional hypercubes...
 Really, visit its [website](https://r-spatial.github.io/stars/) and never look (or turn?) back!
 
 ```{r warning=FALSE, message=FALSE, eval=FALSE}
 library(stars)
 ```
-
 
 For now, my time's up and I'll just demonstrate how easy it is to transform a `Raster*` object into a `stars` object:
 
@@ -375,6 +404,8 @@ interstellar %>% split("band")
 
 
 The `stars` package has a number of efficient geospatial algorithms that make it worth using, even for simple raster layers!
+
+And sure, as seen above, you can read from files with `read_stars()`, write to files with `write_stars()` and convert to Raster* objects with `as("Raster")`!
 
 
 ```{r include=FALSE}
