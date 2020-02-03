@@ -42,7 +42,7 @@ rsconnect/
 
 # Tokens
 *.rds
-token
+token*
 
 # npm & JS libaries
 node_modules/
