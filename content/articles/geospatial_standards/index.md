@@ -2,7 +2,7 @@
 title: "Meet some popular open geospatial standards!"
 description: "A short introduction to the powerful GeoPackage, GeoJSON and GeoTIFF standards"
 author: "Floris Vanderhaeghe"
-date: 2019-11-19
+date: 2020-02-03
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["r", "gis"]
@@ -11,6 +11,7 @@ output:
     md_document:
         preserve_yaml: true
         variant: gfm
+    html_document: default
 ---
 
 Some inspiration for this post came from the beautiful books of Lovelace
@@ -25,9 +26,10 @@ various websites.
       - Consequently, scientists and programmers can build new software
         / packages and make innovations that use these standards, while
         maintaining interoperability with existing applications.
-      - And, it guarantees that your data will still be readable in a
-        hundred years from now, independently of which IT corporation or
-        software is dominant at that time…
+      - And, there is a much higher chance that your data will still be
+        readable in a hundred years from now. The standard’s open
+        documentation makes it relatively easy to build tools that can
+        read an ancient open-standard file\!
 
 Luckily, quite a list of open standards is available\! Below, some
 powerful and widely-used single-file formats are introduced. Single-file
@@ -37,22 +39,24 @@ I see you can’t wait to start practicing, so you can also head straight
 over to the [tutorial on vector
 formats](../../tutorials/spatial_standards_vector/) and the [tutorial on
 the GeoTIFF raster format](../../tutorials/spatial_standards_raster/)\!
+In these tutorials, a comparison table of vector/raster file formats is
+also presented.
 
 ## A few words on the GDAL library
 
 **[GDAL](https://gdal.org)** (Geospatial Data Abstraction Library) is by
 far the most used collection of open-source drivers for:
 
-  - [a lot](https://gdal.org/drivers/raster/index.html) of raster
+  - a lot of [raster](https://gdal.org/drivers/raster/index.html)
     formats;
-  - [a lot](https://gdal.org/drivers/vector/index.html) of vector
+  - a lot of [vector](https://gdal.org/drivers/vector/index.html)
     formats.
 
 In other words, it is the preferred workhorse for reading and writing
-many geospatial file formats, used in the background by [a
-lot](https://gdal.org/software_using_gdal.html#software-using-gdal) of
-geospatial applications. Using GDAL is the easiest way to conform to
-open standards.
+many geospatial file formats, used in the background by a lot of
+[geospatial
+applications](https://gdal.org/software_using_gdal.html#software-using-gdal)
+. Using GDAL is the easiest way to conform to open standards.
 
 So, in R we use packages that use GDAL in the background, such as
 `rgdal`, `sp`, `sf`, `raster` and `stars`.
@@ -68,7 +72,9 @@ So, in R we use packages that use GDAL in the background, such as
   - The GeoPackage can store one or *multiple* **vector** layers
     (points, lines, polygons and related feature types). Besides vector
     data, it can also store **raster** data or extra standalone
-    **tables**.
+    **tables**. These properties make it somehow comparable to the
+    ‘personal geodatabase’ of ArcGIS – ESRI’s closed, Windows-only
+    format.\[2\]
   - The GeoPackage standard is
     [maintained](https://www.opengeospatial.org/standards/geopackage) by
     the [Open Geospatial Consortium](https://www.opengeospatial.org/)
@@ -78,7 +84,10 @@ So, in R we use packages that use GDAL in the background, such as
 ## The GeoJSON file format
 
   - One [GeoJSON](https://tools.ietf.org/html/rfc7946) file
-    (`filename.geojson`) contains *one* **vector** layer.
+    (`filename.geojson`) contains *one* **vector** layer. Note that one
+    vector layer can combine different [feature geometry
+    types](https://r-spatial.github.io/sf/articles/sf1.html#simple-feature-geometry-types),
+    e.g. points and linestrings.
     [JSON](https://en.wikipedia.org/wiki/JSON) itself is a common and
     straightforward open data format. It is a **text** file readable
     both by humans and machines (see the
@@ -106,12 +115,12 @@ So, in R we use packages that use GDAL in the background, such as
         requirement of GeoJSON 2008 (it did support an explicit *crs*
         declaration). This resulted in inconveniences (cf. [this
         post](https://github.com/r-spatial/sf/issues/344#issue-229118527)
-        in the `sf`-package).
+        in the `sf`-repository).
       - A [specific
         section](https://gdal.org/drivers/vector/geojson.html#rfc-7946-write-support)
         in the documentation of GDAL’s GeoJSON driver gives a summary of
         the differences between both GeoJSON versions.
-  - While GDAL by default still follows the GeoJSON 2008 format,\[2\]
+  - While GDAL by default still follows the GeoJSON 2008 format,\[3\]
     RFC7946 is supported by the option `RFC7946=YES`. Here, on-the-fly
     reprojection to WGS84 will happen automatically. It applies 7
     decimal places for coordinates, i.e. approximately 1 cm. Given the
@@ -120,9 +129,9 @@ So, in R we use packages that use GDAL in the background, such as
     GDAL, so we can ask to deliver RFC7946 (see the
     [tutorial](../../tutorials/spatial_standards_vector/)).
   - In order to keep it manageable (text file size, usage in versioning
-    systems) it can be wise to use GeoJSON for more simple cases (points
-    and rather simple lines and polygons), and use the binary GeoPackage
-    format for larger (more complex) cases.
+    systems\[4\] ) it can be wise to use GeoJSON for more simple cases
+    (points and rather simple lines and polygons), and use the binary
+    GeoPackage format for larger (more complex) cases.
 
 ## The GeoTIFF file format
 
@@ -173,7 +182,16 @@ Pebesma E. & Bivand R. (2019). Spatial Data Science. URL:
     size, column name length, number of columns and the feature types
     that can be accommodated.
 
-2.   Though GeoJSON 2008 is obsoleted, the now recommended RFC7946
+2.   Note that personal geodatabases have their size limited to 250-500
+    MB; a GeoPackage can have a size of about 140 TB if the filesystem
+    can handle it.
+
+3.   Though GeoJSON 2008 is obsoleted, the now recommended RFC7946
     standard is still officially in a *proposal* stage. That is probably
     the reason why GDAL does not yet default to RFC7946. A somehow
     confusing stage, it seems.
+
+4.   When versioning GeoJSON files, mind the order of your data when
+    rewriting them: reordering could produce large diffs. Interested in
+    combining GeoJSON and GitHub? [Surprise
+    yourself](https://github.com/lyzidiamond/learn-geojson)\!

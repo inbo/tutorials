@@ -2,13 +2,14 @@
 title: "How to use open vector file formats in R: GeoPackage & GeoJSON"
 description: "A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R"
 author: "Floris Vanderhaeghe"
-date: 2019-11-19
+date: 2020-02-03
 categories: ["r", "gis"]
 tags: ["gis", "r"]
 output: 
     md_document:
         preserve_yaml: true
         variant: gfm
+    html_document: default
 ---
 
 This tutorial uses a few basic functions from the
@@ -26,12 +27,29 @@ library(inborutils)
 ```
 
 You will find a bit more background about ‘why and what’, regarding the
-below open standards, in [a separate
+considered open standards, in [a separate
 post](../../articles/geospatial_standards/) on this website.
 
 In short, the GeoPackage and GeoJSON formats are ideal for exchange,
 publication, interoperability & durability and to open science in
 general.
+
+The below table compares a few vector formats that are currently used a
+lot. This tutorial focuses on the open
+formats.
+
+| Property                                              |    GeoPackage     |       GeoJSON RFC7946        |     Shapefile     |          ESRI geodatabase          |
+| :---------------------------------------------------- | :---------------: | :--------------------------: | :---------------: | :--------------------------------: |
+| Open standard?                                        |        yes        |             yes              |        no         |                 no                 |
+| Write support by GDAL (OGR)                           |        yes        |             yes              |        yes        |                 no                 |
+| Supported OS                                          |  cross-platform   |        cross-platform        |  cross-platform   |              Windows               |
+| Extends non-spatial format:                           |      SQLite       |             JSON             |     dBase IV      |    MS Access (for personal gdb)    |
+| Text or binary?                                       |      binary       |             text             |      binary       |               binary               |
+| Number of files                                       |         1         |              1               |     3 or more     | 1 (personal gdb) / many (file gdb) |
+| Inspect version’s differences in git version control? |        no         | yes (but care must be taken) |        no         |                 no                 |
+| Can store multiple layers?                            |        yes        |              no              |        no         |                yes                 |
+| Multiple geometries allowed per layer?                |        yes        |             yes              |        no         |                yes                 |
+| Coordinate reference system used in file              | same as input CRS |            WGS84             | same as input CRS |         same as input CRS          |
 
 ## How to make and use GeoPackages (`*.gpkg`)
 
@@ -44,13 +62,6 @@ Conservation in Flanders (version *sac\_2013-01-18*) from Zenodo:
 # meeting a great function from the 'inborutils' package:
 download_zenodo(doi = "10.5281/zenodo.3386815")
 ```
-
-    ## [1] "md5sum 1fc2a8b5f56ad4ba05a999697e31626e for sac.dbf is correct."
-    ## [1] "md5sum e8c2db3e5567fbf7ef9c0f306fde20f2 for sac.prj is correct."
-    ## [1] "md5sum 945791898114a317581c5560d025e420 for sac.sbn is correct."
-    ## [1] "md5sum 7d75b87ca3aad3ae275ff447a1b2d75c for sac.sbx is correct."
-    ## [1] "md5sum ce6f5cbb37f35884f28053a4be765408 for sac.shp is correct."
-    ## [1] "md5sum 91094173055ff88e77355930464853a9 for sac.shx is correct."
 
 *Did you know this: you can visit a website of this dataset by just
 prefixing the DOI \[1\] with `doi.org/`\!*
@@ -81,20 +92,19 @@ sac
     ## epsg (SRID):    NA
     ## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
     ## # A tibble: 616 x 5
-    ##    sac_code sac_name subsac_code polygon_id
-    ##    <chr>    <chr>    <chr>            <int>
-    ##  1 BE21000… Heesbos… BE2100020-4          1
-    ##  2 BE21000… Heesbos… BE2100020-2          2
-    ##  3 BE21000… Vennen,… BE2100024-…          3
-    ##  4 BE21000… Kalmtho… BE2100015-1          4
-    ##  5 BE21000… Vennen,… BE2100024-…          5
-    ##  6 BE21000… Heesbos… BE2100020-6          6
-    ##  7 BE21000… Vennen,… BE2100024-…          7
-    ##  8 BE21000… Vennen,… BE2100024-…          8
-    ##  9 BE21000… Vennen,… BE2100024-5          9
-    ## 10 BE21000… Vennen,… BE2100024-2         10
-    ## # … with 606 more rows, and 1 more variable:
-    ## #   geometry <POLYGON [m]>
+    ##    sac_code  sac_name       subsac_code polygon_id                      geometry
+    ##    <chr>     <chr>          <chr>            <int>                 <POLYGON [m]>
+    ##  1 BE2100020 Heesbossen, V… BE2100020-4          1 ((180272.3 243198.7, 180275.…
+    ##  2 BE2100020 Heesbossen, V… BE2100020-2          2 ((178655.5 241042.4, 178602.…
+    ##  3 BE2100024 Vennen, heide… BE2100024-…          3 ((197492.4 234451.4, 197286.…
+    ##  4 BE2100015 Kalmthoutse H… BE2100015-1          4 ((153735.8 228386, 153838.5 …
+    ##  5 BE2100024 Vennen, heide… BE2100024-…          5 ((198272.4 234699, 198568.8 …
+    ##  6 BE2100020 Heesbossen, V… BE2100020-6          6 ((181098 233705.3, 181395.1 …
+    ##  7 BE2100024 Vennen, heide… BE2100024-…          7 ((199185.8 233540.2, 199122.…
+    ##  8 BE2100024 Vennen, heide… BE2100024-…          8 ((199553.4 233061.2, 199141.…
+    ##  9 BE2100024 Vennen, heide… BE2100024-5          9 ((192190.9 232648.7, 192196 …
+    ## 10 BE2100024 Vennen, heide… BE2100024-2         10 ((187597 231264.9, 187549.3 …
+    ## # … with 606 more rows
 
 To write the GeoPackage, we just use the GPKG driver of the powerful
 [GDAL](https://gdal.org) library (supporting most open and some closed
@@ -132,7 +142,7 @@ sac %>%
     ## Writing 616 features with 4 fields and geometry type Polygon.
 
 Note, `delete_dsn` was set as `TRUE` to replace the whole GeoPackage.
-(There is also a `delete_layer` parameter to overwrite an existing
+(There is also a `delete_layer` argument to overwrite an existing
 *layer* with the same name.)
 
 Let’s extract a selection of features from the
@@ -141,7 +151,7 @@ the GeoPackage file:
 
 ``` r
 sac %>% 
-  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons in the Turnhout area
+  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons having 'Turnhout' in their name field
   st_write("sac.gpkg",
            layer = "turnhout")
 ```
@@ -187,7 +197,10 @@ sac_test <- st_read("sac.gpkg",
 
 Ready\!
 
-Also other geospatial software will (or should be) able to open the
+`st_read()` is a function of the great `sf` package – hence the result
+is an `sf` object again.
+
+Also other geospatial software will (or should) be able to open the
 GeoPackage format. It is an open standard, after all\!
 
 ## How to make and use GeoJSON files (`*.geojson`)
@@ -195,17 +208,11 @@ GeoPackage format. It is an open standard, after all\!
 ### Making a GeoJSON file from a geospatial `sf` object in R
 
 As another example, let’s download a shapefile of stream habitat 3260 in
-Flanders (version
-    *2018*):
+Flanders (version *2018*):
 
 ``` r
 download_zenodo(doi = "10.5281/zenodo.3386246")
 ```
-
-    ## [1] "md5sum bd4b0efd270348de0f00bb02980d1d48 for habitatstreams.dbf is correct."
-    ## [1] "md5sum f881f61a6c07741b58cb618d8bbb0b99 for habitatstreams.prj is correct."
-    ## [1] "md5sum f8559b033303c7b110df2136d0ec24ee for habitatstreams.shp is correct."
-    ## [1] "md5sum 1b9c3f98f63339ea374d10c75399657e for habitatstreams.shx is correct."
 
 *Again: you can visit a website of this dataset by just prefixing the
 DOI with `doi.org/`\!*
@@ -232,20 +239,19 @@ habitatstreams
     ## epsg (SRID):    NA
     ## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
     ## # A tibble: 560 x 3
-    ##    river_name source
-    ##    <chr>      <chr> 
-    ##  1 WOLFPUTBE… VMM   
-    ##  2 OUDE KALE  VMM   
-    ##  3 VENLOOP    EcoInv
-    ##  4 VENLOOP    EcoInv
-    ##  5 KLEINE NE… EcoInv
-    ##  6 KLEINE NE… EcoInv
-    ##  7 KLEINE NE… EcoInv
-    ##  8 KLEINE NE… EcoInv
-    ##  9 RAAMDONKS… extra…
-    ## 10 KLEINE NE… EcoInv
-    ## # … with 550 more rows, and 1 more variable:
-    ## #   geometry <LINESTRING [m]>
+    ##    river_name    source                                                 geometry
+    ##    <chr>         <chr>                                          <LINESTRING [m]>
+    ##  1 WOLFPUTBEEK   VMM     (127857.1 167681.2, 127854.9 167684.5, 127844 167688.9…
+    ##  2 OUDE KALE     VMM     (95737.01 196912.9, 95732.82 196912.4, 95710.38 196907…
+    ##  3 VENLOOP       EcoInv  (169352.7 209314.9, 169358.8 209290.5, 169326.2 209283…
+    ##  4 VENLOOP       EcoInv  (169633.6 209293.5, 169625 209289.2, 169594.4 209321, …
+    ##  5 KLEINE NETE   EcoInv  (181087.1 208607.2, 181088.6 208608.1, 181089 208608.4…
+    ##  6 KLEINE NETE   EcoInv  (180037.4 208360.4, 180038.3 208377.5, 180038.3 208378…
+    ##  7 KLEINE NETE   EcoInv  (180520 208595.7, 180540.5 208607.4, 180541.2 208607.7…
+    ##  8 KLEINE NETE   EcoInv  (187379.9 209998.8, 187381.3 209998.5, 187381.6 209998…
+    ##  9 RAAMDONKSEBE… extrap… (183545.5 192409, 183541.9 192406.7, 183541.9 192403, …
+    ## 10 KLEINE NETE   EcoInv  (183516.4 208261.7, 183567.3 208279.2, 183567.3 208279…
+    ## # … with 550 more rows
 
 Nowadays, it is recommended to use the more recent and strict
 **RFC7946** implementation of GeoJSON. The previous ‘GeoJSON 2008’
@@ -322,7 +328,7 @@ habitatstreams_test <- st_read("habitatstreams.geojson")
     ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 Same story as for the GeoPackage: other geospatial software will (or
-should be) able to open the GeoJSON format as well, as it’s an open and
+should) be able to open the GeoJSON format as well, as it’s an open and
 well established standard.
 
 From the message of `st_read()` you can see the CRS is WGS84
@@ -344,28 +350,17 @@ habitatstreams_test %>%
     ## epsg (SRID):    31370
     ## proj4string:    +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
     ## First 10 features:
-    ##        river_name   source
-    ## 1     WOLFPUTBEEK      VMM
-    ## 2       OUDE KALE      VMM
-    ## 3         VENLOOP   EcoInv
-    ## 4         VENLOOP   EcoInv
-    ## 5     KLEINE NETE   EcoInv
-    ## 6     KLEINE NETE   EcoInv
-    ## 7     KLEINE NETE   EcoInv
-    ## 8     KLEINE NETE   EcoInv
-    ## 9  RAAMDONKSEBEEK extrapol
-    ## 10    KLEINE NETE   EcoInv
-    ##                          geometry
-    ## 1  LINESTRING (127768.8 167742...
-    ## 2  LINESTRING (95650.24 196973...
-    ## 3  LINESTRING (169263.1 209374...
-    ## 4  LINESTRING (169544 209352.8...
-    ## 5  LINESTRING (180997 208666.5...
-    ## 6  LINESTRING (179947.3 208419...
-    ## 7  LINESTRING (180429.9 208655...
-    ## 8  LINESTRING (187289.6 210058...
-    ## 9  LINESTRING (183455.2 192468...
-    ## 10 LINESTRING (183426.2 208321...
+    ##        river_name   source                       geometry
+    ## 1     WOLFPUTBEEK      VMM LINESTRING (127768.8 167742...
+    ## 2       OUDE KALE      VMM LINESTRING (95650.24 196973...
+    ## 3         VENLOOP   EcoInv LINESTRING (169263.1 209374...
+    ## 4         VENLOOP   EcoInv LINESTRING (169544 209352.8...
+    ## 5     KLEINE NETE   EcoInv LINESTRING (180997 208666.5...
+    ## 6     KLEINE NETE   EcoInv LINESTRING (179947.3 208419...
+    ## 7     KLEINE NETE   EcoInv LINESTRING (180429.9 208655...
+    ## 8     KLEINE NETE   EcoInv LINESTRING (187289.6 210058...
+    ## 9  RAAMDONKSEBEEK extrapol LINESTRING (183455.2 192468...
+    ## 10    KLEINE NETE   EcoInv LINESTRING (183426.2 208321...
 
 1.  DOI = Digital Object Identifier. See <https://www.doi.org>.
 
