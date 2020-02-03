@@ -1,6 +1,6 @@
 ---
-title: "How to use the GeoTIFF raster file format in R"
-description: "A simple tutorial to demonstrate the use of GeoTIFF files in R"
+title: "How to use open vector file formats in R: GeoTIFF & GeoPackage"
+description: "A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R"
 author: "Floris Vanderhaeghe"
 date: 2019-11-20
 categories: ["r", "gis"]
@@ -191,12 +191,167 @@ arts_test$neg_layer20
 ```
 
 
-### Homework: explore the amazing `stars` package
+## How to make and use GeoPackages with raster layers (`*.gpkg`)
+
+'GeoPackage' may sound new and unfamiliar to you -- more information can be found in [a separate post](../../articles/geospatial_standards/) on this website.
+
+While its vector capabilities are already beautifully supported by GDAL and the `sf` package (demonstrated in the [other tutorial](../../tutorials/spatial_standards_vector/))), its raster capabilities are still less supported by GDAL and dependent applications such as the R-packages [raster](https://rspatial.org/raster/pkg) and [stars](https://r-spatial.github.io/stars/).
+This is something we can expect to grow in the future.
+
+GDAL's GKG-raster driver itself is still less worked out than its drivers for GeoTIFF or GPKG-vector (note that one GPKG file can accommodate both layer types).
+For example, only the _Byte, Int16, UInt16_ and _Float32_ datatypes can be written by GDAL, while for GeoTIFFs these are _Byte UInt16, Int16, UInt32, Int32, Float32, Float64, CInt16, CInt32, CFloat32_ and _CFloat64_ ^[
+See the GDAL [datatype definitions](https://gdal.org/api/raster_c_api.html#_CPPv412GDALDataType) -- note that `raster` uses its own abbreviations: `?raster::dataType`
+].
+
+From my experience, raster GeoPackage files are smaller than GeoTIFF files in the case of larger rasters.
+This, and the capability to combine raster and vector layers, certainly make it worthwile to consider the GeoPackage format for rasters, if you're not hindered by the supported data types.
+
+
+### Writing one raster layer rom a `RasterLayer` object
+
+This it is no more difficult than:
+
+```{r}
+artwork %>% 
+  writeRaster("artwork.gpkg", format = "GPKG")
+```
+
+A bit more information on the 'missing value' warning can be found in GDAL's documentation of [GeoPackage raster](https://gdal.org/drivers/raster/gpkg.html#nodata-value).
+You should know that the `raster` package does not yet officially support the GeoPackage (see `?writeFormats()`)!
+
+However, the `stars` package (see [further)](#homework)) fully supports GDAL's capabilities, and therefore _is_ able to write multiple raster layers, as we will do in a minute.
+Anyway, `raster::writeRaster` already works fine for single `RasterLayer` objects.
+
+Reading the GeoPackage:
+
+```{r}
+artwork_gpkg <- raster("artwork.gpkg")
+artwork_gpkg
+```
+
+Let's make sure: are the data we've read from the GeoTIFF identical to those from the GeoPackage?
+
+```{r}
+all.equal(artwork_test[], artwork_gpkg[])
+```
+
+Yeah!
+
+### Writing multiple raster layers
+
+Indeed, just as with vector layers, GeoPackage can accommodate multiple raster layers (or vector + raster layers).
+
+Let's suppose we'd like to add `layer2` (a `RasterLayer`) from the `RasterBrick` object `arts`.
+
+```{r}
+arts$layer2
+```
+
+Unfortunately, the `raster` package does not support GDAL's options to add extra raster layers in a GPKG file:
+
+```{r}
+try(
+  arts$layer2 %>% 
+    writeRaster("artwork.gpkg", 
+                format = "GPKG",
+                options = c("RASTER_TABLE=layer2",
+                            "APPEND_SUBDATASET=YES"))
+)
+```
+
+OOPS...
+
+But, we're just so lucky that Edzer Pebesma -- the creator of `sf` -- has also made the amazing package `stars` (a little more about this [later](#homework))!!
+
+Let's just see what we get by converting the `RasterLayer` object to a `stars` object and then apply `write_stars()`, hm?
+
+```{r}
+Sys.setenv(GDAL_PAM_ENABLED="NO") # prevents an auxiliary file being written next to *.gpkg
+library(stars)
+arts$layer2 %>% 
+  st_as_stars %>% 
+  write_stars("artwork.gpkg",
+              driver = "GPKG",
+              options = c("RASTER_TABLE=layer2",
+                          "APPEND_SUBDATASET=YES"))
+```
+
+Mind the `options` argument: those options are passed directly to GDAL's GPKG-raster driver, and they're documented [at GDAL](https://gdal.org/drivers/raster/gpkg.html#creation-options).
+
+Over there we read:
+
+> RASTER_TABLE=string. Name of tile user table. By default, based on the filename (i.e. if filename is foo.gpkg, the table will be called “foo”).
+>
+> APPEND_SUBDATASET=YES/NO: If set to YES, an existing GeoPackage will not be priorly destroyed, such as to be able to add new content to it. Defaults to NO.
+
+Ahaa!
+
+We got no errors above, but no feedback either...\
+Thrilling!
+
+Let's peek:
+
+```{r}
+gdalUtils::gdalinfo("artwork.gpkg") %>% 
+  cat(sep = "\n")
+```
+
+Yay!\
+It's interesting to see how the info at this level disregards CRS and coordinates.
+
+When we query the metadata of one sublayer, it is seen that CRS and coordinates are layer-specific:
+
+```{r}
+gdalUtils::gdalinfo("artwork.gpkg", 
+                    # provide metadata of first subdataset:
+                    sd=1, 
+                    # the following arguments just control formatting of the output:
+                    approx_stats = TRUE, mm = TRUE, proj4 = TRUE) %>% 
+  cat(sep = "\n")
+```
+
+`raster` will not help us for reading the layers.\
+But `read_stars()` is there to assist us!!
+
+```{r}
+# brick("artwork.gpkg")) ## this won't work...
+# but this will work:
+artwork_gpkg2 <- 
+  read_stars("artwork.gpkg", sub = "artwork", quiet = TRUE) %>% 
+  as("Raster")
+artwork_gpkg2
+```
+
+Wow!
+
+Checking data again with GeoTIFF result:
+
+```{r}
+all.equal(artwork_test[], artwork_gpkg2[])
+```
+
+Same story for the other layer:
+
+```{r}
+read_stars("artwork.gpkg", sub = "layer2", quiet = TRUE) %>% 
+  as("Raster")
+```
+
+Splendid.
+
+By the way, this is how the full `stars` object looks like -- it holds information similar to a `RasterBrick`:
+
+```{r paged.print=FALSE}
+read_stars("artwork.gpkg", quiet = TRUE)
+```
+
+
+## Homework: further explore the amazing `stars` package {#homework}
 
 Enter deep hyperspace and meet the `stars` package, which stores multidimensional hypercubes...
 Really, visit its [website](https://r-spatial.github.io/stars/) and never look (or turn?) back!
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, eval=FALSE}
 library(stars)
 ```
 
