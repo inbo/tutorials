@@ -53,7 +53,7 @@ sheets_read("15KVm87QvVis--vyCHa8EQBcXAeQ23M1oaCL_dENempk",
 
 As an example, we download a geospatial layer of Special Areas of Conservation in Flanders (version _sac_2013-01-18_) from Zenodo:
 
-```{r}
+```{r message=FALSE}
 # meeting a great function from the 'inborutils' package:
 download_zenodo(doi = "10.5281/zenodo.3386815")
 ```
@@ -105,7 +105,7 @@ sac %>%
 ```
 
 Note, `delete_dsn` was set as `TRUE` to replace the whole GeoPackage.
-(There is also a `delete_layer` parameter to overwrite an existing _layer_ with the same name.)
+(There is also a `delete_layer` argument to overwrite an existing _layer_ with the same name.)
 
 Let's extract a selection of features from the `special_areas_conservation` layer, and add it as a second layer into the GeoPackage file:
 
@@ -139,7 +139,9 @@ sac_test <- st_read("sac.gpkg",
 
 Ready!
 
-Also other geospatial software will (or should be) able to open the GeoPackage format.
+`st_read()` is a function of the great `sf` package -- hence the result is an `sf` object again.
+
+Also other geospatial software will (or should) be able to open the GeoPackage format.
 It is an open standard, after all!
 
 
@@ -149,7 +151,7 @@ It is an open standard, after all!
 
 As another example, let's download a shapefile of stream habitat 3260 in Flanders (version _2018_):
 
-```{r}
+```{r message=FALSE}
 download_zenodo(doi = "10.5281/zenodo.3386246")
 ```
 
@@ -222,7 +224,7 @@ Just do this:
 habitatstreams_test <- st_read("habitatstreams.geojson")
 ```
 
-Same story as for the GeoPackage: other geospatial software will (or should be) able to open the GeoJSON format as well, as it's an open and well established standard.
+Same story as for the GeoPackage: other geospatial software will (or should) be able to open the GeoJSON format as well, as it's an open and well established standard.
 
 From the message of `st_read()` you can see the CRS is WGS84 ([EPSG-code 4326](https://epsg.io/4326)) - this is always expected when reading a GeoJSON file.
 
