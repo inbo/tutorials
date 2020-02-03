@@ -53,6 +53,9 @@ so the GeoPackage is a more than suitable replacement.
 - The GeoPackage can store one or _multiple_ **vector** layers (points, lines, polygons and related feature types).
 Besides vector data, it can also store **raster** data
 or extra standalone **tables**.
+These properties make it somehow comparable to the 'personal geodatabase' of ArcGIS -- ESRI's closed, Windows-only format ^[
+Note that personal geodatabases have their size limited to 250-500 MB; a GeoPackage can have a size of about 140 TB if the filesystem can handle it.
+].
 - The GeoPackage standard is [maintained](https://www.opengeospatial.org/standards/geopackage) by the [Open Geospatial Consortium](https://www.opengeospatial.org/) (OGC), which stands out as a reference when it comes to open geospatial standards.
 
 ## The GeoJSON file format
