@@ -2,10 +2,11 @@
 title: "How to use open vector file formats in R: GeoPackage & GeoJSON"
 description: "A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R"
 author: "Floris Vanderhaeghe"
-date: 2019-11-19
+date: 2020-02-03
 categories: ["r", "gis"]
 tags: ["gis", "r"]
 output: 
+    html_document: default
     md_document:
         preserve_yaml: true
         variant: gfm
