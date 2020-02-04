@@ -303,7 +303,7 @@ coordinates of the lines’ vertices, with each feature starting on a new
 line.
 
 Compare the coordinates with those of the `sf` object `habitatstreams`
-above: the data have been reprojected on the fly to WGS84\!
+above: the data have automatically been transformed to WGS84\!
 
 Note: in order to be still manageable (text file size, usage in
 versioning systems) it seems wise to use GeoJSON for more simple cases –

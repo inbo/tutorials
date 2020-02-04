@@ -213,7 +213,7 @@ readLines("habitatstreams.geojson", n = 7) %>%
 
 You can see it basically lists the feature attributes and the coordinates of the lines' vertices, with each feature starting on a new line.
 
-Compare the coordinates with those of the `sf` object `habitatstreams` above: the data have been reprojected on the fly to WGS84!
+Compare the coordinates with those of the `sf` object `habitatstreams` above: the data have automatically been transformed to WGS84!
 
 Note: in order to be still manageable (text file size, usage in versioning systems) it seems wise to use GeoJSON for more simple cases -- **points and rather simple lines and polygons** -- and use the binary GeoPackage format for larger (more complex) cases.
 
