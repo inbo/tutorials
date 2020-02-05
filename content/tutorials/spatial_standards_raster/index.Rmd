@@ -211,7 +211,7 @@ arts_test$neg_layer20
 While its vector capabilities are already beautifully supported by GDAL and the `sf` package (demonstrated in the [other tutorial](../../tutorials/spatial_standards_vector/))), its raster capabilities are still less supported by GDAL and dependent applications such as the R-packages [raster](https://rspatial.org/raster/pkg) and [stars](https://r-spatial.github.io/stars/).
 This is something we can expect to grow in the future.
 
-GDAL's GKG-raster driver itself is still less worked out than its drivers for GeoTIFF or GPKG-vector (note that one GPKG file can accommodate both layer types).
+GDAL's GPKG-raster driver itself is still less worked out than its drivers for GeoTIFF or GPKG-vector (note that one GPKG file can accommodate both layer types).
 For example, only the _Byte, Int16, UInt16_ and _Float32_ datatypes can be written by GDAL, while for GeoTIFFs these are _Byte UInt16, Int16, UInt32, Int32, Float32, Float64, CInt16, CInt32, CFloat32_ and _CFloat64_ ^[
 See the GDAL [datatype definitions](https://gdal.org/api/raster_c_api.html#_CPPv412GDALDataType) -- note that `raster` uses its own abbreviations: `?raster::dataType`
 ].
@@ -230,7 +230,7 @@ artwork %>%
 ```
 
 A bit more information on the 'missing value' warning can be found in GDAL's documentation of [GeoPackage raster](https://gdal.org/drivers/raster/gpkg.html#nodata-value).
-You should know that the `raster` package does not yet officially support the GeoPackage (see `?writeFormats()`)!
+You should know that the `raster` package does not yet officially support the GeoPackage! (see `?writeFormats()`)
 
 However, the `stars` package (see [further)](#homework)) fully supports GDAL's capabilities, and therefore _is_ able to write multiple raster layers, as we will do in a minute.
 Anyway, `raster::writeRaster` already works fine for single `RasterLayer` objects.
@@ -340,9 +340,9 @@ gdalUtils::gdalinfo("artwork.gpkg") %>%
 ```
 
 Yay!\
-It's interesting to see how the info at this level disregards CRS and coordinates.
+It's interesting to see how the info at this level disregards CRS and extent.
 
-When we query the metadata of one sublayer, it is seen that CRS and coordinates are layer-specific:
+When we query the metadata of one sublayer, it is seen that CRS and extent are layer-specific:
 
 ```{r}
 gdalUtils::gdalinfo("artwork.gpkg", 
@@ -357,7 +357,7 @@ gdalUtils::gdalinfo("artwork.gpkg",
 But `read_stars()` is there to assist us!!
 
 ```{r}
-# brick("artwork.gpkg")) ## this won't work...
+# brick("artwork.gpkg") ## this won't work...
 # but this will work:
 artwork_gpkg2 <- 
   read_stars("artwork.gpkg", sub = "artwork", quiet = TRUE) %>% 
@@ -418,7 +418,7 @@ interstellar %>% split("band")
 
 The `stars` package has a number of efficient geospatial algorithms that make it worth using, even for simple raster layers!
 
-And sure, as seen above, you can read from files with `read_stars()`, write to files with `write_stars()` and convert to Raster* objects with `as("Raster")`!
+And sure, as seen above, you can read from files with `read_stars()`, write to files with `write_stars()`, convert to Raster* objects with `as("Raster")` and backconvert with `st_as_stars()`!
 
 
 ```{r include=FALSE}

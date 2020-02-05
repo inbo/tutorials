@@ -28,7 +28,7 @@ Luckily, quite a list of open standards is available!
 Below, some powerful and widely-used single-file formats are introduced.
 Single-file data sources are readily amenable to exchange and publication.
 
-I see you can't wait to start practicing, so you can also head straight over to the [tutorial on vector formats](../../tutorials/spatial_standards_vector/) and the [tutorial on the GeoTIFF raster format](../../tutorials/spatial_standards_raster/)!
+I see you can't wait to start practicing, so you can also head straight over to the [tutorial on vector formats](../../tutorials/spatial_standards_vector/) and the [tutorial on raster formats](../../tutorials/spatial_standards_raster/)!
 In these tutorials, a comparison table of vector/raster file formats is also presented.
 
 ## A few words on the GDAL library
@@ -79,7 +79,7 @@ That is probably the reason why GDAL does not yet default to RFC7946.
 A somehow confusing stage, it seems.
 ], 
 RFC7946 is supported by the option `RFC7946=YES`.
-Here, on-the-fly reprojection to WGS84 will happen automatically.
+Here, reprojection to WGS84 will happen automatically.
 It applies 7 decimal places for coordinates, i.e. approximately 1 cm.
 Given the advantages, _**we advise to explicitly use RFC7946**_.
 Several functions in R allow the user to provide options that are passed to GDAL, so we can ask to deliver RFC7946 (see the [tutorial](../../tutorials/spatial_standards_vector/)).
