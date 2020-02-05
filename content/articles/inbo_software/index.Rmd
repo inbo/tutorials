@@ -1,6 +1,6 @@
 ---
 title: "Software by INBO: packages for environmentalists and ecologists!"
-date: 2019-03-25
+date: 2020-01-30
 csl: ../inbo.csl
 bibliography: ../reproducible_research.bib
 categories: ["development", "r", "statistics", "databases"]
@@ -8,6 +8,7 @@ tags: ["open science", "packages", "r", "python"]
 output: 
     md_document:
         preserve_yaml: true
+        variant: gfm
 weight: 1
 ---
 
@@ -24,18 +25,18 @@ When there is no documentation website, often one or more **vignettes** are avai
 
 The following table gives a **quick overview**:
 
-Research stage | Related INBO packages
--------------|--------------------------------------
-Study design | [grts](https://github.com/ThierryO/grts)
-Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/)
-Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/)
-Store data  | [git2rdata](https://inbo.github.io/git2rdata/)
-Validate data | [pywhip](https://inbo.github.io/pywhip/)
-Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan)
-Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/)
-Analyze data: indices | [LSVI](https://github.com/inbo/LSVI)
-Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)
-Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)
+| Research stage | Related INBO packages |
+|:-------------|:--------------------------------------|
+| Study design | [grts](https://github.com/ThierryO/grts) |
+| Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
+| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab) |
+| Store data  | [git2rdata](https://inbo.github.io/git2rdata/) |
+| Validate data | [pywhip](https://inbo.github.io/pywhip/) |
+| Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
+| Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/) |
+| Analyze data: indices | [LSVI](https://github.com/inbo/LSVI) |
+| Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/) |
+| Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/) |
 
 
 
@@ -55,6 +56,8 @@ The package provides functions to search for stations and variables, and downloa
 to query and download data from [Databank Ondergrond Vlaanderen (DOV)](https://www.dov.vlaanderen.be/).
 DOV aggregates data about soil, subsoil and groundwater of Flanders and makes them publicly available.
 Interactive and human-readable extraction and querying of the data is provided by a web application, whereas the focus of this package is to support machine-based extraction and conversion of the data.
+- **R package [watina](https://inbo.github.io/watina)**:
+provides functions to query and process data from the Watina database (mainly groundwater data).
 
 ### Biological data
 
@@ -66,6 +69,8 @@ The package provides functionality to download data and metadata, calculate some
 It also allows to download the data in a format that can easily be uploaded to [Movebank](https://www.movebank.org/), a free online database for animal tracking data.
 - **R package [etn](https://inbo.github.io/etn/)**:
 provides functionality to access and process data from the [European Tracking Network (ETN)](http://www.lifewatch.be/etn/) database hosted by the Flanders Marine Institute (VLIZ) as part of the Flemish contribution to LifeWatch.
+- **R package [n2khab](https://inbo.github.io/n2khab)**:
+provides preprocessed reference data _(including checklists, spatial habitat distribution, administrative & environmental layers, GRTSmaster_habitats)_ and preprocessing functions, supporting reproducible and transparent analyses on Flemish Natura 2000 (_n2k_) habitats (_hab_) and regionally important biotopes (RIBs).
 
 ## Store data
 
@@ -104,6 +109,8 @@ second order random walk).
 The functions can be useful to choose sensible priors and diagnose the fitted model.
 - **R package [multimput](https://github.com/inbo/multimput)**:
 an R package that assists with analysing datasets with missing values using multiple imputation.
+- **R package [effectclass](https://effectclass.netlify.com)**:
+an R package to classify and visualize modelled effects by comparing their confidence interval with thresholds.
 - **Python package [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/)**:
 Python package to run the NICHE Vlaanderen model.
 Based on calculated abiotic properties of the location, NICHE Vlaanderen determines whether certain vegetation types can develop.
