@@ -15,7 +15,7 @@ output:
 ---
 
 Some inspiration for this post came from the beautiful books of Lovelace
-*et al.* (2019), Pebesma & Bivand (2019) and Hijmans (2019), and from
+*et al.* (2020), Pebesma & Bivand (2019) and Hijmans (2019), and from
 various websites.
 
 ## Why use open standards?
@@ -38,9 +38,9 @@ data sources are readily amenable to exchange and publication.
 I see you can’t wait to start practicing, so you can also head straight
 over to the [tutorial on vector
 formats](../../tutorials/spatial_standards_vector/) and the [tutorial on
-the GeoTIFF raster format](../../tutorials/spatial_standards_raster/)\!
-In these tutorials, a comparison table of vector/raster file formats is
-also presented.
+raster formats](../../tutorials/spatial_standards_raster/)\! In these
+tutorials, a comparison table of vector/raster file formats is also
+presented.
 
 ## A few words on the GDAL library
 
@@ -121,12 +121,12 @@ So, in R we use packages that use GDAL in the background, such as
         in the documentation of GDAL’s GeoJSON driver gives a summary of
         the differences between both GeoJSON versions.
   - While GDAL by default still follows the GeoJSON 2008 format,\[3\]
-    RFC7946 is supported by the option `RFC7946=YES`. Here, on-the-fly
-    reprojection to WGS84 will happen automatically. It applies 7
-    decimal places for coordinates, i.e. approximately 1 cm. Given the
-    advantages, ***we advise to explicitly use RFC7946***. Several
-    functions in R allow the user to provide options that are passed to
-    GDAL, so we can ask to deliver RFC7946 (see the
+    RFC7946 is supported by the option `RFC7946=YES`. Here, reprojection
+    to WGS84 will happen automatically. It applies 7 decimal places for
+    coordinates, i.e. approximately 1 cm. Given the advantages, ***we
+    advise to explicitly use RFC7946***. Several functions in R allow
+    the user to provide options that are passed to GDAL, so we can ask
+    to deliver RFC7946 (see the
     [tutorial](../../tutorials/spatial_standards_vector/)).
   - In order to keep it manageable (text file size, usage in versioning
     systems\[4\] ) it can be wise to use GeoJSON for more simple cases
@@ -161,9 +161,9 @@ Hijmans R. (2019). Spatial Data Science with R. URL:
 
 </div>
 
-<div id="ref-lovelace_geocomputation_2019">
+<div id="ref-lovelace_geocomputation_2020">
 
-Lovelace R., Nowosad J. & Muenchow J. (2019). Geocomputation with R.
+Lovelace R., Nowosad J. & Muenchow J. (2020). Geocomputation with R.
 URL: <https://geocompr.robinlovelace.net>.
 
 </div>

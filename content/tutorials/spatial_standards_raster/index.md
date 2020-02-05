@@ -307,7 +307,7 @@ such as the R-packages [raster](https://rspatial.org/raster/pkg) and
 [stars](https://r-spatial.github.io/stars/). This is something we can
 expect to grow in the future.
 
-GDAL’s GKG-raster driver itself is still less worked out than its
+GDAL’s GPKG-raster driver itself is still less worked out than its
 drivers for GeoTIFF or GPKG-vector (note that one GPKG file can
 accommodate both layer types). For example, only the *Byte, Int16,
 UInt16* and *Float32* datatypes can be written by GDAL, while for
@@ -336,7 +336,7 @@ A bit more information on the ‘missing value’ warning can be found in
 GDAL’s documentation of [GeoPackage
 raster](https://gdal.org/drivers/raster/gpkg.html#nodata-value). You
 should know that the `raster` package does not yet officially support
-the GeoPackage (see `?writeFormats()`)\!
+the GeoPackage\! (see `?writeFormats()`)
 
 However, the `stars` package (see [further)](#homework)) fully supports
 GDAL’s capabilities, and therefore *is* able to write multiple raster
@@ -522,10 +522,10 @@ gdalUtils::gdalinfo("artwork.gpkg") %>%
 
 Yay\!  
 It’s interesting to see how the info at this level disregards CRS and
-coordinates.
+extent.
 
 When we query the metadata of one sublayer, it is seen that CRS and
-coordinates are layer-specific:
+extent are layer-specific:
 
 ``` r
 gdalUtils::gdalinfo("artwork.gpkg", 
@@ -583,7 +583,7 @@ gdalUtils::gdalinfo("artwork.gpkg",
 there to assist us\!\!
 
 ``` r
-# brick("artwork.gpkg")) ## this won't work...
+# brick("artwork.gpkg") ## this won't work...
 # but this will work:
 artwork_gpkg2 <- 
   read_stars("artwork.gpkg", sub = "artwork", quiet = TRUE) %>% 
@@ -722,8 +722,8 @@ The `stars` package has a number of efficient geospatial algorithms that
 make it worth using, even for simple raster layers\!
 
 And sure, as seen above, you can read from files with `read_stars()`,
-write to files with `write_stars()` and convert to Raster\* objects with
-`as("Raster")`\!
+write to files with `write_stars()`, convert to Raster\* objects with
+`as("Raster")` and backconvert with `st_as_stars()`\!
 
 1.  CRS = coordinate reference system
 
