@@ -48,8 +48,8 @@ formats.
 | Number of files                                       |         1         |              1               |     3 or more     | 1 (personal gdb) / many (file gdb) |
 | Inspect version’s differences in git version control? |        no         | yes (but care must be taken) |        no         |                 no                 |
 | Can store multiple layers?                            |        yes        |              no              |        no         |                yes                 |
-| Multiple geometries allowed per layer?                |        yes        |             yes              |        no         |                yes                 |
-| Coordinate reference system used in file              | same as input CRS |            WGS84             | same as input CRS |         same as input CRS          |
+| Multiple geometry types allowed per layer?            |        yes        |             yes              |        no         |                yes                 |
+| Coordinate reference system (CRS) in file             | same as input CRS |            WGS84             | same as input CRS |         same as input CRS          |
 
 ## How to make and use GeoPackages (`*.gpkg`)
 

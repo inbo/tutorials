@@ -49,7 +49,7 @@ formats.
 | Inspect version’s differences in git version control? |        no         |        no         |                 no                 |
 | Can store multiple layers?                            |        yes        |        yes        |                yes                 |
 | Do layers need same extent and resolution?            |        yes        |        no         |                 no                 |
-| Coordinate reference system used in file              | same as input CRS | same as input CRS |         same as input CRS          |
+| Coordinate reference system (CRS) in file             | same as input CRS | same as input CRS |         same as input CRS          |
 
 ## How to make and use GeoTIFF files (`*.tif`)
 
