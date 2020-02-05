@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='How to use open raster file formats in R: GeoTIFF &amp; GeoPackage • INBO Tutorials'>
+<meta property='og:description' content='A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-02-03T00:00:00Z'/><meta property='article:modified_time' content='2020-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.62.0" />
+
+  <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage • INBO Tutorials</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0384615384615385em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0384615384615385em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.1153846153846154em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0384615384615385em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.2692307692307692em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.2307692307692308em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.0384615384615385em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0384615384615385em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.3076923076923077em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.1538461538461537em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.1538461538461537em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0384615384615385em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.2307692307692308em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.0769230769230769em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0384615384615385em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0769230769230769em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.0384615384615385em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.1153846153846154em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.1923076923076923em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.0769230769230769em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</h1>
+      
+<p class='desc'>A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-02-03T00:00:00Z'>2020, Feb 03</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+14 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/spatial_standards_raster/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>This tutorial uses a few basic functions from the
+<a href="https://dplyr.tidyverse.org">dplyr</a> and
+<a href="https://rspatial.org/raster/pkg">raster</a> packages. While only a few
+functions are used, you can use the previous hyperlinks to access the
+tutorials (vignettes) of these packages for more functions and
+information.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">options</span>(stringsAsFactors = <span style="color:#00a">FALSE</span>)
+<span style="color:#0a0">library</span>(raster)
+<span style="color:#0a0">library</span>(tidyverse)
+<span style="color:#0a0">library</span>(inborutils)
+</code></pre></div><p>You will find a bit more background about ‘why and what’, regarding the
+considered open standards, in <a href="../../articles/geospatial_standards/">a separate
+post</a> on this website.</p>
+<p>In short, the GeoTIFF and GeoPackage formats are ideal for exchange,
+publication, interoperability &amp; durability and to open science in
+general.</p>
+<p>The below table compares a few raster formats that are currently used a
+lot. This tutorial focuses on the open
+formats.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="center">GeoTIFF</th>
+<th align="center">GeoPackage</th>
+<th align="center">ESRI geodatabase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Open standard?</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Write support by GDAL</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Supported OS</td>
+<td align="center">cross-platform</td>
+<td align="center">cross-platform</td>
+<td align="center">Windows</td>
+</tr>
+<tr>
+<td align="left">Extends non-spatial format:</td>
+<td align="center">TIFF</td>
+<td align="center">SQLite</td>
+<td align="center">MS Access (for personal gdb)</td>
+</tr>
+<tr>
+<td align="left">Text or binary?</td>
+<td align="center">binary</td>
+<td align="center">binary</td>
+<td align="center">binary</td>
+</tr>
+<tr>
+<td align="left">Number of files</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1 (personal gdb) / many (file gdb)</td>
+</tr>
+<tr>
+<td align="left">Inspect version’s differences in git version control?</td>
+<td align="center">no</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Can store multiple layers?</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td align="left">Do layers need same extent and resolution?</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Coordinate reference system (CRS) in file</td>
+<td align="center">same as input CRS</td>
+<td align="center">same as input CRS</td>
+<td align="center">same as input CRS</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-make-and-use-geotiff-files-tif">How to make and use GeoTIFF files (<code>*.tif</code>)<a href="#how-to-make-and-use-geotiff-files-tif" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="making-a-mono-layered-geotiff-file-from-a-rasterlayer-r-object">Making a mono-layered GeoTIFF file from a <code>RasterLayer</code> R object<a href="#making-a-mono-layered-geotiff-file-from-a-rasterlayer-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Let’s create a small dummy <code>RasterLayer</code> object from scratch, for some
+area in Belgium (using the CRS [1] Belgian Lambert 72, i.e.
+<a href="https://epsg.io/31370">EPSG-code 31370</a>):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork &lt;- 
+  <span style="color:#0a0">raster</span>(<span style="color:#0a0">extent</span>(<span style="color:#099">188500</span>, <span style="color:#099">190350</span>, <span style="color:#099">227550</span>, <span style="color:#099">229550</span>), <span style="color:#aaa;font-style:italic"># xmin, xmax, ymin, ymax</span>
+         res = <span style="color:#099">50</span>, <span style="color:#aaa;font-style:italic"># resolution of 50 meters</span>
+         crs = <span style="color:#0a0">CRS</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">+init=epsg:31370&#34;</span>)) %&gt;% 
+  <span style="color:#0a0">setValues</span>(<span style="color:#0a0">runif</span>(<span style="color:#0a0">ncell</span>(.)))  <span style="color:#aaa;font-style:italic"># fill with random values</span>
+</code></pre></div><p>What does this look like?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : memory
+## names      : layer 
+## values     : 0.0001557397, 0.9997439  (min, max)
+</code></pre>
+<p>A simple trick to plot this raster:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">spplot</span>(artwork)
+</code></pre></div><p><img src="index_files/figure-gfm/artwork-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>To write this <code>RasterLayer</code> object as a GeoTIFF, you can use the
+<code>raster::writeRaster()</code> function. In the background, it uses the GeoTIFF
+driver of the powerful <a href="https://gdal.org">GDAL</a> library.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.tif&#34;</span>)
+</code></pre></div><p>And now?<br>
+<em><strong>Say HURRAY!!</strong></em></p>
+<h3 id="making-a-multi-layered-geotiff-file-from-a-rasterbrick-r-object">Making a multi-layered GeoTIFF file from a <code>RasterBrick</code> R object<a href="#making-a-multi-layered-geotiff-file-from-a-rasterbrick-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Let’s create a <code>RasterBrick</code> object of three
+layers:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts &lt;- <span style="color:#0a0">brick</span>(artwork) <span style="color:#aaa;font-style:italic"># RasterBrick with one layer (the RasterLayer from above)</span>
+arts[[2]] &lt;- artwork + <span style="color:#099">10</span> <span style="color:#aaa;font-style:italic"># Add second layer, e.g. based on first one</span>
+arts[[3]] &lt;- <span style="color:#0a0">calc</span>(arts[[2]], <span style="color:#0a0">function</span>(x) {<span style="color:#099">20</span> ^ x}) <span style="color:#aaa;font-style:italic"># Making third layer from second</span>
+<span style="color:#0a0">names</span>(arts) &lt;- <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">layer&#34;</span>, <span style="color:#099">1</span>:<span style="color:#099">3</span>)
+</code></pre></div><p><em>Note: for complex formulas on large datasets, the <code>calc()</code> function is
+more efficient than simple algebraic expressions such as for layer2 (see
+<code>?raster::calc</code>).</em></p>
+<p>How does the result look like?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts
+</code></pre></div><pre><code>## class      : RasterBrick 
+## dimensions : 40, 37, 1480, 3  (nrow, ncol, ncell, nlayers)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : memory
+## names      :       layer1,       layer2,       layer3 
+## min values : 1.557397e-04, 1.000016e+01, 1.024478e+13 
+## max values : 9.997439e-01, 1.099974e+01, 2.046429e+14
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
+  as.list %&gt;% 
+  <span style="color:#0a0">lapply</span>(spplot)
+</code></pre></div><pre><code>## [[1]]
+</code></pre>
+<p><img src="index_files/figure-gfm/arts-1.png" alt=""><!-- raw HTML omitted --></p>
+<pre><code>## 
+## [[2]]
+</code></pre>
+<p><img src="index_files/figure-gfm/arts-2.png" alt=""><!-- raw HTML omitted --></p>
+<pre><code>## 
+## [[3]]
+</code></pre>
+<p><img src="index_files/figure-gfm/arts-3.png" alt=""><!-- raw HTML omitted --></p>
+<p>So now what?<br>
+<em><strong>Let’s write it!</strong></em></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">arts.tif&#34;</span>)
+</code></pre></div><p>But, I want to add 20 extra layers!<br>
+<em><strong>(…<em>😣😮</em>…)</strong></em></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts2 &lt;- 
+  <span style="color:#0a0">calc</span>(artwork, 
+       <span style="color:#0a0">function</span>(x) {<span style="color:#099">-1</span>:<span style="color:#099">-20</span> * x}, <span style="color:#aaa;font-style:italic"># first layer = -1 * artwork</span>
+                                 <span style="color:#aaa;font-style:italic"># second layer = -2 * artwork</span>
+                                 <span style="color:#aaa;font-style:italic"># ....</span>
+       forceapply = <span style="color:#00a">TRUE</span>)
+<span style="color:#0a0">names</span>(arts2) &lt;- <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">neg_layer&#34;</span>, <span style="color:#099">1</span>:<span style="color:#099">20</span>)
+<span style="color:#aaa;font-style:italic"># adding it to arts:</span>
+arts &lt;- <span style="color:#0a0">brick</span>(<span style="color:#0a0">list</span>(arts, arts2))
+<span style="color:#aaa;font-style:italic"># saving layer names for later use:</span>
+mynames &lt;- <span style="color:#0a0">names</span>(arts)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">nlayers</span>(arts)
+</code></pre></div><pre><code>## [1] 23
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts)
+</code></pre></div><pre><code>##  [1] &quot;layer1&quot;      &quot;layer2&quot;      &quot;layer3&quot;      &quot;neg_layer1&quot;  &quot;neg_layer2&quot; 
+##  [6] &quot;neg_layer3&quot;  &quot;neg_layer4&quot;  &quot;neg_layer5&quot;  &quot;neg_layer6&quot;  &quot;neg_layer7&quot; 
+## [11] &quot;neg_layer8&quot;  &quot;neg_layer9&quot;  &quot;neg_layer10&quot; &quot;neg_layer11&quot; &quot;neg_layer12&quot;
+## [16] &quot;neg_layer13&quot; &quot;neg_layer14&quot; &quot;neg_layer15&quot; &quot;neg_layer16&quot; &quot;neg_layer17&quot;
+## [21] &quot;neg_layer18&quot; &quot;neg_layer19&quot; &quot;neg_layer20&quot;
+</code></pre>
+<p><strong>Overwrite</strong> the earlier written file:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">arts.tif&#34;</span>,
+              overwrite = <span style="color:#00a">TRUE</span>)
+</code></pre></div><p>That’s about it!</p>
+<h3 id="reading-a-geotiff-file">Reading a GeoTIFF file<a href="#reading-a-geotiff-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Nothing can be more simple…</p>
+<p>Reading a mono-layered GeoTIFF file with <code>raster()</code> gives back the
+<code>RasterLayer</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_test &lt;- <span style="color:#0a0">raster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.tif&#34;</span>)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_test
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/artwork.tif 
+## names      : artwork 
+## values     : 0.0001557397, 0.9997439  (min, max)
+</code></pre>
+<p>Reading a multi-layered GeoTIFF file with <code>brick()</code> returns the
+<code>RasterBrick</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts_test &lt;- <span style="color:#0a0">brick</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">arts.tif&#34;</span>)
+</code></pre></div><p>However:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts_test)
+</code></pre></div><pre><code>##  [1] &quot;arts.1&quot;  &quot;arts.2&quot;  &quot;arts.3&quot;  &quot;arts.4&quot;  &quot;arts.5&quot;  &quot;arts.6&quot;  &quot;arts.7&quot; 
+##  [8] &quot;arts.8&quot;  &quot;arts.9&quot;  &quot;arts.10&quot; &quot;arts.11&quot; &quot;arts.12&quot; &quot;arts.13&quot; &quot;arts.14&quot;
+## [15] &quot;arts.15&quot; &quot;arts.16&quot; &quot;arts.17&quot; &quot;arts.18&quot; &quot;arts.19&quot; &quot;arts.20&quot; &quot;arts.21&quot;
+## [22] &quot;arts.22&quot; &quot;arts.23&quot;
+</code></pre>
+<p>As you see, layer names are not saved in the GeoTIFF. You define them in
+R:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts_test) &lt;- mynames
+arts_test
+</code></pre></div><pre><code>## class      : RasterBrick 
+## dimensions : 40, 37, 1480, 23  (nrow, ncol, ncell, nlayers)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/arts.tif 
+## names      :        layer1,        layer2,        layer3,    neg_layer1,    neg_layer2,    neg_layer3,    neg_layer4,    neg_layer5,    neg_layer6,    neg_layer7,    neg_layer8,    neg_layer9,   neg_layer10,   neg_layer11,   neg_layer12, ... 
+## min values :  1.557397e-04,  1.000016e+01,  1.024478e+13, -9.997439e-01, -1.999488e+00, -2.999232e+00, -3.998976e+00, -4.998719e+00, -5.998463e+00, -6.998207e+00, -7.997951e+00, -8.997695e+00, -9.997439e+00, -1.099718e+01, -1.199693e+01, ... 
+## max values :  9.997439e-01,  1.099974e+01,  2.046429e+14, -1.557397e-04, -3.114794e-04, -4.672192e-04, -6.229589e-04, -7.786986e-04, -9.344383e-04, -1.090178e-03, -1.245918e-03, -1.401657e-03, -1.557397e-03, -1.713137e-03, -1.868877e-03, ...
+</code></pre>
+<p>That’s what we wanted!</p>
+<p>The actual data are not loaded into memory, but read in chunks when
+performing operations. This makes it convenient when using larger
+rasters:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">inMemory</span>(arts_test)
+</code></pre></div><pre><code>## [1] FALSE
+</code></pre>
+<p>Selecting a specific layer by its name:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts_test$neg_layer20
+</code></pre></div><pre><code>## class      : RasterLayer 
+## band       : 23  (of  23  bands)
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/arts.tif 
+## names      : neg_layer20 
+## values     : -19.99488, -0.003114794  (min, max)
+</code></pre>
+<h2 id="how-to-make-and-use-geopackages-with-raster-layers-gpkg">How to make and use GeoPackages with raster layers (<code>*.gpkg</code>)<a href="#how-to-make-and-use-geopackages-with-raster-layers-gpkg" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>‘GeoPackage’ may sound new and unfamiliar to you – more information can
+be found in <a href="../../articles/geospatial_standards/">a separate post</a> on
+this website.</p>
+<p>While its vector capabilities are already beautifully supported by GDAL
+and the <code>sf</code> package (demonstrated in the <a href="../../tutorials/spatial_standards_vector/">other
+tutorial</a>)), its raster
+capabilities are still less supported by GDAL and dependent applications
+such as the R-packages <a href="https://rspatial.org/raster/pkg">raster</a> and
+<a href="https://r-spatial.github.io/stars/">stars</a>. This is something we can
+expect to grow in the future.</p>
+<p>GDAL’s GPKG-raster driver itself is still less worked out than its
+drivers for GeoTIFF or GPKG-vector (note that one GPKG file can
+accommodate both layer types). For example, only the <em>Byte, Int16,
+UInt16</em> and <em>Float32</em> datatypes can be written by GDAL, while for
+GeoTIFFs these are <em>Byte UInt16, Int16, UInt32, Int32, Float32, Float64,
+CInt16, CInt32, CFloat32</em> and <em>CFloat64</em> [2].</p>
+<p>From my experience, raster GeoPackage files are smaller than GeoTIFF
+files in the case of larger rasters. This, and the capability to combine
+raster and vector layers, certainly make it worthwile to consider the
+GeoPackage format for rasters, if you’re not hindered by the supported
+data types.</p>
+<h3 id="making-a-single-raster-geopackage-from-a-rasterlayer-r-object">Making a single-raster GeoPackage from a <code>RasterLayer</code> R object<a href="#making-a-single-raster-geopackage-from-a-rasterlayer-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>This it is no more difficult than:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, format = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>)
+</code></pre></div><pre><code>## Warning in .gd_SetNoDataValue(object, ...): setting of missing value not
+## supported by this driver
+</code></pre>
+<p>A bit more information on the ‘missing value’ warning can be found in
+GDAL’s documentation of <a href="https://gdal.org/drivers/raster/gpkg.html#nodata-value">GeoPackage
+raster</a>. You
+should know that the <code>raster</code> package does not yet officially support
+the GeoPackage! (see <code>?writeFormats()</code>)</p>
+<p>However, the <code>stars</code> package (see <a href="#homework">further)</a>) fully supports
+GDAL’s capabilities, and therefore <em>is</em> able to write multiple raster
+layers, as we will do in a minute. Anyway, <code>raster::writeRaster</code> already
+works fine for single <code>RasterLayer</code> objects.</p>
+<p>Reading the GeoPackage:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_gpkg &lt;- <span style="color:#0a0">raster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>)
+artwork_gpkg
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/artwork.gpkg 
+## names      : artwork 
+## values     : -3.4e+38, 0.9997439  (min, max)
+</code></pre>
+<p>Let’s make sure: are the data we’ve read from the GeoTIFF identical to
+those from the GeoPackage?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg[])
+</code></pre></div><pre><code>## [1] TRUE
+</code></pre>
+<p>Yeah!</p>
+<p>Given that the GPKG-support of <code>raster</code> is limited, we’re lucky that
+Edzer Pebesma – the creator of <code>sf</code> – has also made the amazing package
+<code>stars</code>!!</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">unlink</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>) <span style="color:#aaa;font-style:italic"># delete gpkg; we&#39;re going to create it here again</span>
+<span style="color:#0a0">Sys.setenv</span>(GDAL_PAM_ENABLED = <span style="color:#a50">&#34;</span><span style="color:#a50">NO&#34;</span>) <span style="color:#aaa;font-style:italic"># prevents an auxiliary file being written next to *.gpkg</span>
+<span style="color:#0a0">library</span>(stars)
+</code></pre></div><pre><code>## Loading required package: abind
+
+## Loading required package: sf
+
+## Linking to GEOS 3.5.1, GDAL 2.2.2, PROJ 4.9.2
+</code></pre>
+<p>We could as well have written <code>artwork</code> to a GeoPackage with <code>stars</code>, so
+let’s just see what we get by converting the <code>RasterLayer</code> object to a
+<code>stars</code> object and then apply <code>write_stars()</code>, hm?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
+  st_as_stars %&gt;% <span style="color:#aaa;font-style:italic"># this converts the RasterLayer to a stars object</span>
+  <span style="color:#0a0">write_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>,
+              driver = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>)
+</code></pre></div><p>Reading it back with <code>stars::read_stars()</code>, followed by back-conversion
+to a <code>RasterLayer</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_gpkg_stars &lt;- 
+  <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>) %&gt;% 
+  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Raster&#34;</span>)
+artwork_gpkg_stars
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : memory
+## names      : layer 
+## values     : 0.0001557397, 0.9997439  (min, max)
+</code></pre>
+<p>And yes again, the data we’ve read from the GeoTIFF file are identical
+to those from the GeoPackage:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg_stars[])
+</code></pre></div><pre><code>## [1] TRUE
+</code></pre>
+<p>That’s it!</p>
+<p>Knowing how to write and read with <code>stars</code> will help us for the
+multi-layer case!</p>
+<h3 id="making-a-multi-raster-geopackage">Making a multi-raster GeoPackage<a href="#making-a-multi-raster-geopackage" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Indeed, just as with vector layers, GeoPackage can accommodate multiple
+raster layers (or vector + raster layers).</p>
+<p>Let’s suppose we’d like to add <code>layer2</code> (a <code>RasterLayer</code>) from the
+<code>RasterBrick</code> object <code>arts</code>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts$layer2
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : memory
+## names      : layer2 
+## values     : 10.00016, 10.99974  (min, max)
+</code></pre>
+<p>Unfortunately, the <code>raster</code> package does not support GDAL’s options to
+add extra raster layers in a GPKG file:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">try</span>(
+  arts$layer2 %&gt;% 
+    <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, 
+                format = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>,
+                options = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">RASTER_TABLE=layer2&#34;</span>,
+                            <span style="color:#a50">&#34;</span><span style="color:#a50">APPEND_SUBDATASET=YES&#34;</span>))
+)
+</code></pre></div><pre><code>## Error in .getGDALtransient(x, filename = filename, options = options,  : 
+##   filename exists; use overwrite=TRUE
+</code></pre>
+<p>So let’s proceed with <code>stars</code>!</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts$layer2 %&gt;% 
+  st_as_stars %&gt;% 
+  <span style="color:#0a0">write_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>,
+              driver = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>,
+              options = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">RASTER_TABLE=layer2&#34;</span>,
+                          <span style="color:#a50">&#34;</span><span style="color:#a50">APPEND_SUBDATASET=YES&#34;</span>))
+</code></pre></div><p>Mind the <code>options</code> argument: those options are passed directly to GDAL’s
+GPKG-raster driver, and they’re documented <a href="https://gdal.org/drivers/raster/gpkg.html#creation-options">at
+GDAL</a>.</p>
+<p>Over there we read:</p>
+<blockquote>
+<p>RASTER_TABLE=string. Name of tile user table. By default, based on
+the filename (i.e. if filename is foo.gpkg, the table will be called
+“foo”).</p>
+<p>APPEND_SUBDATASET=YES/NO: If set to YES, an existing GeoPackage will
+not be priorly destroyed, such as to be able to add new content to it.
+Defaults to NO.</p>
+</blockquote>
+<p>Ahaa!</p>
+<p>We got no errors above, but no feedback either…<br>
+Thrilling!</p>
+<p>Let’s peek:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">gdalinfo</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>) %&gt;% 
+  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;</span><span style="color:#a50">\n&#34;</span>)
+</code></pre></div><pre><code>## Driver: GPKG/GeoPackage
+## Files: artwork.gpkg
+## Size is 512, 512
+## Coordinate System is `'
+## Subdatasets:
+##   SUBDATASET_1_NAME=GPKG:artwork.gpkg:artwork
+##   SUBDATASET_1_DESC=artwork - artwork
+##   SUBDATASET_2_NAME=GPKG:artwork.gpkg:layer2
+##   SUBDATASET_2_DESC=layer2 - layer2
+## Corner Coordinates:
+## Upper Left  (    0.0,    0.0)
+## Lower Left  (    0.0,  512.0)
+## Upper Right (  512.0,    0.0)
+## Lower Right (  512.0,  512.0)
+## Center      (  256.0,  256.0)
+</code></pre>
+<p>Yay!<br>
+It’s interesting to see how the info at this level disregards CRS and
+extent.</p>
+<p>When we query the metadata of one sublayer, it is seen that CRS and
+extent are layer-specific:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">gdalinfo</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, 
+                    <span style="color:#aaa;font-style:italic"># provide metadata of first subdataset:</span>
+                    sd=<span style="color:#099">1</span>, 
+                    <span style="color:#aaa;font-style:italic"># the following arguments just control formatting of the output:</span>
+                    approx_stats = <span style="color:#00a">TRUE</span>, mm = <span style="color:#00a">TRUE</span>, proj4 = <span style="color:#00a">TRUE</span>) %&gt;% 
+  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;</span><span style="color:#a50">\n&#34;</span>)
+</code></pre></div><pre><code>## Driver: GPKG/GeoPackage
+## Files: none associated
+## Size is 37, 40
+## Coordinate System is:
+## PROJCS[&quot;unnamed&quot;,
+##     GEOGCS[&quot;International 1909 (Hayford)&quot;,
+##         DATUM[&quot;unknown&quot;,
+##             SPHEROID[&quot;intl&quot;,6378388,297],
+##             TOWGS84[-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747]],
+##         PRIMEM[&quot;Greenwich&quot;,0],
+##         UNIT[&quot;degree&quot;,0.0174532925199433]],
+##     PROJECTION[&quot;Lambert_Conformal_Conic_2SP&quot;],
+##     PARAMETER[&quot;standard_parallel_1&quot;,51.16666723333333],
+##     PARAMETER[&quot;standard_parallel_2&quot;,49.8333339],
+##     PARAMETER[&quot;latitude_of_origin&quot;,90],
+##     PARAMETER[&quot;central_meridian&quot;,4.367486666666666],
+##     PARAMETER[&quot;false_easting&quot;,150000.013],
+##     PARAMETER[&quot;false_northing&quot;,5400088.438],
+##     UNIT[&quot;Meter&quot;,1]]
+## PROJ.4 string is:
+## '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs '
+## Origin = (188500.000000000000000,229550.000000000000000)
+## Pixel Size = (50.000000000000000,-50.000000000000000)
+## Metadata:
+##   IDENTIFIER=artwork
+##   ZOOM_LEVEL=0
+## Image Structure Metadata:
+##   INTERLEAVE=PIXEL
+## Corner Coordinates:
+## Upper Left  (  188500.000,  229550.000) (  4d55'13.29&quot;E, 51d22'29.75&quot;N)
+## Lower Left  (  188500.000,  227550.000) (  4d55'12.52&quot;E, 51d21'25.04&quot;N)
+## Upper Right (  190350.000,  229550.000) (  4d56'48.92&quot;E, 51d22'29.30&quot;N)
+## Lower Right (  190350.000,  227550.000) (  4d56'48.12&quot;E, 51d21'24.59&quot;N)
+## Center      (  189425.000,  228550.000) (  4d56' 0.71&quot;E, 51d21'57.17&quot;N)
+## Band 1 Block=256x256 Type=Float32, ColorInterp=Undefined
+##     Computed Min/Max=0.000,1.000
+##   Minimum=0.000, Maximum=1.000, Mean=0.502, StdDev=0.289
+##   Metadata:
+##     STATISTICS_MAXIMUM=0.9997438788414
+##     STATISTICS_MEAN=0.50228321918167
+##     STATISTICS_MINIMUM=0.00015573971904814
+##     STATISTICS_STDDEV=0.28903126880165
+</code></pre>
+<p><code>raster</code> will not help us for reading the layers. But <code>read_stars()</code> is
+there to assist us!!</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># brick(&#34;artwork.gpkg&#34;) ## this won&#39;t work...</span>
+<span style="color:#aaa;font-style:italic"># but this will work:</span>
+artwork_gpkg2 &lt;- 
+  <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, sub = <span style="color:#a50">&#34;</span><span style="color:#a50">artwork&#34;</span>, quiet = <span style="color:#00a">TRUE</span>) %&gt;% 
+  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Raster&#34;</span>)
+artwork_gpkg2
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : memory
+## names      : layer 
+## values     : 0.0001557397, 0.9997439  (min, max)
+</code></pre>
+<p>Wow!</p>
+<p>Checking data again with GeoTIFF result:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg2[])
+</code></pre></div><pre><code>## [1] TRUE
+</code></pre>
+<p>Same story for the other layer:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, sub = <span style="color:#a50">&#34;</span><span style="color:#a50">layer2&#34;</span>, quiet = <span style="color:#00a">TRUE</span>) %&gt;% 
+  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Raster&#34;</span>)
+</code></pre></div><pre><code>## class      : RasterLayer 
+## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
+## resolution : 50, 50  (x, y)
+## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
+## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## source     : memory
+## names      : layer 
+## values     : 10.00016, 10.99974  (min, max)
+</code></pre>
+<p>Splendid.</p>
+<p>By the way, this is how the full <code>stars</code> object looks like – it holds
+information similar to a <code>RasterBrick</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, quiet = <span style="color:#00a">TRUE</span>)
+</code></pre></div><pre><code>## stars object with 2 dimensions and 2 attributes
+## attribute(s):
+##     artwork             layer2      
+##  Min.   :0.0001557   Min.   :10.00  
+##  1st Qu.:0.2475555   1st Qu.:10.25  
+##  Median :0.5052805   Median :10.51  
+##  Mean   :0.5022832   Mean   :10.50  
+##  3rd Qu.:0.7533531   3rd Qu.:10.75  
+##  Max.   :0.9997439   Max.   :11.00  
+## dimension(s):
+##   from to offset delta                       refsys point values    
+## x    1 37 188500    50 +proj=lcc +lat_1=51.16666...    NA   NULL [x]
+## y    1 40 229550   -50 +proj=lcc +lat_1=51.16666...    NA   NULL [y]
+</code></pre>
+<h2 id="homework-further-explore-the-amazing-stars-package">Homework: further explore the amazing <code>stars</code> package<a href="#homework-further-explore-the-amazing-stars-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Enter deep hyperspace and explore the <code>stars</code> package, which stores
+multidimensional hypercubes… Really, visit its
+<a href="https://r-spatial.github.io/stars/">website</a> and never look (or turn?)
+back!</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(stars)
+</code></pre></div><p>For now, my time’s up and I’ll just demonstrate how easy it is to
+transform a <code>Raster*</code> object into a <code>stars</code> object:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar &lt;- 
+  arts[[1:<span style="color:#099">5</span>]] %&gt;% 
+  <span style="color:#0a0">st_as_stars</span>()
+interstellar
+</code></pre></div><pre><code>## stars object with 3 dimensions and 1 attribute
+## attribute(s):
+##     layer1           
+##  Min.   :-2.000e+00  
+##  1st Qu.:-1.000e+00  
+##  Median : 1.000e+00  
+##  Mean   : 1.306e+13  
+##  3rd Qu.: 1.100e+01  
+##  Max.   : 2.046e+14  
+## dimension(s):
+##      from to offset delta                       refsys point
+## x       1 37 188500    50 +init=epsg:31370 +proj=lc...    NA
+## y       1 40 229550   -50 +init=epsg:31370 +proj=lc...    NA
+## band    1  5     NA    NA                           NA    NA
+##                     values    
+## x                     NULL [x]
+## y                     NULL [y]
+## band layer1,...,neg_layer2
+</code></pre>
+<p>It does make sense, right?</p>
+<p>What about:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar %&gt;% <span style="color:#0a0">split</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">band&#34;</span>)
+</code></pre></div><pre><code>## stars object with 2 dimensions and 5 attributes
+## attribute(s):
+##     layer1              layer2          layer3            neg_layer1         
+##  Min.   :0.0001557   Min.   :10.00   Min.   :1.024e+13   Min.   :-0.9997439  
+##  1st Qu.:0.2475555   1st Qu.:10.25   1st Qu.:2.150e+13   1st Qu.:-0.7533531  
+##  Median :0.5052805   Median :10.51   Median :4.652e+13   Median :-0.5052805  
+##  Mean   :0.5022832   Mean   :10.50   Mean   :6.529e+13   Mean   :-0.5022832  
+##  3rd Qu.:0.7533531   3rd Qu.:10.75   3rd Qu.:9.782e+13   3rd Qu.:-0.2475555  
+##  Max.   :0.9997439   Max.   :11.00   Max.   :2.046e+14   Max.   :-0.0001557  
+##   neg_layer2         
+##  Min.   :-1.9994878  
+##  1st Qu.:-1.5067062  
+##  Median :-1.0105610  
+##  Mean   :-1.0045664  
+##  3rd Qu.:-0.4951110  
+##  Max.   :-0.0003115  
+## dimension(s):
+##   from to offset delta                       refsys point values    
+## x    1 37 188500    50 +init=epsg:31370 +proj=lc...    NA   NULL [x]
+## y    1 40 229550   -50 +init=epsg:31370 +proj=lc...    NA   NULL [y]
+</code></pre>
+<p>The <code>stars</code> package has a number of efficient geospatial algorithms that
+make it worth using, even for simple raster layers!</p>
+<p>And sure, as seen above, you can read from files with <code>read_stars()</code>,
+write to files with <code>write_stars()</code>, convert to Raster* objects with
+<code>as(&quot;Raster&quot;)</code> and backconvert with <code>st_as_stars()</code>!</p>
+<ol>
+<li>
+<p>CRS = coordinate reference system</p>
+</li>
+<li>
+<p>See the GDAL <a href="https://gdal.org/api/raster_c_api.html#_CPPv412GDALDataType">datatype
+definitions</a>
+– note that <code>raster</code> uses its own abbreviations: <code>?raster::dataType</code></p>
+</li>
+</ol>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/r/'>r</a>, <a class='category' href='/tutorials/categories/gis/'>gis</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/gis/'>gis</a>, <a class='tag' href='/tutorials/tags/r/'>r</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/spatial_standards_vector/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+
+<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+

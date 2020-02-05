@@ -6,7 +6,7 @@
     <description>Recent content in Articles on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/articles/index.xml" rel="self" type="application/rss+xml" />
     
@@ -72,6 +72,16 @@ Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a sc
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site&#39;s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the discipline as a whole, its perception, principles ,etc., while they often also give an overview of scientific computing workflows.</description>
+    </item>
+    
+    <item>
+      <title>Meet some popular open geospatial standards!</title>
+      <link>https://inbo.github.io/tutorials/articles/geospatial_standards/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/geospatial_standards/</guid>
+      <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
+Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
     </item>
     
   </channel>

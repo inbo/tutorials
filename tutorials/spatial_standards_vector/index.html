@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='How to use open vector file formats in R: GeoPackage &amp; GeoJSON • INBO Tutorials'>
+<meta property='og:description' content='A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-02-03T00:00:00Z'/><meta property='article:modified_time' content='2020-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.62.0" />
+
+  <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON • INBO Tutorials</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0384615384615385em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0384615384615385em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.1153846153846154em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0384615384615385em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.2692307692307692em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.2307692307692308em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.0384615384615385em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0384615384615385em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.3076923076923077em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.1538461538461537em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.1538461538461537em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0384615384615385em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.2307692307692308em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.0769230769230769em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0384615384615385em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0769230769230769em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.0384615384615385em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.1153846153846154em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.1923076923076923em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.0769230769230769em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</h1>
+      
+<p class='desc'>A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-02-03T00:00:00Z'>2020, Feb 03</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+10 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/spatial_standards_vector/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>This tutorial uses a few basic functions from the
+<a href="https://dplyr.tidyverse.org">dplyr</a> and
+<a href="https://r-spatial.github.io/sf/">sf</a> packages. While only a few
+functions are used, you can use the previous hyperlinks to access the
+tutorials (vignettes) of these packages for more functions and
+information.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">options</span>(stringsAsFactors = <span style="color:#00a">FALSE</span>)
+<span style="color:#0a0">library</span>(tidyverse)
+<span style="color:#0a0">library</span>(sf)
+<span style="color:#0a0">library</span>(inborutils)
+</code></pre></div><p>You will find a bit more background about ‘why and what’, regarding the
+considered open standards, in <a href="../../articles/geospatial_standards/">a separate
+post</a> on this website.</p>
+<p>In short, the GeoPackage and GeoJSON formats are ideal for exchange,
+publication, interoperability &amp; durability and to open science in
+general.</p>
+<p>The below table compares a few vector formats that are currently used a
+lot. This tutorial focuses on the open
+formats.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="center">GeoPackage</th>
+<th align="center">GeoJSON RFC7946</th>
+<th align="center">Shapefile</th>
+<th align="center">ESRI geodatabase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Open standard?</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Write support by GDAL (OGR)</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Supported OS</td>
+<td align="center">cross-platform</td>
+<td align="center">cross-platform</td>
+<td align="center">cross-platform</td>
+<td align="center">Windows</td>
+</tr>
+<tr>
+<td align="left">Extends non-spatial format:</td>
+<td align="center">SQLite</td>
+<td align="center">JSON</td>
+<td align="center">dBase IV</td>
+<td align="center">MS Access (for personal gdb)</td>
+</tr>
+<tr>
+<td align="left">Text or binary?</td>
+<td align="center">binary</td>
+<td align="center">text</td>
+<td align="center">binary</td>
+<td align="center">binary</td>
+</tr>
+<tr>
+<td align="left">Number of files</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">3 or more</td>
+<td align="center">1 (personal gdb) / many (file gdb)</td>
+</tr>
+<tr>
+<td align="left">Inspect version’s differences in git version control?</td>
+<td align="center">no</td>
+<td align="center">yes (but care must be taken)</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="left">Can store multiple layers?</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">no</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td align="left">Multiple geometry types allowed per layer?</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td align="left">Coordinate reference system (CRS) in file</td>
+<td align="center">same as input CRS</td>
+<td align="center">WGS84</td>
+<td align="center">same as input CRS</td>
+<td align="center">same as input CRS</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-make-and-use-geopackages-gpkg">How to make and use GeoPackages (<code>*.gpkg</code>)<a href="#how-to-make-and-use-geopackages-gpkg" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="making-a-geopackage-from-a-geospatial-sf-object-in-r">Making a GeoPackage from a geospatial <code>sf</code> object in R<a href="#making-a-geopackage-from-a-geospatial-sf-object-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>As an example, we download a geospatial layer of Special Areas of
+Conservation in Flanders (version <em>sac_2013-01-18</em>) from Zenodo:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># meeting a great function from the &#39;inborutils&#39; package:</span>
+<span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;</span><span style="color:#a50">10.5281/zenodo.3386815&#34;</span>)
+</code></pre></div><p><em>Did you know this: you can visit a website of this dataset by just
+prefixing the DOI [1] with <code>doi.org/</code>!</em></p>
+<p>The data source is a shapefile, in this case consisting of 6 different
+files. Read the geospatial data into R as an <code>sf</code> object, and let’s just
+keep the essentials (though it doesn’t matter for the GeoPackage):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac &lt;- 
+  <span style="color:#0a0">read_sf</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.shp&#34;</span>) %&gt;% 
+  <span style="color:#0a0">select</span>(sac_code = GEBCODE,
+         sac_name = NAAM,
+         subsac_code = DEELGEBIED,
+         polygon_id = POLY_ID)
+</code></pre></div><p>Have a look at its contents by printing the object:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac
+</code></pre></div><pre><code>## Simple feature collection with 616 features and 4 fields
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
+## epsg (SRID):    NA
+## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
+## # A tibble: 616 x 5
+##    sac_code  sac_name       subsac_code polygon_id                      geometry
+##    &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;            &lt;int&gt;                 &lt;POLYGON [m]&gt;
+##  1 BE2100020 Heesbossen, V… BE2100020-4          1 ((180272.3 243198.7, 180275.…
+##  2 BE2100020 Heesbossen, V… BE2100020-2          2 ((178655.5 241042.4, 178602.…
+##  3 BE2100024 Vennen, heide… BE2100024-…          3 ((197492.4 234451.4, 197286.…
+##  4 BE2100015 Kalmthoutse H… BE2100015-1          4 ((153735.8 228386, 153838.5 …
+##  5 BE2100024 Vennen, heide… BE2100024-…          5 ((198272.4 234699, 198568.8 …
+##  6 BE2100020 Heesbossen, V… BE2100020-6          6 ((181098 233705.3, 181395.1 …
+##  7 BE2100024 Vennen, heide… BE2100024-…          7 ((199185.8 233540.2, 199122.…
+##  8 BE2100024 Vennen, heide… BE2100024-…          8 ((199553.4 233061.2, 199141.…
+##  9 BE2100024 Vennen, heide… BE2100024-5          9 ((192190.9 232648.7, 192196 …
+## 10 BE2100024 Vennen, heide… BE2100024-2         10 ((187597 231264.9, 187549.3 …
+## # … with 606 more rows
+</code></pre>
+<p>To write the GeoPackage, we just use the GPKG driver of the powerful
+<a href="https://gdal.org">GDAL</a> library (supporting most open and some closed
+formats), which can be elegantly accessed through <code>sf::st_write()</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>)
+</code></pre></div><pre><code>## Updating layer `sac' to data source `sac.gpkg' using driver `GPKG'
+## Writing 616 features with 4 fields and geometry type Polygon.
+</code></pre>
+<p>Is that all?<br>
+<em><strong>YES :-)</strong></em></p>
+<p>Really?<br>
+<em><strong>YES :-)</strong></em></p>
+<p>Well, hmmm, if you really want to know a little bit more…</p>
+<p>A GeoPackage can contain many layers. So, it is good practice to
+explicitly define the layer name within the GeoPackage (above, it was
+automatically called ‘sac’). For example:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>,
+           layer = <span style="color:#a50">&#34;</span><span style="color:#a50">special_areas_conservation&#34;</span>,
+           delete_dsn = <span style="color:#00a">TRUE</span>)
+</code></pre></div><pre><code>## Deleting source `sac.gpkg' using driver `GPKG'
+## Updating layer `special_areas_conservation' to data source `sac.gpkg' using driver `GPKG'
+## Writing 616 features with 4 fields and geometry type Polygon.
+</code></pre>
+<p>Note, <code>delete_dsn</code> was set as <code>TRUE</code> to replace the whole GeoPackage.
+(There is also a <code>delete_layer</code> argument to overwrite an existing
+<em>layer</em> with the same name.)</p>
+<p>Let’s extract a selection of features from the
+<code>special_areas_conservation</code> layer, and add it as a second layer into
+the GeoPackage file:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
+  <span style="color:#0a0">filter</span>(<span style="color:#0a0">str_detect</span>(sac_name, <span style="color:#a50">&#34;</span><span style="color:#a50">Turnhout&#34;</span>)) %&gt;% <span style="color:#aaa;font-style:italic"># only polygons having &#39;Turnhout&#39; in their name field</span>
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>,
+           layer = <span style="color:#a50">&#34;</span><span style="color:#a50">turnhout&#34;</span>)
+</code></pre></div><pre><code>## Updating layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
+## Writing 16 features with 4 fields and geometry type Polygon.
+</code></pre>
+<p>So yes, adding layers to a GeoPackage is done simply by <code>st_write()</code>
+again to the same GeoPackage file (by default, <code>delete_dsn</code> is <code>FALSE</code>),
+and defining the new layer’s name.</p>
+<p>So, which layers are available in the GeoPackage?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">ogrinfo</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>) %&gt;% 
+  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;</span><span style="color:#a50">\n&#34;</span>)
+</code></pre></div><pre><code>## INFO: Open of `sac.gpkg'
+##       using driver `GPKG' successful.
+## 1: special_areas_conservation (Polygon)
+## 2: turnhout (Polygon)
+</code></pre>
+<p><em><strong>You see?</strong></em></p>
+<h3 id="reading-a-geopackage-file">Reading a GeoPackage file<a href="#reading-a-geopackage-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Can it become more simple than this?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># (note: the &#39;layer&#39; argument is unneeded if there&#39;s just one layer)</span>
+sac_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>,
+                    layer = <span style="color:#a50">&#34;</span><span style="color:#a50">special_areas_conservation&#34;</span>)
+</code></pre></div><pre><code>## Reading layer `special_areas_conservation' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' using driver `GPKG'
+## Simple feature collection with 616 features and 4 fields
+## geometry type:  POLYGON
+## dimension:      XY
+## bbox:           xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
+## epsg (SRID):    NA
+## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
+</code></pre>
+<p>Ready!</p>
+<p><code>st_read()</code> is a function of the great <code>sf</code> package – hence the result
+is an <code>sf</code> object again.</p>
+<p>Also other geospatial software will (or should) be able to open the
+GeoPackage format. It is an open standard, after all!</p>
+<h2 id="how-to-make-and-use-geojson-files-geojson">How to make and use GeoJSON files (<code>*.geojson</code>)<a href="#how-to-make-and-use-geojson-files-geojson" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="making-a-geojson-file-from-a-geospatial-sf-object-in-r">Making a GeoJSON file from a geospatial <code>sf</code> object in R<a href="#making-a-geojson-file-from-a-geospatial-sf-object-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>As another example, let’s download a shapefile of stream habitat 3260 in
+Flanders (version <em>2018</em>):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;</span><span style="color:#a50">10.5281/zenodo.3386246&#34;</span>)
+</code></pre></div><p><em>Again: you can visit a website of this dataset by just prefixing the
+DOI with <code>doi.org/</code>!</em></p>
+<p>The data source is a shapefile again, in this case consisting of 4
+different files. Similar as above, we read the geospatial data into R as
+an <code>sf</code> object and select a few attributes to work with:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams &lt;- 
+  <span style="color:#0a0">read_sf</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">habitatstreams.shp&#34;</span>) %&gt;% 
+  <span style="color:#0a0">select</span>(river_name = NAAM,
+         source = BRON)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams
+</code></pre></div><pre><code>## Simple feature collection with 560 features and 2 fields
+## geometry type:  LINESTRING
+## dimension:      XY
+## bbox:           xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
+## epsg (SRID):    NA
+## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
+## # A tibble: 560 x 3
+##    river_name    source                                                 geometry
+##    &lt;chr&gt;         &lt;chr&gt;                                          &lt;LINESTRING [m]&gt;
+##  1 WOLFPUTBEEK   VMM     (127857.1 167681.2, 127854.9 167684.5, 127844 167688.9…
+##  2 OUDE KALE     VMM     (95737.01 196912.9, 95732.82 196912.4, 95710.38 196907…
+##  3 VENLOOP       EcoInv  (169352.7 209314.9, 169358.8 209290.5, 169326.2 209283…
+##  4 VENLOOP       EcoInv  (169633.6 209293.5, 169625 209289.2, 169594.4 209321, …
+##  5 KLEINE NETE   EcoInv  (181087.1 208607.2, 181088.6 208608.1, 181089 208608.4…
+##  6 KLEINE NETE   EcoInv  (180037.4 208360.4, 180038.3 208377.5, 180038.3 208378…
+##  7 KLEINE NETE   EcoInv  (180520 208595.7, 180540.5 208607.4, 180541.2 208607.7…
+##  8 KLEINE NETE   EcoInv  (187379.9 209998.8, 187381.3 209998.5, 187381.6 209998…
+##  9 RAAMDONKSEBE… extrap… (183545.5 192409, 183541.9 192406.7, 183541.9 192403, …
+## 10 KLEINE NETE   EcoInv  (183516.4 208261.7, 183567.3 208279.2, 183567.3 208279…
+## # … with 550 more rows
+</code></pre>
+<p>Nowadays, it is recommended to use the more recent and strict
+<strong>RFC7946</strong> implementation of GeoJSON. The previous ‘GeoJSON 2008’
+implementation is now obsoleted (see <a href="../../articles/geospatial_standards/">the
+post</a> on this tutorials website
+for a bit more background).</p>
+<p>The RFC7946 standard is well supported by GDAL’s GeoJSON driver, however
+GDAL must be given the explicit option <code>RFC7946=YES</code> in order to use it
+already [2].</p>
+<p>Write the GeoJSON file as follows:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams %&gt;% 
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">habitatstreams.geojson&#34;</span>,
+           layer_options = <span style="color:#a50">&#34;</span><span style="color:#a50">RFC7946=YES&#34;</span>)
+</code></pre></div><pre><code>## Writing layer `habitatstreams' to data source `habitatstreams.geojson' using driver `GeoJSON'
+## options:        RFC7946=YES 
+## Writing 560 features with 2 fields and geometry type Line String.
+</code></pre>
+<p>Done creating!</p>
+<h3 id="do-i-look-good">Do I look good?<a href="#do-i-look-good" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Hey wait, wasn’t a GeoJSON file just a text file?<br>
+<em><strong>Indeed.</strong></em></p>
+<p>So I can just open it as a text file to get an idea of its contents?<br>
+<em><strong>Well seen :-)</strong></em></p>
+<p>Hence, also use it in versioned workflows?<br>
+<em><strong>Didn’t hear that. (Cool, though…)</strong></em></p>
+<p>Let’s just look at the top 7 lines of the file:</p>
+<pre><code>{
+&quot;type&quot;: &quot;FeatureCollection&quot;,
+&quot;name&quot;: &quot;habitatstreams&quot;,
+&quot;features&quot;: [
+{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;WOLFPUTBEEK&quot;, &quot;source&quot;: &quot;VMM&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 4.0532635, 50.8196905 ], [ 4.0532327, 50.8197202 ], [ 4.0530778, 50.8197594 ], [ 4.0528708, 50.8199422 ], [ 4.052834, 50.8201498 ], [ 4.0528767, 50.8204559 ] ] } },
+{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;OUDE KALE&quot;, &quot;source&quot;: &quot;VMM&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 3.5931564, 51.0803318 ], [ 3.5930966, 51.0803266 ], [ 3.5927771, 51.0802782 ], [ 3.5926209, 51.080259 ], [ 3.5925707, 51.0802465 ], [ 3.5925106, 51.0802316 ], [ 3.592303, 51.0801396 ], [ 3.5921047, 51.0800302 ], [ 3.5920091, 51.0799694 ], [ 3.5919755, 51.0799432 ], [ 3.5919328, 51.07991 ], [ 3.5919165, 51.0798833 ] ] } },
+{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;VENLOOP&quot;, &quot;source&quot;: &quot;EcoInv&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 4.6443172, 51.1940245 ], [ 4.644403, 51.1938051 ], [ 4.6439364, 51.1937415 ], [ 4.6438717, 51.1936806 ], [ 4.6439146, 51.1934056 ] ] } },
+</code></pre>
+<p>You can see it basically lists the feature attributes and the
+coordinates of the lines’ vertices, with each feature starting on a new
+line.</p>
+<p>Compare the coordinates with those of the <code>sf</code> object <code>habitatstreams</code>
+above: the data have automatically been transformed to WGS84!</p>
+<p>Note: in order to be still manageable (text file size, usage in
+versioning systems) it seems wise to use GeoJSON for more simple cases –
+<strong>points and rather simple lines and polygons</strong> – and use the binary
+GeoPackage format for larger (more complex) cases.</p>
+<h3 id="reading-a-geojson-file">Reading a GeoJSON file<a href="#reading-a-geojson-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Just do
+this:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">habitatstreams.geojson&#34;</span>)
+</code></pre></div><pre><code>## Reading layer `habitatstreams' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/habitatstreams.geojson' using driver `GeoJSON'
+## Simple feature collection with 560 features and 2 fields
+## geometry type:  LINESTRING
+## dimension:      XY
+## bbox:           xmin: 2.69742 ymin: 50.72875 xmax: 5.85425 ymax: 51.50032
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+</code></pre>
+<p>Same story as for the GeoPackage: other geospatial software will (or
+should) be able to open the GeoJSON format as well, as it’s an open and
+well established standard.</p>
+<p>From the message of <code>st_read()</code> you can see the CRS is WGS84
+(<a href="https://epsg.io/4326">EPSG-code 4326</a>) - this is always expected when
+reading a GeoJSON file.</p>
+<p>If you want to transform the data to another CRS, e.g. Belgian Lambert
+72 (<a href="https://epsg.io/31370">EPSG-code 31370</a>), use <code>sf::st_transform()</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test %&gt;% 
+  <span style="color:#0a0">st_transform</span>(<span style="color:#099">31370</span>)
+</code></pre></div><pre><code>## Simple feature collection with 560 features and 2 fields
+## geometry type:  LINESTRING
+## dimension:      XY
+## bbox:           xmin: 33013.71 ymin: 157590.5 xmax: 253945.9 ymax: 243502.9
+## epsg (SRID):    31370
+## proj4string:    +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
+## First 10 features:
+##        river_name   source                       geometry
+## 1     WOLFPUTBEEK      VMM LINESTRING (127768.8 167742...
+## 2       OUDE KALE      VMM LINESTRING (95650.24 196973...
+## 3         VENLOOP   EcoInv LINESTRING (169263.1 209374...
+## 4         VENLOOP   EcoInv LINESTRING (169544 209352.8...
+## 5     KLEINE NETE   EcoInv LINESTRING (180997 208666.5...
+## 6     KLEINE NETE   EcoInv LINESTRING (179947.3 208419...
+## 7     KLEINE NETE   EcoInv LINESTRING (180429.9 208655...
+## 8     KLEINE NETE   EcoInv LINESTRING (187289.6 210058...
+## 9  RAAMDONKSEBEEK extrapol LINESTRING (183455.2 192468...
+## 10    KLEINE NETE   EcoInv LINESTRING (183426.2 208321...
+</code></pre>
+<ol>
+<li>
+<p>DOI = Digital Object Identifier. See <a href="https://www.doi.org">https://www.doi.org</a>.</p>
+</li>
+<li>
+<p>Though GeoJSON 2008 is
+<a href="http://geojson.org/geojson-spec.html">obsoleted</a>, the now
+recommended <a href="https://tools.ietf.org/html/rfc7946">RFC7946</a> standard
+is still officially in a <em>proposal</em> stage. That is probably the
+reason why GDAL does not yet default to RFC7946. A somehow confusing
+stage, it seems.</p>
+</li>
+</ol>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/r/'>r</a>, <a class='category' href='/tutorials/categories/gis/'>gis</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/gis/'>gis</a>, <a class='tag' href='/tutorials/tags/r/'>r</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/r_gbif_name_matching/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Match scientific names with the GBIF Backbone Taxonomy</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/tutorials/tutorials/spatial_standards_raster/'>
+        <span class='screen-reader-text'>Next post: </span>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+
+<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+

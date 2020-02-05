@@ -6,10 +6,32 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</guid>
+      <description>This tutorial uses a few basic functions from the dplyr and raster packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
+options(stringsAsFactors = FALSE) library(raster) library(tidyverse) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
+In short, the GeoTIFF and GeoPackage formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
+    </item>
+    
+    <item>
+      <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/</guid>
+      <description>This tutorial uses a few basic functions from the dplyr and sf packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
+options(stringsAsFactors = FALSE) library(tidyverse) library(sf) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
+In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
+    </item>
     
     <item>
       <title>Match scientific names with the GBIF Backbone Taxonomy</title>
