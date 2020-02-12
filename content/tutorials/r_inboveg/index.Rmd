@@ -2,7 +2,7 @@
 title: "Tutorial on how to retrieve data from the INBOVEG database"
 author: "Els De Bie, Hans Van Calster & Jo Loos"
 date: 2020-02-11
-categories: [databases]
+categories: ["databases"]
 tags: [database, queries] 
 output: 
   md_document:
@@ -353,4 +353,3 @@ Close the connection when done
 dbDisconnect(con)
 rm(con)
 ```
-
