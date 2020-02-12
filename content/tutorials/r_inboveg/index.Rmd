@@ -273,7 +273,7 @@ allecodes <- inboveg_classification(con)
 ```
 
 ```{r}
-head(allecodes, 10)
+allecodes
 ```
 
 
