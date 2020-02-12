@@ -301,7 +301,7 @@ head(qualifiers_heischraal2012, 10)
 ```
 
 
-get all qualifiers from MILKLIM surveys (partial matching)
+Get all qualifiers from MILKLIM surveys (partial matching):
 ```{r}
 qualifiers_milkim <- inboveg_qualifiers(con,
                                         survey_name = "%MILKLIM%")
