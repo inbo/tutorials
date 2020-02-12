@@ -108,7 +108,7 @@ The function `inboveg_survey` queries the INBOVEG database for survey informatio
 Three examples are given, this can be used as base to continue selecting the wanted data
 
 
-Get information of a specific survey and collect data (only 10 rows are shown)
+Get information of a specific survey and collect data.
 
 ```{r examples_survey}
 survey_info <- inboveg_survey(con, 
