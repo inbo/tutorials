@@ -48,25 +48,17 @@ We have provided functions to query
 # Packages and connection
 In order to run the functionalities, some R packags need to be installed. 
 
-The following packages are needed to run this code:
-
-* glue
-
-* DBI
-
-* assertthat
-
-* dplyr
-
 The main functions that we will use in this tutorial all start with `inboveg_*`. These functions are made available by loading the `inborutils` package.
 
 
 You can install inborutils from github with:
+
+```{r, eval = FALSE}
 install.packages("devtools")
 devtools::install_github("inbo/inborutils")
+```
 
-This tutorial will only work for people with access to the INBO network. As an INBO employee, you should make sure you have reading-rights for CYDONIA, 
-otherwise place an ICT-call (ict.helpdesk@inbo.be)
+This tutorial will only work for people with access to the INBO network. As an INBO employee, you should make sure you have reading-rights for CYDONIA, otherwise place an ICT-call (ict.helpdesk@inbo.be)
 
 
 ```{r load_libraries, message = FALSE, warning = FALSE}
@@ -78,18 +70,7 @@ library(inborutils)
 ```
 
 The following R-code can be used to establish a connection to INBOVEG 
-by means of a connection string:
-
-<!--better to use a connection string than dsn. 
-dsn requires extra steps and settings in windows odbc manager-->
-
-```{r connection_str}
-connection <- dbConnect(odbc::odbc(),
-.connection_string = "Driver=SQL Server;Server=inbo-sql07-prd.inbo.be,1433;
-Database=D0010_00_Cydonia;Trusted_Connection=Yes;")
-```
-
-Or using dbconnection of the inborutils-package with the database 'Cydonia' 
+by using 'connect_inbo_dbase' of the inborutils-package with the database 'Cydonia' 
 on the inbo-sql07-prd server:
 
 ```{r connection_inbo}
@@ -336,14 +317,10 @@ head(allqualifiers,10)
 
 
 
-
 ## More complex queries
 
-These functions gives the basis information out of INBOVEG. If more precise information is needed 'dplyr' is the magic word.
+These functions gives the basis information out of INBOVEG. If more precise information is needed 'dplyr' is the magic word. In future more complex functions can be build to help the inboveg-users
 
-### Examples
-
-Still in progress
 
 
 # Closing the connection 

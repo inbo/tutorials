@@ -2,8 +2,8 @@
 title: "Tutorial on how to retrieve data from the INBOVEG database"
 author: "Els De Bie, Hans Van Calster & Jo Loos"
 date: 2020-02-11
-categories: [databases]
-tags: [database, queries] 
+categories: ["databases"]
+tags: ["database", "queries"] 
 output: 
   md_document:
     preserve_yaml: true
@@ -51,27 +51,18 @@ Packages and connection
 In order to run the functionalities, some R packags need to be
 installed.
 
-The following packages are needed to run this code:
-
--   glue
-
--   DBI
-
--   assertthat
-
--   dplyr
-
-Loading the functionality can be done by loading the `inborutils`
-package:
-
--   inborutils
+The main functions that we will use in this tutorial all start with
+`inboveg_*`. These functions are made available by loading the
+`inborutils` package.
 
 You can install inborutils from github with:
-install.packages("devtools")
-devtools::install\_github("inbo/inborutils")
 
-Be sure you have reading-rights for CYDONIA otherwise place an ICT-call
-(<ict.helpdesk@inbo.be>)
+    install.packages("devtools")
+    devtools::install_github("inbo/inborutils")
+
+This tutorial will only work for people with access to the INBO network.
+As an INBO employee, you should make sure you have reading-rights for
+CYDONIA, otherwise place an ICT-call (<ict.helpdesk@inbo.be>)
 
     library(glue)
     library(DBI)
@@ -80,15 +71,7 @@ Be sure you have reading-rights for CYDONIA otherwise place an ICT-call
     library(inborutils)
 
 The following R-code can be used to establish a connection to INBOVEG by
-means of a connection string:
-
-<!--better to use a connection string than dsn. 
-dsn requires extra steps and settings in windows odbc manager-->
-    connection <- dbConnect(odbc::odbc(),
-    .connection_string = "Driver=SQL Server;Server=inbo-sql07-prd.inbo.be,1433;
-    Database=D0010_00_Cydonia;Trusted_Connection=Yes;")
-
-Or using dbconnection of the inborutils-package with the database
+using 'connect\_inbo\_dbase' of the inborutils-package with the database
 'Cydonia' on the inbo-sql07-prd server:
 
     con <- connect_inbo_dbase("D0010_00_Cydonia")
@@ -108,8 +91,7 @@ name of the survey.
 Three examples are given, this can be used as base to continue selecting
 the wanted data
 
-Get information of a specific survey and collect data (only 10 rows are
-shown)
+Get information of a specific survey and collect data.
 
     survey_info <- inboveg_survey(con, 
                                   survey_name = "OudeLanden_1979", 
@@ -153,9 +135,9 @@ If only a part of the survey name is known?
                                   survey_name = "%MILKLIM%",
                                   collect = TRUE)
 
-    partsurveys
+    head(partsurveys, 10)
 
-    ## # A tibble: 28 x 5
+    ## # A tibble: 10 x 5
     ##       Id Name             Description                     Owner  creator   
     ##    <int> <chr>            <chr>                           <chr>  <chr>     
     ##  1     4 MILKLIM_Alopecu~ Standplaatsonderzoek graslande~ MILKL~ maud_raman
@@ -168,7 +150,6 @@ If only a part of the survey name is known?
     ##  8    11 MILKLIM_W&Z_Var~ Losse opnamen in het kader van~ MILKL~ floris_va~
     ##  9    12 MILKLIM_W&Z_Ber~ Ecologische opvolging van berm~ MILKL~ els_debie 
     ## 10    14 MILKLIM_W&Z_Oev~ Oeveropnamen langs de Leie ter~ Maud ~ luc_vanhe~
-    ## # ... with 18 more rows
 
 Recording information
 ---------------------
@@ -180,32 +161,31 @@ which vegetation layers with which cover) for one or more surveys.
 ### Examples
 
 Four examples are given, this can be used as base to continue selecting
-the wanted data
+the wanted data.
 
 Get the relevés from one survey and collect the data
 
     recording_heischraal2012 <- inboveg_recordings(con, 
-                                          survey_name = "MILKLIM_Heischraal2012")
+                                          survey_name = "MILKLIM_Heischraal2012",
+                                          collect = TRUE)
 
-    recording_heischraal2012
+    head(recording_heischraal2012, 10)
 
-    ## # Source:   SQL [?? x 10]
-    ## # Database: Microsoft SQL Server
-    ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+    ## # A tibble: 10 x 10
     ##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>       <chr>         
-    ##  1 MILK~ IV20120816094~ M         3         Hypnum jut~ Hypnum jutlan~
-    ##  2 MILK~ IV20120816094~ M         3         Polytrichu~ Polytrichastr~
-    ##  3 MILK~ IV20120816094~ K         95        Juncus eff~ Juncus effusu~
-    ##  4 MILK~ IV20120816094~ K         95        Calluna vu~ Calluna vulga~
-    ##  5 MILK~ IV20120816094~ K         95        Agrostis g~ Agrostis giga~
-    ##  6 MILK~ IV20120816094~ K         95        Potentilla~ Potentilla er~
-    ##  7 MILK~ IV20120816094~ K         95        Juncus con~ Juncus conglo~
-    ##  8 MILK~ IV20120816094~ K         95        Luzula mul~ Luzula multif~
-    ##  9 MILK~ IV20120816094~ K         95        Betula pen~ Betula pendul~
-    ## 10 MILK~ IV20120816094~ K         95        Holcus lan~ Holcus lanatu~
-    ## # ... with more rows, and 4 more variables: PhenologyCode <chr>,
-    ## #   CoverageCode <chr>, PctValue <dbl>, RecordingScale <chr>
+    ##  1 MILK~ IV20120816113~ M         5         Rhytidiade~ Rhytidiadelph~
+    ##  2 MILK~ IV20120816113~ M         5         Pseudoscle~ Pseudosclerop~
+    ##  3 MILK~ IV20120816113~ K         90        Juncus acu~ Juncus acutif~
+    ##  4 MILK~ IV20120816113~ K         90        Nardus str~ Nardus strict~
+    ##  5 MILK~ IV20120816113~ K         90        Potentilla~ Potentilla er~
+    ##  6 MILK~ IV20120816113~ K         90        Anthoxanth~ Anthoxanthum ~
+    ##  7 MILK~ IV20120816113~ K         90        Molinia ca~ Molinia caeru~
+    ##  8 MILK~ IV20120816113~ K         90        Lysimachia~ Lysimachia vu~
+    ##  9 MILK~ IV20120816113~ K         90        Luzula mul~ Luzula multif~
+    ## 10 MILK~ IV20120816113~ K         90        Carex pilu~ Carex pilulif~
+    ## # ... with 4 more variables: PhenologyCode <chr>, CoverageCode <chr>,
+    ## #   PctValue <dbl>, RecordingScale <chr>
 
 Get all recordings from MILKLIM surveys (partial matching), don't
 collect
@@ -240,9 +220,9 @@ Get recordings from several specific surveys
                     multiple = TRUE,
                     collect = TRUE)
 
-    recording_severalsurveys
+    head(recording_severalsurveys, 10)
 
-    ## # A tibble: 12,393 x 10
+    ## # A tibble: 10 x 10
     ##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>       <chr>         
     ##  1 MILK~ IV20120816113~ M         5         Rhytidiade~ Rhytidiadelph~
@@ -255,8 +235,8 @@ Get recordings from several specific surveys
     ##  8 MILK~ IV20120816113~ K         90        Lysimachia~ Lysimachia vu~
     ##  9 MILK~ IV20120816113~ K         90        Luzula mul~ Luzula multif~
     ## 10 MILK~ IV20120816113~ K         90        Carex pilu~ Carex pilulif~
-    ## # ... with 12,383 more rows, and 4 more variables: PhenologyCode <chr>,
-    ## #   CoverageCode <chr>, PctValue <dbl>, RecordingScale <chr>
+    ## # ... with 4 more variables: PhenologyCode <chr>, CoverageCode <chr>,
+    ## #   PctValue <dbl>, RecordingScale <chr>
 
 Get all relevés of all surveys, don't collect the data
 
@@ -285,24 +265,24 @@ Get all relevés of all surveys, don't collect the data
 Header information
 ------------------
 
-This function `inboveg_header`queries the INBOVEG database for header
+The function `inboveg_header` queries the INBOVEG database for header
 information (metadata for a vegetation-relevé) for one survey by the
 name of the survey and the recorder type.
 
 ### Examples
 
 Two examples are given, this can be used as base to continue selecting
-the wanted data
+the wanted data.
 
 Get header information from a specific survey and a specific recording
-type and collect the data
+type and collect the data:
 
     header_info <- inboveg_header(con, 
                                   survey_name = "OudeLanden_1979",
                                   rec_type = "Classic",
                                   collect = TRUE)
 
-    header_info
+    head(header_info, 10)
 
     ## # A tibble: 10 x 11
     ##    RecordingGivid Name  UserReference LocationCode Latitude Longitude  Area
@@ -354,16 +334,16 @@ relevé for one or more survey(s) by the name of the survey.
 ### Examples
 
 Two examples are given, this can be used as base to continue selecting
-the wanted data
+the wanted data.
 
-Get a specific classification from a survey and collect the data
+Get a specific classification from a survey and collect the data:
 
     classif_info <- inboveg_classification(con, 
                                   survey_name = "MILKLIM_Heischraal2012",
                                   classif = "4010",
                                   collect = TRUE)
 
-    classif_info
+    head(classif_info, 10)
 
     ## # A tibble: 1 x 9
     ##   RecordingGivid Name  Classif ActionGroup ListName LocalClassifica~
@@ -376,9 +356,9 @@ Get all surveys, all classifications, don't collect the data
 
     allecodes <- inboveg_classification(con)
 
-    head(allecodes, 10)
+    allecodes
 
-    ## # Source:   lazy query [?? x 9]
+    ## # Source:   SQL [?? x 9]
     ## # Database: Microsoft SQL Server
     ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
     ##    RecordingGivid Name  Classif ActionGroup ListName LocalClassifica~
@@ -393,8 +373,8 @@ Get all surveys, all classifications, don't collect the data
     ##  8 IV20120802135~ MILK~ k(hf)   BWK         Ecotoop~ bermen, perceel~
     ##  9 IV20120802135~ MILK~ k(hc)   BWK         Ecotoop~ bermen, perceel~
     ## 10 IV20120802135~ MILK~ hp+     BWK         Ecotoop~ soortenrijk per~
-    ## # ... with 3 more variables: Habitattype <chr>, Cover <chr>,
-    ## #   PctValue <dbl>
+    ## # ... with more rows, and 3 more variables: Habitattype <chr>,
+    ## #   Cover <chr>, PctValue <dbl>
 
 Qualifiers information
 ----------------------
@@ -406,7 +386,7 @@ qualifiers give information on management, location description, ...
 ### Examples
 
 Four examples are given, this can be used as base to continue selecting
-the wanted data
+the wanted data.
 
 Get the qualifiers from one survey
 
@@ -460,7 +440,7 @@ Get the qualifiers from one survey
     ## 9         <NA>                   0       NA               <NA>
     ## 10        <NA>                   0       NA               <NA>
 
-get all qualifiers from MILKLIM surveys (partial matching)
+Get all qualifiers from MILKLIM surveys (partial matching):
 
     qualifiers_milkim <- inboveg_qualifiers(con,
                                             survey_name = "%MILKLIM%")
@@ -620,11 +600,8 @@ More complex queries
 --------------------
 
 These functions gives the basis information out of INBOVEG. If more
-precise information is needed 'dplyr' is the magic word.
-
-### Examples
-
-Still in progress
+precise information is needed 'dplyr' is the magic word. In future more
+complex functions can be build to help the inboveg-users
 
 Closing the connection
 ======================
