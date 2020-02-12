@@ -141,7 +141,7 @@ partsurveys <- inboveg_survey(con,
 ```
 
 ```{r}
-partsurveys
+head(partsurveys, 10)
 ```
 
 
