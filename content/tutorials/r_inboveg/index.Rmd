@@ -217,7 +217,7 @@ and the recorder type.
 Two examples are given, this can be used as base to continue selecting the wanted data.
 
 
-Get header information from a specific survey and a specific recording type and collect the data
+Get header information from a specific survey and a specific recording type and collect the data:
 
 ```{r examples_header}
 header_info <- inboveg_header(con, 
