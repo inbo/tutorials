@@ -208,7 +208,7 @@ allrecordings
 
 ## Header information
 
-This function `inboveg_header`queries the INBOVEG database for header information 
+The function `inboveg_header` queries the INBOVEG database for header information 
 (metadata for a vegetation-relevé) for one survey by the name of the survey 
 and the recorder type. 
 
