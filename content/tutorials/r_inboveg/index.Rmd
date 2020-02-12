@@ -58,7 +58,7 @@ The following packages are needed to run this code:
 
 * dplyr
 
-Loading the functionality can be done by loading the `inborutils` package:
+The main functions that we will use in this tutorial all start with `inboveg_*`. These functions are made available by loading the `inborutils` package.
 
 * inborutils
 
