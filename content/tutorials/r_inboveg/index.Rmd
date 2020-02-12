@@ -7,8 +7,6 @@ tags: [database, queries]
 output: 
   md_document:
     preserve_yaml: true
-    toc: true
-    df_print: kable
 ---
 
 ```{r setup, include=FALSE}
