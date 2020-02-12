@@ -262,7 +262,7 @@ classif_info <- inboveg_classification(con,
 ```
 
 ```{r}
-classif_info
+head(classif_info, 10)
 ```
 
 
