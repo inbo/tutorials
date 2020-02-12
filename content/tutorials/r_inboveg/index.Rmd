@@ -191,7 +191,7 @@ recording_severalsurveys <- inboveg_recordings(con,
 ```
 
 ```{r}
-recording_severalsurveys
+head(recording_severalsurveys, 10)
 ```
 
 
