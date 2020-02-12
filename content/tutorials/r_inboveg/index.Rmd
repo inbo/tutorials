@@ -164,7 +164,7 @@ recording_heischraal2012 <- inboveg_recordings(con,
 ```
 
 ```{r}
-recording_heischraal2012
+head(recording_heischraal2012, 10)
 ```
 
 
