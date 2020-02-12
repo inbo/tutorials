@@ -227,7 +227,7 @@ header_info <- inboveg_header(con,
 ```
 
 ```{r}
-header_info
+head(header_info, 10)
 ```
 
 
