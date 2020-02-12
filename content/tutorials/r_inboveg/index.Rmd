@@ -60,7 +60,6 @@ The following packages are needed to run this code:
 
 The main functions that we will use in this tutorial all start with `inboveg_*`. These functions are made available by loading the `inborutils` package.
 
-* inborutils
 
 You can install inborutils from github with:
 install.packages("devtools")
