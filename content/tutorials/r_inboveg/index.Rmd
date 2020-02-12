@@ -160,7 +160,8 @@ Get the relevés from one survey and collect the data
 
 ```{r examples_recordings}
 recording_heischraal2012 <- inboveg_recordings(con, 
-                                      survey_name = "MILKLIM_Heischraal2012")
+                                      survey_name = "MILKLIM_Heischraal2012",
+                                      collect = TRUE)
 ```
 
 ```{r}
