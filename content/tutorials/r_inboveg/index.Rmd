@@ -253,7 +253,7 @@ survey(s) by the name of the survey.
 Two  examples are given, this can be used as base to continue selecting the wanted data.
 
 
-Get a specific classification from a survey and collect the data
+Get a specific classification from a survey and collect the data:
 
 ```{r examples_classification}
 classif_info <- inboveg_classification(con, 
