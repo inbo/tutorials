@@ -137,7 +137,7 @@ If only a part of the survey name is known?
 
 ```{r}
 partsurveys <- inboveg_survey(con, 
-                              survey = "%MILKLIM%",
+                              survey_name = "%MILKLIM%",
                               collect = TRUE)
 ```
 
@@ -161,8 +161,7 @@ Get the relevés from one survey and collect the data
 
 ```{r examples_recordings}
 recording_heischraal2012 <- inboveg_recordings(con, 
-                                      survey_name = "MILKLIM_Heischraal2012", 
-                                      collect = TRUE)
+                                      survey_name = "MILKLIM_Heischraal2012")
 ```
 
 ```{r}
@@ -174,8 +173,7 @@ Get all recordings from MILKLIM surveys (partial matching), don't collect
 
 ```{r}
 recording_milkim <- inboveg_recordings(con,
-                              survey_name = "%MILKLIM%",
-                              collect = TRUE)
+                              survey_name = "%MILKLIM%")
 ```
 
 ```{r}
@@ -202,6 +200,11 @@ Get all relevés of all surveys,  don't collect the data
 ```{r}
 allrecordings <- inboveg_recordings(con)
 ```
+
+```{r}
+allrecordings
+```
+
 
 ## Header information
 
@@ -271,7 +274,7 @@ allecodes <- inboveg_classification(con)
 ```
 
 ```{r}
-allecodes
+head(allecodes, 10)
 ```
 
 
@@ -295,7 +298,7 @@ qualifiers_heischraal2012 <- inboveg_qualifiers(con,
 ```
 
 ```{r}
-qualifiers_heischraal2012
+head(qualifiers_heischraal2012, 10)
 ```
 
 
@@ -306,7 +309,7 @@ qualifiers_milkim <- inboveg_qualifiers(con,
 ```
 
 ```{r}
-qualifiers_milkim
+head(qualifiers_milkim, 10)
 ```
 
 Get qualifiers from several specific surveys
@@ -317,7 +320,7 @@ qualifiers_severalsurveys <- inboveg_qualifiers(con,
 ```
 
 ```{r}
-qualifiers_severalsurveys
+head(qualifiers_severalsurveys, 10)
 ```
 
 
@@ -328,7 +331,7 @@ allqualifiers <- inboveg_qualifiers(con)
 ```
 
 ```{r}
-allqualifiers
+head(allqualifiers,10)
 ```
 
 
