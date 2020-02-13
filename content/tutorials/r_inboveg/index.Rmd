@@ -58,7 +58,7 @@ install.packages("devtools")
 devtools::install_github("inbo/inborutils")
 ```
 
-This tutorial will only work for people with access to the INBO network. As an INBO employee, you should make sure you have reading-rights for CYDONIA, otherwise place an ICT-call (ict.helpdesk@inbo.be)
+This tutorial will only work for people with access to the INBO network. As an INBO employee, you should make sure you have reading-rights for CYDONIA, otherwise place an ICT-call.
 
 
 ```{r load_libraries, message = FALSE, warning = FALSE}
