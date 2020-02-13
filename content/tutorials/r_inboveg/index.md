@@ -62,7 +62,7 @@ You can install inborutils from github with:
 
 This tutorial will only work for people with access to the INBO network.
 As an INBO employee, you should make sure you have reading-rights for
-CYDONIA, otherwise place an ICT-call (<ict.helpdesk@inbo.be>)
+CYDONIA, otherwise place an ICT-call.
 
     library(glue)
     library(DBI)
@@ -89,7 +89,7 @@ name of the survey.
 ### Examples
 
 Three examples are given, this can be used as base to continue selecting
-the wanted data
+the wanted data.
 
 Get information of a specific survey and collect data.
 
@@ -102,7 +102,7 @@ Get information of a specific survey and collect data.
     ## # A tibble: 1 x 5
     ##      Id Name       Description                                Owner creator
     ##   <int> <chr>      <chr>                                      <chr> <chr>  
-    ## 1   172 OudeLande~ Verlinden A, Leys G en Slembrouck J (1979~ <NA>  els_de~
+    ## 1   172 OudeLande… Verlinden A, Leys G en Slembrouck J (1979… <NA>  els_de…
 
 Get information of all surveys. This time we will not use
 `collect = TRUE`, which will return a [lazy
@@ -114,22 +114,23 @@ query](https://docs.lucee.org/guides/cookbooks/lazy_queries.html):
 
     ## # Source:   SQL [?? x 5]
     ## # Database: Microsoft SQL Server
-    ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+    ## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
     ##       Id Name           Description                     Owner    creator   
     ##    <int> <chr>          <chr>                           <chr>    <chr>     
-    ##  1     1 ZLB            Opnamen Zandleembrabant en omg~ Gisèle ~ luc_vanhe~
-    ##  2     2 Sigma_Biohab_~ Biohab opnames  in Sigmagebied~ Wim Mer~ wim_merte~
-    ##  3     3 Sigma_LSVI_20~ Perceelsopnamen van volledige ~ wim mer~ wim_merte~
-    ##  4     4 MILKLIM_Alope~ Standplaatsonderzoek graslande~ MILKLIM  maud_raman
-    ##  5     5 MILKLIM_WZ_Aa~ Opnamen van PQ's in regio Aals~ MILKLIM  floris_va~
-    ##  6     6 MILKLIM_Hei(s~ PQ's in kader van onderzoek na~ MILKLIM  floris_va~
-    ##  7     7 MILKLIM_Heide  Standplaatsonderzoek heide      MILKLIM  jan_woute~
-    ##  8     8 MILKLIM_W&Z_L~ Evaluatie maaibeheer Leieberme~ MILKLIM  maud_raman
-    ##  9     9 MILKLIM_W&Z_G~ Vegetatieopnames in het kader ~ MILKLIM  luc_vanhe~
-    ## 10    10 MILKLIM_Heisc~ Vegetatieopnames in het kader ~ MILKLIM  cecile_he~
-    ## # ... with more rows
+    ##  1     1 ZLB            Opnamen Zandleembrabant en omg… Gisèle … luc_vanhe…
+    ##  2     2 Sigma_Biohab_… Biohab opnames  in Sigmagebied… Wim Mer… wim_merte…
+    ##  3     3 Sigma_LSVI_20… Perceelsopnamen van volledige … wim mer… wim_merte…
+    ##  4     4 MILKLIM_Alope… Standplaatsonderzoek graslande… MILKLIM  maud_raman
+    ##  5     5 MILKLIM_WZ_Aa… Opnamen van PQ's in regio Aals… MILKLIM  floris_va…
+    ##  6     6 MILKLIM_Hei(s… PQ's in kader van onderzoek na… MILKLIM  floris_va…
+    ##  7     7 MILKLIM_Heide  Standplaatsonderzoek heide      MILKLIM  jan_woute…
+    ##  8     8 MILKLIM_W&Z_L… Evaluatie maaibeheer Leieberme… MILKLIM  maud_raman
+    ##  9     9 MILKLIM_W&Z_G… Vegetatieopnames in het kader … MILKLIM  luc_vanhe…
+    ## 10    10 MILKLIM_Heisc… Vegetatieopnames in het kader … MILKLIM  cecile_he…
+    ## # … with more rows
 
-If only a part of the survey name is known?
+If only a part of the survey name is known, you can make use of
+wildcards such as %.
 
     partsurveys <- inboveg_survey(con, 
                                   survey_name = "%MILKLIM%",
@@ -140,16 +141,16 @@ If only a part of the survey name is known?
     ## # A tibble: 10 x 5
     ##       Id Name             Description                     Owner  creator   
     ##    <int> <chr>            <chr>                           <chr>  <chr>     
-    ##  1     4 MILKLIM_Alopecu~ Standplaatsonderzoek graslande~ MILKL~ maud_raman
-    ##  2     5 MILKLIM_WZ_Aals~ Opnamen van PQ's in regio Aals~ MILKL~ floris_va~
-    ##  3     6 MILKLIM_Hei(sch~ PQ's in kader van onderzoek na~ MILKL~ floris_va~
-    ##  4     7 MILKLIM_Heide    Standplaatsonderzoek heide      MILKL~ jan_woute~
-    ##  5     8 MILKLIM_W&Z_Lei~ Evaluatie maaibeheer Leieberme~ MILKL~ maud_raman
-    ##  6     9 MILKLIM_W&Z_Ger~ Vegetatieopnames in het kader ~ MILKL~ luc_vanhe~
-    ##  7    10 MILKLIM_Heischr~ Vegetatieopnames in het kader ~ MILKL~ cecile_he~
-    ##  8    11 MILKLIM_W&Z_Var~ Losse opnamen in het kader van~ MILKL~ floris_va~
-    ##  9    12 MILKLIM_W&Z_Ber~ Ecologische opvolging van berm~ MILKL~ els_debie 
-    ## 10    14 MILKLIM_W&Z_Oev~ Oeveropnamen langs de Leie ter~ Maud ~ luc_vanhe~
+    ##  1     4 MILKLIM_Alopecu… Standplaatsonderzoek graslande… MILKL… maud_raman
+    ##  2     5 MILKLIM_WZ_Aals… Opnamen van PQ's in regio Aals… MILKL… floris_va…
+    ##  3     6 MILKLIM_Hei(sch… PQ's in kader van onderzoek na… MILKL… floris_va…
+    ##  4     7 MILKLIM_Heide    Standplaatsonderzoek heide      MILKL… jan_woute…
+    ##  5     8 MILKLIM_W&Z_Lei… Evaluatie maaibeheer Leieberme… MILKL… maud_raman
+    ##  6     9 MILKLIM_W&Z_Ger… Vegetatieopnames in het kader … MILKL… luc_vanhe…
+    ##  7    10 MILKLIM_Heischr… Vegetatieopnames in het kader … MILKL… cecile_he…
+    ##  8    11 MILKLIM_W&Z_Var… Losse opnamen in het kader van… MILKL… floris_va…
+    ##  9    12 MILKLIM_W&Z_Ber… Ecologische opvolging van berm… MILKL… els_debie 
+    ## 10    14 MILKLIM_W&Z_Oev… Oeveropnamen langs de Leie ter… Maud … luc_vanhe…
 
 Recording information
 ---------------------
@@ -174,17 +175,17 @@ Get the relevés from one survey and collect the data
     ## # A tibble: 10 x 10
     ##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>       <chr>         
-    ##  1 MILK~ IV20120816113~ M         5         Rhytidiade~ Rhytidiadelph~
-    ##  2 MILK~ IV20120816113~ M         5         Pseudoscle~ Pseudosclerop~
-    ##  3 MILK~ IV20120816113~ K         90        Juncus acu~ Juncus acutif~
-    ##  4 MILK~ IV20120816113~ K         90        Nardus str~ Nardus strict~
-    ##  5 MILK~ IV20120816113~ K         90        Potentilla~ Potentilla er~
-    ##  6 MILK~ IV20120816113~ K         90        Anthoxanth~ Anthoxanthum ~
-    ##  7 MILK~ IV20120816113~ K         90        Molinia ca~ Molinia caeru~
-    ##  8 MILK~ IV20120816113~ K         90        Lysimachia~ Lysimachia vu~
-    ##  9 MILK~ IV20120816113~ K         90        Luzula mul~ Luzula multif~
-    ## 10 MILK~ IV20120816113~ K         90        Carex pilu~ Carex pilulif~
-    ## # ... with 4 more variables: PhenologyCode <chr>, CoverageCode <chr>,
+    ##  1 MILK… IV20120816113… M         5         Rhytidiade… Rhytidiadelph…
+    ##  2 MILK… IV20120816113… M         5         Pseudoscle… Pseudosclerop…
+    ##  3 MILK… IV20120816113… K         90        Juncus acu… Juncus acutif…
+    ##  4 MILK… IV20120816113… K         90        Nardus str… Nardus strict…
+    ##  5 MILK… IV20120816113… K         90        Potentilla… Potentilla er…
+    ##  6 MILK… IV20120816113… K         90        Anthoxanth… Anthoxanthum …
+    ##  7 MILK… IV20120816113… K         90        Molinia ca… Molinia caeru…
+    ##  8 MILK… IV20120816113… K         90        Lysimachia… Lysimachia vu…
+    ##  9 MILK… IV20120816113… K         90        Luzula mul… Luzula multif…
+    ## 10 MILK… IV20120816113… K         90        Carex pilu… Carex pilulif…
+    ## # … with 4 more variables: PhenologyCode <chr>, CoverageCode <chr>,
     ## #   PctValue <dbl>, RecordingScale <chr>
 
 Get all recordings from MILKLIM surveys (partial matching), don't
@@ -197,20 +198,20 @@ collect
 
     ## # Source:   SQL [?? x 10]
     ## # Database: Microsoft SQL Server
-    ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+    ## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
     ##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>       <chr>         
-    ##  1 MILK~ IV20120802135~ KH        99        Ranunculus~ Ranunculus ac~
-    ##  2 MILK~ IV20120802135~ KH        99        Ranunculus~ Ranunculus re~
-    ##  3 MILK~ IV20120802135~ KH        99        Alopecurus~ Alopecurus pr~
-    ##  4 MILK~ IV20120802135~ KH        99        Holcus lan~ Holcus lanatu~
-    ##  5 MILK~ IV20120802135~ KH        99        Poa trivia~ Poa trivialis~
-    ##  6 MILK~ IV20120802135~ KH        99        Anthoxanth~ Anthoxanthum ~
-    ##  7 MILK~ IV20120802135~ KH        99        Cardamine ~ Cardamine pra~
-    ##  8 MILK~ IV20120802135~ KH        99        Trifolium ~ Trifolium pra~
-    ##  9 MILK~ IV20120802135~ KH        99        Cerastium ~ Cerastium fon~
-    ## 10 MILK~ IV20120802135~ KH        99        Rumex acet~ Rumex acetosa~
-    ## # ... with more rows, and 4 more variables: PhenologyCode <chr>,
+    ##  1 MILK… IV20120802143… KH        99        Alopecurus… Alopecurus pr…
+    ##  2 MILK… IV20120806123… KH        99        Lolium per… Lolium perenn…
+    ##  3 MILK… IV20120806123… KH        99        Dactylis g… Dactylis glom…
+    ##  4 MILK… IV20120806123… KH        99        Poa trivia… Poa trivialis…
+    ##  5 MILK… IV20120806123… KH        99        Agrostis s… Agrostis stol…
+    ##  6 MILK… IV20120806123… KH        99        Ranunculus… Ranunculus re…
+    ##  7 MILK… IV20120806123… KH        99        Ranunculus… Ranunculus ac…
+    ##  8 MILK… IV20120806123… KH        99        Avenula pu… Avenula pubes…
+    ##  9 MILK… IV20120806123… KH        99        Festuca ru… Festuca rubra…
+    ## 10 MILK… IV20120806123… KH        99        Cardamine … Cardamine pra…
+    ## # … with more rows, and 4 more variables: PhenologyCode <chr>,
     ## #   CoverageCode <chr>, PctValue <dbl>, RecordingScale <chr>
 
 Get recordings from several specific surveys
@@ -225,17 +226,17 @@ Get recordings from several specific surveys
     ## # A tibble: 10 x 10
     ##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>       <chr>         
-    ##  1 MILK~ IV20120816113~ M         5         Rhytidiade~ Rhytidiadelph~
-    ##  2 MILK~ IV20120816113~ M         5         Pseudoscle~ Pseudosclerop~
-    ##  3 MILK~ IV20120816113~ K         90        Juncus acu~ Juncus acutif~
-    ##  4 MILK~ IV20120816113~ K         90        Nardus str~ Nardus strict~
-    ##  5 MILK~ IV20120816113~ K         90        Potentilla~ Potentilla er~
-    ##  6 MILK~ IV20120816113~ K         90        Anthoxanth~ Anthoxanthum ~
-    ##  7 MILK~ IV20120816113~ K         90        Molinia ca~ Molinia caeru~
-    ##  8 MILK~ IV20120816113~ K         90        Lysimachia~ Lysimachia vu~
-    ##  9 MILK~ IV20120816113~ K         90        Luzula mul~ Luzula multif~
-    ## 10 MILK~ IV20120816113~ K         90        Carex pilu~ Carex pilulif~
-    ## # ... with 4 more variables: PhenologyCode <chr>, CoverageCode <chr>,
+    ##  1 MILK… IV20120816113… M         5         Rhytidiade… Rhytidiadelph…
+    ##  2 MILK… IV20120816113… M         5         Pseudoscle… Pseudosclerop…
+    ##  3 MILK… IV20120816113… K         90        Juncus acu… Juncus acutif…
+    ##  4 MILK… IV20120816113… K         90        Nardus str… Nardus strict…
+    ##  5 MILK… IV20120816113… K         90        Potentilla… Potentilla er…
+    ##  6 MILK… IV20120816113… K         90        Anthoxanth… Anthoxanthum …
+    ##  7 MILK… IV20120816113… K         90        Molinia ca… Molinia caeru…
+    ##  8 MILK… IV20120816113… K         90        Lysimachia… Lysimachia vu…
+    ##  9 MILK… IV20120816113… K         90        Luzula mul… Luzula multif…
+    ## 10 MILK… IV20120816113… K         90        Carex pilu… Carex pilulif…
+    ## # … with 4 more variables: PhenologyCode <chr>, CoverageCode <chr>,
     ## #   PctValue <dbl>, RecordingScale <chr>
 
 Get all relevés of all surveys, don't collect the data
@@ -246,20 +247,20 @@ Get all relevés of all surveys, don't collect the data
 
     ## # Source:   SQL [?? x 10]
     ## # Database: Microsoft SQL Server
-    ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+    ## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
     ##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>       <chr>         
-    ##  1 ZLB   IV20120524163~ B         75        Betula pen~ Betula pendul~
-    ##  2 ZLB   IV20120524163~ B         75        Populus x ~ Populus x can~
-    ##  3 ZLB   IV20120524163~ B         75        Prunus avi~ Prunus avium ~
-    ##  4 ZLB   IV20120524163~ B         75        Fagus sylv~ Fagus sylvati~
-    ##  5 ZLB   IV20120524163~ B         75        Acer campe~ Acer campestr~
-    ##  6 ZLB   IV20120524163~ K         85        Fagus sylv~ Fagus sylvati~
-    ##  7 ZLB   IV20120524163~ K         85        Athyrium f~ Athyrium fili~
-    ##  8 ZLB   IV20120524163~ S         50        Corylus av~ Corylus avell~
-    ##  9 ZLB   IV20120524163~ S         50        Crataegus ~ Crataegus mon~
-    ## 10 ZLB   IV20120524163~ S         50        Fraxinus e~ Fraxinus exce~
-    ## # ... with more rows, and 4 more variables: PhenologyCode <chr>,
+    ##  1 ZLB   IV20120524163… B         75        Betula pen… Betula pendul…
+    ##  2 ZLB   IV20120524163… B         75        Populus x … Populus x can…
+    ##  3 ZLB   IV20120524163… B         75        Prunus avi… Prunus avium …
+    ##  4 ZLB   IV20120524163… B         75        Fagus sylv… Fagus sylvati…
+    ##  5 ZLB   IV20120524163… B         75        Acer campe… Acer campestr…
+    ##  6 ZLB   IV20120524163… K         85        Fagus sylv… Fagus sylvati…
+    ##  7 ZLB   IV20120524163… K         85        Athyrium f… Athyrium fili…
+    ##  8 ZLB   IV20120524163… S         50        Corylus av… Corylus avell…
+    ##  9 ZLB   IV20120524163… S         50        Crataegus … Crataegus mon…
+    ## 10 ZLB   IV20120524163… S         50        Fraxinus e… Fraxinus exce…
+    ## # … with more rows, and 4 more variables: PhenologyCode <chr>,
     ## #   CoverageCode <chr>, PctValue <dbl>, RecordingScale <chr>
 
 Header information
@@ -287,17 +288,17 @@ type and collect the data:
     ## # A tibble: 10 x 11
     ##    RecordingGivid Name  UserReference LocationCode Latitude Longitude  Area
     ##    <chr>          <chr> <chr>         <chr>           <dbl>     <dbl> <dbl>
-    ##  1 IV20160210121~ Oude~ 5             Ekeren            500       500    10
-    ##  2 IV20160210140~ Oude~ 1             Ekeren            500       500    25
-    ##  3 IV20160210142~ Oude~ 2             Ekeren            500       500    25
-    ##  4 IV20160210153~ Oude~ 4             Ekeren            500       500    12
-    ##  5 IV20160210155~ Oude~ 81            Ekeren            500       500     9
-    ##  6 IV20160210160~ Oude~ 20            Ekeren            500       500     9
-    ##  7 IV20160210161~ Oude~ 17            Ekeren            500       500    12
-    ##  8 IV20160210162~ Oude~ 19            Ekeren            500       500    12
-    ##  9 IV20160210163~ Oude~ 18            Ekeren            500       500    12
-    ## 10 IV20160210164~ Oude~ 23            Ekeren            500       500     6
-    ## # ... with 4 more variables: Length <int>, Width <int>, SurveyId <int>,
+    ##  1 IV20160210164… Oude… 23            Ekeren            500       500     6
+    ##  2 IV20160210163… Oude… 18            Ekeren            500       500    12
+    ##  3 IV20160210162… Oude… 19            Ekeren            500       500    12
+    ##  4 IV20160210161… Oude… 17            Ekeren            500       500    12
+    ##  5 IV20160210160… Oude… 20            Ekeren            500       500     9
+    ##  6 IV20160210155… Oude… 81            Ekeren            500       500     9
+    ##  7 IV20160210153… Oude… 4             Ekeren            500       500    12
+    ##  8 IV20160210142… Oude… 2             Ekeren            500       500    25
+    ##  9 IV20160210140… Oude… 1             Ekeren            500       500    25
+    ## 10 IV20160210121… Oude… 5             Ekeren            500       500    10
+    ## # … with 4 more variables: Length <int>, Width <int>, SurveyId <int>,
     ## #   RecTypeID <int>
 
 Get header information of all surveys, don't collect the data
@@ -308,20 +309,20 @@ Get header information of all surveys, don't collect the data
 
     ## # Source:   SQL [?? x 11]
     ## # Database: Microsoft SQL Server
-    ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+    ## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
     ##    RecordingGivid Name  UserReference LocationCode Latitude Longitude  Area
     ##    <chr>          <chr> <chr>         <chr>           <dbl>     <dbl> <dbl>
-    ##  1 IV20120524163~ ZLB   ZLB-GW-2011-~ Overijse        500      500       20
-    ##  2 IV20120608135~ ZLB   ZLB-GW-2011-~ Overijse        500      500        3
-    ##  3 IV20120608155~ Sigm~ wm2012-0001   Weymeerbroek    500      500       NA
-    ##  4 IV20120608161~ Sigm~ wm2012-0002   Weymeerbroek    500      500       NA
-    ##  5 IV20120608163~ ZLB   ZLB-GW-2006-~ Rosières        500      500      100
-    ##  6 IV20120614155~ ZLB   ZLB-GW-2005-~ Rixensart       500      500        2
-    ##  7 IV20120802135~ MILK~ 130           Heist op de~     51.1      4.75     9
-    ##  8 IV20120802143~ MILK~ 131           Heist op de~     51.1      4.75     9
-    ##  9 IV20120802150~ MILK~ 131B          Heist op de~     51.1      4.75     9
-    ## 10 IV20120802153~ MILK~ 378           Schulens Br~     51.0      5.17     9
-    ## # ... with more rows, and 4 more variables: Length <int>, Width <int>,
+    ##  1 IV20120524163… ZLB   ZLB-GW-2011-… Overijse        500      500       20
+    ##  2 IV20120608135… ZLB   ZLB-GW-2011-… Overijse        500      500        3
+    ##  3 IV20120608155… Sigm… wm2012-0001   Weymeerbroek    500      500       NA
+    ##  4 IV20120608161… Sigm… wm2012-0002   Weymeerbroek    500      500       NA
+    ##  5 IV20120608163… ZLB   ZLB-GW-2006-… Rosières        500      500      100
+    ##  6 IV20120614155… ZLB   ZLB-GW-2005-… Rixensart       500      500        2
+    ##  7 IV20120802135… MILK… 130           Heist op de…     51.1      4.75     9
+    ##  8 IV20120802143… MILK… 131           Heist op de…     51.1      4.75     9
+    ##  9 IV20120802150… MILK… 131B          Heist op de…     51.1      4.75     9
+    ## 10 IV20120802153… MILK… 378           Schulens Br…     51.0      5.17     9
+    ## # … with more rows, and 4 more variables: Length <int>, Width <int>,
     ## #   SurveyId <int>, RecTypeID <int>
 
 Classification information
@@ -346,11 +347,10 @@ Get a specific classification from a survey and collect the data:
     head(classif_info, 10)
 
     ## # A tibble: 1 x 9
-    ##   RecordingGivid Name  Classif ActionGroup ListName LocalClassifica~
+    ##   RecordingGivid Name  Classif ActionGroup ListName LocalClassifica…
     ##   <chr>          <chr> <chr>   <chr>       <chr>    <chr>           
-    ## 1 IV20130318144~ MILK~ 4010    N2k         Habitat~ <NA>            
-    ## # ... with 3 more variables: Habitattype <chr>, Cover <chr>,
-    ## #   PctValue <dbl>
+    ## 1 IV20130318144… MILK… 4010    N2k         Habitat… <NA>            
+    ## # … with 3 more variables: Habitattype <chr>, Cover <chr>, PctValue <dbl>
 
 Get all surveys, all classifications, don't collect the data
 
@@ -360,21 +360,21 @@ Get all surveys, all classifications, don't collect the data
 
     ## # Source:   SQL [?? x 9]
     ## # Database: Microsoft SQL Server
-    ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
-    ##    RecordingGivid Name  Classif ActionGroup ListName LocalClassifica~
+    ## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+    ##    RecordingGivid Name  Classif ActionGroup ListName LocalClassifica…
     ##    <chr>          <chr> <chr>   <chr>       <chr>    <chr>           
-    ##  1 IV20120524163~ ZLB   vc      BWK         Ecotoop~ elzen-essenbos ~
-    ##  2 IV20120524163~ ZLB   qa      BWK         Ecotoop~ eiken-haagbeuke~
-    ##  3 IV20120608155~ Sigm~ kd      BWK         Ecotoop~ "dijk "         
-    ##  4 IV20120608161~ Sigm~ kbj     BWK         Ecotoop~ "bomenrij met d~
-    ##  5 IV20120608163~ ZLB   vm      BWK         Ecotoop~ mesotroof elzen~
-    ##  6 IV20120608135~ ZLB   mk      BWK         Ecotoop~ alkalisch laagv~
-    ##  7 IV20120614155~ ZLB   msb-    BWK         Ecotoop~ zuur laagveen m~
-    ##  8 IV20120802135~ MILK~ k(hf)   BWK         Ecotoop~ bermen, perceel~
-    ##  9 IV20120802135~ MILK~ k(hc)   BWK         Ecotoop~ bermen, perceel~
-    ## 10 IV20120802135~ MILK~ hp+     BWK         Ecotoop~ soortenrijk per~
-    ## # ... with more rows, and 3 more variables: Habitattype <chr>,
-    ## #   Cover <chr>, PctValue <dbl>
+    ##  1 IV20120524163… ZLB   vc      BWK         Ecotoop… "elzen-essenbos…
+    ##  2 IV20120524163… ZLB   qa      BWK         Ecotoop… "eiken-haagbeuk…
+    ##  3 IV20120608155… Sigm… kd      BWK         Ecotoop… "dijk "         
+    ##  4 IV20120608161… Sigm… kbj     BWK         Ecotoop… "bomenrij met d…
+    ##  5 IV20120608163… ZLB   vm      BWK         Ecotoop… "mesotroof elze…
+    ##  6 IV20120608135… ZLB   mk      BWK         Ecotoop… "alkalisch laag…
+    ##  7 IV20120614155… ZLB   msb-    BWK         Ecotoop… "zuur laagveen …
+    ##  8 IV20120802135… MILK… k(hf)   BWK         Ecotoop… "bermen, percee…
+    ##  9 IV20120802135… MILK… k(hc)   BWK         Ecotoop… "bermen, percee…
+    ## 10 IV20120802135… MILK… hp+     BWK         Ecotoop… "soortenrijk pe…
+    ## # … with more rows, and 3 more variables: Habitattype <chr>, Cover <chr>,
+    ## #   PctValue <dbl>
 
 Qualifiers information
 ----------------------
@@ -599,9 +599,9 @@ Get all qualifiers of all surveys
 More complex queries
 --------------------
 
-These functions gives the basis information out of INBOVEG. If more
-precise information is needed 'dplyr' is the magic word. In future more
-complex functions can be build to help the inboveg-users
+These functions give basis information out of INBOVEG. If more detailed
+information is needed 'dplyr' is the magic word. In future more complex
+functions can be build to help the inboveg-users.
 
 Closing the connection
 ======================
