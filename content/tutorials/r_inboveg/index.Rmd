@@ -113,7 +113,7 @@ allsurveys
 ```
 
 
-If only a part of the survey name is known?
+If only a part of the survey name is known, you can make use of wildcards such as %.
 
 ```{r}
 partsurveys <- inboveg_survey(con, 
