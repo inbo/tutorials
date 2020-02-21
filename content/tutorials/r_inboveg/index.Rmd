@@ -190,12 +190,12 @@ allrecordings
 ## Header information
 
 The function `inboveg_header` queries the INBOVEG database for header information 
-(metadata for a vegetation-relevé) for one survey by the name of the survey 
+(metadata for a vegetation-relevé) for one or more survey by the name of the survey(s) 
 and the recorder type. 
 
 ###Examples
 
-Two examples are given, this can be used as base to continue selecting the wanted data.
+Three examples are given, this can be used as base to continue selecting the wanted data.
 
 
 Get header information from a specific survey and a specific recording type and collect the data:
@@ -209,6 +209,19 @@ header_info <- inboveg_header(con,
 
 ```{r}
 head(header_info, 10)
+```
+
+
+Get header information from several specific surveys by using multiple 
+
+```{r}
+header_severalsurveys <- inboveg_header(con,
+                survey_name = c("MILKLIM_Heischraal2012", "NICHE Vlaanderen"),
+                multiple = TRUE)
+```
+
+```{r}
+header_severalsurveys
 ```
 
 
@@ -263,8 +276,8 @@ allecodes
 ## Qualifiers information
 
 This function `inboveg_qualifiers`queries the INBOVEG database for
-qualifier information on recordings for one or more surveys. These qualifiers 
-give information on management, location description, ... 
+qualifier information on recordings for one or more surveys. These qualifiers give 
+information on management (management qualifier 'MQ') or location description (site qualifier'SQ').
 
 ###Examples
 
@@ -283,10 +296,11 @@ head(qualifiers_heischraal2012, 10)
 ```
 
 
-Get all qualifiers from MILKLIM surveys (partial matching):
+Get all site qualifiers (SQ) from MILKLIM surveys (partial matching):
 ```{r}
 qualifiers_milkim <- inboveg_qualifiers(con,
-                                        survey_name = "%MILKLIM%")
+                                        survey_name = "%MILKLIM%",
+                                        qualifier_type = "SQ")
 ```
 
 ```{r}
