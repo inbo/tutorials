@@ -201,16 +201,16 @@ collect
     ## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
     ##    Name  RecordingGivid LayerCode CoverCode OriginalName ScientificName
     ##    <chr> <chr>          <chr>     <chr>     <chr>        <chr>         
-    ##  1 MILK~ IV20120806123~ KH        99        Alopecurus ~ Alopecurus pr~
-    ##  2 MILK~ IV20120806123~ KH        99        Lolium pere~ Lolium perenn~
-    ##  3 MILK~ IV20120806123~ KH        99        Dactylis gl~ Dactylis glom~
-    ##  4 MILK~ IV20120806123~ KH        99        Poa trivial~ Poa trivialis~
-    ##  5 MILK~ IV20120806123~ KH        99        Agrostis st~ Agrostis stol~
-    ##  6 MILK~ IV20120806123~ KH        99        Ranunculus ~ Ranunculus re~
-    ##  7 MILK~ IV20120806123~ KH        99        Ranunculus ~ Ranunculus ac~
-    ##  8 MILK~ IV20120806123~ KH        99        Avenula pub~ Avenula pubes~
-    ##  9 MILK~ IV20120806123~ KH        99        Festuca rub~ Festuca rubra~
-    ## 10 MILK~ IV20120806123~ KH        99        Cardamine p~ Cardamine pra~
+    ##  1 MILK~ IV20120802135~ KH        99        Ranunculus ~ Ranunculus ac~
+    ##  2 MILK~ IV20120802135~ KH        99        Ranunculus ~ Ranunculus re~
+    ##  3 MILK~ IV20120802135~ KH        99        Alopecurus ~ Alopecurus pr~
+    ##  4 MILK~ IV20120802135~ KH        99        Holcus lana~ Holcus lanatu~
+    ##  5 MILK~ IV20120802135~ KH        99        Poa trivial~ Poa trivialis~
+    ##  6 MILK~ IV20120802135~ KH        99        Anthoxanthu~ Anthoxanthum ~
+    ##  7 MILK~ IV20120802135~ KH        99        Cardamine p~ Cardamine pra~
+    ##  8 MILK~ IV20120802135~ KH        99        Trifolium p~ Trifolium pra~
+    ##  9 MILK~ IV20120802135~ KH        99        Cerastium f~ Cerastium fon~
+    ## 10 MILK~ IV20120802135~ KH        99        Rumex aceto~ Rumex acetosa~
     ## # ... with more rows, and 4 more variables: PhenologyCode <chr>,
     ## #   CoverageCode <chr>, PctValue <dbl>, RecordingScale <chr>
 
@@ -288,16 +288,16 @@ type and collect the data:
     ## # A tibble: 10 x 15
     ##    RecordingGivid Name  UserReference Observer LocationCode Latitude
     ##    <chr>          <chr> <chr>         <chr>    <chr>           <dbl>
-    ##  1 IV20160210164~ Oude~ 23            Alex Ve~ Ekeren            500
-    ##  2 IV20160210163~ Oude~ 18            Alex Ve~ Ekeren            500
-    ##  3 IV20160210162~ Oude~ 19            Alex Ve~ Ekeren            500
-    ##  4 IV20160210161~ Oude~ 17            Alex Ve~ Ekeren            500
-    ##  5 IV20160210160~ Oude~ 20            Alex Ve~ Ekeren            500
-    ##  6 IV20160210155~ Oude~ 81            Alex Ve~ Ekeren            500
-    ##  7 IV20160210153~ Oude~ 4             Alex Ve~ Ekeren            500
-    ##  8 IV20160210142~ Oude~ 2             Alex Ve~ Ekeren            500
-    ##  9 IV20160210140~ Oude~ 1             Alex Ve~ Ekeren            500
-    ## 10 IV20160210121~ Oude~ 5             Alex Ve~ Ekeren            500
+    ##  1 IV20160210121~ Oude~ 5             Alex Ve~ Ekeren            500
+    ##  2 IV20160210140~ Oude~ 1             Alex Ve~ Ekeren            500
+    ##  3 IV20160210142~ Oude~ 2             Alex Ve~ Ekeren            500
+    ##  4 IV20160210153~ Oude~ 4             Alex Ve~ Ekeren            500
+    ##  5 IV20160210155~ Oude~ 81            Alex Ve~ Ekeren            500
+    ##  6 IV20160210160~ Oude~ 20            Alex Ve~ Ekeren            500
+    ##  7 IV20160210161~ Oude~ 17            Alex Ve~ Ekeren            500
+    ##  8 IV20160210162~ Oude~ 19            Alex Ve~ Ekeren            500
+    ##  9 IV20160210163~ Oude~ 18            Alex Ve~ Ekeren            500
+    ## 10 IV20160210164~ Oude~ 23            Alex Ve~ Ekeren            500
     ## # ... with 9 more variables: Longitude <dbl>, Area <dbl>, Length <int>,
     ## #   Width <int>, VagueDateType <chr>, VagueDateBegin <chr>,
     ## #   VagueDateEnd <chr>, SurveyId <int>, RecTypeID <int>
@@ -410,9 +410,9 @@ Qualifiers information
 ----------------------
 
 This function `inboveg_qualifiers`queries the INBOVEG database for
-qualifier information (site and/or management) on recordings for one or
-more surveys. These qualifiers give information on management, location
-description, ...
+qualifier information on recordings for one or more surveys. These
+qualifiers give information on management (management qualifier 'MQ') or
+location description (site qualifier'SQ').
 
 ### Examples
 

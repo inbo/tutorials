@@ -276,8 +276,8 @@ allecodes
 ## Qualifiers information
 
 This function `inboveg_qualifiers`queries the INBOVEG database for
-qualifier information (site and/or management) on recordings for one or more surveys. These qualifiers 
-give information on management, location description, ... 
+qualifier information on recordings for one or more surveys. These qualifiers give 
+information on management (management qualifier 'MQ') or location description (site qualifier'SQ').
 
 ###Examples
 
