@@ -37,9 +37,9 @@ overview**:
 | Retrieve data: environmental  | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina)                                                                        |
 | Retrieve data: biological     | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab)                            |
 | Store data                    | [git2rdata](https://inbo.github.io/git2rdata/)                                                                                                                                                             |
-| Validate data                 | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                                   |
+| Validate data                 | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                |
 | Analyze data: graphs          | [inboggvegan](https://github.com/inbo/inboggvegan)                                                                                                                                                         |
-| Analyze data: models          | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/) |
+| Analyze data: models          | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/), [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html)                    |
 | Analyze data: indices         | [LSVI](https://github.com/inbo/LSVI)                                                                                                                                                                       |
 | Publish                       | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)                                                                                            |
 | Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)                                                                                                                                                           |
@@ -153,6 +153,9 @@ overview**:
     predicted vegetations are compatible with a particular flooding
     regime. The package is a redevelopment of an existing ArcGIS plugin
     in Python, without external non-open source dependencies.
+  - **R package [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html)**: an R
+    package to detect anomalous observations in timeseries of groundwater loggerdata (water pressure and air pressure). Additive outliers, temporal changes and level shifts are detected.
+
 
 ### Calculate indices
 
