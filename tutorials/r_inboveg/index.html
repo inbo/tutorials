@@ -278,7 +278,7 @@ INBOVEG supports different types of recordings: BioHab recordings (protocol of N
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-16 mins read
+17 mins read
 </span>
 
 
@@ -391,7 +391,7 @@ survey_info
 ## # A tibble: 1 x 5
 ##      Id Name       Description                                Owner creator
 ##   &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;                                      &lt;chr&gt; &lt;chr&gt;  
-## 1   172 OudeLande… Verlinden A, Leys G en Slembrouck J (1979… &lt;NA&gt;  els_de…
+## 1   172 OudeLande~ Verlinden A, Leys G en Slembrouck J (1979~ &lt;NA&gt;  els_de~
 </code></pre>
 <p>Get information of all surveys. This time we will not use
 <code>collect = TRUE</code>, which will return a <a href="https://docs.lucee.org/guides/cookbooks/lazy_queries.html">lazy
@@ -402,20 +402,20 @@ allsurveys
 
 ## # Source:   SQL [?? x 5]
 ## # Database: Microsoft SQL Server
-## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
 ##       Id Name           Description                     Owner    creator   
 ##    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                           &lt;chr&gt;    &lt;chr&gt;     
-##  1     1 ZLB            Opnamen Zandleembrabant en omg… Gisèle … luc_vanhe…
-##  2     2 Sigma_Biohab_… Biohab opnames  in Sigmagebied… Wim Mer… wim_merte…
-##  3     3 Sigma_LSVI_20… Perceelsopnamen van volledige … wim mer… wim_merte…
-##  4     4 MILKLIM_Alope… Standplaatsonderzoek graslande… MILKLIM  maud_raman
-##  5     5 MILKLIM_WZ_Aa… Opnamen van PQ's in regio Aals… MILKLIM  floris_va…
-##  6     6 MILKLIM_Hei(s… PQ's in kader van onderzoek na… MILKLIM  floris_va…
-##  7     7 MILKLIM_Heide  Standplaatsonderzoek heide      MILKLIM  jan_woute…
-##  8     8 MILKLIM_W&amp;Z_L… Evaluatie maaibeheer Leieberme… MILKLIM  maud_raman
-##  9     9 MILKLIM_W&amp;Z_G… Vegetatieopnames in het kader … MILKLIM  luc_vanhe…
-## 10    10 MILKLIM_Heisc… Vegetatieopnames in het kader … MILKLIM  cecile_he…
-## # … with more rows
+##  1     1 ZLB            Opnamen Zandleembrabant en omg~ Gisèle ~ luc_vanhe~
+##  2     2 Sigma_Biohab_~ Biohab opnames  in Sigmagebied~ Wim Mer~ wim_merte~
+##  3     3 Sigma_LSVI_20~ Perceelsopnamen van volledige ~ wim mer~ wim_merte~
+##  4     4 MILKLIM_Alope~ Standplaatsonderzoek graslande~ MILKLIM  maud_raman
+##  5     5 MILKLIM_WZ_Aa~ Opnamen van PQ's in regio Aals~ MILKLIM  floris_va~
+##  6     6 MILKLIM_Hei(s~ PQ's in kader van onderzoek na~ MILKLIM  floris_va~
+##  7     7 MILKLIM_Heide  Standplaatsonderzoek heide      MILKLIM  jan_woute~
+##  8     8 MILKLIM_W&amp;Z_L~ Evaluatie maaibeheer Leieberme~ MILKLIM  maud_raman
+##  9     9 MILKLIM_W&amp;Z_G~ Vegetatieopnames in het kader ~ MILKLIM  luc_vanhe~
+## 10    10 MILKLIM_Heisc~ Vegetatieopnames in het kader ~ MILKLIM  cecile_he~
+## # ... with more rows
 </code></pre>
 <p>If only a part of the survey name is known, you can make use of
 wildcards such as %.</p>
@@ -428,16 +428,16 @@ head(partsurveys, 10)
 ## # A tibble: 10 x 5
 ##       Id Name             Description                     Owner  creator   
 ##    &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;                           &lt;chr&gt;  &lt;chr&gt;     
-##  1     4 MILKLIM_Alopecu… Standplaatsonderzoek graslande… MILKL… maud_raman
-##  2     5 MILKLIM_WZ_Aals… Opnamen van PQ's in regio Aals… MILKL… floris_va…
-##  3     6 MILKLIM_Hei(sch… PQ's in kader van onderzoek na… MILKL… floris_va…
-##  4     7 MILKLIM_Heide    Standplaatsonderzoek heide      MILKL… jan_woute…
-##  5     8 MILKLIM_W&amp;Z_Lei… Evaluatie maaibeheer Leieberme… MILKL… maud_raman
-##  6     9 MILKLIM_W&amp;Z_Ger… Vegetatieopnames in het kader … MILKL… luc_vanhe…
-##  7    10 MILKLIM_Heischr… Vegetatieopnames in het kader … MILKL… cecile_he…
-##  8    11 MILKLIM_W&amp;Z_Var… Losse opnamen in het kader van… MILKL… floris_va…
-##  9    12 MILKLIM_W&amp;Z_Ber… Ecologische opvolging van berm… MILKL… els_debie 
-## 10    14 MILKLIM_W&amp;Z_Oev… Oeveropnamen langs de Leie ter… Maud … luc_vanhe…
+##  1     4 MILKLIM_Alopecu~ Standplaatsonderzoek graslande~ MILKL~ maud_raman
+##  2     5 MILKLIM_WZ_Aals~ Opnamen van PQ's in regio Aals~ MILKL~ floris_va~
+##  3     6 MILKLIM_Hei(sch~ PQ's in kader van onderzoek na~ MILKL~ floris_va~
+##  4     7 MILKLIM_Heide    Standplaatsonderzoek heide      MILKL~ jan_woute~
+##  5     8 MILKLIM_W&amp;Z_Lei~ Evaluatie maaibeheer Leieberme~ MILKL~ maud_raman
+##  6     9 MILKLIM_W&amp;Z_Ger~ Vegetatieopnames in het kader ~ MILKL~ luc_vanhe~
+##  7    10 MILKLIM_Heischr~ Vegetatieopnames in het kader ~ MILKL~ cecile_he~
+##  8    11 MILKLIM_W&amp;Z_Var~ Losse opnamen in het kader van~ MILKL~ floris_va~
+##  9    12 MILKLIM_W&amp;Z_Ber~ Ecologische opvolging van berm~ MILKL~ els_debie 
+## 10    14 MILKLIM_W&amp;Z_Oev~ Oeveropnamen langs de Leie ter~ Maud ~ luc_vanhe~
 </code></pre>
 <h2 id="recording-information">Recording information<a href="#recording-information" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The function <code>inboveg_recordings</code> queries the INBOVEG database for
@@ -454,19 +454,19 @@ the wanted data.</p>
 head(recording_heischraal2012, 10)
 
 ## # A tibble: 10 x 10
-##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
-##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;         
-##  1 MILK… IV20120816113… M         5         Rhytidiade… Rhytidiadelph…
-##  2 MILK… IV20120816113… M         5         Pseudoscle… Pseudosclerop…
-##  3 MILK… IV20120816113… K         90        Juncus acu… Juncus acutif…
-##  4 MILK… IV20120816113… K         90        Nardus str… Nardus strict…
-##  5 MILK… IV20120816113… K         90        Potentilla… Potentilla er…
-##  6 MILK… IV20120816113… K         90        Anthoxanth… Anthoxanthum …
-##  7 MILK… IV20120816113… K         90        Molinia ca… Molinia caeru…
-##  8 MILK… IV20120816113… K         90        Lysimachia… Lysimachia vu…
-##  9 MILK… IV20120816113… K         90        Luzula mul… Luzula multif…
-## 10 MILK… IV20120816113… K         90        Carex pilu… Carex pilulif…
-## # … with 4 more variables: PhenologyCode &lt;chr&gt;, CoverageCode &lt;chr&gt;,
+##    Name  RecordingGivid LayerCode CoverCode OriginalName ScientificName
+##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;         
+##  1 MILK~ IV20120816113~ M         5         Rhytidiadel~ Rhytidiadelph~
+##  2 MILK~ IV20120816113~ M         5         Pseudoscler~ Pseudosclerop~
+##  3 MILK~ IV20120816113~ K         90        Juncus acut~ Juncus acutif~
+##  4 MILK~ IV20120816113~ K         90        Nardus stri~ Nardus strict~
+##  5 MILK~ IV20120816113~ K         90        Potentilla ~ Potentilla er~
+##  6 MILK~ IV20120816113~ K         90        Anthoxanthu~ Anthoxanthum ~
+##  7 MILK~ IV20120816113~ K         90        Molinia cae~ Molinia caeru~
+##  8 MILK~ IV20120816113~ K         90        Lysimachia ~ Lysimachia vu~
+##  9 MILK~ IV20120816113~ K         90        Luzula mult~ Luzula multif~
+## 10 MILK~ IV20120816113~ K         90        Carex pilul~ Carex pilulif~
+## # ... with 4 more variables: PhenologyCode &lt;chr&gt;, CoverageCode &lt;chr&gt;,
 ## #   PctValue &lt;dbl&gt;, RecordingScale &lt;chr&gt;
 </code></pre>
 <p>Get all recordings from MILKLIM surveys (partial matching), don't
@@ -478,20 +478,20 @@ recording_milkim
 
 ## # Source:   SQL [?? x 10]
 ## # Database: Microsoft SQL Server
-## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
-##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
-##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;         
-##  1 MILK… IV20120802143… KH        99        Alopecurus… Alopecurus pr…
-##  2 MILK… IV20120806123… KH        99        Lolium per… Lolium perenn…
-##  3 MILK… IV20120806123… KH        99        Dactylis g… Dactylis glom…
-##  4 MILK… IV20120806123… KH        99        Poa trivia… Poa trivialis…
-##  5 MILK… IV20120806123… KH        99        Agrostis s… Agrostis stol…
-##  6 MILK… IV20120806123… KH        99        Ranunculus… Ranunculus re…
-##  7 MILK… IV20120806123… KH        99        Ranunculus… Ranunculus ac…
-##  8 MILK… IV20120806123… KH        99        Avenula pu… Avenula pubes…
-##  9 MILK… IV20120806123… KH        99        Festuca ru… Festuca rubra…
-## 10 MILK… IV20120806123… KH        99        Cardamine … Cardamine pra…
-## # … with more rows, and 4 more variables: PhenologyCode &lt;chr&gt;,
+## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+##    Name  RecordingGivid LayerCode CoverCode OriginalName ScientificName
+##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;         
+##  1 MILK~ IV20120802135~ KH        99        Ranunculus ~ Ranunculus ac~
+##  2 MILK~ IV20120802135~ KH        99        Ranunculus ~ Ranunculus re~
+##  3 MILK~ IV20120802135~ KH        99        Alopecurus ~ Alopecurus pr~
+##  4 MILK~ IV20120802135~ KH        99        Holcus lana~ Holcus lanatu~
+##  5 MILK~ IV20120802135~ KH        99        Poa trivial~ Poa trivialis~
+##  6 MILK~ IV20120802135~ KH        99        Anthoxanthu~ Anthoxanthum ~
+##  7 MILK~ IV20120802135~ KH        99        Cardamine p~ Cardamine pra~
+##  8 MILK~ IV20120802135~ KH        99        Trifolium p~ Trifolium pra~
+##  9 MILK~ IV20120802135~ KH        99        Cerastium f~ Cerastium fon~
+## 10 MILK~ IV20120802135~ KH        99        Rumex aceto~ Rumex acetosa~
+## # ... with more rows, and 4 more variables: PhenologyCode &lt;chr&gt;,
 ## #   CoverageCode &lt;chr&gt;, PctValue &lt;dbl&gt;, RecordingScale &lt;chr&gt;
 </code></pre>
 <p>Get recordings from several specific surveys</p>
@@ -503,19 +503,19 @@ recording_milkim
 head(recording_severalsurveys, 10)
 
 ## # A tibble: 10 x 10
-##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
-##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;         
-##  1 MILK… IV20120816113… M         5         Rhytidiade… Rhytidiadelph…
-##  2 MILK… IV20120816113… M         5         Pseudoscle… Pseudosclerop…
-##  3 MILK… IV20120816113… K         90        Juncus acu… Juncus acutif…
-##  4 MILK… IV20120816113… K         90        Nardus str… Nardus strict…
-##  5 MILK… IV20120816113… K         90        Potentilla… Potentilla er…
-##  6 MILK… IV20120816113… K         90        Anthoxanth… Anthoxanthum …
-##  7 MILK… IV20120816113… K         90        Molinia ca… Molinia caeru…
-##  8 MILK… IV20120816113… K         90        Lysimachia… Lysimachia vu…
-##  9 MILK… IV20120816113… K         90        Luzula mul… Luzula multif…
-## 10 MILK… IV20120816113… K         90        Carex pilu… Carex pilulif…
-## # … with 4 more variables: PhenologyCode &lt;chr&gt;, CoverageCode &lt;chr&gt;,
+##    Name  RecordingGivid LayerCode CoverCode OriginalName ScientificName
+##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;         
+##  1 MILK~ IV20120816113~ M         5         Rhytidiadel~ Rhytidiadelph~
+##  2 MILK~ IV20120816113~ M         5         Pseudoscler~ Pseudosclerop~
+##  3 MILK~ IV20120816113~ K         90        Juncus acut~ Juncus acutif~
+##  4 MILK~ IV20120816113~ K         90        Nardus stri~ Nardus strict~
+##  5 MILK~ IV20120816113~ K         90        Potentilla ~ Potentilla er~
+##  6 MILK~ IV20120816113~ K         90        Anthoxanthu~ Anthoxanthum ~
+##  7 MILK~ IV20120816113~ K         90        Molinia cae~ Molinia caeru~
+##  8 MILK~ IV20120816113~ K         90        Lysimachia ~ Lysimachia vu~
+##  9 MILK~ IV20120816113~ K         90        Luzula mult~ Luzula multif~
+## 10 MILK~ IV20120816113~ K         90        Carex pilul~ Carex pilulif~
+## # ... with 4 more variables: PhenologyCode &lt;chr&gt;, CoverageCode &lt;chr&gt;,
 ## #   PctValue &lt;dbl&gt;, RecordingScale &lt;chr&gt;
 </code></pre>
 <p>Get all relevés of all surveys, don't collect the data</p>
@@ -525,28 +525,28 @@ allrecordings
 
 ## # Source:   SQL [?? x 10]
 ## # Database: Microsoft SQL Server
-## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
-##    Name  RecordingGivid LayerCode CoverCode OrignalName ScientificName
-##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;         
-##  1 ZLB   IV20120524163… B         75        Betula pen… Betula pendul…
-##  2 ZLB   IV20120524163… B         75        Populus x … Populus x can…
-##  3 ZLB   IV20120524163… B         75        Prunus avi… Prunus avium …
-##  4 ZLB   IV20120524163… B         75        Fagus sylv… Fagus sylvati…
-##  5 ZLB   IV20120524163… B         75        Acer campe… Acer campestr…
-##  6 ZLB   IV20120524163… K         85        Fagus sylv… Fagus sylvati…
-##  7 ZLB   IV20120524163… K         85        Athyrium f… Athyrium fili…
-##  8 ZLB   IV20120524163… S         50        Corylus av… Corylus avell…
-##  9 ZLB   IV20120524163… S         50        Crataegus … Crataegus mon…
-## 10 ZLB   IV20120524163… S         50        Fraxinus e… Fraxinus exce…
-## # … with more rows, and 4 more variables: PhenologyCode &lt;chr&gt;,
+## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+##    Name  RecordingGivid LayerCode CoverCode OriginalName ScientificName
+##    &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;         
+##  1 ZLB   IV20120524163~ B         75        Betula pend~ Betula pendul~
+##  2 ZLB   IV20120524163~ B         75        Populus x c~ Populus x can~
+##  3 ZLB   IV20120524163~ B         75        Prunus aviu~ Prunus avium ~
+##  4 ZLB   IV20120524163~ B         75        Fagus sylva~ Fagus sylvati~
+##  5 ZLB   IV20120524163~ B         75        Acer campes~ Acer campestr~
+##  6 ZLB   IV20120524163~ K         85        Fagus sylva~ Fagus sylvati~
+##  7 ZLB   IV20120524163~ K         85        Athyrium fi~ Athyrium fili~
+##  8 ZLB   IV20120524163~ S         50        Corylus ave~ Corylus avell~
+##  9 ZLB   IV20120524163~ S         50        Crataegus m~ Crataegus mon~
+## 10 ZLB   IV20120524163~ S         50        Fraxinus ex~ Fraxinus exce~
+## # ... with more rows, and 4 more variables: PhenologyCode &lt;chr&gt;,
 ## #   CoverageCode &lt;chr&gt;, PctValue &lt;dbl&gt;, RecordingScale &lt;chr&gt;
 </code></pre>
 <h2 id="header-information">Header information<a href="#header-information" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The function <code>inboveg_header</code> queries the INBOVEG database for header
-information (metadata for a vegetation-relevé) for one survey by the
-name of the survey and the recorder type.</p>
+information (metadata for a vegetation-relevé) for one or more survey by
+the name of the survey(s) and the recorder type.</p>
 <h3 id="examples-2">Examples<a href="#examples-2" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>Two examples are given, this can be used as base to continue selecting
+<p>Three examples are given, this can be used as base to continue selecting
 the wanted data.</p>
 <p>Get header information from a specific survey and a specific recording
 type and collect the data:</p>
@@ -557,44 +557,72 @@ type and collect the data:</p>
 
 head(header_info, 10)
 
-## # A tibble: 10 x 11
-##    RecordingGivid Name  UserReference LocationCode Latitude Longitude  Area
-##    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1 IV20160210164… Oude… 23            Ekeren            500       500     6
-##  2 IV20160210163… Oude… 18            Ekeren            500       500    12
-##  3 IV20160210162… Oude… 19            Ekeren            500       500    12
-##  4 IV20160210161… Oude… 17            Ekeren            500       500    12
-##  5 IV20160210160… Oude… 20            Ekeren            500       500     9
-##  6 IV20160210155… Oude… 81            Ekeren            500       500     9
-##  7 IV20160210153… Oude… 4             Ekeren            500       500    12
-##  8 IV20160210142… Oude… 2             Ekeren            500       500    25
-##  9 IV20160210140… Oude… 1             Ekeren            500       500    25
-## 10 IV20160210121… Oude… 5             Ekeren            500       500    10
-## # … with 4 more variables: Length &lt;int&gt;, Width &lt;int&gt;, SurveyId &lt;int&gt;,
-## #   RecTypeID &lt;int&gt;
+## # A tibble: 10 x 15
+##    RecordingGivid Name  UserReference Observer LocationCode Latitude
+##    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+##  1 IV20160210121~ Oude~ 5             Alex Ve~ Ekeren            500
+##  2 IV20160210140~ Oude~ 1             Alex Ve~ Ekeren            500
+##  3 IV20160210142~ Oude~ 2             Alex Ve~ Ekeren            500
+##  4 IV20160210153~ Oude~ 4             Alex Ve~ Ekeren            500
+##  5 IV20160210155~ Oude~ 81            Alex Ve~ Ekeren            500
+##  6 IV20160210160~ Oude~ 20            Alex Ve~ Ekeren            500
+##  7 IV20160210161~ Oude~ 17            Alex Ve~ Ekeren            500
+##  8 IV20160210162~ Oude~ 19            Alex Ve~ Ekeren            500
+##  9 IV20160210163~ Oude~ 18            Alex Ve~ Ekeren            500
+## 10 IV20160210164~ Oude~ 23            Alex Ve~ Ekeren            500
+## # ... with 9 more variables: Longitude &lt;dbl&gt;, Area &lt;dbl&gt;, Length &lt;int&gt;,
+## #   Width &lt;int&gt;, VagueDateType &lt;chr&gt;, VagueDateBegin &lt;chr&gt;,
+## #   VagueDateEnd &lt;chr&gt;, SurveyId &lt;int&gt;, RecTypeID &lt;int&gt;
+</code></pre>
+<p>Get header information from several specific surveys by using multiple</p>
+<pre><code>header_severalsurveys &lt;- inboveg_header(con,
+                survey_name = c(&quot;MILKLIM_Heischraal2012&quot;, &quot;NICHE Vlaanderen&quot;),
+                multiple = TRUE)
+
+header_severalsurveys
+
+## # Source:   SQL [?? x 15]
+## # Database: Microsoft SQL Server
+## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+##    RecordingGivid Name  UserReference Observer LocationCode Latitude
+##    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+##  1 IV20120816094~ MILK~ HS_036        Cécile ~ Walenbos         50.9
+##  2 IV20120816102~ MILK~ HS_037        Cécile ~ Walenbos         50.9
+##  3 IV20120816103~ MILK~ HS_044        Cécile ~ Walenbos         50.9
+##  4 IV20120816105~ MILK~ HS_140        Cécile ~ Walenbos         50.9
+##  5 IV20120816112~ MILK~ HS_106        Cécile ~ Liereman         51.3
+##  6 IV20120816113~ MILK~ HS_107        Cécile ~ Liereman         51.3
+##  7 IV20120816113~ MILK~ HS_1001       Cécile ~ Liereman         51.3
+##  8 IV20120816124~ MILK~ HS_1003       Cécile ~ Langdonken       51.0
+##  9 IV20120816141~ MILK~ HS_1006       Cécile ~ Gulke Putten     51.1
+## 10 IV20120816143~ MILK~ HS_1007       Cécile ~ Gulke Putten     51.1
+## # ... with more rows, and 9 more variables: Longitude &lt;dbl&gt;, Area &lt;dbl&gt;,
+## #   Length &lt;int&gt;, Width &lt;int&gt;, VagueDateType &lt;chr&gt;, VagueDateBegin &lt;chr&gt;,
+## #   VagueDateEnd &lt;chr&gt;, SurveyId &lt;int&gt;, RecTypeID &lt;int&gt;
 </code></pre>
 <p>Get header information of all surveys, don't collect the data</p>
 <pre><code>all_header_info &lt;- inboveg_header(con)
 
 all_header_info
 
-## # Source:   SQL [?? x 11]
+## # Source:   SQL [?? x 15]
 ## # Database: Microsoft SQL Server
-## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
-##    RecordingGivid Name  UserReference LocationCode Latitude Longitude  Area
-##    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1 IV20120524163… ZLB   ZLB-GW-2011-… Overijse        500      500       20
-##  2 IV20120608135… ZLB   ZLB-GW-2011-… Overijse        500      500        3
-##  3 IV20120608155… Sigm… wm2012-0001   Weymeerbroek    500      500       NA
-##  4 IV20120608161… Sigm… wm2012-0002   Weymeerbroek    500      500       NA
-##  5 IV20120608163… ZLB   ZLB-GW-2006-… Rosières        500      500      100
-##  6 IV20120614155… ZLB   ZLB-GW-2005-… Rixensart       500      500        2
-##  7 IV20120802135… MILK… 130           Heist op de…     51.1      4.75     9
-##  8 IV20120802143… MILK… 131           Heist op de…     51.1      4.75     9
-##  9 IV20120802150… MILK… 131B          Heist op de…     51.1      4.75     9
-## 10 IV20120802153… MILK… 378           Schulens Br…     51.0      5.17     9
-## # … with more rows, and 4 more variables: Length &lt;int&gt;, Width &lt;int&gt;,
-## #   SurveyId &lt;int&gt;, RecTypeID &lt;int&gt;
+## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+##    RecordingGivid Name  UserReference Observer LocationCode Latitude
+##    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt;
+##  1 IV20120524163~ ZLB   ZLB-GW-2011-~ Weyembe~ Overijse        500  
+##  2 IV20120608135~ ZLB   ZLB-GW-2011-~ Weyembe~ Overijse        500  
+##  3 IV20120608155~ Sigm~ wm2012-0001   wim mer~ Weymeerbroek    500  
+##  4 IV20120608161~ Sigm~ wm2012-0002   wim mer~ Weymeerbroek    500  
+##  5 IV20120608163~ ZLB   ZLB-GW-2006-~ Weyembe~ Rosières        500  
+##  6 IV20120614155~ ZLB   ZLB-GW-2005-~ Weyembe~ Rixensart       500  
+##  7 IV20120802135~ MILK~ 130           Jan Wou~ Heist op de~     51.1
+##  8 IV20120802143~ MILK~ 131           Jan Wou~ Heist op de~     51.1
+##  9 IV20120802150~ MILK~ 131B          Jan Wou~ Heist op de~     51.1
+## 10 IV20120802153~ MILK~ 378           Jan Wou~ Schulens Br~     51.0
+## # ... with more rows, and 9 more variables: Longitude &lt;dbl&gt;, Area &lt;dbl&gt;,
+## #   Length &lt;int&gt;, Width &lt;int&gt;, VagueDateType &lt;chr&gt;, VagueDateBegin &lt;chr&gt;,
+## #   VagueDateEnd &lt;chr&gt;, SurveyId &lt;int&gt;, RecTypeID &lt;int&gt;
 </code></pre>
 <h2 id="classification-information">Classification information<a href="#classification-information" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The function <code>inboveg_classification</code> queries the INBOVEG database for
@@ -612,10 +640,11 @@ the wanted data.</p>
 head(classif_info, 10)
 
 ## # A tibble: 1 x 9
-##   RecordingGivid Name  Classif ActionGroup ListName LocalClassifica…
+##   RecordingGivid Name  Classif ActionGroup ListName LocalClassifica~
 ##   &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;           
-## 1 IV20130318144… MILK… 4010    N2k         Habitat… &lt;NA&gt;            
-## # … with 3 more variables: Habitattype &lt;chr&gt;, Cover &lt;chr&gt;, PctValue &lt;dbl&gt;
+## 1 IV20130318144~ MILK~ 4010    N2k         Habitat~ &lt;NA&gt;            
+## # ... with 3 more variables: Habitattype &lt;chr&gt;, Cover &lt;chr&gt;,
+## #   PctValue &lt;dbl&gt;
 </code></pre>
 <p>Get all surveys, all classifications, don't collect the data</p>
 <pre><code>allecodes &lt;- inboveg_classification(con)
@@ -624,26 +653,27 @@ allecodes
 
 ## # Source:   SQL [?? x 9]
 ## # Database: Microsoft SQL Server
-## #   13.00.5598[INBO\hans_vancalster@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
-##    RecordingGivid Name  Classif ActionGroup ListName LocalClassifica…
+## #   13.00.5598[INBO\els_debie@INBO-SQL07-PRD\LIVE/D0010_00_Cydonia]
+##    RecordingGivid Name  Classif ActionGroup ListName LocalClassifica~
 ##    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;           
-##  1 IV20120524163… ZLB   vc      BWK         Ecotoop… &quot;elzen-essenbos…
-##  2 IV20120524163… ZLB   qa      BWK         Ecotoop… &quot;eiken-haagbeuk…
-##  3 IV20120608155… Sigm… kd      BWK         Ecotoop… &quot;dijk &quot;         
-##  4 IV20120608161… Sigm… kbj     BWK         Ecotoop… &quot;bomenrij met d…
-##  5 IV20120608163… ZLB   vm      BWK         Ecotoop… &quot;mesotroof elze…
-##  6 IV20120608135… ZLB   mk      BWK         Ecotoop… &quot;alkalisch laag…
-##  7 IV20120614155… ZLB   msb-    BWK         Ecotoop… &quot;zuur laagveen …
-##  8 IV20120802135… MILK… k(hf)   BWK         Ecotoop… &quot;bermen, percee…
-##  9 IV20120802135… MILK… k(hc)   BWK         Ecotoop… &quot;bermen, percee…
-## 10 IV20120802135… MILK… hp+     BWK         Ecotoop… &quot;soortenrijk pe…
-## # … with more rows, and 3 more variables: Habitattype &lt;chr&gt;, Cover &lt;chr&gt;,
-## #   PctValue &lt;dbl&gt;
+##  1 IV20120524163~ ZLB   vc      BWK         Ecotoop~ elzen-essenbos ~
+##  2 IV20120524163~ ZLB   qa      BWK         Ecotoop~ eiken-haagbeuke~
+##  3 IV20120608155~ Sigm~ kd      BWK         Ecotoop~ &quot;dijk &quot;         
+##  4 IV20120608161~ Sigm~ kbj     BWK         Ecotoop~ &quot;bomenrij met d~
+##  5 IV20120608163~ ZLB   vm      BWK         Ecotoop~ mesotroof elzen~
+##  6 IV20120608135~ ZLB   mk      BWK         Ecotoop~ alkalisch laagv~
+##  7 IV20120614155~ ZLB   msb-    BWK         Ecotoop~ zuur laagveen m~
+##  8 IV20120802135~ MILK~ k(hf)   BWK         Ecotoop~ bermen, perceel~
+##  9 IV20120802135~ MILK~ k(hc)   BWK         Ecotoop~ bermen, perceel~
+## 10 IV20120802135~ MILK~ hp+     BWK         Ecotoop~ soortenrijk per~
+## # ... with more rows, and 3 more variables: Habitattype &lt;chr&gt;,
+## #   Cover &lt;chr&gt;, PctValue &lt;dbl&gt;
 </code></pre>
 <h2 id="qualifiers-information">Qualifiers information<a href="#qualifiers-information" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>This function <code>inboveg_qualifiers</code>queries the INBOVEG database for
 qualifier information on recordings for one or more surveys. These
-qualifiers give information on management, location description, &hellip;</p>
+qualifiers give information on management (management qualifier &lsquo;MQ&rsquo;) or
+location description (site qualifier'SQ&rsquo;).</p>
 <h3 id="examples-4">Examples<a href="#examples-4" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Four examples are given, this can be used as base to continue selecting
 the wanted data.</p>
@@ -664,90 +694,80 @@ head(qualifiers_heischraal2012, 10)
 ## 8  MILKLIM_Heischraal2012 IV2012081611565583        HS_060
 ## 9  MILKLIM_Heischraal2012 IV2012081612200087        HS_061
 ## 10 MILKLIM_Heischraal2012 IV2012081611445288        HS_063
-##                                            Observer QualifierType
-## 1                    Cécile Herr en Robin Guelinckx            MQ
-## 2                    Cécile Herr en Robin Guelinckx            MQ
-## 3  Cécile Herr, Patrik Oosterlynck, Robin Guelinckx            MQ
-## 4                    Cécile Herr en Robin Guelinckx            MQ
-## 5  Cécile Herr, Robin Guelinckx, Patrik Oosterlynck            MQ
-## 6                    Cécile Herr en Robin Guelinckx            MQ
-## 7                                       Cécile Herr            MQ
-## 8                                       Cécile Herr            MQ
-## 9                                       Cécile Herr            MQ
-## 10                                      Cécile Herr            MQ
-##    QualifierCode Description QualifierCode Description QualifierCode
-## 1              A        &lt;NA&gt;         PBuis  Peilbuizen      GUPP042A
-## 2              A        &lt;NA&gt;         PBuis  Peilbuizen      GUPP043B
-## 3              A      Active         PBuis  Peilbuizen      WALP161X
-## 4              A        &lt;NA&gt;         PBuis  Peilbuizen      WALP157X
-## 5              A        &lt;NA&gt;         PBuis  Peilbuizen      WALP117X
-## 6              A        &lt;NA&gt;         PBuis  Peilbuizen      WALP162X
-## 7              A        &lt;NA&gt;         PBuis  Peilbuizen      VOTP017X
-## 8              A        &lt;NA&gt;         PBuis  Peilbuizen      LDOP014B
-## 9              A        &lt;NA&gt;         PBuis  Peilbuizen      LDOP001X
-## 10             A        &lt;NA&gt;         PBuis  Peilbuizen      LDOP006D
-##    Description Elucidation NotSure ParentID  QualifierResource
-## 1         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 2         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 3         &lt;NA&gt;                   0       NA RS2012060811060080
-## 4         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 5         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 6         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 7         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 8         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 9         &lt;NA&gt;                   0       NA               &lt;NA&gt;
-## 10        &lt;NA&gt;                   0       NA               &lt;NA&gt;
+##                                            Observer QualifierType Q1Code
+## 1                    Cécile Herr en Robin Guelinckx            MQ      A
+## 2                    Cécile Herr en Robin Guelinckx            MQ      A
+## 3  Cécile Herr, Patrik Oosterlynck, Robin Guelinckx            MQ      A
+## 4                    Cécile Herr en Robin Guelinckx            MQ      A
+## 5  Cécile Herr, Robin Guelinckx, Patrik Oosterlynck            MQ      A
+## 6                    Cécile Herr en Robin Guelinckx            MQ      A
+## 7                                       Cécile Herr            MQ      A
+## 8                                       Cécile Herr            MQ      A
+## 9                                       Cécile Herr            MQ      A
+## 10                                      Cécile Herr            MQ      A
+##    Q1Description Q2Code Q2Description   Q3Code Q3Description Elucidation
+## 1           &lt;NA&gt;  PBuis    Peilbuizen GUPP042A          &lt;NA&gt;            
+## 2           &lt;NA&gt;  PBuis    Peilbuizen GUPP043B          &lt;NA&gt;            
+## 3         Active  PBuis    Peilbuizen WALP161X          &lt;NA&gt;            
+## 4           &lt;NA&gt;  PBuis    Peilbuizen WALP157X          &lt;NA&gt;            
+## 5           &lt;NA&gt;  PBuis    Peilbuizen WALP117X          &lt;NA&gt;            
+## 6           &lt;NA&gt;  PBuis    Peilbuizen WALP162X          &lt;NA&gt;            
+## 7           &lt;NA&gt;  PBuis    Peilbuizen VOTP017X          &lt;NA&gt;            
+## 8           &lt;NA&gt;  PBuis    Peilbuizen LDOP014B          &lt;NA&gt;            
+## 9           &lt;NA&gt;  PBuis    Peilbuizen LDOP001X          &lt;NA&gt;            
+## 10          &lt;NA&gt;  PBuis    Peilbuizen LDOP006D          &lt;NA&gt;            
+##    NotSure ParentID  QualifierResource
+## 1        0       NA               &lt;NA&gt;
+## 2        0       NA               &lt;NA&gt;
+## 3        0       NA RS2012060811060080
+## 4        0       NA               &lt;NA&gt;
+## 5        0       NA               &lt;NA&gt;
+## 6        0       NA               &lt;NA&gt;
+## 7        0       NA               &lt;NA&gt;
+## 8        0       NA               &lt;NA&gt;
+## 9        0       NA               &lt;NA&gt;
+## 10       0       NA               &lt;NA&gt;
 </code></pre>
-<p>Get all qualifiers from MILKLIM surveys (partial matching):</p>
+<p>Get all site qualifiers (SQ) from MILKLIM surveys (partial matching):</p>
 <pre><code>qualifiers_milkim &lt;- inboveg_qualifiers(con,
-                                        survey_name = &quot;%MILKLIM%&quot;)
+                                        survey_name = &quot;%MILKLIM%&quot;,
+                                        qualifier_type = &quot;SQ&quot;)
 
 head(qualifiers_milkim, 10)
 
 ##                             Name     RecordingGivid UserReference
-## 1            MILKLIM_Alopecurion IV2012080609161322             0
-## 2  MILKLIM_LevelII_BraunBlanquet IV2013082613200562   001_LevelII
-## 3          MILKLIM_LevelII_Londo IV2013082711054782   001_LevelII
-## 4  MILKLIM_LevelII_BraunBlanquet IV2013082613220113   002_LevelII
-## 5          MILKLIM_LevelII_Londo IV2013082711080272   002_LevelII
-## 6  MILKLIM_LevelII_BraunBlanquet IV2013082613231173   003_LevelII
-## 7          MILKLIM_LevelII_Londo IV2013082711091698   003_LevelII
-## 8  MILKLIM_LevelII_BraunBlanquet IV2013082613251752   004_LevelII
-## 9          MILKLIM_LevelII_Londo IV2013082711105205   004_LevelII
-## 10 MILKLIM_LevelII_BraunBlanquet IV2013082613300967   005_LevelII
-##                         Observer QualifierType QualifierCode Description
-## 1  Maud Raman en Arthur De Haeck            MQ             A      Active
-## 2                       Onbekend            SQ         11.01        &lt;NA&gt;
-## 3                       Onbekend            SQ          11.1        &lt;NA&gt;
-## 4                       Onbekend            SQ         11.02        &lt;NA&gt;
-## 5                       Onbekend            SQ          11.2        &lt;NA&gt;
-## 6                       Onbekend            SQ         11.03        &lt;NA&gt;
-## 7                 Johan Neirynck            SQ          11.3      1000-2
-## 8                       Onbekend            SQ         11.04        &lt;NA&gt;
-## 9                 Johan Neirynck            SQ          11.4      1000-1
-## 10                      Onbekend            SQ         11.05        &lt;NA&gt;
-##    QualifierCode Description QualifierCode Description Elucidation NotSure
-## 1          PBuis  Peilbuizen      ASEP001X        &lt;NA&gt;                   0
-## 2           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 3           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 4           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 5           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 6           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 7           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 8           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 9           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-## 10          &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0
-##    ParentID  QualifierResource
-## 1        NA RS2012060811060080
-## 2        NA RS2013082612251090
-## 3        NA RS2013082612251090
-## 4        NA RS2013082612251090
-## 5        NA RS2013082612251090
-## 6        NA RS2013082612251090
-## 7        NA RS2013082612251090
-## 8        NA RS2013082612251090
-## 9        NA RS2013082612251090
-## 10       NA RS2013082612251090
+## 1  MILKLIM_LevelII_BraunBlanquet IV2013082613200562   001_LevelII
+## 2          MILKLIM_LevelII_Londo IV2013082711054782   001_LevelII
+## 3  MILKLIM_LevelII_BraunBlanquet IV2013082613220113   002_LevelII
+## 4          MILKLIM_LevelII_Londo IV2013082711080272   002_LevelII
+## 5  MILKLIM_LevelII_BraunBlanquet IV2013082613231173   003_LevelII
+## 6          MILKLIM_LevelII_Londo IV2013082711091698   003_LevelII
+## 7  MILKLIM_LevelII_BraunBlanquet IV2013082613251752   004_LevelII
+## 8          MILKLIM_LevelII_Londo IV2013082711105205   004_LevelII
+## 9  MILKLIM_LevelII_BraunBlanquet IV2013082613300967   005_LevelII
+## 10         MILKLIM_LevelII_Londo IV2013082711122731   005_LevelII
+##          Observer QualifierType Q1Code Q1Description Q2Code Q2Description
+## 1        Onbekend            SQ  11.01          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 2        Onbekend            SQ   11.1          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 3        Onbekend            SQ  11.02          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 4        Onbekend            SQ   11.2          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 5        Onbekend            SQ  11.03          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 6  Johan Neirynck            SQ   11.3        1000-2   &lt;NA&gt;          &lt;NA&gt;
+## 7        Onbekend            SQ  11.04          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 8  Johan Neirynck            SQ   11.4        1000-1   &lt;NA&gt;          &lt;NA&gt;
+## 9        Onbekend            SQ  11.05          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+## 10 Johan Neirynck            SQ   11.5          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;
+##    Q3Code Q3Description Elucidation NotSure ParentID  QualifierResource
+## 1    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 2    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 3    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 4    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 5    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 6    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 7    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 8    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 9    &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
+## 10   &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2013082612251090
 </code></pre>
 <p>Get qualifiers from several specific surveys</p>
 <pre><code>qualifiers_severalsurveys &lt;- inboveg_qualifiers(con, 
@@ -767,89 +787,78 @@ head(qualifiers_severalsurveys, 10)
 ## 8  NICHE Vlaanderen IV2013092415280064           2.7  Els De Bie
 ## 9  NICHE Vlaanderen IV2013092415561030           2.8  Els De Bie
 ## 10 NICHE Vlaanderen IV2013092415460492       2.8 bis  Els De Bie
-##    QualifierType QualifierCode Description QualifierCode Description
-## 1             SQ      OLEP003X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 2             SQ      OLEP005X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 3             SQ      OLEP107X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 4             SQ      OLEP108X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 5             SQ      VIEP102X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 6             SQ      VIEP151X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 7             SQ      OLEP009X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 8             SQ      LIEP014X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 9             SQ      LIEP015X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 10            SQ      LIEP015X        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-##    QualifierCode Description Elucidation NotSure ParentID
-## 1           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 2           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 3           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 4           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 5           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 6           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 7           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 8           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 9           &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-## 10          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;       0       NA
-##     QualifierResource
-## 1  RS2012080211350655
-## 2  RS2012080211350655
-## 3  RS2012080211350655
-## 4  RS2012080211350655
-## 5  RS2012080211350655
-## 6  RS2012080211350655
-## 7  RS2012080211350655
-## 8  RS2012080211350655
-## 9  RS2012080211350655
-## 10 RS2012080211350655
+##    QualifierType   Q1Code Q1Description Q2Code Q2Description Q3Code
+## 1             SQ OLEP003X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 2             SQ OLEP005X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 3             SQ OLEP107X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 4             SQ OLEP108X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 5             SQ VIEP102X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 6             SQ VIEP151X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 7             SQ OLEP009X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 8             SQ LIEP014X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 9             SQ LIEP015X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+## 10            SQ LIEP015X          &lt;NA&gt;   &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
+##    Q3Description Elucidation NotSure ParentID  QualifierResource
+## 1           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 2           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 3           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 4           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 5           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 6           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 7           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 8           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 9           &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
+## 10          &lt;NA&gt;        &lt;NA&gt;       0       NA RS2012080211350655
 </code></pre>
 <p>Get all qualifiers of all surveys</p>
 <pre><code>allqualifiers &lt;- inboveg_qualifiers(con)
 
 head(allqualifiers,10)
 
-##                           Name     RecordingGivid UserReference
-## 1          MILKLIM_Alopecurion IV2012080609161322             0
-## 2        BIOMON_HEIDEKWALITEIT IV2013101412532518          0002
-## 3        BIOMON_HEIDEKWALITEIT IV2013101413031887          0003
-## 4        BIOMON_HEIDEKWALITEIT IV2013101414182491          0004
-## 5  BIOMON_HEIDETYPOLOGIE_LONDO IV2013092716425541          0004
-## 6        BIOMON_HEIDEKWALITEIT IV2013101415063032          0005
-## 7  BIOMON_HEIDETYPOLOGIE_LONDO IV2013101415262214          0006
-## 8  BIOMON_HEIDETYPOLOGIE_LONDO IV2013101415483985          0007
-## 9  BIOMON_HEIDETYPOLOGIE_LONDO IV2013100711104616          0008
-## 10 BIOMON_HEIDETYPOLOGIE_LONDO IV2013100713121341          0009
-##                         Observer QualifierType QualifierCode Description
-## 1  Maud Raman en Arthur De Haeck            MQ             A      Active
-## 2             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 3             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 4             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 5             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 6             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 7             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 8             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 9             Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-## 10            Patrik Oosterlynck          &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;
-##    QualifierCode Description QualifierCode Description Elucidation NotSure
-## 1          PBuis  Peilbuizen      ASEP001X        &lt;NA&gt;                   0
-## 2           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 3           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 4           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 5           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 6           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 7           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 8           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 9           &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-## 10          &lt;NA&gt;        &lt;NA&gt;          &lt;NA&gt;        &lt;NA&gt;        &lt;NA&gt;      NA
-##    ParentID  QualifierResource
-## 1        NA RS2012060811060080
-## 2        NA               &lt;NA&gt;
-## 3        NA               &lt;NA&gt;
-## 4        NA               &lt;NA&gt;
-## 5        NA               &lt;NA&gt;
-## 6        NA               &lt;NA&gt;
-## 7        NA               &lt;NA&gt;
-## 8        NA               &lt;NA&gt;
-## 9        NA               &lt;NA&gt;
-## 10       NA               &lt;NA&gt;
+##                                  Name     RecordingGivid UserReference
+## 1                 MILKLIM_Alopecurion IV2012080609161322             0
+## 2  Ecosysteemvisie - Kalkense Meersen IV2014071014024489           001
+## 3                 OudeKreken_Assenede IV2014090409172133           001
+## 4  Ecosysteemvisie - Kalkense Meersen IV2014071014024489           001
+## 5                 OudeKreken_Assenede IV2014090409172133           001
+## 6                         TerYde_1996 IV2014090109343376           001
+## 7       MILKLIM_LevelII_BraunBlanquet IV2013082613200562   001_LevelII
+## 8               MILKLIM_LevelII_Londo IV2013082711054782   001_LevelII
+## 9      LosseOpnames_IndraJacobs_Londo IV2017022410342012       001-KES
+## 10                OudeKreken_Assenede IV2014090216034066           002
+##                         Observer QualifierType           Q1Code
+## 1  Maud Raman en Arthur De Haeck            MQ                A
+## 2                   Leen Martens            MQ                0
+## 3                  Henk Coudenys            MQ                0
+## 4                   Leen Martens            SQ Kalkense meersen
+## 5                  Henk Coudenys            SQ     Krekengebied
+## 6                     Hans Baeté            SQ          Ter Yde
+## 7                       Onbekend            SQ            11.01
+## 8                       Onbekend            SQ             11.1
+## 9                   Indra Jacobs            SQ     Koningssteen
+## 10                 Henk Coudenys            MQ                0
+##      Q1Description Q2Code  Q2Description   Q3Code Q3Description
+## 1           Active  PBuis     Peilbuizen ASEP001X          &lt;NA&gt;
+## 2             &lt;NA&gt;     -9  geen peilbuis     &lt;NA&gt;          &lt;NA&gt;
+## 3  Geen informatie    BEH BeheerIngrepen    hooil      hooiland
+## 4             &lt;NA&gt;   &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;
+## 5             &lt;NA&gt;   &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;
+## 6             &lt;NA&gt;   &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;
+## 7             &lt;NA&gt;   &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;
+## 8             &lt;NA&gt;   &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;
+## 9             &lt;NA&gt;   &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;          &lt;NA&gt;
+## 10 Geen informatie    BEH BeheerIngrepen    hooil      hooiland
+##    Elucidation NotSure ParentID  QualifierResource
+## 1                    0       NA RS2012060811060080
+## 2                    0       NA               &lt;NA&gt;
+## 3                    0       NA RS2014070915553622
+## 4         &lt;NA&gt;       0       NA RS2012080211350639
+## 5         &lt;NA&gt;       0       NA RS2012080211350639
+## 6         &lt;NA&gt;       0       NA RS2012080211350639
+## 7         &lt;NA&gt;       0       NA RS2013082612251090
+## 8         &lt;NA&gt;       0       NA RS2013082612251090
+## 9         &lt;NA&gt;       0       NA               &lt;NA&gt;
+## 10                   0       NA RS2014070915553622
 </code></pre>
 <h2 id="more-complex-queries">More complex queries<a href="#more-complex-queries" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>These functions give basis information out of INBOVEG. If more detailed
