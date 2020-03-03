@@ -154,7 +154,7 @@ overview**:
     regime. The package is a redevelopment of an existing ArcGIS plugin
     in Python, without external non-open source dependencies.
   - **R package [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html)**: an R
-    package to detect anomalous observations in timeseries of loggerdata (water pressure and air pressure). Additive outliers, temporal changes and level shifts are detected.
+    package to detect anomalous observations in timeseries of groundwater loggerdata (water pressure and air pressure). Additive outliers, temporal changes and level shifts are detected.
 
 
 ### Calculate indices
