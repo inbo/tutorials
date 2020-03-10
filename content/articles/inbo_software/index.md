@@ -40,7 +40,7 @@ overview**:
 | Validate data                 | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                |
 | Analyze data: graphs          | [inboggvegan](https://github.com/inbo/inboggvegan)                                                                                                                                                         |
 | Analyze data: models          | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/), [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html)                    |
-| Analyze data: indices         | [LSVI](https://github.com/inbo/LSVI)                                                                                                                                                                       |
+| Analyze data: indices         | [LSVI](https://inbo.github.io/LSVI)                                                                                                                                                                       |
 | Publish                       | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)                                                                                            |
 | Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)                                                                                                                                                           |
 
@@ -159,7 +159,7 @@ overview**:
 
 ### Calculate indices
 
-  - **R package [LSVI](https://github.com/inbo/LSVI)**: bundles a number
+  - **R package [LSVI](https://inbo.github.io/LSVI)**: bundles a number
     of functions to support researchers in determining the local
     conservation status (‘LSVI’) of Natura 2000 habitats in Flanders.
     Several functions retrieve the criteria and/or associated species
