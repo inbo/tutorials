@@ -1,8 +1,8 @@
 ---
 title: "Styleguide new git repositories"
 description: "Guidelines for structuring git repositories"
-author: "Thierry Onkelinx"
-date: 2017-10-18T16:02:35+02:00
+author: "Thierry Onkelinx, Hans Van Calster"
+date: 2020-03-17
 categories: ["styleguide"]
 tags: ["styleguide", "git", "github"]
 ---
