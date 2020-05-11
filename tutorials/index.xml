@@ -6,10 +6,21 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Styleguide new git repositories</title>
+      <link>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</link>
+      <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
+      <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
+ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&#39;t use underscores.
+ .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
+    </item>
     
     <item>
       <title>Tutorial on how to retrieve data from the INBOVEG database</title>
@@ -206,17 +217,6 @@ wms_ortho contains a mosaic of recent orthophotos made during the winter. The la
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_tidyverse_info/</guid>
       <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
-    </item>
-    
-    <item>
-      <title>Styleguide new git repositories</title>
-      <link>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</link>
-      <pubDate>Wed, 18 Oct 2017 16:02:35 +0200</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
-      <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
- https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in repository, directory, and file names. Don&#39;t use underscores.
- .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    READMEs </description>
     </item>
     
     <item>
