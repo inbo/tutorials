@@ -1,8 +1,8 @@
 ---
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
-author: "Thierry Onkelinx"
-date: 2018-03-07T16:50:01+01:00
+author: "Thierry Onkelinx, Hans Van Calster"
+date: "`r Sys.Date()`"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 output: 
@@ -21,66 +21,216 @@ opts_chunk$set(
 
 # What is WFS?
 
-In computing, the Open Geospatial Consortium **Web Feature Service (WFS)** Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the "source code" behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport. In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. (Source: [Wikipedia](https://en.wikipedia.org/wiki/Web_Feature_Service))
+In computing, the [Open Geospatial Consortium **Web Feature Service (WFS)**](http://www.opengeospatial.org/standards/wfs) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. 
+One can think of geographical features as the "source code" behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. 
+The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport. 
+In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. 
+This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. 
+(Source: [Wikipedia](https://en.wikipedia.org/wiki/Web_Feature_Service))
 
-# Download vector data from WFS
+Credit: https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/
 
-This examples illustrates how you can download information from a WFS for further use in R. First of all we need the URL of the service. Note that we appended the protocol `WFS:` in front of the URL. `ogrinfo()` from `gdalUtils` is used to return some extra information on the service. `cat()` prints this information. The summary indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". It also reveals the kind of layers, in this case two polygon layers and one line layer.
+# Useful overviews of web feature services
 
-```{r}
-wfs_bwk <- "WFS:https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
-wfs_weather <- "WFS:http://opendata.meteo.be/service/aws/ows"
-library(gdalUtils)
-info <- ogrinfo(wfs_bwk, 
-                so = TRUE, 
-                ro = TRUE)
-cat(info, sep = "\n")
-```
+Some useful overviews of WFS's can be found on the following websites:
 
-Let's start by downloading the "BWK:Bwkhab" layer for the Hallerbos area. We use `ogr2ogr()` from the `gdalUtils` package. The main part is defining the input and output. We store the data in [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format which is an open standard format designed for representing simple geographical features, along with their non-spatial attributes. It is based on JSON, the JavaScript Object Notation.
+- https://gitlab.com/GIS-projects/Belgium-WFS and https://wfs.michelstuyts.be/:  the best overview if you are looking for WFS services for Belgium and regions in Belgium
+- [inspire geoportal](https://inspire-geoportal.ec.europa.eu/): European portal for spatial data - some of which have a WFS service
+- [environmental data for Europe](https://discomap.eea.europa.eu/Index/): many of the products listed have either a WMS or a WFS service 
+- [spatineo directory](https://directory.spatineo.com/): worldwide monitoring of spatial web services
 
-We also add the bounding box from which we want to retrieve the data. This is very important to add. If you omit a bounding box, the service will return the entire map which can be very large.
-
-```{r}
-ogr2ogr(
-  src_datasource_name = wfs_bwk,           # the input source
-  layer = "BWK:Bwkhab",                    # the layer from the input
-  dst_datasource_name = "bwkhab.geojson",  # the target file
-  f = "geojson",                           # the target format
-  spat = c(left = 142600, bottom = 153800, right = 146000, top = 156900),
-                                           # the bounding box
-  t_srs = "EPSG:31370",                    # the coordinate reference system
-  verbose = TRUE
-)
-```
-
-At this point, all features are downloaded and can be used in R as we would we any other local file. So we need to load the file with `readOGR()` from `rgdal`.
 
 ```{r}
-library(rgdal)
-bwkhab <- readOGR("bwkhab.geojson", stringsAsFactors = FALSE)
-summary(bwkhab)
+library(sf) # simple features packages for handling vector GIS data
+library(httr) # generic webservice package
+library(xml2) # package to aid extraction of information from xml files or pages
+library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
 ```
 
-Let's make a simple plot of the object. Note that the object contains features outside of the bounding box. Those are features which have only some part within the bounding box.
+# Read vector data from WFS
+
+This examples illustrates how you can download information from a WFS for further use in R. 
+
+First of all we need the URL of the service. 
 
 ```{r}
-spplot(bwkhab, zcol = "PHAB1", scales = list(draw = TRUE))
+wfs_bwk <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
 ```
+
+## Get to know what the service can do with `GetCapabilities`
+
+```{r}
+url <- parse_url(wfs_bwk)
+url$query <- list(service = "WFS",
+                  version = "2.0.0",
+                  request = "GetCapabilities")
+request <- build_url(url)
+doc <- GET(request) %>% 
+  content(as = "text", encoding = "UTF-8") %>% 
+  read_xml()
+```
+
+With `GetCapabilities`, we obtain a complete overview of all metadata for the web service.
+
+The object `doc` is a pointer to the contents of the [XML page](`r request`). 
+To see all capabilities, you can visit this page. 
+For instance opening the page in the webbrowser and searching for "Filter_Capabilities" allows you to see all possible ways to filter the data from a WFS layer (e.g. restrict the downloaded data to a specified bounding box with `SpatialOperator name="BBOX"`).
+
+Alternatively, information can also be extracted from the `doc` object with the aid of [XPath language](https://en.wikipedia.org/wiki/XPath). 
+
+The following code extracts available output formats:
+
+```{r}
+xpath_output_formats <- paste0(
+  "//ows:Operation[@name='GetFeature']",
+  "/ows:Parameter[@name='outputFormat']",
+  "/ows:AllowedValues/ows:Value")
+output_formats <- doc %>% 
+  xml_find_all(xpath_output_formats) %>% 
+  xml_text()
+output_formats
+```
+
+The next chunk indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". 
+
+
+```{r}
+parentKey <- "FeatureTypeList"
+childKey <- "FeatureType"
+key <- "Name"
+
+xpath_layers <- sprintf(
+  "//*[local-name()='%s']/*[local-name()='%s']/*[local-name()='%s']",
+  parentKey,childKey,key)
+layers <- doc %>%
+  xml_find_all(xpath_layers) %>%
+  xml_text()
+layers
+```
+
+Note that the function `sf::st_layers()` does not work for this request.
+
+```{r}
+st_layers(request)
+```
+
+
+## Read one of the layers
+
+Let's start by reading in the "BWK:Bwkhab" layer for the Hallerbos area. 
+
+The main part is defining the input and output. 
+We store the data in [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format which is an open standard format designed for representing simple geographical features, along with their non-spatial attributes. 
+It is based on JSON, the JavaScript Object Notation.
+
+We also add the bounding box from which we want to retrieve the data. 
+This is very important to add. 
+If you omit a bounding box, the service will return the entire map which can be very large.
+
+
+```{r}
+url <- parse_url(wfs_bwk)
+url$query <- list(service = "WFS",
+                  version = "2.0.0",
+                  request = "GetFeature",
+                  typename = "BWK:Bwkhab",
+                  bbox = "142600,153800,146000,156900",
+                  outputFormat = "application/json")
+request <- build_url(url)
+```
+
+Let's check what we are about to read with `sf::st_layers()`.
+This time, the function does return useful information, but the layer name BWK:Bwkhab seems to be overwritten.
+
+```{r}
+st_layers(request)
+```
+
+
+```{r}
+bwk_hallerbos <- read_sf(request)
+```
+
+
+Note that the `layer = ...` argument of `sf:read_sf()` cannot be used to specify the layer when you pass a WFS GetFeature request to the function.
+
+
+Let's make a simple plot of the object. 
+Note that the object contains features outside of the bounding box. 
+Those are features which have only some part within the bounding box.
+
+```{r}
+ggplot(bwk_hallerbos) + 
+  geom_sf()
+```
+
+You can use `sf::st_write()` to save this layer in any of format that is listed by `sf::st_drivers()`.
+
+Here is another example, where  we get the map of provinces of Belgium.
+
+```{r}
+wfs_prov <- "http://eservices.minfin.fgov.be/arcgis/services/R2C/Provinces/MapServer/WFSServer"
+url <- parse_url(wfs_prov)
+url$query <- list(service = "WFS",
+                  version = "2.0.0",
+                  request = "GetCapabilities")
+request <- build_url(url)
+doc <- GET(request) %>% 
+  content(as = "text", encoding = "UTF-8") %>% 
+  read_xml()
+
+```
+
+
+```{r}
+# map of Provinces in Belgium
+url <- parse_url(wfs_prov)
+url$query <- list(service = "wfs",
+                  version = "2.0.0",
+                  request = "GetFeature",
+                  typename = "provinces",
+                  outputFormat = "application/json")
+request <- build_url(url)
+
+bel_prov <- read_sf(request) #Lambert2008
+```
+
+```{r}
+ggplot(bel_prov) +
+  geom_sf()
+```
+
+
+## Alternatively, directly download the data
+
+Continuing from the same request we got earlier, we can download the data with `httr::GET` and `httr::write_disk()`.
+
+```{r}
+file <- tempfile(fileext = ".geojson")
+GET(url = request, 
+    write_disk(file))
+```
+
+At this point, all features are downloaded and can be used in R as we would we any other local file. 
+So we need to load the file with `read_sf()` from `sf`.
+
+```{r}
+bwk_hallerbos2 <- read_sf(file)
+```
+
 
 # Download feature attribute data from WFS
 
-In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). Actually, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.
+In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. 
+When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). 
+Actually, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.
 
-We rely on the `httr`  package to talk to web services:
 
-```{r}
-library(httr)  # generic webservice package
-```
-
-Consider the following use case: You want to extract the attribute data from a [soil map](http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f) for a number of sampling points (point coordinates). This use case can be tackled by relying on the WFS service and the affiliated spatial operators.
+Consider the following use case: You want to extract the attribute data from a [soil map](http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f) for a number of sampling points (point coordinates). 
+This use case can be tackled by relying on the WFS service and the affiliated spatial operators.
 
 Our example data point (in Lambert 72):
+
 ```{r}
 x_lam <- 173995.67
 y_lam <- 212093.44
@@ -106,7 +256,9 @@ The URL of the wfs service of the soil map of the Flemish region:
 wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
 ```
 
-The essential part is to set up the proper query! The required data for the service is defined in the [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs) description. This can look a bit overwhelming at the start, but is a matter of looking for some specific elements of the (XML) document:
+The essential part is to set up the proper query! 
+The required data for the service is defined in the [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs) description. 
+This can look a bit overwhelming at the start, but is a matter of looking for some specific elements of the (XML) document:
 
 * `service` (WFS), `request` (GetFeature) and `version` (1.1.0) are mandatory fields (see below)
 * `typeName`: Look at the different `<FeatureType...` enlisted and pick the `<Name>` of the one you're interested in. In this particular case `bodemkaart:bodemtypes` is the only one available.
@@ -132,7 +284,8 @@ result <- GET(wfs_bodemtypes, query = query)
 result
 ```
 
-The result is not yet formatted to be used as a dataframe. We need to use a small *trick* using the `textConnection` function to get from the result (bits) towards a readable output in a dataframe:
+The result is not yet formatted to be used as a dataframe. 
+We need to use a small *trick* using the `textConnection` function to get from the result (bits) towards a readable output in a dataframe:
 
 ```{r}
 df <- read.csv(textConnection(content(result, 'text')))
@@ -141,7 +294,11 @@ kable(df)
 
 Which indeed corresponds to the data of the coordinate.
 
+This procedure can also be turned into a function with lat, long and properties of interest as parameters.
 
+# Further reading
+
+https://geocompr.robinlovelace.net/read-write.html#geographic-web-services
 
 
 
