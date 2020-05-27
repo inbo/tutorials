@@ -51,12 +51,13 @@ Some useful overviews of WFS's can be found on the following websites:
 - [spatineo directory](https://directory.spatineo.com/): worldwide monitoring of spatial web services
 
 
+# Used packages
+
 ```{r}
 library(sf) # simple features packages for handling vector GIS data
 library(httr) # generic webservice package
-library(xml2) # package to aid extraction of information from xml files or pages
 library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
-library(ows4R)
+library(ows4R) # interface for OGC webservices
 
 ```
 
