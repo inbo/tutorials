@@ -25,7 +25,7 @@ opts_chunk$set(
 In computing, the [Open Geospatial Consortium (OGC) **Web Feature Service (WFS)**](http://www.opengeospatial.org/standards/wfs) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. 
 One can think of geographical features as the "source code" behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. 
 
-The standard output format for reading or downloading data from a WFS is the XML-based GML (General Markup Language), but other formats like shapefiles or geojson are also available. 
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available. 
 In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. 
 This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. 
 (Source: [Wikipedia](https://en.wikipedia.org/wiki/Web_Feature_Service))
@@ -54,6 +54,7 @@ library(sf) # simple features packages for handling vector GIS data
 library(httr) # generic webservice package
 library(xml2) # package to aid extraction of information from xml files or pages
 library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
+
 ```
 
 # Read vector data from WFS
