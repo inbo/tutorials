@@ -54,6 +54,7 @@ library(sf) # simple features packages for handling vector GIS data
 library(httr) # generic webservice package
 library(xml2) # package to aid extraction of information from xml files or pages
 library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
+library(ows4R)
 
 ```
 
@@ -75,54 +76,109 @@ url$query <- list(service = "WFS",
                   version = "2.0.0",
                   request = "GetCapabilities")
 request <- build_url(url)
-doc <- GET(request) %>% 
-  content(as = "text", encoding = "UTF-8") %>% 
-  read_xml()
+request
 ```
 
 With `GetCapabilities`, we obtain a complete overview of all metadata for the web service.
 
-The object `doc` is a pointer to the contents of the [XML page](`r request`). 
-To see all capabilities, you can visit this page. 
+To see all capabilities, you can visit [the request in the webbrowser](`r request`). 
 For instance opening the page in the webbrowser and searching for "Filter_Capabilities" allows you to see all possible ways to filter the data from a WFS layer (e.g. restrict the downloaded data to a specified bounding box with `SpatialOperator name="BBOX"`).
 
-Alternatively, information can also be extracted from the `doc` object with the aid of [XPath language](https://en.wikipedia.org/wiki/XPath). 
-
-The following code extracts available output formats:
-
-```{r}
-xpath_output_formats <- paste0(
-  "//ows:Operation[@name='GetFeature']",
-  "/ows:Parameter[@name='outputFormat']",
-  "/ows:AllowedValues/ows:Value")
-output_formats <- doc %>% 
-  xml_find_all(xpath_output_formats) %>% 
-  xml_text()
-output_formats
-```
-
-The next chunk indicates that the service provides three layers: "BWK:Bwkhab", "BWK:Bwkfauna" and "BWK:Hab3260". 
+Instead of searching the page on the web, there are several ways to access specific pieces of information programmatically. 
+We will show here how to do this using functions in the `ows4R` package. 
+The first thing we need to do is generate a connection to the WFS with the aid of `WFSClient$new()`.
 
 
 ```{r}
-parentKey <- "FeatureTypeList"
-childKey <- "FeatureType"
-key <- "Name"
-
-xpath_layers <- sprintf(
-  "//*[local-name()='%s']/*[local-name()='%s']/*[local-name()='%s']",
-  parentKey,childKey,key)
-layers <- doc %>%
-  xml_find_all(xpath_layers) %>%
-  xml_text()
-layers
+bwk_client <- WFSClient$new(wfs_bwk, 
+                            serviceVersion = "2.0.0")
 ```
 
-Note that the function `sf::st_layers()` does not work for this request.
+The resulting object `bwk_client` is an R6 object. 
+If you are not familiar with R6 object, you might want to read [the R6 chapter in Advanced R](https://adv-r.hadley.nz/r6.html).
+
+Printing ``bwk_client` looks like this:
 
 ```{r}
-st_layers(request)
+bwk_client
 ```
+
+The features listed can be accessed using `$`.
+We can see that some of them are again functions.
+As a first example, the following code will list all available layers for that WFS.
+
+
+```{r}
+bwk_client$getFeatureTypes(pretty = TRUE)
+```
+
+Another way of accessing this information is:
+
+```{r}
+bwk_client$getFeatureTypes() %>%
+  map_chr(function(x){x$getName()})
+
+bwk_client$getFeatureTypes() %>%
+  map_chr(function(x){x$getTitle()})
+```
+
+We are using `purrr::map()` functionalities here, because the output of `bwk_client$getFeatureTypes()` is a list and each element of the list contains information about a layer.
+
+Let's turn back our attention to `getCapabilities()` and see what information we can extract from it.
+
+```{r}
+bwk_client$getCapabilities()
+```
+
+This is again an R6 class object and the `$` can be used to chain together several functions, much in the  same way as the pipe operator `%>%`. 
+The following chunk illustrates its use. 
+Try executing this incrementally (select and execute code up to first `$`, second `$`, ...) to see what happens.
+
+```{r}
+bwk_client$
+  getCapabilities()$
+  getOperationsMetadata()$
+  getOperations() %>%
+  map_chr(function(x){x$getName()})
+```
+
+The result is a character vector naming all available operations of the WFS.
+
+The next chunk shows how we can extract the available output formats.
+We will see later that `GetFeature` is the operation needed to read or download data from the WFS. 
+The metadata for this operation has what we want and we can extract it with a combination of `purrr::map()` and ``purrr::pluck()`.
+
+```{r}
+bwk_client$
+  getCapabilities()$
+  getOperationsMetadata()$
+  getOperations() %>%
+  map(function(x){x$getParameters()}) %>%
+  pluck(3, "outputFormat")
+```
+
+Some more examples follow.
+Let's extract the bounding boxes for all layers. 
+
+```{r}
+bwk_client$
+  getCapabilities()$ 
+  getFeatureTypes() %>%  
+  map(function(x){x$getBoundingBox()})
+```
+
+As expected for this WFS, the bounding boxes are the same for all layers.
+
+The final example shows how to get the abstract so we can read about the contents of the layers.
+
+```{r}
+bwk_client$
+  getCapabilities()$ 
+  getFeatureTypes() %>%  
+  map_chr(function(x){x$getAbstract()})
+```
+
+
 
 
 ## Read one of the layers
