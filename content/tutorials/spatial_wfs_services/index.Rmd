@@ -58,17 +58,13 @@ library(ows4R)
 
 ```
 
-# Read vector data from WFS
-
-This examples illustrates how you can download information from a WFS for further use in R. 
+# Get to know what the service can do with `GetCapabilities`
 
 First of all we need the URL of the service. 
 
 ```{r}
 wfs_bwk <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
 ```
-
-## Get to know what the service can do with `GetCapabilities`
 
 ```{r}
 url <- parse_url(wfs_bwk)
@@ -124,6 +120,7 @@ bwk_client$getFeatureTypes() %>%
 
 We are using `purrr::map()` functionalities here, because the output of `bwk_client$getFeatureTypes()` is a list and each element of the list contains information about a layer.
 
+
 Let's turn back our attention to `getCapabilities()` and see what information we can extract from it.
 
 ```{r}
@@ -137,12 +134,24 @@ Try executing this incrementally (select and execute code up to first `$`, secon
 ```{r}
 bwk_client$
   getCapabilities()$
+  findFeatureTypeByName("BWK:Bwkhab")$
+  getDescription() %>%
+  map_chr(function(x){x$getName()})
+```
+
+This lists all available fields for the layer "BWK:Bwkhab".
+
+Here is how to get a character vector naming all available operations of the WFS:
+
+
+```{r}
+bwk_client$
+  getCapabilities()$
   getOperationsMetadata()$
   getOperations() %>%
   map_chr(function(x){x$getName()})
 ```
 
-The result is a character vector naming all available operations of the WFS.
 
 The next chunk shows how we can extract the available output formats.
 We will see later that `GetFeature` is the operation needed to read or download data from the WFS. 
@@ -156,6 +165,12 @@ bwk_client$
   map(function(x){x$getParameters()}) %>%
   pluck(3, "outputFormat")
 ```
+
+<!--
+Another interesting piece of metadata we might be interested in is which spatial operations the WFS service is able to do. 
+-->
+
+
 
 Some more examples follow.
 Let's extract the bounding boxes for all layers. 
@@ -180,8 +195,44 @@ bwk_client$
 
 
 
+# Read or donwload vector data from WFS: `GetFeature` 
 
-## Read one of the layers
+## Example 1: an entire layer
+
+The map of regions of Belgium.
+
+```{r}
+wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
+url <- parse_url(wfs_regions)
+url$query <- list(service = "WFS",
+                  version = "2.0.0",
+                  request = "GetCapabilities")
+request <- build_url(url)
+```
+
+
+```{r}
+url <- parse_url(wfs_regions)
+url$query <- list(service = "wfs",
+                  version = "2.0.0",
+                  request = "GetFeature",
+                  typename = "regions",
+                  srsName = "EPSG:4326",
+                  outputFormat = "GEOJSON")
+request <- build_url(url)
+
+bel_regions <- read_sf(request) #Lambert2008
+```
+
+```{r}
+ggplot(bel_regions) +
+  geom_sf()
+```
+
+
+## Example 2: restrict to a bounding box
+
+This examples illustrates how you can read or download information from a WFS for further use in R. 
 
 Let's start by reading in the "BWK:Bwkhab" layer for the Hallerbos area. 
 
@@ -230,44 +281,7 @@ ggplot(bwk_hallerbos) +
   geom_sf()
 ```
 
-You can use `sf::st_write()` to save this layer in any of format that is listed by `sf::st_drivers()`.
-
-Here is another example, where  we get the map of provinces of Belgium.
-
-```{r}
-wfs_prov <- "http://eservices.minfin.fgov.be/arcgis/services/R2C/Provinces/MapServer/WFSServer"
-url <- parse_url(wfs_prov)
-url$query <- list(service = "WFS",
-                  version = "2.0.0",
-                  request = "GetCapabilities")
-request <- build_url(url)
-doc <- GET(request) %>% 
-  content(as = "text", encoding = "UTF-8") %>% 
-  read_xml()
-
-```
-
-
-```{r}
-# map of Provinces in Belgium
-url <- parse_url(wfs_prov)
-url$query <- list(service = "wfs",
-                  version = "2.0.0",
-                  request = "GetFeature",
-                  typename = "provinces",
-                  outputFormat = "application/json")
-request <- build_url(url)
-
-bel_prov <- read_sf(request) #Lambert2008
-```
-
-```{r}
-ggplot(bel_prov) +
-  geom_sf()
-```
-
-
-## Alternatively, directly download the data
+You can use `sf::st_write()` to save this layer in any format that is listed by `sf::st_drivers()`.
 
 Continuing from the same request we got earlier, we can download the data with `httr::GET` and `httr::write_disk()`.
 
@@ -285,11 +299,11 @@ bwk_hallerbos2 <- read_sf(file)
 ```
 
 
-# Download feature attribute data from WFS
+## Example 3: extract feature data at particular points
 
 In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. 
 When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). 
-Actually, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.
+As we discussed earlier, WFS supports certain spatial operators as part of the service to directly query this data and overcomes the need to download the spatial feature data first.
 
 
 Consider the following use case: You want to extract the attribute data from a [soil map](http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f) for a number of sampling points (point coordinates). 
@@ -361,10 +375,6 @@ knitr::kable(df)
 Which indeed corresponds to the data of the coordinate.
 
 This procedure can also be turned into a function with lat, long and properties of interest as parameters.
-
-# Further reading
-
-https://geocompr.robinlovelace.net/read-write.html#geographic-web-services
 
 
 
