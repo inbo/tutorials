@@ -5,11 +5,11 @@ author: "Thierry Onkelinx, Hans Van Calster"
 date: "`r Sys.Date()`"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
-bibliography: content/articles/reproducible_research.bib
+bibliography: "../../articles/reproducible_research.bib"
 output: 
     md_document:
         preserve_yaml: true
-        variant: markdown_github
+        variant: gfm
 ---
 
 ```{r include = FALSE}
@@ -35,7 +35,9 @@ A distributed, stable storage of the GIS data used in a workflow is necessary to
 When using dynamic databases and web services, where the data they present are expected to evolve (e.g. by always pointing at the latest release in these WFS-cases), this is not guaranteed if you just use the WFS service to directly read GIS data from it. 
 Instead of directly reading the GIS data, it is also possible to download the data from the WFS service to disk (and possibly archive on, e.g., Zenodo) in order to obtain a stable version that can be re-used later by reading it from disk.
 Also, in case it takes a long time to get the GIS data from the WFS service, downloading instead of directly reading is often a better choice.
-On the other hand, other types of workflows might instead require the most up to date GIS data that are available to be retrieved. 
+On the other hand, some types of workflows might instead require the most up to date GIS data that are available to be retrieved while no workflow reproducibility is needed.
+Do note that publishing the workflow is always recommended for published work.
+It serves the scientific community and it is also a way of proving scientific quality - hence reproducibility is often the best choice for published work.
 
 Some of the material presented in this tutorial benefitted from a tutorial presented at the Use of R in Official Statistics conference in The Hague, September 2018 [Spatial Analysis in R with Open Geodata](https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/) and from @lovelace_geocomputation_2020.
 
@@ -376,7 +378,7 @@ Which indeed corresponds to the data of the coordinate.
 
 This procedure can also be turned into a function with lat, long and properties of interest as parameters.
 
-
+# References
 
 
 
