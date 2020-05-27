@@ -5,6 +5,7 @@ author: "Thierry Onkelinx, Hans Van Calster"
 date: "`r Sys.Date()`"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
+bibliography: content/articles/reproducible_research.bib
 output: 
     md_document:
         preserve_yaml: true
@@ -21,14 +22,22 @@ opts_chunk$set(
 
 # What is WFS?
 
-In computing, the [Open Geospatial Consortium **Web Feature Service (WFS)**](http://www.opengeospatial.org/standards/wfs) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. 
-One can think of geographical features as the "source code" behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. 
-The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport. 
+In computing, the [Open Geospatial Consortium (OGC) **Web Feature Service (WFS)**](http://www.opengeospatial.org/standards/wfs) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. 
+One can think of geographical features as the "source code" behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. 
+
+The standard output format for reading or downloading data from a WFS is the XML-based GML (General Markup Language), but other formats like shapefiles or geojson are also available. 
 In early 2006 the OGC members approved the OpenGIS GML Simple Features Profile. 
 This profile is designed both to increase interoperability between WFS servers and to improve the ease of implementation of the WFS standard. 
 (Source: [Wikipedia](https://en.wikipedia.org/wiki/Web_Feature_Service))
 
-Credit: https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/
+Before we embark on using a WFS service in R, we would like to draw your attention to the following issue when using a WFS service in a workflow that needs to be reproducible in the longer term. 
+A distributed, stable storage of the GIS data used in a workflow is necessary to make that workflow reproducible on a longer term. 
+When using dynamic databases and web services, where the data they present are expected to evolve (e.g. by always pointing at the latest release in these WFS-cases), this is not guaranteed if you just use the WFS service to directly read GIS data from it. 
+Instead of directly reading the GIS data, it is also possible to download the data from the WFS service to disk (and possibly archive on, e.g., Zenodo) in order to obtain a stable version that can be re-used later by reading it from disk.
+Also, in case it takes a long time to get the GIS data from the WFS service, downloading instead of directly reading is often a better choice.
+On the other hand, other types of workflows might instead require the most up to date GIS data that are available to be retrieved. 
+
+Some of the material presented in this tutorial benefitted from a tutorial presented at the Use of R in Official Statistics conference in The Hague, September 2018 [Spatial Analysis in R with Open Geodata](https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/) and from @lovelace_geocomputation_2020.
 
 # Useful overviews of web feature services
 
@@ -289,7 +298,7 @@ We need to use a small *trick* using the `textConnection` function to get from t
 
 ```{r}
 df <- read.csv(textConnection(content(result, 'text')))
-kable(df)
+knitr::kable(df)
 ```
 
 Which indeed corresponds to the data of the coordinate.
