@@ -6,10 +6,20 @@
     <description>Recent content in webservice on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/webservice/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
     
     <item>
       <title>Match scientific names with the GBIF Backbone Taxonomy</title>
@@ -20,15 +30,6 @@
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
 remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
-    </item>
-    
-    <item>
-      <title>Using WFS service in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Wed, 07 Mar 2018 16:50:01 +0100</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &amp;ldquo;source code&amp;rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport.</description>
     </item>
     
     <item>

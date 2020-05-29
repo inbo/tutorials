@@ -6,7 +6,7 @@
     <description>Recent content in r on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,16 @@
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
+    </item>
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
@@ -145,15 +155,6 @@ crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- Spatial
       <guid>https://inbo.github.io/tutorials/tutorials/r_tidyverse_piping/</guid>
       <description>library(dplyr) How to use piping in R Normally, you would do this:
 head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
-    </item>
-    
-    <item>
-      <title>Using WFS service in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Wed, 07 Mar 2018 16:50:01 +0100</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &amp;ldquo;source code&amp;rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport.</description>
     </item>
     
     <item>

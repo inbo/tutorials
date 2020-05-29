@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
@@ -83,6 +83,16 @@ These resources focus on the discipline as a whole, its perception, principles ,
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
@@ -272,15 +282,6 @@ The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination wi
       <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
  create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
 The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
-    </item>
-    
-    <item>
-      <title>Using WFS service in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Wed, 07 Mar 2018 16:50:01 +0100</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the &amp;ldquo;source code&amp;rdquo; behind a map, whereas the WMS interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze. The XML-based GML furnishes the default payload-encoding for transporting geographic features, but other formats like shapefiles can also serve for transport.</description>
     </item>
     
     <item>
