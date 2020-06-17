@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 author: "Thierry Onkelinx, Hans Van Calster"
-date: "2020-05-27"
+date: "2020-06-17"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -60,27 +60,59 @@ and from Lovelace, Nowosad, and Muenchow (2020).
 
 # Useful overviews of web feature services
 
-Some useful overviews of WFS’s can be found on the following websites:
+WFS services for Belgium and regions in Belgium:
 
-  - <https://gitlab.com/GIS-projects/Belgium-WFS> and
-    <https://wfs.michelstuyts.be/>: the best overview if you are looking
-    for WFS services for Belgium and regions in Belgium
+  - [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
+    which is [also available on
+    gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
+  - [overview maintained by dov
+    Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
+
+European portals:
+
   - [inspire geoportal](https://inspire-geoportal.ec.europa.eu/):
     European portal for spatial data - some of which have a WFS service
   - [environmental data for
     Europe](https://discomap.eea.europa.eu/Index/): many of the products
     listed have either a WMS or a WFS service
-  - [spatineo directory](https://directory.spatineo.com/): worldwide
-    monitoring of spatial web services
+
+Worldwide coverage:
+
+  - [spatineo directory](https://directory.spatineo.com/)
 
 # Used packages
 
 ``` r
 library(sf) # simple features packages for handling vector GIS data
+```
+
+    ## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+
+``` r
 library(httr) # generic webservice package
 library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
+```
+
+    ## -- Attaching packages ---------------------------------------------------------- tidyverse 1.3.0 --
+
+    ## v ggplot2 3.3.0     v purrr   0.3.4
+    ## v tibble  3.0.1     v dplyr   0.8.5
+    ## v tidyr   1.0.2     v stringr 1.4.0
+    ## v readr   1.3.1     v forcats 0.5.0
+
+    ## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
+
+``` r
 library(ows4R) # interface for OGC webservices
 ```
+
+    ## Loading required package: geometa
+
+    ## Loading ISO 19139 XML schemas...
+
+    ## Loading ISO 19115 codelists...
 
 # Get to know what the service can do with `GetCapabilities`
 
@@ -489,11 +521,11 @@ GET(url = request,
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&version=2.0.0&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2020-05-27 15:02
+    ##   Date: 2020-06-17 14:25
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 879 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpSKXOzO\file1eb8629fa12.geojson
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\Rtmp6lClEJ\file263c7b7b50ab.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -595,7 +627,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2020-05-27 15:02
+    ##   Date: 2020-06-17 14:25
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B

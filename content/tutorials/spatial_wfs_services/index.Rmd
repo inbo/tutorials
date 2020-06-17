@@ -43,12 +43,19 @@ Some of the material presented in this tutorial benefitted from a tutorial prese
 
 # Useful overviews of web feature services
 
-Some useful overviews of WFS's can be found on the following websites:
+WFS services for Belgium and regions in Belgium:
 
-- https://gitlab.com/GIS-projects/Belgium-WFS and https://wfs.michelstuyts.be/:  the best overview if you are looking for WFS services for Belgium and regions in Belgium
+- [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/), which is [also available on gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
+- [overview maintained by dov Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
+
+European portals:
+
 - [inspire geoportal](https://inspire-geoportal.ec.europa.eu/): European portal for spatial data - some of which have a WFS service
 - [environmental data for Europe](https://discomap.eea.europa.eu/Index/): many of the products listed have either a WMS or a WFS service 
-- [spatineo directory](https://directory.spatineo.com/): worldwide monitoring of spatial web services
+
+Worldwide coverage:
+
+- [spatineo directory](https://directory.spatineo.com/)
 
 
 # Used packages
