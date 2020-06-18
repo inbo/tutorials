@@ -9,7 +9,7 @@
 <meta property='og:description' content='How to use WFS (vectors/features) GIS services within R scripts'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2020-05-27T00:00:00Z'/><meta property='article:modified_time' content='2020-05-27T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2020-06-18T00:00:00Z'/><meta property='article:modified_time' content='2020-06-18T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.0" />
 
@@ -267,7 +267,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-05-27T00:00:00Z'>2020, May 27</time>
+  <time class='entry-date' datetime='2020-06-18T00:00:00Z'>2020, Jun 18</time>
 </span>
 
   
@@ -356,25 +356,51 @@ The Hague, September 2018 <a href="https://github.com/TWIAV/Spatial_Analysis_in_
 Geodata</a>
 and from Lovelace, Nowosad, and Muenchow (2020).</p>
 <h1 id="useful-overviews-of-web-feature-services">Useful overviews of web feature services<a href="#useful-overviews-of-web-feature-services" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<p>Some useful overviews of WFS’s can be found on the following websites:</p>
+<p>WFS services for Belgium and regions in Belgium:</p>
 <ul>
-<li><a href="https://gitlab.com/GIS-projects/Belgium-WFS">https://gitlab.com/GIS-projects/Belgium-WFS</a> and
-<a href="https://wfs.michelstuyts.be/">https://wfs.michelstuyts.be/</a>: the best overview if you are looking
-for WFS services for Belgium and regions in Belgium</li>
+<li><a href="https://wfs.michelstuyts.be/">overview compiled by Michel Stuyts</a>,
+which is <a href="https://gitlab.com/GIS-projects/Belgium-WFS/">also available on
+gitlab</a></li>
+<li><a href="https://dov.vlaanderen.be/page/interessante-webservices">overview maintained by DOV
+Vlaanderen</a></li>
+</ul>
+<p>European portals:</p>
+<ul>
 <li><a href="https://inspire-geoportal.ec.europa.eu/">inspire geoportal</a>:
 European portal for spatial data - some of which have a WFS service</li>
 <li><a href="https://discomap.eea.europa.eu/Index/">environmental data for
 Europe</a>: many of the products
 listed have either a WMS or a WFS service</li>
-<li><a href="https://directory.spatineo.com/">spatineo directory</a>: worldwide
-monitoring of spatial web services</li>
+</ul>
+<p>Worldwide coverage:</p>
+<ul>
+<li><a href="https://directory.spatineo.com/">spatineo directory</a></li>
 </ul>
 <h1 id="used-packages">Used packages<a href="#used-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(sf) <span style="color:#aaa;font-style:italic"># simple features packages for handling vector GIS data</span>
-<span style="color:#0a0">library</span>(httr) <span style="color:#aaa;font-style:italic"># generic webservice package</span>
+</code></pre></div><pre><code>## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(httr) <span style="color:#aaa;font-style:italic"># generic webservice package</span>
 <span style="color:#0a0">library</span>(tidyverse) <span style="color:#aaa;font-style:italic"># a suite of packages for data wrangling, transformation, plotting, ...</span>
-<span style="color:#0a0">library</span>(ows4R) <span style="color:#aaa;font-style:italic"># interface for OGC webservices</span>
-</code></pre></div><h1 id="get-to-know-what-the-service-can-do-with-getcapabilities">Get to know what the service can do with <code>GetCapabilities</code><a href="#get-to-know-what-the-service-can-do-with-getcapabilities" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+</code></pre></div><pre><code>## -- Attaching packages ---------------------------------------------------------- tidyverse 1.3.0 --
+
+## v ggplot2 3.3.0     v purrr   0.3.4
+## v tibble  3.0.1     v dplyr   0.8.5
+## v tidyr   1.0.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+
+## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(ows4R) <span style="color:#aaa;font-style:italic"># interface for OGC webservices</span>
+</code></pre></div><pre><code>## Loading required package: geometa
+
+## Loading ISO 19139 XML schemas...
+
+## Loading ISO 19115 codelists...
+</code></pre>
+<h1 id="get-to-know-what-the-service-can-do-with-getcapabilities">Get to know what the service can do with <code>GetCapabilities</code><a href="#get-to-know-what-the-service-can-do-with-getcapabilities" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <p>First of all we need the URL of the service.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_bwk &lt;- <span style="color:#a50">&#34;</span><span style="color:#a50">https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs&#34;</span>
 </code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">url &lt;- <span style="color:#0a0">parse_url</span>(wfs_bwk)
@@ -683,11 +709,11 @@ data with <code>httr::GET</code> and <code>httr::write_disk()</code>.</p>
 <span style="color:#0a0">GET</span>(url = request, 
     <span style="color:#0a0">write_disk</span>(file))
 </code></pre></div><pre><code>## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typename=BWK%3ABwkhab&amp;bbox=142600%2C153800%2C146000%2C156900&amp;outputFormat=application%2Fjson]
-##   Date: 2020-05-27 15:02
+##   Date: 2020-06-17 14:25
 ##   Status: 200
 ##   Content-Type: application/json;charset=UTF-8
 ##   Size: 879 kB
-## &lt;ON DISK&gt;  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpSKXOzO\file1eb8629fa12.geojson
+## &lt;ON DISK&gt;  C:\Users\HANS_V~1\AppData\Local\Temp\Rtmp6lClEJ\file263c7b7b50ab.geojson
 </code></pre>
 <p>At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -766,7 +792,7 @@ enlisted in the <code>&lt;ogc:SpatialOperators&gt;</code> field.</li>
 result &lt;- <span style="color:#0a0">GET</span>(wfs_bodemtypes, query = query)
 result
 </code></pre></div><pre><code>## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&amp;request=GetFeature&amp;version=1.1.0&amp;typeName=bodemkaart%3Abodemtypes&amp;outputFormat=csv&amp;propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&amp;CRS=EPSG%3A31370&amp;CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-##   Date: 2020-05-27 15:02
+##   Date: 2020-06-17 14:25
 ##   Status: 200
 ##   Content-Type: text/csv;charset=UTF-8
 ##   Size: 129 B
