@@ -65,7 +65,7 @@ WFS services for Belgium and regions in Belgium:
   - [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
     which is [also available on
     gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
-  - [overview maintained by dov
+  - [overview maintained by DOV
     Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
 
 European portals:
