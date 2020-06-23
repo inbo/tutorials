@@ -1,0 +1,151 @@
+theme = "minimo"
+baseURL = "https://inbo.github.io/tutorials/"
+languageCode = "en-us"
+title = "INBO Tutorials"
+
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
+# relativeURLs = true
+# canonifyurls = true
+
+# for smart copyright line, leave this blank and check [params.copyright]
+copyright = ""
+
+disqusShortname = ""
+googleAnalytics = ""
+
+Paginate = 1000
+preserveTaxonomyNames = true
+
+enableRobotsTXT = true # generate robots.txt
+
+# Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
+pygmentsCodefences = true
+pygmentsStyle = "autumn"
+
+enableEmoji = true
+
+# Missing translations will default to this content language
+defaultContentLanguage = "en"
+
+[params.info]
+description = ""
+title404 = "Nothing's here..."
+
+[params.assets]
+favicon = "favicon.ico"
+customCSS = ["css/custom.css"]
+customJS = ["js/custom.js"]
+gopher = "" # used in 404 template ( Generator: https://gopherize.me )
+
+[params.copyright]
+prefix = ""
+holder = "Research Institute for Nature and Forest (INBO)"
+startYear = "2018"
+suffix = "<a rel='license' href='http://creativecommons.org/licenses/by/4.0/' style='float: right;'><img alt='Creative Commons License' src='https://i.creativecommons.org/l/by/4.0/88x31.png'></a>"
+
+[params.settings]
+# date & time format: https://golang.org/pkg/time/
+dateFormat = "2006, Jan 02"
+listDateFormat = "2006, Jan 02"
+archiveDateFormat = "Jan 02"
+hideEntryNavigation = ["page"] # boolean / array of sections
+hideEntryMeta = ["page"] # boolean / array of sections
+showReadingTime = true
+showLastmod = true
+taxonomyCloudShuffle = false
+accentColor = "#c04384"
+hideMainMenu = true
+
+[params.sidebar]
+enable = true
+
+[params.widgets]
+header = ["breadcrumbs"]
+homepage = ["recent_posts"] # "recent_posts"
+sidebar = ["about", "search", "sidebar_menu", "taxonomy_cloud", "social_menu"]
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter page username
+
+[params.seo]
+# Title Separator: - – — · • * ⋆ | ~ « » < >
+titleSeparator = "•"
+
+[params.social]
+facebook = "INBOVlaanderen"
+github = "inbo"
+twitter = "INBOVlaanderen"
+
+[params.comments]
+enable = false
+
+# Isso: https://posativ.org/isso/
+[params.comments.isso]
+enable = false
+scriptSrc = "" # "https://isso.example.com/js/embed.min.js"
+dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
+
+[params.comments.staticman]
+enable = false
+apiEndpoint = "https://api.staticman.net/v2/entry"
+maxDepth = 2
+
+[params.comments.staticman.github]
+username = ""
+repository = ""
+branch = "master"
+
+# Utterances: https://utteranc.es
+[params.comments.utterances]
+enable = false
+issueTerm = "pathname" # pathname / url / title
+
+[params.comments.utterances.github]
+username = ""
+repository = ""
+
+[params.search]
+client = "lunr" # algolia / fuse / lunr
+
+[params.search.algolia]
+appId = ""
+indexName = ""
+searchApiKey = ""
+
+[params.githublink]
+GithubEditLink = "https://github.com/inbo/tutorials/edit/master/content/"
+GithubContentLink = "https://github.com/inbo/tutorials/blob/master/content/"
+
+[taxonomies]
+author = "authors"
+category = "categories"
+tag = "tags"
+
+[permalinks]
+#page = "/:slug/"
+#articles = "/posts/:slug/"
+#tutorials = "/tutorials/:filename/"
+#search = "/:slug/"
+#categories = "/categories/"
+content = "/:slug/"
+
+[[menu.sidebar]]
+name = "Repository"
+identifier = "repository"
+url = "https://github.com/inbo/tutorials"
+weight = 110
+
+[blackfriday]
+hrefTargetBlank = true
+
+[languages]
+# edit this block for your own language
+[languages.en]
+lang = "en"
+languageName = "English"
+weight = 1

@@ -1,0 +1,19 @@
+<span class="github-link">
+{{ if .IsPage }}
+    {{ if .File.Path }}
+
+        {{ $Rmd := (print .File.BaseFileName ".Rmd") }}
+
+        {{ if (where (readDir (print "content/" .File.Dir)) "Name" $Rmd) }}
+            {{ $.Scratch.Set "FilePath" (print .File.Dir $Rmd) }}
+        {{ else }}
+            {{ $.Scratch.Set "FilePath" .File.Path }}
+        {{ end }}
+
+        {{ with .Site.Params.githublink.GithubContentLink}}
+            <a href='{{ . }}{{ $.Scratch.Get "FilePath" }}'> {{- partial "svg/icons" "github" -}} Improve this page</a>
+        {{ end }}
+
+        {{ end }}
+    {{ end }}
+</span>
