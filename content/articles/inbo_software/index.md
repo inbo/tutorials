@@ -30,18 +30,19 @@ the package’s purpose and demonstrating its use.
 
 The following table gives a **quick overview**:
 
-| Research stage                | Related INBO packages                                                                                                                                                                                                             |
-| :---------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Study design                  | [grts](https://github.com/ThierryO/grts)                                                                                                                                                                                          |
-| Retrieve data: environmental  | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina)                                                                                               |
-| Retrieve data: biological     | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc) |
-| Store data                    | [git2rdata](https://inbo.github.io/git2rdata/)                                                                                                                                                                                    |
-| Validate data                 | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                                                          |
-| Analyze data: graphs          | [inboggvegan](https://github.com/inbo/inboggvegan)                                                                                                                                                                                |
-| Analyze data: models          | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/)                        |
-| Analyze data: indices         | [LSVI](https://inbo.github.io/LSVI)                                                                                                                                                                                               |
-| Publish                       | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)                                                                                                                   |
-| Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)                                                                                                                                                                                  |
+| Research stage                          | Related INBO packages                                                                                                                                                                                                              |
+| :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Study design                            | [grts](https://github.com/ThierryO/grts)                                                                                                                                                                                           |
+| Retrieve data: environmental            | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina)                                                                                                |
+| Retrieve data: biological               | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc), |
+| [inbodb](https://inbo.github.io/inbodb) |                                                                                                                                                                                                                                    |
+| Store data                              | [git2rdata](https://inbo.github.io/git2rdata/)                                                                                                                                                                                     |
+| Validate data                           | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                                                           |
+| Analyze data: graphs                    | [inboggvegan](https://github.com/inbo/inboggvegan)                                                                                                                                                                                 |
+| Analyze data: models                    | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/)                         |
+| Analyze data: indices                   | [LSVI](https://inbo.github.io/LSVI)                                                                                                                                                                                                |
+| Publish                                 | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)                                                                                                                    |
+| Miscellaneous (mixed content)           | [inborutils](https://inbo.github.io/inborutils/)                                                                                                                                                                                   |
 
 ## Study design
 
@@ -104,6 +105,9 @@ The following table gives a **quick overview**:
     vegetation of the flemish forest reserve monitoring network, and
     functions to derive these data starting from individual tree
     measurements in Fieldmap.
+  - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
+    to and retrieve data from databases on the INBO server, with
+    dedicated functions to query databases INBOVEG and Florabank.
 
 ## Store data
 
