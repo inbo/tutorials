@@ -29,12 +29,12 @@ The following table gives a **quick overview**:
 |:-------------|:--------------------------------------|
 | Study design | [grts](https://github.com/ThierryO/grts) |
 | Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
-| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab) |
+| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc) |
 | Store data  | [git2rdata](https://inbo.github.io/git2rdata/) |
 | Validate data | [pywhip](https://inbo.github.io/pywhip/) |
 | Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
 | Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche_vlaanderen](https://inbo.github.io/niche_vlaanderen/) |
-| Analyze data: indices | [LSVI](https://github.com/inbo/LSVI) |
+| Analyze data: indices | [LSVI](https://inbo.github.io/LSVI) |
 | Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/) |
 | Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/) |
 
@@ -71,6 +71,8 @@ It also allows to download the data in a format that can easily be uploaded to [
 provides functionality to access and process data from the [European Tracking Network (ETN)](http://www.lifewatch.be/etn/) database hosted by the Flanders Marine Institute (VLIZ) as part of the Flemish contribution to LifeWatch.
 - **R package [n2khab](https://inbo.github.io/n2khab)**:
 provides preprocessed reference data _(including checklists, spatial habitat distribution, administrative & environmental layers, GRTSmaster_habitats)_ and preprocessing functions, supporting reproducible and transparent analyses on Flemish Natura 2000 (_n2k_) habitats (_hab_) and regionally important biotopes (RIBs).
+- **R package [forrescalc](https://github.com/inbo/forrescalc)**:
+provides aggregated values on dendrometry, regeneration and vegetation of the flemish forest reserve monitoring network, and functions to derive these data starting from individual tree measurements in Fieldmap.
 
 ## Store data
 
@@ -120,7 +122,7 @@ The package is a redevelopment of an existing ArcGIS plugin in Python, without e
 
 ### Calculate indices
 
-- **R package [LSVI](https://github.com/inbo/LSVI)**:
+- **R package [LSVI](https://inbo.github.io/LSVI)**:
 bundles a number of functions to support researchers in determining the local conservation status ('LSVI') of Natura 2000 habitats in Flanders.
 Several functions retrieve the criteria and/or associated species lists for determining the LSVI.
 A specific function allows to calculate the LSVI.
