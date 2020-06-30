@@ -102,7 +102,7 @@ The following table gives a **quick overview**:
     habitats (*hab*) and regionally important biotopes (RIBs).
   - **R package [forrescalc](https://github.com/inbo/forrescalc)**:
     provides aggregated values on dendrometry, regeneration and
-    vegetation of the flemish forest reserve monitoring network, and
+    vegetation of the Flemish forest reserve monitoring network, and
     functions to derive these data starting from individual tree
     measurements in Fieldmap.
   - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
