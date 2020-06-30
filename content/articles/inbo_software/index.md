@@ -33,8 +33,9 @@ The following table gives a **quick overview**:
 | Research stage                | Related INBO packages                                                                                                                                                                                                                                                      |
 | :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Study design                  | [grts](https://github.com/ThierryO/grts)                                                                                                                                                                                                                                   |
+| Retrieve data: general     | [inbodb](https://inbo.github.io/inbodb) |
 | Retrieve data: environmental  | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina)                                                                                                                                        |
-| Retrieve data: biological     | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc), [inbodb](https://inbo.github.io/inbodb) |
+| Retrieve data: biological     | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc) |
 | Store data                    | [git2rdata](https://inbo.github.io/git2rdata/)                                                                                                                                                                                                                             |
 | Validate data                 | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                                                                                                   |
 | Analyze data: graphs          | [inboggvegan](https://github.com/inbo/inboggvegan)                                                                                                                                                                                                                         |
@@ -50,6 +51,13 @@ The following table gives a **quick overview**:
     Tessellation Stratified (GRTS) sampling strategy.
 
 ## Retrieve data
+
+### General data
+
+  - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
+    to and retrieve data from databases on the INBO server, with
+    dedicated functions to query some of these databases.
+
 
 ### Environmental data
 
@@ -104,9 +112,6 @@ The following table gives a **quick overview**:
     vegetation of the Flemish forest reserve monitoring network, and
     functions to derive these data starting from individual tree
     measurements in Fieldmap.
-  - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
-    to and retrieve data from databases on the INBO server, with
-    dedicated functions to query databases INBOVEG and Florabank.
 
 ## Store data
 
