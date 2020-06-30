@@ -73,7 +73,7 @@ provides functionality to access and process data from the [European Tracking Ne
 - **R package [n2khab](https://inbo.github.io/n2khab)**:
 provides preprocessed reference data _(including checklists, spatial habitat distribution, administrative & environmental layers, GRTSmaster_habitats)_ and preprocessing functions, supporting reproducible and transparent analyses on Flemish Natura 2000 (_n2k_) habitats (_hab_) and regionally important biotopes (RIBs).
 - **R package [forrescalc](https://github.com/inbo/forrescalc)**:
-provides aggregated values on dendrometry, regeneration and vegetation of the flemish forest reserve monitoring network, and functions to derive these data starting from individual tree measurements in Fieldmap.
+provides aggregated values on dendrometry, regeneration and vegetation of the Flemish forest reserve monitoring network, and functions to derive these data starting from individual tree measurements in Fieldmap.
 - **R package [inbodb]((https://inbo.github.io/inbodb)**:
 connect to and retrieve data from databases on the INBO server, with dedicated functions to query databases INBOVEG and Florabank.
 
@@ -149,7 +149,6 @@ The documentation website includes a set of example figures for each available t
 
 - **R package [inborutils](https://inbo.github.io/inborutils/)**: provides a collection of useful R utilities and snippets that we consider recyclable for multiple projects.
 The functions are either out of scope or just not mature enough to include as extensions to existing packages.
-
 
 
 
