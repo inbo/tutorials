@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Mixed model formulation of a paired t-test</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</guid>
+      <description>What you will learn In this tutorial we explain the analogy between the paired t-test and the corresponding mixed model formulation.
+Used packages library(knitr) library(lme4) library(tidyr) library(broom) library(DHARMa) Data  plot: identifies paired measurements response: measurement values treatment: identifies two treatments (a and b)  set.seed(124) paired_data &amp;lt;- data.frame( plot = rep(1:10, 2), response = c(rnorm(10), rnorm(10, 3, 1.5)), treatment = rep(c(&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;), each = 10) ) paired_data$treatment &amp;lt;- as.factor(paired_data$treatment) paired_data$plot &amp;lt;- as.</description>
+    </item>
+    
+    <item>
       <title>Same variable in fixed and random effects</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_fixed_random/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
