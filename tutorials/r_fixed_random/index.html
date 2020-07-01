@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(lme4) ## Loading required package: Matrix  Dummy data For the sake of this demontration we use a very simple dataset with a very high signal versus noise ratio. Let’s look at a simple timeseries with multiple observations per timepoint.
+n.year &lt;- 30 n.replicate &lt;- 10 sd.noise &lt;- 0.1 dataset &lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Same variable in fixed and random effects • INBO Tutorials'>
+<meta property='og:description' content='Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(lme4) ## Loading required package: Matrix  Dummy data For the sake of this demontration we use a very simple dataset with a very high signal versus noise ratio. Let’s look at a simple timeseries with multiple observations per timepoint.
+n.year &lt;- 30 n.replicate &lt;- 10 sd.noise &lt;- 0.1 dataset &lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_fixed_random/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='r'><meta property='article:tag' content='analysis'><meta property='article:tag' content='mixed model'><meta property='article:published_time' content='2020-07-01T00:00:00Z'/><meta property='article:modified_time' content='2020-07-01T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.62.0" />
+
+  <title>Same variable in fixed and random effects • INBO Tutorials</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_fixed_random/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.0357142857142858em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0357142857142858em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0357142857142858em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.1428571428571428em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0357142857142858em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.25em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.2142857142857142em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.0357142857142858em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0357142857142858em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.2857142857142856em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.1428571428571428em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.1428571428571428em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0357142857142858em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.0357142857142858em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.2142857142857142em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.0714285714285714em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/queries/' style='font-size:1em'>queries</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0357142857142858em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0714285714285714em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.0714285714285714em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.1071428571428572em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.1785714285714286em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.0714285714285714em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Same variable in fixed and random effects</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Same variable in fixed and random effects</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-07-01T00:00:00Z'>2020, Jul 01</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+4 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/r_fixed_random/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h2 id="used-packages">Used packages<a href="#used-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(ggplot2)
+</code></pre></div><pre><code>## Warning: package 'ggplot2' was built under R version 4.0.2
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(lme4)
+</code></pre></div><pre><code>## Loading required package: Matrix
+</code></pre>
+<h2 id="dummy-data">Dummy data<a href="#dummy-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>For the sake of this demontration we use a very simple dataset with a
+very high signal versus noise ratio. Let’s look at a simple timeseries
+with multiple observations per timepoint.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n.year &lt;- <span style="color:#099">30</span>
+n.replicate &lt;- <span style="color:#099">10</span>
+sd.noise &lt;- <span style="color:#099">0.1</span>
+dataset &lt;- <span style="color:#0a0">expand.grid</span>(
+  Replicate =  <span style="color:#0a0">seq_len</span>(n.replicate),
+  Year = <span style="color:#0a0">seq_len</span>(n.year)
+)
+dataset$fYear &lt;- <span style="color:#0a0">factor</span>(dataset$Year)
+dataset$Noise &lt;- <span style="color:#0a0">rnorm</span>(<span style="color:#0a0">nrow</span>(dataset), mean = <span style="color:#099">0</span>, sd = sd.noise)
+dataset$Linear &lt;- <span style="color:#099">1</span> + <span style="color:#099">2</span> * dataset$Year + dataset$Noise
+dataset$Quadratic &lt;- <span style="color:#099">1</span> + <span style="color:#099">20</span> * dataset$Year - <span style="color:#099">0.5</span> * dataset$Year ^ <span style="color:#099">2</span> + 
+  dataset$Noise
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + <span style="color:#0a0">geom_point</span>()
+</code></pre></div><p><img src="index_files/figure-gfm/linear-1.png" alt=""><!-- raw HTML omitted --></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + <span style="color:#0a0">geom_point</span>()
+</code></pre></div><p><img src="index_files/figure-gfm/quadratic-1.png" alt=""><!-- raw HTML omitted --></p>
+<h2 id="quadratic-trend-but-fit-as-a-linear-trend">Quadratic trend but fit as a linear trend<a href="#quadratic-trend-but-fit-as-a-linear-trend" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Assume that we assume that the trend is linear but in reality it is
+quadratic. In this case the random intercept of year will pickup the
+differences with the linear trend.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model.quadratric &lt;- <span style="color:#0a0">lmer</span>(Quadratic ~ Year + (<span style="color:#099">1</span>|Year), 
+                         data = dataset)
+<span style="color:#0a0">summary</span>(model.quadratric)
+</code></pre></div><pre><code>## Linear mixed model fit by REML ['lmerMod']
+## Formula: Quadratic ~ Year + (1 | Year)
+##    Data: dataset
+## 
+## REML criterion at convergence: -105.5
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -3.12646 -0.60920  0.06426  0.63613  2.98079 
+## 
+## Random effects:
+##  Groups   Name        Variance  Std.Dev.
+##  Year     (Intercept) 1.198e+03 34.6147 
+##  Residual             1.052e-02  0.1025 
+## Number of obs: 300, groups:  Year, 30
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)  83.6655    12.9623   6.455
+## Year          4.5000     0.7301   6.163
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Year -0.873
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset$QuadraticPredict &lt;- <span style="color:#0a0">predict</span>(model.quadratric)
+dataset$QuadraticFixed &lt;- <span style="color:#0a0">predict</span>(model.quadratric, re.form = ~<span style="color:#099">0</span>)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + 
+  <span style="color:#0a0">geom_point</span>() + 
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticFixed), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>) + 
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticPredict), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">blue&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>The random effects will have a strong pattern. Indicating that a second
+order polynomial makes more sense than a linear trend.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf &lt;- <span style="color:#0a0">data.frame</span>(
+  Year = <span style="color:#0a0">seq_len</span>(n.year),
+  RandomIntercept = <span style="color:#0a0">ranef</span>(model.quadratric)$Year[, <span style="color:#099">1</span>]
+)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(rf, <span style="color:#0a0">aes</span>(x = Year, y = RandomIntercept)) + 
+  <span style="color:#0a0">geom_point</span>()
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
+<h2 id="what-if-the-trend-is-perfectly-linear">What if the trend is perfectly linear?<a href="#what-if-the-trend-is-perfectly-linear" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Both the fixed effect and the random effect can perfectly model the
+pattern in the data. So the model seems to be unidentifiable. However
+the likelihood of the model contains a penalty term for the random
+intercept. The stronger the absolute value of the random effect, the
+stronger the penalty. The fixed effects have no penalty term. Hence,
+model with strong fixed effect will have a higher likelihood than
+exactly the same fit generated by strong random effects.</p>
+<p>In this case the linear trend is very strong compared to the noise. So
+the linear trend in the fixed effect fits the data very well. Note that
+the random effect variance is zero.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model.linear &lt;- <span style="color:#0a0">lmer</span>(Linear ~ Year + (<span style="color:#099">1</span>|Year), data = dataset)
+</code></pre></div><pre><code>## boundary (singular) fit: see ?isSingular
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">summary</span>(model.linear)
+</code></pre></div><pre><code>## Linear mixed model fit by REML ['lmerMod']
+## Formula: Linear ~ Year + (1 | Year)
+##    Data: dataset
+## 
+## REML criterion at convergence: -498.3
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.8338 -0.6580  0.1124  0.6691  2.5458 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Year     (Intercept) 0.00000  0.0000  
+##  Residual             0.01043  0.1021  
+## Number of obs: 300, groups:  Year, 30
+## 
+## Fixed effects:
+##              Estimate Std. Error t value
+## (Intercept) 0.9988195  0.0120954   82.58
+## Year        1.9999875  0.0006813 2935.46
+## 
+## Correlation of Fixed Effects:
+##      (Intr)
+## Year -0.873
+## convergence code: 0
+## boundary (singular) fit: see ?isSingular
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset$LinearPredict &lt;- <span style="color:#0a0">predict</span>(model.linear)
+dataset$LinearFixed &lt;- <span style="color:#0a0">predict</span>(model.linear, re.form = ~<span style="color:#099">0</span>)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + 
+  <span style="color:#0a0">geom_point</span>() + 
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearFixed), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>) + 
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearPredict), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">blue&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-8-1.png" alt=""><!-- raw HTML omitted --></p>
+<h2 id="what-about-fitting-year-as-a-factor-in-the-fixed-effects">What about fitting year as a factor in the fixed effects<a href="#what-about-fitting-year-as-a-factor-in-the-fixed-effects" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Combining the same variables as a factor in the fixed effects and as a
+random intercept doesn’t make sense. They allow exactly the same model
+fit and thus the random intercept will always shrink to zero.</p>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/r/'>r</a>, <a class='category' href='/tutorials/categories/statistics/'>statistics</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/sql_styleguide/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Styleguide SQL-scripts</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p> &copy; 2018-2020 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+
+<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+
