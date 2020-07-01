@@ -1,0 +1,307 @@
+---
+title: "Spatially correlated random effects with INLA"
+description: "A quick and dirty illustration of how spatially correlated random effects can be fit with INLA"
+author: "Thierry Onkelinx"
+date: "`r Sys.Date()`"
+categories: ["r", "statistics"]
+tags: ["r", "analysis", "mixed model", "INLA"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. 
+It is based on the question and the data posted on the R-Sig-mixedmodels mailing list: https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html.
+
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  cache = TRUE,
+  autodep = TRUE
+)
+```
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(INLA)
+library(rprojroot)
+```
+
+
+# Data import and cleaning
+
+```{r}
+dataset <- readRDS(find_root_file(
+  "content/tutorials/r_spde/",
+  "data.Rd", 
+  criterion = is_git_root))
+summary(dataset)
+```
+
+```{r}
+dataset <- dataset %>%
+  filter(!is.na(date)) %>%
+  mutate(
+    hail = as.integer(hail == "1"),
+    rx = rlat * 1e-3,
+    ry = rlon * 1e-3,
+    srad = srad_nov_apr * 1e-3 - 1,
+    prec = prec_nov_apr * 1e-2 - 1,
+    temp = t_min_nov_apr - 4
+  )
+summary(dataset)
+```
+
+# EDA
+
+```{r}
+ggplot(dataset, aes(x = age)) + geom_histogram(binwidth = 1)
+```
+
+```{r}
+ggplot(dataset, aes(x = srad)) + geom_density()
+```
+
+```{r}
+ggplot(dataset, aes(x = temp)) + geom_density()
+```
+
+```{r}
+ggplot(dataset, aes(x = age, y = hail)) +
+  geom_point() +
+  geom_smooth(
+    method = "gam", 
+    formula = y ~ s(x, bs = "cs", k = 4),
+    method.args = list(family = binomial)
+  )
+```
+
+```{r}
+ggplot(dataset, aes(x = srad, y = hail)) +
+  geom_point() +
+  geom_smooth(
+    method = "gam", 
+    formula = y ~ s(x, bs = "cs", k = 4),
+    method.args = list(family = binomial)
+  )
+```
+
+```{r}
+ggplot(dataset, aes(x = temp, y = hail)) +
+  geom_point() +
+  geom_smooth(
+    method = "gam", 
+    formula = y ~ s(x, bs = "cs", k = 4),
+    method.args = list(family = binomial)
+  )
+```
+
+```{r}
+ggplot(dataset, aes(x = prec, y = hail)) +
+  geom_point() +
+  geom_smooth(
+    method = "gam", 
+    formula = y ~ s(x, bs = "cs", k = 4),
+    method.args = list(family = binomial)
+  )
+```
+
+```{r}
+ggplot(dataset, aes(x = prec, colour = date)) + geom_density()
+```
+
+```{r}
+ggplot(dataset, aes(x = temp, colour = date)) + geom_density()
+```
+
+```{r}
+ggplot(dataset, aes(x = rx, y = ry, colour = factor(hail))) +
+  geom_point() +
+  coord_fixed() +
+  facet_wrap(~date)
+```
+
+```{r}
+ggplot(dataset, aes(x = rx, y = ry, colour = temp)) +
+  geom_point() +
+  coord_fixed() +
+  scale_colour_gradientn(colors = rainbow(5)) +
+  facet_wrap(~date)
+```
+
+```{r}
+ggplot(dataset, aes(x = rx, y = ry, colour = prec)) +
+  geom_point() +
+  coord_fixed() +
+  scale_colour_gradientn(colors = rainbow(5)) +
+  facet_wrap(~date)
+```
+
+```{r}
+ggplot(dataset, aes(x = rx, y = ry, colour = srad)) +
+  geom_point() +
+  coord_fixed() +
+  scale_colour_gradientn(colors = rainbow(5)) +
+  facet_wrap(~date)
+```
+
+# Model without spatial correlation
+
+```{r}
+m1 <- inla(
+  hail ~ prec + t_min_nov_apr + srad + age + date,
+  family = "binomial",
+  data = dataset
+)
+summary(m1)
+```
+
+# Model with spatial random intercept
+
+```{r}
+coordinates <- dataset %>%
+  select(rx, ry) %>%
+  as.matrix()
+
+boundary <- inla.nonconvex.hull(coordinates)
+
+mesh <- inla.mesh.2d(
+  loc = coordinates, 
+  boundary = boundary,
+  max.edge = 20,
+  cutoff = 5
+)
+```
+
+
+```{r}
+plot(mesh)
+points(coordinates, col = "red")
+```
+
+```{r}
+spde <- inla.spde2.matern(mesh = mesh)
+A <- inla.spde.make.A(mesh = mesh, loc = coordinates)
+s.index <- inla.spde.make.index(name = "spatial.field", n.spde = spde$n.spde)
+stack <- inla.stack(
+  data = dataset %>%
+    select(hail) %>%
+    as.list(),
+  A = list(A, 1),
+  effects = list(
+    c(
+      s.index,
+      list(intercept = rep(1, spde$n.spde))
+    ),
+    dataset %>%
+      select(temp, prec, srad, age) %>%
+      as.list()
+  )
+)
+
+m2 <- inla(
+  hail ~ 0 + intercept + temp + prec + srad + age + 
+    f(spatial.field, model = spde),
+  data = inla.stack.data(stack),
+  family = "binomial",
+  control.predictor = list(
+    A = inla.stack.A(stack),
+    compute = TRUE
+  )
+)
+
+summary(m2)
+```
+
+## Predict values on a grid
+
+```{r}
+n.grid <- 50
+dx <- diff(pretty(dataset$rx, n.grid)[1:2])
+dy <- diff(pretty(dataset$ry, n.grid)[1:2])
+delta <- max(dx, dy)
+grid <- expand.grid(
+  rx = seq(
+    floor(min(dataset$rx) / delta) * delta,
+    max(dataset$rx) + delta,
+    by = delta
+  ),
+  ry = seq(
+    floor(min(dataset$ry) / delta) * delta,
+    max(dataset$ry) + delta,
+    by = delta
+  )
+)
+
+A.grid <- inla.spde.make.A(mesh = mesh, loc = as.matrix(grid))
+stack.grid <- inla.stack(
+  data = list(hail = NA),
+  A = list(A.grid),
+  effects = list(
+    c(
+      s.index,
+      list(intercept = rep(1, spde$n.spde))
+    )
+  ),
+  tag = "grid"
+)
+
+stack.join <- inla.stack(stack, stack.grid)
+m3 <- inla(
+  hail ~ 0 + intercept + temp + prec + srad + age + f(spatial.field, model = spde),
+  data = inla.stack.data(stack.join),
+  family = "binomial",
+  control.predictor = list(
+    A = inla.stack.A(stack.join),
+    compute = TRUE
+  )
+)
+summary(m3)
+```
+
+```{r}
+grid.index <- inla.stack.index(stack.join, tag = "grid")$data
+grid$mean <- m3$summary.fitted.values[grid.index, "mean"]
+ggplot(grid, aes(x = rx, y = ry, fill = mean)) + 
+  geom_tile() + 
+  scale_fill_gradient2() +
+  coord_fixed()
+```
+
+```{r}
+grid$lcl <- m3$summary.fitted.values[grid.index, "0.025quant"]
+ggplot(grid, aes(x = rx, y = ry, fill = lcl)) + 
+  geom_tile() + 
+  scale_fill_gradient2() +
+  coord_fixed()
+```
+
+```{r}
+grid$ucl <- m3$summary.fitted.values[grid.index, "0.975quant"]
+ggplot(grid, aes(x = rx, y = ry, fill = ucl)) + 
+  geom_tile() + 
+  scale_fill_gradient2() +
+  coord_fixed()
+```
+
+```{r}
+grid %>%
+  gather(key = "type", value = "estimate", mean:ucl) %>%
+  mutate(estimate = plogis(estimate)) %>%
+  ggplot(aes(x = rx, y = ry, fill = estimate)) +
+  geom_tile() +
+  scale_fill_gradient2(
+    "Probabily of hail\nat reference values", 
+    midpoint = 0.5, 
+    limits = 0:1, 
+    label = percent
+  ) +
+  coord_fixed() +
+  facet_wrap(~type, nrow = 1)
+```
+
