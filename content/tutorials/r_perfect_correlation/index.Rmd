@@ -1,6 +1,6 @@
 ---
-title: "Correlated random effects"
-description: ""
+title: "Random slopes with perfect correlation"
+description: "Illustrate differences between lme4 and INLA when faced with perfectly correlated random slopes"
 author: "Thierry Onkelinx"
 date: "`r Sys.Date()`"
 categories: ["r", "statistics"]
@@ -11,26 +11,38 @@ output:
         variant: gfm
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r}
+
+# Read the data
+
+```{r read-data}
 library(readr)
-library(dplyr)
-library(INLA)
 library(rprojroot)
-```
-
-```{r}
-dataset <- read_csv(
-  find_root_file(
-    "content/tutorials/r_perfect_correlation",
-    "correlated-random-effects.csv", 
-    criterion = is_git_root)
+dataset <- read_csv(find_root_file(
+  "content/tutorials/r_perfect_correlation",
+  "correlated-random-effects.csv",
+  criterion = is_git_root)
   )
 dataset$region <- factor(dataset$region)
 dataset$country <- factor(dataset$country)
+```
+
+
+```{r}
+head(dataset)
+```
+
+
+```{r}
+summary(dataset)
+```
+
+# Aggregate binary data
+
+This makes the data more compact and easier to analyse.
+
+```{r prepare_data}
+library(dplyr)
 dataset <- dataset %>% 
   group_by(region, country, wave) %>% 
   summarise(
@@ -47,27 +59,99 @@ dataset$cwave <- dataset$wave - min(dataset$wave)
 n.region <- n_distinct(dataset$region)
 ```
 
-```{r}
-m1 <- inla(
-  Present ~ x1 + x2 + 
-    f(regionid, model = "iid3d", n = 3 * n.region) + 
-    f(regionid1, x1, copy = "regionid") + 
-    f(regionid2, x2, copy = "regionid") + 
-    f(country, model = "iid") + 
-    f(countrywave, model = "iid"),
-  Ntrials = N,
-  data = dataset,
-  family = "binomial",
-  control.compute = list(dic = TRUE)
-)
 
+```{r}
+dataset
 ```
 
+
 ```{r}
+summary(dataset)
+```
+
+
+# Analyse the model with `lme4`
+
+```{r illustrate-problem}
+library(lme4)
+system.time(
+  model <- glmer(
+    cbind(Present, N - Present) ~ 
+      x1 + x2 + (1 + x1 + x2 | region) + (1 | country) + (1 | countrywave), 
+    data = dataset, 
+    family = binomial
+  )
+)
+model
+```
+
+This gives perfectly correlated random effects because there is not enough information in the dataset to estimate random slopes at the region level.
+
+# Analyse the model with `INLA`
+
+```{r inla-equivalent}
+library(INLA)
+system.time(
+  m1 <- inla(
+    Present ~ x1 + x2 + 
+        # INLA equivalent of (1 + x1 + x2|region)
+          f(regionid, model = "iid3d", n = 3 * n.region) + 
+          f(regionid1, x1, copy = "regionid") + 
+          f(regionid2, x2, copy = "regionid") + 
+        # INLA equivalent of (1 + x1 + x2|region)
+      f(country, model = "iid") + 
+      f(countrywave, model = "iid"),
+    Ntrials = N,
+    data = dataset,
+    family = "binomial",
+    control.compute = list(dic = TRUE)
+  )
+)
+```
+
+
+```{r}
+summary(m1)
+```
+
+
+```{r}
+plot(
+  m1$marginals.hyperpar$`Rho1:2 for regionid`, 
+  type = "l", 
+  main = "Correlation intercept : x1"
+)
+```
+
+
+```{r}
+plot(
+  m1$marginals.hyperpar$`Rho1:3 for regionid`, 
+  type = "l", 
+  main = "Correlation intercept : x2"
+)
+```
+
+
+```{r}
+plot(
+  m1$marginals.hyperpar$`Rho2:3 for regionid`, 
+  type = "l", 
+  main = "Correlation x1 : x2"
+)
+```
+
+
+Note that the correlations are now around zero with rather wide credible intervals.
+
+`INLA` is a bit slower than `lme4`, but still very fast for a Bayesian technique.
+
+## Alternative models
+
+```{r other-inla-models}
+# Remove random effect of region
 m2 <- inla(
-  Present ~ x1 + x2 + 
-    f(country, model = "iid") + 
-    f(cwave, replicate = as.integer(country), model = "rw1"),
+  Present ~ x1 + x2 + f(country, model = "iid") + f(countrywave, model = "iid"),
   Ntrials = N,
   data = dataset,
   family = "binomial",
@@ -75,11 +159,12 @@ m2 <- inla(
 )
 ```
 
+
 ```{r}
+
+# Use a random walk along wave per country
 m3 <- inla(
-  Present ~ x1 + x2 + 
-    f(country, model = "iid") + 
-    f(countrywave, model = "iid"),
+  Present ~ x1 + x2 + f(country, model = "iid") + f(cwave, replicate = as.integer(country), model = "rw1"),
   Ntrials = N,
   data = dataset,
   family = "binomial",
@@ -87,10 +172,11 @@ m3 <- inla(
 )
 ```
 
+
 ```{r}
+# Remove random effect of countr:wave
 m4 <- inla(
-  Present ~ x1 + x2 + 
-    f(country, model = "iid"),
+  Present ~ x1 + x2 + f(country, model = "iid"),
   Ntrials = N,
   data = dataset,
   family = "binomial",
@@ -98,10 +184,11 @@ m4 <- inla(
 )
 ```
 
+
 ```{r}
-m1$dic$dic
-m2$dic$dic
-m3$dic$dic
-m4$dic$dic
+c(m1$dic$dic, m2$dic$dic, m3$dic$dic, m4$dic$dic)
 ```
+
+Based on the DIC criterion, there is not that much difference between the models with and without the region effects. 
+The effect of wave per country is important.
 
