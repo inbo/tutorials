@@ -52,7 +52,7 @@ The following table gives a **quick overview**:
 
 ## Retrieve data
 
-### General data
+### General
 
   - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
     to and retrieve data from databases on the INBO server, with
