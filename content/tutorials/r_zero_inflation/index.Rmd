@@ -225,12 +225,13 @@ ggplot(simulated, aes(x = ZeroInflatedSimple)) +
 ```
 
 In both cases none of the simulated values contains zero's. 
-The red line indicates the observed proportion of zero's with is clear greater. 
+The red line indicates the observed proportion of zero's with is clearly greater. 
 This indicates that we have either a poor model fit or zero-inflation.
 
 # Improving the model
 
-In the case of this example we have two groups with very different means: one group with low mean generating lots of zero's and one group with large mean generating no zero's. Adding this grouping improves the model.
+In the case of this example we have two groups with very different means: one group with low mean generating lots of zero's and one group with large mean generating no zero's. 
+Adding this grouping improves the model.
 
 ```{r}
 m.pois.complex <- glm(Poisson ~ factor(Mean), data = dataset, family = poisson)
@@ -271,7 +272,8 @@ ggplot(simulated, aes(x = ZeroInflatedComplex)) +
 
 In case of the Poisson variable, `r sprintf("%.1f%%", 100 * mean(simulated$PoissonComplex > mean(dataset$Poisson == 0)))` of the simulated dataset from the complex model has more zero's than the observed dataset. 
 So this model can captures the zero's and there is not zero-inflation. 
-In case of the zero-inflated Poisson variable `r sprintf("%.1f%%", 100 * mean(simulated$ZeroInflatedComplex > mean(dataset$ZeroInflatedPoisson == 0)))` of the simulated dataset from the complex model has more zero's than the observed dataset. Hence we conclude that the zero's are not model properly. 
+In case of the zero-inflated Poisson variable `r sprintf("%.1f%%", 100 * mean(simulated$ZeroInflatedComplex > mean(dataset$ZeroInflatedPoisson == 0)))` of the simulated dataset from the complex model has more zero's than the observed dataset. 
+Hence we conclude that the zero's are not modelled properly. 
 We can't improve the model further with covariates, hence we'll have to treat is a a zero-inflated distribution.
 
 ```{r}
@@ -297,7 +299,7 @@ ggplot(simulated, aes(x = ZeroInflatedZI)) +
 ```
 
 When we fit a proper zero-inflated model to the zero-inflated Poisson variable, then `r sprintf("%.1f%%", 100 * mean(simulated$ZeroInflatedZI > mean(dataset$ZeroInflatedPoisson == 0)))` of the simulated datasets have more zero's than the observed dataset. 
-So the zero-inflation is proper handled.
+So the zero-inflation is properly handled.
 
 # Modelling zero-inflation by overdispersion
 
@@ -433,7 +435,8 @@ ggplot(simulated, aes(x = ZeroInflatedZI2)) +
 
 
 A negative binomial distribution can capture some of the zero-inflation by overdispersion. 
-Especially in cases with low mean and few data. When the mean is low, a reasonal portion of the zero origination from the poisson distribution. 
+Especially in cases with low mean and few data. 
+When the mean is low, a reasonable portion of the zero origination comes from the poisson distribution. 
 However, the shape of the distribution is different.
 
 ```{r}
