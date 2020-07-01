@@ -28,21 +28,21 @@ website**, if available. When there is no documentation website, often
 one or more **vignettes** are available within the package, describing
 the package’s purpose and demonstrating its use.
 
-The following table gives a **quick
-overview**:
+The following table gives a **quick overview**:
 
-| Research stage                | Related INBO packages                                                                                                                                                                                      |
-| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Study design                  | [grts](https://github.com/ThierryO/grts)                                                                                                                                                                   |
-| Retrieve data: environmental  | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina)                                                                        |
-| Retrieve data: biological     | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab)                            |
-| Store data                    | [git2rdata](https://inbo.github.io/git2rdata/)                                                                                                                                                             |
-| Validate data                 | [pywhip](https://inbo.github.io/pywhip/)                                                                                                                                                |
-| Analyze data: graphs          | [inboggvegan](https://github.com/inbo/inboggvegan)                                                                                                                                                         |
-| Analyze data: models          | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/), [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html)                    |
-| Analyze data: indices         | [LSVI](https://inbo.github.io/LSVI)                                                                                                                                                                       |
-| Publish                       | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)                                                                                            |
-| Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)                                                                                                                                                           |
+| Research stage | Related INBO packages |
+| :------------- | :-------------------- |
+| Study design | [grts](https://github.com/ThierryO/grts)  |
+| Retrieve data: general | [inbodb](https://inbo.github.io/inbodb) |
+| Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
+| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc) |
+| Store data | [git2rdata](https://inbo.github.io/git2rdata/) |
+| Validate data | [pywhip](https://inbo.github.io/pywhip/) |
+| Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
+| Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/), [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html) |
+| Analyze data: indices | [LSVI](https://inbo.github.io/LSVI) |
+| Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/) |
+| Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/) |
 
 ## Study design
 
@@ -51,6 +51,12 @@ overview**:
     Tessellation Stratified (GRTS) sampling strategy.
 
 ## Retrieve data
+
+### General
+
+  - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
+    to and retrieve data from databases on the INBO server, with
+    dedicated functions to query some of these databases.
 
 ### Environmental data
 
@@ -100,6 +106,11 @@ overview**:
     GRTSmaster\_habitats)* and preprocessing functions, supporting
     reproducible and transparent analyses on Flemish Natura 2000 (*n2k*)
     habitats (*hab*) and regionally important biotopes (RIBs).
+  - **R package [forrescalc](https://github.com/inbo/forrescalc)**:
+    provides aggregated values on dendrometry, regeneration and
+    vegetation of the Flemish forest reserve monitoring network, and
+    functions to derive these data starting from individual tree
+    measurements in Fieldmap.
 
 ## Store data
 

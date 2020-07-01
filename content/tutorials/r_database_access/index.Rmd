@@ -28,20 +28,20 @@ library(tidyverse)
 
 To create a database connection, different approaches are available as explained in the next section:
 
-1. Use the dedicated `connect_inbo_dbase` function in the inborutils package
+1. Use the dedicated `connect_inbo_dbase` function in the inbodb package
 2. Setup the required parameters yourself
 3. Reuse existing registered connections on your computer
 
-### Inborutils function
+### Inbodb function
 
-To support the connection to INBO databases, a dedicated function is available in the [inborutils package](https://inbo.github.io/inborutils/index.html), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and uses the _Connections pane_ in the Rstudio interface:
+To support the connection to INBO databases, a dedicated function is available in the [inbodb package](https://inbo.github.io/inbodb), called `connect_inbo_dbase`. The function provides support to connect to INBO databases and uses the _Connections pane_ in the Rstudio interface:
 
 ![odbc-connecties](./database-R/connections_pane.png)
 
-To use the `connect_inbo_dbase` function, make sure to install the `inborutils` package, following the [installation instructions](https://inbo.github.io/inborutils/#installation). After a successfull installation, load the library and create a database connection:
+To use the `connect_inbo_dbase` function, make sure to install the `inbodb` package, following the [installation instructions](https://inbo.github.io/inbodb/#installation). After a successfull installation, load the library and create a database connection:
 
 ```{r connect-fn-default}
-library(inborutils)
+library(inbodb)
 my_connection <- connect_inbo_dbase("D0021_00_userFlora")
 ```
 
@@ -51,7 +51,7 @@ __Remark for Linux users__: When working in Linux, this setup (using `Trusted co
 
 ### Setting up the connection yourself
 
-In case you want to setup the connection yourself (e.g. errors using inborutils), 
+In case you want to setup the connection yourself (e.g. errors using inbodb), 
 you can do so by providing the necessary parameters:
 
 
