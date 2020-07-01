@@ -295,7 +295,7 @@ Please, feel invited to try out packages! If you encounter a problem or if you h
         
 
         
-            <a href='https://github.com/inbo/tutorials/blob/master/content/articles/inbo_software/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+            <a href='https://github.com/inbo/tutorials/blob/master/content/articles/inbo_software/index.md'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
   
@@ -329,8 +329,7 @@ improvements with a pull request.</p>
 website</strong>, if available. When there is no documentation website, often
 one or more <strong>vignettes</strong> are available within the package, describing
 the package’s purpose and demonstrating its use.</p>
-<p>The following table gives a <strong>quick
-overview</strong>:</p>
+<p>The following table gives a <strong>quick overview</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -344,12 +343,16 @@ overview</strong>:</p>
 <td align="left"><a href="https://github.com/ThierryO/grts">grts</a></td>
 </tr>
 <tr>
+<td align="left">Retrieve data: general</td>
+<td align="left"><a href="https://inbo.github.io/inbodb">inbodb</a></td>
+</tr>
+<tr>
 <td align="left">Retrieve data: environmental</td>
 <td align="left"><a href="https://ropensci.github.io/wateRinfo/">wateRinfo</a>, <a href="https://pydov.readthedocs.io/">pydov</a>, <a href="https://inbo.github.io/watina">watina</a></td>
 </tr>
 <tr>
 <td align="left">Retrieve data: biological</td>
-<td align="left"><a href="https://github.com/inbo/pyinaturalist">pyinaturalist</a>, <a href="https://inbo.github.io/uvabits/">uvabits</a>, <a href="https://inbo.github.io/etn/">etn</a>, <a href="https://inbo.github.io/n2khab">n2khab</a></td>
+<td align="left"><a href="https://github.com/inbo/pyinaturalist">pyinaturalist</a>, <a href="https://inbo.github.io/uvabits/">uvabits</a>, <a href="https://inbo.github.io/etn/">etn</a>, <a href="https://inbo.github.io/n2khab">n2khab</a>, <a href="https://github.com/inbo/forrescalc">forrescalc</a></td>
 </tr>
 <tr>
 <td align="left">Store data</td>
@@ -388,6 +391,12 @@ sample from a sampling frame with the Generalized Random
 Tessellation Stratified (GRTS) sampling strategy.</li>
 </ul>
 <h2 id="retrieve-data">Retrieve data<a href="#retrieve-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="general">General<a href="#general" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<ul>
+<li><strong>R package [inbodb]((<a href="https://inbo.github.io/inbodb">https://inbo.github.io/inbodb</a>)</strong>: connect
+to and retrieve data from databases on the INBO server, with
+dedicated functions to query some of these databases.</li>
+</ul>
 <h3 id="environmental-data">Environmental data<a href="#environmental-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
 <li><strong>R package <a href="https://ropensci.github.io/wateRinfo/">wateRinfo</a></strong>:
@@ -436,6 +445,11 @@ distribution, administrative &amp; environmental layers,
 GRTSmaster_habitats)</em> and preprocessing functions, supporting
 reproducible and transparent analyses on Flemish Natura 2000 (<em>n2k</em>)
 habitats (<em>hab</em>) and regionally important biotopes (RIBs).</li>
+<li><strong>R package <a href="https://github.com/inbo/forrescalc">forrescalc</a></strong>:
+provides aggregated values on dendrometry, regeneration and
+vegetation of the Flemish forest reserve monitoring network, and
+functions to derive these data starting from individual tree
+measurements in Fieldmap.</li>
 </ul>
 <h2 id="store-data">Store data<a href="#store-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <ul>
