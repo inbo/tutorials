@@ -16,14 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-## Context
-
-The standard paired t-test is typically used to test for a significant differences between two paired treatments.
-We can formulate the test in terms of a mixed model.
-The benefit is that we get more informative model output, which allows us among other things to check if model assumptions were met.
-For the paired t-test, one assumption is that the paired differences between treatments follow a normal distribution.
-When these assumptions are not met, the flexibility of the mixed model framework allows to improve the model to better fit the requirements for the data at hand.
-For instance, one can choose from a number of parametric statistical distributions that are likely to fit the data (for counts, the Poisson or negative binomial distribution can be chosen, and for binary or proportional data, a binomial distribution is an obvious choice).
+## What you will learn
 
 In this tutorial we explain the analogy between the paired t-test and the corresponding mixed model formulation.
 
@@ -34,6 +27,7 @@ library(knitr)
 library(lme4)
 library(tidyr)
 library(broom)
+library(DHARMa)
 ```
 
 
@@ -51,16 +45,19 @@ set.seed(124)
 paired_data <- data.frame(
   plot = rep(1:10, 2),
   response = c(rnorm(10), rnorm(10, 3, 1.5)),
-  treatment = rep(c("a","b"),each = 10)
+  treatment = rep(c("a", "b"), each = 10)
 )
 
 paired_data$treatment <- as.factor(paired_data$treatment)
 paired_data$plot <- as.factor(paired_data$plot)
 
-# in wide formaat
-paired_data_wide <- spread(paired_data, 
-                        key = treatment, 
-                        value = response)
+# in wide format
+paired_data_wide <- pivot_wider(
+  paired_data,
+  id_cols = plot,
+  names_from = treatment,
+  values_from = response
+)
 ```
 
 
@@ -78,8 +75,10 @@ kable(paired_data_wide)
 
 
 ```{r t-test}
-ttest <- with(paired_data_wide, 
-              t.test(y = a, x = b, paired = TRUE))
+ttest <- with(
+  paired_data_wide,
+  t.test(y = a, x = b, paired = TRUE)
+)
 ```
 
 
@@ -94,7 +93,9 @@ Plot identifies the paired measurements.
 A random effect for plot allows us to take this dependence into account.
 
 ```{r lmm}
-mm <- lmer(response ~ treatment + (1|plot), data = paired_data)
+mm <- lmer(response ~ treatment + (1 | plot),
+  data = paired_data
+)
 ```
 
 The parameter estimates for treatment b gives the difference compared to treatment a (= intercept), accounting for the paired nature of the data. 
@@ -109,12 +110,12 @@ The t-test is based on the t-statistic.
 Both test statistics are related: $F = t^2$.
 
 ```{r lmmanova}
-kable(anova(mm)) 
+kable(anova(mm))
 ```
 
 ```{r}
 anova(mm)[["F value"]]
-unname(ttest[["statistic"]]) ^ 2
+unname(ttest[["statistic"]])^2
 ```
 
 We can calculate the confidence interval given as part of the t-test output, based on the t-distributie.
@@ -122,11 +123,12 @@ We can calculate the confidence interval given as part of the t-test output, bas
 
 ```{r verschil}
 difference <- data.frame(
-  diff = summary(mm)$coefficients[2,1],
-  se = summary(mm)$coefficients[2,2])
+  diff = summary(mm)$coefficients[2, 1],
+  se = summary(mm)$coefficients[2, 2]
+)
 
-difference$lwr <- difference$diff - qt(p = 1 - 0.05/2, df = 9) * difference$se 
-difference$upr <- difference$diff + qt(p = 1 - 0.05/2, df = 9) * difference$se
+difference$lwr <- difference$diff - qt(p = 1 - 0.05 / 2, df = 9) * difference$se
+difference$upr <- difference$diff + qt(p = 1 - 0.05 / 2, df = 9) * difference$se
 ```
 
 
@@ -142,13 +144,30 @@ These intervals are slightly different from the t-distribution based confidence 
 Via profile likelihood:
 
 ```{r BIprofile, warning=FALSE}
-kable(confint(mm, parm = "treatmentb", method = "profile")) 
+kable(confint(mm, parm = "treatmentb", method = "profile"))
 ```
 
 Wald-type confidence interval:
 
 ```{r BIwald}
-kable(confint(mm, parm = "treatmentb", method = "Wald")) 
+kable(confint(mm, parm = "treatmentb", method = "Wald"))
 ```
 
+Were model assuptions met? 
+Yes.
+
+```{r}
+DHARMa::plotQQunif(mm)
+```
+
+
+
+## Take home message
+
+The standard paired t-test is typically used to test for a significant differences between two paired treatments.
+We can formulate the test in terms of a mixed model.
+The benefit is that we get more informative model output, which allows us among other things to check if model assumptions were met.
+For the paired t-test, one assumption is that the paired differences between treatments follow a normal distribution.
+When these assumptions are not met, the flexibility of the mixed model framework allows to improve the model to better fit the requirements for the data at hand.
+For instance, one can choose from a number of parametric statistical distributions that are likely to fit the data (for counts, the Poisson or negative binomial distribution can be chosen, and for binary or proportional data, a binomial distribution is an obvious choice).
 
