@@ -58,7 +58,6 @@ The following table gives a **quick overview**:
     to and retrieve data from databases on the INBO server, with
     dedicated functions to query some of these databases.
 
-
 ### Environmental data
 
   - **R package [wateRinfo](https://ropensci.github.io/wateRinfo/)**:
