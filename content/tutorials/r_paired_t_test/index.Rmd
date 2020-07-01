@@ -137,7 +137,7 @@ kable(difference)
 ```
 
 
-The recommended procedure to calculate a confidence interval for parameters of mixed models is, however, to use the ``confint` function. 
+The recommended procedure to calculate a confidence interval for parameters of mixed models is, however, to use the `confint` function. 
 Either an approximation (Wald statistic) or a profile likelihood confidence interval can be calculated.
 These intervals are slightly different from the t-distribution based confidence interval.
 
@@ -159,7 +159,6 @@ Yes.
 ```{r}
 DHARMa::plotQQunif(mm)
 ```
-
 
 
 ## Take home message
