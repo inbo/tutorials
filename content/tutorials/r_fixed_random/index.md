@@ -1,6 +1,6 @@
 ---
 title: "Same variable in fixed and random effects"
-description: ""
+description: "Learn what the effect is of having the same variable in the fixed and random part of a mixed model."
 author: "Thierry Onkelinx"
 date: "2020-07-01"
 categories: ["r", "statistics"]
@@ -32,6 +32,7 @@ very high signal versus noise ratio. Let’s look at a simple timeseries
 with multiple observations per timepoint.
 
 ``` r
+set.seed(213354)
 n.year <- 30
 n.replicate <- 10
 sd.noise <- 0.1
@@ -74,22 +75,22 @@ summary(model.quadratric)
     ## Formula: Quadratic ~ Year + (1 | Year)
     ##    Data: dataset
     ## 
-    ## REML criterion at convergence: -105.5
+    ## REML criterion at convergence: -90.8
     ## 
     ## Scaled residuals: 
     ##      Min       1Q   Median       3Q      Max 
-    ## -3.12646 -0.60920  0.06426  0.63613  2.98079 
+    ## -2.13929 -0.65021 -0.00099  0.55503  3.14673 
     ## 
     ## Random effects:
     ##  Groups   Name        Variance  Std.Dev.
-    ##  Year     (Intercept) 1.198e+03 34.6147 
-    ##  Residual             1.052e-02  0.1025 
+    ##  Year     (Intercept) 1198.1591 34.6144 
+    ##  Residual                0.0111  0.1054 
     ## Number of obs: 300, groups:  Year, 30
     ## 
     ## Fixed effects:
     ##             Estimate Std. Error t value
-    ## (Intercept)  83.6655    12.9623   6.455
-    ## Year          4.5000     0.7301   6.163
+    ## (Intercept)  83.6622    12.9622   6.454
+    ## Year          4.4999     0.7301   6.163
     ## 
     ## Correlation of Fixed Effects:
     ##      (Intr)
@@ -154,22 +155,22 @@ summary(model.linear)
     ## Formula: Linear ~ Year + (1 | Year)
     ##    Data: dataset
     ## 
-    ## REML criterion at convergence: -498.3
+    ## REML criterion at convergence: -483.9
     ## 
     ## Scaled residuals: 
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.8338 -0.6580  0.1124  0.6691  2.5458 
+    ## -2.3565 -0.6669 -0.0309  0.5717  3.0381 
     ## 
     ## Random effects:
     ##  Groups   Name        Variance Std.Dev.
     ##  Year     (Intercept) 0.00000  0.0000  
-    ##  Residual             0.01043  0.1021  
+    ##  Residual             0.01095  0.1046  
     ## Number of obs: 300, groups:  Year, 30
     ## 
     ## Fixed effects:
-    ##              Estimate Std. Error t value
-    ## (Intercept) 0.9988195  0.0120954   82.58
-    ## Year        1.9999875  0.0006813 2935.46
+    ##             Estimate Std. Error t value
+    ## (Intercept) 0.995497   0.012392   80.34
+    ## Year        1.999948   0.000698 2865.22
     ## 
     ## Correlation of Fixed Effects:
     ##      (Intr)
