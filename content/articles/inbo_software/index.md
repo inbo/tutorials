@@ -54,7 +54,7 @@ The following table gives a **quick overview**:
 
 ### General
 
-  - **R package \[inbodb\]((<https://inbo.github.io/inbodb>)**: connect
+  - **R package [inbodb](https://inbo.github.io/inbodb)**: connect
     to and retrieve data from databases on the INBO server, with
     dedicated functions to query some of these databases.
 
