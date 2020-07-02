@@ -1,6 +1,6 @@
 ---
 title: "Observation level random effects"
-description: ""
+description: "A way to capture overdispersion in a mixed model with a Poisson distribution"
 author: "Thierry Onkelinx"
 date: "`r Sys.Date()`"
 categories: ["r", "statistics"]

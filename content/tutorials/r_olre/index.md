@@ -1,8 +1,8 @@
 ---
 title: "Observation level random effects"
-description: ""
+description: "A way to capture overdispersion in a mixed model with a Poisson distribution"
 author: "Thierry Onkelinx"
-date: "2020-07-01"
+date: "2020-07-02"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model"]
 output: 
