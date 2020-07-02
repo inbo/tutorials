@@ -35,7 +35,7 @@ The following table gives a **quick overview**:
 | Study design | [grts](https://github.com/ThierryO/grts)  |
 | Retrieve data: general | [inbodb](https://inbo.github.io/inbodb) |
 | Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
-| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://github.com/inbo/forrescalc) |
+| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/) |
 | Store data | [git2rdata](https://inbo.github.io/git2rdata/) |
 | Validate data | [pywhip](https://inbo.github.io/pywhip/) |
 | Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
@@ -106,7 +106,7 @@ The following table gives a **quick overview**:
     GRTSmaster\_habitats)* and preprocessing functions, supporting
     reproducible and transparent analyses on Flemish Natura 2000 (*n2k*)
     habitats (*hab*) and regionally important biotopes (RIBs).
-  - **R package [forrescalc](https://github.com/inbo/forrescalc)**:
+  - **R package [forrescalc](https://inbo.github.io/forrescalc/)**:
     provides aggregated values on dendrometry, regeneration and
     vegetation of the Flemish forest reserve monitoring network, and
     functions to derive these data starting from individual tree
