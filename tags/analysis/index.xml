@@ -28,7 +28,7 @@ Used packages library(knitr) library(lme4) library(tidyr) library(broom) library
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_fixed_random/</guid>
       <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(lme4) ## Loading required package: Matrix  Dummy data For the sake of this demontration we use a very simple dataset with a very high signal versus noise ratio. Let’s look at a simple timeseries with multiple observations per timepoint.
-n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;- 0.1 dataset &amp;lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.</description>
+set.seed(213354) n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;- 0.1 dataset &amp;lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.</description>
     </item>
     
     <item>
