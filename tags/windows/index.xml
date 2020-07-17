@@ -17,9 +17,9 @@
       <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_rtools/</guid>
-      <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
+      <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via cloud.r-project.org. Kies de 64-bit versie van de installer.
 Bij een upgrade dient eerst de vorige versie te worden verwijderd.
- Kies Nederlands als taal voor de installatie en klik volgende. Klik volgende. Kies C:\Rtools (standaard) als installatiemap en klik volgende. Kies uit dropdown menu Tools for building R packages from source (standaard) en klik volgende. Vink Add rtools to system path aan en klik volgende. Klik volgende. Klik installeren.</description>
+ Klik Ja. Kies C:\rtools40 (standaard) als installatiemap en klik Next. Laat alles aangevinkt en klik Next. Klik Install. Klik Finish. Wijzing PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;. Start R en controleer of Sys.which(&amp;quot;make&amp;quot;) verwijst naar &amp;quot;C:\\rtools40\\usr\\bin\\make.exe&amp;quot;.  Afwijkingen t.o.v. default installatie  Wijzig de systeemvariabele PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;  </description>
     </item>
     
   </channel>

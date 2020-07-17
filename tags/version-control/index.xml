@@ -76,11 +76,11 @@ git rebase origin/master Git will now state that there are merge conflicts. Thes
     <item>
       <title>Git installation</title>
       <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_git/</link>
-      <pubDate>Wed, 18 Oct 2017 00:29:14 +0200</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_git/</guid>
       <description>Windows De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
- Voer het installatiebestand uit Welkom bij de installatie: klik op Next Aanvaard de licentievoorwaarden door Next te klikken Installeer git in de voorgesteld standaard directory. Gebruik de standaard componenten door Next te klikken Kies use Git from the Windows Command Prompt en klik Next Kies Checkout Windows-style, commit Unix-style line endings en klik Next Kies use Windows&#39; default console window en klik Next Klik op Finish  Afwijkingen t.</description>
+ Installeer eerst notepad++. Voer het installatiebestand uit en klik Ja. Welkom bij de installatie: klik op Next. Aanvaard de licentievoorwaarden door Next te klikken. Installeer git in de voorgestelde standaard directory. Gebruik de standaard componenten door Next te klikken. Klik Next om de menu map in te stellen. Kies Notepad++ als editor. Kies use Git from the command line en klik Next. Use OpenSSL library en klik Next.</description>
     </item>
     
   </channel>

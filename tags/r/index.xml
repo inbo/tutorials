@@ -255,7 +255,7 @@ Windows  Zorg dat de computer verbonden is met het internet. Zorg dat er geen en
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_rstudio/</guid>
       <description>De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/
 Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
- Zorg dat eerst R geïnstalleerd is. Voer het 64-bit installatiebestand uit. Welkom bij de installatie: klik op volgende. Geef de doelmap en klik op volgende. Je mag de standaard gebruiken. Klik op installeren.</description>
+ Zorg dat eerst R geïnstalleerd is. Voer het 64-bit installatiebestand uit. Klik Ja. Welkom bij de installatie: klik op volgende. Geef de doelmap en klik op volgende. Je mag de standaard gebruiken. Klik op installeren.</description>
     </item>
     
     <item>
@@ -264,9 +264,9 @@ Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door d
       <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_rtools/</guid>
-      <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
+      <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via cloud.r-project.org. Kies de 64-bit versie van de installer.
 Bij een upgrade dient eerst de vorige versie te worden verwijderd.
- Kies Nederlands als taal voor de installatie en klik volgende. Klik volgende. Kies C:\Rtools (standaard) als installatiemap en klik volgende. Kies uit dropdown menu Tools for building R packages from source (standaard) en klik volgende. Vink Add rtools to system path aan en klik volgende. Klik volgende. Klik installeren.</description>
+ Klik Ja. Kies C:\rtools40 (standaard) als installatiemap en klik Next. Laat alles aangevinkt en klik Next. Klik Install. Klik Finish. Wijzing PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;. Start R en controleer of Sys.which(&amp;quot;make&amp;quot;) verwijst naar &amp;quot;C:\\rtools40\\usr\\bin\\make.exe&amp;quot;.  Afwijkingen t.o.v. default installatie  Wijzig de systeemvariabele PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;  </description>
     </item>
     
     <item>
@@ -275,9 +275,9 @@ Bij een upgrade dient eerst de vorige versie te worden verwijderd.
       <pubDate>Wed, 18 Oct 2017 00:25:57 +0200</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via https://cloud.r-project.org/bin/windows/base/&amp;lt;/a&amp;gt;
-In de onderstaande tekst moet je in R-3.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-3.0.0 is x = 0 en y = 0.
-Nieuwe installatie van R  Voer het bestand R-3.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
+      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
+In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
+Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>
     
     <item>
