@@ -1,7 +1,7 @@
+
+
+[url "ssh://git@github.com/"]
+	insteadOf = https:://github.com/
 [user]
-	name = Voornaam Achternaam
 	email = voornaam.achternaam@inbo.be
-[core]
-	autocrlf = true
-[fetch]
-	prune = true
+	name = VoornaamAchternaam
