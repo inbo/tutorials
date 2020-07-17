@@ -54,7 +54,7 @@ Hierbij moet je het bestaande bestand overschrijven.
 - Wijzig de standaarddoelmap naar `C:\R\R-4.x.y`
 - **alle** gebruikers moeten **volledige** rechten hebben in 
     - `C:\R\library`
-    - `C:\Program Files\R\R-3.x.y\library`
+    - `C:\Program Files\R\R-4.x.y\library`
 - Systeemvariable `R_LIBS_USER` instellen op `C:/R/library` (**verplicht forward slashes**)
 - [`Rprofile.site`](Rprofile.site) in `C:\R\R-4.x.y\etc` overschrijven
 
@@ -66,7 +66,7 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 ### Upgrade van een bestaande R installatie
 
 **Deze instructies veronderstellen dat R en RStudio in het verleden reeds geïnstalleerd werden volgens de bovenstaande instructies.
-Indien dan niet het geval is, volg dan de instructies voor een nieuwe installatie.**
+Indien dat niet het geval is, volg dan de instructies voor een nieuwe installatie.**
 
 1. Voer het bestand _R-4.x.y-win.exe_ uit.
 1. Kies _Nederlands_ als taal voor de installatie en klik op _OK_.

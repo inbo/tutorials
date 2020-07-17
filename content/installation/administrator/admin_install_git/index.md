@@ -13,7 +13,7 @@ De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
 1. Voer het installatiebestand uit en klik _Ja_.
 1. Welkom bij de installatie: klik op _Next_.
 1. Aanvaard de licentievoorwaarden door _Next_ te klikken.
-1. Installeer git in de voorgesteld standaard directory.
+1. Installeer git in de voorgestelde standaard directory.
 1. Gebruik de standaard componenten door _Next_ te klikken.
 1. Klik _Next_ om de menu map in te stellen.
 1. Kies `Notepad++` als editor.
