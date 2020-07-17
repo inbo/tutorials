@@ -3,7 +3,6 @@ options(
   tab.width = 2,
   width = 80,
   help_type = "html",
-  stringsAsFactors = TRUE,
   keep.source.pkgs = TRUE,
   xpinch = 300,
   ypinch = 300,
@@ -36,6 +35,3 @@ if (interactive()) {
     }
   )
 }
-
-# required for RStan and brms
-Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")
