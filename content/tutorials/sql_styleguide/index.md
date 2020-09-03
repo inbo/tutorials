@@ -22,7 +22,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
     **/
 
     SELECT w.WRNG_JAR AS jaar
-      , w.WRNG_UTM1_CDE AS UTM1
+      , w.WRNG_UTM1_CDE AS utm1
       , s.SPEC_NAM_WET AS wetenschappelijke_naam
       , s.SPEC_NAM_NED AS nederlandse_naam
       , t.TOPO_DES AS locatie
@@ -30,7 +30,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
       INNER JOIN tblWaarnemingMeting wm ON w.WRNG_ID = wm.WRME_WRNG_ID
       INNER JOIN tblSoort s ON wm.WRME_SPEC_CDE = s.SPEC_CDE
       LEFT JOIN tblToponiem t on t.TOPO_ID = w.WRNG_TOPO_ID --toponiemen werden niet altijd ingevuld
-    WHERE 1=1
+    WHERE 1 = 1
       AND w.WRNG_UTM1_CDE IS NOT NULL
       AND w.WRNG_JAR > 2010
     GROUP BY w.WRNG_JAR
@@ -44,7 +44,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
 
 * SQL-keywords (SELECT, FROM, JOIN, WHERE, GROUP BY, ...) are written in capitals
 * Table names and field names are capitalized as they are defined in the database
-* Use short and meaningfull aliases and write them in lowercase
+* Use short and meaningful aliases and write them in lowercase
 * Use a new line for each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause
 * Put the comma in front of the line in SELECT and GROUP BY statements
 * Indent each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause 
@@ -52,6 +52,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
 * Use full INNER JOIN statements
 * JOINS should be indented
 * Subqueries should be indented and properly named
+* Put whitespaces around relational operators (= > ...)
 * Document your scripts
 
 
@@ -108,7 +109,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
     WHERE P.age > 50
     ```
 
-* Table aliases are short and meaningfull in the context of the query
+* Table aliases are short and meaningful in the context of the query
 
     ```
     --Good
@@ -415,7 +416,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
 
 * Use TOP 10 (or LIMIT 10 in Postgres) when designing queries with a large resultset (taking a long time to run). It saves a lot of time in the design stage.
 
-* Use 1=1 as the first line of the WHERE clause. This allows you to easily turn on and off all restrictions while designing your query. Beware of OR: where 1=1 OR age>50 doesn’t mean that everybody is +50.
+* Use 1 = 1 as the first line of the WHERE clause. This allows you to easily turn on and off all restrictions while designing your query. Beware of OR: where 1 = 1 OR age > 50 doesn’t mean that everybody is +50.
 
 
     ```
@@ -426,7 +427,7 @@ SQL is a standard language for storing, manipulating and retrieving data in data
       , a.city
     FROM person p
       INNER JOIN address a ON a.personid = p.id
-    WHERE 1=1
+    WHERE 1 = 1
     --AND p.age > 50
       AND a.city like ‘Ar%’
 
