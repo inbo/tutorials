@@ -327,7 +327,7 @@ Improve this page</a>
     **/
 
     SELECT w.WRNG_JAR AS jaar
-      , w.WRNG_UTM1_CDE AS UTM1
+      , w.WRNG_UTM1_CDE AS utm1
       , s.SPEC_NAM_WET AS wetenschappelijke_naam
       , s.SPEC_NAM_NED AS nederlandse_naam
       , t.TOPO_DES AS locatie
@@ -335,7 +335,7 @@ Improve this page</a>
       INNER JOIN tblWaarnemingMeting wm ON w.WRNG_ID = wm.WRME_WRNG_ID
       INNER JOIN tblSoort s ON wm.WRME_SPEC_CDE = s.SPEC_CDE
       LEFT JOIN tblToponiem t on t.TOPO_ID = w.WRNG_TOPO_ID --toponiemen werden niet altijd ingevuld
-    WHERE 1=1
+    WHERE 1 = 1
       AND w.WRNG_UTM1_CDE IS NOT NULL
       AND w.WRNG_JAR &gt; 2010
     GROUP BY w.WRNG_JAR
@@ -347,7 +347,7 @@ Improve this page</a>
 </code></pre><ul>
 <li>SQL-keywords (SELECT, FROM, JOIN, WHERE, GROUP BY, &hellip;) are written in capitals</li>
 <li>Table names and field names are capitalized as they are defined in the database</li>
-<li>Use short and meaningfull aliases and write them in lowercase</li>
+<li>Use short and meaningful aliases and write them in lowercase</li>
 <li>Use a new line for each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause</li>
 <li>Put the comma in front of the line in SELECT and GROUP BY statements</li>
 <li>Indent each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause</li>
@@ -355,6 +355,7 @@ Improve this page</a>
 <li>Use full INNER JOIN statements</li>
 <li>JOINS should be indented</li>
 <li>Subqueries should be indented and properly named</li>
+<li>Put whitespaces around relational operators (= &gt; &hellip;)</li>
 <li>Document your scripts</li>
 </ul>
 <h1 id="layout">Layout<a href="#layout" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
@@ -398,7 +399,7 @@ FROM person P
 WHERE P.age &gt; 50
 </code></pre></li>
 <li>
-<p>Table aliases are short and meaningfull in the context of the query</p>
+<p>Table aliases are short and meaningful in the context of the query</p>
 <pre><code>--Good
 
 SELECT p.*
@@ -648,7 +649,7 @@ WHERE mpnt_mpst_cde = ‘VLD’ --only validated points
 <p>Use TOP 10 (or LIMIT 10 in Postgres) when designing queries with a large resultset (taking a long time to run). It saves a lot of time in the design stage.</p>
 </li>
 <li>
-<p>Use 1=1 as the first line of the WHERE clause. This allows you to easily turn on and off all restrictions while designing your query. Beware of OR: where 1=1 OR age&gt;50 doesn’t mean that everybody is +50.</p>
+<p>Use 1 = 1 as the first line of the WHERE clause. This allows you to easily turn on and off all restrictions while designing your query. Beware of OR: where 1 = 1 OR age &gt; 50 doesn’t mean that everybody is +50.</p>
 <pre><code>--Example
 
 SELECT p.firstname
@@ -656,7 +657,7 @@ SELECT p.firstname
   , a.city
 FROM person p
   INNER JOIN address a ON a.personid = p.id
-WHERE 1=1
+WHERE 1 = 1
 --AND p.age &gt; 50
   AND a.city like ‘Ar%’
 
