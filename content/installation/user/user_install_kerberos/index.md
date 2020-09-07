@@ -23,58 +23,14 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 
 For debian/ubuntu users (make sure you belong to the `sudo` group):
 
-```
-sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
-sudo apt-get install openssl
-```
-
-These libraries will be used later on. The following section is for interaction with MS SQL databases.
-
-Modern Linux distributions use PAM to handle the authentication tasks of applications (services) on the system (PAM stands for _Pluggable Authentication Modules_, see `man PAM`). However we do not need that here.
-The above installation may have led to inserting a line into PAM configuration file `/etc/pam.d/common-auth`. The line looks like this (note the defining part `pam_krb5.so`):
-
-```
-auth	[success=4 default=ignore]	pam_krb5.so minimum_uid=1000
+```bash
+sudo apt-get install krb5-user
+sudo apt-get install openssl # if not yet available on your system (it probably is)
 ```
 
-This line makes every application that needs authentication on the system (like sudo, screensaver unlock, update manager, ...) first try the Kerberos connection to authenticate.
-This is overkill as we don't want to use Kerberos that way, and it can significantly slow down all other system authentications.
-Therefore, you should _comment out_ the above line in `/etc/pam.d/common-auth`.
+During installation, you may be asked for extra configuration input.
+To answer that, see next section: [Configure Kerberos client](#configure-kerberos-client).
 
-### MS SQL Server tools
-
-As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.
-
-#### ODBC driver
-
-Download and install the [Microsoft ODBC Driver for SQL Server](https://www.microsoft.com/en-us/download/details.aspx?id=53339).   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For `Ubuntu 16.04` (and most distributions based on it),  following instructions apply:
-
-```
-sudo su
-apt-get install curl
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssqlrelease.list
-exit
-sudo apt-get update
-sudo ACCEPT_EULA=Y apt-get install msodbcsql=13.1.4.0-1
-sudo apt-get install unixodbc-dev
-```
-
-#### mssql-tools
-
-Install the MS SQL tools as well:
-
-* **sqlcmd**: Command-line query utility.
-* **bcp**: Bulk import-export utility.
-
-The instructions for different platforms are explained [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools). In order to test the SQL connection later in this tutorial, add `/opt/mssql-tools/bin/` to your PATH environment variable.
-
-You could also decide to go for the binaries: download [the debian package of mssql-tools](https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb) and install with:
-
-```
-sudo apt-get install libgss3
-sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
-```
 
 ### Configure Kerberos client
 
@@ -126,7 +82,40 @@ sudo apt-get install ntp
 ```
 After installation, check if the following two files do exist: 
 * `/etc/ntp.conf`
-* `/etc/ntp.conf.dhcp` (empty file, just amke sure there is a file)
+* `/etc/ntp.conf.dhcp` (empty file, just make sure there is a file)
+
+### MS SQL Server ODBC driver and tools
+
+As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.
+
+Apart from the ODBC driver, we will also install following tools:
+
+* **sqlcmd**: Command-line query utility.
+* **bcp**: Bulk import-export utility.
+
+For Linux,  follow [these installation instructions](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server).[^installnotes]
+
+Also follow the 'optional' instructions, as these will install the tools.
+
+Hence, for Ubuntu 20.04 or Linux Mint 20 you would do:
+
+```bash
+sudo su
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+#Ubuntu 20.04
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+exit
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install msodbcsql17 mssql-tools
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+source ~/.bashrc
+sudo apt-get install unixodbc-dev
+```
+
+[^installnotes]: You can also find the debian packages of Microsoft ODBC Driver for SQL Server [here](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server).
+You can find separate installation instructions for `sqlcmd`, `bcp` and `unixodbc-dev` [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools).
+
 
 ## Test installation
 
