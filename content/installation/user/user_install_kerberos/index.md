@@ -1,6 +1,6 @@
 ---
 title: "Using Kerberos authentication for database connection"
-description: "Kerberos authentication on linux"
+description: "Kerberos authentication on Linux"
 author: "Jo Loos, Floris Vanderhaeghe, Stijn Van Hoey"
 date: 2018-01-03
 categories: ["installation"]
@@ -19,7 +19,7 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 
 ## Installation
 
-### Libraries for authentication
+### Kerberos client
 
 For debian/ubuntu users (make sure you belong to the `sudo` group):
 
@@ -36,9 +36,9 @@ To answer that, see next section: [Configure Kerberos client](#configure-kerbero
 
 *(again, the commands assume root privileges)*
 
-Start with the kerberos configuration dialogue:
+Start with the Kerberos configuration dialogue:
 
-```
+```bash
 dpkg-reconfigure krb5-config
 ```
 Use `INBO.BE` as the realm (this is the realm of the kerberos servers):
@@ -192,29 +192,29 @@ To support  database connections from other applications (e.g. GUI environments,
 
 Make sure the ODBC driver for SQL Server is available with a recognizable name in the `/etc/odbcinst.ini` file:
 ```
-[ODBC Driver 13 for SQL Server]
-Description=Microsoft ODBC Driver 13 for SQL Server
-Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
-UsageCount=2
+[ODBC Driver 17 for SQL Server]
+Description=Microsoft ODBC Driver 17 for SQL Server
+Driver=/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1
+UsageCount=1
 ```
 
 ### Connecting by explicitly providing the SQL connection string to ODBC libraries/packages
 
-Inbo staff can consult a list of connection strings [here](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing)
+INBO staff can consult a list of connection strings [here](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing).
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
 
-```{r eval = FALSE}
+```r
 library(DBI)
 connection <- dbConnect(
   odbc::odbc(), 
-  .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;"
+  .connection_string = "Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;"
 )
 dbListTables(connection)
 ```
 
 ```python
 import pyodbc
-conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;")
+conn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;")
 ```
 
 In RStudio, you can also make the connection with the GUI:
@@ -236,7 +236,7 @@ However, it is probably easier to provide the configuration to specific database
 
 ```
 [nbn_ipt]
-Driver      = ODBC Driver 13 for SQL Server
+Driver      = ODBC Driver 17 for SQL Server
 Description = odbc verbinding naar db
 Trace       = No
 Server      = DBServername
