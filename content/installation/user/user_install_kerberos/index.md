@@ -2,7 +2,7 @@
 title: "Using Kerberos authentication for database connection"
 description: "Kerberos authentication on Linux"
 author: "Jo Loos, Floris Vanderhaeghe, Stijn Van Hoey"
-date: 2018-01-03
+date: 2020-09-07
 categories: ["installation"]
 tags: ["database", "data", "installation"]
 ---
