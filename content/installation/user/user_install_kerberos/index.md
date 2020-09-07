@@ -145,6 +145,8 @@ source ~/.bashrc
 sudo apt-get install unixodbc-dev
 ```
 
+On Ubuntu 20.04, if installing `msodbcsql17` and `mssql-tools` fails because of incompatible `unixodbc` version, you can first try `apt install unixodbc=2.3.6-0.1build1 unixodbc-dev=2.3.6-0.1build1`.
+
 [^installnotes]: You can also find the debian packages of Microsoft ODBC Driver for SQL Server [here](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server).
 You can find separate installation instructions for `sqlcmd`, `bcp` and `unixodbc-dev` [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools).
 
