@@ -74,13 +74,45 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 	forwardable=  true
 ```
 
-Inbo staff can download a preconfigured krb5.conf file here:"https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing".
-In order to sync the timing of the domain controller server and client side, install `ntp`:
+INBO staff can download a preconfigured `krb5.conf` file here:
+<https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing>.
 
+### Time synchronization
+
+This is needed in order to sync the timing of the domain controller server and client side.
+
+Check whether the `systemd-timesyncd` daemon is already active on your system:
+
+```bash
+$ systemctl status time-sync.target
+● time-sync.target - System Time Synchronized
+     Loaded: loaded (/lib/systemd/system/time-sync.target; static; vendor preset: disabled)
+     Active: active since Mon 2020-09-07 08:27:03 CEST; 59min ago
+       Docs: man:systemd.special(7)
+
+$ timedatectl status
+               Local time: ma 2020-09-07 09:27:00 CEST  
+           Universal time: ma 2020-09-07 07:27:00 UTC   
+                 RTC time: ma 2020-09-07 07:27:00       
+                Time zone: Europe/Brussels (CEST, +0200)
+System clock synchronized: yes                          
+              NTP service: active                       
+          RTC in local TZ: no
 ```
+
+Note the line `NTP service: active`.
+
+If you do have the `systemd-timesyncd` package but the unit is _not_ active, run `systemctl enable --now time-sync.target`.
+Further information can be found [here](https://wiki.archlinux.org/index.php/Systemd-timesyncd).
+
+Only if you **don't** have the `systemd-timesyncd` package, install `ntp` instead:
+
+```bash
 sudo apt-get install ntp
 ```
-After installation, check if the following two files do exist: 
+
+_If_ you installed `ntp`, check whether the following two files do exist: 
+
 * `/etc/ntp.conf`
 * `/etc/ntp.conf.dhcp` (empty file, just make sure there is a file)
 
