@@ -187,6 +187,14 @@ sqlcmd -S DBServerName -E
 2> Go
 ```
 
+On Ubuntu 20.04, you may get an error:
+
+```
+Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : TCP Provider: Error code 0x2746.
+Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : Client unable to establish connection.
+```
+
+If you are in that case, have a look at working solutions in [this GitHub issue](https://github.com/microsoft/azuredatastudio/issues/10337).
 
 ## SQL ODBC connections
 
