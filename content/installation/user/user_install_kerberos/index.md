@@ -212,6 +212,8 @@ connection <- dbConnect(
 dbListTables(connection)
 ```
 
+However, most recommended for INBO staff using R is the use of the [inbodb](https://inbo.github.io/inbodb/) package, most notably the [`connect_inbo_dbase()`](https://inbo.github.io/inbodb/reference/connect_inbo_dbase.html) function.
+
 ```python
 import pyodbc
 conn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;")
