@@ -413,7 +413,7 @@ bwk_client$
     ## [2] "Op de Biologische Waarderingskaart krijgen een aantal gebieden een specifieke arcering omwille van de aanwezigheid van bepaalde fauna-elementen. De afbakening is gebaseerd op soorten die tot de Rode lijst-categorieën 'Met uitsterven bedreigd', 'Bedreigd' en 'Kwetsbaar' behoren. Een ruimere omschrijving wordt verstrekt in het afzonderlijk document per kaartblad \"toelichtingXX\", met XX het kaartbladnummer."
     ## [3] "Voorkomen van het Natura 2000 habitattype 3260, de submontane- en laaglandrivieren met waterranonkel- en fonteinkruidvegetaties."
 
-# Read or donwload vector data from WFS: `GetFeature`
+# Read or download vector data from WFS: `GetFeature`
 
 ## Example 1: an entire layer
 
