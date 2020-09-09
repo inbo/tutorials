@@ -2,14 +2,14 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Kerberos authentication on linux'>
+<meta name='description' content='Kerberos authentication on Linux'>
 <meta name='theme-color' content='#c04384'>
 
 <meta property='og:title' content='Using Kerberos authentication for database connection • INBO Tutorials'>
-<meta property='og:description' content='Kerberos authentication on linux'>
+<meta property='og:description' content='Kerberos authentication on Linux'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/installation/user/user_install_kerberos/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='database'><meta property='article:tag' content='data'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2018-01-03T00:00:00Z'/><meta property='article:modified_time' content='2018-01-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='database'><meta property='article:tag' content='data'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2020-09-07T00:00:00Z'/><meta property='article:modified_time' content='2020-09-07T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.0" />
 
@@ -256,7 +256,7 @@
     <div class='header-info'>
       <h1 class='title'>Using Kerberos authentication for database connection</h1>
       
-<p class='desc'>Kerberos authentication on linux</p>
+<p class='desc'>Kerberos authentication on Linux</p>
 
 
     </div>
@@ -270,7 +270,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2018-01-03T00:00:00Z'>2018, Jan 03</time>
+  <time class='entry-date' datetime='2020-09-07T00:00:00Z'>2020, Sep 07</time>
 </span>
 
   
@@ -323,44 +323,17 @@ Improve this page</a>
 <p>Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including <a href="https://en.wikipedia.org/wiki/FreeBSD">FreeBSD</a>, Apple's <a href="https://en.wikipedia.org/wiki/Mac_OS_X">Mac OS X</a>, <a href="https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux">Red Hat Enterprise Linux</a>, <a href="https://en.wikipedia.org/wiki/Sun_microsystems">Oracle</a>&lsquo;s <a href="https://en.wikipedia.org/wiki/Solaris_(operating_system)">Solaris</a>, IBM's <a href="https://en.wikipedia.org/wiki/AIX">AIX</a> and <a href="https://en.wikipedia.org/wiki/Z/OS">Z/OS</a>, HP's <a href="https://en.wikipedia.org/wiki/HP-UX">HP-UX</a> and <a href="https://en.wikipedia.org/wiki/OpenVMS">OpenVMS</a> and others, include software for Kerberos authentication of users or services.</p>
 <p>Hence, we can use the protocol to have an OS independent solution for authentication across different databases. In this document, the installation and configuration for <strong>linux/mac users</strong> is provided as well as an introduction to the usage of the authentication service to connect to databases. For windows users (in the domain) the authentication is provided by default.</p>
 <h2 id="installation">Installation<a href="#installation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<h3 id="libraries-for-authentication">Libraries for authentication<a href="#libraries-for-authentication" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<h3 id="kerberos-client">Kerberos client<a href="#kerberos-client" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>For debian/ubuntu users (make sure you belong to the <code>sudo</code> group):</p>
-<pre><code>sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
-sudo apt-get install openssl
-</code></pre><p>These libraries will be used later on. The following section is for interaction with MS SQL databases.</p>
-<p>Modern Linux distributions use PAM to handle the authentication tasks of applications (services) on the system (PAM stands for <em>Pluggable Authentication Modules</em>, see <code>man PAM</code>). However we do not need that here.
-The above installation may have led to inserting a line into PAM configuration file <code>/etc/pam.d/common-auth</code>. The line looks like this (note the defining part <code>pam_krb5.so</code>):</p>
-<pre><code>auth	[success=4 default=ignore]	pam_krb5.so minimum_uid=1000
-</code></pre><p>This line makes every application that needs authentication on the system (like sudo, screensaver unlock, update manager, &hellip;) first try the Kerberos connection to authenticate.
-This is overkill as we don't want to use Kerberos that way, and it can significantly slow down all other system authentications.
-Therefore, you should <em>comment out</em> the above line in <code>/etc/pam.d/common-auth</code>.</p>
-<h3 id="ms-sql-server-tools">MS SQL Server tools<a href="#ms-sql-server-tools" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.</p>
-<h4 id="odbc-driver">ODBC driver<a href="#odbc-driver" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-<p>Download and install the <a href="https://www.microsoft.com/en-us/download/details.aspx?id=53339">Microsoft ODBC Driver for SQL Server</a>.   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For <code>Ubuntu 16.04</code> (and most distributions based on it),  following instructions apply:</p>
-<pre><code>sudo su
-apt-get install curl
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list &gt; /etc/apt/sources.list.d/mssqlrelease.list
-exit
-sudo apt-get update
-sudo ACCEPT_EULA=Y apt-get install msodbcsql=13.1.4.0-1
-sudo apt-get install unixodbc-dev
-</code></pre><h4 id="mssql-tools">mssql-tools<a href="#mssql-tools" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-<p>Install the MS SQL tools as well:</p>
-<ul>
-<li><strong>sqlcmd</strong>: Command-line query utility.</li>
-<li><strong>bcp</strong>: Bulk import-export utility.</li>
-</ul>
-<p>The instructions for different platforms are explained <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools">here</a>. In order to test the SQL connection later in this tutorial, add <code>/opt/mssql-tools/bin/</code> to your PATH environment variable.</p>
-<p>You could also decide to go for the binaries: download <a href="https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb">the debian package of mssql-tools</a> and install with:</p>
-<pre><code>sudo apt-get install libgss3
-sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
-</code></pre><h3 id="configure-kerberos-client">Configure Kerberos client<a href="#configure-kerberos-client" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install krb5-user
+sudo apt-get install openssl <span style="color:#aaa;font-style:italic"># if not yet available on your system (it probably is)</span>
+</code></pre></div><p>During installation, you may be asked for extra configuration input.
+To answer that, see next section: <a href="#configure-kerberos-client">Configure Kerberos client</a>.</p>
+<h3 id="configure-kerberos-client">Configure Kerberos client<a href="#configure-kerberos-client" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p><em>(again, the commands assume root privileges)</em></p>
-<p>Start with the kerberos configuration dialogue:</p>
-<pre><code>dpkg-reconfigure krb5-config
-</code></pre><p>Use <code>INBO.BE</code> as the realm (this is the realm of the kerberos servers):
+<p>Start with the Kerberos configuration dialogue:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dpkg-reconfigure krb5-config
+</code></pre></div><p>Use <code>INBO.BE</code> as the realm (this is the realm of the kerberos servers):
 <img src="./images/kerberos_config_1.png" alt=""></p>
 <p>Make sure to use DNS to find these servers, so choose &lsquo;NO&rsquo; if you get the below question:
 <img src="./images/kerberos_config_2.png" alt=""></p>
@@ -387,14 +360,57 @@ sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
 	ticket_lifetime = 24h
 	renew_lifetime = 7d
 	forwardable=  true
-</code></pre><p>Inbo staff can download a preconfigured krb5.conf file here:&ldquo;<a href="https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing%22">https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing&quot;</a>.
-In order to sync the timing of the domain controller server and client side, install <code>ntp</code>:</p>
-<pre><code>sudo apt-get install ntp
-</code></pre><p>After installation, check if the following two files do exist:</p>
+</code></pre><p>INBO staff can download a preconfigured <code>krb5.conf</code> file here:
+<a href="https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing">https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing</a>.</p>
+<h3 id="time-synchronization">Time synchronization<a href="#time-synchronization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>This is needed in order to sync the timing of the domain controller server and client side.</p>
+<p>Check whether the <code>systemd-timesyncd</code> daemon is already active on your system:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ systemctl status time-sync.target
+● time-sync.target - System Time Synchronized
+     Loaded: loaded (/lib/systemd/system/time-sync.target; static; vendor preset: disabled)
+     Active: active since Mon 2020-09-07 08:27:03 CEST; 59min ago
+       Docs: man:systemd.special(7)
+
+$ timedatectl status
+               Local time: ma 2020-09-07 09:27:00 CEST  
+           Universal time: ma 2020-09-07 07:27:00 UTC   
+                 RTC time: ma 2020-09-07 07:27:00       
+                Time zone: Europe/Brussels (CEST, +0200)
+System clock synchronized: yes                          
+              NTP service: active                       
+          RTC in <span style="color:#0aa">local</span> TZ: no
+</code></pre></div><p>Note the line <code>NTP service: active</code>.</p>
+<p>If you do have the <code>systemd-timesyncd</code> package but the unit is <em>not</em> active, run <code>systemctl enable --now time-sync.target</code>.
+Further information can be found <a href="https://wiki.archlinux.org/index.php/Systemd-timesyncd">here</a>.</p>
+<p>Only if you <strong>don't</strong> have the <code>systemd-timesyncd</code> package, install <code>ntp</code> instead:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install ntp
+</code></pre></div><p><em>If</em> you installed <code>ntp</code>, check whether the following two files do exist:</p>
 <ul>
 <li><code>/etc/ntp.conf</code></li>
-<li><code>/etc/ntp.conf.dhcp</code> (empty file, just amke sure there is a file)</li>
+<li><code>/etc/ntp.conf.dhcp</code> (empty file, just make sure there is a file)</li>
 </ul>
+<h3 id="ms-sql-server-odbc-driver-and-tools">MS SQL Server ODBC driver and tools<a href="#ms-sql-server-odbc-driver-and-tools" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.</p>
+<p>Apart from the ODBC driver, we will also install following tools:</p>
+<ul>
+<li><strong>sqlcmd</strong>: Command-line query utility.</li>
+<li><strong>bcp</strong>: Bulk import-export utility.</li>
+</ul>
+<p>For Linux,  follow <a href="https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server">these installation instructions</a>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>Also follow the &lsquo;optional&rsquo; instructions, as these will install the tools.</p>
+<p>Hence, for Ubuntu 20.04 or Linux Mint 20 you would do:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+<span style="color:#aaa;font-style:italic">#Ubuntu 20.04</span>
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list &gt; /etc/apt/sources.list.d/mssql-release.list
+<span style="color:#0aa">exit</span>
+sudo apt-get update
+sudo <span style="color:#a00">ACCEPT_EULA</span>=Y apt-get install msodbcsql17 mssql-tools
+<span style="color:#0aa">echo</span> <span style="color:#a50">&#39;export PATH=&#34;$PATH:/opt/mssql-tools/bin&#34;&#39;</span> &gt;&gt; ~/.bash_profile
+<span style="color:#0aa">echo</span> <span style="color:#a50">&#39;export PATH=&#34;$PATH:/opt/mssql-tools/bin&#34;&#39;</span> &gt;&gt; ~/.bashrc
+<span style="color:#0aa">source</span> ~/.bashrc
+sudo apt-get install unixodbc-dev
+</code></pre></div><p>On Ubuntu 20.04, if installing <code>msodbcsql17</code> and <code>mssql-tools</code> fails because of incompatible <code>unixodbc</code> version, you can first try <code>apt install unixodbc=2.3.6-0.1build1 unixodbc-dev=2.3.6-0.1build1</code>.</p>
 <h2 id="test-installation">Test installation<a href="#test-installation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="kerberos-ticket-system">Kerberos ticket system<a href="#kerberos-ticket-system" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>To check if the Kerberos configuration is successful, ask for a ticket by initiating with <code>kinit</code>:</p>
@@ -413,24 +429,29 @@ In order to sync the timing of the domain controller server and client side, ins
 <pre><code>sqlcmd -S DBServerName -E
 1&gt; Select top 10 name from sys.databases;
 2&gt; Go
-</code></pre><h2 id="sql-odbc-connections">SQL ODBC connections<a href="#sql-odbc-connections" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+</code></pre><p>On Ubuntu 20.04, you may get an error:</p>
+<pre><code>Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : TCP Provider: Error code 0x2746.
+Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : Client unable to establish connection.
+</code></pre><p>If you are in that case, have a look at working solutions in <a href="https://github.com/microsoft/azuredatastudio/issues/10337">this GitHub issue</a>.</p>
+<h2 id="sql-odbc-connections">SQL ODBC connections<a href="#sql-odbc-connections" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>To support  database connections from other applications (e.g. GUI environments, but also R, Python,&hellip;), the configuration of database drivers and connections should be provided in the <code>/etc/odbc.ini</code> and <code>/etc/odbcinst.ini</code>.</p>
 <p>Make sure the ODBC driver for SQL Server is available with a recognizable name in the <code>/etc/odbcinst.ini</code> file:</p>
-<pre><code>[ODBC Driver 13 for SQL Server]
-Description=Microsoft ODBC Driver 13 for SQL Server
-Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
-UsageCount=2
+<pre><code>[ODBC Driver 17 for SQL Server]
+Description=Microsoft ODBC Driver 17 for SQL Server
+Driver=/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1
+UsageCount=1
 </code></pre><h3 id="connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-librariespackages">Connecting by explicitly providing the SQL connection string to ODBC libraries/packages<a href="#connecting-by-explicitly-providing-the-sql-connection-string-to-odbc-librariespackages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>Inbo staff can consult a list of connection strings <a href="https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing">here</a>
+<p>INBO staff can consult a list of connection strings <a href="https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing">here</a>.
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:</p>
-<pre><code class="language-{r" data-lang="{r">library(DBI)
-connection &lt;- dbConnect(
-  odbc::odbc(), 
-  .connection_string = &quot;Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;&quot;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(DBI)
+connection &lt;- <span style="color:#0a0">dbConnect</span>(
+  odbc::<span style="color:#0a0">odbc</span>(), 
+  .connection_string = <span style="color:#a50">&#34;</span><span style="color:#a50">Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;&#34;</span>
 )
-dbListTables(connection)
-</code></pre><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00a">import</span> <span style="color:#0aa;text-decoration:underline">pyodbc</span>
-conn = pyodbc.connect(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;</span><span style="color:#a50">&#34;</span>)
+<span style="color:#0a0">dbListTables</span>(connection)
+</code></pre></div><p>However, most recommended for INBO staff using R is the use of the <a href="https://inbo.github.io/inbodb/">inbodb</a> package, most notably the <a href="https://inbo.github.io/inbodb/reference/connect_inbo_dbase.html"><code>connect_inbo_dbase()</code></a> function.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00a">import</span> <span style="color:#0aa;text-decoration:underline">pyodbc</span>
+conn = pyodbc.connect(<span style="color:#a50"></span><span style="color:#a50">&#34;</span><span style="color:#a50">Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;</span><span style="color:#a50">&#34;</span>)
 </code></pre></div><p>In RStudio, you can also make the connection with the GUI:</p>
 <ul>
 <li>Go to the <em>Connections</em> pane and click &lsquo;New Connection&rsquo;.</li>
@@ -451,7 +472,7 @@ conn = pyodbc.connect(<span style="color:#a50"></span><span style="color:#a50">&
 <h3 id="untested-connecting-after-configuring-odbcini">UNTESTED: Connecting after configuring <code>odbc.ini</code><a href="#untested-connecting-after-configuring-odbcini" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>However, it is probably easier to provide the configuration to specific databases directly, using the <code>/etc/odbc.ini</code> file. For example, the <code>DBName</code> database can be defined as follows:</p>
 <pre><code>[nbn_ipt]
-Driver      = ODBC Driver 13 for SQL Server
+Driver      = ODBC Driver 17 for SQL Server
 Description = odbc verbinding naar db
 Trace       = No
 Server      = DBServername
@@ -461,6 +482,15 @@ Port        = 1433
 <p><strong>TODO:</strong>
 -&gt; example in R/Python
 -&gt; also available in Rstudio!</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>You can also find the debian packages of Microsoft ODBC Driver for SQL Server <a href="https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server">here</a>.
+You can find separate installation instructions for <code>sqlcmd</code>, <code>bcp</code> and <code>unixodbc-dev</code> <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools">here</a>. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 </div>
 
   
@@ -487,7 +517,7 @@ Port        = 1433
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/installation/user/user_install_rstudio/'>
+      <a href='/tutorials/installation/user/user_install_insync/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -495,17 +525,7 @@ Port        = 1433
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Rstudio installation</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/tutorials/installation/user/user_install_insync/'>
-        <span class='screen-reader-text'>Next post: </span>Insync installation<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>Insync installation</a>
     </div></div>
 </nav>
 

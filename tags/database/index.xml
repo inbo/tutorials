@@ -6,10 +6,21 @@
     <description>Recent content in database on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/database/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using Kerberos authentication for database connection</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
+      <description>Introduction (shamelessly taken from wikipedia)
+Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+    </item>
     
     <item>
       <title>Tutorial on how to retrieve data from the INBOVEG database</title>
@@ -29,17 +40,6 @@ INBOVEG supports different types of recordings: BioHab recordings (protocol of N
       <guid>https://inbo.github.io/tutorials/tutorials/vmm_surface_waters_quality_data/</guid>
       <description>OPGELET: deze databank is alleen raadpleegbaar voor INBO-medewerkers, niet voor externen. Externen kunnen gebruik maken van het VMM-geoloket waterkwaliteit.
 Het INBO krijgt jaarlijks een (gedeeltelijke) kopie van de waterkwaliteitsdatabank van de Vlaamse Milieumaatschappij (VMM). De kopie omvat fysicochemische metingen en kwaliteitsindexen uit het VMM-meetnet oppervlaktewaters. Deze en andere waterkwaliteitsgevens zijn rechtstreeks opvraagbaar via het VMM-geoloket waterkwaliteit, maar de lokale kopie laat een veel vlottere raadpleging toe wanneer analyse van een groter aantal meetpunten gewenst is.</description>
-    </item>
-    
-    <item>
-      <title>Using Kerberos authentication for database connection</title>
-      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
-      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
-      <description>Introduction (shamelessly taken from wikipedia)
-Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
-Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
     </item>
     
     <item>
