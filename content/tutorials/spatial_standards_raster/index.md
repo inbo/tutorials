@@ -63,7 +63,7 @@ area in Belgium (using the CRS \[1\] Belgian Lambert 72, i.e.
 artwork <- 
   raster(extent(188500, 190350, 227550, 229550), # xmin, xmax, ymin, ymax
          res = 50, # resolution of 50 meters
-         crs = CRS("+init=epsg:31370")) %>% 
+         crs = CRS(SRS_string = "EPSG:31370")) %>% 
   setValues(runif(ncell(.)))  # fill with random values
 ```
 
