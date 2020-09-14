@@ -55,7 +55,7 @@ invasive_species <- occ_download_get("0032582-190415153152247",
 
     ## Download file size: 0.01 MB
 
-    ## On disk at /tmp/RtmpqKoowT/0032582-190415153152247.zip
+    ## On disk at /tmp/RtmpXZ7Jlq/0032582-190415153152247.zip
 
 We will use the European reference grid system from the European
 Environmental Agency as an example of a GIS vector layer (each grid cell
@@ -222,6 +222,11 @@ invasive_be10grid_sf %>%
 
 ## Point in polygon with the `sp` package
 
+*General note: migration to the more actively developed `sf` package is
+currently advised by the `sp` maintainer.* *The `sp` package is still
+maintained in order to support the newest versions of the GDAL and PROJ
+backends.*
+
 Instead of `sf` objects (= `data.frames` or `tibbles` with a geometry
 list-column), the `sp` package works with `Spatial` spatial data classes
 (which has many derived spatial data classes for points, polygons, …).
@@ -258,7 +263,7 @@ be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"),
     ## +ellps=GRS80 +units=m +no_defs
 
     ## OGR data source with driver: SQLite 
-    ## Source: "/tmp/RtmpqKoowT/Belgium.sqlite", layer: "be_10km"
+    ## Source: "/tmp/RtmpXZ7Jlq/Belgium.sqlite", layer: "be_10km"
     ## with 580 features
     ## It has 3 fields
 

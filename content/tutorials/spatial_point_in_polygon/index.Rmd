@@ -128,6 +128,9 @@ invasive_be10grid_sf %>%
 
 ## Point in polygon with the `sp` package
 
+_General note: migration to the more actively developed `sf` package is currently advised by the `sp` maintainer._
+_The `sp` package is still maintained in order to support the newest versions of the GDAL and PROJ backends._
+
 Instead of `sf` objects (= `data.frames` or `tibbles` with a geometry list-column), the `sp` package works with `Spatial` spatial data classes (which has many derived spatial data classes for points, polygons, ...).
 
 First, we need to convert the `data.frame` with point locations to a `SpatialPointsDataFrame`. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.
