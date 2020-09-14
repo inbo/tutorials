@@ -133,7 +133,7 @@ Instead of `sf` objects (= `data.frames` or `tibbles` with a geometry list-colum
 First, we need to convert the `data.frame` with point locations to a `SpatialPointsDataFrame`. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.
 
 ```{r}
-crs_wgs84 <- CRS("+init=epsg:4326")
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 coord <- invasive_species %>%
     select(decimalLongitude, decimalLatitude)
 invasive_spatial <- SpatialPointsDataFrame(coord,
