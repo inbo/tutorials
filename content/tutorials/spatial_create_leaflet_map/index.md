@@ -11,6 +11,11 @@ output:
         variant: gfm
 ---
 
+*General note: migration to the more actively developed `sf` package is
+currently advised by the `sp` maintainer.* *The `sp` package, used in
+this tutorial, is still maintained in order to support the newest
+versions of the GDAL and PROJ backends.*
+
 ## Introduction
 
 The required packages are **leaflet** and **sp**.

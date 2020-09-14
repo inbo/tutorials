@@ -11,6 +11,9 @@ output:
         variant: gfm
 ---
 
+_General note: migration to the more actively developed `sf` package is currently advised by the `sp` maintainer._
+_The `sp` package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends._
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
