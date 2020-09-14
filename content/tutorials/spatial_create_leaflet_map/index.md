@@ -47,7 +47,7 @@ Creating a map
 We need to convert the `data.frame` to a `SpatialPointsDataFrame`:
 
 ``` r
-crs_wgs84 <- CRS("+init=epsg:4326")
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 pts <- SpatialPointsDataFrame(data[c("lon","lat")], 
                               data[!(names(data) %in% c("lon","lat"))],
                               proj4string = crs_wgs84)
