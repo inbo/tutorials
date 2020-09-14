@@ -12,6 +12,12 @@ output:
     html_document: default
 ---
 
+_General note: the way the `raster` package handles coordinate reference systems is currently not (yet) compliant with more recent GDAL 3  and PROJ >= 6 versions (it still relies on PROJ.4 strings; see [this](https://github.com/rspatial/raster/issues/78) issue)._
+_If you re-run below code, you may get a decent portion of warnings (from `rgdal`)._
+_Based on comparison, it can be stated this situation does not affect the below cases._
+_However, be prudent._
+_For better compatibility, you may need to use development versions of raster ([link](https://github.com/rspatial/raster)) or move to its actively developed successor [`terra`](https://rspatial.org/terra/pkg/)._
+
 This tutorial uses a few basic functions from the
 [dplyr](https://dplyr.tidyverse.org) and
 [raster](https://rspatial.org/raster/pkg) packages. While only a few
