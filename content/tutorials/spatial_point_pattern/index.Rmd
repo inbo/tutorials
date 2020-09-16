@@ -2,7 +2,11 @@
 title: Estimating densities from a point pattern
 maintainer: Thierry Onkelinx
 date: '2017-06-28'
-output: html_document
+output: 
+  html_document: default
+  md_document:
+        preserve_yaml: true
+        variant: gfm
 params:
   cellsize: 20
 ---
