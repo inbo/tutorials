@@ -30,12 +30,27 @@ ggmap(map) +
   geom_point(data = points, alpha = 0.1, colour = "blue", shape = 4)
 ```
 
-The next step is to convert the dataset in to a `SpatialPoints` object with WGS84 project and re-project it into Lambert72. `sp::CRS()` defines the coordinate systems. `sp::coordinates()<-` is an easy way to convert a `data.frame` into a `SpatialPointsDataFrame`, but without specifying a coordinate system. Therefore we need to override the `proj4string` slot with the correct coordinate system. `sp::spTransform()` converts the spatial object from the current coordinate system to another coordinate system.
+The next step is to convert the dataset to a `SpatialPoints` object with WGS84 projection and re-project it to Belgian Lambert72.
+`sp::CRS()` defines the coordinate reference systems (CRS).
+`sp::coordinates()<-` is an easy way to convert a `data.frame` into a `SpatialPointsDataFrame`, but without specifying a CRS.
+Therefore we need to override the CRS with the correct one.
 
-```{r reproject}
+`sp` will derive a 'WKT2 string' representation from an EPSG-code [^epsg] that we provide, in order to represent the CRS.
+The WKT2 string (well known text) is a recent open standard by the Open Geospatial Consortium to represent a CRS, and it replaces the older (deprecated) 'PROJ.4 string'.
+Currently, the function to set the CRS is still called `proj4string()`.
+`sp::spTransform()` converts the spatial object from the current CRS to another CRS.
+
+[^epsg]: Most coordinate reference systems have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) code which you can find at http://epsg.io/.
+
+```{r crs-objects}
 library(sp)
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs_lambert <- CRS(SRS_string = "EPSG:31370")
+```
+
+The warning above once again demonstrates that some PROJ.4 information is not supported anymore.
+
+```{r reproject}
 coordinates(points) <- ~lon + lat
 # proj4string() - still the only available function to set the CRS - may in the
 # future get a more general name:
