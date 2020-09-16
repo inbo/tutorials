@@ -1,7 +1,6 @@
 ---
 title: "Git installation"
 description: "Installation instructions for Git (in Dutch). Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency."
-date: 2017-10-18T00:29:14+02:00
 categories: ["installation"]
 tags: ["git", "version control", "installation"]
 ---
@@ -10,20 +9,31 @@ tags: ["git", "version control", "installation"]
 
 De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
 
-1. Voer het installatiebestand uit
-1. Welkom bij de installatie: klik op _Next_
-1. Aanvaard de licentievoorwaarden door _Next_ te klikken
-1. Installeer git in de voorgesteld standaard directory.
-1. Gebruik de standaard componenten door _Next_ te klikken
-1. Kies `use Git from the Windows Command Prompt` en klik _Next_
+1. Installeer eerst `notepad++`.
+1. Voer het installatiebestand uit en klik _Ja_.
+1. Welkom bij de installatie: klik op _Next_.
+1. Aanvaard de licentievoorwaarden door _Next_ te klikken.
+1. Installeer git in de voorgestelde standaard directory.
+1. Gebruik de standaard componenten door _Next_ te klikken.
+1. Klik _Next_ om de menu map in te stellen.
+1. Kies `Notepad++` als editor.
+1. Kies `use Git from the command line` en klik _Next_.
+1. `Use OpenSSL library` en klik _Next_.
 1. Kies `Checkout Windows-style, commit Unix-style line endings` en klik _Next_
 1. Kies `use Windows' default console window` en klik _Next_
-1. Klik op _Finish_
+1. Kies `Default` en klik _Next_.
+1. Gebruik de standaard door _Next_ te klikken.
+1. Gebruik de standaard door _Install_ te klikken.
+1. Vink alles uit en klik op _Next_.
+1. Download [.gitconfig](.gitconfig).
+Open het bestand met een editor en pas de `name` en `email` aan.
+Bewaar het bestand in `c:/users/username`.
 
 ### Afwijkingen t.o.v. default installatie
 
-- `use Git from the Windows Command Prompt`
+- `Notepad++` als editor
 - `use Windows' default console window`
+- `.gitconfig` download, aanpassen en bewaren in de map van de gebruiker
 
 ## Ubuntu
 

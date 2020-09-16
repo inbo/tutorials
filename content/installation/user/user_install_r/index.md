@@ -18,7 +18,7 @@ Voor onderstaande instructies uit telkens een nieuwe `R` versie geïnstalleerd w
 
 1. Zorg dat de computer verbonden is met het internet.
 1. Zorg dat er geen enkele `R` sessie actief is op de computer.
-1. Start `R x64` via het menu start.
+1. Start `R x64 x.y.z` via het menu Start > Alle programma's > R. `x.y.z` verwijst naar de versie die geïnstalleerd werd.
 1. Tik het commando `update.packages(ask = FALSE, checkBuilt = TRUE)` gevolgd door enter.
 1. Er zullen nu packages waarvan een nieuwe versie beschikbaar is gedownload en geïnstalleerd worden. Dit duurt een hele poos, afhankelijk van het aantal te upgraden packages.
 1. Wacht tot de installatie volledig afgelopen is.

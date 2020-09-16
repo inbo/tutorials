@@ -6,7 +6,8 @@ categories: ["installation"]
 tags: ["r", "rstudio", "installation"]
 ---
 
-De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/ 
+De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. 
+De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/ 
 
 ## Windows
 
@@ -16,12 +17,16 @@ RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
 
 1. Zorg dat eerst `R` geïnstalleerd is.
 1. Voer het 64-bit installatiebestand uit.
+1. Klik _Ja_.
 1. Welkom bij de installatie: klik op _volgende_.
-1. Geef de doelmap en klik op _volgende_. Je mag de standaard gebruiken.
+1. Geef de doelmap en klik op _volgende_. 
+Je mag de standaard gebruiken.
 1. Klik op _installeren_.
 1. Klik op _voltooien_.
+1. Kopieer het bestand [`rstudio-prefs.json`](rstudio-prefs.json) naar de verborgen map `AppData/Roaming/RStudio` in de persoonlijke map van de gebruiker (`C:/users/username`).
 
-**RStudio mag niet met admininstratorrechten gestart worden.** Anders worden een aantal R packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.
+**RStudio mag niet met admininstratorrechten gestart worden.** 
+Anders worden een aantal R packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.
 
 Test de configuratie door RStudio te starten als een **_gewone_** gebruiker.
 

@@ -15,19 +15,20 @@ Windows
 -------
 
 Installatiebestand beschikbaar via
-<a href="https://cloud.r-project.org/bin/windows/base/" class="uri">https://cloud.r-project.org/bin/windows/base/</a>
+[cloud.r-project.org](https://cloud.r-project.org/bin/windows/base)
 
-In de onderstaande tekst moet je in `R-3.x.y` zowel `x` als `y`
+In de onderstaande tekst moet je in `R-4.x.y` zowel `x` als `y`
 vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus
-voor versie `R-3.0.0` is `x` = 0 en `y` = 0.
+voor versie `R-4.0.0` is `x` = 0 en `y` = 0.
 
 ### Nieuwe installatie van R
 
-1.  Voer het bestand *R-3.x.y-win.exe* uit.
+1.  Voer het bestand *R-4.x.y-win.exe* uit.
 2.  Kies *Nederlands* als taal voor de installatie en klik op *OK*.
 3.  klik op *Volgende*.
 4.  Aanvaard de licentievoorwaarden door op *Volgende* te klikken.
-5.  Gebruik de standaarddoelmap en klik op *Volgende*.
+5.  Wijzig de standaarddoelmap naar `C:\R\R-4.x.y` en klik op
+    *Volgende*.
 6.  Selecteer de gewenste componenten en klik op *Volgende*. Je **MOET**
     deze standaardwaarden laten staan.
 7.  Opstartinstelling aanpassen: Kies `Nee` en klik op *Volgende*.
@@ -46,20 +47,20 @@ voor versie `R-3.0.0` is `x` = 0 en `y` = 0.
     `Nieuw`. Sluit al deze schermen via de `OK` knop.
 12. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in
     de doelmap waar je R geïnstalleerd hebt
-    (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand
-    overschrijven.
+    (`C:\Program Files\R\R-3.x.y`). Hierbij moet je het bestaande
+    bestand overschrijven.
 13. Zorg dat de gebruiker schrijfrechten heeft voor
-    `C:\Program Files\R\R-3.x.y\library` en `C:\R\library`
+    `C:\R\R-4.x.y\library` en `C:\R\library`.
 
 #### Afwijkingen t.o.v. default installatie
 
+-   Wijzig de standaarddoelmap naar `C:\R\R-4.x.y`
 -   **alle** gebruikers moeten **volledige** rechten hebben in
     -   `C:\R\library`
     -   `C:\Program Files\R\R-3.x.y\library`
 -   Systeemvariable `R_LIBS_USER` instellen op `C:/R/library`
     (**verplicht forward slashes**)
--   [`Rprofile.site`](Rprofile.site) in `C:\Program Files\R\R-3.x.y\etc`
-    overschrijven
+-   [`Rprofile.site`](Rprofile.site) in `C:\R\R-4.x.y\etc` overschrijven
 
 **R mag niet met admininstratorrechten gestart worden.** Anders worden
 een aantal packages met administrator rechten geïnstalleerd waardoor de
@@ -74,11 +75,12 @@ reeds geïnstalleerd werden volgens de bovenstaande instructies. Indien
 dan niet het geval is, volg dan de instructies voor een nieuwe
 installatie.**
 
-1.  Voer het bestand *R-3.x.y-win.exe* uit.
+1.  Voer het bestand *R-4.x.y-win.exe* uit.
 2.  Kies *Nederlands* als taal voor de installatie en klik op *OK*.
 3.  klik op *Volgende*.
 4.  Aanvaard de licentievoorwaarden door op *Volgende* te klikken.
-5.  Gebruik de standaarddoelmap en klik op *Volgende*.
+5.  Wijzig de standaarddoelmap naar `C:\R\R-4.x.y` en klik op
+    *Volgende*.
 6.  Selecteer de gewenste componenten en klik op *Volgende*. Je **MOET**
     deze standaardwaarden laten staan.
 7.  Opstartinstelling aanpassen: Kies `Nee` en klik op *Volgende*.
@@ -89,11 +91,10 @@ installatie.**
 10. R wordt nu geïnstalleerd. Klik op *Voltooien* als de installatie
     afgelopen is.
 11. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in
-    de doelmap waar je R geïnstalleerd hebt
-    (`C:\Program Files\R\R-3.x.y`) Hierbij moet je het bestaande bestand
-    overschrijven.
+    de doelmap waar je R geïnstalleerd hebt (`C:\R\R-4.x.y`). Hierbij
+    moet je het bestaande bestand overschrijven.
 12. Zorg dat de gebruiker schrijfrechten heeft voor
-    `C:\Program Files\R\R-3.x.y\library`
+    `C:\R\R-4.x.y\library`
 13. De nieuwe R versie is klaar voor gebruik. De gebruiker moet
     `RStudio` bijwerken.
 

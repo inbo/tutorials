@@ -1,8 +1,8 @@
 ---
 title: "Using Kerberos authentication for database connection"
-description: "Kerberos authentication on linux"
+description: "Kerberos authentication on Linux"
 author: "Jo Loos, Floris Vanderhaeghe, Stijn Van Hoey"
-date: 2018-01-03
+date: 2020-09-07
 categories: ["installation"]
 tags: ["database", "data", "installation"]
 ---
@@ -19,70 +19,26 @@ Hence, we can use the protocol to have an OS independent solution for authentica
 
 ## Installation
 
-### Libraries for authentication
+### Kerberos client
 
 For debian/ubuntu users (make sure you belong to the `sudo` group):
 
-```
-sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config
-sudo apt-get install openssl
-```
-
-These libraries will be used later on. The following section is for interaction with MS SQL databases.
-
-Modern Linux distributions use PAM to handle the authentication tasks of applications (services) on the system (PAM stands for _Pluggable Authentication Modules_, see `man PAM`). However we do not need that here.
-The above installation may have led to inserting a line into PAM configuration file `/etc/pam.d/common-auth`. The line looks like this (note the defining part `pam_krb5.so`):
-
-```
-auth	[success=4 default=ignore]	pam_krb5.so minimum_uid=1000
+```bash
+sudo apt-get install krb5-user
+sudo apt-get install openssl # if not yet available on your system (it probably is)
 ```
 
-This line makes every application that needs authentication on the system (like sudo, screensaver unlock, update manager, ...) first try the Kerberos connection to authenticate.
-This is overkill as we don't want to use Kerberos that way, and it can significantly slow down all other system authentications.
-Therefore, you should _comment out_ the above line in `/etc/pam.d/common-auth`.
+During installation, you may be asked for extra configuration input.
+To answer that, see next section: [Configure Kerberos client](#configure-kerberos-client).
 
-### MS SQL Server tools
-
-As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.
-
-#### ODBC driver
-
-Download and install the [Microsoft ODBC Driver for SQL Server](https://www.microsoft.com/en-us/download/details.aspx?id=53339).   The installation instructions for different Linux flavours can be downloaded together with the ODBC driver. For `Ubuntu 16.04` (and most distributions based on it),  following instructions apply:
-
-```
-sudo su
-apt-get install curl
-curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssqlrelease.list
-exit
-sudo apt-get update
-sudo ACCEPT_EULA=Y apt-get install msodbcsql=13.1.4.0-1
-sudo apt-get install unixodbc-dev
-```
-
-#### mssql-tools
-
-Install the MS SQL tools as well:
-
-* **sqlcmd**: Command-line query utility.
-* **bcp**: Bulk import-export utility.
-
-The instructions for different platforms are explained [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools). In order to test the SQL connection later in this tutorial, add `/opt/mssql-tools/bin/` to your PATH environment variable.
-
-You could also decide to go for the binaries: download [the debian package of mssql-tools](https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/pool/main/m/mssql-tools/mssql-tools_14.0.1.246-1_amd64.deb) and install with:
-
-```
-sudo apt-get install libgss3
-sudo dpkg -i mssql-tools_14.0.1.246-1_amd64.deb
-```
 
 ### Configure Kerberos client
 
 *(again, the commands assume root privileges)*
 
-Start with the kerberos configuration dialogue:
+Start with the Kerberos configuration dialogue:
 
-```
+```bash
 dpkg-reconfigure krb5-config
 ```
 Use `INBO.BE` as the realm (this is the realm of the kerberos servers):
@@ -118,15 +74,82 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 	forwardable=  true
 ```
 
-Inbo staff can download a preconfigured krb5.conf file here:"https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing".
-In order to sync the timing of the domain controller server and client side, install `ntp`:
+INBO staff can download a preconfigured `krb5.conf` file here:
+<https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing>.
 
+### Time synchronization
+
+This is needed in order to sync the timing of the domain controller server and client side.
+
+Check whether the `systemd-timesyncd` daemon is already active on your system:
+
+```bash
+$ systemctl status time-sync.target
+● time-sync.target - System Time Synchronized
+     Loaded: loaded (/lib/systemd/system/time-sync.target; static; vendor preset: disabled)
+     Active: active since Mon 2020-09-07 08:27:03 CEST; 59min ago
+       Docs: man:systemd.special(7)
+
+$ timedatectl status
+               Local time: ma 2020-09-07 09:27:00 CEST  
+           Universal time: ma 2020-09-07 07:27:00 UTC   
+                 RTC time: ma 2020-09-07 07:27:00       
+                Time zone: Europe/Brussels (CEST, +0200)
+System clock synchronized: yes                          
+              NTP service: active                       
+          RTC in local TZ: no
 ```
+
+Note the line `NTP service: active`.
+
+If you do have the `systemd-timesyncd` package but the unit is _not_ active, run `systemctl enable --now time-sync.target`.
+Further information can be found [here](https://wiki.archlinux.org/index.php/Systemd-timesyncd).
+
+Only if you **don't** have the `systemd-timesyncd` package, install `ntp` instead:
+
+```bash
 sudo apt-get install ntp
 ```
-After installation, check if the following two files do exist: 
+
+_If_ you installed `ntp`, check whether the following two files do exist: 
+
 * `/etc/ntp.conf`
-* `/etc/ntp.conf.dhcp` (empty file, just amke sure there is a file)
+* `/etc/ntp.conf.dhcp` (empty file, just make sure there is a file)
+
+### MS SQL Server ODBC driver and tools
+
+As most of the databases at INBO are SQL Server, an appropriate driver and the command line toolset is required  to fully support database connections to SQL Server.
+
+Apart from the ODBC driver, we will also install following tools:
+
+* **sqlcmd**: Command-line query utility.
+* **bcp**: Bulk import-export utility.
+
+For Linux,  follow [these installation instructions](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server).[^installnotes]
+
+Also follow the 'optional' instructions, as these will install the tools.
+
+Hence, for Ubuntu 20.04 or Linux Mint 20 you would do:
+
+```bash
+sudo su
+curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+#Ubuntu 20.04
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+exit
+sudo apt-get update
+sudo ACCEPT_EULA=Y apt-get install msodbcsql17 mssql-tools
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+source ~/.bashrc
+sudo apt-get install unixodbc-dev
+```
+
+On Ubuntu 20.04, if installing `msodbcsql17` and `mssql-tools` fails because of incompatible `unixodbc` version, you can first try `apt install unixodbc=2.3.6-0.1build1 unixodbc-dev=2.3.6-0.1build1`.
+
+[^installnotes]: You can also find the debian packages of Microsoft ODBC Driver for SQL Server [here](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server).
+You can find separate installation instructions for `sqlcmd`, `bcp` and `unixodbc-dev` [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools).
+
 
 ## Test installation
 
@@ -164,6 +187,14 @@ sqlcmd -S DBServerName -E
 2> Go
 ```
 
+On Ubuntu 20.04, you may get an error:
+
+```
+Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : TCP Provider: Error code 0x2746.
+Sqlcmd: Error: Microsoft ODBC Driver 17 for SQL Server : Client unable to establish connection.
+```
+
+If you are in that case, have a look at working solutions in [this GitHub issue](https://github.com/microsoft/azuredatastudio/issues/10337).
 
 ## SQL ODBC connections
 
@@ -171,29 +202,31 @@ To support  database connections from other applications (e.g. GUI environments,
 
 Make sure the ODBC driver for SQL Server is available with a recognizable name in the `/etc/odbcinst.ini` file:
 ```
-[ODBC Driver 13 for SQL Server]
-Description=Microsoft ODBC Driver 13 for SQL Server
-Driver=/opt/microsoft/msodbcsql/lib64/libmsodbcsql-13.1.so.4.0
-UsageCount=2
+[ODBC Driver 17 for SQL Server]
+Description=Microsoft ODBC Driver 17 for SQL Server
+Driver=/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.6.so.1.1
+UsageCount=1
 ```
 
 ### Connecting by explicitly providing the SQL connection string to ODBC libraries/packages
 
-Inbo staff can consult a list of connection strings [here](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing)
+INBO staff can consult a list of connection strings [here](https://docs.google.com/spreadsheets/d/1Wu7GmWm-NyHLHYWwuu74aQuugkDKGnLF-8XFFPz_F_M/edit?usp=sharing).
 At this moment, you can actually connect using typical ODBC libraries/packages provided by R or Python:
 
-```{r eval = FALSE}
+```r
 library(DBI)
 connection <- dbConnect(
   odbc::odbc(), 
-  .connection_string = "Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;"
+  .connection_string = "Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;"
 )
 dbListTables(connection)
 ```
 
+However, most recommended for INBO staff using R is the use of the [inbodb](https://inbo.github.io/inbodb/) package, most notably the [`connect_inbo_dbase()`](https://inbo.github.io/inbodb/reference/connect_inbo_dbase.html) function.
+
 ```python
 import pyodbc
-conn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;")
+conn = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};Server=DBServername;Database=DBName;Trusted_Connection=yes;")
 ```
 
 In RStudio, you can also make the connection with the GUI:
@@ -215,7 +248,7 @@ However, it is probably easier to provide the configuration to specific database
 
 ```
 [nbn_ipt]
-Driver      = ODBC Driver 13 for SQL Server
+Driver      = ODBC Driver 17 for SQL Server
 Description = odbc verbinding naar db
 Trace       = No
 Server      = DBServername
