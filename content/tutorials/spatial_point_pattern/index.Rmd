@@ -34,8 +34,8 @@ The next step is to convert the dataset in to a `SpatialPoints` object with WGS8
 
 ```{r reproject}
 library(sp)
-crs_wgs84 <- CRS("+init=epsg:4326")
-crs_lambert <- CRS("+init=epsg:31370")
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
+crs_lambert <- CRS(SRS_string = "EPSG:31370")
 coordinates(points) <- ~lon + lat
 points@proj4string <- crs_wgs84
 points_lambert <- spTransform(points, crs_lambert)
