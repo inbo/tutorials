@@ -37,7 +37,9 @@ library(sp)
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs_lambert <- CRS(SRS_string = "EPSG:31370")
 coordinates(points) <- ~lon + lat
-points@proj4string <- crs_wgs84
+# proj4string() - still the only available function to set the CRS - may in the
+# future get a more general name:
+proj4string(points) <- crs_wgs84
 points_lambert <- spTransform(points, crs_lambert)
 ```
 
@@ -87,7 +89,7 @@ In order to visualise the result, we have to re-project the coordinates back to 
 
 ```{r ggmap, fig.cap = "Static image of density"}
 coordinates(dens) <- ~lon + lat
-dens@proj4string <- crs_lambert
+proj4string(dens) <- crs_lambert
 dens_wgs <- spTransform(dens, crs_wgs84) %>%
   as.data.frame()
 ggmap(map) +
