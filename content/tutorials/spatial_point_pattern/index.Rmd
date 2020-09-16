@@ -11,9 +11,15 @@ params:
   cellsize: 20
 ---
 
-In this example we focus on a set of 10450 coordinates in a small area. The goal is to estimate the local density of points, expressed as the number of point per unit area. The raw coordinates are given in [WGS84 (EPSG:4326)](https://epsg.io/4326), which is a geodetic coordinate system. That is not suited for calculating distances, so we need to re-project the points into a local projected coordinate system. In this case we use [Lambert72 (EPSG:3170)](https://epsg.io/31370). Next we calculate the density. To visualise the density, we have to transform the results back in to WGS84. 
+In this example we focus on a set of 10450 coordinates in a small area.
+The goal is to estimate the local density of points, expressed as the number of points per unit area.
+The raw coordinates are given in [WGS84 (EPSG:4326)](https://epsg.io/4326), which is a geodetic coordinate reference system.
+That is not suited for calculating distances, so we need to re-project the points into a local projected coordinate reference system.
+In this case we use [Belgian Lambert72 (EPSG:3170)](https://epsg.io/31370). 
+Next we calculate the density.
+To visualise the density, we have to transform the results back to WGS84. 
 
-The data used in this example is real data by centred to a different location for privacy reasons. The dataset is available on [GitHub](https://github.com/ThierryO/my_blog/tree/master/data/20170628).
+The data used in this example is real data but centred to a different location for privacy reasons. The dataset is available on [GitHub](https://github.com/ThierryO/my_blog/tree/master/data/20170628).
 
 First we must read the data into R. Plotting the raw data helps to check errors in the data.
 
@@ -116,7 +122,12 @@ ggmap(map) +
   )
 ```
 
-Using `leaflet` to generate a map was a bit more laborious. Using the `data.frame dens_wgs`directly failed. So we converted the `data.frame` in a `SpatialPolygonsDataframe`, which is a combination of a `SpatialPolygons` and a `data.frame`. The `SpatialPolygons` consists of a list of `Polygons`, one for each row of the `data.frame`. A `Polygons` object consist of a list of one or more `Polygon` object. In this example a single polygon which represents the grid cell.
+Using `leaflet` to generate a map was a bit more laborious.
+Using the `data.frame dens_wgs`directly failed.
+So we converted the `data.frame` to a `SpatialPolygonsDataframe`, which is a combination of a `SpatialPolygons` and a `data.frame`.
+The `SpatialPolygons` consists of a list of `Polygons`, one for each row of the `data.frame`.
+A `Polygons` object consists of a list of one or more `Polygon` objects.
+In this example it is a single polygon which represents the grid cell.
 
 ```{r convert-to-Spatial-Polygons}
 dens_sp <- lapply(
@@ -137,7 +148,10 @@ dens_sp <- lapply(
   )
 ```
 
-`leaflet` requires a predefined function with a colour pallet. We use `leaflet::colorNumeric()` to get a continuous pallet. Setting `stroke = FALSE` removes the borders of the polygon. `fillOpacity` sets the transparency of the polygons.
+`leaflet` requires a predefined function with a colour palette.
+We use `leaflet::colorNumeric()` to get a continuous palette.
+Setting `stroke = FALSE` removes the borders of the polygon.
+`fillOpacity` sets the transparency of the polygons.
 
 ```{r leaflet, fig.cap = "Dynamic map of density"}
 library(leaflet)
