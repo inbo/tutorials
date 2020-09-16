@@ -1,0 +1,241 @@
+---
+title: "How to use open vector file formats in R: GeoPackage & GeoJSON"
+description: "A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R"
+author: "Floris Vanderhaeghe"
+date: 2020-02-03
+categories: ["r", "gis"]
+tags: ["gis", "r"]
+output: 
+    html_document: default
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+```{r include = FALSE}
+library(knitr)
+library(googlesheets4)
+source("token_option.R")
+opts_chunk$set(
+  echo = TRUE
+)
+unlink(c("sac.*", "habitatstreams.*"))
+```
+
+
+This tutorial uses a few basic functions from the [dplyr](https://dplyr.tidyverse.org) and [sf](https://r-spatial.github.io/sf/) packages.
+While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
+
+```{r warning=FALSE, message=FALSE}
+options(stringsAsFactors = FALSE)
+library(tidyverse)
+library(sf)
+library(inborutils)
+```
+
+You will find a bit more background about 'why and what', regarding the considered open standards, in [a separate post](../../articles/geospatial_standards/) on this website.
+
+In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication, interoperability & durability and to open science in general.
+
+The below table compares a few vector formats that are currently used a lot.
+This tutorial focuses on the open formats.
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+sheets_read("15KVm87QvVis--vyCHa8EQBcXAeQ23M1oaCL_dENempk", 
+            sheet = "Vector",
+            col_types = "c") %>% 
+  kable(align = "lcccc")
+```
+
+
+## How to make and use GeoPackages (`*.gpkg`)
+
+### Making a GeoPackage from a geospatial `sf` object in R
+
+As an example, we download a geospatial layer of Special Areas of Conservation in Flanders (version _sac_2013-01-18_) from Zenodo:
+
+```{r message=FALSE}
+# meeting a great function from the 'inborutils' package:
+download_zenodo(doi = "10.5281/zenodo.3386815")
+```
+
+_Did you know this: you can visit a website of this dataset by just prefixing the DOI ^[DOI = Digital Object Identifier. See <https://www.doi.org>.] with `doi.org/`!_
+
+The data source is a shapefile, in this case consisting of 6 different files.
+Read the geospatial data into R as an `sf` object, and let's just keep the essentials (though it doesn't matter for the GeoPackage):
+
+```{r}
+sac <- 
+  read_sf("sac.shp") %>% 
+  select(sac_code = GEBCODE,
+         sac_name = NAAM,
+         subsac_code = DEELGEBIED,
+         polygon_id = POLY_ID)
+```
+
+Have a look at its contents by printing the object:
+
+```{r paged.print=FALSE}
+sac
+```
+
+To write the GeoPackage, we just use the GPKG driver of the powerful [GDAL](https://gdal.org) library (supporting most open and some closed formats), which can be elegantly accessed through `sf::st_write()`:
+
+```{r}
+sac %>% 
+  st_write("sac.gpkg")
+```
+
+Is that all?\
+_**YES :-)**_
+
+Really?\
+_**YES :-)**_
+
+Well, hmmm, if you really want to know a little bit more...
+
+A GeoPackage can contain many layers.
+So, it is good practice to explicitly define the layer name within the GeoPackage (above, it was automatically called 'sac').
+For example:
+
+```{r}
+sac %>% 
+  st_write("sac.gpkg",
+           layer = "special_areas_conservation",
+           delete_dsn = TRUE)
+```
+
+Note, `delete_dsn` was set as `TRUE` to replace the whole GeoPackage.
+(There is also a `delete_layer` argument to overwrite an existing _layer_ with the same name.)
+
+Let's extract a selection of features from the `special_areas_conservation` layer, and add it as a second layer into the GeoPackage file:
+
+```{r}
+sac %>% 
+  filter(str_detect(sac_name, "Turnhout")) %>% # only polygons having 'Turnhout' in their name field
+  st_write("sac.gpkg",
+           layer = "turnhout")
+```
+
+So yes, adding layers to a GeoPackage is done simply by `st_write()` again to the same GeoPackage file (by default, `delete_dsn` is `FALSE`), and defining the new layer's name.
+
+So, which layers are available in the GeoPackage?
+
+```{r}
+gdalUtils::ogrinfo("sac.gpkg") %>% 
+  cat(sep = "\n")
+```
+
+_**You see?**_
+
+### Reading a GeoPackage file
+
+Can it become more simple than this?
+
+```{r}
+# (note: the 'layer' argument is unneeded if there's just one layer)
+sac_test <- st_read("sac.gpkg",
+                    layer = "special_areas_conservation")
+```
+
+Ready!
+
+`st_read()` is a function of the great `sf` package -- hence the result is an `sf` object again.
+
+Also other geospatial software will (or should) be able to open the GeoPackage format.
+It is an open standard, after all!
+
+
+## How to make and use GeoJSON files (`*.geojson`)
+
+### Making a GeoJSON file from a geospatial `sf` object in R
+
+As another example, let's download a shapefile of stream habitat 3260 in Flanders (version _2018_):
+
+```{r message=FALSE}
+download_zenodo(doi = "10.5281/zenodo.3386246")
+```
+
+_Again: you can visit a website of this dataset by just prefixing the DOI with `doi.org/`!_
+
+The data source is a shapefile again, in this case consisting of 4 different files.
+Similar as above, we read the geospatial data into R as an `sf` object and select a few attributes to work with:
+
+```{r}
+habitatstreams <- 
+  read_sf("habitatstreams.shp") %>% 
+  select(river_name = NAAM,
+         source = BRON)
+```
+
+
+```{r paged.print=FALSE}
+habitatstreams
+```
+
+Nowadays, it is recommended to use the more recent and strict **RFC7946** implementation of GeoJSON.
+The previous 'GeoJSON 2008' implementation is now obsoleted
+(see [the post](../../articles/geospatial_standards/) on this tutorials website for a bit more background).
+
+The RFC7946 standard is well supported by GDAL's GeoJSON driver, however GDAL must be given the explicit option `RFC7946=YES` in order to use it already ^[
+Though GeoJSON 2008 is [obsoleted](http://geojson.org/geojson-spec.html), the now recommended [RFC7946](https://tools.ietf.org/html/rfc7946) standard is still officially in a _proposal_ stage.
+That is probably the reason why GDAL does not yet default to RFC7946.
+A somehow confusing stage, it seems.
+].
+
+Write the GeoJSON file as follows:
+
+```{r}
+habitatstreams %>% 
+  st_write("habitatstreams.geojson",
+           layer_options = "RFC7946=YES")
+```
+
+Done creating!
+
+### Do I look good?
+
+Hey wait, wasn't a GeoJSON file just a text file?\
+_**Indeed.**_
+
+So I can just open it as a text file to get an idea of its contents?\
+_**Well seen :-)**_
+
+Hence, also use it in versioned workflows?\
+_**Didn't hear that. (Cool, though...)**_
+
+Let's just look at the top 7 lines of the file:
+
+```{r echo=FALSE, comment=""}
+readLines("habitatstreams.geojson", n = 7) %>% 
+  cat(sep = "\n")
+```
+
+You can see it basically lists the feature attributes and the coordinates of the lines' vertices, with each feature starting on a new line.
+
+Compare the coordinates with those of the `sf` object `habitatstreams` above: the data have automatically been transformed to WGS84!
+
+Note: in order to be still manageable (text file size, usage in versioning systems) it seems wise to use GeoJSON for more simple cases -- **points and rather simple lines and polygons** -- and use the binary GeoPackage format for larger (more complex) cases.
+
+### Reading a GeoJSON file
+
+Just do this:
+
+```{r}
+habitatstreams_test <- st_read("habitatstreams.geojson")
+```
+
+Same story as for the GeoPackage: other geospatial software will (or should) be able to open the GeoJSON format as well, as it's an open and well established standard.
+
+From the message of `st_read()` you can see the CRS is WGS84 ([EPSG-code 4326](https://epsg.io/4326)) - this is always expected when reading a GeoJSON file.
+
+If you want to transform the data to another CRS, e.g. Belgian Lambert 72 ([EPSG-code 31370](https://epsg.io/31370)), use `sf::st_transform()`:
+
+```{r}
+habitatstreams_test %>% 
+  st_transform(31370)
+```
+
+```{r include=FALSE}
+unlink(c("sac.*", "habitatstreams.*"))
+```

@@ -1,0 +1,13 @@
+<li class='item'>
+  <div class='meta'>
+    {{ partial "list/date" . }}
+  </div>
+  <header class='item-header'>
+    <h3 class='item-title'>
+      <a href='{{ .Permalink | relURL }}'>
+        {{- .Title -}}
+      </a>
+    </h3>
+    <p class='description'>{{ .Description | safeHTML | truncate 150 }}</p>
+  </header>
+</li>

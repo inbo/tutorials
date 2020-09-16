@@ -1,0 +1,268 @@
+--- 
+title: "inlabru vs INLA"
+author: "Thierry Onkelinx"
+site: bookdown::bookdown_site
+output:
+  bookdown::pdf_book:
+    base_format: INBOmd::inbo_slides
+    toc: FALSE
+    slide_level: 2
+    theme: inboenglish
+    flandersfont: TRUE
+    cover: pexels-photo-1310755.jpeg # Photo by sasha igrevsky from Pexels https://www.pexels.com/photo/bird-s-eye-view-black-and-white-colors-forest-1310755/
+    cover_horizontal: FALSE
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  message = FALSE,
+  dev = "cairo_pdf"
+)
+library(tidyverse)
+library(INBOtheme)
+if (interactive()) {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 12, 
+      transparent = "plot"
+    )
+  )
+} else {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 8, 
+      transparent = "plot"
+    )
+  )
+  update_geom_defaults("text", list(size = 3))
+}
+set.seed(200190307)
+```
+
+# Introduction
+
+## Concept
+
+- first a comparison between `INLA` and `inlabru`
+- then time to redo the challenges from the first workshop using `inlabru`
+
+Slides, code and data available on https://inbo.github.io/tutorials/tutorials/r_inla/
+
+## `INLA` or `inlabru`?
+
+- `inlabru` wrapper around `INLA`
+- taylored towards spatial data
+    - spatially stuff will handled in the next tutorial
+- some stuff is easier / better
+- some stuff is harder / more awkward
+
+## Toy data set
+
+- Tundra bean goose ([_Anser fabalis subsp. rossicus_](https://www.gbif.org/species/6178319))
+- Subset of wintering waterbirds in Flanders (https://doi.org/10.15468/lj0udq)
+
+```{r load-data}
+readRDS("anser_fabalis_rossicus.Rds") %>%
+  mutate(cyear = year - max(year)) -> goose
+glimpse(goose)
+```
+
+# Fixed effects only
+
+## Similar syntax
+
+- $WAIC$ and $DIC$ are calculated by default
+
+```{r fixed-syntax}
+library(INLA)
+m0_inla <- inla(count ~ cyear, data = goose, family = "nbinomial", 
+                control.compute = list(waic = TRUE, dic = TRUE))
+library(inlabru)
+m0_inlabru <- bru(count ~ cyear, data = goose, family = "nbinomial")
+```
+
+## `inlabru` returns augmented `INLA` object
+
+```{r fixed-output}
+class(m0_inla)
+class(m0_inlabru)
+all(names(m0_inla) %in% names(m0_inlabru))
+names(m0_inlabru)[!names(m0_inlabru) %in% names(m0_inla)]
+```
+
+## Careful with factor variables
+
+```{r inlabru-factor-wrong, warning = TRUE}
+m1_wrong <- bru(count ~ cyear + month, data = goose, family = "nbinomial")
+m1_wrong$summary.fixed
+```
+
+## `inlabru` requires dummy variables in case of factors
+
+```{r inlabru-factor-correct}
+model.matrix(~month, goose) %>% # create dummy variable for month
+  as.data.frame() %>%
+  select(-1) %>% # drop intercept
+  bind_cols(goose) -> goose
+m1_inlabru <- bru(count ~ cyear + monthdec + monthjan + monthfeb, data = goose, 
+                  family = "nbinomial")
+m1_inlabru$summary.fixed
+```
+
+# Random effects
+
+## `inlabru` works slightly different
+
+- use any name instead of `f()`
+- use `map` to link the random effect to the data (cfr. `ggplot2::aes()`)
+- use integer indices in case of a factor
+- you need to provide the number of levels in case of a factor
+
+## Example of random intercept
+
+```{r random-intercept}
+comp_inla <- count ~ cyear + month + f(location_id, model = "iid")
+m2_inla <- inla(comp_inla, data = goose, family = "nbinomial", 
+                control.compute = list(waic = TRUE, dic = TRUE))
+goose <- mutate(goose, loc_id = as.integer(factor(location_id)))
+n_loc <- max(goose$loc_id)
+comp_inlabru <- count ~ cyear + monthdec + monthjan + monthfeb + 
+  site(map = loc_id, model = "iid", n = n_loc)
+m2_inlabru <- bru(comp_inlabru, data = goose, family = "nbinomial")
+```
+
+## `inlabru` allows to reuse a variable
+
+```{r inla-unique}
+mutate(goose, cyear = cyear - min(cyear) + 1, cyear2 = cyear) -> goose2
+comp_inla <- count ~ cyear + f(cyear2, model = "iid") + month + 
+  f(location_id, model = "iid")
+m3_inla <- inla(comp_inla, data = goose2, family = "nbinomial", 
+                control.compute = list(waic = TRUE, dic = TRUE))
+
+n_year <- max(goose2$cyear)
+comp_inlabru <- count ~ cyear + rtrend(map = cyear, model = "iid", n = n_year) +
+  monthdec + monthjan + monthfeb + site(map = loc_id, model = "iid", n = n_loc)
+m3_inlabru <- bru(comp_inlabru, data = goose2, family = "nbinomial")
+```
+
+## `map` applies function on the fly
+
+```{r map-function}
+comp_inlabru <- count ~  lintrend(map = cyear, model = "linear") + 
+  quadtrend(map = cyear ^ 2, model = "linear") +
+  rtrend(map = cyear, model = "iid", n = n_year) +
+  monthdec + monthjan + monthfeb + site(map = loc_id, model = "iid", n = n_loc)
+m3_inlabru2 <- bru(comp_inlabru, data = goose2, family = "nbinomial")
+m3_inlabru2$summary.fixed
+```
+
+# Plotting the model
+
+## Prepare a model with rw1 and iid component
+
+```{r plot-intercept-data}
+pc_prior <- list(theta = list(prior = "pc.prec", param = c(1, 0.01)))
+goose %>%
+  mutate(iyear = cyear - min(cyear) + 1) -> goose
+n_year <- max(goose$iyear)
+comp_inlabru <- count ~ monthdec + monthjan + monthfeb + 
+  trend(map = iyear, model = "rw1", n = n_year, hyper = pc_prior) +
+  site(map = loc_id, model = "iid", n = n_loc, hyper = pc_prior)
+m5_inlabru <- bru(comp_inlabru, data = goose, family = "nbinomial")
+```
+
+## Plot the model
+
+```{r plot-intercept}
+plot(m5_inlabru)
+```
+
+## Plotting different fixed effect
+
+```{r plot-dec}
+plot(m5_inlabru, "monthdec") + 
+  geom_vline(xintercept = 0, linetype = 2)
+```
+
+## Combined plots with `multiplot()`
+
+```{r plot-fixed, echo = FALSE}
+p_intercept <- plot(m5_inlabru) + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  xlim(-1, 4)
+p_monthdec <- plot(m5_inlabru, "monthdec") + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  xlim(-1, 4)
+p_monthjan <- plot(m5_inlabru, "monthjan") + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  xlim(-1, 4)
+p_monthfeb <- plot(m5_inlabru, "monthfeb") + 
+  geom_vline(xintercept = 0, linetype = 2) +
+  xlim(-1, 4)
+multiplot(p_intercept, p_monthdec, p_monthjan, p_monthfeb)
+```
+
+## Plotting a random effect
+
+```{r plot-trend}
+plot(m5_inlabru, "trend")
+```
+
+# Predictions
+
+## `inlabru` has a `predict()` method
+
+- no need to refit the model for predicting new data!
+- works for `inla()`, `bru()` and `lgcp()` models
+- you can specify which components of the models to be used
+
+```{r pred-bru}
+goose_trend <- distinct(goose, year, iyear)
+pred_trend_log <- predict(m5_inlabru, data = goose_trend, formula = ~ trend)
+glimpse(pred_trend_log)
+```
+
+## Predictions are easy to plot
+
+```{r pred-bru-plot}
+ggplot() + gg(pred_trend_log) + geom_hline(yintercept = 0, linetype = 2)
+```
+
+## prediction formula allows functions
+
+```{r}
+pred_trend <- predict(m5_inlabru, data = goose_trend, formula = ~ exp(trend))
+ggplot() + gg(pred_trend) + geom_hline(yintercept = 1, linetype = 2)
+```
+
+## Predictions can use multiple components
+
+```{r pred-multi}
+goose_new <- distinct(goose, year, month, iyear, monthdec, monthjan, monthfeb)
+pred_goose <- predict(
+  m5_inlabru, data = goose_new, 
+  formula = ~ exp(Intercept + trend + monthdec + monthjan + monthfeb)
+)
+```
+
+## Multiple covariates require a bit more work to plot
+
+```{r pred-multi-plot}
+ggplot(pred_goose, aes(x = year, y = mean, ymin = q0.025, ymax = q0.975)) +
+  geom_ribbon(aes(fill = month), alpha = 0.1) + geom_line(aes(colour = month))
+```
+
+## Even aggregations are possible
+
+```{r pred-aggregate}
+goose_sum <- filter(goose, month == "jan")
+predict(m5_inlabru, data = goose_sum, 
+        formula = ~aggregate(
+          exp(Intercept + trend + site), 
+          by = list(year = goose_sum$year), 
+          FUN = sum))
+```

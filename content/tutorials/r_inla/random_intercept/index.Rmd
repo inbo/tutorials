@@ -1,0 +1,468 @@
+--- 
+title: "Random intercept models with INLA"
+author: "Thierry Onkelinx"
+site: bookdown::bookdown_site
+output:
+  bookdown::pdf_book:
+    base_format: INBOmd::inbo_slides
+    toc: FALSE
+    slide_level: 2
+    theme: inboenglish
+    flandersfont: TRUE
+    cover: pexels-photo-167698.jpeg # Photo by Lum3n.com from Pexels https://www.pexels.com/photo/conifer-dawn-daylight-evergreen-167698/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels
+    cover_horizontal: FALSE
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+opts_chunk$set(
+  dev = "cairo_pdf"
+)
+library(tidyverse)
+library(INBOtheme)
+if (interactive()) {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 12, 
+      transparent = "plot"
+    )
+  )
+} else {
+  theme_set(
+    theme_inbo(
+      base_family = "Flanders Art Sans",
+      base_size = 8, 
+      transparent = "plot"
+    )
+  )
+  update_geom_defaults("text", list(size = 3))
+}
+set.seed(200190307)
+```
+
+## Concept of the workshop
+
+- 5 generic challenges
+- everybody tries to tackle the challenge with own data
+- stuck? ask your neighbour for help
+- still stuck? ask me
+
+slides, code, data and HackMD: https://inbo.github.io/tutorials/tutorials/r_inla/
+
+# Fixed effect model
+
+## Challenge 1
+
+1. fit fixed effect model
+2. extract $WAIC$ from the model
+3. display fixed effect parameters in a table
+
+## Prepare data
+
+```{r prepare_data}
+cars <- data.frame(
+  fuel_consumption = 3.785411784 / 0.01609344 / mtcars$mpg, # liter / 100 km
+  cc = mtcars$disp * 2.54 ^ 3, # engine displacement in cm³
+  gearbox = factor(mtcars$am, levels = 0:1, labels = c("auto", "manual"))
+)
+summary(cars)
+```
+
+## Solution 1
+
+```{r solution-1}
+library(INLA, quietly = TRUE)
+model <- inla(fuel_consumption ~ cc * gearbox, data = cars, 
+              control.compute = list(waic = TRUE))
+model$waic$waic
+```
+
+## Parameters
+
+```{r oplossing-1-parameters, echo = FALSE}
+model$summary.fixed %>%
+  select(1, lcl = 3, ucl = 5) %>%
+  kable(caption = "model parameters", digits = 5)
+```
+
+## Scaling
+
+- based on mean and standard deviation (standardise)
+```{r standardise}
+cars$cc_std <- scale(cars$cc)
+attr(cars$cc_std, "scaled:center") # reference (cc)
+attr(cars$cc_std, "scaled:scale") # scale (cc)
+model_std <- inla(fuel_consumption ~ cc_std * gearbox, data = cars, 
+                  control.compute = list(waic = TRUE))
+```
+
+- based on carefully picked values
+
+```{r scale}
+cars$liter <- cars$cc / 1000
+cars$liter_c <- cars$liter - 4 # reference = 4 liter = 4000 cc
+model_liter <- inla(fuel_consumption ~ liter_c * gearbox, data = cars, 
+                    control.compute = list(waic = TRUE))
+```
+
+## Effect on parameters
+
+```{r parameter-scale, echo = FALSE}
+model$summary.fixed %>%
+  select(mean = 1) %>%
+  rownames_to_column("parameter") %>%
+  bind_cols(
+    model_std$summary.fixed %>%
+      select(mean_std = 1),
+    model_liter$summary.fixed %>%
+      select(mean_liter = 1)
+  ) %>%
+  kable(
+    caption = "model parameters for different scaling", 
+    digits = 5
+  )
+```
+
+## Challenge 2
+
+1. what is the default prior for a fixed effect (`?control.fixed`)
+2. use a custom prior for a fixed effect (`?inla`)
+3. specify two linear combinations [r-inla.org, FAQ 17](http://www.r-inla.org/faq#TOC-I-have-some-linear-combinations-of-the-nodes-in-the-latent-field-that-I-want-to-compute-the-posterior-marginal-of-is-that-possible-)
+
+## Default prior for fixed effect
+
+- $\mu = 0$
+- $\tau = 0.001 \Rightarrow \sigma^2 = 1/\tau = 1000 \Rightarrow \sigma = 31.63$
+
+```{r fixed-prior-default, echo = FALSE}
+data.frame(x = seq(-100, 100, length = 101)) %>%
+  mutate(density = dnorm(x, 0, sqrt(1 / 0.001))) %>%
+  ggplot(aes(x = x, y = density)) +
+  geom_line() +
+  geom_vline(xintercept = 0, linetype = 2)
+```
+
+---
+
+```{r extreme-parameter}
+cars$extreme <- cars$liter / 100
+model_extreme <- inla(fuel_consumption ~ extreme * gearbox, data = cars)
+z <- model_liter$marginals.fixed$liter_c
+z[, "x"] <- z[, "x"] * 100
+z[, "y"] <- z[, "y"] / 100
+plot(model_extreme$marginals.fixed$extreme, type = "l")
+lines(z, col = "blue")
+```
+
+## Change fixed effect prior
+
+```{r fixed-prior}
+model_extreme2 <- inla(fuel_consumption ~ extreme * gearbox, data = cars, 
+  control.fixed = list(
+    mean = c(extreme = 100), 
+    prec = c(extreme = 1e-7, "extreme:gearboxmanual" = 1e-7)))
+plot(model_extreme$marginals.fixed$extreme, type = "l")
+lines(z, col = "blue")
+points(model_extreme2$marginals.fixed$extreme, col = "red")
+```
+
+## Linear combinations with fixed effects
+
+```{r lincomb}
+combinations <- expand.grid(liter = pretty(cars$liter), 
+                            gearbox = unique(cars$gearbox)) %>%
+  mutate(liter_c = liter - 4)
+model.matrix(~ liter_c * gearbox, combinations) %>%
+  as.data.frame() %>%
+  inla.make.lincombs() %>%
+  setNames(paste(combinations$gearbox, combinations$liter, sep = ":")) -> lc
+model_lc <- inla(fuel_consumption ~ liter_c * gearbox, data = cars, 
+                 lincomb = lc, control.compute = list(waic = TRUE))
+```
+
+---
+
+```{r lincomb-derived}
+model_lc$summary.lincomb #see ?control.inla
+model_lc$summary.lincomb.derived
+```
+
+## Plot linear combinations
+
+```{r plot-lincomb, echo = FALSE}
+model_lc$summary.lincomb.derived %>%
+  select(2, lcl = 4, ucl = 6) %>%
+  bind_cols(combinations) %>%
+  ggplot(aes(x = liter, y = mean, ymin = lcl, ymax = ucl)) +
+  geom_ribbon(aes(fill = gearbox), alpha = 0.1) +
+  geom_line(aes(colour = gearbox)) +
+  xlab("engine displacement (liter)") + 
+  ylab("estimated fuel_consumption (liter / 100 km)")
+```
+
+# Random intercept model ('iid')
+
+## Challenge 3
+
+1. fit a model with one or more random intercepts (`model = 'iid'`)
+1. what is the default prior for `'iid'` (`inla.doc('iid')`)
+1. calculate $\sigma$ for the random intercept
+1. display the BLUP the random intercept
+
+## Default prior
+
+$$\log\tau \sim logGamma(1, 0.00005)$$
+$$\tau \sim Gamma(1, 0.00005)$$
+
+```{r iid-prior-precision, echo = FALSE}
+data.frame(tau = seq(0, 1000, length = 10000)) %>%
+  mutate(densiteit = dgamma(tau, 1, 5e-5)) %>%
+  ggplot(aes(x = tau, y = densiteit)) +
+  geom_line() +
+  xlab("precisie") + ylim(c(0, NA))
+```
+
+## $\sigma$ random intercept
+
+```{r solution-3-sigma}
+read.delim("ButterfliesNEggs_V4.txt") %>%
+  mutate(TreeHeight = TreeHeight / 100 - 1,
+         Distance2Edge = Distance2Edge / 10 - 1,
+         SmallOakAbundance = SmallOakAbundance / 10 - 0.2) -> butterfly
+model <- inla(NEggs ~ NLowBranches + TreeHeight + SmallOakAbundance + 
+                f(Area, model = "iid"), family = "poisson", data = butterfly)
+model$summary.hyperpar
+to_sigma <- function(tau){sqrt(1/tau)}
+model$marginals.hyperpar$`Precision for Area` %>%
+  inla.tmarginal(fun = to_sigma) %>%
+  inla.zmarginal()
+```
+
+## Best Linear Unbiased Predictor (BLUP)
+
+```{r solution-3-blup}
+glimpse(model$summary.random$Area)
+```
+
+## Challenge 4
+
+1. Think about the relevant magnitude of $\sigma$ for your random effect
+1. Use a custom "pc.prec" prior with that $\sigma$ (`inla.doc("pc.prec")`)
+
+## Penalised Complexity prior
+
+$Prob(\sigma > u) = \alpha$ met $u > 0$ en $0 < \alpha < 1$
+
+```{r pcprior, echo = FALSE}
+expand.grid(
+  sigma = seq(0, 3, length = 101),
+  alpha = c(0.05, 0.1, 0.5, 0.9)
+) %>%
+  mutate(
+    prob = inla.pc.pprec(sigma ^ -2, u = 0.5, alpha = alpha),
+    f = factor(sprintf("%.2f", alpha))
+  ) %>%
+  ggplot(aes(x = sigma, y = prob, colour = f)) +
+  geom_line() +
+  geom_hline(aes(yintercept = alpha, colour = f), linetype = 2) + 
+  geom_vline(xintercept = 0.5, linetype = 2) +
+  labs(x = expression(sigma), colour = expression(alpha), title = "u = 0.5",
+       y = expression(paste("Prob(", sigma, "|u)")))
+```
+
+## `inlatools` package
+
+https://inlatools.netlify.com
+
+```{r install-inlatools, eval = FALSE}
+remotes::install_github("inbo/inlatools")
+```
+
+- assessing $\sigma$ random intercept
+- assessing $\sigma$ random walk
+- check dispersion
+- check distribution
+- extract fitted values, observed values, Pearson residuals
+
+## Assessing $\sigma$ random intercept
+
+```{r plot-sim-iid}
+library(inlatools)
+plot(simulate_iid(sigma = 2))
+```
+
+## Assessing $\sigma$ random intercept with `link` and `center`
+
+```{r plot-sim-iid-2}
+plot(simulate_iid(tau = 16), link = "log", center = "bottom")
+```
+
+## Solution 4
+
+```{r solution-4}
+model_pc <- inla(NEggs ~ NLowBranches + TreeHeight + SmallOakAbundance + 
+                  f(Area, model = "iid", 
+                    hyper = list(
+                      theta = list(prior = "pc.prec", param = c(0.1, 0.05)))), 
+                 family = "poisson", data = butterfly)
+model_pc$marginals.hyperpar$`Precision for Area` %>%
+  inla.tmarginal(fun = to_sigma) %>%
+  inla.zmarginal()
+```
+
+## Check dispersion
+
+```{r disp-check-error, error = TRUE}
+plot(dispersion_check(model_pc))
+model_pc <- inla(NEggs ~ NLowBranches + TreeHeight + SmallOakAbundance + 
+                  f(Area, model = "iid", 
+                    hyper = list(
+                      theta = list(prior = "pc.prec", param = c(0.1, 0.05)))), 
+                 family = "poisson", data = butterfly,
+                 control.predictor = list(compute = TRUE))
+```
+
+## Clear overdispersion
+
+```{r disp-check-poisson}
+plot(dispersion_check(model_pc))
+```
+
+## Excess of zeros
+
+```{r distr-check}
+plot(fast_distribution_check(model_pc))
+```
+
+## Linear combinations including random intercept
+
+Create a matrix for each random effect
+
+- 1 row per linear combination
+- 1 column per random effect level
+
+```{r model-lc-random}
+Area <- matrix(0, nrow = 3, ncol = 22)
+Area[1, 5] <- 1
+Area[2, c(3, 4)] <- c(1, -1)
+Area[3, ] <- 1 / 22
+lc1 <- inla.make.lincombs(NLowBranches = c(2, 0, 1), Area = Area)
+names(lc1) <- c("Area 5", "Area 3 - Area 4", "average area")
+lc2 <- inla.make.lincombs(NLowBranches = 1)
+names(lc2) <- "fixed only"
+lc <- c(lc1, lc2)
+str(lc, 1)
+```
+
+---
+
+```{r model-lc-random-fit}
+model_lc <- inla(NEggs ~ NLowBranches + TreeHeight + SmallOakAbundance + 
+                  f(Area, model = "iid", 
+                    hyper = list(
+                      theta = list(prior = "pc.prec", param = c(0.1, 0.05)))), 
+                 family = "poisson", data = butterfly, lincomb = lc)
+model_lc$summary.lincomb.derived # estimate are always on the link scale!
+```
+
+## Back transform to natural scale
+
+```{r back-transform}
+exp(model_lc$summary.lincomb.derived["average area", 4:6])
+inla.tmarginal(exp, model_lc$marginals.lincomb.derived$`average area`) %>%
+  inla.zmarginal()
+```
+
+
+# First order random walk model ('rw1')
+
+## Definition
+
+$$\Delta x_i = x_i - x_{i-1} \sim \mathcal{N}(0, \sigma^2)$$
+
+$$x_i \sim \mathcal{N}(x_{i-1}, \sigma^2)$$
+
+
+```{r eval = FALSE}
+inla.doc("rw1")
+```
+
+- Useful in case of non-linear patterns in discrete variables (year, day, ...)
+- Works with discretised continuous variables (e.g. after rounding)
+
+## Divergent series
+
+```{r rw1-divergence}
+rw1 <- simulate_rw(sigma = 0.1)
+plot(select_divergence(rw1), link = "log")
+```
+
+## Series with frequency change in direction
+
+```{r rw1-jojo}
+plot(select_change(rw1), link = "log")
+```
+
+## Series with central maximum
+
+```{r rw1-poly-2}
+plot(select_poly(rw1, coefs = c(0, -1)), link = "log")
+```
+
+## Challenge 5
+
+1. pick a relevant variable for an 'rw1' model
+1. ponder on a relevant $\sigma$ for that model
+1. fit model with 'rw1' component and `pc.prec` prior
+
+## Default data exploration `NLowBranches`
+
+```{r eda-nlowbranches, warning = FALSE, message = FALSE}
+ggplot(butterfly, aes(x = NLowBranches, y = NEggs)) +
+  geom_smooth() + geom_point()
+```
+
+## Better data exploration `NLowBranches`
+
+```{r eda-nlowbranches2}
+ggplot(butterfly, aes(x = NLowBranches, y = NEggs)) +
+  geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs", k = 4), 
+              method.args = list(family = poisson)) + geom_point(alpha = 0.1)
+```
+
+## Relevant $\sigma$ for prior `NLowBranches`
+
+```{r rw1-sigma}
+simulate_rw(sigma = 0.25, start = 0, length = 4) %>%
+  select_poly(coef = c(1, 1)) %>%
+  plot(link = "log", center = "bottom")
+```
+
+## Solution 5
+
+```{r solution-5}
+model_rw1 <- inla(NEggs ~ TreeHeight + SmallOakAbundance + 
+                   f(NLowBranches, model = "rw1",
+                     hyper = list(
+                       theta = list(prior = "pc.prec", param = c(0.25, 0.05)))) +
+                   f(Area, model = "iid", 
+                     hyper = list(
+                       theta = list(prior = "pc.prec", param = c(0.1, 0.05)))), 
+                 family = "poisson", data = butterfly,
+                 control.predictor = list(compute = TRUE))
+```
+
+## Non-linear pattern `NLowBranches`
+
+```{r solution-5-rw1, echo = FALSE}
+model_rw1$marginals.hyperpar$`Precision for NLowBranches` %>%
+  inla.emarginal(fun = to_sigma) -> est_sigma
+model_rw1$summary.random$NLowBranches %>%
+  select(ID, mean, lcl = 4, ucl = 6) %>%
+  mutate_at(c("mean", "lcl", "ucl"), exp) %>%
+  ggplot(aes(x = ID, y = mean, ymin = lcl, ymax = ucl)) + 
+  geom_ribbon(alpha = 0.2) + geom_line() +
+  labs(title = bquote(sigma ~ "=" ~ .(round(est_sigma, 3))), 
+       x = "NLowBranches", y = "relative effect")
+```

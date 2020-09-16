@@ -1,0 +1,75 @@
+---
+title: "Using `%>%` pipes in R"
+description: "Using the %>% pipe functionality in R scripts"
+author: "Yasmine Verzelen & Lien Reyserhove"
+date: 2018-06-14
+categories: ["r"]
+tags: ["tidyverse", "r"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+# How to use piping in R
+
+Normally, you would do this:
+```{r}
+head(mtcars)
+```
+
+However, with piping, this would look different:
+```{r}
+mtcars %>% head()
+```
+
+### You may wonder, what's the point?
+
+If you need to apply multiple functions on one dataframe, piping saves you a lot of typing, and makes for tidy R code. An example:
+```{r}
+mtcars %>% 
+  mutate(dec = mpg/10) %>%
+  select(mpg, dec, am) %>%
+  filter(am == "1")
+```
+
+What did we do:  
+ 1. We created a new column 'dec' using `mutate()`. This column 'dec' consists of the values of column mpg divided by 10.  
+ 2. We selected the columns 'mpg', 'dec' and 'am' using `select()`.  
+ 3. We filtered for the value '1' in the column 'am' using `filter()`.  
+ 
+#### And all of this in **just one step**!
+
+![](images/chiphooray.png){width=250px}
+
+## Now what?
+
+We have created a new column, but this column is not part of our dataframe yet!  
+We could do this:
+```{r}
+mtcars <- mtcars %>% 
+  mutate(dec = mpg/10)
+```
+
+**OR**... we could do this!
+```{r}
+library(magrittr)
+
+mtcars %<>% 
+  mutate(dec = mpg/10)
+```
+
+### Soooo easy!  
+
+This has been our first introduction to piping. There is however much more to learn!  
+That is why you should definitely go to [this link](https://www.datacamp.com/community/tutorials/pipe-r-tutorial).
+
+![](images/hooraypenguin.jpg){width=250px}
