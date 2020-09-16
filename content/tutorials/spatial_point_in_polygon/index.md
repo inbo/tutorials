@@ -267,14 +267,17 @@ be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"),
     ## with 580 features
     ## It has 3 fields
 
-Note the warning: it is because the spatialite database from the EEA
+Note the warning: it is because some PROJ.4 information, i.e. the string
+to represent the coordinate reference system, is not supported anymore
+in the current geospatial GDAL and PROJ libraries (the background
+workhorses for spatial R packages). The spatialite database from the EEA
 website (with the 10 km x 10 km grid) still uses the older PROJ.4 string
-to represent the coordinate reference system. Because the `rgdal`
-package is still backwards compatible, we should not worry about this:
-`rgdal` does the translation for the newer GDAL 3 and PROJ \>= 6, which
-are not compatible with PROJ.4 strings. Do know that, instead of
-*PROJ.4* strings, the *WKT2* string is now used in R to better represent
-coordinate reference systems. Just compare these:
+. Because the `rgdal` package is still backwards compatible, we should
+not (yet) worry about this: `rgdal` does the translation for the newer
+GDAL 3 and PROJ \>= 6. Do know that, instead of *PROJ.4* strings, the
+*WKT2* string is now used in R to better represent coordinate reference
+systems (so it would best be incorporated in the EEA data source). Just
+compare these:
 
 ``` r
 # PROJ.4 string = old; used by PROJ 4
