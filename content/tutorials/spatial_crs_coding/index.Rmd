@@ -164,11 +164,14 @@ Let's check whether **[`sf`](https://r-spatial.github.io/sf/)** uses (for Window
 sf::sf_extSoftVersion()
 ```
 
+Good to go!
 
 #### Defining a CRS with `sf`
 
+You can simply provide the EPSG code using `st_crs()`:
+
 ```{r}
-crs_wgs84 <- st_crs(4326) # WGS84
+crs_wgs84 <- st_crs(4326) # WGS84 has EPSG code 4326
 ```
 
 It is a so-called `crs` object:
@@ -178,6 +181,8 @@ class(crs_wgs84)
 ```
 
 #### Printing a WKT2 string with `sf`
+
+You can directly acces the `wkt` element of the `crs` object:
 
 ```{r}
 cat(crs_wgs84$wkt)
@@ -208,6 +213,8 @@ cities2 <- st_as_sf(cities, coords = c("X", "Y"))
 cities2
 ```
 
+Note the missing CRS!
+
 Let's add the CRS by using the EPSG code:
 
 ```{r}
@@ -217,6 +224,8 @@ st_crs(cities2) <- 4326
 Done!
 
 #### Get the CRS of a Spatial* object in `sf`
+
+Really, all you need is `st_crs()`, once more!
 
 ```{r}
 st_crs(cities2)
@@ -242,7 +251,7 @@ Okido.
 #### Defining a CRS with `sp`
 
 ```{r}
-crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS84
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS84 has EPSG code 4326
 ```
 
 It is a so-called `CRS` object:
@@ -271,6 +280,7 @@ cities2 <- cities
 coordinates(cities2) <-  ~ X + Y
 ```
 
+Now, we can add a CRS:
 
 ```{r}
 proj4string(cities2) <- CRS(SRS_string = "EPSG:4326")
@@ -282,11 +292,13 @@ Maybe we'll get another function in the future that cuts the link with the 'proj
 
 #### Get the CRS of a Spatial* object in `sp`
 
+Again, use `wkt()`: it works on both `CRS` and `Spatial*` objects!
+
 ```{r}
 cat(wkt(cities2))
 ```
 
-That works!
+Et voilà!
 
 ### `raster` package
 
