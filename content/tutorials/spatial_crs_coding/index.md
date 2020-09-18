@@ -368,7 +368,8 @@ cities2
 
 Note the missing CRS\!
 
-Let’s add the CRS by using the EPSG code:
+Let’s add the CRS by using the EPSG code (we could also assign
+`crs_wgs84` instead):
 
 ``` r
 st_crs(cities2) <- 4326
@@ -500,7 +501,7 @@ coordinates(cities2) <-  ~ X + Y
 Now, we can add a CRS:
 
 ``` r
-proj4string(cities2) <- CRS(SRS_string = "EPSG:4326")
+proj4string(cities2) <- crs_wgs84
 ```
 
 Note the name of the `proj4string<-` replacement function in `sp`: it
