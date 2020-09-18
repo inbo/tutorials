@@ -4,7 +4,7 @@ description: "Current good practice in specifying a CRS in R"
 author: "Floris Vanderhaeghe"
 date: 2020-09-18
 categories: ["r", "gis"]
-tags: ["gis", "r"]
+tags: ["gis", "r", "maps"]
 link-citations: TRUE
 bibliography: bibliography.json
 output: 
