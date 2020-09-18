@@ -32,7 +32,7 @@ options(stringsAsFactors = FALSE)
 ### What?
 
 A coordinate reference system (**CRS**) is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth.
-Two types of coordinate reference system exist: geodetic and projected CRSes.
+Two types of coordinate reference system exist: _geodetic_ and _projected_ CRSes.
 The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.
 Coordinate operations convert or transform coordinates from one CRS to another, and you often need them because the CRS may differ between dataset 1, dataset 2 or a certain mapping technology.
 
@@ -111,22 +111,22 @@ The R packages further down, and many that depend on them, now provide a means o
 
   **Don't use proj4strings, such as `+init=epsg:????`, `+proj=longlat`, ...**
 
-In the below code chunks, this is demonstrated for several core geospatial R packages.
+In the below code chunks, this is demonstrated for several important geospatial R packages: **`sf`**, **`sp`** and **`raster`**.
 Other geospatial R packages should normally inherit their approach.
 
 First, some practical notes:
 
 - In order to remain compatible with GDAL 2 and PROJ 4, some packages will still internally derive a proj4string as well (notably by calling the core package `rgdal`).
 This happens even while you did not enter a proj4string.
-Not that the derived proj4string will not be used further if you're on GDAL 3 / PROJ ≥ 6, and a WKT2 string will be generated as well for actual use.
-In the presence of GDAL 3 / PROJ ≥ 6, you will (at the time of writing) get a **warning** about dropped keys in the proj4strings [^warnings], but in the meantime, for most geospatial R packages you can safely ignore this warning.
-- Windows users: to make sure that the `rgdal` and `sf` packages use GDAL 3 / PROJ ≥ 6 -- which is now highly advised: please **update** all your packages in a pure R console (not RStudio) that uses your latest installed R version, by running `update.packages(ask = FALSE, checkBuilt = TRUE)`.
+Note that the derived proj4string will not be used further if you're on GDAL 3 / PROJ ≥ 6, and a WKT2 string will be generated as well for actual use.
+In the presence of GDAL 3 / PROJ ≥ 6, you will (at the time of writing) get a **warning** about dropped keys in the generated proj4strings [^warnings], but in the meantime, for most geospatial R packages you can safely ignore this warning.
+- **Windows** users: to make sure that the `rgdal` and `sf` packages use GDAL 3 / PROJ ≥ 6 -- which is now highly advised: please **update** all your packages in a pure R console (not RStudio) that uses your latest installed R version, by running `update.packages(ask = FALSE, checkBuilt = TRUE)`.
 
 
-[^warnings]: The packages give a warning especially to make developers of _other_, dependent packages _aware_ that they should also make sure their functions do not _require_ proj4strings or use harcoded proj4strings.
+[^warnings]: The packages give a warning especially to make developers of _other_, dependent packages _aware_ that they should also make sure their functions do not _require_ proj4strings or use hardcoded proj4strings.
 Instead, they should defer the handling of CRS representation to the basic geospatial R packages (i.e. dependent on the version of PROJ/GDAL).
 So, the appearance of these warnings marks a period of transition in order to let other packages become GDAL 3 and PROJ ≥ 6 compliant.
-And the good news is that most popular geospatial packages have become GDAL 3 and PROJ ≥ 6 compliant!
+And the good news is that most popular geospatial packages _have_ become GDAL 3 and PROJ ≥ 6 compliant!
 
 As a demo data set for vector data, we use a dataset of city centers (points) included in the `rgdal` package.
 
@@ -142,14 +142,14 @@ This is how it looks like:
 cities
 ```
 
-We now convert it to a plain dataframe with the XY coordinates as columns, for the sake of the exercise.
+We now convert it to a plain dataframe (non-spatial) with the XY coordinates as columns, for the sake of the exercise.
 We want to add the CRS ourselves!
 
 ```{r paged.print=FALSE}
 cities <- 
   cbind(st_drop_geometry(cities), 
         st_coordinates(cities))
-head(cities, 10) # top 10 features
+head(cities, 10) # top 10 rows
 ```
 
 
@@ -180,7 +180,7 @@ It is a so-called `crs` object:
 class(crs_wgs84)
 ```
 
-#### Printing a WKT2 string with `sf`
+#### Printing the WKT2 string with `sf`
 
 You can directly acces the `wkt` element of the `crs` object:
 
@@ -190,7 +190,7 @@ cat(crs_wgs84$wkt)
 
 There are a few extras to note:
 
-- printing the `crs` object provides both the EPSG code (more generally: the user's CRS speficiation) and the WKT2 string:
+- printing the `crs` object shows us both the EPSG code (more generally: the user's CRS specification) and the WKT2 string:
 
 ```{r}
 crs_wgs84
@@ -204,7 +204,7 @@ crs_wgs84$epsg
 
 You _can_ (but should you?) export a (clipped) proj4string as well, with `crs_wgs84$proj4string`.
 
-#### Set the CRS of a Spatial* object in `sf`
+#### Set the CRS of a `sf` object
 
 First we prepare a `sf` object from `cities` but still without a CRS:
 
@@ -223,7 +223,7 @@ st_crs(cities2) <- 4326
 
 Done!
 
-#### Get the CRS of a Spatial* object in `sf`
+#### Get the CRS of a `sf` object
 
 Really, all you need is `st_crs()`, once more!
 
@@ -240,7 +240,7 @@ As this returns the `crs` object, you can also use `st_crs(cities2)$wkt` to spec
 Note that the actively developed (and matured) `sf` package is now much recommended over the `sp` package (a view also shared by `sf` and `sp` developers).
 The **[`sp`](https://cran.r-project.org/web/packages/sp/index.html)** package, which has very long been _the_ go-to before `sf` came, is maintained in order to support existing code, but it is not further developed as much.
 
-The `sp` package heavily relies on the `rgdal`R  package (to communicate with GDAL and PROJ), so let's check whether `rgdal` uses (for Windows: comes with) the minimal PROJ/GDAL versions that we want.
+The `sp` package relies on the `rgdal` R  package to communicate with GDAL and PROJ, so let's check whether `rgdal` uses (for Windows: comes with) the minimal PROJ/GDAL versions that we want.
 
 ```{r}
 rgdal::rgdal_extSoftVersion()
@@ -260,18 +260,18 @@ It is a so-called `CRS` object:
 class(crs_wgs84)
 ```
 
-#### Printing a WKT2 string with `sp`
+#### Printing the WKT2 string with `sp`
 
 ```{r}
 wkt_wgs84 <- wkt(crs_wgs84)
 cat(wkt_wgs84)
 ```
 
-Also note that, when just printing a `CRS` object of `sp`, you would still just get a proj4string printed (with parts dropped if on recent GDAL/PROJ).
+Also note that, when _printing_ a `CRS` object of `sp` (e.g. by running `crs_wgs84`), you still just get a proj4string (with parts dropped if on recent GDAL/PROJ)!
 We won't print it here!
-However do know that the WKT2 string is also _contained_ in the `CRS` object, just call `wkt()` to see it.
+However do know that the WKT2 string is currently also _contained_ in the `CRS` object, just call `wkt()` to see it.
 
-#### Set the CRS of a Spatial* object in `sp`
+#### Set the CRS of a `Spatial*` object in `sp`
 
 First we prepare a `SpatialPointsDataFrame` from `cities` but still without a CRS:
 
@@ -290,7 +290,7 @@ Note the name of the `proj4string<-` replacement function in `sp`: it still remi
 Maybe we'll get another function in the future that cuts the link with the 'proj4string' name.
 
 
-#### Get the CRS of a Spatial* object in `sp`
+#### Get the CRS of a `Spatial*` object in `sp`
 
 Again, use `wkt()`: it works on both `CRS` and `Spatial*` objects!
 
@@ -325,12 +325,12 @@ This raster is intended for use in the Belgian Lambert 72 CRS (EPSG 31370).
 #### Defining and printing a CRS with `raster`
 
 This is not applicable.
-Just use the facilities of the `sp` package if you want to make a separate CRS object for usage in a Raster* object (see below).
+Just use the facilities of the `sp` package if you want to make a separate CRS object for usage in a `Raster*` object (see below).
 
 
-#### Set the CRS of a Raster* object in `raster`
+#### Set the CRS of a `Raster*` object in `raster`
 
-We prepare a few copies from the data:
+We prepare a few copies of the data:
 
 ```{r}
 within_belgium1 <- within_belgium
@@ -340,7 +340,7 @@ within_belgium4 <- within_belgium
 ```
 
 Setting the CRS is done with the `crs<-` replacement function.
-It can take a multitude of values; these are all equivalent:
+It can take a multitude of formats; these are all equivalent:
 
 ```{r}
 crs(within_belgium1) <- 31370
@@ -349,10 +349,10 @@ crs(within_belgium3) <- st_crs(31370)$wkt # a WKT string
 crs(within_belgium4) <- CRS(SRS_string = "EPSG:31370") # an sp CRS object
 ```
 
-Note that we could also have provided the `crs` argument in `raster()`, when creating the RasterLayer.
-It can take one of the above values.
+Note that we could also have provided the `crs` argument in `raster()`, when creating the `RasterLayer` object.
+It can take any of the above formats.
 
-#### Get the CRS of a Raster* object in `raster`
+#### Get the CRS of a `Raster*` object in `raster`
 
 It goes the same as in `sp`:
 
