@@ -5,15 +5,14 @@ author: "Floris Vanderhaeghe"
 date: 2020-09-18
 categories: ["r", "gis"]
 tags: ["gis", "r", "maps"]
+csl: '/home/floris/lib/R/library/INBOmd/research-institute-for-nature-and-forest.csl'
 link-citations: TRUE
 bibliography: bibliography.json
 output: 
     md_document:
         preserve_yaml: true
         variant: gfm
-        pandoc_args: !expr c("--csl", system.file("research-institute-for-nature-and-forest.csl", package = "INBOmd"))
-    html_document: 
-        pandoc_args: !expr c("--csl", system.file("research-institute-for-nature-and-forest.csl", package = "INBOmd"))
+    html_document: default
 ---
 
 ## Coordinate reference systems: minimal background
