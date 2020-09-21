@@ -20,31 +20,38 @@ output:
 
 ### What?
 
-A coordinate reference system (**CRS**) is what you need if you want to
-interpret numeric coordinates as actual point locations with reference
-to the Earth. Two types of coordinate reference system exist: *geodetic*
-and *projected* CRSes. The former serve only to locate coordinates
-relative to a 3D model of the Earth surface, while the latter add a
-projection to generate coordinates on a 2D map. Coordinate operations
-convert or transform coordinates from one CRS to another, and you often
-need them because the CRS may differ between dataset 1, dataset 2 or a
-certain mapping technology.
+A coordinate reference system (**CRS**) – also called spatial reference
+system (SRS) – is what you need if you want to interpret numeric
+coordinates as actual point locations with reference to the Earth. Two
+types of coordinate reference system exist: *geodetic* and *projected*
+CRSes. The former serve only to locate coordinates relative to a 3D
+model of the Earth surface, while the latter add a projection to
+generate coordinates on a 2D map. Coordinate operations convert or
+transform coordinates from one CRS to another, and you often need them
+because the CRS may differ between dataset 1, dataset 2 or a certain
+mapping technology.
 
 As you can expect, a CRS is defined by several elements. Essentially, a
-CRS exists of a ‘coordinate system’ and a ‘datum’ (s.l.), but we will
-not go deeper into those here as we will focus on implementation.
-However it is highly recommended to read further about this, in order to
-better understand what a CRS means. Good contemporary resources in an R
-context (with further resources referred therein) are:
+CRS exists of:
 
-  - the section on ‘*Coordinate reference systems*’ by Pebesma & Bivand
-    ([2020](#ref-pebesma_spatial_2020))
-  - the section ‘*Coordinate reference systems: background*’ in Bivand
-    ([2019](#ref-bivand_ecs530_2019)) (there is also an accompanying
-    [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s)
-    of that lesson).
+  - a coordinate system,
+  - a ‘datum’ (s.l.): it localizes the geodetic coordinate system
+    relative to the Earth and needs a geometric definition of the
+    ellipsoid,
+  - *only for projected CRSes:* coordinate conversion parameters that
+    determine the conversion from the geodetic to the projected
+    coordinates.
 
-There are a few authorative lists of CRSes around the globe, the most
+We will not go deeper into these components, because we want to focus on
+implementation. However it is highly recommended to read further about
+this, in order to better understand what a CRS means. A good
+contemporary resource in an R context is the section ‘*Coordinate
+reference systems: background*’ in Bivand
+([2019](#ref-bivand_ecs530_2019)) (there is also an accompanying
+[video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s)
+of that lesson).
+
+There are a few coordinated lists of CRSes around the globe, the most
 famous one being the [EPSG dataset](https://www.epsg.org), where each
 CRS has a unique *EPSG code*. You can consult these CRSes interactively
 at <http://www.epsg-registry.org> (official source) and through
@@ -59,8 +66,8 @@ It is good to know this, but you *can* skip this section if you like.
 
 The reason for writing this tutorial are the recent (and ongoing)
 changes in several important geospatial libraries, especially **GDAL**
-and **PROJ**. They are used by most geospatial tools, including the
-basic R packages `rgdal`, `sp`, `sf` and `raster`.
+and **PROJ**. They are used by most geospatial tools, including the key
+geospatial R packages `rgdal`, `sp`, `sf` and `raster`.
 
 Since long, coordinate reference systems in R (and many other tools)
 have been represented by so called ‘PROJ.4 strings’ (or ‘proj4strings’),
@@ -72,10 +79,10 @@ proj4string for the Belgian Lambert 72 CRS (EPSG:31370) “*was*”:
 
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
-Several reasons, such as higher accuracy requirements in transformations
-and the availability of better standards than proj4strings, have led to
-recent changes in PROJ and GDAL, which also meant reduced compatibility
-with proj4strings.
+Several reasons, such as WGS84 getting outdated, higher accuracy
+requirements in transformations and the availability of better standards
+than proj4strings, have led to recent changes in PROJ and GDAL. This
+also implied reduced compatibility with proj4strings.
 
 **GDAL 3** and **PROJ ≥ 6**, which many R packages now support and
 promote, will just ignore and drop some parts of the proj4strings (such
@@ -85,12 +92,20 @@ will still be supported for some time,\[1\] for their continued use in
 older environments.
 
 If you want to read more about the changes, here are some recommended
-URLs:
+resources:
 
   - <https://www.r-spatial.org> (at the time of writing, especially
-    [this](https://www.r-spatial.org/r/2020/03/17/wkt.html) post)
-  - <http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html>
+    Pebesma & Bivand ([2020](#ref-pebesma_r_2020)))
+  - Bivand
+    ([2020](#ref-bivand_migration_2020)[a](#ref-bivand_migration_2020))
+    (`rgdal` vignette)
+  - Bivand
+    ([2020](#ref-bivand_upstream_2020)[b](#ref-bivand_upstream_2020))
+    (video recording; see slides 45-66 in Bivand
+    ([2020](#ref-bivand_how_2020_1)[c](#ref-bivand_how_2020_1)))
   - <https://gdalbarn.com>
+  - Nowosad & Lovelace ([2020](#ref-nowosad_recent_2020)) (webinar and
+    slides, also including other developments in spatial R)
 
 ### How *is* a CRS represented in R?
 
@@ -141,14 +156,13 @@ hence compliant with newer GDAL/PROJ.
   - **DO:**
     
     **The *general principle* that we recommend is: specify the CRS by
-    using the *EPSG code*, but do so *without* using a proj4string (even
-    though that *might* still work, continued support for it is not to
-    be expected).**
+    using the *EPSG code*, but do so *without* using a proj4string.**
 
   - **DON’T:**
     
     **Don’t use proj4strings, such as `+init=epsg:????`,
-    `+proj=longlat`, …**
+    `+proj=longlat`, … (even though that *might* still work, continued
+    support for it is not to be expected).**
 
 In the below code chunks, this is demonstrated for several important
 geospatial R packages: **`sf`**, **`sp`** and **`raster`**. Other
@@ -336,12 +350,12 @@ crs_wgs84$epsg
 
     [1] 4326
 
-You *can* (but should you?) export a (clipped) proj4string as well, with
-`crs_wgs84$proj4string`.
+You *can* (but should you?) export a (stripped) proj4string as well,
+with `crs_wgs84$proj4string`.
 
-#### Set the CRS of a `sf` object
+#### Set the CRS of an `sf` object
 
-First we prepare a `sf` object from `cities` but still without a CRS:
+First we prepare an `sf` object from `cities` but still without a CRS:
 
 ``` r
 cities2 <- st_as_sf(cities, coords = c("X", "Y"))
@@ -377,7 +391,7 @@ st_crs(cities2) <- 4326
 
 Done\!
 
-#### Get the CRS of a `sf` object
+#### Get the CRS of an `sf` object
 
 Really, all you need is `st_crs()`, once more\!
 
@@ -414,13 +428,13 @@ to specifically return the WKT2 string\!
 
 ### `sp` package
 
-Note that the actively developed (and matured) `sf` package is now much
+Note that the actively developed (and matured) `sf` package is now
 recommended over the `sp` package (a view also shared by `sf` and `sp`
 developers). The
 **[`sp`](https://cran.r-project.org/web/packages/sp/index.html)**
-package, which has very long been *the* go-to before `sf` came, is
-maintained in order to support existing code, but it is not further
-developed as much.
+package, which has very long been *the* go-to package before `sf`
+matured, is maintained in order to support existing code, but it is not
+further developed as much.
 
 The `sp` package relies on the `rgdal` R package to communicate with
 GDAL and PROJ, so let’s check whether `rgdal` uses (for Windows: comes
@@ -547,7 +561,10 @@ At the time of writing, you still needed the development version of
 `raster` for the below code to run. You can install the development
 version with: `remotes::install_github("rspatial/raster")`. If below
 code does not run with the CRAN version (usually obtained with
-`install.packages()`), use the development version.
+`install.packages()`), use the development version. Further, be aware
+that a [`terra`](https://rspatial.org/terra/pkg/) package is in
+development as a successor to `raster`. It is aimed at faster processing
+and it is *only* compatible with GDAL3/PROJ≥6.
 
 As you will see, **[`raster`](https://rspatial.org/raster/pkg/)** more
 or less aligns with `sp`, although it has a few extras. For example:
@@ -685,10 +702,45 @@ December 2019, 09:15-11.00, aud. C \[WWW document\].
 
 </div>
 
-<div id="ref-pebesma_spatial_2020">
+<div id="ref-bivand_migration_2020">
 
-Pebesma E. & Bivand R. (2020). Spatial Data Science.
-<https://r-spatial.org/book>.
+Bivand R. (2020a). Migration to PROJ6/GDAL3 \[WWW document\].
+<http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html> (accessed
+September 21, 2020).
+
+</div>
+
+<div id="ref-bivand_upstream_2020">
+
+Bivand R. (2020b). Upstream software dependencies of the R-spatial
+ecosystem (video recording). In: How R Helped Provide Tools for Spatial
+Data Analysis @ CelebRation 2020 \[WWW document\].
+<https://youtu.be/D4-roPsMz48?t=2166> (accessed September 21, 2020).
+
+</div>
+
+<div id="ref-bivand_how_2020_1">
+
+Bivand R. (2020c). How R Helped Provide Tools for Spatial Data Analysis.
+<https://github.com/rsbivand/celebRation20_files/raw/master/bivand_200229.pdf>.
+
+</div>
+
+<div id="ref-nowosad_recent_2020">
+
+Nowosad J. & Lovelace R. (2020). Recent changes in R spatial and how to
+be ready for them \[WWW document\].
+<https://geocompr.github.io/post/2020/whyr_webinar004/> (accessed
+September 21, 2020).
+
+</div>
+
+<div id="ref-pebesma_r_2020">
+
+Pebesma E. & Bivand R. (2020). R spatial follows GDAL and PROJ
+development \[WWW document\].
+<https://www.r-spatial.org/r/2020/03/17/wkt.html> (accessed September
+21, 2020).
 
 </div>
 
