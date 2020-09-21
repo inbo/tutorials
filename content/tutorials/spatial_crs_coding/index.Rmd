@@ -65,7 +65,7 @@ Let's just have **one last nostalgic peek** (and then, no more!!): the proj4stri
 
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
-Several reasons, such as higher accuracy requirements in transformations and the availability of better standards than proj4strings, have led to recent changes in PROJ and GDAL, which also meant reduced compatibility with proj4strings.
+Several reasons, such as WGS84 getting outdated, higher accuracy requirements in transformations and the availability of better standards than proj4strings, have led to recent changes in PROJ and GDAL, which also meant reduced compatibility with proj4strings.
 
 **GDAL 3** and **PROJ ≥ 6**, which many R packages now support and promote, will just ignore and drop some parts of the proj4strings (such as `+datum` and `+towgs84` keys) if an R package would still provide it to them.
 In R, the older GDAL 2.x and PROJ 4 (and hence, proj4strings) will still be supported for some time [^support], for their continued use in older environments.
@@ -76,6 +76,7 @@ If you want to read more about the changes, here are some recommended resources:
 
 - <https://www.r-spatial.org> (at the time of writing, especially @pebesma_r_2020)
 - @bivand_migration_2020 (`rgdal` vignette)
+- @bivand_upstream_2020 (video recording; see slides 45-66 in @bivand_rsbivandcelebration20_files_2020)
 - <https://gdalbarn.com>
 - @nowosad_recent_2020 (webinar and slides, also including other developments in spatial R)
 
