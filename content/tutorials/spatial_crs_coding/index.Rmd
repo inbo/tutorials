@@ -72,11 +72,12 @@ In R, the older GDAL 2.x and PROJ 4 (and hence, proj4strings) will still be supp
 
 [^support]: The core geospatial R packages are aware of the GDAL/PROJ versions, in order to properly communicate with these.
 
-If you want to read more about the changes, here are some recommended URLs:
+If you want to read more about the changes, here are some recommended resources:
 
-- <https://www.r-spatial.org> (at the time of writing, especially [this](https://www.r-spatial.org/r/2020/03/17/wkt.html) post)
-- <http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html>
+- <https://www.r-spatial.org> (at the time of writing, especially @pebesma_r_2020)
+- @bivand_migration_2020 (`rgdal` vignette)
 - <https://gdalbarn.com>
+- @nowosad_recent_2020 (webinar and slides, also including other developments in spatial R)
 
 ### How _is_ a CRS represented in R?
 
