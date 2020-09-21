@@ -45,10 +45,7 @@ Essentially, a CRS exists of:
 
 We will not go deeper into these components, because we want to focus on implementation.
 However it is highly recommended to read further about this, in order to better understand what a CRS means.
-Good contemporary resources in an R context (with further resources referred therein) are:
-
-- the section on '_Coordinate reference systems_' by @pebesma_spatial_2020
-- the section '_Coordinate reference systems: background_' in @bivand_ecs530_2019 (there is also an accompanying [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s) of that lesson).
+A good contemporary resource in an R context is the section '_Coordinate reference systems: background_' in @bivand_ecs530_2019 (there is also an accompanying [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s) of that lesson).
 
 There are a few authorative lists of CRSes around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
 You can consult these CRSes interactively at <http://www.epsg-registry.org> (official source) and through third-party websites such as <http://epsg.io>.
