@@ -40,14 +40,14 @@ As you can expect, a CRS is defined by several elements.
 Essentially, a CRS exists of:
 
 - a coordinate system,
-- a 'datum' (s.l.): it localizes the geodetic coordinate system relative to the Earth and needs a 3D definition of the ellipsoid,
-- in case of projected CRSes: coordinate conversion parameters that determine the conversion from the geodetic to the projected coordinates.
+- a 'datum' (s.l.): it localizes the geodetic coordinate system relative to the Earth and needs a geometric definition of the ellipsoid,
+- _only for projected CRSes:_ coordinate conversion parameters that determine the conversion from the geodetic to the projected coordinates.
 
 We will not go deeper into these components, because we want to focus on implementation.
 However it is highly recommended to read further about this, in order to better understand what a CRS means.
 A good contemporary resource in an R context is the section '_Coordinate reference systems: background_' in @bivand_ecs530_2019 (there is also an accompanying [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s) of that lesson).
 
-There are a few authorative lists of CRSes around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
+There are a few coordinated lists of CRSes around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
 You can consult these CRSes interactively at <http://www.epsg-registry.org> (official source) and through third-party websites such as <http://epsg.io>.
 For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPSG code `4326`, and 'Belge 1972 / Belgian Lambert 72' is a projected CRS with EPSG code `31370`.
 
@@ -56,7 +56,7 @@ For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPS
 It is good to know this, but you _can_ skip this section if you like.
 
 The reason for writing this tutorial are the recent (and ongoing) changes in several important geospatial libraries, especially **GDAL** and **PROJ**.
-They are used by most geospatial tools, including the basic R packages `rgdal`, `sp`, `sf` and `raster`.
+They are used by most geospatial tools, including the key geospatial R packages `rgdal`, `sp`, `sf` and `raster`.
 
 Since long, coordinate reference systems in R (and many other tools) have been represented by so called 'PROJ.4 strings' (or 'proj4strings'), referring to the long-standing version 4 of the PROJ library.
 But, we will not use them here - it is counteradvised to use them any longer!
@@ -65,7 +65,8 @@ Let's just have **one last nostalgic peek** (and then, no more!!): the proj4stri
 
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
-Several reasons, such as WGS84 getting outdated, higher accuracy requirements in transformations and the availability of better standards than proj4strings, have led to recent changes in PROJ and GDAL, which also meant reduced compatibility with proj4strings.
+Several reasons, such as WGS84 getting outdated, higher accuracy requirements in transformations and the availability of better standards than proj4strings, have led to recent changes in PROJ and GDAL.
+This also implied reduced compatibility with proj4strings.
 
 **GDAL 3** and **PROJ ≥ 6**, which many R packages now support and promote, will just ignore and drop some parts of the proj4strings (such as `+datum` and `+towgs84` keys) if an R package would still provide it to them.
 In R, the older GDAL 2.x and PROJ 4 (and hence, proj4strings) will still be supported for some time [^support], for their continued use in older environments.
@@ -110,11 +111,11 @@ The R packages further down, and many that depend on them, now provide a means o
 
 - **DO:**
 
-  **The _general principle_ that we recommend is: specify the CRS by using the _EPSG code_, but do so _without_ using a proj4string (even though that _might_ still work, continued support for it is not to be expected).**
+  **The _general principle_ that we recommend is: specify the CRS by using the _EPSG code_, but do so _without_ using a proj4string.**
 
 - **DON'T:**
 
-  **Don't use proj4strings, such as `+init=epsg:????`, `+proj=longlat`, ...**
+  **Don't use proj4strings, such as `+init=epsg:????`, `+proj=longlat`, ... (even though that _might_ still work, continued support for it is not to be expected).**
 
 In the below code chunks, this is demonstrated for several important geospatial R packages: **`sf`**, **`sp`** and **`raster`**.
 Other geospatial R packages should normally inherit their approach.
@@ -207,11 +208,11 @@ crs_wgs84
 crs_wgs84$epsg
 ```
 
-You _can_ (but should you?) export a (clipped) proj4string as well, with `crs_wgs84$proj4string`.
+You _can_ (but should you?) export a (stripped) proj4string as well, with `crs_wgs84$proj4string`.
 
-#### Set the CRS of a `sf` object
+#### Set the CRS of an `sf` object
 
-First we prepare a `sf` object from `cities` but still without a CRS:
+First we prepare an `sf` object from `cities` but still without a CRS:
 
 ```{r paged.print=FALSE}
 cities2 <- st_as_sf(cities, coords = c("X", "Y"))
@@ -228,7 +229,7 @@ st_crs(cities2) <- 4326
 
 Done!
 
-#### Get the CRS of a `sf` object
+#### Get the CRS of an `sf` object
 
 Really, all you need is `st_crs()`, once more!
 
@@ -242,8 +243,8 @@ As this returns the `crs` object, you can also use `st_crs(cities2)$wkt` to spec
 
 ### `sp` package
 
-Note that the actively developed (and matured) `sf` package is now much recommended over the `sp` package (a view also shared by `sf` and `sp` developers).
-The **[`sp`](https://cran.r-project.org/web/packages/sp/index.html)** package, which has very long been _the_ go-to before `sf` came, is maintained in order to support existing code, but it is not further developed as much.
+Note that the actively developed (and matured) `sf` package is now recommended over the `sp` package (a view also shared by `sf` and `sp` developers).
+The **[`sp`](https://cran.r-project.org/web/packages/sp/index.html)** package, which has very long been _the_ go-to package before `sf` matured, is maintained in order to support existing code, but it is not further developed as much.
 
 The `sp` package relies on the `rgdal` R  package to communicate with GDAL and PROJ, so let's check whether `rgdal` uses (for Windows: comes with) the minimal PROJ/GDAL versions that we want.
 
