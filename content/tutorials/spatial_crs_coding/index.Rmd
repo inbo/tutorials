@@ -1,0 +1,382 @@
+---
+title: "Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?"
+description: "Current good practice in specifying a CRS in R"
+author: "Floris Vanderhaeghe"
+date: 2020-09-18
+categories: ["r", "gis"]
+tags: ["gis", "r", "maps"]
+csl: '`r system.file("research-institute-for-nature-and-forest.csl", package = "INBOmd")`'
+link-citations: TRUE
+bibliography: bibliography.json
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+    html_document: default
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  comment = ""
+)
+options(stringsAsFactors = FALSE)
+```
+
+
+## Coordinate reference systems: minimal background
+
+### What?
+
+A coordinate reference system (**CRS**) -- also called spatial reference system (SRS) -- is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth.
+Two types of coordinate reference system exist: _geodetic_ and _projected_ CRSes.
+The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.
+Coordinate operations convert or transform coordinates from one CRS to another, and you often need them because the CRS may differ between dataset 1, dataset 2 or a certain mapping technology.
+
+As you can expect, a CRS is defined by several elements.
+Essentially, a CRS exists of:
+
+- a coordinate system,
+- a 'datum' (s.l.): it localizes the geodetic coordinate system relative to the Earth and needs a geometric definition of the ellipsoid,
+- _only for projected CRSes:_ coordinate conversion parameters that determine the conversion from the geodetic to the projected coordinates.
+
+We will not go deeper into these components, because we want to focus on implementation.
+However it is highly recommended to read further about this, in order to better understand what a CRS means.
+A good contemporary resource in an R context is the section '_Coordinate reference systems: background_' in @bivand_ecs530_2019 (there is also an accompanying [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s) of that lesson).
+
+There are a few coordinated lists of CRSes around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
+You can consult these CRSes interactively at <http://www.epsg-registry.org> (official source) and through third-party websites such as <http://epsg.io>.
+For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPSG code `4326`, and 'Belge 1972 / Belgian Lambert 72' is a projected CRS with EPSG code `31370`.
+
+### How _was_ a CRS represented in R? Evolutions in PROJ and GDAL.
+
+It is good to know this, but you _can_ skip this section if you like.
+
+The reason for writing this tutorial are the recent (and ongoing) changes in several important geospatial libraries, especially **GDAL** and **PROJ**.
+They are used by most geospatial tools, including the key geospatial R packages `rgdal`, `sp`, `sf` and `raster`.
+
+Since long, coordinate reference systems in R (and many other tools) have been represented by so called 'PROJ.4 strings' (or 'proj4strings'), referring to the long-standing version 4 of the PROJ library.
+But, we will not use them here - it is counteradvised to use them any longer!
+
+Let's just have **one last nostalgic peek** (and then, no more!!): the proj4string for the Belgian Lambert 72 CRS (EPSG:31370) "_was_":
+
+    +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
+
+Several reasons, such as WGS84 getting outdated, higher accuracy requirements in transformations and the availability of better standards than proj4strings, have led to recent changes in PROJ and GDAL.
+This also implied reduced compatibility with proj4strings.
+
+**GDAL 3** and **PROJ ≥ 6**, which many R packages now support and promote, will just ignore and drop some parts of the proj4strings (such as `+datum` and `+towgs84` keys) if an R package would still provide it to them.
+In R, the older GDAL 2.x and PROJ 4 (and hence, proj4strings) will still be supported for some time [^support], for their continued use in older environments.
+
+[^support]: The core geospatial R packages are aware of the GDAL/PROJ versions, in order to properly communicate with these.
+
+If you want to read more about the changes, here are some recommended resources:
+
+- <https://www.r-spatial.org> (at the time of writing, especially @pebesma_r_2020)
+- @bivand_migration_2020 (`rgdal` vignette)
+- @bivand_upstream_2020 (video recording; see slides 45-66 in @bivand_how_2020_1)
+- <https://gdalbarn.com>
+- @nowosad_recent_2020 (webinar and slides, also including other developments in spatial R)
+
+### How _is_ a CRS represented in R?
+
+**Answer**: It is done by using the **[WKT2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html) string**, a recent and much better standard, maintained by the Open Geospatial Consortium.
+WKT stands for 'Well-known text'.
+'WKT2' is simply the recent version of WKT, approved in 2019, so you can also refer to it as WKT. [^WKT2]
+
+[^WKT2]: In order to emphasize the fact that the improvements in version 2 were instructive to the new versions of GDAL and PROJ, you will often see explicit mention of 'WKT2'.
+
+For example, this is the WKT2 string for WGS84:
+
+```{r echo=FALSE}
+wkt_4326 <- sp::wkt(sp::CRS(SRS_string = "EPSG:4326"))
+cat(wkt_4326)
+```
+
+
+
+## How to specify a CRS in R?
+
+```{r warning=FALSE, message=FALSE}
+library(sp)
+library(raster)
+library(sf)
+```
+
+Great news!\
+The R packages further down, and many that depend on them, now provide a means of CRS specification _irrespective_ of the GDAL/PROJ version, hence compliant with newer GDAL/PROJ.
+
+- **DO:**
+
+  **The _general principle_ that we recommend is: specify the CRS by using the _EPSG code_, but do so _without_ using a proj4string.**
+
+- **DON'T:**
+
+  **Don't use proj4strings, such as `+init=epsg:????`, `+proj=longlat`, ... (even though that _might_ still work, continued support for it is not to be expected).**
+
+In the below code chunks, this is demonstrated for several important geospatial R packages: **`sf`**, **`sp`** and **`raster`**.
+Other geospatial R packages should normally inherit their approach.
+
+First, some practical notes:
+
+- In order to remain compatible with GDAL 2 and PROJ 4, some packages will still internally derive a proj4string as well (notably by calling the core package `rgdal`).
+This happens even while you did not enter a proj4string.
+Note that the derived proj4string will not be used further if you're on GDAL 3 / PROJ ≥ 6, and a WKT2 string will be generated as well for actual use.
+In the presence of GDAL 3 / PROJ ≥ 6, you will (at the time of writing) get a **warning** about dropped keys in the generated proj4strings [^warnings], but in the meantime, for most geospatial R packages you can safely ignore this warning.
+- **Windows** users: to make sure that the `rgdal` and `sf` packages use GDAL 3 / PROJ ≥ 6 -- which is now highly advised: please **update** all your packages in a pure R console (not RStudio) that uses your latest installed R version, by running `update.packages(ask = FALSE, checkBuilt = TRUE)`.
+
+
+[^warnings]: The packages give a warning especially to make developers of _other_, dependent packages _aware_ that they should also make sure their functions do not _require_ proj4strings or use hardcoded proj4strings.
+Instead, they should defer the handling of CRS representation to the basic geospatial R packages (i.e. dependent on the version of PROJ/GDAL).
+So, the appearance of these warnings marks a period of transition in order to let other packages become GDAL 3 and PROJ ≥ 6 compliant.
+And the good news is that most popular geospatial packages _have_ become GDAL 3 and PROJ ≥ 6 compliant!
+
+As a demo data set for vector data, we use a dataset of city centers (points) included in the `rgdal` package.
+
+
+```{r results="hide"}
+cities <- 
+  st_read(system.file("vectors/cities.shp", package = "rgdal"))
+```
+
+This is how it looks like:
+
+```{r paged.print=FALSE}
+cities
+```
+
+We now convert it to a plain dataframe (non-spatial) with the XY coordinates as columns, for the sake of the exercise.
+We want to add the CRS ourselves!
+
+```{r paged.print=FALSE}
+cities <- 
+  cbind(st_drop_geometry(cities), 
+        st_coordinates(cities))
+head(cities, 10) # top 10 rows
+```
+
+
+
+### `sf` package
+
+Note that also the [`stars`](https://r-spatial.github.io/stars/) package, useful to represent _vector and raster data cubes_, uses the below approach.
+
+Let's check whether **[`sf`](https://r-spatial.github.io/sf/)** uses (for Windows: comes with) the minimal PROJ/GDAL versions that we want!
+
+```{r}
+sf::sf_extSoftVersion()
+```
+
+Good to go!
+
+#### Defining a CRS with `sf`
+
+You can simply provide the EPSG code using `st_crs()`:
+
+```{r}
+crs_wgs84 <- st_crs(4326) # WGS84 has EPSG code 4326
+```
+
+It is a so-called `crs` object:
+
+```{r}
+class(crs_wgs84)
+```
+
+#### Printing the WKT2 string with `sf`
+
+You can directly acces the `wkt` element of the `crs` object:
+
+```{r}
+cat(crs_wgs84$wkt)
+```
+
+There are a few extras to note:
+
+- printing the `crs` object shows us both the EPSG code (more generally: the user's CRS specification) and the WKT2 string:
+
+```{r}
+crs_wgs84
+```
+
+- if the user inputted the CRS with an EPSG code (which we did!), the latter can be returned as a number:
+
+```{r}
+crs_wgs84$epsg
+```
+
+You _can_ (but should you?) export a (stripped) proj4string as well, with `crs_wgs84$proj4string`.
+
+#### Set the CRS of an `sf` object
+
+First we prepare an `sf` object from `cities` but still without a CRS:
+
+```{r paged.print=FALSE}
+cities2 <- st_as_sf(cities, coords = c("X", "Y"))
+cities2
+```
+
+Note the missing CRS!
+
+Let's add the CRS by using the EPSG code (we could also assign `crs_wgs84` instead):
+
+```{r}
+st_crs(cities2) <- 4326
+```
+
+Done!
+
+#### Get the CRS of an `sf` object
+
+Really, all you need is `st_crs()`, once more!
+
+```{r}
+st_crs(cities2)
+```
+
+Great!
+
+As this returns the `crs` object, you can also use `st_crs(cities2)$wkt` to specifically return the WKT2 string!
+
+### `sp` package
+
+Note that the actively developed (and matured) `sf` package is now recommended over the `sp` package (a view also shared by `sf` and `sp` developers).
+The **[`sp`](https://cran.r-project.org/web/packages/sp/index.html)** package, which has very long been _the_ go-to package before `sf` matured, is maintained in order to support existing code, but it is not further developed as much.
+
+The `sp` package relies on the `rgdal` R  package to communicate with GDAL and PROJ, so let's check whether `rgdal` uses (for Windows: comes with) the minimal PROJ/GDAL versions that we want.
+
+```{r}
+rgdal::rgdal_extSoftVersion()
+```
+
+Okido.
+
+#### Defining a CRS with `sp`
+
+```{r}
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS84 has EPSG code 4326
+```
+
+It is a so-called `CRS` object:
+
+```{r}
+class(crs_wgs84)
+```
+
+#### Printing the WKT2 string with `sp`
+
+```{r}
+wkt_wgs84 <- wkt(crs_wgs84)
+cat(wkt_wgs84)
+```
+
+Also note that, when _printing_ a `CRS` object of `sp` (e.g. by running `crs_wgs84`), you still just get a proj4string (with parts dropped if on recent GDAL/PROJ)!
+We won't print it here!
+However do know that the WKT2 string is currently also _contained_ in the `CRS` object, just call `wkt()` to see it.
+
+#### Set the CRS of a `Spatial*` object in `sp`
+
+First we prepare a `SpatialPointsDataFrame` from `cities` but still without a CRS:
+
+```{r}
+cities2 <- cities
+coordinates(cities2) <-  ~ X + Y
+```
+
+Now, we can add a CRS:
+
+```{r}
+proj4string(cities2) <- crs_wgs84
+```
+
+Note the name of the `proj4string<-` replacement function in `sp`: it still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
+Maybe we'll get another function in the future that cuts the link with the 'proj4string' name.
+
+
+#### Get the CRS of a `Spatial*` object in `sp`
+
+Again, use `wkt()`: it works on both `CRS` and `Spatial*` objects!
+
+```{r}
+cat(wkt(cities2))
+```
+
+Et voilà!
+
+### `raster` package
+
+At the time of writing, you still needed the development version of `raster` for the below code to run.
+You can install the development version with: `remotes::install_github("rspatial/raster")`.
+If below code does not run with the CRAN version (usually obtained with `install.packages()`), use the development version.
+Further, be aware that a [`terra`](https://rspatial.org/terra/pkg/) package is in development as a successor to `raster`.
+It is aimed at faster processing and it is _only_ compatible with GDAL3/PROJ≥6.
+
+As you will see, **[`raster`](https://rspatial.org/raster/pkg/)** more or less aligns with `sp`, although it has a few extras.
+For example: `raster` does not require the use of the `proj4string<-` replacement function to set the CRS.
+`raster` provides `crs<-`.
+
+Let's make a dummy raster first, without CRS:
+
+```{r}
+within_belgium <- 
+  raster(extent(188500, 190350, 227550, 229550),
+         res = 50)
+values(within_belgium) <- 1:ncell(within_belgium)
+within_belgium
+```
+
+This raster is intended for use in the Belgian Lambert 72 CRS (EPSG 31370).
+
+#### Defining and printing a CRS with `raster`
+
+This is not applicable.
+Just use the facilities of the `sp` package if you want to make a separate CRS object for usage in a `Raster*` object (see below).
+
+
+#### Set the CRS of a `Raster*` object in `raster`
+
+We prepare a few copies of the data:
+
+```{r}
+within_belgium1 <- within_belgium
+within_belgium2 <- within_belgium
+within_belgium3 <- within_belgium
+within_belgium4 <- within_belgium
+```
+
+Setting the CRS is done with the `crs<-` replacement function.
+It can take a multitude of formats; these are all equivalent:
+
+```{r}
+crs(within_belgium1) <- 31370
+crs(within_belgium2) <- "EPSG:31370"
+crs(within_belgium3) <- st_crs(31370)$wkt # a WKT string
+crs(within_belgium4) <- CRS(SRS_string = "EPSG:31370") # an sp CRS object
+```
+
+Note that we could also have provided the `crs` argument in `raster()`, when creating the `RasterLayer` object.
+It can take any of the above formats.
+
+#### Get the CRS of a `Raster*` object in `raster`
+
+It goes the same as in `sp`:
+
+```{r}
+cat(wkt(within_belgium1))
+```
+
+Let's verify whether all objects do indeed have the same CRS:
+
+```{r}
+all.equal(wkt(within_belgium1),
+          wkt(within_belgium2),
+          wkt(within_belgium3),
+          wkt(within_belgium4))
+```
+
+YES!
+
+
+## Literature
