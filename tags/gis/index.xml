@@ -6,10 +6,19 @@
     <description>Recent content in gis on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/gis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
+      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system exist: geodetic and projected CRSes. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
+    </item>
     
     <item>
       <title>Using WFS service in R</title>
