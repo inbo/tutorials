@@ -1,7 +1,7 @@
 ---
 title: "Software by INBO: packages for environmentalists and ecologists!"
 date: 2020-01-30
-csl: ../inbo.csl
+csl: download.file("https://github.com/citation-style-language/styles/raw/master/research-institute-for-nature-and-forest.csl", tempfile())
 bibliography: ../reproducible_research.bib
 categories: ["development", "r", "statistics", "databases"]
 tags: ["open science", "packages", "r", "python"]

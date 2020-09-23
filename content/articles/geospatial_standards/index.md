@@ -3,7 +3,7 @@ title: "Meet some popular open geospatial standards!"
 description: "A short introduction to the powerful GeoPackage, GeoJSON and GeoTIFF standards"
 author: "Floris Vanderhaeghe"
 date: 2020-02-03
-csl: ../inbo.csl
+csl: '/tmp/RtmpsgOF7D/research-institute-for-nature-and-forest.csl'
 bibliography: ../reproducible_research.bib
 categories: ["r", "gis"]
 tags: ["gis", "r", "open science"]
@@ -11,7 +11,6 @@ output:
     md_document:
         preserve_yaml: true
         variant: gfm
-    html_document: default
 ---
 
 Some inspiration for this post came from the beautiful books of Lovelace
@@ -113,7 +112,7 @@ So, in R we use packages that use GDAL in the background, such as
         including GDAL – simply assumed WGS84 in GeoJSON 2008 (without
         checking or transforming), even though WGS84 was not a
         requirement of GeoJSON 2008 (it did support an explicit *crs*
-        declaration). This resulted in inconveniences (cf. [this
+        declaration). This resulted in inconveniences (cf. [this
         post](https://github.com/r-spatial/sf/issues/344#issue-229118527)
         in the `sf`-repository).
       - A [specific
@@ -156,21 +155,20 @@ So, in R we use packages that use GDAL in the background, such as
 
 <div id="ref-heijmans_spatial_2019">
 
-Hijmans R. (2019). Spatial Data Science with R. URL:
-<https://rspatial.org/>.
+Hijmans R. (2019). Spatial Data Science with R. <https://rspatial.org/>.
 
 </div>
 
 <div id="ref-lovelace_geocomputation_2020">
 
 Lovelace R., Nowosad J. & Muenchow J. (2020). Geocomputation with R.
-URL: <https://geocompr.robinlovelace.net>.
+<https://geocompr.robinlovelace.net>.
 
 </div>
 
 <div id="ref-pebesma_edzer_spatial_2019">
 
-Pebesma E. & Bivand R. (2019). Spatial Data Science. URL:
+Pebesma E. & Bivand R. (2019). Spatial Data Science.
 <https://www.r-spatial.org/book>.
 
 </div>
