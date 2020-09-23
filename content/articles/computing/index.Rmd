@@ -8,6 +8,7 @@ tags: ["literature", "open science"]
 output: 
     md_document:
         preserve_yaml: true
+        variant: gfm
 weight: 2
 ---
 
