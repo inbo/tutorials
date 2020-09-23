@@ -52,6 +52,11 @@
             visibility: visible;
         }
 
+    /* Code in hyperlink inherits colour */
+    a code {
+	color: inherit;
+    }
+
     /* Use white code blocks */
     #content .highlight pre {
         border: 1px solid #bdbdbd;
