@@ -28,6 +28,10 @@
         #content a:hover {
             text-decoration: underline;
         }
+	/* Code in hyperlink inherits colour */
+	#content a code {
+	    color: inherit;
+	}
 
     /* Style descriptions (set in layouts/_default/li.html) */
     #content .item .description {
@@ -51,11 +55,6 @@
         #content h4:hover .anchor {
             visibility: visible;
         }
-
-    /* Code in hyperlink inherits colour */
-    a code {
-	color: inherit;
-    }
 
     /* Use white code blocks */
     #content .highlight pre {
