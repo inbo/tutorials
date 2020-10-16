@@ -31,6 +31,25 @@ Please, feel invited to try out packages! If you encounter a problem or if you h
     </item>
     
     <item>
+      <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</guid>
+      <description>General note: the way the raster package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ &amp;gt;= 6 versions. At the time of writing, it was necessary to use the current development version of raster (link). During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them.</description>
+    </item>
+    
+    <item>
+      <title>Transforming spatial objects</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</link>
+      <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
+      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
+Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
+    </item>
+    
+    <item>
       <title>Mixed model formulation of a paired t-test</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
@@ -58,17 +77,6 @@ set.seed(213354) n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;-
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
 The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
-    </item>
-    
-    <item>
-      <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</guid>
-      <description>This tutorial uses a few basic functions from the dplyr and raster packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
-options(stringsAsFactors = FALSE) library(raster) library(tidyverse) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
-In short, the GeoTIFF and GeoPackage formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
     </item>
     
     <item>
@@ -169,11 +177,10 @@ Creating sections manually To create a header of a section, different methods ca
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</guid>
-      <description>Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let&#39;s create a dumy data.frame to play around, i.e. the three locations of INBO:
-names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.865664, 50.760201, 50.767950) lon &amp;lt;- c(4.349944, 3.874300, 4.333044) data &amp;lt;- data.frame(names,lat,lon) We created three points:
-plot(data$lon, data$lat) Creating a map We need to convert the data.frame to a SpatialPointsDataFrame:
-crs_wgs84 &amp;lt;- CRS(&amp;#34;+init=epsg:4326&amp;#34;) pts &amp;lt;- SpatialPointsDataFrame(data[c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;)], data[!(names(data) %in% c(&amp;#34;lon&amp;#34;,&amp;#34;lat&amp;#34;))], proj4string = crs_wgs84) The leaflet package is ideal to create a basic interactive map:</description>
+      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
+Introduction The required packages are leaflet and sp.
+library(leaflet) library(sp) Dummy data Let’s create a dumy data.frame to play around, i.e. the three locations of INBO:
+names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.</description>
     </item>
     
     <item>
@@ -195,16 +202,6 @@ head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6
       <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
  create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
 The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
-    </item>
-    
-    <item>
-      <title>Transforming spatial objects</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</link>
-      <pubDate>Mon, 19 Feb 2018 14:52:22 +0100</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
-      <description>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let&#39;s create an example and identify the coordinate reference system with proj4string(). We used the coordinates posted on the contact page of NGI.
-library(sp) library(leaflet) library(widgetframe) ## Loading required package: htmlwidgets  ngi &amp;lt;- data.frame(x = 650381.</description>
     </item>
     
     <item>

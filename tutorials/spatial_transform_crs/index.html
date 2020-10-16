@@ -2,14 +2,14 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Changing in between projection systems in R'>
+<meta name='description' content='Changing between coordinate reference systems with the R package sp'>
 <meta name='theme-color' content='#c04384'>
 
 <meta property='og:title' content='Transforming spatial objects • INBO Tutorials'>
-<meta property='og:description' content='Changing in between projection systems in R'>
+<meta property='og:description' content='Changing between coordinate reference systems with the R package sp'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2018-02-19T14:52:22&#43;01:00'/><meta property='article:modified_time' content='2018-02-19T14:52:22&#43;01:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2020-09-14T00:00:00Z'/><meta property='article:modified_time' content='2020-09-14T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.0" />
 
@@ -255,7 +255,7 @@
     <div class='header-info'>
       <h1 class='title'>Transforming spatial objects</h1>
       
-<p class='desc'>Changing in between projection systems in R</p>
+<p class='desc'>Changing between coordinate reference systems with the R package sp</p>
 
 
     </div>
@@ -269,7 +269,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2018-02-19T14:52:22&#43;01:00'>2018, Feb 19</time>
+  <time class='entry-date' datetime='2020-09-14T00:00:00Z'>2020, Sep 14</time>
 </span>
 
   
@@ -280,7 +280,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-2 mins read
+3 mins read
 </span>
 
 
@@ -316,7 +316,16 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'><p>Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let's create an example and identify the coordinate reference system with <code>proj4string()</code>. We used the coordinates posted on the contact page of <a href="http://www.ngi.be/NL/NL5.shtm">NGI</a>.</p>
+  <div class='container entry-content'><p><em>General note: migration to the more actively developed <code>sf</code> package is
+currently advised by the <code>sp</code> maintainer.</em> <em>The <code>sp</code> package, used in
+this tutorial, is still maintained in order to support the newest
+versions of the GDAL and PROJ backends.</em></p>
+<p>Sometimes we have a layer in one coordinate reference system (CRS) and
+need to transform it into another coordinate reference system. The first
+thing we need to do is identifying both coordinate reference systems.
+Let’s create an example and identify the coordinate reference system
+with <code>wkt()</code>. We used the coordinates posted on the contact page of
+<a href="http://www.ngi.be/NL/NL5.shtm">NGI</a>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(sp)
 <span style="color:#0a0">library</span>(leaflet)
 <span style="color:#0a0">library</span>(widgetframe)
@@ -324,55 +333,142 @@ Improve this page</a>
 </code></pre>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ngi &lt;- <span style="color:#0a0">data.frame</span>(x = <span style="color:#099">650381.78</span>, y = <span style="color:#099">667603.12</span>)
 <span style="color:#0a0">coordinates</span>(ngi) &lt;- ~x + y
-<span style="color:#0a0">proj4string</span>(ngi)
-</code></pre></div><pre><code>## [1] NA
+<span style="color:#0a0">wkt</span>(ngi)  <span style="color:#aaa;font-style:italic"># show the CRS of an sp object</span>
+</code></pre></div><pre><code>## Warning in wkt(ngi): CRS object has no comment
+
+## NULL
 </code></pre>
-<p><code>NA</code> indicates that the coordinate reference system isn't set. So we need to set it manually. In this case we know it is &ldquo;Lambert 2008&rdquo;. We need to know the related projection string. The projection string is often a rather long string of parameters. However, most coordinate reference systems have an <a href="https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group">EPSG</a> number which you can find at <a href="http://epsg.io/">http://epsg.io/</a>. The EPSG number for &ldquo;Lambert 2008&rdquo; is 3812. Let's set this coordinate reference system to our dataset. <code>CRS()</code> defines the coordinate reference system based on a text string.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">proj4string</span>(ngi) &lt;- <span style="color:#0a0">CRS</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">+init=epsg:3812&#34;</span>)
-<span style="color:#0a0">proj4string</span>(ngi)
-</code></pre></div><pre><code>## [1] &quot;+init=epsg:3812 +proj=lcc +lat_1=49.83333333333334 +lat_2=51.16666666666666 +lat_0=50.797815 +lon_0=4.359215833333333 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;
+<p><code>NULL</code> indicates that the coordinate reference system isn’t set. So we
+need to set it manually. In this case we know it is “Lambert 2008”. We
+need to know the related ‘WKT2 string’. The WKT2 string (well known
+text) is a recent open standard by the Open Geospatial Consortium to
+represent a coordinate reference system (CRS) - and it replaces the
+older (deprecated) PROJ.4 string.</p>
+<p>Most coordinate reference systems have an
+<a href="https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group">EPSG</a>
+code which you can find at <a href="http://epsg.io/">http://epsg.io/</a>. The EPSG code for “Lambert
+2008” is 3812. Let’s set this coordinate reference system to our
+dataset. <code>CRS()</code> defines the coordinate reference system.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">proj4string</span>(ngi) &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:3812&#34;</span>)
+</code></pre></div><pre><code>## Warning in showSRID(SRS_string, format = &quot;PROJ&quot;, multiline = &quot;NO&quot;): Discarded
+## datum European_Terrestrial_Reference_System_1989 in CRS definition
 </code></pre>
-<p>We could verify the correctness of this position by plotting in on a map. Here we use the <code>leaflet</code> package which requires the data to be in the &ldquo;WGS84&rdquo; coordinate reference system. Therefore we use <code>spTransform</code> to do this transformation. &ldquo;WGS84&rdquo; has EPSG number 4326. But here the coordinate reference system string itself is easier to memorise: &ldquo;+proj=longlat&rdquo;.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ngi_ll &lt;- <span style="color:#0a0">spTransform</span>(ngi, <span style="color:#0a0">CRS</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">+proj=longlat&#34;</span>))
-<span style="color:#0a0">proj4string</span>(ngi_ll)
-</code></pre></div><pre><code>## [1] &quot;+proj=longlat +ellps=WGS84&quot;
+<p>The <code>proj4string()</code> function refers to the older PROJ.4 strings to
+represent a CRS, which the <code>sp</code> package can still return for backward
+compatibility. The warning above demonstrates that some PROJ.4
+information is not supported anymore. <code>sp</code> now uses the much better WKT2
+representation, which it will derive directly from the EPSG-code that we
+provided (even though the function to assign a CRS to an object is still
+called <code>proj4string()</code>). The WKT2 string is what the geospatial GDAL and
+PROJ libraries (the background workhorses) work with since PROJ &gt;= 6,
+and it looks like this:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wkt_lambert2008 &lt;- <span style="color:#0a0">wkt</span>(ngi)
+<span style="color:#0a0">cat</span>(wkt_lambert2008)
+</code></pre></div><pre><code>## PROJCRS[&quot;ETRS89 / Belgian Lambert 2008&quot;,
+##     BASEGEOGCRS[&quot;ETRS89&quot;,
+##         DATUM[&quot;European Terrestrial Reference System 1989&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4258]],
+##     CONVERSION[&quot;Belgian Lambert 2008&quot;,
+##         METHOD[&quot;Lambert Conic Conformal (2SP)&quot;,
+##             ID[&quot;EPSG&quot;,9802]],
+##         PARAMETER[&quot;Latitude of false origin&quot;,50.797815,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8821]],
+##         PARAMETER[&quot;Longitude of false origin&quot;,4.35921583333333,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8822]],
+##         PARAMETER[&quot;Latitude of 1st standard parallel&quot;,49.8333333333333,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8823]],
+##         PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,51.1666666666667,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8824]],
+##         PARAMETER[&quot;Easting at false origin&quot;,649328,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8826]],
+##         PARAMETER[&quot;Northing at false origin&quot;,665262,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8827]],
+##         ID[&quot;EPSG&quot;,3811]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;(E)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]],
+##         AXIS[&quot;(N)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;Belgium - onshore&quot;],
+##         BBOX[49.5,2.5,51.51,6.4]]]
+</code></pre>
+<p>We could verify the correctness of this position by plotting it on a
+map. Here we use the <code>leaflet</code> package which requires the data to be in
+the “WGS84” coordinate reference system. Therefore we use
+<code>spTransform()</code> to do this transformation. “WGS84” has EPSG code 4326.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ngi_ll &lt;- <span style="color:#0a0">spTransform</span>(ngi, <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:4326&#34;</span>))
+<span style="color:#0a0">cat</span>(<span style="color:#0a0">wkt</span>(ngi_ll))
+</code></pre></div><pre><code>## GEOGCRS[&quot;WGS 84&quot;,
+##     DATUM[&quot;World Geodetic System 1984&quot;,
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         ID[&quot;EPSG&quot;,6326]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##         ID[&quot;EPSG&quot;,8901]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;longitude&quot;,east,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
+##                 ID[&quot;EPSG&quot;,9122]]],
+##         AXIS[&quot;latitude&quot;,north,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
+##                 ID[&quot;EPSG&quot;,9122]]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;World&quot;],
+##         BBOX[-90,-180,90,180]]]
 </code></pre>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>(ngi_ll) %&gt;%
   <span style="color:#0a0">addTiles</span>() %&gt;%
   <span style="color:#0a0">addMarkers</span>() <span style="color:#aaa;font-style:italic"># %&gt;%</span>
-</code></pre></div><p><img src="index_files/figure-markdown_github/unnamed-chunk-5-1.png" alt=""></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#aaa;font-style:italic">#frameWidget()</span>
 </code></pre></div><table>
 <thead>
 <tr>
 <th align="left">CRS</th>
 <th align="right">EPSG</th>
-<th align="left">shortened_PROJ.4_string</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">WGS 84</td>
 <td align="right">4326</td>
-<td align="left">+init=epsg:4326</td>
 </tr>
 <tr>
 <td align="left">Belge 1972 / Belgian Lambert 72</td>
 <td align="right">31370</td>
-<td align="left">+init=epsg:31370</td>
 </tr>
 <tr>
 <td align="left">ETRS89 / Belgian Lambert 2008</td>
 <td align="right">3812</td>
-<td align="left">+init=epsg:3812</td>
 </tr>
 <tr>
 <td align="left">WGS 84 / Pseudo-Mercator</td>
 <td align="right">3857</td>
-<td align="left">+init=epsg:3857</td>
 </tr>
 </tbody>
 </table>
+<p>Relevant projections for Belgian data. CRS = Coordinate reference
+system, EPSG = CRS code in the EPSG dataset.</p>
 </div>
 
   
@@ -399,7 +495,7 @@ Improve this page</a>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/spatial_wms_services/'>
+      <a href='/tutorials/tutorials/r_paired_t_test/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -407,10 +503,10 @@ Improve this page</a>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Using WMS service in R</a>
+        <span class='screen-reader-text'>Previous post: </span>Mixed model formulation of a paired t-test</a>
     </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/development_wercker/'>
-        <span class='screen-reader-text'>Next post: </span>Wercker<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+      <a href='/tutorials/tutorials/spatial_standards_raster/'>
+        <span class='screen-reader-text'>Next post: </span>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>

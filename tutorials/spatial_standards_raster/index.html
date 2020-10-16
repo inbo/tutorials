@@ -9,7 +9,7 @@
 <meta property='og:description' content='A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-02-03T00:00:00Z'/><meta property='article:modified_time' content='2020-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-09-15T00:00:00Z'/><meta property='article:modified_time' content='2020-09-15T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.0" />
 
@@ -269,7 +269,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-02-03T00:00:00Z'>2020, Feb 03</time>
+  <time class='entry-date' datetime='2020-09-15T00:00:00Z'>2020, Sep 15</time>
 </span>
 
   
@@ -316,7 +316,11 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'><p>This tutorial uses a few basic functions from the
+  <div class='container entry-content'><p><em>General note: the way the <code>raster</code> package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ &gt;= 6 versions.</em>
+<em>At the time of writing, it was necessary to use the current development version of <code>raster</code> (<a href="https://github.com/rspatial/raster">link</a>).</em>
+<em>During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them.</em>
+<em>For more information, see the <a href="../spatial_crs_coding/">CRS tutorial</a>.</em></p>
+<p>This tutorial uses a few basic functions from the
 <a href="https://dplyr.tidyverse.org">dplyr</a> and
 <a href="https://rspatial.org/raster/pkg">raster</a> packages. While only a few
 functions are used, you can use the previous hyperlinks to access the
@@ -415,7 +419,7 @@ area in Belgium (using the CRS [1] Belgian Lambert 72, i.e.
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork &lt;- 
   <span style="color:#0a0">raster</span>(<span style="color:#0a0">extent</span>(<span style="color:#099">188500</span>, <span style="color:#099">190350</span>, <span style="color:#099">227550</span>, <span style="color:#099">229550</span>), <span style="color:#aaa;font-style:italic"># xmin, xmax, ymin, ymax</span>
          res = <span style="color:#099">50</span>, <span style="color:#aaa;font-style:italic"># resolution of 50 meters</span>
-         crs = <span style="color:#0a0">CRS</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">+init=epsg:31370&#34;</span>)) %&gt;% 
+         crs = <span style="color:#099">31370</span>) %&gt;% 
   <span style="color:#0a0">setValues</span>(<span style="color:#0a0">runif</span>(<span style="color:#0a0">ncell</span>(.)))  <span style="color:#aaa;font-style:italic"># fill with random values</span>
 </code></pre></div><p>What does this look like?</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork
@@ -932,7 +936,7 @@ definitions</a>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/spatial_standards_vector/'>
+      <a href='/tutorials/tutorials/spatial_transform_crs/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -940,10 +944,10 @@ definitions</a>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</a>
+        <span class='screen-reader-text'>Previous post: </span>Transforming spatial objects</a>
     </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/r_inboveg/'>
-        <span class='screen-reader-text'>Next post: </span>Tutorial on how to retrieve data from the INBOVEG database<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+      <a href='/tutorials/tutorials/spatial_crs_coding/'>
+        <span class='screen-reader-text'>Next post: </span>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>
