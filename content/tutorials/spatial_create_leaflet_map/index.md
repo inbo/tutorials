@@ -8,11 +8,15 @@ tags: ["gis", "r", "maps"]
 output: 
     md_document:
         preserve_yaml: true
-        variant: markdown_github
+        variant: gfm
 ---
 
-Introduction
-------------
+*General note: migration to the more actively developed `sf` package is
+currently advised by the `sp` maintainer.* *The `sp` package, used in
+this tutorial, is still maintained in order to support the newest
+versions of the GDAL and PROJ backends.*
+
+## Introduction
 
 The required packages are **leaflet** and **sp**.
 
@@ -21,10 +25,10 @@ library(leaflet)
 library(sp)
 ```
 
-Dummy data
-----------
+## Dummy data
 
-Let's create a dumy `data.frame` to play around, i.e. the three locations of INBO:
+Let’s create a dumy `data.frame` to play around, i.e. the three
+locations of INBO:
 
 ``` r
 names <- c("VAC HT","Geraardsbergen","Linkebeek")
@@ -39,15 +43,14 @@ We created three points:
 plot(data$lon, data$lat)
 ```
 
-![](index_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](index_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-Creating a map
---------------
+## Creating a map
 
 We need to convert the `data.frame` to a `SpatialPointsDataFrame`:
 
 ``` r
-crs_wgs84 <- CRS("+init=epsg:4326")
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 pts <- SpatialPointsDataFrame(data[c("lon","lat")], 
                               data[!(names(data) %in% c("lon","lat"))],
                               proj4string = crs_wgs84)
@@ -66,8 +69,9 @@ leaf_map <- leaflet(pts) %>%
 leaf_map
 ```
 
-![](index_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](index_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
-**Nice, no?!**
+**Nice, no?\!**
 
-More information is provided [at the leaflet information website](https://rstudio.github.io/leaflet/)!
+More information is provided [at the leaflet information
+website](https://rstudio.github.io/leaflet/)\!

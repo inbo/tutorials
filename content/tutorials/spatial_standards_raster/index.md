@@ -2,7 +2,7 @@
 title: "How to use open raster file formats in R: GeoTIFF & GeoPackage"
 description: "A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R"
 author: "Floris Vanderhaeghe"
-date: 2020-02-03
+date: 2020-09-15
 categories: ["r", "gis"]
 tags: ["gis", "r"]
 output: 
@@ -11,6 +11,11 @@ output:
         variant: gfm
     html_document: default
 ---
+
+_General note: the way the `raster` package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ >= 6 versions._
+_At the time of writing, it was necessary to use the current development version of `raster` ([link](https://github.com/rspatial/raster))._
+_During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them._
+_For more information, see the [CRS tutorial](../spatial_crs_coding/)._
 
 This tutorial uses a few basic functions from the
 [dplyr](https://dplyr.tidyverse.org) and
@@ -63,7 +68,7 @@ area in Belgium (using the CRS \[1\] Belgian Lambert 72, i.e.
 artwork <- 
   raster(extent(188500, 190350, 227550, 229550), # xmin, xmax, ymin, ymax
          res = 50, # resolution of 50 meters
-         crs = CRS("+init=epsg:31370")) %>% 
+         crs = 31370) %>% 
   setValues(runif(ncell(.)))  # fill with random values
 ```
 

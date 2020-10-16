@@ -1,15 +1,18 @@
 ---
 title: "Transforming spatial objects"
-description: "Changing in between projection systems in R"
-author: "Thierry Onkelinx"
-date: 2018-02-19T14:52:22+01:00
+description: "Changing between coordinate reference systems with the R package sp"
+author: "Thierry Onkelinx, Floris Vanderhaeghe"
+date: 2020-09-14
 categories: ["r"]
 tags: ["gis", "r", "maps"]
 output: 
     md_document:
         preserve_yaml: true
-        variant: markdown_github
+        variant: gfm
 ---
+
+_General note: migration to the more actively developed `sf` package is currently advised by the `sp` maintainer._
+_The `sp` package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends._
 
 ```{r include = FALSE}
 library(knitr)
@@ -19,7 +22,9 @@ opts_chunk$set(
 ```
 
 
-Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. Let's create an example and identify the coordinate reference system with `proj4string()`. We used the coordinates posted on the contact page of [NGI](http://www.ngi.be/NL/NL5.shtm).
+Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems. 
+Let's create an example and identify the coordinate reference system with `wkt()`.
+We used the coordinates posted on the contact page of [NGI](http://www.ngi.be/NL/NL5.shtm).
 
 ```{r}
 library(sp)
@@ -30,21 +35,39 @@ library(widgetframe)
 ```{r}
 ngi <- data.frame(x = 650381.78, y = 667603.12)
 coordinates(ngi) <- ~x + y
-proj4string(ngi)
+wkt(ngi)  # show the CRS of an sp object
 ```
 
-`NA` indicates that the coordinate reference system isn't set. So we need to set it manually. In this case we know it is "Lambert 2008". We need to know the related projection string. The projection string is often a rather long string of parameters. However, most coordinate reference systems have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) number which you can find at http://epsg.io/. The EPSG number for "Lambert 2008" is 3812. Let's set this coordinate reference system to our dataset. `CRS()` defines the coordinate reference system based on a text string.
+`NULL` indicates that the coordinate reference system isn't set. So we need to set it manually. In this case we know it is "Lambert 2008".
+We need to know the related 'WKT2 string'.
+The WKT2 string (well known text) is a recent open standard by the Open Geospatial Consortium to represent a coordinate reference system (CRS) - and it replaces the older (deprecated) PROJ.4 string.
+
+Most coordinate reference systems have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) code which you can find at http://epsg.io/.
+The EPSG code for "Lambert 2008" is 3812.
+Let's set this coordinate reference system to our dataset.
+`CRS()` defines the coordinate reference system.
 
 ```{r}
-proj4string(ngi) <- CRS("+init=epsg:3812")
-proj4string(ngi)
+proj4string(ngi) <- CRS(SRS_string = "EPSG:3812")
 ```
 
-We could verify the correctness of this position by plotting in on a map. Here we use the `leaflet` package which requires the data to be in the "WGS84" coordinate reference system. Therefore we use `spTransform` to do this transformation. "WGS84" has EPSG number 4326. But here the coordinate reference system string itself is easier to memorise: "+proj=longlat".
+The `proj4string()` function refers to the older PROJ.4 strings to represent a CRS, which the `sp` package can still return for backward compatibility.
+The warning above demonstrates that some PROJ.4 information is not supported anymore.
+`sp` now uses the much better WKT2 representation, which it will derive directly from the EPSG-code that we provided (even though the function to assign a CRS to an object is still called `proj4string()`).
+The WKT2 string is what the geospatial GDAL and PROJ libraries (the background workhorses) work with since PROJ >= 6, and it looks like this:
 
 ```{r}
-ngi_ll <- spTransform(ngi, CRS("+proj=longlat"))
-proj4string(ngi_ll)
+wkt_lambert2008 <- wkt(ngi)
+cat(wkt_lambert2008)
+```
+
+We could verify the correctness of this position by plotting it on a map.
+Here we use the `leaflet` package which requires the data to be in the "WGS84" coordinate reference system. Therefore we use `spTransform()` to do this transformation.
+"WGS84" has EPSG code 4326.
+
+```{r}
+ngi_ll <- spTransform(ngi, CRS(SRS_string = "EPSG:4326"))
+cat(wkt(ngi_ll))
 leaflet(ngi_ll) %>%
   addTiles() %>%
   addMarkers() # %>%
@@ -55,9 +78,8 @@ leaflet(ngi_ll) %>%
 kable(
   data.frame(
     CRS = c("WGS 84", "Belge 1972 / Belgian Lambert 72", "ETRS89 / Belgian Lambert 2008", "WGS 84 / Pseudo-Mercator"),
-    EPSG = c(4326, 31370, 3812, 3857),
-    shortened_PROJ.4_string = c("+init=epsg:4326", "+init=epsg:31370", "+init=epsg:3812", "+init=epsg:3857")
+    EPSG = c(4326, 31370, 3812, 3857)
   ),
-  caption = "Relevant projections for Belgian data. CRS = Coordinate reference system, EPSG = CRS number in the EPSG dataset."
+  caption = "Relevant projections for Belgian data. CRS = Coordinate reference system, EPSG = CRS code in the EPSG dataset."
 )
 ```

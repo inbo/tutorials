@@ -8,7 +8,7 @@ tags: ["gis", "r", "maps"]
 output: 
     md_document:
         preserve_yaml: true
-        variant: markdown_github
+        variant: gfm
 ---
 
 ```{r include = FALSE}
@@ -128,12 +128,15 @@ invasive_be10grid_sf %>%
 
 ## Point in polygon with the `sp` package
 
+_General note: migration to the more actively developed `sf` package is currently advised by the `sp` maintainer._
+_The `sp` package is still maintained in order to support the newest versions of the GDAL and PROJ backends._
+
 Instead of `sf` objects (= `data.frames` or `tibbles` with a geometry list-column), the `sp` package works with `Spatial` spatial data classes (which has many derived spatial data classes for points, polygons, ...).
 
 First, we need to convert the `data.frame` with point locations to a `SpatialPointsDataFrame`. We also need to ensure that the coordinate reference system (CRS) for both the point locations and the grid is the same. The data from GBIF are in WGS84 format.
 
 ```{r}
-crs_wgs84 <- CRS("+init=epsg:4326")
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 coord <- invasive_species %>%
     select(decimalLongitude, decimalLatitude)
 invasive_spatial <- SpatialPointsDataFrame(coord,
@@ -146,6 +149,19 @@ The `sp` package has no native methods to read the Belgium 10 km x 10 km grid, b
 ```{r}
 be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"), 
                   layer = "be_10km")
+```
+
+Note the warning: it is because some PROJ.4 information, i.e. the string to represent the coordinate reference system, is not supported anymore in the current geospatial GDAL and PROJ libraries (the background workhorses for spatial R packages).
+The spatialite database from the EEA website (with the 10 km x 10 km grid) still uses the older PROJ.4 string .
+Because the `rgdal` package is still backwards compatible, we should not (yet) worry about this: `rgdal` does the translation for the newer GDAL 3 and PROJ >= 6.
+Do know that, instead of _PROJ.4_ strings, the _WKT2_ string is now used in R to better represent coordinate reference systems (so it would best be incorporated in the EEA data source).
+Just compare these:
+
+```{r}
+# PROJ.4 string = old; used by PROJ 4
+proj4string(be10grid)  # or: be10grid@proj4string
+# WKT2 string = new and much better; used by PROJ >= 6
+wkt(be10grid) %>% cat  # or: be10grid@proj4string %>% comment %>% cat
 ```
 
 
