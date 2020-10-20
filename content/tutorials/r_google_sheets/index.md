@@ -20,7 +20,8 @@ A complete list of vignettes can be found in the [Articles page](https://googles
 
 ## `googlesheets4` vs `googlesheet`
 
-The package `googlesheets4` is the follower of [`googlesheets`](https://github.com/jennybc/googlesheets/blob/master/README.md) which doesn't work anymore as it is built on the outdated Sheets v3 API. If you have still code using this package, you will get this error:
+The package `googlesheets4` is the follower of [`googlesheets`](https://github.com/jennybc/googlesheets/blob/master/README.md) which doesn't work anymore as it is built on the outdated Sheets v3 API.
+If you still have code using this package, you will get this error:
 
 > Sign in with Google temporarily disabled for this app
 
