@@ -13,7 +13,7 @@ The R package [googlesheets4](https://googlesheets4.tidyverse.org/) provides the
 
 This package is very well documented, so we just have to provide you with the right links:
 
-- [read sheets](https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html)
+- [read sheets](https://googlesheets4.tidyverse.org/articles/googlesheets4.html)
 - [write sheets](https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html)
 
 A complete list of vignettes can be found in the [Articles page](https://googlesheets4.tidyverse.org/articles/index.html).
