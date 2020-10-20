@@ -18,7 +18,7 @@ This package is very well documented, so we just have to provide you with the ri
 
 A complete list of vignettes can be found in the [Articles page](https://googlesheets4.tidyverse.org/articles/index.html).
 
-## `googlesheets4` vs `googlesheet`
+## `googlesheets4` vs `googlesheets`
 
 The package `googlesheets4` is the follower of [`googlesheets`](https://github.com/jennybc/googlesheets/blob/master/README.md) which doesn't work anymore as it is built on the outdated Sheets v3 API.
 If you still have code using this package, you will get this error:
