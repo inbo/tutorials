@@ -11,7 +11,7 @@ tags: ["google", "r", "spreadsheet"]
 
 The R package [googlesheets4](https://googlesheets4.tidyverse.org/) provides the functionality to read and write data from a Google sheet.
 
-This package is very well documented, so we have just to provide you with the right links:
+This package is very well documented, so we just have to provide you with the right links:
 
 - [read sheets](https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html)
 - [write sheets](https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html)
