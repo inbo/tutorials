@@ -13,8 +13,8 @@ The R package [googlesheets4](https://googlesheets4.tidyverse.org/) provides the
 
 This package is very well documented, so we just have to provide you with the right links:
 
-- [read sheets](https://googlesheets4.tidyverse.org/articles/googlesheets4.html)
-- [write sheets](https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html)
+- [read sheets](https://googlesheets4.tidyverse.org/articles/googlesheets4.html#read_sheet-a-k-a--range_read)
+- [write sheets](https://googlesheets4.tidyverse.org/articles/googlesheets4.html#writing-sheets)
 
 A complete list of vignettes can be found in the [Articles page](https://googlesheets4.tidyverse.org/articles/index.html).
 
