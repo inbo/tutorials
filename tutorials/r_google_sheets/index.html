@@ -2,18 +2,18 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Extracting data driectly from google spreadhseets'>
+<meta name='description' content='Extracting data directly from Google spreadsheets'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Read data from google sheet • INBO Tutorials'>
-<meta property='og:description' content='Extracting data driectly from google spreadhseets'>
+<meta property='og:title' content='Read data from Google sheets • INBO Tutorials'>
+<meta property='og:description' content='Extracting data directly from Google spreadsheets'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_google_sheets/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='google'><meta property='article:tag' content='r'><meta property='article:tag' content='spreadsheet'><meta property='article:published_time' content='2017-01-03T00:00:00Z'/><meta property='article:modified_time' content='2017-01-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='google'><meta property='article:tag' content='r'><meta property='article:tag' content='spreadsheet'><meta property='article:published_time' content='2020-10-19T00:00:00Z'/><meta property='article:modified_time' content='2020-10-19T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.0" />
 
-  <title>Read data from google sheet • INBO Tutorials</title>
+  <title>Read data from Google sheets • INBO Tutorials</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_google_sheets/'>
   
   
@@ -234,7 +234,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Read data from google sheet</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Read data from Google sheets</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -253,9 +253,9 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Read data from google sheet</h1>
+      <h1 class='title'>Read data from Google sheets</h1>
       
-<p class='desc'>Extracting data driectly from google spreadhseets</p>
+<p class='desc'>Extracting data directly from Google spreadsheets</p>
 
 
     </div>
@@ -269,7 +269,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2017-01-03T00:00:00Z'>2017, Jan 03</time>
+  <time class='entry-date' datetime='2020-10-19T00:00:00Z'>2020, Oct 19</time>
 </span>
 
   
@@ -280,7 +280,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-3 mins read
+One min read
 </span>
 
 
@@ -295,7 +295,7 @@
         
 
         
-            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/r_google_sheets/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/r_google_sheets/index.md'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
   
@@ -316,83 +316,22 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(googlesheets)
-<span style="color:#0a0">library</span>(dplyr)
-<span style="color:#0a0">library</span>(ggplot2)
-</code></pre></div><h2 id="setup">Setup<a href="#setup" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>The R package <a href="https://github.com/jennybc/googlesheets/blob/master/README.md">googlesheets</a> provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the <code>gs_auth</code> command.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gs_auth</span>()
-</code></pre></div><p>Google will ask to grant the package the permission to access your drive. This token is saved to in a file <code>.httr-oauth</code> in your current working directory. Make sure this is not part of your version control system. However, as we want to be able to make the running independent from the user authentification or without needing an interactive environment. Therefore, we can store the token in a file and get the authentification from there. The code loads the token from the file if the file exists. Otherwise a new token is created and stored in the file.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(<span style="color:#0a0">file_test</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">-f&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">googlesheets_token.rds&#34;</span>)) {
-  <span style="color:#0a0">gs_auth</span>(token = <span style="color:#a50">&#34;</span><span style="color:#a50">googlesheets_token.rds&#34;</span>)
-} else {
-  <span style="color:#aaa;font-style:italic"># first get the token, but not caching it in a local file</span>
-  token &lt;- <span style="color:#0a0">gs_auth</span>(cache = <span style="color:#00a">FALSE</span>)
-  <span style="color:#aaa;font-style:italic"># save the token into a file in the current directory</span>
-  <span style="color:#0a0">saveRDS</span>(token, file = <span style="color:#a50">&#34;</span><span style="color:#a50">googlesheets_token.rds&#34;</span>)
-}
-</code></pre></div><p>Make sure the token is savely stored within your project folder without sharing it or putting it into the version control history. If you need more power (e.g. necessity of integration services such as Travis CI), check the encryption options in <a href="https://rawgit.com/jennybc/googlesheets/master/vignettes/managing-auth-tokens.html">this manual</a>.</p>
-<p>Once registered, an overview of your available google sheets is provided as follows, with the option to provide a (regular) expression to search for in the names:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gs_ls</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">tutorial_example&#34;</span>)
-</code></pre></div><pre><code>## # A tibble: 2 x 10
-##   sheet_title author perm  version updated             sheet_key ws_feed
-##   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;dttm&gt;              &lt;chr&gt;     &lt;chr&gt;  
-## 1 tutorial_e… stijn… rw    old     2018-12-13 16:37:58 1O9W_c0A… https:…
-## 2 tutorial_e… stijn… rw    old     2018-12-13 16:36:56 124Od346… https:…
-## # ... with 3 more variables: alternate &lt;chr&gt;, self &lt;chr&gt;, alt_key &lt;chr&gt;
-</code></pre>
-<h2 id="i-just-want-to-load-a-google-spreadsheet">I just want to load a google spreadsheet<a href="#i-just-want-to-load-a-google-spreadsheet" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>Consider you have the authentification. You know the name, URL or key of the spreadheet and want to read this in, well use one of the functions <code>gs_title()</code>, <code>gs_url()</code> or <code>gs_key()</code>.</p>
-<p>As an example, I want to work on the sheet called <code>TraitsRedListSpecies</code>. Finding the spreadheet is done as follows:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose &lt;- <span style="color:#0a0">gs_title</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">tutorial_example_spreadsheet_2&#34;</span>)
-</code></pre></div><pre><code>## Sheet successfully identified: &quot;tutorial_example_spreadsheet_2&quot;
-</code></pre>
-<p>An overview of the different sheets provides sufficient information to retrieve the dataset and work with them:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gs_ws_ls</span>(goose)
-</code></pre></div><pre><code>## [1] &quot;Tbl1 Ringgegevens&quot;     &quot;Tbl2 Koppels&quot;          &quot;Tbl3 Waarnemingen&quot;    
-## [4] &quot;Tbl4 Nesten&quot;           &quot;Tbl5 Nestcontroles&quot;    &quot;Tbl6 Uitkipsucces&quot;    
-## [7] &quot;Tbl7 Kuikenoverleving&quot; &quot;Tbl8 Datums&quot;
-</code></pre>
-<p>So, getting the <code>BreedingBirds</code> sheet into a native R object can be done by reading the specific worksheet:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">goose_data &lt;- goose %&gt;% 
-        <span style="color:#0a0">gs_read</span>(ws = <span style="color:#a50">&#34;</span><span style="color:#a50">Tbl1 Ringgegevens&#34;</span>)
-</code></pre></div><pre><code>## Accessing worksheet titled 'Tbl1 Ringgegevens'.
-
-## Parsed with column specification:
-## cols(
-##   Ringnummer = col_character(),
-##   Kleurring = col_character(),
-##   Soort = col_character(),
-##   Leeftijdscategorie = col_character(),
-##   Geslacht = col_character(),
-##   `Datum vangst` = col_character(),
-##   `Locatie vangst` = col_character(),
-##   Vangtype = col_character(),
-##   Gestorven = col_character()
-## )
-</code></pre>
-<p>Inspecting the data of the sheet:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">class</span>(goose_data)
-</code></pre></div><pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;
-</code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">head</span>(goose_data)
-</code></pre></div><pre><code>## # A tibble: 6 x 9
-##   Ringnummer Kleurring Soort Leeftijdscatego… Geslacht `Datum vangst`
-##   &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;    &lt;chr&gt;         
-## 1 B1634      162       Bran… Adult            Vrouw    7/20/2000     
-## 2 B3204      181       Bran… Adult            &lt;NA&gt;     8/9/2009      
-## 3 K23913     636       Bran… Adult            &lt;NA&gt;     8/9/2009      
-## 4 K46701     &lt;NA&gt;      Bran… Adult            Onbekend 7/2/2012      
-## 5 &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt;  &lt;NA&gt;             &lt;NA&gt;     &lt;NA&gt;          
-## 6 K46702     &lt;NA&gt;      Bran… Adult            Onbekend 7/2/2012      
-## # ... with 3 more variables: `Locatie vangst` &lt;chr&gt;, Vangtype &lt;chr&gt;,
-## #   Gestorven &lt;chr&gt;
-</code></pre>
-<p>We can now start working on the data, e.g. make a plot of the number of species in each location:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = goose_data %&gt;% <span style="color:#0a0">filter</span>(!<span style="color:#0a0">is.na</span>(`Locatie vangst`)), 
-       <span style="color:#0a0">aes</span>(x = `Locatie vangst`)) +
-    <span style="color:#0a0">geom_bar</span>()
-</code></pre></div><p><img src="index_files/figure-markdown_github/unnamed-chunk-10-1.png" alt=""></p>
+  <div class='container entry-content'><h2 id="googlesheets4"><code>googlesheets4</code><a href="#googlesheets4" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The R package <a href="https://googlesheets4.tidyverse.org/">googlesheets4</a> provides the functionality to read and write data from a Google sheet.</p>
+<p>This package is very well documented, so we just have to provide you with the right links:</p>
+<ul>
+<li><a href="https://googlesheets4.tidyverse.org/articles/googlesheets4.html#read_sheet-a-k-a--range_read">read sheets</a></li>
+<li><a href="https://googlesheets4.tidyverse.org/articles/googlesheets4.html#writing-sheets">write sheets</a></li>
+</ul>
+<p>There are also two specific in-depth articles: one about <a href="https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html">reading</a> and one about <a href="https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html">writing</a> sheets.</p>
+<p>A complete list of vignettes can be found in the <a href="https://googlesheets4.tidyverse.org/articles/index.html">Articles page</a>.</p>
+<h2 id="googlesheets4-vs-googlesheets"><code>googlesheets4</code> vs <code>googlesheets</code><a href="#googlesheets4-vs-googlesheets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The package <code>googlesheets4</code> is the follower of <a href="https://github.com/jennybc/googlesheets/blob/master/README.md"><code>googlesheets</code></a> which doesn't work anymore as it is built on the outdated Sheets v3 API.
+If you still have code using this package, you will get this error:</p>
+<blockquote>
+<p>Sign in with Google temporarily disabled for this app</p>
+</blockquote>
+<p>Please, consider to update your code by using the new package, <a href="https://googlesheets4.tidyverse.org/">googlesheets4</a>. Good luck!</p>
 </div>
 
   
@@ -418,16 +357,16 @@ Improve this page</a>
 </article>
 
 <nav class='entry-nav'>
-  <div class='container'><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/r_database_access/'>
-        <span class='screen-reader-text'>Next post: </span>Read data from INBO databases (SQL Server) with R<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/spatial_crs_coding/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
   
 </svg>
-</span>
-      </a>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?</a>
     </div></div>
 </nav>
 

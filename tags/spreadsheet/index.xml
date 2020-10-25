@@ -6,19 +6,22 @@
     <description>Recent content in spreadsheet on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Jan 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Read data from google sheet</title>
+      <title>Read data from Google sheets</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</link>
-      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</guid>
-      <description>library(googlesheets) library(dplyr) library(ggplot2) Setup The R package googlesheets provides the functionality to retrieve data from a google sheet. Once the registration as a user is done and the permissions are granted, it enables to read and write to google sheets. Initiation of the authentification can be done with the gs_auth command.
-gs_auth() Google will ask to grant the package the permission to access your drive. This token is saved to in a file .</description>
+      <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
+This package is very well documented, so we just have to provide you with the right links:
+ read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
+A complete list of vignettes can be found in the Articles page.
+googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&#39;t work anymore as it is built on the outdated Sheets v3 API.</description>
     </item>
     
   </channel>
