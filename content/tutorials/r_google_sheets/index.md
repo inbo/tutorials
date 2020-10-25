@@ -16,7 +16,7 @@ This package is very well documented, so we just have to provide you with the ri
 - [read sheets](https://googlesheets4.tidyverse.org/articles/googlesheets4.html#read_sheet-a-k-a--range_read)
 - [write sheets](https://googlesheets4.tidyverse.org/articles/googlesheets4.html#writing-sheets)
 
-There are also two specific in-depth articles about both [reading sheets](https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html) and [writing sheets](https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html).
+There are also two specific in-depth articles: one about [reading](https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html) and one about [writing](https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html) sheets.
 
 A complete list of vignettes can be found in the [Articles page](https://googlesheets4.tidyverse.org/articles/index.html).
 
