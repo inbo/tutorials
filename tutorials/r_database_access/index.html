@@ -357,19 +357,21 @@ installation</a>.</p>
 <p>In case you want to setup the connection yourself (e.g. errors using
 inbodb), you can do so by providing the necessary parameters:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(odbc::<span style="color:#0a0">odbc</span>(),
-      driver = <span style="color:#a50">&#34;</span><span style="color:#a50">SQL Server&#34;</span>,
+      driver = <span style="color:#a50">&#34;</span><span style="color:#a50">ODBC Driver 17 for SQL Server&#34;</span>,
       server = <span style="color:#a50">&#34;</span><span style="color:#a50">inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
       port = <span style="color:#099">1433</span>,
       database = <span style="color:#a50">&#34;</span><span style="color:#a50">D0021_00_userFlora&#34;</span>, <span style="color:#aaa;font-style:italic"># or your database of interest</span>
       trusted_connection = <span style="color:#a50">&#34;</span><span style="color:#a50">Yes&#34;</span>)
 </code></pre></div><p>The most important parameters are <code>server</code> and <code>database</code>, the others
-should normally be kept as such. For the first one, remember that
-database names starting with <code>M</code>, <code>S</code> or <code>W</code> can be accessed using the
-<code>inbo-sql08-prd.inbo.be</code> server and others (mostly with <code>D</code>) use the
-<code>inbo-sql07-prd.inbo.be</code> server. The database name is the name of the
-database (if you can’t remember the name, connect with a database you do
-know, e.g. <em>D0021_00_userFlora</em> and you’ll see an overview of the
-existing databases on that server after connecting.)</p>
+should normally be kept as such (except for maybe <code>driver</code>). For the
+first one, remember that database names starting with <code>M</code>, <code>S</code> or <code>W</code>
+can be accessed using the <code>inbo-sql08-prd.inbo.be</code> server and others
+(mostly with <code>D</code>) use the <code>inbo-sql07-prd.inbo.be</code> server. The database
+name is the name of the database (if you can’t remember the name,
+connect with a database you do know, e.g. <em>D0021_00_userFlora</em> and
+you’ll see an overview of the existing databases on that server after
+connecting.) The driver version depends on your computer and can be
+looked up using <code>odbc::odbcListDrivers()</code>.</p>
 <h3 id="use-existing-msaccess-connection-name">Use existing MSAccess connection name<a href="#use-existing-msaccess-connection-name" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>When you query data from a SQL database that is already accessible using
 MSAccess, such a database is also accessible from R. For Windows users,
