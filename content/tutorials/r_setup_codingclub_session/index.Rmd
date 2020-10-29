@@ -29,7 +29,7 @@ if (!"remotes" %in% rownames(installed.packages())) {
 remotes::install_github("inbo/inborutils")
 ```
 
-Next load the library:
+Next load the package:
 
 ```{r}
 library(inborutils)
