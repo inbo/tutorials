@@ -16,7 +16,7 @@ knitr::opts_chunk$set(eval = FALSE)
 Before each coding club you will usually have to download some data and some scripts.
 This can be done manually by going to each of the GitHub pages but it is much easier to use the `setup_codingclub_session()` function of the `inborutils` package.
 
-To begin make sure that you have the latest version of inborutils installed by running the following code:
+To begin make sure that you have the latest version of `inborutils` installed by running the following code:
 
 ```{r}
 if (!"remotes" %in% rownames(installed.packages())) {
