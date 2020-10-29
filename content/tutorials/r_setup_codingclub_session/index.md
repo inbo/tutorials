@@ -61,7 +61,7 @@ If you want to get the coding club materials for a past date, use the "YYYYMMDD"
 setup_codingclub_session("20200825")
 ```
 
-If your folders are not named "src" or "data" (although we would recommend you name them as such) but for example "scripts" and "data_codingclub" you can specify this:
+If your folders are not named `src` or `data` (although we would recommend you name them as such) but for example `scripts` and `data_codingclub` you can specify this:
 
 ```{r}
 setup_codingclub_session("20200326",
