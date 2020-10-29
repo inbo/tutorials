@@ -52,7 +52,7 @@ So when we just run the function like this:
 setup_codingclub_session()
 ```
 
-We will get the coding club materials for the date of today (if and only if today there is a coding club, otherwise there are no materials) and these materials will be saved in the src and data folders of the current working directory.
+We will get the coding club materials for the date of today (if and only if today there is a coding club, otherwise there are no materials) and these materials will be saved in the `src` and `data` folders of the current working directory.
 
 
 If you want to get the coding club materials for a past date, use the "YYYYMMDD" format, e.g.: 
