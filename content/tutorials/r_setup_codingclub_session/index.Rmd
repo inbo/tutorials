@@ -37,10 +37,10 @@ library(inborutils)
 
 The function takes four arguments with the following default settings:
 
- - session_date which is set to the present day
- - root_dir which is set to "."
- - src_rel_path which is set to "src"
- - data_rel_path which is set to "data"
+ - `session_date` which is set to the present day
+ - `root_dir` which is set to  `"."`
+ - `src_rel_path` which is set to the subdirectory `src`
+ - `data_rel_path` which is set to the subdirectory `data`
 
 ```{r}
 setup_codingclub_session(
