@@ -33,9 +33,9 @@ library(inborutils)
 ```
 
 The function takes four arguments with the following default settings: -
-session\_date which is set to the present day - root\_dir which is set
-to “.” - src\_rel\_path which is set to “src” - data\_rel\_path which is
-set to “data”
+`session\_date` which is set to the present day - `root\_dir` which is set
+to `“.”` - `src\_rel\_path` which is set to “src” - `data\_rel\_path` which is
+set to `“data”`
 
 ``` r
 setup_codingclub_session(
