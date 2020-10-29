@@ -31,7 +31,7 @@ Next load the library:
 library(inborutils)
 ```
 
-The function takes in four arguments:
+The function takes four arguments with the following default settings:
  - session_date which is set to the present day
  - root_dir which is set to "."
  - src_rel_path which is set to "src"
