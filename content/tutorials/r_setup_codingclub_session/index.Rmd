@@ -42,14 +42,6 @@ The function takes four arguments with the following default settings:
  - `src_rel_path` which is set to the subdirectory `src`
  - `data_rel_path` which is set to the subdirectory `data`
 
-```{r}
-setup_codingclub_session(
-  session_date = format(Sys.Date(), "%Y%m%d"),
-  root_dir = ".",
-  src_rel_path = "src",
-  data_rel_path = "data"
-)
-```
 
 So when we just run the function like this:
 
