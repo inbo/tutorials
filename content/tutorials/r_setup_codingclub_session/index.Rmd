@@ -90,7 +90,7 @@ The subfolders `./src/20200225` and `./data/20200225` are automatically created 
 |   │   └── 20200225_urban_gaia_policy.txt
 ```
 
-If your folders are not named `src` or `data` (although we would recommend you name them as such) but for example `scripts` and `data_codingclub` you can specify this:
+If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them:
 
 setup_codingclub_session("20200326",
 ```{r other_subfolders}
