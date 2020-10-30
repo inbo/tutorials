@@ -84,12 +84,24 @@ The subfolders `./src/20200225` and `./data/20200225` are automatically created 
 
 If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them:
 
-setup_codingclub_session("20200326",
 ```{r other_subfolders}
+setup_codingclub_session("20200225",
                          src_rel_path = "scripts",
                          data_rel_path = "data_codingclub")
 
 ```
+
+```
+├── scripts
+    ├── 20200225
+    │   ├── 20200225_create_messy_project.r
+    │   ├── 20200225_challenges.r
+    │   └── 20200225_challenges_solutions.r
+└── data_codingclub
+│   ├── 20200225
+|   │   └── 20200225_urban_gaia_policy.txt
+```
+
 To make the function even more flexible, you can modify the root directory although you shouldn't need to do it while working within a RStudio project. For example, if you want to move the root to the parent directory:
 
 ```{r other_root_dir}
