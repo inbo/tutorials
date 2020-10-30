@@ -70,7 +70,7 @@ inbodb), you can do so by providing the necessary parameters:
 
 ``` r
 my_connection <- DBI::dbConnect(odbc::odbc(),
-      driver = "SQL Server",
+      driver = "ODBC Driver 17 for SQL Server",
       server = "inbo-sql07-prd.inbo.be", # or inbo-sql08-prd.inbo.be
       port = 1433,
       database = "D0021_00_userFlora", # or your database of interest
@@ -78,13 +78,15 @@ my_connection <- DBI::dbConnect(odbc::odbc(),
 ```
 
 The most important parameters are `server` and `database`, the others
-should normally be kept as such. For the first one, remember that
-database names starting with `M`, `S` or `W` can be accessed using the
-`inbo-sql08-prd.inbo.be` server and others (mostly with `D`) use the
-`inbo-sql07-prd.inbo.be` server. The database name is the name of the
-database (if you can’t remember the name, connect with a database you do
-know, e.g. *D0021\_00\_userFlora* and you’ll see an overview of the
-existing databases on that server after connecting.)
+should normally be kept as such (except for maybe `driver`). For the
+first one, remember that database names starting with `M`, `S` or `W`
+can be accessed using the `inbo-sql08-prd.inbo.be` server and others
+(mostly with `D`) use the `inbo-sql07-prd.inbo.be` server. The database
+name is the name of the database (if you can’t remember the name,
+connect with a database you do know, e.g. *D0021\_00\_userFlora* and
+you’ll see an overview of the existing databases on that server after
+connecting.) The driver version depends on your computer and can be
+looked up using `odbc::odbcListDrivers()`.
 
 ### Use existing MSAccess connection name
 
