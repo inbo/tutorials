@@ -60,10 +60,23 @@ setup_codingclub_session()
 We will get the coding club materials for the date of today (if and only if today there is a coding club, otherwise there are no materials) and these materials will be saved in the `src` and `data` folders of the current working directory.
 
 
-If you want to get the coding club materials for a past date, use the "YYYYMMDD" format, e.g.: 
+If you want to get the coding club materials for a past date, use the "YYYYMMDD" format, e.g. for material of August 25, 2020: 
 
-setup_codingclub_session("20200825")
 ```{r change_date}
+setup_codingclub_session("20200225")
+```
+
+The subfolders `./src/20200225` and `./data/20200225` are automatically created and files downloaded if not present:
+
+```
+├── src
+    ├── 20200225
+    │   ├── 20200225_create_messy_project.r
+    │   ├── 20200225_challenges.r
+    │   └── 20200225_challenges_solutions.r
+└── data
+│   ├── 20200225
+|   │   └── 20200225_urban_gaia_policy.txt
 ```
 
 If your folders are not named `src` or `data` (although we would recommend you name them as such) but for example `scripts` and `data_codingclub` you can specify this:
