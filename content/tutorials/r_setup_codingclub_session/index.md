@@ -89,7 +89,7 @@ appears on screen showing the URL of the files to download and the
 absolute path where R scripts and data will be downloaded, followed by
 the question: `Do you want to continue? (Y/n)` as shown below:
 
-![example\_message](figures/example_message_before_download.png)
+![example\_message](images/example_message_before_download.png)
 
 If everything is ok, enter `Y` (`y` works as well, but it’s a kind of a
 secret…)
