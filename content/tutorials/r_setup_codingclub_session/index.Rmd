@@ -88,7 +88,7 @@ This function is also interactive: before downloading starts a message appears o
 
 If everything is ok, enter `Y` (`y` works as well, but it's a kind of a secret...)
 
-If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them:
+If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them as such:
 
 ```{r other-subfolders}
 setup_codingclub_session("20200225",
@@ -108,7 +108,8 @@ setup_codingclub_session("20200225",
         └── 20200225_urban_gaia_policy.txt
 ```
 
-To make the function even more flexible, you can modify the root directory although you shouldn't need to do it while working within a RStudio project. For example, if you want to move the root to the parent directory:
+To make the function even more flexible, you can modify the root directory although you shouldn't need to while working within an RStudio project.
+For example, if you want to move the root to the parent directory:
 
 ```{r other-root-dir}
 setup_codingclub_session(root_dir = "../")
