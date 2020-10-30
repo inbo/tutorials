@@ -82,6 +82,12 @@ The subfolders `./src/20200225` and `./data/20200225` are automatically created 
 |   │   └── 20200225_urban_gaia_policy.txt
 ```
 
+This function is also interactive: before downloading starts a message appears on screen showing the URL of the files to download and the absolute path where R scripts and data will be downloaded, followed by the question: `Do you want to continue? (Y/n)` as shown below:
+
+![example_message](figures/example_message_before_download.png)
+
+If everything is ok, enter `Y` (`y` works as well, but it's a kind of a secret...)
+
 If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them:
 
 ```{r other_subfolders}
