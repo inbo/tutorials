@@ -22,7 +22,7 @@ This can be done manually by going to each of the GitHub pages but it is much ea
 
 To begin make sure that you have the latest version of `inborutils` installed by running the following code:
 
-```{r}
+```{r install_inborutils_if_not_present}
 if (!"remotes" %in% rownames(installed.packages())) {
   install.packages("remotes")
 }
@@ -31,7 +31,7 @@ remotes::install_github("inbo/inborutils")
 
 Next load the package:
 
-```{r}
+```{r load_package}
 library(inborutils)
 ```
 
@@ -53,7 +53,7 @@ setup_codingclub_session(
 
 So when we just run the function like this:
 
-```{r}
+```{r use_default_values}
 setup_codingclub_session()
 ```
 
@@ -62,14 +62,14 @@ We will get the coding club materials for the date of today (if and only if toda
 
 If you want to get the coding club materials for a past date, use the "YYYYMMDD" format, e.g.: 
 
-```{r}
 setup_codingclub_session("20200825")
+```{r change_date}
 ```
 
 If your folders are not named `src` or `data` (although we would recommend you name them as such) but for example `scripts` and `data_codingclub` you can specify this:
 
-```{r}
 setup_codingclub_session("20200326",
+```{r other_subfolders}
                          src_rel_path = "scripts",
                          data_rel_path = "data_codingclub")
 
