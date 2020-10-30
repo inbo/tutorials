@@ -114,3 +114,10 @@ To make the function even more flexible, you can modify the root directory altho
 setup_codingclub_session(root_dir = "../")
 ```
 
+Last but not least, you can always check examples and documentation [online](https://inbo.github.io/inborutils/reference/setup_codingclub_session.html) or via R console:
+
+```{r help}
+?setup_codingclub_session
+```
+
+Doesn't `setup_codingclub_session` work as expected? Do you think there is a bug? Or do you have some ideas to improve the function? Raise your hands! Write an [issue](https://github.com/inbo/inborutils/issues) or contact one of the [INBO coding club organizers](https://inbo.github.io/coding-club/). We will be happy to help you.
