@@ -88,7 +88,7 @@ This function is also interactive: before downloading starts a message appears o
 
 If everything is ok, enter `Y` (`y` works as well, but it's a kind of a secret...)
 
-If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them:
+If your folders are not named `src` or `data` (although we recommend to name them as such) but for example `scripts` and `data_codingclub` you can specify them as such:
 
 ```{r other-subfolders}
 setup_codingclub_session("20200225",
