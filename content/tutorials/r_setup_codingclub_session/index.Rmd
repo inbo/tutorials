@@ -17,10 +17,10 @@ knitr::opts_chunk$set(eval = FALSE)
 ```
 
 
-Before each coding club you will usually have to download some data and some scripts.
-This can be done manually by going to each of the GitHub pages but it is much easier to use the `setup_codingclub_session()` function of the `inborutils` package.
+Before each coding club you will usually have to download some datasets and some scripts.
+This can be done manually from the correspondent GitHub webpages but it is much easier to use the `setup_codingclub_session()` function of the `inborutils` package.
 
-To begin make sure that you have the latest version of `inborutils` installed by running the following code:
+To begin, make sure that you have the latest version of `inborutils` installed by running the following code:
 
 ```{r install_inborutils_if_not_present}
 if (!"remotes" %in% rownames(installed.packages())) {
@@ -38,7 +38,7 @@ library(inborutils)
 The function takes four arguments with the following default settings:
 
  - `session_date` which is set to the present day
- - `root_dir` which is set to  `"."`
+ - `root_dir` which is set to  the current/project directory `"."`
  - `src_rel_path` which is set to the subdirectory `src`
  - `data_rel_path` which is set to the subdirectory `data`
 
