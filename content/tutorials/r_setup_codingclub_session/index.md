@@ -45,9 +45,9 @@ So when we just run the function like this:
 setup_codingclub_session()
 ```
 
-We will get the coding club materials for the date of today (if and only
-if today there is a coding club, otherwise there are no materials and
-nothing will be downloaded) and these materials will be saved in the
+… we will get the coding club materials for the date of today (if and
+only if today there is a coding club, otherwise there are no materials
+and nothing will be downloaded). These materials will be saved in the
 `src` and `data` folders of the current working directory or project
 directory if you work within a RStudio project as recommended in the
 coding club’s [getting
