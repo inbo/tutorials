@@ -1,18 +1,17 @@
 ---
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
-date: 2017-10-18T00:25:57+02:00
+date: "2020-11-09"
 author: "Thierry Onkelinx"
 categories: ["installation"]
 tags: ["r", "installation"]
 output: 
     md_document:
         preserve_yaml: true
-        variant: markdown_github
+        variant: gfm
 ---
 
-Windows
--------
+## Windows
 
 Installatiebestand beschikbaar via
 [cloud.r-project.org](https://cloud.r-project.org/bin/windows/base)
@@ -39,28 +38,28 @@ voor versie `R-4.0.0` is `x` = 0 en `y` = 0.
 10. R wordt nu geïnstalleerd. Klik op *Voltooien* als de installatie
     afgelopen is.
 11. Ga naar `Start` en tik “Omgevingsvariabelen” in het veld
-    `Programma's en variabelen zoeken`. Selecteer
-    `De omgevingsvariabelen van het systeem bewerken`. Selecteer het
-    tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga
-    na of er een systeemvariabele `R_LIBS_USER` met waarde
-    `C:/R/library` bestaat[1]. Indien niet, maak deze aan met de knop
-    `Nieuw`. Sluit al deze schermen via de `OK` knop.
+    `Programma's en variabelen zoeken`. Selecteer `De
+    omgevingsvariabelen van het systeem bewerken`. Selecteer het tabblad
+    `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga na of er
+    een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library`
+    bestaat\[1\]. Indien niet, maak deze aan met de knop `Nieuw`. Sluit
+    al deze schermen via de `OK` knop.
 12. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in
-    de doelmap waar je R geïnstalleerd hebt
-    (`C:\Program Files\R\R-3.x.y`). Hierbij moet je het bestaande
-    bestand overschrijven.
+    de doelmap waar je R geïnstalleerd hebt (`C:\Program
+    Files\R\R-3.x.y`). Hierbij moet je het bestaande bestand
+    overschrijven.
 13. Zorg dat de gebruiker schrijfrechten heeft voor
     `C:\R\R-4.x.y\library` en `C:\R\library`.
 
 #### Afwijkingen t.o.v. default installatie
 
--   Wijzig de standaarddoelmap naar `C:\R\R-4.x.y`
--   **alle** gebruikers moeten **volledige** rechten hebben in
-    -   `C:\R\library`
-    -   `C:\Program Files\R\R-3.x.y\library`
--   Systeemvariable `R_LIBS_USER` instellen op `C:/R/library`
+  - Wijzig de standaarddoelmap naar `C:\R\R-4.x.y`
+  - **alle** gebruikers moeten **volledige** rechten hebben in
+      - `C:\R\library`
+      - `C:\Program Files\R\R-4.x.y\library`
+  - Systeemvariable `R_LIBS_USER` instellen op `C:/R/library`
     (**verplicht forward slashes**)
--   [`Rprofile.site`](Rprofile.site) in `C:\R\R-4.x.y\etc` overschrijven
+  - [`Rprofile.site`](Rprofile.site) in `C:\R\R-4.x.y\etc` overschrijven
 
 **R mag niet met admininstratorrechten gestart worden.** Anders worden
 een aantal packages met administrator rechten geïnstalleerd waardoor de
@@ -72,7 +71,7 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 
 **Deze instructies veronderstellen dat R en RStudio in het verleden
 reeds geïnstalleerd werden volgens de bovenstaande instructies. Indien
-dan niet het geval is, volg dan de instructies voor een nieuwe
+dat niet het geval is, volg dan de instructies voor een nieuwe
 installatie.**
 
 1.  Voer het bestand *R-4.x.y-win.exe* uit.
@@ -111,7 +110,6 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
       tab.width = 2,
       width = 80,
       help_type = "html",
-      stringsAsFactors = TRUE,
       keep.source.pkgs = TRUE,
       xpinch = 300,
       ypinch = 300,
@@ -131,7 +129,7 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
       install.packages.check.source = "no",
       install.packages.compile.from.source = "never"
     )
-
+    
     # display fortune when starting new interactive R session
     if (interactive()) {
       if (length(find.package("fortunes", quiet = TRUE)) == 0) {
@@ -145,17 +143,13 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
       )
     }
 
-    # required for RStan and brms
-    Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")
-
-Ubuntu
-------
+## Ubuntu
 
     sudo sh -c 'echo "deb http://cloud.r-project.org/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list'
     sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
     sudo gpg -a --export E084DAB9 | apt-key add -
-
+    
     sudo apt-get update
     sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 
-[1] Het moeten forward slashes zijn.
+1.  Het moeten forward slashes zijn.
