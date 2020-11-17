@@ -1,7 +1,7 @@
 ---
 title: "Use of INBO citation style with bibliography managers"
 description: "We show where to find and how to use the INBO citation style in bibliography managers"
-author: "Hans Van Calster, Herwig, Floris Vanderhaeghe"
+author: "Hans Van Calster, Herwig Borremans, Floris Vanderhaeghe"
 date: "2020-11-17"
 categories: ["styleguide"]
 tags: ["bibliography", "csl", "INBOmd", "open science", "zotero", "mendeley", "endnote"]
