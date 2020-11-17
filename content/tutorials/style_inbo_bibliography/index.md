@@ -56,8 +56,6 @@ The EndNote `*.ens` file can be downloaded
 Curious what the formatted INBO citation style and bibliography looks
 like for various document types? Take a look at these links:
 
-<!-- - Pdf op basis van [bst bestand](citation_style/citation_style_bst.pdf) -->
-
   - [PDF based on CSL
     file](https://github.com/inbo/inbomd_examples/tree/master/source/citation_style/en/citation_style_csl.pdf)
   - [HTML based on CSL
