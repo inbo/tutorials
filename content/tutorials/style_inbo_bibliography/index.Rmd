@@ -25,7 +25,7 @@ All bibliography managers provide ways to automate the formatting of citations a
 Depending on the bibliographic manager software, the style formatting rules are stored in specific files.
 In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.
 
-EndNote uses a `*.ens` file to store the style formatting rules, whereas Mendeley and Zotero use the open standard `*.csl` [Citation Style Language](https://citationstyles.org/).
+EndNote uses a `*.ens` file to store the style formatting rules, whereas Mendeley and Zotero use the open standard `*.csl` ([Citation Style Language](https://citationstyles.org/)).
 EndNote, Zotero and Mendeley have recommended ways of finding and installing these files and will always point to the latest version of the style files when properly installed.
 This is explained in [Use in bibliography managers].
 
