@@ -29,7 +29,7 @@ EndNote uses a `*.ens` file to store the style formatting rules, whereas Mendele
 EndNote, Zotero and Mendeley have recommended ways of finding and installing these files and will always point to the latest version of the style files when properly installed.
 This is explained in [Use in bibliography managers].
 
-The latest official CSL file of the INBO citation style is available at the CSL style repository (also transferred automatically to the Zotero style repository) and can be found [here](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl).
+In case you want to manually download the latest official CSL file of the INBO citation style (not the recommended way; better use your bibliography manager): it is [available](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl) at the CSL style repository.
 In case older versions are needed, they can be obtained from successively numbered releases from our [forked styles repo](https://github.com/inbo/styles/releases).
 To use older versions, you will need to manually download and add the file to your reference manager.
 
