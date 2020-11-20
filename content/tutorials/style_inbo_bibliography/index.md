@@ -25,29 +25,29 @@ learn how to use the INBO citation style in EndNote, Mendeley and Zotero
 bibliography managers.
 
 EndNote uses a `*.ens` file to store the style formatting rules, whereas
-Mendeley and Zotero use the open standard `*.csl` [Citation Style
-Language](https://citationstyles.org/). EndNote, Zotero and Mendeley
+Mendeley and Zotero use the open standard `*.csl` ([Citation Style
+Language](https://citationstyles.org/)). EndNote, Zotero and Mendeley
 have recommended ways of finding and installing these files and will
 always point to the latest version of the style files when properly
 installed. This is explained in [Use in bibliography
 managers](#use-in-bibliography-managers).
 
-The latest official CSL file of the INBO citation style is available at
-the CSL style repository (also transferred automatically to the Zotero
-style repository) and can be found
-[here](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl).
-In case older versions are needed, they can be obtained from
-successively numbered releases from our [forked styles
+In case you want to manually download the latest official CSL file of
+the INBO citation style (not the recommended way; better use your
+bibliography manager): it is
+[available](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl)
+at the CSL style repository. In case older versions are needed, they can
+be obtained from successively numbered releases from our [forked styles
 repo](https://github.com/inbo/styles/releases). To use older versions,
-you will need to manually download and add the file to your reference
+you will need to manually download and add the file to your bibliography
 manager.
 
 The EndNote `*.ens` file can be downloaded
 [here](https://sites.google.com/a/inbo.be/intranet/ondersteuning/bibliotheek/endnote-informatie/endnotehuisstijl)
 (only accessible for INBO employees).
 
-Curious what the formatted INBO citation style and bibliography looks
-like for various document types? Take a look at these links:
+Curious how the formatted INBO citation style and bibliography look like
+for various document types? Take a look at these links:
 
   - [PDF with English bibliography based on
     CSL](https://inbomd-examples.netlify.app/citation_style/en/citation_style_csl.pdf)
