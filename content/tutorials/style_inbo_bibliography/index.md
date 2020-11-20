@@ -2,10 +2,9 @@
 title: "Use of INBO citation style with bibliography managers"
 description: "We show where to find and how to use the INBO citation style in bibliography managers"
 author: "Hans Van Calster, Herwig Borremans, Floris Vanderhaeghe"
-date: "2020-11-17"
+date: "2020-11-20"
 categories: ["styleguide"]
 tags: ["bibliography", "csl", "INBOmd", "open science", "zotero", "mendeley", "endnote"]
-bibliography: "../../articles/reproducible_research.bib"
 output: 
     md_document:
         preserve_yaml: true
@@ -26,40 +25,38 @@ learn how to use the INBO citation style in EndNote, Mendeley and Zotero
 bibliography managers.
 
 EndNote uses a `*.ens` file to store the style formatting rules, whereas
-Mendeley and Zotero use the open source `*.csl` file (Citation Style
-Language)\[<https://citationstyles.org/>\].
+Mendeley and Zotero use the open standard `*.csl` [Citation Style
+Language](https://citationstyles.org/). EndNote, Zotero and Mendeley
+have recommended ways of finding and installing these files and will
+always point to the latest version of the style files when properly
+installed. This is explained in [Use in bibliography
+managers](#use-in-bibliography-managers).
 
 The latest official CSL file of the INBO citation style is available at
 the CSL style repository (also transferred automatically to the Zotero
-style repository). See
-(finding-and-installing-styles)\[<https://citationstyles.org/authors/#/finding-and-installing-styles>\]
-for more information.
-
-Here are direct links to the CSL file:
-
-  - (file in the CSL style
-    repository)\[<https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl>\]
-  - (file in the Zotero style
-    repository)\[<https://www.zotero.org/styles/research-institute-for-nature-and-forest>\]
-
-The link to the Zotero style repository lets you directly download the
-style file.
-
+style repository) and can be found
+[here](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl).
 In case older versions are needed, they can be obtained from
-successively numbered releases from our (forked styles
-repo)\[<https://github.com/inbo/styles/releases>\].
+successively numbered releases from our [forked styles
+repo](https://github.com/inbo/styles/releases). To use older versions,
+you will need to manually download and add the file to your reference
+manager.
 
 The EndNote `*.ens` file can be downloaded
-(here)\[<https://sites.google.com/a/inbo.be/intranet/ondersteuning/bibliotheek/endnote-informatie/endnotehuisstijl>\]
+[here](https://sites.google.com/a/inbo.be/intranet/ondersteuning/bibliotheek/endnote-informatie/endnotehuisstijl)
 (only accessible for INBO employees).
 
 Curious what the formatted INBO citation style and bibliography looks
 like for various document types? Take a look at these links:
 
-  - [PDF based on CSL
-    file](https://github.com/inbo/inbomd_examples/tree/master/source/citation_style/en/citation_style_csl.pdf)
-  - [HTML based on CSL
-    file](https://github.com/inbo/inbomd_examples/tree/master/source/citation_style/en/index.html)
+  - [PDF with English bibliography based on
+    CSL](https://inbomd-examples.netlify.app/citation_style/en/citation_style_csl.pdf)
+  - [HTML with English bibliography based on
+    CSL](https://inbomd-examples.netlify.app/citation_style/en/index.html)
+  - [PDF with Dutch bibliography based on
+    CSL](https://inbomd-examples.netlify.app/citation_style/nl/citation_style_csl.pdf)
+  - [HTML with Dutch bibliography based on
+    CSL](https://inbomd-examples.netlify.app/citation_style/nl/index.html)
 
 # Use in bibliography managers
 
@@ -77,8 +74,9 @@ like for various document types? Take a look at these links:
 
 There are good online tutorials that explain how to use Zotero in
 combination with [google
-docs](https://www.zotero.org/support/google_docs) and [MS
-Word](https://www.zotero.org/support/word_processor_plugin_usage).
+docs](https://www.zotero.org/support/google_docs), [MS
+Word](https://www.zotero.org/support/word_processor_plugin_usage) and
+[LibreOffice](https://www.zotero.org/support/libreoffice_writer_plugin_usage).
 
 ## Mendeley
 
@@ -97,8 +95,8 @@ LibreOffice can be found
 
 ## EndNote
 
-1.  (Download the INBO style
-    file)\[<https://sites.google.com/a/inbo.be/intranet/ondersteuning/bibliotheek/endnote-informatie/endnotehuisstijl>\]
+1.  [Download the INBO style
+    file](https://sites.google.com/a/inbo.be/intranet/ondersteuning/bibliotheek/endnote-informatie/endnotehuisstijl)
 
 2.  If you do not already have a folder where style files are stored,
     create one (make sure you have read and write rights and choose a
