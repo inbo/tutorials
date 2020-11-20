@@ -5,7 +5,6 @@ author: "Hans Van Calster, Herwig Borremans, Floris Vanderhaeghe"
 date: "`r Sys.Date()`"
 categories: ["styleguide"]
 tags: ["bibliography", "csl", "INBOmd", "open science", "zotero", "mendeley", "endnote"]
-bibliography: "../../articles/reproducible_research.bib"
 output: 
     md_document:
         preserve_yaml: true
