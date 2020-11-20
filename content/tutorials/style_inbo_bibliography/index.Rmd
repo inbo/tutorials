@@ -26,20 +26,12 @@ Depending on the bibliographic manager software, the style formatting rules are 
 In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.
 
 EndNote uses a `*.ens` file to store the style formatting rules, whereas Mendeley and Zotero use the open standard `*.csl` [Citation Style Language](https://citationstyles.org/).
+EndNote, Zotero and Mendeley have recommended ways of finding and installing these files and will always point to the latest version of the style files when properly installed.
+This is explained in [Use in bibliography managers].
 
-The latest official CSL file of the INBO citation style is available at the CSL style repository (also transferred automatically to the Zotero style repository).
-See [finding-and-installing-styles](https://citationstyles.org/authors/#/finding-and-installing-styles) for more information.
-
-Here are direct links to the CSL file:
-
-- [file in the CSL style repository](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl)
-- [file in the Zotero style repository](https://www.zotero.org/styles/research-institute-for-nature-and-forest)
-
-The link to the Zotero style repository lets you directly download the style file.
-
+The latest official CSL file of the INBO citation style is available at the CSL style repository (also transferred automatically to the Zotero style repository) and can be found [here](https://github.com/citation-style-language/styles/blob/master/research-institute-for-nature-and-forest.csl).
 In case older versions are needed, they can be obtained from successively numbered releases from our [forked styles repo](https://github.com/inbo/styles/releases).
-To use such a downloaded csl file, you will need to manually add the file to your reference manager.
-However note that the version will remain fixed in this case!
+To use older versions, you will need to manually download and add the file to your reference manager.
 
 The EndNote `*.ens` file can be downloaded [here](https://sites.google.com/a/inbo.be/intranet/ondersteuning/bibliotheek/endnote-informatie/endnotehuisstijl) (only accessible for INBO employees).
 
