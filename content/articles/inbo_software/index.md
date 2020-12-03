@@ -1,6 +1,6 @@
 ---
 title: "Software by INBO: packages for environmentalists and ecologists!"
-date: 2020-01-30
+date: 2020-12-03
 categories: ["development", "r", "statistics", "databases"]
 tags: ["open science", "packages", "r", "python"]
 output: 
