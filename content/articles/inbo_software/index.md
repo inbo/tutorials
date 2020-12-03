@@ -30,8 +30,7 @@ The following table gives a **quick overview**:
 
 | Research stage | Related INBO packages |
 | :------------- | :-------------------- |
-| Study design | [grts](https://github.com/ThierryO/grts)  |
-| Study design | [protocolhelper](https://github.com/inbo/protocolhelper)  |
+| Study design | [grts](https://github.com/ThierryO/grts), [protocolhelper](https://github.com/inbo/protocolhelper)  |
 | Retrieve data: general | [inbodb](https://inbo.github.io/inbodb) |
 | Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
 | Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/) |
