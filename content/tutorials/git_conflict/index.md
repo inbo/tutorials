@@ -47,7 +47,7 @@ Continue with your rebase
 git rebase --continue
 ```
 
-If more troubles occur, fix them, add them, and do a ```git rebase continue```
+If more troubles occur, fix them, add them, and do a ```git rebase --continue```
 
 Force push your branch to the server. (force because you changed the commit)
 
