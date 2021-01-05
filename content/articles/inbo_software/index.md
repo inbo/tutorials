@@ -88,6 +88,8 @@ The following table gives a **quick overview**:
   - **Python package
     [pyinaturalist](https://github.com/inbo/pyinaturalist)**: Python
     client for the iNaturalist APIs.
+  - **R package [rgbif](https://docs.ropensci.org/rgbif/)**: provides
+    an R interface to the [Global Biodiversity Information Facility API](https://www.gbif.org/developer/summary).
   - **R package [uvabits](https://inbo.github.io/uvabits/)**: provides
     an R interface to the [UvA-BiTS database](http://www.uva-bits.nl/),
     which stores bird movement data collected with UvA-BiTS GPS
