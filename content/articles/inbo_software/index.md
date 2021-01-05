@@ -33,7 +33,7 @@ The following table gives a **quick overview**:
 | Study design | [grts](https://github.com/ThierryO/grts), [protocolhelper](https://github.com/inbo/protocolhelper)  |
 | Retrieve data: general | [inbodb](https://inbo.github.io/inbodb) |
 | Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
-| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/) |
+| Retrieve data: biological | [pyinaturalist](https://github.com/inbo/pyinaturalist), [rgbif](https://docs.ropensci.org/rgbif/), [uvabits](https://inbo.github.io/uvabits/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/) |
 | Store data | [git2rdata](https://inbo.github.io/git2rdata/) |
 | Validate data | [pywhip](https://inbo.github.io/pywhip/) |
 | Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
@@ -88,6 +88,8 @@ The following table gives a **quick overview**:
   - **Python package
     [pyinaturalist](https://github.com/inbo/pyinaturalist)**: Python
     client for the iNaturalist APIs.
+  - **R package [rgbif](https://docs.ropensci.org/rgbif/)**: provides
+    an R interface to the [Global Biodiversity Information Facility API](https://www.gbif.org/developer/summary).
   - **R package [uvabits](https://inbo.github.io/uvabits/)**: provides
     an R interface to the [UvA-BiTS database](http://www.uva-bits.nl/),
     which stores bird movement data collected with UvA-BiTS GPS
