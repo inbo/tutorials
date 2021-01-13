@@ -214,6 +214,13 @@ The map of regions of Belgium.
 
 ```{r}
 wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
+regions_client <- WFSClient$new(wfs_regions, 
+                            serviceVersion = "2.0.0")
+regions_client$getFeatureTypes(pretty = TRUE)
+```
+
+
+```{r}
 url <- parse_url(wfs_regions)
 url$query <- list(service = "wfs",
                   version = "2.0.0",
