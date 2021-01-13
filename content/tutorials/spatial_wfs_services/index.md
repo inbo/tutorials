@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 author: "Thierry Onkelinx, Hans Van Calster, Floris Vanderhaeghe"
-date: "2020-06-18"
+date: "2021-01-13"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -62,6 +62,8 @@ and from Lovelace, Nowosad, and Muenchow (2020).
 
 WFS services for Belgium and regions in Belgium:
 
+  - [overview of WFS services for Flanders
+    region](https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten)
   - [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
     which is [also available on
     gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
@@ -421,12 +423,19 @@ The map of regions of Belgium.
 
 ``` r
 wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
-url <- parse_url(wfs_regions)
-url$query <- list(service = "WFS",
-                  version = "2.0.0",
-                  request = "GetCapabilities")
-request <- build_url(url)
+regions_client <- WFSClient$new(wfs_regions, 
+                            serviceVersion = "2.0.0")
 ```
+
+    ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
+    ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
+
+``` r
+regions_client$getFeatureTypes(pretty = TRUE)
+```
+
+    ##                  name   title
+    ## 1 R2C_Regions:Regions Regions
 
 ``` r
 url <- parse_url(wfs_regions)
@@ -487,7 +496,7 @@ st_layers(request)
     ## Driver: GeoJSON 
     ## Available layers:
     ##   layer_name geometry_type features fields
-    ## 1 OGRGeoJSON       Polygon      583     33
+    ## 1 OGRGeoJSON       Polygon      670     32
 
 ``` r
 bwk_hallerbos <- read_sf(request)
@@ -521,11 +530,11 @@ GET(url = request,
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&version=2.0.0&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2020-06-17 14:25
+    ##   Date: 2021-01-13 09:59
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
-    ##   Size: 879 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\Rtmp6lClEJ\file263c7b7b50ab.geojson
+    ##   Size: 821 kB
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpGQj0jE\file17a062d95f6a.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -627,7 +636,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2020-06-17 14:25
+    ##   Date: 2021-01-13 09:59
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B

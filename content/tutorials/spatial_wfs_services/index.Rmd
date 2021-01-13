@@ -45,6 +45,7 @@ Some of the material presented in this tutorial benefitted from a tutorial prese
 
 WFS services for Belgium and regions in Belgium:
 
+- [overview of WFS services for Flanders region](https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten)
 - [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/), which is [also available on gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
 - [overview maintained by DOV Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
 
@@ -213,11 +214,9 @@ The map of regions of Belgium.
 
 ```{r}
 wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
-url <- parse_url(wfs_regions)
-url$query <- list(service = "WFS",
-                  version = "2.0.0",
-                  request = "GetCapabilities")
-request <- build_url(url)
+regions_client <- WFSClient$new(wfs_regions, 
+                            serviceVersion = "2.0.0")
+regions_client$getFeatureTypes(pretty = TRUE)
 ```
 
 
