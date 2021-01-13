@@ -238,8 +238,84 @@ ggplot(bel_regions) +
   geom_sf()
 ```
 
+## Example 2: filter by attributes
 
-## Example 2: restrict to a bounding box
+In this example, we only want to extract specific regions.
+This can be done using either [standard OGC filter specification](https://www.ogc.org/standards/filter) or using a [common query language (CQL) filter](https://gcs-docs.s3.amazonaws.com/EVWHS/Miscellaneous/DevGuides/WFS/WFS_Query.htm).
+The latter, however, only works for WFS services that are hosted on a GeoServer!
+
+In this example we also show how the previously used R code can be stitched together using the pipe (`%>%`) operator.
+
+
+**Standard OGC filter**
+
+Unfortunately, the standard OGC filter format is very verbose...
+
+```{r}
+wfs_regions %>%
+  parse_url() %>%
+  list_merge(query = list(service = "wfs",
+                  version = "2.0.0",
+                  request = "GetFeature",
+                  typename = "regions",
+                  srsName = "EPSG:4326",
+                  outputFormat = "GEOJSON",
+                  filter = "<Filter><PropertyIsEqualTo><PropertyName>regions:NameDUT</PropertyName><Literal>'Vlaams Gewest'</Literal></PropertyIsEqualTo></Filter>")) %>%
+  build_url() %>%
+  read_sf() %>%
+  ggplot() +
+  geom_sf()
+```
+
+
+**CQL filter**
+
+We use a different WFS service for which CQL works.
+First we need to know the names of the fields on which we can filter.
+
+
+```{r}
+wfs_vrbg <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs"
+
+vrbg_client <- WFSClient$new(wfs_vrbg, 
+                            serviceVersion = "2.0.0")
+
+vrbg_client$
+   getCapabilities()$
+  findFeatureTypeByName("VRBG:Refprv")$
+  getDescription() %>%
+  map_chr(function(x){x$getName()})
+
+# another way of doing this:
+wfs_vrbg %>%
+  parse_url() %>%
+  list_merge(query = list(service = "wfs",
+                          version = "2.0.0",
+                          request = "DescribeFeatureType",
+                          typeName = "VRBG:Refprv")) %>%
+  build_url() %>%
+  GET()
+```
+
+The CQL filter format is much more human readable and easier to code:
+
+```{r}
+wfs_vrbg %>% 
+  parse_url %>% 
+  list_merge(query = list(service = "wfs",
+                          version = "2.0.0",
+                          request = "GetFeature",
+                          typeName = "VRBG:Refprv",
+                          srsName = "EPSG:31370",
+                          cql_filter="NAAM='West-Vlaanderen'",
+                          outputFormat = "text/xml; subtype=gml/3.1.1")) %>% 
+  build_url() %>% 
+  read_sf(crs = 31370)
+```
+
+
+
+## Example 3: restrict to a bounding box
 
 This examples illustrates how you can read or download information from a WFS for further use in R. 
 
@@ -308,7 +384,7 @@ bwk_hallerbos2 <- read_sf(file)
 ```
 
 
-## Example 3: extract feature data at particular points
+## Example 4: extract feature data at particular points
 
 In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. 
 When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). 
