@@ -457,7 +457,117 @@ ggplot(bel_regions) +
 
 ![](index_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
-## Example 2: restrict to a bounding box
+## Example 2: filter by attributes
+
+In this example, we only want to extract specific regions. This can be
+done using either [standard OGC filter
+specification](https://www.ogc.org/standards/filter) or using a [common
+query language (CQL)
+filter](https://gcs-docs.s3.amazonaws.com/EVWHS/Miscellaneous/DevGuides/WFS/WFS_Query.htm).
+The latter, however, only works for WFS services that are hosted on a
+GeoServer\!
+
+In this example we also show how the previously used R code can be
+stitched together using the pipe (`%>%`) operator.
+
+**Standard OGC filter**
+
+Unfortunately, the standard OGC filter format is very verbose…
+
+``` r
+wfs_regions %>%
+  parse_url() %>%
+  list_merge(query = list(service = "wfs",
+                  version = "2.0.0",
+                  request = "GetFeature",
+                  typename = "regions",
+                  srsName = "EPSG:4326",
+                  outputFormat = "GEOJSON",
+                  filter = "<Filter><PropertyIsEqualTo><PropertyName>regions:NameDUT</PropertyName><Literal>'Vlaams Gewest'</Literal></PropertyIsEqualTo></Filter>")) %>%
+  build_url() %>%
+  read_sf() %>%
+  ggplot() +
+  geom_sf()
+```
+
+![](index_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+**CQL filter**
+
+We use a different WFS service for which CQL works. First we need to
+know the names of the fields on which we can filter.
+
+``` r
+wfs_vrbg <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs"
+
+vrbg_client <- WFSClient$new(wfs_vrbg, 
+                            serviceVersion = "2.0.0")
+
+vrbg_client$
+   getCapabilities()$
+  findFeatureTypeByName("VRBG:Refprv")$
+  getDescription() %>%
+  map_chr(function(x){x$getName()})
+```
+
+    ## [1] "UIDN"    "OIDN"    "TERRID"  "NAAM"    "NISCODE" "NUTS2"   "SHAPE"
+
+``` r
+# another way of doing this:
+wfs_vrbg %>%
+  parse_url() %>%
+  list_merge(query = list(service = "wfs",
+                          version = "2.0.0",
+                          request = "DescribeFeatureType",
+                          typeName = "VRBG:Refprv")) %>%
+  build_url() %>%
+  GET()
+```
+
+    ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs?service=wfs&version=2.0.0&request=DescribeFeatureType&typeName=VRBG%3ARefprv]
+    ##   Date: 2021-01-13 17:56
+    ##   Status: 200
+    ##   Content-Type: text/xml; subtype=gml/3.2
+    ##   Size: 1.55 kB
+    ## <?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.or...
+    ##   <xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http...
+    ##   <xsd:complexType name="RefprvType">
+    ##     <xsd:complexContent>
+    ##       <xsd:extension base="gml:AbstractFeatureType">
+    ##         <xsd:sequence>
+    ##           <xsd:element maxOccurs="1" minOccurs="1" name="UIDN" nillable="fals...
+    ##           <xsd:element maxOccurs="1" minOccurs="1" name="OIDN" nillable="fals...
+    ##           <xsd:element maxOccurs="1" minOccurs="0" name="TERRID" nillable="tr...
+    ##           <xsd:element maxOccurs="1" minOccurs="0" name="NAAM" nillable="true...
+    ## ...
+
+The CQL filter format is much more human readable and easier to code:
+
+``` r
+wfs_vrbg %>% 
+  parse_url %>% 
+  list_merge(query = list(service = "wfs",
+                          version = "2.0.0",
+                          request = "GetFeature",
+                          typeName = "VRBG:Refprv",
+                          srsName = "EPSG:31370",
+                          cql_filter="NAAM='West-Vlaanderen'",
+                          outputFormat = "text/xml; subtype=gml/3.1.1")) %>% 
+  build_url() %>% 
+  read_sf(crs = 31370)
+```
+
+    ## Simple feature collection with 1 feature and 7 fields
+    ## geometry type:  MULTISURFACE
+    ## dimension:      XY
+    ## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 1 x 8
+    ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
+    ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
+    ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
+
+## Example 3: restrict to a bounding box
 
 This examples illustrates how you can read or download information from
 a WFS for further use in R.
@@ -515,7 +625,7 @@ ggplot(bwk_hallerbos) +
   geom_sf()
 ```
 
-![](index_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 You can use `sf::st_write()` to save this layer in any format that is
 listed by `sf::st_drivers()`.
@@ -530,11 +640,11 @@ GET(url = request,
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&version=2.0.0&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2021-01-13 09:59
+    ##   Date: 2021-01-13 17:56
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 821 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpGQj0jE\file17a062d95f6a.geojson
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpAftAVr\file1a5c65e2390d.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -544,7 +654,7 @@ would we any other local file. So we need to load the file with
 bwk_hallerbos2 <- read_sf(file)
 ```
 
-## Example 3: extract feature data at particular points
+## Example 4: extract feature data at particular points
 
 In some situations, we do not need the spatial features (polygons,
 lines, points), but are interested in the data at a particular point
@@ -636,7 +746,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2021-01-13 09:59
+    ##   Date: 2021-01-13 17:56
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B
