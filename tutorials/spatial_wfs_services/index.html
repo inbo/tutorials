@@ -9,7 +9,7 @@
 <meta property='og:description' content='How to use WFS (vectors/features) GIS services within R scripts'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2020-06-18T00:00:00Z'/><meta property='article:modified_time' content='2020-06-18T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-01-13T00:00:00Z'/><meta property='article:modified_time' content='2021-01-13T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.0" />
 
@@ -281,7 +281,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-06-18T00:00:00Z'>2020, Jun 18</time>
+  <time class='entry-date' datetime='2021-01-13T00:00:00Z'>2021, Jan 13</time>
 </span>
 
   
@@ -292,7 +292,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-13 mins read
+14 mins read
 </span>
 
 
@@ -372,6 +372,8 @@ and from Lovelace, Nowosad, and Muenchow (2020).</p>
 <h1 id="useful-overviews-of-web-feature-services">Useful overviews of web feature services<a href="#useful-overviews-of-web-feature-services" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <p>WFS services for Belgium and regions in Belgium:</p>
 <ul>
+<li><a href="https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten">overview of WFS services for Flanders
+region</a></li>
 <li><a href="https://wfs.michelstuyts.be/">overview compiled by Michel Stuyts</a>,
 which is <a href="https://gitlab.com/GIS-projects/Belgium-WFS/">also available on
 gitlab</a></li>
@@ -658,12 +660,16 @@ contents of the layers.</p>
 <h2 id="example-1-an-entire-layer">Example 1: an entire layer<a href="#example-1-an-entire-layer" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The map of regions of Belgium.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wfs_regions &lt;- <span style="color:#a50">&#34;</span><span style="color:#a50">https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer&#34;</span>
-url &lt;- <span style="color:#0a0">parse_url</span>(wfs_regions)
-url$query &lt;- <span style="color:#0a0">list</span>(service = <span style="color:#a50">&#34;</span><span style="color:#a50">WFS&#34;</span>,
-                  version = <span style="color:#a50">&#34;</span><span style="color:#a50">2.0.0&#34;</span>,
-                  request = <span style="color:#a50">&#34;</span><span style="color:#a50">GetCapabilities&#34;</span>)
-request &lt;- <span style="color:#0a0">build_url</span>(url)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">url &lt;- <span style="color:#0a0">parse_url</span>(wfs_regions)
+regions_client &lt;- WFSClient$<span style="color:#0a0">new</span>(wfs_regions, 
+                            serviceVersion = <span style="color:#a50">&#34;</span><span style="color:#a50">2.0.0&#34;</span>)
+</code></pre></div><pre><code>## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
+## deprecated. It might return a CRS with a non-EPSG compliant axis order.
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">regions_client$<span style="color:#0a0">getFeatureTypes</span>(pretty = <span style="color:#00a">TRUE</span>)
+</code></pre></div><pre><code>##                  name   title
+## 1 R2C_Regions:Regions Regions
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">url &lt;- <span style="color:#0a0">parse_url</span>(wfs_regions)
 url$query &lt;- <span style="color:#0a0">list</span>(service = <span style="color:#a50">&#34;</span><span style="color:#a50">wfs&#34;</span>,
                   version = <span style="color:#a50">&#34;</span><span style="color:#a50">2.0.0&#34;</span>,
                   request = <span style="color:#a50">&#34;</span><span style="color:#a50">GetFeature&#34;</span>,
@@ -703,7 +709,7 @@ BWK:Bwkhab seems to be overwritten.</p>
 </code></pre></div><pre><code>## Driver: GeoJSON 
 ## Available layers:
 ##   layer_name geometry_type features fields
-## 1 OGRGeoJSON       Polygon      583     33
+## 1 OGRGeoJSON       Polygon      670     32
 </code></pre>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwk_hallerbos &lt;- <span style="color:#0a0">read_sf</span>(request)
 </code></pre></div><p>Note that the <code>layer = ...</code> argument of <code>sf:read_sf()</code> cannot be used to
@@ -723,11 +729,11 @@ data with <code>httr::GET</code> and <code>httr::write_disk()</code>.</p>
 <span style="color:#0a0">GET</span>(url = request, 
     <span style="color:#0a0">write_disk</span>(file))
 </code></pre></div><pre><code>## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;typename=BWK%3ABwkhab&amp;bbox=142600%2C153800%2C146000%2C156900&amp;outputFormat=application%2Fjson]
-##   Date: 2020-06-17 14:25
+##   Date: 2021-01-13 09:59
 ##   Status: 200
 ##   Content-Type: application/json;charset=UTF-8
-##   Size: 879 kB
-## &lt;ON DISK&gt;  C:\Users\HANS_V~1\AppData\Local\Temp\Rtmp6lClEJ\file263c7b7b50ab.geojson
+##   Size: 821 kB
+## &lt;ON DISK&gt;  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpGQj0jE\file17a062d95f6a.geojson
 </code></pre>
 <p>At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -806,7 +812,7 @@ enlisted in the <code>&lt;ogc:SpatialOperators&gt;</code> field.</li>
 result &lt;- <span style="color:#0a0">GET</span>(wfs_bodemtypes, query = query)
 result
 </code></pre></div><pre><code>## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&amp;request=GetFeature&amp;version=1.1.0&amp;typeName=bodemkaart%3Abodemtypes&amp;outputFormat=csv&amp;propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&amp;CRS=EPSG%3A31370&amp;CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-##   Date: 2020-06-17 14:25
+##   Date: 2021-01-13 09:59
 ##   Status: 200
 ##   Content-Type: text/csv;charset=UTF-8
 ##   Size: 129 B
@@ -874,7 +880,7 @@ properties of interest as parameters.</p>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/styleguide_repos/'>
+      <a href='/tutorials/tutorials/style_inbo_bibliography/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -882,17 +888,7 @@ properties of interest as parameters.</p>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Styleguide new git repositories</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/sql_styleguide/'>
-        <span class='screen-reader-text'>Next post: </span>Styleguide SQL-scripts<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>Use of INBO citation style with bibliography managers</a>
     </div></div>
 </nav>
 
