@@ -572,7 +572,7 @@ sf_prov
     ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
     ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
 
-Also check out [example 4](#example4) for a more advanced use of the CQL
+Also check out [example 4](#example-4-extract-feature-data-at-particular-points) for a more advanced use of the CQL
 filter.
 
 Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
