@@ -77,11 +77,18 @@ First of all we need the URL of the service.
 wfs_bwk <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
 ```
 
+Next, we append information to the URL address with the aid of `httr::parse_url` and `httr::build_url`.
+The former function parses an URL into a list for easier programmatic addition of information to the URL.
+The latter function does the reverse and builds the URL from the list object.
+
+The `url$query` slot is where you instruct the WFS what information it should return.
+It is constructed as a list with name-value pairs.
+For now, we only need to specify the `GetCapabilities` request.
+Other information such as passing `service = "wfs"` and `version = 2.0.0` can be added, but is not required (by default, the latest version of the WFS service will be chosen).
+
 ```{r}
 url <- parse_url(wfs_bwk)
-url$query <- list(service = "WFS",
-                  version = "2.0.0",
-                  request = "GetCapabilities")
+url$query <- list(request = "GetCapabilities")
 request <- build_url(url)
 request
 ```
@@ -302,7 +309,7 @@ The CQL filter format is much more human readable and easier to code:
 
 ```{r}
 wfs_vrbg %>% 
-  parse_url %>% 
+  parse_url() %>% 
   list_merge(query = list(service = "wfs",
                           version = "2.0.0",
                           request = "GetFeature",
