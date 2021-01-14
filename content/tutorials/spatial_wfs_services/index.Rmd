@@ -326,6 +326,8 @@ sf_prov <- wfs_vrbg %>%
 sf_prov
 ```
 
+Also check out [example 4](#example4) for a more advanced use of the CQL filter.
+
 Note, the rather exotic geometry type that is returned (MULTISURFACE).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box for this type.
 In this specific case, we need an intermediate step `st_cast(to = "GEOMETRYCOLLECTION")` to make it work.
@@ -351,8 +353,6 @@ sf_prov %>%
   st_cast(to = "GEOMETRYCOLLECTION") %>% 
   st_collection_extract(type = "POLYGON")
 ```
-
-Also check out [example 4](#example4) for a more advanced use of the CQL filter.
 
 ## Example 3: restrict to a bounding box
 
