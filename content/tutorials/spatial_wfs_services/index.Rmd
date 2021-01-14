@@ -328,7 +328,7 @@ sf_prov
 
 Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box for this type.
-In this specific case, we need an intermediate step `st_cast()` to make it work.
+In this specific case, we need an intermediate step `st_cast(to = "GEOMETRYCOLLECTION")` to make it work.
 
 ```{r error=TRUE}
 sf_prov %>% 
@@ -344,8 +344,13 @@ sf_prov %>%
   geom_sf()
 ```
 
+If you need to further convert to geometry type `POLYGON`, then use `st_collection_extract()` to extract the Polygon from the GeometryCollection:
 
-Also check-out [example 4](example4) for a more advanced use of the CQL filter.
+```{r paged.print=FALSE}
+sf_prov %>% 
+  st_cast(to = "GEOMETRYCOLLECTION") %>% 
+  st_collection_extract(type = "POLYGON")
+```
 
 ## Example 3: restrict to a bounding box
 
