@@ -344,8 +344,7 @@ sf_prov %>%
   geom_sf()
 ```
 
-
-Also check-out [example 4](example4) for a more advanced use of the CQL filter.
+Also check out [example 4](#example4) for a more advanced use of the CQL filter.
 
 ## Example 3: restrict to a bounding box
 

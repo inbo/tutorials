@@ -603,7 +603,7 @@ sf_prov %>%
 
 ![](index_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
-Also check-out [example 4](example4) for a more advanced use of the CQL
+Also check-out [example 4](#example4) for a more advanced use of the CQL
 filter.
 
 ## Example 3: restrict to a bounding box
