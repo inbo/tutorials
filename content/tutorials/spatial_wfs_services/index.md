@@ -545,7 +545,7 @@ The CQL filter format is much more human readable and easier to code:
 
 ``` r
 wfs_vrbg %>% 
-  parse_url %>% 
+  parse_url() %>% 
   list_merge(query = list(service = "wfs",
                           version = "2.0.0",
                           request = "GetFeature",
