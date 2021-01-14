@@ -416,7 +416,7 @@ bwk_hallerbos2 <- read_sf(file)
 ```
 
 
-## Example 4: extract feature data at particular points <a name="example4"></a>
+## Example 4: extract feature data at particular points {#example4}
 
 In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. 
 When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). 
