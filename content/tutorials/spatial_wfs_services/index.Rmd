@@ -330,7 +330,7 @@ Note, the rather exotic geometry type that is returned (MULTISURFACE).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box for this type.
 In this specific case, we need an intermediate step `st_cast()` to make it work.
 
-```{r}
+```{r error=TRUE}
 sf_prov %>% 
   st_buffer(dist = 100) # errors
 
