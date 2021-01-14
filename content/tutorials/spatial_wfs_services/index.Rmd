@@ -326,7 +326,7 @@ sf_prov <- wfs_vrbg %>%
 sf_prov
 ```
 
-Note, the rather exotic geometry type that is returned (MULTISURFACE).
+Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box for this type.
 In this specific case, we need an intermediate step `st_cast()` to make it work.
 
@@ -494,4 +494,3 @@ Which indeed corresponds to the data of the coordinate.
 This procedure can also be turned into a function with lat, long and properties of interest as parameters.
 
 # References
-
