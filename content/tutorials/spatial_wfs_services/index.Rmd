@@ -326,9 +326,7 @@ sf_prov <- wfs_vrbg %>%
 sf_prov
 ```
 
-Also check out [example 4](#example4) for a more advanced use of the CQL filter.
-
-Note, the rather exotic geometry type that is returned (MULTISURFACE).
+Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box for this type.
 In this specific case, we need an intermediate step `st_cast(to = "GEOMETRYCOLLECTION")` to make it work.
 
@@ -423,7 +421,7 @@ bwk_hallerbos2 <- read_sf(file)
 ```
 
 
-## Example 4: extract feature data at particular points <a name="example4"></a>
+## Example 4: extract feature data at particular points {#example4}
 
 In some situations, we do not need the spatial features (polygons, lines, points), but are interested in the data at a particular point (i.e. attribute table data) of the spatial feature. 
 When working in a local GIS environment, one would use a spatial operator to extract the data (e.g. `within`, `intersects`, `contains`,...). 
@@ -501,4 +499,3 @@ Which indeed corresponds to the data of the coordinate.
 This procedure can also be turned into a function with lat, long and properties of interest as parameters.
 
 # References
-
