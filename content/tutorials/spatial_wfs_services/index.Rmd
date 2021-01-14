@@ -326,6 +326,8 @@ sf_prov <- wfs_vrbg %>%
 sf_prov
 ```
 
+Also check out [example 4](#example4) for a more advanced use of the CQL filter.
+
 Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box for this type.
 In this specific case, we need an intermediate step `st_cast(to = "GEOMETRYCOLLECTION")` to make it work.
@@ -462,7 +464,7 @@ The essential part is to set up the proper query!
 The required data for the service is defined in the [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs) description. 
 This can look a bit overwhelming at the start, but is a matter of looking for some specific elements of the (XML) document:
 
-* `service` (WFS), `request` (GetFeature) and `version` (1.1.0) are mandatory fields (see below)
+* `service` (WFS) and `request` (GetFeature) are mandatory fields (see below);  `version` (1.1.0) is optional
 * `typeName`: Look at the different `<FeatureType...` enlisted and pick the `<Name>` of the one you're interested in. In this particular case `bodemkaart:bodemtypes` is the only one available.
 * `outputFormat`: The supported output formats are enlisted in `<ows:Parameter name="outputFormat">`. As the service provides CSV as output, this is a straightforward option. `json` is another popular one.
 * `propertyname`: A list of the attribute table fields (cfr. supra). A full list of the Flanders soil map is provided [here](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType).
