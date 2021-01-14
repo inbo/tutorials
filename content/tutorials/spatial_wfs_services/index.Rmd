@@ -222,7 +222,7 @@ bwk_client$
 
 The map of regions of Belgium.
 
-```{r}
+```{r warning=FALSE}
 wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
 regions_client <- WFSClient$new(wfs_regions, 
                             serviceVersion = "2.0.0")
