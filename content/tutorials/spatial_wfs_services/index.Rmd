@@ -272,7 +272,7 @@ wfs_regions %>%
 **CQL filter**
 
 We use a different WFS service for which CQL works.
-First we need to know the names of the fields on which we can filter.
+First we need to know the names of the fields by which we can filter.
 
 
 ```{r}
@@ -463,5 +463,4 @@ Which indeed corresponds to the data of the coordinate.
 This procedure can also be turned into a function with lat, long and properties of interest as parameters.
 
 # References
-
 
