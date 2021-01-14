@@ -432,12 +432,6 @@ The map of regions of Belgium.
 wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
 regions_client <- WFSClient$new(wfs_regions, 
                             serviceVersion = "2.0.0")
-```
-
-    ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
-    ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
-
-``` r
 regions_client$getFeatureTypes(pretty = TRUE)
 ```
 
@@ -578,10 +572,13 @@ sf_prov
     ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
     ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
 
-Note, the rather exotic geometry type that is returned (MULTISURFACE).
+Also check out [example 4](#example4) for a more advanced use of the CQL
+filter.
+
+Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box
 for this type. In this specific case, we need an intermediate step
-`st_cast()` to make it work.
+`st_cast(to = "GEOMETRYCOLLECTION")` to make it work.
 
 ``` r
 sf_prov %>% 
@@ -603,8 +600,25 @@ sf_prov %>%
 
 ![](index_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
-Also check-out [example 4](#example4) for a more advanced use of the CQL
-filter.
+If you need to further convert to geometry type `POLYGON`, then use
+`st_collection_extract()` to extract the Polygon from the
+GeometryCollection:
+
+``` r
+sf_prov %>% 
+  st_cast(to = "GEOMETRYCOLLECTION") %>% 
+  st_collection_extract(type = "POLYGON")
+```
+
+    ## Simple feature collection with 1 feature and 7 fields
+    ## geometry type:  POLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 1 x 8
+    ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
+    ##   <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>                  <POLYGON [m]>
+    ## 1 Refprv~    14     3    351 West-~ 30000   BE25  ((80190.82 229279.7, 80166.27~
 
 ## Example 3: restrict to a bounding box
 
@@ -664,7 +678,7 @@ ggplot(bwk_hallerbos) +
   geom_sf()
 ```
 
-![](index_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 You can use `sf::st_write()` to save this layer in any format that is
 listed by `sf::st_drivers()`.
@@ -679,11 +693,11 @@ GET(url = request,
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2021-01-14 10:15
+    ##   Date: 2021-01-14 14:18
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 821 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpWMPFqw\file205016f66019.geojson
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpyKMXfU\file21f047165e9e.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -693,7 +707,7 @@ would we any other local file. So we need to load the file with
 bwk_hallerbos2 <- read_sf(file)
 ```
 
-## Example 4: extract feature data at particular points <a name="example4"></a>
+## Example 4: extract feature data at particular points
 
 In some situations, we do not need the spatial features (polygons,
 lines, points), but are interested in the data at a particular point
@@ -748,8 +762,8 @@ the service is defined in the
 description. This can look a bit overwhelming at the start, but is a
 matter of looking for some specific elements of the (XML) document:
 
-  - `service` (WFS), `request` (GetFeature) and `version` (1.1.0) are
-    mandatory fields (see below)
+  - `service` (WFS) and `request` (GetFeature) are mandatory fields (see
+    below); `version` (1.1.0) is optional
   - `typeName`: Look at the different `<FeatureType...` enlisted and
     pick the `<Name>` of the one you’re interested in. In this
     particular case `bodemkaart:bodemtypes` is the only one available.
@@ -785,7 +799,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2021-01-14 10:33
+    ##   Date: 2021-01-14 14:06
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B
