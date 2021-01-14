@@ -84,11 +84,14 @@ The latter function does the reverse and builds the URL from the list object.
 The `url$query` slot is where you instruct the WFS what information it should return.
 It is constructed as a list with name-value pairs.
 For now, we only need to specify the `GetCapabilities` request.
-Other information such as passing `service = "wfs"` and `version = 2.0.0` can be added, but is not required (by default, the latest version of the WFS service will be chosen).
+Other information such as passing `version = 2.0.0` can be added, but is not required (by default, the latest version of the WFS service will be chosen).
 
 ```{r}
 url <- parse_url(wfs_bwk)
-url$query <- list(request = "GetCapabilities")
+url$query <- list(service = "wfs",
+                  #version = "2.0.0", # facultative
+                  request = "GetCapabilities"
+                  )
 request <- build_url(url)
 request
 ```
@@ -105,7 +108,7 @@ The first thing we need to do is generate a connection to the WFS with the aid o
 
 ```{r}
 bwk_client <- WFSClient$new(wfs_bwk, 
-                            serviceVersion = "2.0.0")
+                            serviceVersion = "2.0.0") #serviceVersion must be provided here
 ```
 
 The resulting object `bwk_client` is an R6 object. 
@@ -230,7 +233,7 @@ regions_client$getFeatureTypes(pretty = TRUE)
 ```{r}
 url <- parse_url(wfs_regions)
 url$query <- list(service = "wfs",
-                  version = "2.0.0",
+                  #version = "2.0.0", # optional
                   request = "GetFeature",
                   typename = "regions",
                   srsName = "EPSG:4326",
@@ -263,12 +266,12 @@ Unfortunately, the standard OGC filter format is very verbose...
 wfs_regions %>%
   parse_url() %>%
   list_merge(query = list(service = "wfs",
-                  version = "2.0.0",
-                  request = "GetFeature",
-                  typename = "regions",
-                  srsName = "EPSG:4326",
-                  outputFormat = "GEOJSON",
-                  filter = "<Filter><PropertyIsEqualTo><PropertyName>regions:NameDUT</PropertyName><Literal>'Vlaams Gewest'</Literal></PropertyIsEqualTo></Filter>")) %>%
+                          #version = "2.0.0", # optional
+                          request = "GetFeature",
+                          typename = "regions",
+                          srsName = "EPSG:4326",
+                          outputFormat = "GEOJSON",
+                          filter = "<Filter><PropertyIsEqualTo><PropertyName>regions:NameDUT</PropertyName><Literal>'Vlaams Gewest'</Literal></PropertyIsEqualTo></Filter>")) %>%
   build_url() %>%
   read_sf() %>%
   ggplot() +
@@ -286,10 +289,10 @@ First we need to know the names of the fields by which we can filter.
 wfs_vrbg <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs"
 
 vrbg_client <- WFSClient$new(wfs_vrbg, 
-                            serviceVersion = "2.0.0")
+                            serviceVersion = "1.1.0")
 
 vrbg_client$
-   getCapabilities()$
+  getCapabilities()$
   findFeatureTypeByName("VRBG:Refprv")$
   getDescription() %>%
   map_chr(function(x){x$getName()})
@@ -298,7 +301,7 @@ vrbg_client$
 wfs_vrbg %>%
   parse_url() %>%
   list_merge(query = list(service = "wfs",
-                          version = "2.0.0",
+                          #version = "1.1.0", # optional
                           request = "DescribeFeatureType",
                           typeName = "VRBG:Refprv")) %>%
   build_url() %>%
@@ -311,7 +314,7 @@ The CQL filter format is much more human readable and easier to code:
 wfs_vrbg %>% 
   parse_url() %>% 
   list_merge(query = list(service = "wfs",
-                          version = "2.0.0",
+                          #version = "1.1.0", # optional
                           request = "GetFeature",
                           typeName = "VRBG:Refprv",
                           srsName = "EPSG:31370",
@@ -341,7 +344,7 @@ If you omit a bounding box, the service will return the entire map which can be 
 ```{r}
 url <- parse_url(wfs_bwk)
 url$query <- list(service = "WFS",
-                  version = "2.0.0",
+                  #version = "2.0.0", # optional
                   request = "GetFeature",
                   typename = "BWK:Bwkhab",
                   bbox = "142600,153800,146000,156900",
@@ -445,7 +448,7 @@ Formatting all this information in a query and executing the request (`GET`) tow
 ```{r}
 query <- list(service = "WFS",
              request = "GetFeature",
-             version = "1.1.0",
+             #version = "1.1.0", # optional
              typeName = "bodemkaart:bodemtypes",
              outputFormat = "csv",
              propertyname = as.character(paste(properties_of_interest,
