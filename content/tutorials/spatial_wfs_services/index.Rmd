@@ -450,7 +450,7 @@ properties_of_interest <- c("Drainageklasse",
 
 The URL of the wfs service of the soil map of the Flemish region:
 ```{r}
-wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
+wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs"
 ```
 
 The essential part is to set up the proper query! 

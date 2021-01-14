@@ -739,7 +739,7 @@ properties_of_interest <- c("Drainageklasse",
 The URL of the wfs service of the soil map of the Flemish region:
 
 ``` r
-wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
+wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs"
 ```
 
 The essential part is to set up the proper query\! The required data for
@@ -785,7 +785,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2021-01-14 10:15
+    ##   Date: 2021-01-14 10:33
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B
