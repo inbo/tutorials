@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 author: "Thierry Onkelinx, Hans Van Calster, Floris Vanderhaeghe"
-date: "2021-01-13"
+date: "2021-01-14"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -124,22 +124,36 @@ First of all we need the URL of the service.
 wfs_bwk <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
 ```
 
+Next, we append information to the URL address with the aid of
+`httr::parse_url` and `httr::build_url`. The former function parses an
+URL into a list for easier programmatic addition of information to the
+URL. The latter function does the reverse and builds the URL from the
+list object.
+
+The `url$query` slot is where you instruct the WFS what information it
+should return. It is constructed as a list with name-value pairs. For
+now, we only need to specify the `GetCapabilities` request. Other
+information such as passing `version = 2.0.0` can be added, but is not
+required (by default, the latest version of the WFS service will be
+chosen).
+
 ``` r
 url <- parse_url(wfs_bwk)
-url$query <- list(service = "WFS",
-                  version = "2.0.0",
-                  request = "GetCapabilities")
+url$query <- list(service = "wfs",
+                  #version = "2.0.0", # facultative
+                  request = "GetCapabilities"
+                  )
 request <- build_url(url)
 request
 ```
 
-    ## [1] "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&version=2.0.0&request=GetCapabilities"
+    ## [1] "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=wfs&request=GetCapabilities"
 
 With `GetCapabilities`, we obtain a complete overview of all metadata
 for the web service.
 
 To see all capabilities, you can visit [the request in the
-webbrowser](https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&version=2.0.0&request=GetCapabilities).
+webbrowser](https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=wfs&request=GetCapabilities).
 For instance opening the page in the webbrowser and searching for
 “Filter\_Capabilities” allows you to see all possible ways to filter
 the data from a WFS layer (e.g. restrict the downloaded data to a
@@ -153,13 +167,8 @@ thing we need to do is generate a connection to the WFS with the aid of
 
 ``` r
 bwk_client <- WFSClient$new(wfs_bwk, 
-                            serviceVersion = "2.0.0")
+                            serviceVersion = "2.0.0") #serviceVersion must be provided here
 ```
-
-    ## list()
-
-    ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
-    ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
 
 The resulting object `bwk_client` is an R6 object. If you are not
 familiar with R6 object, you might want to read [the R6 chapter in
@@ -262,7 +271,7 @@ bwk_client$getCapabilities()
     ##     defaults: list
     ##     encode: function (addNS = TRUE, geometa_validate = TRUE, geometa_inspire = FALSE) 
     ##     ERROR: function (text) 
-    ##     findFeatureTypeByName: function (expr, exact = FALSE) 
+    ##     findFeatureTypeByName: function (expr, exact = TRUE) 
     ##     getClass: function () 
     ##     getClassName: function () 
     ##     getFeatureTypes: function (pretty = FALSE) 
@@ -311,8 +320,6 @@ bwk_client$
   getDescription() %>%
   map_chr(function(x){x$getName()})
 ```
-
-    ## list()
 
     ##  [1] "UIDN"       "OIDN"       "TAG"        "EVAL"       "EENH1"     
     ##  [6] "EENH2"      "EENH3"      "EENH4"      "EENH5"      "EENH6"     
@@ -425,12 +432,6 @@ The map of regions of Belgium.
 wfs_regions <- "https://eservices.minfin.fgov.be/arcgis/services/R2C/Regions/MapServer/WFSServer"
 regions_client <- WFSClient$new(wfs_regions, 
                             serviceVersion = "2.0.0")
-```
-
-    ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
-    ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
-
-``` r
 regions_client$getFeatureTypes(pretty = TRUE)
 ```
 
@@ -440,7 +441,7 @@ regions_client$getFeatureTypes(pretty = TRUE)
 ``` r
 url <- parse_url(wfs_regions)
 url$query <- list(service = "wfs",
-                  version = "2.0.0",
+                  #version = "2.0.0", # optional
                   request = "GetFeature",
                   typename = "regions",
                   srsName = "EPSG:4326",
@@ -457,7 +458,169 @@ ggplot(bel_regions) +
 
 ![](index_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
-## Example 2: restrict to a bounding box
+## Example 2: filter by attributes
+
+In this example, we only want to extract specific regions. This can be
+done using either [standard OGC filter
+specification](https://www.ogc.org/standards/filter) or using a
+[Contextual Query Language (CQL)
+filter](https://www.loc.gov/standards/sru/cql/index.html), for which a
+didactical explanation can be found
+[here](https://gcs-docs.s3.amazonaws.com/EVWHS/Miscellaneous/DevGuides/WFS/WFS_Query.htm).\[1\]
+The latter, however, only works for WFS services that are hosted on a
+GeoServer\!
+
+In this example we also show how the previously used R code can be
+stitched together using the pipe (`%>%`) operator.
+
+**Standard OGC filter**
+
+Unfortunately, the standard OGC filter format is very verbose…
+
+``` r
+wfs_regions %>%
+  parse_url() %>%
+  list_merge(query = list(service = "wfs",
+                          #version = "2.0.0", # optional
+                          request = "GetFeature",
+                          typename = "regions",
+                          srsName = "EPSG:4326",
+                          outputFormat = "GEOJSON",
+                          filter = "<Filter><PropertyIsEqualTo><PropertyName>regions:NameDUT</PropertyName><Literal>'Vlaams Gewest'</Literal></PropertyIsEqualTo></Filter>")) %>%
+  build_url() %>%
+  read_sf() %>%
+  ggplot() +
+  geom_sf()
+```
+
+![](index_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+**CQL filter**
+
+We use a different WFS service for which CQL works. First we need to
+know the names of the fields by which we can filter.
+
+``` r
+wfs_vrbg <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs"
+
+vrbg_client <- WFSClient$new(wfs_vrbg, 
+                            serviceVersion = "1.1.0")
+
+vrbg_client$
+  getCapabilities()$
+  findFeatureTypeByName("VRBG:Refprv")$
+  getDescription() %>%
+  map_chr(function(x){x$getName()})
+```
+
+    ## [1] "UIDN"    "OIDN"    "TERRID"  "NAAM"    "NISCODE" "NUTS2"   "SHAPE"
+
+``` r
+# another way of doing this:
+wfs_vrbg %>%
+  parse_url() %>%
+  list_merge(query = list(service = "wfs",
+                          #version = "1.1.0", # optional
+                          request = "DescribeFeatureType",
+                          typeName = "VRBG:Refprv")) %>%
+  build_url() %>%
+  GET()
+```
+
+    ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs?service=wfs&request=DescribeFeatureType&typeName=VRBG%3ARefprv]
+    ##   Date: 2021-01-14 09:50
+    ##   Status: 200
+    ##   Content-Type: text/xml; subtype=gml/3.2
+    ##   Size: 1.55 kB
+    ## <?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.or...
+    ##   <xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http...
+    ##   <xsd:complexType name="RefprvType">
+    ##     <xsd:complexContent>
+    ##       <xsd:extension base="gml:AbstractFeatureType">
+    ##         <xsd:sequence>
+    ##           <xsd:element maxOccurs="1" minOccurs="1" name="UIDN" nillable="fals...
+    ##           <xsd:element maxOccurs="1" minOccurs="1" name="OIDN" nillable="fals...
+    ##           <xsd:element maxOccurs="1" minOccurs="0" name="TERRID" nillable="tr...
+    ##           <xsd:element maxOccurs="1" minOccurs="0" name="NAAM" nillable="true...
+    ## ...
+
+The CQL filter format is much more human readable and easier to code:
+
+``` r
+sf_prov <- wfs_vrbg %>% 
+  parse_url() %>% 
+  list_merge(query = list(service = "wfs",
+                          #version = "1.1.0", # optional
+                          request = "GetFeature",
+                          typeName = "VRBG:Refprv",
+                          srsName = "EPSG:31370",
+                          cql_filter="NAAM='West-Vlaanderen'",
+                          outputFormat = "text/xml; subtype=gml/3.1.1")) %>% 
+  build_url() %>% 
+  read_sf(crs = 31370)
+
+sf_prov
+```
+
+    ## Simple feature collection with 1 feature and 7 fields
+    ## geometry type:  MULTISURFACE
+    ## dimension:      XY
+    ## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 1 x 8
+    ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
+    ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
+    ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
+
+Also check out [example 4](#example-4-extract-feature-data-at-particular-points) for a more advanced use of the CQL
+filter.
+
+Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
+Some `sf` functions, such as `st_buffer()`, will not work out of the box
+for this type. In this specific case, we need an intermediate step
+`st_cast(to = "GEOMETRYCOLLECTION")` to make it work.
+
+``` r
+sf_prov %>% 
+  st_buffer(dist = 100) # errors
+```
+
+    ## Error in CPL_geos_op("buffer", x, dist, nQ, numeric(0), logical(0)): Evaluation error: ParseException: Unknown WKB type 12.
+
+``` r
+sf_prov_buffer <- sf_prov %>% 
+  st_cast(to = "GEOMETRYCOLLECTION") %>% 
+  st_buffer(dist = 10000) # works
+
+sf_prov %>% 
+  ggplot() + 
+  geom_sf(data = sf_prov_buffer) +
+  geom_sf()
+```
+
+![](index_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+If you need to further convert to geometry type `POLYGON`, then use
+`st_collection_extract()` to extract the Polygon from the
+GeometryCollection:
+
+``` r
+sf_prov %>% 
+  st_cast(to = "GEOMETRYCOLLECTION") %>% 
+  st_collection_extract(type = "POLYGON")
+```
+
+    ## Simple feature collection with 1 feature and 7 fields
+    ## geometry type:  POLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 1 x 8
+    ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
+    ##   <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>                  <POLYGON [m]>
+    ## 1 Refprv~    14     3    351 West-~ 30000   BE25  ((80190.82 229279.7, 80166.27~
+
+## Example 3: restrict to a bounding box
 
 This examples illustrates how you can read or download information from
 a WFS for further use in R.
@@ -477,7 +640,7 @@ will return the entire map which can be very large.
 ``` r
 url <- parse_url(wfs_bwk)
 url$query <- list(service = "WFS",
-                  version = "2.0.0",
+                  #version = "2.0.0", # optional
                   request = "GetFeature",
                   typename = "BWK:Bwkhab",
                   bbox = "142600,153800,146000,156900",
@@ -515,7 +678,7 @@ ggplot(bwk_hallerbos) +
   geom_sf()
 ```
 
-![](index_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 You can use `sf::st_write()` to save this layer in any format that is
 listed by `sf::st_drivers()`.
@@ -529,12 +692,12 @@ GET(url = request,
     write_disk(file))
 ```
 
-    ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&version=2.0.0&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2021-01-13 09:59
+    ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
+    ##   Date: 2021-01-14 14:18
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 821 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpGQj0jE\file17a062d95f6a.geojson
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpyKMXfU\file21f047165e9e.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -544,7 +707,7 @@ would we any other local file. So we need to load the file with
 bwk_hallerbos2 <- read_sf(file)
 ```
 
-## Example 3: extract feature data at particular points
+## Example 4: extract feature data at particular points
 
 In some situations, we do not need the spatial features (polygons,
 lines, points), but are interested in the data at a particular point
@@ -590,7 +753,7 @@ properties_of_interest <- c("Drainageklasse",
 The URL of the wfs service of the soil map of the Flemish region:
 
 ``` r
-wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
+wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs"
 ```
 
 The essential part is to set up the proper query\! The required data for
@@ -599,8 +762,8 @@ the service is defined in the
 description. This can look a bit overwhelming at the start, but is a
 matter of looking for some specific elements of the (XML) document:
 
-  - `service` (WFS), `request` (GetFeature) and `version` (1.1.0) are
-    mandatory fields (see below)
+  - `service` (WFS) and `request` (GetFeature) are mandatory fields (see
+    below); `version` (1.1.0) is optional
   - `typeName`: Look at the different `<FeatureType...` enlisted and
     pick the `<Name>` of the one you’re interested in. In this
     particular case `bodemkaart:bodemtypes` is the only one available.
@@ -623,7 +786,7 @@ Formatting all this information in a query and executing the request
 ``` r
 query <- list(service = "WFS",
              request = "GetFeature",
-             version = "1.1.0",
+             #version = "1.1.0", # optional
              typeName = "bodemkaart:bodemtypes",
              outputFormat = "csv",
              propertyname = as.character(paste(properties_of_interest,
@@ -635,8 +798,8 @@ result <- GET(wfs_bodemtypes, query = query)
 result
 ```
 
-    ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2021-01-13 09:59
+    ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
+    ##   Date: 2021-01-14 14:06
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B
@@ -673,3 +836,5 @@ Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2020.
 </div>
 
 </div>
+
+1.  Note that CQL was formerly called Common Query Language.
