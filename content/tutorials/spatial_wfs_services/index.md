@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 author: "Thierry Onkelinx, Hans Van Calster, Floris Vanderhaeghe"
-date: "2021-01-14"
+date: "2021-01-21"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -329,6 +329,21 @@ bwk_client$
     ## [26] "PHAB4"      "HAB5"       "PHAB5"      "HERKHAB"    "HERKPHAB"  
     ## [31] "HABLEGENDE" "SHAPE"
 
+``` r
+# or shorter
+bwk_client$
+  describeFeatureType(typeName = "BWK:Bwkhab") %>%
+  map_chr(function(x){x$getName()})
+```
+
+    ##  [1] "UIDN"       "OIDN"       "TAG"        "EVAL"       "EENH1"     
+    ##  [6] "EENH2"      "EENH3"      "EENH4"      "EENH5"      "EENH6"     
+    ## [11] "EENH7"      "EENH8"      "V1"         "V2"         "V3"        
+    ## [16] "HERK"       "INFO"       "BWKLABEL"   "HAB1"       "PHAB1"     
+    ## [21] "HAB2"       "PHAB2"      "HAB3"       "PHAB3"      "HAB4"      
+    ## [26] "PHAB4"      "HAB5"       "PHAB5"      "HERKHAB"    "HERKPHAB"  
+    ## [31] "HABLEGENDE" "SHAPE"
+
 This lists all available fields for the layer “BWK:Bwkhab”.
 
 Here is how to get a character vector naming all available operations of
@@ -572,8 +587,9 @@ sf_prov
     ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
     ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
 
-Also check out [example 4](#example-4-extract-feature-data-at-particular-points) for a more advanced use of the CQL
-filter.
+Also check out [example
+4](#example-4-extract-feature-data-at-particular-points) for a more
+advanced use of the CQL filter.
 
 Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box
@@ -822,7 +838,118 @@ knitr::kable(df)
 Which indeed corresponds to the data of the coordinate.
 
 This procedure can also be turned into a function with lat, long and
-properties of interest as parameters.
+properties of interest as parameters:
+
+``` r
+#' @title Extract soil properties from Flemish soil map
+#'
+#' @description This function queries the Flemish soil map attributres at a given coordinate,
+#' http://www.geopunt.be/catalogus/datasetfolder/5c129f2d-4498-4bc3-8860-01cb2d513f8f
+#' by using the affiliated WFS service provided by DOV. The user can pick the
+#' properties of interest. A full list of properties is available at
+#' https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType
+#' Coordinates should be given as Lambert 72 (epsg 31370). When outside the
+#' Flemish region, an NA value is given for each of the properties.
+#'
+#' @param x_lam The numeric value of the X coordinate as Lambert 72.
+#' @param y_lam The numeric value of the X coordinate as Lambert 72.
+#' @param properties_of_interest A vector or properties, as a subset of these
+#' provided by the webservice. Default Bodemserie, Unibodemtype and Bodemtype.
+#'
+#' @return A data.frame with the properties as column headers.
+#'
+#' @importFrom httr GET
+#' @importFrom jsonlite fromJSON
+#'
+#' @examples
+#' soil_map_data_extraction(173995.67, 212093.44)
+#' soil_map_data_extraction(173995.67, 212093.44,
+#'                          properties_of_interest = c("Eenduidige_legende",
+#'                                                     "Textuurklasse"))
+soil_map_data_extraction <- function(x_lam,
+                                     y_lam,
+                                     properties_of_interest = c("Bodemserie",
+                                                                "Unibodemtype",
+                                                                "Bodemtype")) {
+  if (missing(x_lam) | missing(y_lam)) stop("x_lam and y_lam needed")
+  # dealing with point data inside a certain polygon of the soil map:
+  wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?"
+  query = list(service = "WFS",
+               request = "GetFeature",
+               version = "1.1.0",
+               typeName = "bodemkaart:bodemtypes",
+               outputFormat = "json",
+               propertyname = as.character(paste(properties_of_interest,
+                                                 collapse = ",")),
+               CRS = "EPSG:31370",
+               CQL_FILTER = sprintf("INTERSECTS(geom,POINT(%s %s))",
+                                    x_lam, y_lam)) # INTERSECT OPERATOR
+
+  result <- httr::GET(wfs_bodemtypes, query = query)
+  parsed <- jsonlite::fromJSON(httr::content(result, "text"))
+  soil_info_df <- parsed$features
+  # if else toegevoegd om gevallen op te vangen waarbij een punt (net) buiten de kaart valt
+  if (is.null(soil_info_df$properties)) {
+    as.data.frame(
+      matrix(rep(NA, length(properties_of_interest)),
+             nrow = 1,
+             dimnames = list(NULL, properties_of_interest)))
+  } else {
+    soil_info_df$properties[,-1]
+  }
+
+}
+```
+
+Using this function to extract soil data features is a lot more
+user-friendly:
+
+``` r
+soil_map_data_extraction(
+  x_lam = x_lam, 
+  y_lam = y_lam)
+```
+
+    ##   Unibodemtype Bodemserie
+    ## 1    s-Pgp3(v)        Pgp
+
+``` r
+soil_map_data_extraction(
+  x_lam = x_lam, 
+  y_lam = y_lam,
+  properties_of_interest = c("Eenduidige_legende", "Textuurklasse"))
+```
+
+    ## [1] "De twee bovenvermelde grondwatergronden op licht zandleem (Pgp en Pgg) zijn permanent zeer nat. Ze zijn overstroomd in de winter en hebben een zomerwaterstand op ongeveer 40 cm. Ze zijn ongeschikt voor landbouw; zelfs weiden geven geen bevredigende resultaten. Deze bodems zijn dus ongeschikt voor uitbating; eventueel kunnen populieren, mits de nodige ontwatering, aangepast worden, de resultaten zijn echter weinig gunstig."
+
+``` r
+soil_map_data_extraction(
+  x_lam = x_lam, 
+  y_lam = y_lam,
+  properties_of_interest = properties_of_interest)
+```
+
+    ##   Bodemserie  Textuurklasse           Drainageklasse
+    ## 1        Pgp licht zandleem uiterst nat, gereduceerd
+
+``` r
+# multiple point locations
+xy <- data.frame(id = c("loc1", "loc2"),
+                 x = c(173995.67, 180000),
+                 y = c(212093.4, 212000))
+
+xy %>%
+  group_by(id) %>%
+  summarise(soil_map_data_extraction(x, y))
+```
+
+    ## `summarise()` ungrouping output (override with `.groups` argument)
+
+    ## # A tibble: 2 x 3
+    ##   id    Unibodemtype Bodemserie
+    ##   <fct> <chr>        <chr>     
+    ## 1 loc1  s-Pgp3(v)    Pgp       
+    ## 2 loc2  Sdg          Sdg
 
 # References
 
