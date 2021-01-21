@@ -55,8 +55,10 @@ published work.
 Some of the material presented in this tutorial benefitted from a
 tutorial presented at the Use of R in Official Statistics conference in
 The Hague, September 2018 [Spatial Analysis in R with Open
-Geodata](https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/)
-and from Lovelace, Nowosad, and Muenchow (2020).
+Geodata](https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/),
+from Lovelace, Nowosad, and Muenchow (2020) and from [this Dutch
+wordpress
+blogpost](https://friesewoudloper.wordpress.com/2015/05/17/het-bevragen-van-een-wfs-in-de-browser-voorbeelden-aan-de-hand-van-de-bag-service/).
 
 # Useful overviews of web feature services
 
