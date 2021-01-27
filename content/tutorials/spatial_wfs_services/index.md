@@ -907,6 +907,158 @@ xy %>%
 | loc1 | s-Pgp3(v) | s-Pgp3(v)    | Pgp        |
 | loc2 | Sdg       | Sdg          | Sdg        |
 
+## Example 5: pagination
+
+When a layer of a WFS service contains many thousands of features,
+oftentimes the WFS service will restrict the number of features that can
+be obtained with one request. This is done to optimize performance
+(responsiveness) of the WFS service: it is more efficient to transfer
+small packages of data and this is even more the case when multiple user
+requests are transmitted concurrently to the service.
+
+In this example we show how to deal with this situation. A technique
+called ‘pagination’ can be used to obtain all features one is interested
+by sending multiple requests to the server. The service is available
+from version ‘2.0.0’ onwards. Servers running older versions may or may
+not have support for ‘pagination’.
+
+We will use the ‘Watervlakken’ WFS service for this example.
+
+``` r
+# this layer returns just 1000 features (for performance reasons)
+wfs <- "https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?"
+url <- parse_url(wfs)
+url$query <- list(service = "wfs",
+                  version = "2.0.0", # facultative
+                  request = "GetFeature",
+                  typename = "Watervlakken:Watervlakken",
+                  srsName = "EPSG:31370",
+                  outputFormat = "GML32"
+)
+request <- build_url(url)
+gd <- read_sf(request)
+gd
+```
+
+    ## Simple feature collection with 1000 features and 14 fields
+    ## geometry type:  MULTIPOLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 136507.8 ymin: 187356 xmax: 192040.7 ymax: 237604.4
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 1,000 x 15
+    ##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+    ##    <chr>  <chr> <chr>    <int> <chr> <chr>  <chr>   <chr>    <chr>  <chr>  
+    ##  1 Water~ ANTB~ <NA>         0 Zwal~ <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  2 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  3 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  4 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  5 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  6 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  7 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  8 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  9 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## 10 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## # ... with 990 more rows, and 5 more variables: FUNCTIE <chr>,
+    ## #   PEILBEHEER <chr>, OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
+
+As we can see from the output, only 1000 features are returned.
+
+To know in advance how many features the WFS has in total, you can add
+`resultType="hits"` to the query:
+
+``` r
+url$query <- list(service = "wfs",
+                  version = "2.0.0", # facultative
+                  request = "GetFeature",
+                  typename = "Watervlakken:Watervlakken",
+                  srsName = "EPSG:31370",
+                  outputFormat = "GML32",
+                  resultType = "hits"
+)
+request <- build_url(url)
+result <- GET(request)
+parsed <- xml2::as_list(content(result, "parsed"))
+```
+
+    ## No encoding supplied: defaulting to UTF-8.
+
+``` r
+n_features <- attr(parsed$FeatureCollection, "numberMatched")
+n_features
+```
+
+    ## [1] "88713"
+
+We see that there are 88713 features. In the next chunk we show how
+`startIndex` and `count` can be used together to obtain more features
+(3000 in the example).
+
+``` r
+# use count and startIndex to return more features (pagination)
+get_watervlakken <- function(index = 0) {
+  wfs <- "https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?"
+  request <- build_url(url)
+  request # url in browser bekeken en nodige info in opgezocht
+  url$query <- list(service = "wfs",
+                    version = "2.0.0", # facultative
+                    request = "GetFeature",
+                    typename = "Watervlakken:Watervlakken",
+                    srsName = "EPSG:31370",
+                    outputFormat = "GML32",
+                    startIndex=index,
+                    count=1000)
+  request <- build_url(url)
+  gd <- read_sf(request)
+  return(gd)
+}
+
+gd <- map_dfr(.x = seq(0, 2000, 1000),
+              .f = get_watervlakken
+        )
+
+gd
+```
+
+    ## Simple feature collection with 3000 features and 14 fields
+    ## geometry type:  MULTIPOLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 136507.8 ymin: 187156.5 xmax: 192040.7 ymax: 237604.4
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 3,000 x 15
+    ##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+    ##  * <chr>  <chr> <chr>    <int> <chr> <chr>  <chr>   <chr>    <chr>  <chr>  
+    ##  1 Water~ ANTB~ <NA>         0 Zwal~ <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  2 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  3 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  4 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  5 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  6 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  7 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  8 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  9 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## 10 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## # ... with 2,990 more rows, and 5 more variables: FUNCTIE <chr>,
+    ## #   PEILBEHEER <chr>, OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
+
+Whether it is a good idea or not to request many thousands of features
+from a WFS really depends on what our further plans are with the spatial
+data.
+
+Do we really need the attribute data? If not, and the only goal is
+visualization, we should have used a WMS (Web Mapping Service) instead
+(see [this
+tutorial](https://inbo.github.io/tutorials/tutorials/spatial_wms_services/)).
+
+Do we need all data from the WFS? We need to think carefully which
+features and which attributes are really needed for whatever use case we
+might have. When we have a clear idea which subset of the data we need,
+we can apply what we have learned in the examples in this tutorial to
+restrict the request to what we need.
+
+If we find ourselves in the case where we think we really need to
+request many, many features from a WFS service, it may also be more
+advised to use a download service instead of a WFS (search) service.
+
 # References
 
 <div id="refs" class="references hanging-indent">
