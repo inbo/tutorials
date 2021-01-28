@@ -543,7 +543,7 @@ xy %>%
 ## Example 5: pagination
 
 
-When a layer of a WFS service contains many thousands of features, oftentimes the WFS service will restrict the number of features that can be obtained with one request.
+When a layer of a WFS service contains many thousands of features, often the WFS service will restrict the number of features that can be obtained with one request.
 This is done to optimize performance (responsiveness) of the WFS service: it is more efficient to transfer small packages of data and this is even more the case when multiple user requests are transmitted concurrently to the service.
 
 In this example we show how to deal with this situation.
