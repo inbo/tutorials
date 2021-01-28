@@ -547,7 +547,7 @@ When a layer of a WFS service contains many thousands of features, often the WFS
 This is done to optimize performance (responsiveness) of the WFS service: it is more efficient to transfer small packages of data and this is even more the case when multiple user requests are transmitted concurrently to the service.
 
 In this example we show how to deal with this situation.
-A technique called 'pagination' can be used to obtain all features one is interested by sending multiple requests to the server.
+A technique called 'pagination' can be used to obtain all features one is interested in by sending multiple requests to the server.
 The service is available from version '2.0.0' onwards.
 Servers running older versions may or may not have support for 'pagination'.
 
