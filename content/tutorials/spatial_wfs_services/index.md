@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 author: "Thierry Onkelinx, Hans Van Calster, Floris Vanderhaeghe"
-date: "2021-01-14"
+date: "2021-01-28"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -55,8 +55,10 @@ published work.
 Some of the material presented in this tutorial benefitted from a
 tutorial presented at the Use of R in Official Statistics conference in
 The Hague, September 2018 [Spatial Analysis in R with Open
-Geodata](https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/)
-and from Lovelace, Nowosad, and Muenchow (2020).
+Geodata](https://github.com/TWIAV/Spatial_Analysis_in_R_with_Open_Geodata/),
+from Lovelace, Nowosad, and Muenchow (2020) and from [this Dutch
+wordpress
+blogpost](https://friesewoudloper.wordpress.com/2015/05/17/het-bevragen-van-een-wfs-in-de-browser-voorbeelden-aan-de-hand-van-de-bag-service/).
 
 # Useful overviews of web feature services
 
@@ -329,6 +331,21 @@ bwk_client$
     ## [26] "PHAB4"      "HAB5"       "PHAB5"      "HERKHAB"    "HERKPHAB"  
     ## [31] "HABLEGENDE" "SHAPE"
 
+``` r
+# or shorter
+bwk_client$
+  describeFeatureType(typeName = "BWK:Bwkhab") %>%
+  map_chr(function(x){x$getName()})
+```
+
+    ##  [1] "UIDN"       "OIDN"       "TAG"        "EVAL"       "EENH1"     
+    ##  [6] "EENH2"      "EENH3"      "EENH4"      "EENH5"      "EENH6"     
+    ## [11] "EENH7"      "EENH8"      "V1"         "V2"         "V3"        
+    ## [16] "HERK"       "INFO"       "BWKLABEL"   "HAB1"       "PHAB1"     
+    ## [21] "HAB2"       "PHAB2"      "HAB3"       "PHAB3"      "HAB4"      
+    ## [26] "PHAB4"      "HAB5"       "PHAB5"      "HERKHAB"    "HERKPHAB"  
+    ## [31] "HABLEGENDE" "SHAPE"
+
 This lists all available fields for the layer “BWK:Bwkhab”.
 
 Here is how to get a character vector naming all available operations of
@@ -444,8 +461,8 @@ url$query <- list(service = "wfs",
                   #version = "2.0.0", # optional
                   request = "GetFeature",
                   typename = "regions",
-                  srsName = "EPSG:4326",
-                  outputFormat = "GEOJSON")
+                  srsName = "EPSG:4326"
+                  )
 request <- build_url(url)
 
 bel_regions <- read_sf(request) #Lambert2008
@@ -485,7 +502,6 @@ wfs_regions %>%
                           request = "GetFeature",
                           typename = "regions",
                           srsName = "EPSG:4326",
-                          outputFormat = "GEOJSON",
                           filter = "<Filter><PropertyIsEqualTo><PropertyName>regions:NameDUT</PropertyName><Literal>'Vlaams Gewest'</Literal></PropertyIsEqualTo></Filter>")) %>%
   build_url() %>%
   read_sf() %>%
@@ -554,8 +570,7 @@ sf_prov <- wfs_vrbg %>%
                           request = "GetFeature",
                           typeName = "VRBG:Refprv",
                           srsName = "EPSG:31370",
-                          cql_filter="NAAM='West-Vlaanderen'",
-                          outputFormat = "text/xml; subtype=gml/3.1.1")) %>% 
+                          cql_filter="NAAM='West-Vlaanderen'")) %>% 
   build_url() %>% 
   read_sf(crs = 31370)
 
@@ -572,8 +587,9 @@ sf_prov
     ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
     ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
 
-Also check out [example 4](#example-4-extract-feature-data-at-particular-points) for a more advanced use of the CQL
-filter.
+Also check out [example
+5](#example-5-extract-feature-data-at-particular-points) for a more
+advanced use of the CQL filter.
 
 Note, the rather exotic geometry type that is returned (`MULTISURFACE`).
 Some `sf` functions, such as `st_buffer()`, will not work out of the box
@@ -643,8 +659,7 @@ url$query <- list(service = "WFS",
                   #version = "2.0.0", # optional
                   request = "GetFeature",
                   typename = "BWK:Bwkhab",
-                  bbox = "142600,153800,146000,156900",
-                  outputFormat = "application/json")
+                  bbox = "142600,153800,146000,156900")
 request <- build_url(url)
 ```
 
@@ -656,10 +671,10 @@ BWK:Bwkhab seems to be overwritten.
 st_layers(request)
 ```
 
-    ## Driver: GeoJSON 
+    ## Driver: GML 
     ## Available layers:
     ##   layer_name geometry_type features fields
-    ## 1 OGRGeoJSON       Polygon      670     32
+    ## 1     Bwkhab Curve Polygon      670     32
 
 ``` r
 bwk_hallerbos <- read_sf(request)
@@ -683,8 +698,23 @@ ggplot(bwk_hallerbos) +
 You can use `sf::st_write()` to save this layer in any format that is
 listed by `sf::st_drivers()`.
 
-Continuing from the same request we got earlier, we can download the
-data with `httr::GET` and `httr::write_disk()`.
+## Example 4: downloading data to disk
+
+Continuing from the previous example, we can download the data with
+`httr::GET` and `httr::write_disk()`. The only difference is that we at
+`outputFormat` to the request. In this way we can deviate from the
+default output format and choose the output format we like.
+
+``` r
+url <- parse_url(wfs_bwk)
+url$query <- list(service = "WFS",
+                  #version = "2.0.0", # optional
+                  request = "GetFeature",
+                  typename = "BWK:Bwkhab",
+                  bbox = "142600,153800,146000,156900",
+                  outputFormat = "application/json")
+request <- build_url(url)
+```
 
 ``` r
 file <- tempfile(fileext = ".geojson")
@@ -693,11 +723,11 @@ GET(url = request,
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2021-01-14 14:18
+    ##   Date: 2021-01-28 17:23
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 821 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpyKMXfU\file21f047165e9e.geojson
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpYhgX5z\file23a4502b881.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would we any other local file. So we need to load the file with
@@ -707,7 +737,11 @@ would we any other local file. So we need to load the file with
 bwk_hallerbos2 <- read_sf(file)
 ```
 
-## Example 4: extract feature data at particular points
+Downloading data could be important for reproducible workflows (e.g. by
+using the downloaded data as the ‘real’ starting point and distribute
+it).
+
+## Example 5: extract feature data at particular points
 
 In some situations, we do not need the spatial features (polygons,
 lines, points), but are interested in the data at a particular point
@@ -799,7 +833,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2021-01-14 14:06
+    ##   Date: 2021-01-28 17:23
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B
@@ -821,8 +855,220 @@ knitr::kable(df)
 
 Which indeed corresponds to the data of the coordinate.
 
-This procedure can also be turned into a function with lat, long and
-properties of interest as parameters.
+In order to make your coding work lighter, you can easily put the WFS R
+code (building the WFS request and retrieving its results) inside a
+function. Just use [the
+code](https://github.com/inbo/inborutils/blob/8dad1ebe25ba80a3239d4a1ab9e918cf862b621e/R/extract_soil_map_data.R#L49-L91)
+of the `inborutils::extract_soil_map_data()` function (documented
+[here](https://inbo.github.io/inborutils/reference/extract_soil_map_data.html))
+as a template for your own function.
+
+Now this function makes it really easy to request the data:
+
+``` r
+library(inborutils)
+extract_soil_map_data(
+  x_lam = x_lam, 
+  y_lam = y_lam) %>%
+  knitr::kable()
+```
+
+    ## Defaulting to Bodemserie, Unibodemtype, Bodemtype. To avoid this message provide properties of interest in the function call.
+
+| Bodemtype | Unibodemtype | Bodemserie |
+| :-------- | :----------- | :--------- |
+| s-Pgp3(v) | s-Pgp3(v)    | Pgp        |
+
+``` r
+extract_soil_map_data(
+  x_lam = x_lam, 
+  y_lam = y_lam,
+  properties_of_interest = c("Eenduidige_legende", "Textuurklasse")) %>%
+  knitr::kable()
+```
+
+| Textuurklasse  | Eenduidige\_legende                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| licht zandleem | De twee bovenvermelde grondwatergronden op licht zandleem (Pgp en Pgg) zijn permanent zeer nat. Ze zijn overstroomd in de winter en hebben een zomerwaterstand op ongeveer 40 cm. Ze zijn ongeschikt voor landbouw; zelfs weiden geven geen bevredigende resultaten. Deze bodems zijn dus ongeschikt voor uitbating; eventueel kunnen populieren, mits de nodige ontwatering, aangepast worden, de resultaten zijn echter weinig gunstig. |
+
+``` r
+extract_soil_map_data(
+  x_lam = x_lam, 
+  y_lam = y_lam,
+  properties_of_interest = properties_of_interest) %>%
+  knitr::kable()
+```
+
+| Bodemtype | Bodemserie | Textuurklasse  | Drainageklasse           |
+| :-------- | :--------- | :------------- | :----------------------- |
+| s-Pgp3(v) | Pgp        | licht zandleem | uiterst nat, gereduceerd |
+
+``` r
+# multiple point locations
+xy <- data.frame(id = c("loc1", "loc2"),
+                 x = c(173995.67, 180000),
+                 y = c(212093.4, 212000))
+
+xy %>%
+  group_by(id) %>%
+  summarise(extract_soil_map_data(x, y, 
+                                  properties_of_interest = properties_of_interest)) %>%
+  knitr::kable()
+```
+
+| id   | Bodemtype | Bodemserie | Textuurklasse  | Drainageklasse           |
+| :--- | :-------- | :--------- | :------------- | :----------------------- |
+| loc1 | s-Pgp3(v) | Pgp        | licht zandleem | uiterst nat, gereduceerd |
+| loc2 | Sdg       | Sdg        | lemig zand     | matig nat, matig gleyig  |
+
+## Example 6: pagination
+
+When a layer of a WFS service contains many thousands of features, often
+the WFS service will restrict the number of features that can be
+obtained with one request. This is done to optimize performance
+(responsiveness) of the WFS service: it is more efficient to transfer
+small packages of data and this is even more the case when multiple user
+requests are transmitted concurrently to the service.
+
+In this example we show how to deal with this situation. A technique
+called ‘pagination’ can be used to obtain all features one is interested
+in by sending multiple requests to the server. The service is available
+from version ‘2.0.0’ onwards. Servers running older versions may or may
+not have support for ‘pagination’.
+
+We will use the ‘Watervlakken’ WFS service for this example.
+
+``` r
+# this layer returns just 1000 features (for performance reasons)
+wfs <- "https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?"
+url <- parse_url(wfs)
+url$query <- list(service = "wfs",
+                  version = "2.0.0", # facultative
+                  request = "GetFeature",
+                  typename = "Watervlakken:Watervlakken",
+                  srsName = "EPSG:31370"
+)
+request <- build_url(url)
+gd <- read_sf(request)
+gd
+```
+
+    ## Simple feature collection with 1000 features and 14 fields
+    ## geometry type:  MULTIPOLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 136507.8 ymin: 187356 xmax: 192040.7 ymax: 237604.4
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 1,000 x 15
+    ##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+    ##    <chr>  <chr> <chr>    <int> <chr> <chr>  <chr>   <chr>    <chr>  <chr>  
+    ##  1 Water~ ANTB~ <NA>         0 Zwal~ <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  2 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  3 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  4 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  5 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  6 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  7 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  8 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  9 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## 10 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## # ... with 990 more rows, and 5 more variables: FUNCTIE <chr>,
+    ## #   PEILBEHEER <chr>, OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
+
+As we can see from the output, only 1000 features are returned.
+
+To know in advance how many features the WFS has in total, you can add
+`resultType="hits"` to the query:
+
+``` r
+url$query <- list(service = "wfs",
+                  version = "2.0.0", # facultative
+                  request = "GetFeature",
+                  typename = "Watervlakken:Watervlakken",
+                  srsName = "EPSG:31370",
+                  resultType = "hits"
+)
+request <- build_url(url)
+result <- GET(request)
+parsed <- xml2::as_list(content(result, "parsed"))
+```
+
+    ## No encoding supplied: defaulting to UTF-8.
+
+``` r
+n_features <- attr(parsed$FeatureCollection, "numberMatched")
+n_features
+```
+
+    ## [1] "88713"
+
+We see that there are 88713 features. In the next chunk we show how
+`startIndex` and `count` can be used together to obtain more features
+(3000 in the example).
+
+``` r
+# use count and startIndex to return more features (pagination)
+get_watervlakken <- function(index = 0) {
+  wfs <- "https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?"
+  request <- build_url(url)
+  request # url in browser bekeken en nodige info in opgezocht
+  url$query <- list(service = "wfs",
+                    version = "2.0.0", # facultative
+                    request = "GetFeature",
+                    typename = "Watervlakken:Watervlakken",
+                    srsName = "EPSG:31370",
+                    startIndex=index,
+                    count=1000)
+  request <- build_url(url)
+  gd <- read_sf(request)
+  return(gd)
+}
+
+gd <- map_dfr(.x = seq(0, 2000, 1000),
+              .f = get_watervlakken
+        )
+
+gd
+```
+
+    ## Simple feature collection with 3000 features and 14 fields
+    ## geometry type:  MULTIPOLYGON
+    ## dimension:      XY
+    ## bbox:           xmin: 136507.8 ymin: 187156.5 xmax: 192040.7 ymax: 237604.4
+    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 3,000 x 15
+    ##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+    ##  * <chr>  <chr> <chr>    <int> <chr> <chr>  <chr>   <chr>    <chr>  <chr>  
+    ##  1 Water~ ANTB~ <NA>         0 Zwal~ <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  2 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  3 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  4 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  5 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  6 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  7 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  8 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  9 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## 10 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## # ... with 2,990 more rows, and 5 more variables: FUNCTIE <chr>,
+    ## #   PEILBEHEER <chr>, OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
+
+Whether it is a good idea or not to request many thousands of features
+from a WFS really depends on what our further plans are with the spatial
+data.
+
+Do we really need the attribute data? If not, and the only goal is
+visualization, we should have used a WMS (Web Mapping Service) instead
+(see [this
+tutorial](https://inbo.github.io/tutorials/tutorials/spatial_wms_services/)).
+
+Do we need all data from the WFS? We need to think carefully which
+features and which attributes are really needed for whatever use case we
+might have. When we have a clear idea which subset of the data we need,
+we can apply what we have learned in the examples in this tutorial to
+restrict the request to what we need.
+
+If we find ourselves in the case where we think we really need to
+request many, many features from a WFS service, it may also be more
+advised to use a download service instead of a WFS (search) service.
 
 # References
 
