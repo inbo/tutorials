@@ -413,7 +413,7 @@ You can use `sf::st_write()` to save this layer in any format that is listed by 
 ## Example 4: downloading data to disk
 
 Continuing from the previous example, we can download the data with `httr::GET` and `httr::write_disk()`.
-The only difference is that we at `outputFormat` to the request.
+The only difference is that we add `outputFormat` to the request.
 In this way we can deviate from the default output format and choose the output format we like.
 
 ```{r}
@@ -434,7 +434,7 @@ GET(url = request,
     write_disk(file))
 ```
 
-At this point, all features are downloaded and can be used in R as we would we any other local file. 
+At this point, all features are downloaded and can be used in R as we would with any other local file. 
 So we need to load the file with `read_sf()` from `sf`.
 
 ```{r}

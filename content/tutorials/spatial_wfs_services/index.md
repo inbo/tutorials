@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 author: "Thierry Onkelinx, Hans Van Calster, Floris Vanderhaeghe"
-date: "2021-01-28"
+date: "2021-01-29"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -701,7 +701,7 @@ listed by `sf::st_drivers()`.
 ## Example 4: downloading data to disk
 
 Continuing from the previous example, we can download the data with
-`httr::GET` and `httr::write_disk()`. The only difference is that we at
+`httr::GET` and `httr::write_disk()`. The only difference is that we add
 `outputFormat` to the request. In this way we can deviate from the
 default output format and choose the output format we like.
 
@@ -730,7 +730,7 @@ GET(url = request,
     ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpYhgX5z\file23a4502b881.geojson
 
 At this point, all features are downloaded and can be used in R as we
-would we any other local file. So we need to load the file with
+would with any other local file. So we need to load the file with
 `read_sf()` from `sf`.
 
 ``` r
