@@ -45,7 +45,7 @@ Selecteer het tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`.
 Ga na of er een systeemvariabele `R_LIBS_USER` met waarde `C:/R/library` bestaat^[Het moeten forward slashes zijn.]. 
 Indien niet, maak deze aan met de knop `Nieuw`. 
 Sluit al deze schermen via de `OK` knop.
-1. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\Program Files\R\R-3.x.y`). 
+1. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in de doelmap waar je R geïnstalleerd hebt (`C:\R\R-4.x.y`). 
 Hierbij moet je het bestaande bestand overschrijven.
 1. Zorg dat de gebruiker schrijfrechten heeft voor `C:\R\R-4.x.y\library` en `C:\R\library`.
 
