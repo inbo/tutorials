@@ -6,10 +6,20 @@
     <description>Recent content in INLA on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/inla/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spatially correlated random effects with INLA</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_spde/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_spde/</guid>
+      <description>This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. It is based on the question and the data posted on the R-Sig-mixedmodels mailing list: https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html.
+library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(tidyr) library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.</description>
+    </item>
     
     <item>
       <title>INLA workshops</title>

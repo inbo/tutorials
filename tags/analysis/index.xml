@@ -32,6 +32,25 @@ set.seed(213354) n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;-
     </item>
     
     <item>
+      <title>Spatially correlated random effects with INLA</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_spde/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_spde/</guid>
+      <description>This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. It is based on the question and the data posted on the R-Sig-mixedmodels mailing list: https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html.
+library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(tidyr) library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.</description>
+    </item>
+    
+    <item>
+      <title>Zero-inflation</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_zero_inflation/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_zero_inflation/</guid>
+      <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(scales) library(pscl) ## Warning: package &#39;pscl&#39; was built under R version 4.0.2 ## Classes and Methods for R developed in the ## Political Science Computational Laboratory ## Department of Political Science ## Stanford University ## Simon Jackman ## hurdle and zeroinfl functions by Achim Zeileis  library(MASS) library(tidyr) library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following object is masked from &#39;package:MASS&#39;: ## ## select ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(lme4) ## Loading required package: Matrix ## ## Attaching package: &#39;Matrix&#39; ## The following objects are masked from &#39;package:tidyr&#39;: ## ## expand, pack, unpack  Lots of zero’s doesn’t imply zero-inflation set.</description>
+    </item>
+    
+    <item>
       <title>INLA workshops</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_inla/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>

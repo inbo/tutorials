@@ -6,7 +6,7 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Using WFS service in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
@@ -85,6 +85,16 @@ Sometimes we have a layer in one coordinate reference system (CRS) and need to t
     </item>
     
     <item>
+      <title>&#39;Zoom in&#39; on `ggplot2` figures</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_zoom_in_ggplot/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_zoom_in_ggplot/</guid>
+      <description>Original figure library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() “Zoom in” with scales Data points outside the limits are considered to be NA. Note that this will alter all calculated geoms.
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + scale_y_continuous(limits = c(20, 25)) ## Warning: Removed 24 rows containing non-finite values (stat_boxplot).  “Zoom in” with coord This doesn’t affect the values:</description>
+    </item>
+    
+    <item>
       <title>Mixed model formulation of a paired t-test</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
@@ -102,6 +112,25 @@ Used packages library(knitr) library(lme4) library(tidyr) library(broom) library
       <guid>https://inbo.github.io/tutorials/tutorials/r_fixed_random/</guid>
       <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(lme4) ## Loading required package: Matrix  Dummy data For the sake of this demontration we use a very simple dataset with a very high signal versus noise ratio. Let’s look at a simple timeseries with multiple observations per timepoint.
 set.seed(213354) n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;- 0.1 dataset &amp;lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.</description>
+    </item>
+    
+    <item>
+      <title>Spatially correlated random effects with INLA</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_spde/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_spde/</guid>
+      <description>This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. It is based on the question and the data posted on the R-Sig-mixedmodels mailing list: https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html.
+library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(tidyr) library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.</description>
+    </item>
+    
+    <item>
+      <title>Zero-inflation</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_zero_inflation/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_zero_inflation/</guid>
+      <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(scales) library(pscl) ## Warning: package &#39;pscl&#39; was built under R version 4.0.2 ## Classes and Methods for R developed in the ## Political Science Computational Laboratory ## Department of Political Science ## Stanford University ## Simon Jackman ## hurdle and zeroinfl functions by Achim Zeileis  library(MASS) library(tidyr) library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following object is masked from &#39;package:MASS&#39;: ## ## select ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(lme4) ## Loading required package: Matrix ## ## Attaching package: &#39;Matrix&#39; ## The following objects are masked from &#39;package:tidyr&#39;: ## ## expand, pack, unpack  Lots of zero’s doesn’t imply zero-inflation set.</description>
     </item>
     
     <item>
