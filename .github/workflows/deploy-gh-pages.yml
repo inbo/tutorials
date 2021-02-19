@@ -31,6 +31,10 @@ jobs:
       - name: Build
         run: hugo -D
 
+      # Need to add post build for the search functionality...
+      - name: Generate search index
+        run: node themes/minimo/scripts/generate-search-index-lunr.js
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
