@@ -32,6 +32,9 @@ jobs:
         run: hugo -D
 
       # Need to add post build for the search functionality...
+      - name: Install JS dependencies to build the index
+        run: npm install -g lunr glob
+
       - name: Generate search index
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
