@@ -18,7 +18,7 @@ jobs:
       - name: Checkout (theme)
         uses: actions/checkout@v2
         with:
-          repository: https://github.com/MunifTanjim/minimo.git
+          repository: MunifTanjim/minimo
           ref: v2.7.0
           path: themes/minimo
 
