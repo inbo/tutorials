@@ -9,11 +9,19 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-18.04
     steps:
-      - name: Checkout
+      - name: Checkout (tutorials)
         uses: actions/checkout@v2
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Checkout (theme)
+        uses: actions/checkout@v2
+        with:
+          repository: https://github.com/MunifTanjim/minimo.git
+          ref: v2.7.0
+          path: themes/minimo
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
