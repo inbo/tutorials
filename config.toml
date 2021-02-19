@@ -62,7 +62,7 @@ enable = true
 [params.widgets]
 header = ["breadcrumbs"]
 homepage = ["recent_posts"] # "recent_posts"
-sidebar = ["about", "search", "sidebar_menu", "taxonomy_cloud", "social_menu"]
+sidebar = ["about", "search", "sidebar_menu", "taxonomy_cloud", "social_menu", "build_time"]
 
 [params.opengraph.facebook]
 admins = [] # array of Facebook IDs
