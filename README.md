@@ -1,7 +1,7 @@
 
 # Tutorials
 
-[![Build Status](https://travis-ci.com/inbo/tutorials.svg?branch=master)](https://travis-ci.com/inbo/tutorials)
+[![Deploy to GitHub pages](https://github.com/inbo/tutorials/actions/workflows/deploy-gh-pages.yml/badge.svg?branch=master&event=push)](https://github.com/inbo/tutorials/actions/workflows/deploy-gh-pages.yml)
 
 This repository contains the source files for the [INBO tutorials website](https://inbo.github.io/tutorials/): a collection of instructions on the use, installation and development of research software at the Research Institute of Nature and Forest (INBO).
 
@@ -13,9 +13,9 @@ New tutorials should go in a new directory in `content/tutorials`. Use plain mar
 
 The technology used to create the website is [Hugo](https://gohugo.io/), a static website generator. Hugo will process all the markdown files - ignoring Rmd, which is why these need to be knit beforehand - and create the necessary files (html, css, js) for the website. These are served from the [`gh-pages` branch](https://github.com/inbo/tutorials/tree/gh-pages).
 
-### Travis CI
+### GitHub actions
 
-[Travis](https://travis-ci.com/inbo/tutorials) will automatically run the steps above ([install Hugo, download theme, run Hugo, deploy website](.travis.yml)) for every pull request or commit to the master branch. You will see in the pull request if the build was successful. If not, [check the build logs](https://travis-ci.com/inbo/tutorials/builds) to figure out what went wrong.
+[GitHub actions](https://github.com/features/actions) will automatically run the steps above ([install Hugo, download theme, run Hugo, deploy website](.github/workflows/deploy-gh-pages.yml)) for every commit to the master branch. You will see in the [actions page](https://github.com/inbo/tutorials/actions/workflows/deploy-gh-pages.yml) if the build was successful. If not, check the logs to figure out what went wrong.
 
 ### Building the site on your local computer
 
@@ -28,7 +28,7 @@ For more information, see [Hugo's getting started documentation](https://gohugo.
 
 ### Customizing the theme
 
-The tutorials website makes use of the Hugo theme [minimo](https://themes.gohugo.io/minimo/). This theme is not included in the repository, but [downloaded by Travis](https://github.com/inbo/tutorials/blob/c715a8ea58817d280f89133aa06645590b8e16e0/.travis.yml#L18) at build time. This avoids clutter and changes to the theme itself. To customize the theme:
+The tutorials website makes use of the Hugo theme [minimo](https://themes.gohugo.io/minimo/). This theme is not included in the repository, but [downloaded by GitHub pages](https://github.com/inbo/tutorials/blob/262f305ef66fd4fc46ef7b2a9dce36cd2ad3e0d9/.github/workflows/deploy-gh-pages.yml#L18-L23) at build time. This avoids clutter and changes to the theme itself. To customize the theme:
 
 1. Browse the `layouts` directory in the [minimo repository](https://github.com/MunifTanjim/minimo/tree/master/layouts) to see which template file you want to customize
 2. Copy the template file to the same path in the [`layouts`](layouts/) directory of this repository
