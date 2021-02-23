@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  build-and-save:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout (tutorials)
@@ -41,7 +41,7 @@ jobs:
       - name: Archive built site
         uses: actions/upload-artifact@v2
         with:
-          name: pr-${{ env.PR_NUMBER }}-built
+          name: pr-${{ env.PR_NUMBER }}-website
           path: public
         env:
           PR_NUMBER: ${{ github.event.number }}
