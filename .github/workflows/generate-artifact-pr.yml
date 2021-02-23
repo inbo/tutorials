@@ -1,7 +1,7 @@
-name: Build the site and deploy to GitHub pages
+name: On PR, build the site and save the result to an artifact
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
@@ -38,8 +38,11 @@ jobs:
       - name: Generate search index
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+      - name: Archive built site
+        uses: actions/upload-artifact@v2
         with:
-          branch: gh-pages
-          folder: public
+          name: pr-${{ env.PR_NUMBER }}-built
+          path: public
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+      
