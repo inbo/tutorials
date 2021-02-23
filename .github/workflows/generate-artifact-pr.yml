@@ -55,6 +55,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 reviewers: a compiled version of the website (after PR) is available as an artifact. Check it out at the bottom of: https://github.com/{{ github.repository }}/actions/runs/{{ github.run_id }}'
+              body: '👋 reviewers: a compiled version of the website (after PR) is available as an artifact. Check it out at the bottom of: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
             })
           
