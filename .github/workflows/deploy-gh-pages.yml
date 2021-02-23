@@ -29,7 +29,7 @@ jobs:
           # extended: true
 
       - name: Build
-        run: hugo -D
+        run: hugo
 
       # Need to add post build for the search functionality...
       - name: Install JS dependencies to build the index
