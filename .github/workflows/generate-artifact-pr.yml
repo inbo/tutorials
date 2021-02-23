@@ -38,11 +38,17 @@ jobs:
       - name: Generate search index
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
-      - name: Archive built site
+      - name: Archive built site to an artifact
         uses: actions/upload-artifact@v2
         with:
           name: pr-${{ env.PR_NUMBER }}-website
           path: public
         env:
           PR_NUMBER: ${{ github.event.number }}
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@master
+        with:
+          message: 'Reviewers: a compiled version of the website (with changes) is available as an artifact. Check it out at the bottom of: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
