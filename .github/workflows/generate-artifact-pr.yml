@@ -41,7 +41,7 @@ jobs:
       - name: Archive built site to an artifact
         uses: actions/upload-artifact@v2
         with:
-          name: pr-${{ env.PR_NUMBER }}-website
+          name: pr-${{ env.PR_NUMBER }}-inbo-tutorials-website
           path: public
         env:
           PR_NUMBER: ${{ github.event.number }}
