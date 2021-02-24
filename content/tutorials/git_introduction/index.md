@@ -7,9 +7,9 @@ categories: ["version control"]
 tags: ["git", "github", "version control"]
 ---
 
-At INBO, people do write code and require version control. As git is not the most straightforward environment to 
+**At INBO, people do write code and require version control. As git is not the most straightforward environment to 
 work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an 
-achievable workflow.
+achievable workflow.**
 
 To introduce the concept of version control with Git and Github, a separate git course website is 
 available [here](https://inbo.github.io/git-course/index.html). 
