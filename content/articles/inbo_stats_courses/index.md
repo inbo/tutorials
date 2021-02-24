@@ -20,8 +20,7 @@ We chose to maintain the links to googledrive folders with the course material o
 You can find the overview [here](https://sites.google.com/a/inbo.be/intranet/ondersteuning/onderzoek/bmk/lessenreeks-en-tutorials).
 This course material is only accessible for INBO employees.
 
-Do note, however, that more recently developed in-house statistics courses will most likely end-up being part of this public website.
+Do note, however, that more recently developed in-house statistics courses will most likely end up being part of the public tutorials website you are visiting.
 An example is the [follow-up INLA workshop](https://inbo.github.io/tutorials/tutorials/r_inla/).
 Moreover, we have several short tutorials on very specific statistical topics.
 The best way to find these is to visit the [statistics category](https://inbo.github.io/tutorials/categories/statistics/).
-
