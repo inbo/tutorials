@@ -1,7 +1,7 @@
 name: On PR, build the site and save the result to an artifact
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - master
 
@@ -46,16 +46,3 @@ jobs:
           path: public
         env:
           PR_NUMBER: ${{ github.event.number }}
-
-      - name: Add artifact link to PR
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 reviewers: a compiled version of the website (after PR) is available as an artifact. Check it out at the bottom of: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-            })
-          
