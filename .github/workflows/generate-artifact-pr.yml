@@ -1,9 +1,7 @@
 name: On PR, build the site and save the result to an artifact
 
 on:
-  pull_request:
-    branches:
-      - master
+  pull_request
 
 jobs:
   build-and-save:
