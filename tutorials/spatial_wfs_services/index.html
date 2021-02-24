@@ -9,7 +9,7 @@
 <meta property='og:description' content='How to use WFS (vectors/features) GIS services within R scripts'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-01-28T00:00:00Z'/><meta property='article:modified_time' content='2021-01-28T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-01-29T00:00:00Z'/><meta property='article:modified_time' content='2021-01-29T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.2" />
 
@@ -220,7 +220,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Wed Feb 24 13:16:16 UTC 2021</small></p>
+  <p><small>Built on: Wed Feb 24 14:02:16 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -284,7 +284,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2021-01-28T00:00:00Z'>2021, Jan 28</time>
+  <time class='entry-date' datetime='2021-01-29T00:00:00Z'>2021, Jan 29</time>
 </span>
 
   
@@ -870,7 +870,7 @@ some part within the bounding box.</p>
 listed by <code>sf::st_drivers()</code>.</p>
 <h2 id="example-4-downloading-data-to-disk">Example 4: downloading data to disk<a href="#example-4-downloading-data-to-disk" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Continuing from the previous example, we can download the data with
-<code>httr::GET</code> and <code>httr::write_disk()</code>. The only difference is that we at
+<code>httr::GET</code> and <code>httr::write_disk()</code>. The only difference is that we add
 <code>outputFormat</code> to the request. In this way we can deviate from the
 default output format and choose the output format we like.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">url &lt;- <span style="color:#0a0">parse_url</span>(wfs_bwk)
@@ -892,7 +892,7 @@ request &lt;- <span style="color:#0a0">build_url</span>(url)
 ## &lt;ON DISK&gt;  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpYhgX5z\file23a4502b881.geojson
 </code></pre>
 <p>At this point, all features are downloaded and can be used in R as we
-would we any other local file. So we need to load the file with
+would with any other local file. So we need to load the file with
 <code>read_sf()</code> from <code>sf</code>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwk_hallerbos2 &lt;- <span style="color:#0a0">read_sf</span>(file)
 </code></pre></div><p>Downloading data could be important for reproducible workflows (e.g. by
