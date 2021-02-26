@@ -2,7 +2,7 @@
 title: Create tutorial
 description: Guidelines to create a new tutorial
 date: 2018-12-14
-authors: [stijnvanhoey]
+authors: [stijnvanhoey, nicolasnoe]
 menu: sidebar
 weight: 21
 ---
@@ -54,7 +54,7 @@ Next, in the edit field you can start typing your tutorial. The header has an ag
 ---
 title: "YOUR TITLE"
 description: "SHORT DESCRIPTION ON TUTORIAL"
-author: "YOUR NAME"
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
@@ -67,7 +67,7 @@ Replace all the CAPITAL words with appropriate information:
 
 - a short clear title
 - a single or two line description
-- your name
+- your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
 - the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
@@ -108,7 +108,7 @@ Next, we use the [git workflow](https://inbo.github.io/git-course/workflow_rstud
 ---
 title: "YOUR TITLE"
 description: "SHORT DESCRIPTION ON TUTORIAL"
-author: "YOUR NAME"
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
@@ -121,7 +121,7 @@ Replace all the CAPITAL words with appropriate information:
 
 - a short clear title
 - a single or two line description
-- your name
+- your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
 - the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
@@ -149,7 +149,7 @@ Next, we use the [git workflow](https://inbo.github.io/git-course/workflow_rstud
 ---
 title: "YOUR TITLE"
 description: "SHORT DESCRIPTION ON TUTORIAL"
-author: "YOUR NAME"
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
@@ -165,7 +165,7 @@ Replace all the CAPITAL words with appropriate information:
 
 - a short clear title
 - a single or two line description
-- your name
+- your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
 - the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
