@@ -1,7 +1,7 @@
 ---
 title: "'Zoom in' on `ggplot2` figures"
 description: "Learn the difference between zooming in with scales and coordinates."
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: "2020-07-01"
 categories: ["r"]
 tags: ["r", "ggplot2"]

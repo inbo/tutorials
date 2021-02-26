@@ -1,7 +1,7 @@
 ---
 title: "Using WMS service in R"
 description: "How to use WMS (raster) GIS services within R scripts"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: 2018-02-19T12:09:22+01:00
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]

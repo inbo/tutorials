@@ -1,7 +1,7 @@
 ---
 title: "Let's create an interactive map!"
 description: "Creating interactive maps with leaflet"
-author: "Jeroen Speybroeck"
+authors: [jeroenspeybroeck]
 date: 2018-06-14
 categories: ["r"]
 tags: ["gis", "r", "maps"]

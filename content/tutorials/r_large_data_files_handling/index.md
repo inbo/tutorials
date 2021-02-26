@@ -1,7 +1,7 @@
 ---
 title: "Reading large data files in R"
 description: "Handling large text files in R"
-author: "Bart Aelterman, Stijn Van Hoey"
+authors: [bartaelterman, stijnvanhoey]
 date: 2017-02-10
 categories: ["r"]
 tags: ["tidyverse", "r", "database"]

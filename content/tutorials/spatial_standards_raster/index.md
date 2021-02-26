@@ -1,7 +1,7 @@
 ---
 title: "How to use open raster file formats in R: GeoTIFF & GeoPackage"
 description: "A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R"
-author: "Floris Vanderhaeghe"
+authors: [florisvdh]
 date: 2020-09-15
 categories: ["r", "gis"]
 tags: ["gis", "r"]

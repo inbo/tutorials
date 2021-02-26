@@ -1,7 +1,7 @@
 ---
 title: "Headers and navigation in R code"
 description: "Provide structure inside an R script using sections"
-author: "Pieterjan Verhelst"
+authors: [pieterjanverhelst]
 date: 2018-06-14
 categories: ["r"]
 tags: ["tidyverse", "r"]

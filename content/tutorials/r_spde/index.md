@@ -1,7 +1,7 @@
 ---
 title: "Spatially correlated random effects with INLA"
 description: "A quick and dirty illustration of how spatially correlated random effects can be fit with INLA"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: "2020-07-01"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model", "INLA"]

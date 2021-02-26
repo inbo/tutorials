@@ -1,7 +1,7 @@
 ---
 title: "Read data from Google sheets"
 description: "Extracting data directly from Google spreadsheets"
-author: "Damiano Oldoni"
+authors: [damianooldoni]
 date: 2020-10-19
 categories: ["r"]
 tags: ["google", "r", "spreadsheet"]

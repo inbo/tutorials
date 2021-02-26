@@ -1,7 +1,7 @@
 ---
 title: "Meet some popular open geospatial standards!"
 description: "A short introduction to the powerful GeoPackage, GeoJSON and GeoTIFF standards"
-author: "Floris Vanderhaeghe"
+authors: [florisvdh]
 date: 2020-02-03
 csl: '`r cslfile <- file.path(tempdir(), "research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/inbocsl-0.1.0/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
 bibliography: ../reproducible_research.bib

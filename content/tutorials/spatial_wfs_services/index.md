@@ -1,7 +1,7 @@
 ---
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
-author: "Thierry Onkelinx, Hans Van Calster, Floris Vanderhaeghe"
+authors: [thierryo, hansvancalster, florisvdh]
 date: "2021-01-29"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]

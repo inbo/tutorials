@@ -1,7 +1,7 @@
 ---
 title: "Git workflow using the command line"
 description: "Git workflow using the command line"
-author: "Stijn Van Hoey"
+authors: [stijnvanhoey]
 date: 2017-10-18T14:42:43+02:00
 categories: ["version control"]
 tags: ["git", "version control"]

@@ -1,6 +1,6 @@
 ---
 title: "Tutorial on how to retrieve data from the INBOVEG database"
-author: "Els De Bie, Hans Van Calster & Jo Loos"
+authors: [elsdebie, hansvancalster, joloos]
 date: 2020-02-11
 categories: ["databases"]
 tags: ["database", "queries"] 
