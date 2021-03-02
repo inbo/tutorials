@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>joloos on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/authors/joloos/</link>
+    <description>Recent content in joloos on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/authors/joloos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using Kerberos authentication for database connection</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
+      <description>Introduction (shamelessly taken from wikipedia)
+Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+    </item>
+    
+    <item>
+      <title>Styleguide SQL-scripts</title>
+      <link>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</guid>
+      <description>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.
+In short  --This is how a basic SQL-script should look like /** Description: Lijst met broedvogels per UTM1-hok sinds 2010 Created: 2015-08-12 Created by: Frederic Piesschaert **/ SELECT w.WRNG_JAR AS jaar , w.</description>
+    </item>
+    
+    <item>
+      <title>Tutorial on how to retrieve data from the INBOVEG database</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_inboveg/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_inboveg/</guid>
+      <description>Introduction The Flemish vegetation database, INBOVEG, is an application developed to provide a repository of relevés and makes the relevés available for future use.
+INBOVEG supports different types of recordings: BioHab recordings (protocol of Natura 2000 monitoring) and the classic relevés. The classic relevés can stand alone, be an element of a collection or element of a chain where the linkage is used to give information about the relative position of recording within a series.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fredericpiesschaert on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/authors/fredericpiesschaert/</link>
+    <description>Recent content in fredericpiesschaert on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/authors/fredericpiesschaert/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Styleguide SQL-scripts</title>
+      <link>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</guid>
+      <description>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.
+In short  --This is how a basic SQL-script should look like /** Description: Lijst met broedvogels per UTM1-hok sinds 2010 Created: 2015-08-12 Created by: Frederic Piesschaert **/ SELECT w.WRNG_JAR AS jaar , w.</description>
+    </item>
+    
+  </channel>
+</rss>

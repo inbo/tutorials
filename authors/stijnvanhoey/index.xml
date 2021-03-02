@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>stijnvanhoey on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/authors/stijnvanhoey/</link>
+    <description>Recent content in stijnvanhoey on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/authors/stijnvanhoey/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Create tutorial</title>
+      <link>https://inbo.github.io/tutorials/create_tutorial/</link>
+      <pubDate>Fri, 14 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/create_tutorial/</guid>
+      <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
+In this page, the roadmap towards a new tutorial will be explained.
+Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>Using Kerberos authentication for database connection</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
+      <description>Introduction (shamelessly taken from wikipedia)
+Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+    </item>
+    
+    <item>
+      <title>How to make spatial joins (point in polygon)?</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</link>
+      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</guid>
+      <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
+Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
+    </item>
+    
+    <item>
+      <title>Git(hub) introduction</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_introduction/</link>
+      <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_introduction/</guid>
+      <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
+To introduce the concept of version control with Git and Github, a separate git course website is available here.
+The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>
+    </item>
+    
+    <item>
+      <title>Undo a git commit</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_undo_commit/</link>
+      <pubDate>Wed, 18 Oct 2017 15:31:53 +0200</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_undo_commit/</guid>
+      <description>Introduction You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
+First, check your history of commits to see which commits are the faulty ones.
+git log --oneline Example output
+b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make some important changes to hello.py 435b61d Create hello.py 9773e52 Initial import Git checkout The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches.</description>
+    </item>
+    
+    <item>
+      <title>Git without internet</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_no_internet/</link>
+      <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_no_internet/</guid>
+      <description>When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.
+One can commit changes, branch off, revert and reset changes, the same as when there exists an internet connection.
+Example workflow: start offline mode
+while(notBored): commit changes add files branch off new features end offline mode
+update master branch
+git fetch origin push changes to the server</description>
+    </item>
+    
+    <item>
+      <title>Git workflow using the command line</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_workflow/</link>
+      <pubDate>Wed, 18 Oct 2017 14:42:43 +0200</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_workflow/</guid>
+      <description>BEFORE I START WORKING   STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
+git fetch origin git checkout master git merge --ff-only origin/master   STEP 2: Choose your option:
+  OPTION 2A: I already have a branch I want to continue working on:
+Switch to existing topic branch:
+git checkout name_existing_branch git fetch origin git rebase origin/master   OPTION 2B: I&#39;ll make a new branch to work with: Create a new topic branch from master(!</description>
+    </item>
+    
+    <item>
+      <title>Handle conflicts</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_conflict/</link>
+      <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_conflict/</guid>
+      <description>Fix merge conflict with a pull request You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
+Locally on your computer:
+git fetch origin Rebase your feature branch with your master
+git rebase origin/master Git will now state that there are merge conflicts. These will look like this:</description>
+    </item>
+    
+    <item>
+      <title>Reading large data files in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</link>
+      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</guid>
+      <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
+tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
+    </item>
+    
+    <item>
+      <title>Read data from INBO databases (SQL Server) with R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_database_access/</link>
+      <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_database_access/</guid>
+      <description>Connection to INBO database Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
+library(DBI) library(glue) library(tidyverse) To create a database connection, different approaches are available as explained in the next section:
+ Use the dedicated connect_inbo_dbase function in the inbodb package Setup the required parameters yourself Reuse existing registered connections on your computer  Inbodb function To support the connection to INBO databases, a dedicated function is available in the inbodb package, called connect_inbo_dbase.</description>
+    </item>
+    
+  </channel>
+</rss>

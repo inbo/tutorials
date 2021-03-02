@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>florisvdh on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/authors/florisvdh/</link>
+    <description>Recent content in florisvdh on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
+    
+    <item>
+      <title>Use of INBO citation style with bibliography managers</title>
+      <link>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</guid>
+      <description>The INBO citation style Most journals, publishers and companies use a specified format for citations and bibliographies. The Research Institute for Nature and Forest (INBO) is no exception.
+All bibliography managers provide ways to automate the formatting of citations and bibliographies which greatly facilitates scientific publishing. Depending on the bibliographic manager software, the style formatting rules are stored in specific files. In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.</description>
+    </item>
+    
+    <item>
+      <title>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
+      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system exist: geodetic and projected CRSes. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
+    </item>
+    
+    <item>
+      <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</guid>
+      <description>General note: the way the raster package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ &amp;gt;= 6 versions. At the time of writing, it was necessary to use the current development version of raster (link). During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them.</description>
+    </item>
+    
+    <item>
+      <title>Transforming spatial objects</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</link>
+      <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
+      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
+Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
+    </item>
+    
+    <item>
+      <title>Using Kerberos authentication for database connection</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
+      <description>Introduction (shamelessly taken from wikipedia)
+Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+    </item>
+    
+    <item>
+      <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/</guid>
+      <description>This tutorial uses a few basic functions from the dplyr and sf packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
+options(stringsAsFactors = FALSE) library(tidyverse) library(sf) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
+In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
+    </item>
+    
+    <item>
+      <title>Meet some popular open geospatial standards!</title>
+      <link>https://inbo.github.io/tutorials/articles/geospatial_standards/</link>
+      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/geospatial_standards/</guid>
+      <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
+Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
+    </item>
+    
+  </channel>
+</rss>

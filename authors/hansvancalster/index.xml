@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hansvancalster on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/authors/hansvancalster/</link>
+    <description>Recent content in hansvancalster on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Feb 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/authors/hansvancalster/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Statistics courses @ INBO!</title>
+      <link>https://inbo.github.io/tutorials/articles/inbo_stats_courses/</link>
+      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/inbo_stats_courses/</guid>
+      <description>During the course of the years, we have taught many statistics courses at the Research Institute for Nature and Forest (INBO), both for scientists and technicians. Most of these courses have been developed and taught in-house. Some (mostly advanced) courses were taught in-house by external teachers.
+While we do plan to periodically repeat these courses for new employees and as a refresher, the course material can always be consulted and used for self-teaching or as a reference.</description>
+    </item>
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
+    
+    <item>
+      <title>Use of INBO citation style with bibliography managers</title>
+      <link>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</link>
+      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</guid>
+      <description>The INBO citation style Most journals, publishers and companies use a specified format for citations and bibliographies. The Research Institute for Nature and Forest (INBO) is no exception.
+All bibliography managers provide ways to automate the formatting of citations and bibliographies which greatly facilitates scientific publishing. Depending on the bibliographic manager software, the style formatting rules are stored in specific files. In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.</description>
+    </item>
+    
+    <item>
+      <title>Mixed model formulation of a paired t-test</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</guid>
+      <description>What you will learn In this tutorial we explain the analogy between the paired t-test and the corresponding mixed model formulation.
+Used packages library(knitr) library(lme4) library(tidyr) library(broom) library(DHARMa) Data  plot: identifies paired measurements response: measurement values treatment: identifies two treatments (a and b)  set.seed(124) paired_data &amp;lt;- data.frame( plot = rep(1:10, 2), response = c(rnorm(10), rnorm(10, 3, 1.5)), treatment = rep(c(&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;), each = 10) ) paired_data$treatment &amp;lt;- as.factor(paired_data$treatment) paired_data$plot &amp;lt;- as.</description>
+    </item>
+    
+    <item>
+      <title>Styleguide new git repositories</title>
+      <link>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</link>
+      <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
+      <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
+ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&#39;t use underscores.
+ .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
+    </item>
+    
+    <item>
+      <title>Tutorial on how to retrieve data from the INBOVEG database</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_inboveg/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_inboveg/</guid>
+      <description>Introduction The Flemish vegetation database, INBOVEG, is an application developed to provide a repository of relevés and makes the relevés available for future use.
+INBOVEG supports different types of recordings: BioHab recordings (protocol of Natura 2000 monitoring) and the classic relevés. The classic relevés can stand alone, be an element of a collection or element of a chain where the linkage is used to give information about the relative position of recording within a series.</description>
+    </item>
+    
+    <item>
+      <title>How to make spatial joins (point in polygon)?</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</link>
+      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</guid>
+      <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
+Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
+    </item>
+    
+  </channel>
+</rss>

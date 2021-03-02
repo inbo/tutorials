@@ -5,15 +5,15 @@
 <meta name='description' content='Guidelines to create a new tutorial'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Create tutorial • INBO Tutorials'>
+<meta property='og:title' content='Create tutorial • Stijn Van Hoey'>
 <meta property='og:description' content='Guidelines to create a new tutorial'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/create_tutorial/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content=''><meta property='article:published_time' content='2018-12-14T00:00:00Z'/><meta property='article:modified_time' content='2018-12-14T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content=''><meta property='article:published_time' content='2018-12-14T00:00:00Z'/><meta property='article:modified_time' content='2018-12-14T00:00:00Z'/><meta name='twitter:card' content='summary'><meta name='twitter:creator' content='@niconoe'>
 
 <meta name="generator" content="Hugo 0.62.2" />
 
-  <title>Create tutorial • INBO Tutorials</title>
+  <title>Create tutorial • Stijn Van Hoey</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/create_tutorial/'>
   
   
@@ -228,7 +228,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Wed Feb 24 15:27:48 UTC 2021</small></p>
+  <p><small>Built on: Tue Mar 2 11:24:44 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -294,7 +294,14 @@
   <time class='entry-date' datetime='2018-12-14T00:00:00Z'>2018, Dec 14</time>
 </span>
 
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/stijnvanhoey'>Stijn Van Hoey</a>, <a href='/tutorials/authors/nicolasnoe'>Nicolas Noé</a></span>
+  <br/>
   
 <span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
@@ -302,7 +309,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-8 mins read
+9 mins read
 </span>
 
 
@@ -366,7 +373,7 @@ Improve this page</a>
 <pre><code>---
 title: &quot;YOUR TITLE&quot;
 description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
-author: &quot;YOUR NAME&quot;
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: [&quot;YOUR_CATEGORY&quot;]
 tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
@@ -377,7 +384,7 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <ul>
 <li>a short clear title</li>
 <li>a single or two line description</li>
-<li>your name</li>
+<li>your author id: for each author on INBO tutorials, there's a <code>AUTHOR_ID.toml</code> file under <code>data/authors</code>. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: <code>authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]</code></li>
 <li>the creation date, in the specified forma (<code>year-month-day</code>), e.g. 2019-01-04 or 2018-04-02</li>
 <li>one or two categories from the specified list available <a href="https://github.com/inbo/tutorials/blob/master/static/list_of_categories">here</a></li>
 <li>multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/">wordcloud</a> to check which would be useful for your submission.</li>
@@ -407,7 +414,7 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <pre><code>---
 title: &quot;YOUR TITLE&quot;
 description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
-author: &quot;YOUR NAME&quot;
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: [&quot;YOUR_CATEGORY&quot;]
 tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
@@ -418,7 +425,7 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <ul>
 <li>a short clear title</li>
 <li>a single or two line description</li>
-<li>your name</li>
+<li>your author id: for each author on INBO tutorials, there's a <code>AUTHOR_ID.toml</code> file under <code>data/authors</code>. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: <code>authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]</code></li>
 <li>the creation date, in the specified forma (<code>year-month-day</code>), e.g. 2019-01-04 or 2018-04-02</li>
 <li>one or two categories from the specified list available <a href="https://github.com/inbo/tutorials/blob/master/static/list_of_categories">here</a></li>
 <li>multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/">wordcloud</a> to check which would be useful for your submission.</li>
@@ -441,7 +448,7 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <pre><code>---
 title: &quot;YOUR TITLE&quot;
 description: &quot;SHORT DESCRIPTION ON TUTORIAL&quot;
-author: &quot;YOUR NAME&quot;
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: [&quot;YOUR_CATEGORY&quot;]
 tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
@@ -455,7 +462,7 @@ output:
 <ul>
 <li>a short clear title</li>
 <li>a single or two line description</li>
-<li>your name</li>
+<li>your author id: for each author on INBO tutorials, there's a <code>AUTHOR_ID.toml</code> file under <code>data/authors</code>. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: <code>authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]</code></li>
 <li>the creation date, in the specified forma (<code>year-month-day</code>), e.g. 2019-01-04 or 2018-04-02</li>
 <li>one or two categories from the specified list available <a href="https://github.com/inbo/tutorials/blob/master/static/list_of_categories">here</a></li>
 <li>multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/">wordcloud</a> to check which would be useful for your submission.</li>

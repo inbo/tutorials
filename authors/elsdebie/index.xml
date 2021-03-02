@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elsdebie on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/authors/elsdebie/</link>
+    <description>Recent content in elsdebie on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/authors/elsdebie/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tutorial on how to retrieve data from the INBOVEG database</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_inboveg/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_inboveg/</guid>
+      <description>Introduction The Flemish vegetation database, INBOVEG, is an application developed to provide a repository of relevés and makes the relevés available for future use.
+INBOVEG supports different types of recordings: BioHab recordings (protocol of Natura 2000 monitoring) and the classic relevés. The classic relevés can stand alone, be an element of a collection or element of a chain where the linkage is used to give information about the relative position of recording within a series.</description>
+    </item>
+    
+  </channel>
+</rss>
