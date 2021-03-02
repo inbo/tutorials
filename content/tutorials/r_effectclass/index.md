@@ -1,7 +1,7 @@
 ---
 title: "Classification and visualisation of estimates and their uncertainty"
 description: "Slides of a workshop around uncertainty"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: 2020-01-23
 categories: ["r", "statistics"]
 tags: ["r", "uncertainty", "effectclass"]

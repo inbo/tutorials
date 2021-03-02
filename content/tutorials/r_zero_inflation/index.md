@@ -1,7 +1,7 @@
 ---
 title: "Zero-inflation"
 description: "Various ways in which zero-inflation can be detected and handled."
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: "2020-07-01"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model"]

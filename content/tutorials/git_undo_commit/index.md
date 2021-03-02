@@ -1,7 +1,7 @@
 ---
 title: "Undo a git commit"
 description: "Undo git commits using the command line"
-author: "Stijn Van Hoey"
+authors: [stijnvanhoey]
 date: 2017-10-18T15:31:53+02:00
 categories: ["version control"]
 tags: ["git", "version control"]

@@ -1,7 +1,7 @@
 ---
 title: "Transforming spatial objects"
 description: "Changing between coordinate reference systems with the R package sp"
-author: "Thierry Onkelinx, Floris Vanderhaeghe"
+authors: [thierryo, florisvdh]
 date: 2020-09-14
 categories: ["r"]
 tags: ["gis", "r", "maps"]

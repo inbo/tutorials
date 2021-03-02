@@ -1,6 +1,6 @@
 ---
 title: "R Markdown"
-author: "Ivy Jansen, Pieter Verschelde"
+authors: [ivyjansen, pieterverschelde]
 papersize: a4
 output: pdf_document
 urlcolor: blue
@@ -328,7 +328,7 @@ output: html_document
 ## Extra opties
 
 - `subtitle: "Een propere manier om R code en tekst te combineren"`
-- `author: "Ivy Jansen, Pieter Verschelde"`
+- `authors: [ivyjansen, pieterverschelde]`
 - `date: 2019-03-19`
 - `papersize: a4`: default is `letter`
 - `urlcolor: blue`: zorgt ervoor dat de links blauw kleuren

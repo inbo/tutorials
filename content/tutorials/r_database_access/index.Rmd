@@ -1,7 +1,7 @@
 ---
 title: "Read data from INBO databases (SQL Server) with R"
 description: "Database access using R"
-author: "Stijn Van Hoey"
+authors: [stijnvanhoey]
 date: 2017-02-03
 categories: ["r"]
 tags: ["database", "r", "data"]

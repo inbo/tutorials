@@ -1,7 +1,7 @@
 ---
 title: "Styleguide SQL-scripts"
 description: "Layout guidelines for writing clear SQL-scripts"
-author: "Frederic Piesschaert, Gert Van Spaendonk, Jo Loos, Aaike De Wever"
+authors: [fredericpiesschaert, gertvanspaendonk, joloos, aaikedewever]
 date: 2020-06-23
 categories: ["styleguide"]
 tags: ["styleguide", "SQL"]

@@ -1,7 +1,7 @@
 ---
 title: "Handle conflicts"
 description: "How to handle git conflicts using command line"
-author: "Stijn Van Hoey"
+authors: [stijnvanhoey]
 date: 2017-10-18
 categories: ["version control"]
 tags: ["git", "version control"]

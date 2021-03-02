@@ -1,7 +1,7 @@
 ---
 title: "Tutorial setup_codingclub_session()"
 description: "Tutorial on how to use setup_codingclub_session() to load data and scripts to use during coding clubs."
-author: "Emma Cartuyvels, Damiano Oldoni"
+authors: [emmacartuyvels, damianooldoni]
 date: 2020-11-12
 categories: ["r"]
 tags: ["data", "coding club", "r"]

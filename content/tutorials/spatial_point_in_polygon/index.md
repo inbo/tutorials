@@ -1,7 +1,7 @@
 ---
 title: "How to make spatial joins (point in polygon)?"
 description: "Various ways to make a spatial join between GIS point data and polygon data"
-author: "Stijn Van Hoey, Hans Van Calster"
+authors: [stijnvanhoey, hansvancalster]
 date: 2019-06-20
 categories: ["r", "gis"]
 tags: ["gis", "r", "maps"]

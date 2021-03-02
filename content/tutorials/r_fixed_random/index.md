@@ -1,7 +1,7 @@
 ---
 title: "Same variable in fixed and random effects"
 description: "Learn what the effect is of having the same variable in the fixed and random part of a mixed model."
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: "2020-07-01"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model"]

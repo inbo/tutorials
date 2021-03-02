@@ -1,7 +1,7 @@
 ---
 title: "Statistics courses @ INBO!"
 description: "Links to course material of statistics courses taught at INBO (only accessible for INBO employees)"
-author: "Hans Van Calster"
+authors: [hansvancalster]
 date: 2021-02-24
 categories: ["r", "statistics"]
 tags: ["r", "INLA", "mixed model", "uncertainty", "explorative data analysis", "analysis of variance", "generalized linear regression", "multivariate statistics"]

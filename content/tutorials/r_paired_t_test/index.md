@@ -1,7 +1,7 @@
 ---
 title: "Mixed model formulation of a paired t-test"
 description: "Learn some insights about mixed models based on a simple example"
-author: "Hans Van Calster"
+authors: [hansvancalster]
 date: "2020-07-01"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model"]

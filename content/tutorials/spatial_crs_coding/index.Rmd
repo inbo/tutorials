@@ -1,7 +1,7 @@
 ---
 title: "Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?"
 description: "Current good practice in specifying a CRS in R"
-author: "Floris Vanderhaeghe"
+authors: [florisvdh]
 date: 2020-09-18
 categories: ["r", "gis"]
 tags: ["gis", "r", "maps"]

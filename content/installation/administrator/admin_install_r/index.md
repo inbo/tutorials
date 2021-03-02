@@ -2,7 +2,7 @@
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
 date: "2020-11-09"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
 output: 
