@@ -37,7 +37,8 @@ The following table gives a **quick overview**:
 | Store data | [git2rdata](https://inbo.github.io/git2rdata/) |
 | Validate data | [pywhip](https://inbo.github.io/pywhip/) |
 | Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
-| Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/), [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html) |
+| Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/),\n [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html),
+[dhcurve](https://inbo.github.io/dhcurve/)|
 | Analyze data: indices | [LSVI](https://inbo.github.io/LSVI) |
 | Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/) |
 | Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/) |
@@ -170,6 +171,9 @@ The following table gives a **quick overview**:
     in Python, without external non-open source dependencies.
   - **R package [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html)**: an R
     package to detect anomalous observations in timeseries of groundwater loggerdata (water pressure and air pressure). Additive outliers, temporal changes and level shifts are detected.
+  - **R package [dhcurve](https://inbo.github.io/dhcurve/)**: an R
+    package to predict tree height for a given girth, based on a model and data
+    on tree height, tree girth, tree species and location (in Dutch).
 
 
 ### Calculate indices
