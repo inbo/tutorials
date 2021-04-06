@@ -1,7 +1,7 @@
 <!--- indicate the Title for this pull request (PR) above -->
 
 
-Thank you for considering to contribute to the INBO tutorials repository.
+Thank you for contributing to the INBO tutorials repository.
 
 <!--see https://docs.github.com/en/github/managing-your-work-on-github/about-task-lists
 for an explanation on how to use task lists-->
