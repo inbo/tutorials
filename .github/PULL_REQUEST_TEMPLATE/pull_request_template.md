@@ -1,12 +1,13 @@
 <!--- indicate the Title for this pull request (PR) above -->
 
-
+<!--
 Thank you for contributing to the INBO tutorials repository.
+-->
+
+## Task list
 
 <!--see https://docs.github.com/en/github/managing-your-work-on-github/about-task-lists
 for an explanation on how to use task lists-->
-
-## Task list
 
 Please check if the following steps are OK:
 
