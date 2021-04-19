@@ -1,6 +1,6 @@
 ---
-title: "(Down)load KNMI, KMI or MOW-HIC data using the `inborutils` package"
-description: "Link to article in the `inborutils` package"
+title: "(Down)load KNMI, KMI or MOW-HIC data using the inborutils package"
+description: "Link to article in the inborutils package"
 authors: [stijnvanhoey]
 date: 2021-03-08
 categories: ["r", "databases"]
