@@ -6,7 +6,7 @@
     <description>Recent content in stijnvanhoey on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/authors/stijnvanhoey/index.xml" rel="self" type="application/rss+xml" />
     
@@ -20,6 +20,15 @@
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>(Down)load KNMI, KMI or MOW-HIC data using the `inborutils` package</title>
+      <link>https://inbo.github.io/tutorials/tutorials/inborutils_download_data/</link>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/inborutils_download_data/</guid>
+      <description>In this article in the inborutils package it is explained how to use the functions download_knmi_data_hour, read_knmi_data, read_mow_data and read_kmi_data.</description>
     </item>
     
     <item>
