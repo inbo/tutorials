@@ -299,7 +299,7 @@ View(dfLab)
 
 Belangrijke argumenten voor `read_sheet`
 
-- ss: url of key van het google sheets bestqnd
+- ss: url of key van het google sheets bestand
 - sheet: het nummer of `"naam"` van het tabblad
 - range: het bereik zoals in Excel bv `"A1:C20"`
 - col_types, na, skip, ... zoals bij `read_delim` en `read_excel`
