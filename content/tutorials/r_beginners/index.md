@@ -46,7 +46,7 @@ Introductie tot het inlezen van externe databestanden
 
 - `readr` 
 - `readxl`
-- `googlesheets`
+- `googlesheets4`
 
 [Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen.pdf)   
 [Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)  
