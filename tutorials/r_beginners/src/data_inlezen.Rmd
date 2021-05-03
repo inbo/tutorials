@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALS
 - access databases: mdb, accdb ---> **RODBC** **(odbc)**
 - eenvoudige databestanden: sqlite ---> **odbc**
 - databank server connecties: SQL server, MySql, postgres ---> **RODBC / DBI / odbc**
-- googlesheets ---> **googlesheets**
+- googlesheets ---> **googlesheets4**
 - R binaire objecten ---> basis R
 
 Vetgedrukt zijn de benodigde R packages. Om deze te gebruiken moeten die geïnstalleerd en geladen zijn
@@ -254,54 +254,53 @@ table(dfSurvey2$Sex) #controle of de geslachten juist ingevuld zijn
 
 #Googlesheets
 
-- Maakt gebruik van het **googlesheets** package
-- Je moet jezelf authoriseren via de functie `gs_auth()`
+- Maakt gebruik van het **googlesheets4** package
+- Je moet jezelf authoriseren via de functie `gs4_auth()`
     - dit moet slechts periodiek
     - je wordt verwezen naar een login website voor google
     - je geeft toegang aan tidyverse-googlesheets
         - ofwel krijg je dan een code die je in R moet plakken
         - ofwel zal je direct een melding krijgen dat de authorisatie gelukt is
-- Nu kan je je spreadsheet registreren
-    - De registratie maakt soort google-bestandsnaam
-    - Deze verkregen bestandsnaam gebruik je dan net zoals bij `read_excel` of `read_csv`
-    - Registreren (bestandsnaam ophalen) kan op 3 manieren
-        - via de url `gs_url`
-        - via de key (snelste) `gs_key`
-        - via de titel van de sheet `gs_title`
-- Eens geregistreerd kan je de data eruit halen via `gs_read`
+- Nu kan je de url of key van de sheet gebruiken
+    - de url of key nemen de plaats in van `file` bij andere functies zoals `read_csv`
+    - de key gebruiken werkt doorgaans sneller en is een deel van de url
+- Eens geregistreerd kan je de data eruit halen via `read_sheet`
 
-```{r google}
-library(googlesheets) #laden van het googlesheets package
+```{r google, eval=FALSE}
+library(googlesheets4) #laden van het googlesheets package
 
-gs_auth() #authorisatie (niet altijd nodig)
+gs4_auth() #authorisatie (de eerste keer en dan periodiek eens nodig)
+#Let op. dit is interactief, dus de volgende code nog niet plakken
 
-#Mogelijkheid 1: Registreren via de URL
+gs4_auth(email = "xxx@yyy.zzz") #geef je email direct mee, als je 0auth-token nog geldig is, dan werkt dit niet interactief
+
+#Je kan registreren met de html van de sheet of de sheet key
 url <- "https://docs.google.com/spreadsheets/d/1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY/edit?usp=sharing"
-my_spreadsheet <- gs_url(url)
+key <- "1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY"
 
-#Mogelijkheid 2: Registreren via de KEY (die code zie je ook in de URL staan)
-my_spreadsheet <- gs_key("1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY")
+dfLab <- read_sheet(url) #zal volledig eerste sheet lezen in de url
+dfLab <- read_sheet(key) #zal volledig eerste sheet lezen in de key
 
-#Mogelijkheid 3: Registreren via de titel
-my_spreadsheet <- gs_title("R_Introductie_Les_1_2019")
+#Indien je de titel en sheetnamen wil kennen
+gs4_get(url) #ook hier kan je de key gebruiken
 
-#Nu is het tijd om de data uit de sheet te halen
-#tot nu hebben we immers enkel nog maar de bestandsnaam gekregen
-dfLab <- gs_read(ss = my_spreadsheet, #pad + file
-                 ws = 1,  #worksheetnummer of "naam"
-                 na = "NULL" #hoe wordt NA gecodeerd
-                 )
+#Je kan het inlezen meer finetunen en een sheet opgeven en optioneel ook een range
+dfLab <- read_sheet(ss = key, #pad + file
+                    sheet = 1,  #worksheetnummer of "naam"
+                    na = "NULL", #hoe wordt NA gecodeerd
+                    range = "A1:H44" #de range (optioneel)
+                    )
 head(dfLab)
 View(dfLab)
 
-?gs_read #help op overzicht te vinden van alle argumenten
+?read_sheet #help op overzicht te vinden van alle argumenten
 
 ```
 
-Belangrijke argumenten voor `gs_read`
+Belangrijke argumenten voor `read_sheet`
 
-- ss: het object met de google registratie (de google bestandsnaam)
-- ws: het nummer of `"naam"` van het tabblad
+- ss: url of key van het google sheets bestqnd
+- sheet: het nummer of `"naam"` van het tabblad
 - range: het bereik zoals in Excel bv `"A1:C20"`
 - col_types, na, skip, ... zoals bij `read_delim` en `read_excel`
 
