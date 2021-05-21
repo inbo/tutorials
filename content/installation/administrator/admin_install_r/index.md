@@ -55,7 +55,7 @@ voor versie `R-4.0.0` is `x` = 0 en `y` = 0.
 -   Wijzig de standaarddoelmap naar `C:\R\R-4.x.y`
 -   **alle** gebruikers moeten **volledige** rechten hebben in
     -   `C:\R\library`
-    -   `C:\Program Files\R\R-4.x.y\library`
+    -   `C:\R\R-4.x.y\library`
 -   Systeemvariable `R_LIBS_USER` instellen op `C:/R/library`
     (**verplicht forward slashes**)
 -   [`Rprofile.site`](Rprofile.site) in `C:\R\R-4.x.y\etc` overschrijven
