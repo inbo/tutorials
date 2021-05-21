@@ -9,7 +9,14 @@ options(
   yaml.eval.expr = TRUE,
   usethis.full_name = "Research Institute for Nature and Forest",
   usethis.description = list(
-    `Authors@R` = "c(\n  person(\n    \"Voornaam\", \"Achternaam\", role = c(\"aut\", \"cre\"), \n    email = \"voornaam.achternaam@inbo.be\", \n    comment = c(ORCID = \"9999-9999-9999-9999\")),\n  person(\n    \"Research Institute for Nature and Forest\",\n    role = c(\"cph\", \"fnd\"), email = \"info@inbo.be\"))",
+    `Authors@R` = "c(
+  person(
+    \"Voornaam\", \"Achternaam\", role = c(\"aut\", \"cre\"),
+    email = \"voornaam.achternaam@inbo.be\",
+    comment = c(ORCID = \"9999-9999-9999-9999\")),
+  person(
+    \"Research Institute for Nature and Forest\",
+    role = c(\"cph\", \"fnd\"), email = \"info@inbo.be\"))",
     License = "GPL-3",
     Language = "en-GB",
     Encoding = "UTF-8",
