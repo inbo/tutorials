@@ -25,15 +25,11 @@ De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
 1. Gebruik de standaard door _Next_ te klikken.
 1. Gebruik de standaard door _Install_ te klikken.
 1. Vink alles uit en klik op _Next_.
-1. Download [gitconfig](gitconfig).
-Bewaar het bestand als `.gitconfig` (bestandsnaam start met een punt) in `c:/users/username`.
-Zorg dat de gebruiker toegangsrechten heeft tot dit bestand.
 
 ### Afwijkingen t.o.v. default installatie
 
 - `Notepad++` als editor
 - `use Windows' default console window`
-- `.gitconfig` downloaden en bewaren in de map van de gebruiker (met toegangsrechten voor de gebruiker)
 
 ## Ubuntu
 
