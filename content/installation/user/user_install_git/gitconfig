@@ -3,5 +3,10 @@
 	email = voornaam.achternaam@inbo.be
 [core]
 	autocrlf = true
+	protectHFS = true
+	protectNTFS = true
 [fetch]
 	prune = true
+  pruneTags = true
+[push]
+  followTags = true
