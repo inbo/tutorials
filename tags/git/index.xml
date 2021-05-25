@@ -85,6 +85,15 @@ git rebase origin/master Git will now state that there are merge conflicts. Thes
     </item>
     
     <item>
+      <title>Git configuration</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_git/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_git/</guid>
+      <description>Windows  Download gitconfig. Bewaar het bestand als .gitconfig (bestandsnaam start met een punt) in C:/users/username. Open .gitconfig en vul jouw naam en e-mail aan.  Ubuntu Doe dezelfde stappen als onder Windows. Alleen bewaar je het bestand als ~/.gitconfig.</description>
+    </item>
+    
+    <item>
       <title>Git installation</title>
       <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_git/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

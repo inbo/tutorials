@@ -9,7 +9,7 @@
 <meta property='og:description' content='Instruction for the installation of R (in Dutch)'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/installation/administrator/admin_install_r/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='r'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2020-11-09T00:00:00Z'/><meta property='article:modified_time' content='2020-11-09T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='r'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2021-05-21T00:00:00Z'/><meta property='article:modified_time' content='2021-05-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.2" />
 
@@ -129,7 +129,7 @@
       </li><li>
         <a href='/tutorials/tags/gis/' style='font-size:1.2285714285714286em'>gis</a>
       </li><li>
-        <a href='/tutorials/tags/git/' style='font-size:1.1714285714285715em'>git</a>
+        <a href='/tutorials/tags/git/' style='font-size:1.2em'>git</a>
       </li><li>
         <a href='/tutorials/tags/gitbook/' style='font-size:1em'>gitbook</a>
       </li><li>
@@ -145,7 +145,7 @@
       </li><li>
         <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
       </li><li>
-        <a href='/tutorials/tags/installation/' style='font-size:1.2285714285714286em'>installation</a>
+        <a href='/tutorials/tags/installation/' style='font-size:1.2571428571428571em'>installation</a>
       </li><li>
         <a href='/tutorials/tags/literature/' style='font-size:1.1142857142857143em'>literature</a>
       </li><li>
@@ -187,7 +187,7 @@
       </li><li>
         <a href='/tutorials/tags/uncertainty/' style='font-size:1.0285714285714285em'>uncertainty</a>
       </li><li>
-        <a href='/tutorials/tags/version-control/' style='font-size:1.1428571428571428em'>version control</a>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.1714285714285715em'>version control</a>
       </li><li>
         <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
       </li><li>
@@ -230,7 +230,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Tue May 11 09:25:40 UTC 2021</small></p>
+  <p><small>Built on: Tue May 25 12:10:35 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -295,7 +295,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-11-09T00:00:00Z'>2020, Nov 09</time>
+  <time class='entry-date' datetime='2021-05-21T00:00:00Z'>2021, May 21</time>
 </span>
 
   <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -373,14 +373,15 @@ register entries <em>aan</em> en klik op <em>Volgende</em>.</li>
 <li>R wordt nu geïnstalleerd. Klik op <em>Voltooien</em> als de installatie
 afgelopen is.</li>
 <li>Ga naar <code>Start</code> en tik “Omgevingsvariabelen” in het veld
-<code>Programma's en variabelen zoeken</code>. Selecteer <code>De omgevingsvariabelen van het systeem bewerken</code>. Selecteer het tabblad
-<code>Geavanceerd</code> en klik op de knop <code>Omgevingsvariabelen</code>. Ga na of er
-een systeemvariabele <code>R_LIBS_USER</code> met waarde <code>C:/R/library</code>
-bestaat[1]. Indien niet, maak deze aan met de knop <code>Nieuw</code>. Sluit
-al deze schermen via de <code>OK</code> knop.</li>
+<code>Programma's en variabelen zoeken</code>. Selecteer
+<code>De omgevingsvariabelen van het systeem bewerken</code>. Selecteer het
+tabblad <code>Geavanceerd</code> en klik op de knop <code>Omgevingsvariabelen</code>. Ga
+na of er een systeemvariabele <code>R_LIBS_USER</code> met waarde
+<code>C:/R/library</code> bestaat[1]. Indien niet, maak deze aan met de knop
+<code>Nieuw</code>. Sluit al deze schermen via de <code>OK</code> knop.</li>
 <li>Kopieer het bestand <a href="Rprofile.site"><code>Rprofile.site</code></a> naar <code>etc</code> in
-de doelmap waar je R geïnstalleerd hebt (<code>C:\Program Files\R\R-3.x.y</code>). Hierbij moet je het bestaande bestand
-overschrijven.</li>
+de doelmap waar je R geïnstalleerd hebt (<code>C:\R\R-4.x.y</code>). Hierbij
+moet je het bestaande bestand overschrijven.</li>
 <li>Zorg dat de gebruiker schrijfrechten heeft voor
 <code>C:\R\R-4.x.y\library</code> en <code>C:\R\library</code>.</li>
 </ol>
@@ -390,7 +391,7 @@ overschrijven.</li>
 <li><strong>alle</strong> gebruikers moeten <strong>volledige</strong> rechten hebben in
 <ul>
 <li><code>C:\R\library</code></li>
-<li><code>C:\Program Files\R\R-4.x.y\library</code></li>
+<li><code>C:\R\R-4.x.y\library</code></li>
 </ul>
 </li>
 <li>Systeemvariable <code>R_LIBS_USER</code> instellen op <code>C:/R/library</code>
@@ -446,14 +447,21 @@ gebruiker ze niet meer kan updaten.</p>
   yaml.eval.expr = TRUE,
   usethis.full_name = &quot;Research Institute for Nature and Forest&quot;,
   usethis.description = list(
-    `Authors@R` = &quot;c(\n  person(\n    \&quot;Voornaam\&quot;, \&quot;Achternaam\&quot;, role = c(\&quot;aut\&quot;, \&quot;cre\&quot;), \n    email = \&quot;voornaam.achternaam@inbo.be\&quot;, \n    comment = c(ORCID = \&quot;9999-9999-9999-9999\&quot;)),\n  person(\n    \&quot;Research Institute for Nature and Forest\&quot;,\n    role = c(\&quot;cph\&quot;, \&quot;fnd\&quot;), email = \&quot;info@inbo.be\&quot;))&quot;,
+    `Authors@R` = &quot;c(
+  person(
+    \&quot;Voornaam\&quot;, \&quot;Achternaam\&quot;, role = c(\&quot;aut\&quot;, \&quot;cre\&quot;),
+    email = \&quot;voornaam.achternaam@inbo.be\&quot;,
+    comment = c(ORCID = \&quot;9999-9999-9999-9999\&quot;)),
+  person(
+    \&quot;Research Institute for Nature and Forest\&quot;,
+    role = c(\&quot;cph\&quot;, \&quot;fnd\&quot;), email = \&quot;info@inbo.be\&quot;))&quot;,
     License = &quot;GPL-3&quot;,
     Language = &quot;en-GB&quot;,
     Encoding = &quot;UTF-8&quot;,
     Roxygen = &quot;list(markdown = TRUE)&quot;
   ),
   repos = c(
-    RStudio = &quot;https://cloud.r-project.org/&quot;,
+    CRAN = &quot;https://cloud.r-project.org/&quot;,
     INLA = &quot;https://inla.r-inla-download.org/R/stable&quot;
   ),
   install.packages.check.source = &quot;no&quot;,
@@ -481,9 +489,7 @@ sudo gpg -a --export E084DAB9 | apt-key add -
 sudo apt-get update
 sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 </code></pre>
-<ol>
-<li>Het moeten forward slashes zijn.</li>
-</ol>
+<p>[1] Het moeten forward slashes zijn.</p>
 </div>
 
   

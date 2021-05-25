@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
@@ -86,6 +86,17 @@ Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorial
     </item>
     
     <item>
+      <title>Install R</title>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
+      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
+In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
+Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
+    </item>
+    
+    <item>
       <title>(Down)load KNMI, KMI or MOW-HIC data using the inborutils package</title>
       <link>https://inbo.github.io/tutorials/tutorials/inborutils_download_data/</link>
       <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
@@ -134,17 +145,6 @@ All bibliography managers provide ways to automate the formatting of citations a
 To begin, make sure that you have the latest version of inborutils installed by running the following code:
 if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
 library(inborutils) The function takes four arguments with the following default settings:</description>
-    </item>
-    
-    <item>
-      <title>Install R</title>
-      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
-      <pubDate>Mon, 09 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
-In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
-Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>
     
     <item>
@@ -595,6 +595,15 @@ tl;dr  If you can comfortably work with the entire file in memory, but reading t
       <description>Connection to INBO database Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
 library(DBI) library(glue) library(tidyverse) To create a database connection, different approaches are available as explained in the next section:
  Use the dedicated connect_inbo_dbase function in the inbodb package Setup the required parameters yourself Reuse existing registered connections on your computer  Inbodb function To support the connection to INBO databases, a dedicated function is available in the inbodb package, called connect_inbo_dbase.</description>
+    </item>
+    
+    <item>
+      <title>Git configuration</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_git/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_git/</guid>
+      <description>Windows  Download gitconfig. Bewaar het bestand als .gitconfig (bestandsnaam start met een punt) in C:/users/username. Open .gitconfig en vul jouw naam en e-mail aan.  Ubuntu Doe dezelfde stappen als onder Windows. Alleen bewaar je het bestand als ~/.gitconfig.</description>
     </item>
     
     <item>

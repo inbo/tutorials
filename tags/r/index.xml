@@ -6,7 +6,7 @@
     <description>Recent content in r on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,17 @@
       <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
+    </item>
+    
+    <item>
+      <title>Install R</title>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
+      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
+In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
+Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>
     
     <item>
@@ -51,17 +62,6 @@ The standard output format for reading or downloading data from a WFS is the XML
 To begin, make sure that you have the latest version of inborutils installed by running the following code:
 if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
 library(inborutils) The function takes four arguments with the following default settings:</description>
-    </item>
-    
-    <item>
-      <title>Install R</title>
-      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
-      <pubDate>Mon, 09 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
-In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
-Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>
     
     <item>

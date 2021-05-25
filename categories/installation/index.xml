@@ -6,7 +6,7 @@
     <description>Recent content in installation on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/categories/installation/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Install R</title>
       <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
-      <pubDate>Mon, 09 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
       <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
@@ -93,6 +93,15 @@ Bij een upgrade dient eerst de vorige versie te worden verwijderd.
       <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_pandoc/</guid>
       <description>Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
 Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster  wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb </description>
+    </item>
+    
+    <item>
+      <title>Git configuration</title>
+      <link>https://inbo.github.io/tutorials/installation/user/user_install_git/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/user/user_install_git/</guid>
+      <description>Windows  Download gitconfig. Bewaar het bestand als .gitconfig (bestandsnaam start met een punt) in C:/users/username. Open .gitconfig en vul jouw naam en e-mail aan.  Ubuntu Doe dezelfde stappen als onder Windows. Alleen bewaar je het bestand als ~/.gitconfig.</description>
     </item>
     
     <item>
