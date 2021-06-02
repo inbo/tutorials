@@ -9,7 +9,8 @@ tags: ["git", "version control", "installation"]
 
 1. Download [gitconfig](gitconfig).
 1. Bewaar het bestand als `.gitconfig` (bestandsnaam start met een punt) in `C:/users/username`.
-1. Open `.gitconfig` en vul jouw naam en e-mail aan.
+1. Open `.gitconfig` (rechtsklikken op het bestand en openen met bijvoorbeeld Notepad++) en vul jouw naam en e-mail aan.
+1. Sla het bestand op. 
 
 
 ## Ubuntu
