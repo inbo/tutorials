@@ -45,7 +45,7 @@ renv::snapshot() # inspect the message before confirming to overwrite renv.lock
 Notes:
 
 - `renv` typically already performs an automatic upgrade (`renv::upgrade()`) upon launching the `renv` environment (reported on launch).
-- To update packages in the `renv` environment, `renv` will take package copies of your user R library if the right versions are available there.
+- To update packages in the `renv` environment, `renv` will take package copies of your user R library if the required versions are available there.
 Note that the copies are stored in a [global `renv` package cache](https://rstudio.github.io/renv/articles/renv.html#cache-1), i.e. a central directory where `renv` stores packages versions for all projects where it is used, for each R `x.y` version, on an as-needed basis.
 The project environment itself is based on symlinks to the particular package versions in the cache.
 
@@ -55,7 +55,7 @@ If you use version control, then don't forget to effectively commit the changed 
 
 This procedure is relevant to the `x.y` upgrades, not to the patches.
 That is, when `x` or `y` change in R version `x.y.z`.
-When only `z` has changed, previous procedure still applies. 
+When only `z` has changed (i.e. a 'patch'), previous procedure still applies. 
 
 Below procedure assumes:
 
@@ -73,4 +73,3 @@ renv::snapshot() # inspect the message before confirming to overwrite renv.lock
 ```
 
 If you use version control, then don't forget to effectively commit the changed `renv.lock` file.
-
