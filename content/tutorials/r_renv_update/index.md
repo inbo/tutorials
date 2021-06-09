@@ -49,6 +49,8 @@ Notes:
 Note that the copies are stored in a [global `renv` package cache](https://rstudio.github.io/renv/articles/renv.html#cache-1), i.e. a central directory where `renv` stores packages versions for all projects where it is used, for each R `x.y` version, on an as-needed basis.
 The project environment itself is based on symlinks to the particular package versions in the cache.
 
+If you use version control, then don't forget to effectively commit the changed `renv.lock` file.
+
 ### Updating R and packages
 
 This procedure is relevant to the `x.y` upgrades, not to the patches.
