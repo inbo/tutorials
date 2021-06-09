@@ -48,9 +48,8 @@ renv::update() # updates packages from CRAN and GitHub, within the project
 renv::snapshot() # inspect the message before confirming to overwrite renv.lock
 ```
 
-Notes:
+Note:
 
-- `renv` typically already performs an automatic upgrade (`renv::upgrade()`) upon launching the `renv` environment (reported on launch).
 - To update packages in the `renv` environment, `renv` will take package copies of your user R library if the required versions are available there.
 Note that the copies are stored in a [global `renv` package cache](https://rstudio.github.io/renv/articles/renv.html#cache-1), i.e. a central directory where `renv` stores packages versions for all projects where it is used, for each R `x.y` version, on an as-needed basis.
 The project environment itself is based on symlinks to the particular package versions in the cache.
@@ -70,7 +69,7 @@ Below procedure assumes:
 - you have now started the project's R session with the new R version (with `renv` activated).
 
 ```r
-renv::upgrade() # upgrades renv. See note in previous section.
+renv::upgrade() # upgrades renv, if new version is available
 renv::hydrate(update = "all") # populates the renv cache with copies of up to 
                               # date package versions, needed by the project
   # renv::update() should have no effect now, but running it as well won't harm 
