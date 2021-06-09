@@ -12,12 +12,17 @@ tags: ["renv", "r", "packages"]
 `renv` is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system.
 Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
 
+## Start using `renv`
+
 For general advice on `renv` setup and usage, see <https://rstudio.github.io/renv>.
 The functions you mostly need, are `renv::init()`, `renv::snapshot()`, `renv::status()`, `renv::restore()` (always put `renv::restore()` in the beginning of your R code).
 
+When using git version control, you should commit all new untracked files created by `renv::init()`.
+The most important file is `renv.lock`, which defines R and package versions of the project.
+
 ## Aim
 
-This tutorial addresses the specific aspect of how to update R and packages in an `renv` environment and store that information in the obligate `renv.lock` file.
+This tutorial addresses the specific aspect of how to update R and packages in an `renv` environment and store that information in `renv.lock`.
 It is typically needed while elaborating a project, because you wish to use the latest available packages and R version.
 
 While it is not the only possible way, the general approach in this tutorial is:
