@@ -6,10 +6,20 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Updating the renv environment of an R project</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_renv_update/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_renv_update/</guid>
+      <description>What is renv? renv is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system. Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
+Start using renv For general advice on renv setup and usage, see https://rstudio.</description>
+    </item>
     
     <item>
       <title>(Down)load KNMI, KMI or MOW-HIC data using the inborutils package</title>

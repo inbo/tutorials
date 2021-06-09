@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>renv on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/tags/renv/</link>
+    <description>Recent content in renv on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Jun 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://inbo.github.io/tutorials/tags/renv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Updating the renv environment of an R project</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_renv_update/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_renv_update/</guid>
+      <description>What is renv? renv is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system. Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
+Start using renv For general advice on renv setup and usage, see https://rstudio.</description>
+    </item>
+    
+  </channel>
+</rss>
