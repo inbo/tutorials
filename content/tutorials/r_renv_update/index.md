@@ -20,7 +20,7 @@ The functions you mostly need, are `renv::init()`, `renv::snapshot()`, `renv::st
 When using git version control, you should commit all new untracked files created by `renv::init()`.
 The most important file is `renv.lock`, which defines R and package versions of the project.
 
-## Aim
+## Aim of this tutorial
 
 This tutorial addresses the specific aspect of how to update R and packages in an `renv` environment and store that information in `renv.lock`.
 It is typically needed while elaborating a project, because you wish to use the latest available packages and R version.
