@@ -25,17 +25,18 @@ The most important file is `renv.lock`, which defines R and package versions of 
 This tutorial addresses the specific aspect of how to update R and packages in an `renv` environment and store that information in `renv.lock`.
 It is typically needed while elaborating a project, because you wish to use the latest available packages and R version.
 
-While it is not the only possible way, the general approach in this tutorial is:
+## Procedure
+
+Our recommended approach is:
 
 1. Update all installed packages in the default user R library of your system, i.e. outside an `renv` environment.
 See [this](../../installation/user/user_install_r) tutorial.
 In this way these package versions will need to be downloaded and installed only once.
 You may also want to update packages from other sources, such as GitHub: use `remotes::install_github()`.
-1. Update packages in a project `renv` environment, and store the new state in `renv.lock`.
+1. Update packages, and possibly R, in a project `renv` environment, and store the new state in `renv.lock`.
 
-## Procedure
-
-**We assume you already applied step 1 above!**
+**To apply step 2, choose the applicable situation below.**
+**We assume you already applied step 1!**
 
 ### Only updating packages (keeping same R version)
 
