@@ -9,23 +9,23 @@ tags: ["renv", "r", "packages"]
 
 ## What is `renv`?
 
-`renv` is an R package that provides tools to save the version of R and all packages used in a particular directory (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system.
+`renv` is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system.
 Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
 
-For basic advice on how to setup and use `renv`, see <https://rstudio.github.io/renv>.
+For general advice on `renv` setup and usage, see <https://rstudio.github.io/renv>.
 The functions you mostly need, are `renv::init()`, `renv::snapshot()`, `renv::status()`, `renv::restore()` (always put `renv::restore()` in the beginning of your R code).
 
 ## Aim
 
 This tutorial addresses the specific aspect of how to update R and packages in an `renv` environment and store that information in the obligate `renv.lock` file.
-It is typically the case while elaborating a project, where you wish to use the latest available packages and R version.
+It is typically needed while elaborating a project, because you wish to use the latest available packages and R version.
 
 While it is not the only possible way, the general approach in this tutorial is:
 
 1. Update all installed packages in the default user R library of your system, i.e. outside an `renv` environment.
 See [this](../../installation/user/user_install_r) tutorial.
 In this way these package versions will need to be downloaded and installed only once.
-You may also want to update packages from other sources, such as GitHub: use `remotes::install_github()` to install the version you want.
+You may also want to update packages from other sources, such as GitHub: use `remotes::install_github()`.
 1. Update packages in a project `renv` environment, and store the new state in `renv.lock`.
 
 ## Procedure
