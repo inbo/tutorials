@@ -2,7 +2,7 @@
 title: "Updating the renv environment of an R project"
 description: "Updating R and packages in an renv environment"
 authors: [florisvdh]
-date: 2021-09-06
+date: 2021-06-09
 categories: ["r"]
 tags: ["renv", "r", "packages"]
 ---
