@@ -33,7 +33,7 @@ The following table gives a **quick overview**:
 | Study design | [grts](https://github.com/ThierryO/grts), [protocolhelper](https://inbo.github.io/protocolhelper/)  |
 | Retrieve data: general | [inbodb](https://inbo.github.io/inbodb/), [datapackage](https://inbo.github.io/datapackage/) |
 | Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
-| Retrieve data: biological | [pyinaturalist](https://pyinaturalist.readthedocs.io/), [rgbif](https://docs.ropensci.org/rgbif/), [gulltracking](https://inbo.github.io/gulltracking/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/), [bioRad](https://adokter.github.io/bioRad/) |
+| Retrieve data: biological | [pyinaturalist](https://pyinaturalist.readthedocs.io/), [rgbif](https://docs.ropensci.org/rgbif/), [gulltracking](https://inbo.github.io/gulltracking/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/), [bioRad](https://adokter.github.io/bioRad/), [camtrap](https://inbo.github.io/camtrapdp/) |
 | Store data | [git2rdata](https://ropensci.github.io/git2rdata/) |
 | Validate data | [pywhip](https://inbo.github.io/pywhip/) |
 | Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
