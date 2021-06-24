@@ -2,7 +2,7 @@
 title: "Using WFS service in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 authors: [thierryo, hansvancalster, florisvdh]
-date: "2021-01-29"
+date: "2021-06-24"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -37,9 +37,9 @@ that needs to be reproducible in the longer term. A distributed, stable
 storage of the GIS data used in a workflow is necessary to make that
 workflow reproducible on a longer term. When using dynamic databases and
 web services, where the data they present are expected to evolve
-(e.g. by always pointing at the latest release in these WFS-cases),
-this is not guaranteed if you just use the WFS service to directly read
-GIS data from it. Instead of directly reading the GIS data, it is also
+(e.g. by always pointing at the latest release in these WFS-cases), this
+is not guaranteed if you just use the WFS service to directly read GIS
+data from it. Instead of directly reading the GIS data, it is also
 possible to download the data from the WFS service to disk (and possibly
 archive on, e.g., Zenodo) in order to obtain a stable version that can
 be re-used later by reading it from disk. Also, in case it takes a long
@@ -64,25 +64,25 @@ blogpost](https://friesewoudloper.wordpress.com/2015/05/17/het-bevragen-van-een-
 
 WFS services for Belgium and regions in Belgium:
 
-  - [overview of WFS services for Flanders
+-   [overview of WFS services for Flanders
     region](https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten)
-  - [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
+-   [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
     which is [also available on
     gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
-  - [overview maintained by DOV
+-   [overview maintained by DOV
     Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
 
 European portals:
 
-  - [inspire geoportal](https://inspire-geoportal.ec.europa.eu/):
+-   [inspire geoportal](https://inspire-geoportal.ec.europa.eu/):
     European portal for spatial data - some of which have a WFS service
-  - [environmental data for
+-   [environmental data for
     Europe](https://discomap.eea.europa.eu/Index/): many of the products
     listed have either a WMS or a WFS service
 
 Worldwide coverage:
 
-  - [spatineo directory](https://directory.spatineo.com/)
+-   [spatineo directory](https://directory.spatineo.com/)
 
 # Used packages
 
@@ -90,21 +90,21 @@ Worldwide coverage:
 library(sf) # simple features packages for handling vector GIS data
 ```
 
-    ## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+    ## Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 
 ``` r
 library(httr) # generic webservice package
 library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
 ```
 
-    ## -- Attaching packages ---------------------------------------------------------- tidyverse 1.3.0 --
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 
-    ## v ggplot2 3.3.0     v purrr   0.3.4
-    ## v tibble  3.0.1     v dplyr   0.8.5
-    ## v tidyr   1.0.2     v stringr 1.4.0
-    ## v readr   1.3.1     v forcats 0.5.0
+    ## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+    ## ✓ tibble  3.1.2     ✓ dplyr   1.0.6
+    ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+    ## ✓ readr   1.4.0     ✓ forcats 0.5.1
 
-    ## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -157,9 +157,9 @@ for the web service.
 To see all capabilities, you can visit [the request in the
 webbrowser](https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=wfs&request=GetCapabilities).
 For instance opening the page in the webbrowser and searching for
-“Filter\_Capabilities” allows you to see all possible ways to filter
-the data from a WFS layer (e.g. restrict the downloaded data to a
-specified bounding box with `SpatialOperator name="BBOX"`).
+“Filter\_Capabilities” allows you to see all possible ways to filter the
+data from a WFS layer (e.g. restrict the downloaded data to a specified
+bounding box with `SpatialOperator name="BBOX"`).
 
 Instead of searching the page on the web, there are several ways to
 access specific pieces of information programmatically. We will show
@@ -171,6 +171,9 @@ thing we need to do is generate a connection to the WFS with the aid of
 bwk_client <- WFSClient$new(wfs_bwk, 
                             serviceVersion = "2.0.0") #serviceVersion must be provided here
 ```
+
+    ## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
+    ## deprecated. It might return a CRS with a non-EPSG compliant axis order.
 
 The resulting object `bwk_client` is an R6 object. If you are not
 familiar with R6 object, you might want to read [the R6 chapter in
@@ -346,7 +349,7 @@ bwk_client$
     ## [26] "PHAB4"      "HAB5"       "PHAB5"      "HERKHAB"    "HERKPHAB"  
     ## [31] "HABLEGENDE" "SHAPE"
 
-This lists all available fields for the layer “BWK:Bwkhab”.
+This lists all available fields for the layer “BWK:Bwkhab.”
 
 Here is how to get a character vector naming all available operations of
 the WFS:
@@ -483,9 +486,9 @@ specification](https://www.ogc.org/standards/filter) or using a
 [Contextual Query Language (CQL)
 filter](https://www.loc.gov/standards/sru/cql/index.html), for which a
 didactical explanation can be found
-[here](https://gcs-docs.s3.amazonaws.com/EVWHS/Miscellaneous/DevGuides/WFS/WFS_Query.htm).\[1\]
+[here](https://gcs-docs.s3.amazonaws.com/EVWHS/Miscellaneous/DevGuides/WFS/WFS_Query.htm).[1]
 The latter, however, only works for WFS services that are hosted on a
-GeoServer\!
+GeoServer!
 
 In this example we also show how the previously used R code can be
 stitched together using the pipe (`%>%`) operator.
@@ -544,7 +547,7 @@ wfs_vrbg %>%
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs?service=wfs&request=DescribeFeatureType&typeName=VRBG%3ARefprv]
-    ##   Date: 2021-01-14 09:50
+    ##   Date: 2021-06-24 16:01
     ##   Status: 200
     ##   Content-Type: text/xml; subtype=gml/3.2
     ##   Size: 1.55 kB
@@ -578,14 +581,14 @@ sf_prov
 ```
 
     ## Simple feature collection with 1 feature and 7 fields
-    ## geometry type:  MULTISURFACE
-    ## dimension:      XY
-    ## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## Geometry type: MULTISURFACE
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
     ## # A tibble: 1 x 8
     ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
     ## * <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTISURFACE [m]>
-    ## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
+    ## 1 Refprv…    14     3    351 West-… 30000   BE25  (POLYGON ((80190.82 229279.7,…
 
 Also check out [example
 5](#example-5-extract-feature-data-at-particular-points) for a more
@@ -627,14 +630,57 @@ sf_prov %>%
 ```
 
     ## Simple feature collection with 1 feature and 7 fields
-    ## geometry type:  POLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## Geometry type: POLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
     ## # A tibble: 1 x 8
     ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
     ##   <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>                  <POLYGON [m]>
-    ## 1 Refprv~    14     3    351 West-~ 30000   BE25  ((80190.82 229279.7, 80166.27~
+    ## 1 Refprv…    14     3    351 West-… 30000   BE25  ((80190.82 229279.7, 80166.27…
+
+More generally however, when a row of the `MULTISURFACE` object is
+either a `MULTIPOLYGON` or a `POLYGON` with holes, with the above
+`st_collection_extract(type = "POLYGON")` this row will be repeated for
+all constituting polygons, resulting in too many features. This can be
+solved as follows:
+
+``` r
+# to demonstrate, we first create an sf object of several MULTISURFACE features:
+sf_prov_all <- 
+  wfs_vrbg %>% 
+  parse_url() %>% 
+  list_merge(query = list(service = "wfs",
+                          request = "GetFeature",
+                          typeName = "VRBG:Refprv",
+                          srsName = "EPSG:31370")) %>% 
+  build_url() %>% 
+  read_sf(crs = 31370)
+
+# converting:
+sf_prov_all %>%  # 5 MULTISURFACE features
+  st_cast("GEOMETRYCOLLECTION") %>%
+  mutate(id = seq_len(nrow(.))) %>%
+  st_collection_extract("POLYGON") %>% # 28 POLYGON features
+  aggregate(list(.$id), first, do_union = FALSE) %>% # 5 MULTIPOLYGON features
+  select(-id, -Group.1) %>%
+  as_tibble %>%
+  st_as_sf
+```
+
+    ## Simple feature collection with 5 features and 7 fields
+    ## Geometry type: MULTIPOLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 21991.38 ymin: 153058.3 xmax: 258871.8 ymax: 244027.2
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 5 x 8
+    ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                       geometry
+    ##   <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>             <MULTIPOLYGON [m]>
+    ## 1 Refprv…    12     2    357 Antwe… 10000   BE21  (((178131.2 244010.4, 178133 …
+    ## 2 Refprv…    13     4    359 Vlaam… 20001   BE24  (((200484.9 193541, 200484.8 …
+    ## 3 Refprv…    14     3    351 West-… 30000   BE25  (((80190.82 229279.7, 80166.2…
+    ## 4 Refprv…    16     1    355 Limbu… 70000   BE22  (((231494.3 219142.5, 231194.…
+    ## 5 Refprv…    17     5    356 Oost-… 40000   BE23  (((145735.2 220358.3, 144895.…
 
 ## Example 3: restrict to a bounding box
 
@@ -693,7 +739,7 @@ ggplot(bwk_hallerbos) +
   geom_sf()
 ```
 
-![](index_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](index_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 You can use `sf::st_write()` to save this layer in any format that is
 listed by `sf::st_drivers()`.
@@ -723,11 +769,11 @@ GET(url = request,
 ```
 
     ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2021-01-28 17:23
+    ##   Date: 2021-06-24 16:01
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
     ##   Size: 821 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpYhgX5z\file23a4502b881.geojson
+    ## <ON DISK>  /tmp/RtmpezMQfd/file55153cbee022.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would with any other local file. So we need to load the file with
@@ -769,10 +815,10 @@ y_lam <- 212093.44
 From this point we know the data, so we can verify the result (in
 Dutch):
 
-  - Bodemtype: s-Pgp3(v)
-  - Bodemserie: Pgp
-  - Textuurklasse: licht zandleem
-  - Drainageklasse: uiterst nat, gereduceerd
+-   Bodemtype: s-Pgp3(v)
+-   Bodemserie: Pgp
+-   Textuurklasse: licht zandleem
+-   Drainageklasse: uiterst nat, gereduceerd
 
 Hence, we now want to extract these soil properties from the WFS, for
 the coordinates defined above.
@@ -790,27 +836,27 @@ The URL of the wfs service of the soil map of the Flemish region:
 wfs_bodemtypes <- "https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs"
 ```
 
-The essential part is to set up the proper query\! The required data for
+The essential part is to set up the proper query! The required data for
 the service is defined in the
 [metadata](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?version=1.1.0&request=GetCapabilities&service=wfs)
 description. This can look a bit overwhelming at the start, but is a
 matter of looking for some specific elements of the (XML) document:
 
-  - `service` (WFS) and `request` (GetFeature) are mandatory fields (see
+-   `service` (WFS) and `request` (GetFeature) are mandatory fields (see
     below); `version` (1.1.0) is optional
-  - `typeName`: Look at the different `<FeatureType...` enlisted and
+-   `typeName`: Look at the different `<FeatureType...` enlisted and
     pick the `<Name>` of the one you’re interested in. In this
     particular case `bodemkaart:bodemtypes` is the only one available.
-  - `outputFormat`: The supported output formats are enlisted in
+-   `outputFormat`: The supported output formats are enlisted in
     `<ows:Parameter name="outputFormat">`. As the service provides CSV
     as output, this is a straightforward option. `json` is another
     popular one.
-  - `propertyname`: A list of the attribute table fields (cfr. supra). A
+-   `propertyname`: A list of the attribute table fields (cfr. supra). A
     full list of the Flanders soil map is provided
     [here](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType).
-  - We also define the `CRS`, using the [EPSG
+-   We also define the `CRS`, using the [EPSG
     code](http://spatialreference.org/).
-  - `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS`
+-   `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS`
     of the WFS `geom` and our `POINT` coordinate. The operators are
     enlisted in the `<ogc:SpatialOperators>` field.
 
@@ -833,7 +879,7 @@ result
 ```
 
     ## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&request=GetFeature&typeName=bodemkaart%3Abodemtypes&outputFormat=csv&propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&CRS=EPSG%3A31370&CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-    ##   Date: 2021-01-28 17:23
+    ##   Date: 2021-06-24 16:01
     ##   Status: 200
     ##   Content-Type: text/csv;charset=UTF-8
     ##   Size: 129 B
@@ -850,7 +896,7 @@ knitr::kable(df)
 ```
 
 | FID              | Bodemtype | Bodemserie | Textuurklasse  | Drainageklasse           |
-| :--------------- | :-------- | :--------- | :------------- | :----------------------- |
+|:-----------------|:----------|:-----------|:---------------|:-------------------------|
 | bodemtypes.72727 | s-Pgp3(v) | Pgp        | licht zandleem | uiterst nat, gereduceerd |
 
 Which indeed corresponds to the data of the coordinate.
@@ -876,7 +922,7 @@ extract_soil_map_data(
     ## Defaulting to Bodemserie, Unibodemtype, Bodemtype. To avoid this message provide properties of interest in the function call.
 
 | Bodemtype | Unibodemtype | Bodemserie |
-| :-------- | :----------- | :--------- |
+|:----------|:-------------|:-----------|
 | s-Pgp3(v) | s-Pgp3(v)    | Pgp        |
 
 ``` r
@@ -888,7 +934,7 @@ extract_soil_map_data(
 ```
 
 | Textuurklasse  | Eenduidige\_legende                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | licht zandleem | De twee bovenvermelde grondwatergronden op licht zandleem (Pgp en Pgg) zijn permanent zeer nat. Ze zijn overstroomd in de winter en hebben een zomerwaterstand op ongeveer 40 cm. Ze zijn ongeschikt voor landbouw; zelfs weiden geven geen bevredigende resultaten. Deze bodems zijn dus ongeschikt voor uitbating; eventueel kunnen populieren, mits de nodige ontwatering, aangepast worden, de resultaten zijn echter weinig gunstig. |
 
 ``` r
@@ -900,7 +946,7 @@ extract_soil_map_data(
 ```
 
 | Bodemtype | Bodemserie | Textuurklasse  | Drainageklasse           |
-| :-------- | :--------- | :------------- | :----------------------- |
+|:----------|:-----------|:---------------|:-------------------------|
 | s-Pgp3(v) | Pgp        | licht zandleem | uiterst nat, gereduceerd |
 
 ``` r
@@ -917,7 +963,7 @@ xy %>%
 ```
 
 | id   | Bodemtype | Bodemserie | Textuurklasse  | Drainageklasse           |
-| :--- | :-------- | :--------- | :------------- | :----------------------- |
+|:-----|:----------|:-----------|:---------------|:-------------------------|
 | loc1 | s-Pgp3(v) | Pgp        | licht zandleem | uiterst nat, gereduceerd |
 | loc2 | Sdg       | Sdg        | lemig zand     | matig nat, matig gleyig  |
 
@@ -934,7 +980,7 @@ In this example we show how to deal with this situation. A technique
 called ‘pagination’ can be used to obtain all features one is interested
 in by sending multiple requests to the server. The service is available
 from version ‘2.0.0’ onwards. Servers running older versions may or may
-not have support for ‘pagination’.
+not have support for ‘pagination.’
 
 We will use the ‘Watervlakken’ WFS service for this example.
 
@@ -954,25 +1000,25 @@ gd
 ```
 
     ## Simple feature collection with 1000 features and 14 fields
-    ## geometry type:  MULTIPOLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: 136507.8 ymin: 187356 xmax: 192040.7 ymax: 237604.4
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## Geometry type: MULTIPOLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 136507.8 ymin: 187356 xmax: 192040.7 ymax: 237604.4
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
     ## # A tibble: 1,000 x 15
-    ##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
-    ##    <chr>  <chr> <chr>    <int> <chr> <chr>  <chr>   <chr>    <chr>  <chr>  
-    ##  1 Water~ ANTB~ <NA>         0 Zwal~ <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  2 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  3 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  4 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  5 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  6 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  7 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  8 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  9 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ## 10 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ## # ... with 990 more rows, and 5 more variables: FUNCTIE <chr>,
-    ## #   PEILBEHEER <chr>, OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
+    ##    gml_id    WVLC   WTRLICHC HYLAC NAAM   GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+    ##    <chr>     <chr>  <chr>    <int> <chr>  <chr>  <chr>   <chr>    <chr>  <chr>  
+    ##  1 Watervla… ANTBR… <NA>         0 Zwalu… <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  2 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  3 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  4 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  5 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  6 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  7 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  8 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  9 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## 10 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## # … with 990 more rows, and 5 more variables: FUNCTIE <chr>, PEILBEHEER <chr>,
+    ## #   OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
 
 As we can see from the output, only 1000 features are returned.
 
@@ -1031,24 +1077,24 @@ gd
 ```
 
     ## Simple feature collection with 3000 features and 14 fields
-    ## geometry type:  MULTIPOLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: 136507.8 ymin: 187156.5 xmax: 192040.7 ymax: 237604.4
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
+    ## Geometry type: MULTIPOLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 136507.8 ymin: 187156.5 xmax: 192040.7 ymax: 237604.4
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
     ## # A tibble: 3,000 x 15
-    ##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
-    ##  * <chr>  <chr> <chr>    <int> <chr> <chr>  <chr>   <chr>    <chr>  <chr>  
-    ##  1 Water~ ANTB~ <NA>         0 Zwal~ <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  2 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  3 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  4 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  5 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  6 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  7 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  8 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ##  9 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ## 10 Water~ ANTB~ <NA>         0 <NA>  <NA>   <NA>    <NA>     <NA>   <NA>   
-    ## # ... with 2,990 more rows, and 5 more variables: FUNCTIE <chr>,
+    ##    gml_id    WVLC   WTRLICHC HYLAC NAAM   GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+    ##  * <chr>     <chr>  <chr>    <int> <chr>  <chr>  <chr>   <chr>    <chr>  <chr>  
+    ##  1 Watervla… ANTBR… <NA>         0 Zwalu… <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  2 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  3 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  4 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  5 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  6 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  7 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  8 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ##  9 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## 10 Watervla… ANTBR… <NA>         0 <NA>   <NA>   <NA>    <NA>     <NA>   <NA>   
+    ## # … with 2,990 more rows, and 5 more variables: FUNCTIE <chr>,
     ## #   PEILBEHEER <chr>, OPPWVL <dbl>, OMTWVL <dbl>, geometry <MULTIPOLYGON [m]>
 
 Whether it is a good idea or not to request many thousands of features
@@ -1072,9 +1118,9 @@ advised to use a download service instead of a WFS (search) service.
 
 # References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-lovelace_geocomputation_2020">
+<div id="ref-lovelace_geocomputation_2020" class="csl-entry">
 
 Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2020.
 *Geocomputation with R*. <https://geocompr.robinlovelace.net>.
@@ -1083,4 +1129,4 @@ Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2020.
 
 </div>
 
-1.  Note that CQL was formerly called Common Query Language.
+[1] Note that CQL was formerly called Common Query Language.

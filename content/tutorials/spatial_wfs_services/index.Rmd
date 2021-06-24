@@ -358,6 +358,33 @@ sf_prov %>%
   st_collection_extract(type = "POLYGON")
 ```
 
+More generally however, when a row of the `MULTISURFACE` object is either a `MULTIPOLYGON` or a `POLYGON` with holes, with the above `st_collection_extract(type = "POLYGON")` this row will be repeated for all constituting polygons, resulting in too many features.
+This can be solved as follows:
+
+```{r}
+# to demonstrate, we first create an sf object of several MULTISURFACE features:
+sf_prov_all <- 
+  wfs_vrbg %>% 
+  parse_url() %>% 
+  list_merge(query = list(service = "wfs",
+                          request = "GetFeature",
+                          typeName = "VRBG:Refprv",
+                          srsName = "EPSG:31370")) %>% 
+  build_url() %>% 
+  read_sf(crs = 31370)
+
+# converting:
+sf_prov_all %>%  # 5 MULTISURFACE features
+  st_cast("GEOMETRYCOLLECTION") %>%
+  mutate(id = seq_len(nrow(.))) %>%
+  st_collection_extract("POLYGON") %>% # 28 POLYGON features
+  aggregate(list(.$id), first, do_union = FALSE) %>% # 5 MULTIPOLYGON features
+  select(-id, -Group.1) %>%
+  as_tibble %>%
+  st_as_sf
+```
+
+
 ## Example 3: restrict to a bounding box
 
 This examples illustrates how you can read or download information from a WFS for further use in R. 
