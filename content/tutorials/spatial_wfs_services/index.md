@@ -639,10 +639,11 @@ sf_prov %>%
     ##   <chr>   <dbl> <dbl>  <dbl> <chr>  <chr>   <chr>                  <POLYGON [m]>
     ## 1 Refprv…    14     3    351 West-… 30000   BE25  ((80190.82 229279.7, 80166.27…
 
-More generally however, when a row of the `MULTISURFACE` object is
-either a `MULTIPOLYGON` or a `POLYGON` with holes, with the above
+More generally however, if a row of the `MULTISURFACE` object
+corresponds to either a `MULTIPOLYGON` (collection of polygons) or a
+`POLYGON` with holes, with the above
 `st_collection_extract(type = "POLYGON")` this row will be repeated for
-all constituting polygons, resulting in too many features. This can be
+all constituting polygons. This results in too many features. It can be
 solved as follows:
 
 ``` r

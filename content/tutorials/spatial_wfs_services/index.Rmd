@@ -358,8 +358,9 @@ sf_prov %>%
   st_collection_extract(type = "POLYGON")
 ```
 
-More generally however, when a row of the `MULTISURFACE` object is either a `MULTIPOLYGON` or a `POLYGON` with holes, with the above `st_collection_extract(type = "POLYGON")` this row will be repeated for all constituting polygons, resulting in too many features.
-This can be solved as follows:
+More generally however, if a row of the `MULTISURFACE` object corresponds to either a `MULTIPOLYGON` (collection of polygons) or a `POLYGON` with holes, with the above `st_collection_extract(type = "POLYGON")` this row will be repeated for all constituting polygons.
+This results in too many features.
+It can be solved as follows:
 
 ```{r}
 # to demonstrate, we first create an sf object of several MULTISURFACE features:
