@@ -1,0 +1,160 @@
+---
+title: "Citations in R Markdown"
+description: "How to use Rstudio's citation tools to cite publications and create bibliographies"
+authors: [hansvancalster, florisvdh]
+date: "`r Sys.Date()`"
+categories: ["r", "literature"]
+tags: ["bibliography", "INBOmd", "markdown", "bookdown", "csl", "gitbook", "zotero", "pandoc", "reports", "rmarkdown", "rstudio", "visual markdown editing"]
+bibliography: "references.json"
+link-citations: true
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+editor_options:
+  markdown:
+    wrap: sentence
+    canonical: true
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  cache = TRUE,
+  autodep = TRUE
+)
+```
+
+# Citations in R Markdown
+
+With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.
+In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.
+We also give some guidelines specific to the Research Institute for Nature and Forest.
+
+More general tutorials can be found at the following web pages:
+
+<https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
+
+<https://rstudio.github.io/visual-markdown-editing/#/citations>
+
+The latter webpage is part of the documentation about the Visual Markdown Editing mode that is available in RStudio 1.4+.
+As of RStudio 1.4+, apart from writing R Markdown documents in source mode, we also have the option to switch to a visual markdown editing mode (VME).
+VME is a what-you-see-is-what-you-get interface for interacting with R Markdown.
+This interface is similar to writing documents in word processing software (google docs, MS Word, ...).
+Moreover, the VME mode has more functionalities for citations than the source mode.
+
+In this tutorial, we assume you are familiar with the basics of [R Markdown](https://bookdown.org/yihui/rmarkdown/) or [Bookdown](https://bookdown.org/yihui/bookdown/).
+
+# Preparing your R Markdown document to work with citations
+
+There are various places where you can specify things that impact working with citations.
+The most important are specifications you can provide in the YAML header of your R Markdown document.
+Next to that, the RStudio global and project options provide some additional settings.
+
+## YAML header specifications
+
+### Specifying a bibliography
+
+You can specify one or more bibliography files with the \`bibliography\` argument in a number of formats, including the most commonly used formats at the Research Institute for Nature and Forest: CSL-JSON, BibTex and EndNote.
+
+We strongly recommend however to [use CSL-JSON](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html):
+
+> CSL-JSON is the recommended format.
+> This is the native format for Pandoc's citation processor, pandoc-citeproc.
+> All other types are internally converted to CSL-JSON.
+
+Some example specifications:
+
+```{r results="asis"}
+yml() %>% 
+  yml_citations(bibliography = "ref.json")
+```
+
+```{r results="asis"}
+yml() %>% 
+  yml_citations(bibliography = c("path/to/my/ref.json", "other_references_from_endnote.ens"))
+```
+
+Note that it is not even necessary at this stage that the file exists.
+It is possible to just give it a name and [start adding citations in VME mode](#citing-documents).
+When the first citation is inserted, for instance from a linked Zotero database, the file will be automatically created and the reference will be added to the file.
+
+### Specifying a citation style
+
+The Research Institute for Nature and Forest has its own citation style.
+There is a separate [tutorial](%5B%3Chttps://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/%3E%5D(https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/)%7B.uri%7D) that shows how to use this style in various reference manager software.
+
+The \`csl\` argument should be a path or URL to a CSL style file.
+To specify the style file for the Research Institute for Nature and Forest it is best to use the URL to the most up to date version:
+
+```{r results="asis"}
+yml() %>% 
+  yml_citations(bibliography = "ref.json",
+                csl = "https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl")
+```
+
+### Other YAML citation arguments
+
+The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1) and [pandoc-citeproc documentation](http://manpages.ubuntu.com/manpages/xenial/man1/pandoc-citeproc.1.html) mention the following useful arguments:
+
+citation-abbreviations
+
+:   Path to a CSL abbreviations JSON file, which can be used to translate from full journal titles to abbreviated journal titles.
+    Examples of such files can be found [here](https://github.com/citation-style-language/abbreviations).
+
+link-citations
+
+:   Logical.
+    Add citations hyperlinks to the corresponding bibliography entries?
+    Default is false.
+
+nocite
+
+:   Citation IDs ("@item1") to include in the bibliography even if they are not cited in the document.
+    Including the wildcard pattern "@*" will include all citations in the bibliography regardless of if they're cited in the document.
+
+suppress-bibliography
+
+:   Logical.
+    Suppress bibliography?
+    Default is false.
+
+lang
+
+:   Locale to use in formatting citations.
+    If this is not set, the locale is taken from the default-locale attribute of the CSL file.
+    en-US is used if a locale is not specified in either the metadata or the CSL file.
+
+reference-section-title
+
+:   If this has a value, a section header with this title will be added before the bibliography.
+    If reference-section-title is not specified and the document ends with a section header, this final header will be treated as the bibliography header.
+
+Here is an example of a valid YAML with all citation arguments:
+
+```{r results="asis"}
+yml() %>% 
+  yml_citations(bibliography = "ref.json", 
+                csl = "my-style.csl", 
+                citation_abbreviations = "abbreviations.json",
+                suppress_bibliography = FALSE, 
+                link_citations = TRUE,
+                nocite = c("@item1", "@item2")
+                ) %>%
+  yml_toplevel(lang = "en-US")
+```
+
+## Rstudio project options
+
+## Bibliography placement
+
+# Citing documents {#citing-documents}
+
+## Syntax
+
+[@adams1975]\
+
+## Integration with Zotero
+
+# References
