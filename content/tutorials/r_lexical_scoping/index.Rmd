@@ -1,0 +1,155 @@
+---
+title: "Lexical scoping in R"
+description: ""
+author: "Thierry Onkelinx"
+date: "`r Sys.Date()`"
+categories: ["r"]
+tags: ["r"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Introduction
+
+This is a reply to [The root of all evil in data science](https://www.linkedin.com/pulse/what-r-just-hoax-ticking-bomb-dr-markus-von-ins) by [Markus von Ins](https://www.linkedin.com/in/dr-markus-von-ins-5935a724).
+
+Markus von Ins claims that it easy to write "viruses" in R because one can rewrite existing functions. 
+IMHO, Markus von Ins fails to understand lexical scoping in R.
+
+All code snippets from Markus start with a comment `# from Markus`
+
+## Changing `var()`
+
+First Markus sets a baseline for comparison.
+
+```{r}
+# from Markus
+x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
+var(x)
+length(x)
+```
+
+Let's see what is in the global environment and how `var()` is defined.
+
+```{r}
+ls()
+var
+```
+
+Then Markus 'overwrites' the `var()` with a different version.
+
+```{r}
+# from Markus
+var <- function(x){
+  n <- length(x)
+  mu <- mean(x)
+  v <- sum((x - mu) ^ 2) / n
+  v
+}
+var(x)
+```
+
+Let's look again at the global environment. Notice that there is a new object `var` which wasn't defined before. 
+The new object is the function as defined by Markus. 
+The original `var()` from the `stats` package is still available and unchanged. 
+
+```{r}
+ls()
+var
+stats::var
+stats::var(x)
+```
+
+So we have **not** changed `stats::var()` but masked it by the version in the global environment. 
+The one in the global environment is selected because the global environment is always first on the search path.
+
+```{r}
+searchpaths()
+```
+
+## Changing `length()`
+
+In a second example Markus creates a new function `length()` in the global environment.
+
+```{r}
+# from Markus
+var(x)
+length <- function(x){
+  le_2 <- sum(x ^ 2)
+  le <- sqrt(le_2)
+  le
+}
+length(x)
+var(x)
+```
+
+The result of `var(x)` is changed because `var()` in the global environment calls the function `length()`. 
+Because the new `length()` is first on the search path, that one is used.
+
+```{r}
+ls()
+base::length(x)
+stats::var(x)
+```
+
+## 'Virus' packages can only mask functions
+
+Loading a new package puts it on the search path just after the global environment. In case one of the exported functions has the same name a function further on the search path, the user gets a warning message. 
+The user is able the inspected the masking function and test whether it influences his code.
+
+```{r}
+library(lme4)
+searchpaths()
+identical(sigma, lme4::sigma)
+identical(sigma, stats::sigma)
+library(concordance)
+identical(sigma, lme4::sigma)
+identical(sigma, stats::sigma)
+```
+
+Note that the masking is only affecting the global environment. 
+The lexical scope within a package is limited to the package itself and the packages it imports, depends on or suggests. 
+A secure way of programming functions in a package is by explicitly importing each external function in the NAMESPACE.
+
+## Save version of user defined `var()`
+
+When we use the `foo::bar()` notation, then masking the function has no effect because our function will always use the function `bar()` from the package `foo`.
+
+```{r}
+var(x)
+var <- function(x){
+  n <- base::length(x)
+  mu <- base::mean(x)
+  v <- base::sum((x - mu) ^ 2) / n
+  v
+}
+mean <- function(x){0}
+sum <- function(x){Inf}
+var(x)
+stats::var(x)
+identical(var, stats::var)
+identical(length, base::length)
+identical(mean, base::mean)
+identical(sum, base::sum)
+length(x)
+mean(x)
+sum(x)
+```
+
+## Some guidelines
+
+1. Don't mask existing functions.
+1. Check functions masking other functions.
+1. Place stable functions into a package.
+
+## More information
+
+- "Advanced R" by Hadley Wickham has a section on [lexical scoping](http://adv-r.had.co.nz/Functions.html#lexical-scoping).
+- "R packages" by Hadley Wickham has a section on [NAMESPACE](http://r-pkgs.had.co.nz/namespace.html).
