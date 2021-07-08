@@ -9,7 +9,7 @@
 <meta property='og:description' content='How to use WFS (vectors/features) GIS services within R scripts'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-01-29T00:00:00Z'/><meta property='article:modified_time' content='2021-01-29T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-06-24T00:00:00Z'/><meta property='article:modified_time' content='2021-06-24T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.2" />
 
@@ -232,7 +232,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Jun 25 08:13:47 UTC 2021</small></p>
+  <p><small>Built on: Thu Jul 8 12:13:55 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -296,7 +296,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2021-01-29T00:00:00Z'>2021, Jan 29</time>
+  <time class='entry-date' datetime='2021-06-24T00:00:00Z'>2021, Jun 24</time>
 </span>
 
   <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -314,7 +314,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-23 mins read
+24 mins read
 </span>
 
 
@@ -372,9 +372,9 @@ that needs to be reproducible in the longer term. A distributed, stable
 storage of the GIS data used in a workflow is necessary to make that
 workflow reproducible on a longer term. When using dynamic databases and
 web services, where the data they present are expected to evolve
-(e.g. by always pointing at the latest release in these WFS-cases),
-this is not guaranteed if you just use the WFS service to directly read
-GIS data from it. Instead of directly reading the GIS data, it is also
+(e.g. by always pointing at the latest release in these WFS-cases), this
+is not guaranteed if you just use the WFS service to directly read GIS
+data from it. Instead of directly reading the GIS data, it is also
 possible to download the data from the WFS service to disk (and possibly
 archive on, e.g., Zenodo) in order to obtain a stable version that can
 be re-used later by reading it from disk. Also, in case it takes a long
@@ -418,18 +418,18 @@ listed have either a WMS or a WFS service</li>
 </ul>
 <h1 id="used-packages">Used packages<a href="#used-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(sf) <span style="color:#aaa;font-style:italic"># simple features packages for handling vector GIS data</span>
-</code></pre></div><pre><code>## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+</code></pre></div><pre><code>## Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 </code></pre>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(httr) <span style="color:#aaa;font-style:italic"># generic webservice package</span>
 <span style="color:#0a0">library</span>(tidyverse) <span style="color:#aaa;font-style:italic"># a suite of packages for data wrangling, transformation, plotting, ...</span>
-</code></pre></div><pre><code>## -- Attaching packages ---------------------------------------------------------- tidyverse 1.3.0 --
+</code></pre></div><pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 
-## v ggplot2 3.3.0     v purrr   0.3.4
-## v tibble  3.0.1     v dplyr   0.8.5
-## v tidyr   1.0.2     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.5.0
+## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.2     ✓ dplyr   1.0.6
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1
 
-## -- Conflicts ------------------------------------------------------------- tidyverse_conflicts() --
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 </code></pre>
@@ -468,9 +468,9 @@ for the web service.</p>
 <p>To see all capabilities, you can visit <a href="https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=wfs&amp;request=GetCapabilities">the request in the
 webbrowser</a>.
 For instance opening the page in the webbrowser and searching for
-“Filter_Capabilities” allows you to see all possible ways to filter
-the data from a WFS layer (e.g. restrict the downloaded data to a
-specified bounding box with <code>SpatialOperator name=&quot;BBOX&quot;</code>).</p>
+“Filter_Capabilities” allows you to see all possible ways to filter the
+data from a WFS layer (e.g. restrict the downloaded data to a specified
+bounding box with <code>SpatialOperator name=&quot;BBOX&quot;</code>).</p>
 <p>Instead of searching the page on the web, there are several ways to
 access specific pieces of information programmatically. We will show
 here how to do this using functions in the <code>ows4R</code> package. The first
@@ -478,7 +478,10 @@ thing we need to do is generate a connection to the WFS with the aid of
 <code>WFSClient$new()</code>.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwk_client &lt;- WFSClient$<span style="color:#0a0">new</span>(wfs_bwk, 
                             serviceVersion = <span style="color:#a50">&#34;</span><span style="color:#a50">2.0.0&#34;</span>) <span style="color:#aaa;font-style:italic">#serviceVersion must be provided here</span>
-</code></pre></div><p>The resulting object <code>bwk_client</code> is an R6 object. If you are not
+</code></pre></div><pre><code>## Warning in CPL_crs_from_input(x): GDAL Message 1: +init=epsg:XXXX syntax is
+## deprecated. It might return a CRS with a non-EPSG compliant axis order.
+</code></pre>
+<p>The resulting object <code>bwk_client</code> is an R6 object. If you are not
 familiar with R6 object, you might want to read <a href="https://adv-r.hadley.nz/r6.html">the R6 chapter in
 Advanced R</a>.</p>
 <p>Printing `<code>bwk_client</code> looks like this:</p>
@@ -624,7 +627,7 @@ bwk_client$
 ## [26] &quot;PHAB4&quot;      &quot;HAB5&quot;       &quot;PHAB5&quot;      &quot;HERKHAB&quot;    &quot;HERKPHAB&quot;  
 ## [31] &quot;HABLEGENDE&quot; &quot;SHAPE&quot;
 </code></pre>
-<p>This lists all available fields for the layer “BWK:Bwkhab”.</p>
+<p>This lists all available fields for the layer “BWK:Bwkhab.”</p>
 <p>Here is how to get a character vector naming all available operations of
 the WFS:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwk_client$
@@ -772,7 +775,7 @@ wfs_vrbg %&gt;%
   <span style="color:#0a0">build_url</span>() %&gt;%
   <span style="color:#0a0">GET</span>()
 </code></pre></div><pre><code>## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs?service=wfs&amp;request=DescribeFeatureType&amp;typeName=VRBG%3ARefprv]
-##   Date: 2021-01-14 09:50
+##   Date: 2021-06-24 16:01
 ##   Status: 200
 ##   Content-Type: text/xml; subtype=gml/3.2
 ##   Size: 1.55 kB
@@ -802,14 +805,14 @@ wfs_vrbg %&gt;%
 
 sf_prov
 </code></pre></div><pre><code>## Simple feature collection with 1 feature and 7 fields
-## geometry type:  MULTISURFACE
-## dimension:      XY
-## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
-## projected CRS:  Belge 1972 / Belgian Lambert 72
+## Geometry type: MULTISURFACE
+## Dimension:     XY
+## Bounding box:  xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+## Projected CRS: Belge 1972 / Belgian Lambert 72
 ## # A tibble: 1 x 8
 ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
 ## * &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;             &lt;MULTISURFACE [m]&gt;
-## 1 Refprv~    14     3    351 West-~ 30000   BE25  (POLYGON ((80190.82 229279.7,~
+## 1 Refprv…    14     3    351 West-… 30000   BE25  (POLYGON ((80190.82 229279.7,…
 </code></pre>
 <p>Also check out <a href="#example-5-extract-feature-data-at-particular-points">example
 5</a> for a more
@@ -838,14 +841,54 @@ GeometryCollection:</p>
   <span style="color:#0a0">st_cast</span>(to = <span style="color:#a50">&#34;</span><span style="color:#a50">GEOMETRYCOLLECTION&#34;</span>) %&gt;% 
   <span style="color:#0a0">st_collection_extract</span>(type = <span style="color:#a50">&#34;</span><span style="color:#a50">POLYGON&#34;</span>)
 </code></pre></div><pre><code>## Simple feature collection with 1 feature and 7 fields
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
-## projected CRS:  Belge 1972 / Belgian Lambert 72
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
+## Projected CRS: Belge 1972 / Belgian Lambert 72
 ## # A tibble: 1 x 8
 ##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                          SHAPE
 ##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;                  &lt;POLYGON [m]&gt;
-## 1 Refprv~    14     3    351 West-~ 30000   BE25  ((80190.82 229279.7, 80166.27~
+## 1 Refprv…    14     3    351 West-… 30000   BE25  ((80190.82 229279.7, 80166.27…
+</code></pre>
+<p>More generally however, if a row of the <code>MULTISURFACE</code> object
+corresponds to either a <code>MULTIPOLYGON</code> (collection of polygons) or a
+<code>POLYGON</code> with holes, with the above
+<code>st_collection_extract(type = &quot;POLYGON&quot;)</code> this row will be repeated for
+all constituting polygons. This results in too many features. It can be
+solved as follows:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># to demonstrate, we first create an sf object of several MULTISURFACE features:</span>
+sf_prov_all &lt;- 
+  wfs_vrbg %&gt;% 
+  <span style="color:#0a0">parse_url</span>() %&gt;% 
+  <span style="color:#0a0">list_merge</span>(query = <span style="color:#0a0">list</span>(service = <span style="color:#a50">&#34;</span><span style="color:#a50">wfs&#34;</span>,
+                          request = <span style="color:#a50">&#34;</span><span style="color:#a50">GetFeature&#34;</span>,
+                          typeName = <span style="color:#a50">&#34;</span><span style="color:#a50">VRBG:Refprv&#34;</span>,
+                          srsName = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)) %&gt;% 
+  <span style="color:#0a0">build_url</span>() %&gt;% 
+  <span style="color:#0a0">read_sf</span>(crs = <span style="color:#099">31370</span>)
+
+<span style="color:#aaa;font-style:italic"># converting:</span>
+sf_prov_all %&gt;%  <span style="color:#aaa;font-style:italic"># 5 MULTISURFACE features</span>
+  <span style="color:#0a0">st_cast</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">GEOMETRYCOLLECTION&#34;</span>) %&gt;%
+  <span style="color:#0a0">mutate</span>(id = <span style="color:#0a0">seq_len</span>(<span style="color:#0a0">nrow</span>(.))) %&gt;%
+  <span style="color:#0a0">st_collection_extract</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">POLYGON&#34;</span>) %&gt;% <span style="color:#aaa;font-style:italic"># 28 POLYGON features</span>
+  <span style="color:#0a0">aggregate</span>(<span style="color:#0a0">list</span>(.$id), first, do_union = <span style="color:#00a">FALSE</span>) %&gt;% <span style="color:#aaa;font-style:italic"># 5 MULTIPOLYGON features</span>
+  <span style="color:#0a0">select</span>(-id, -Group.1) %&gt;%
+  as_tibble %&gt;%
+  st_as_sf
+</code></pre></div><pre><code>## Simple feature collection with 5 features and 7 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 21991.38 ymin: 153058.3 xmax: 258871.8 ymax: 244027.2
+## Projected CRS: Belge 1972 / Belgian Lambert 72
+## # A tibble: 5 x 8
+##   gml_id   UIDN  OIDN TERRID NAAM   NISCODE NUTS2                       geometry
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;             &lt;MULTIPOLYGON [m]&gt;
+## 1 Refprv…    12     2    357 Antwe… 10000   BE21  (((178131.2 244010.4, 178133 …
+## 2 Refprv…    13     4    359 Vlaam… 20001   BE24  (((200484.9 193541, 200484.8 …
+## 3 Refprv…    14     3    351 West-… 30000   BE25  (((80190.82 229279.7, 80166.2…
+## 4 Refprv…    16     1    355 Limbu… 70000   BE22  (((231494.3 219142.5, 231194.…
+## 5 Refprv…    17     5    356 Oost-… 40000   BE23  (((145735.2 220358.3, 144895.…
 </code></pre>
 <h2 id="example-3-restrict-to-a-bounding-box">Example 3: restrict to a bounding box<a href="#example-3-restrict-to-a-bounding-box" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>This examples illustrates how you can read or download information from
@@ -884,7 +927,7 @@ features outside of the bounding box. Those are features which have only
 some part within the bounding box.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(bwk_hallerbos) + 
   <span style="color:#0a0">geom_sf</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-26-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-27-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>You can use <code>sf::st_write()</code> to save this layer in any format that is
 listed by <code>sf::st_drivers()</code>.</p>
 <h2 id="example-4-downloading-data-to-disk">Example 4: downloading data to disk<a href="#example-4-downloading-data-to-disk" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -904,11 +947,11 @@ request &lt;- <span style="color:#0a0">build_url</span>(url)
 <span style="color:#0a0">GET</span>(url = request, 
     <span style="color:#0a0">write_disk</span>(file))
 </code></pre></div><pre><code>## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&amp;request=GetFeature&amp;typename=BWK%3ABwkhab&amp;bbox=142600%2C153800%2C146000%2C156900&amp;outputFormat=application%2Fjson]
-##   Date: 2021-01-28 17:23
+##   Date: 2021-06-24 16:01
 ##   Status: 200
 ##   Content-Type: application/json;charset=UTF-8
 ##   Size: 821 kB
-## &lt;ON DISK&gt;  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpYhgX5z\file23a4502b881.geojson
+## &lt;ON DISK&gt;  /tmp/RtmpezMQfd/file55153cbee022.geojson
 </code></pre>
 <p>At this point, all features are downloaded and can be used in R as we
 would with any other local file. So we need to load the file with
@@ -990,7 +1033,7 @@ enlisted in the <code>&lt;ogc:SpatialOperators&gt;</code> field.</li>
 result &lt;- <span style="color:#0a0">GET</span>(wfs_bodemtypes, query = query)
 result
 </code></pre></div><pre><code>## Response [https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?service=WFS&amp;request=GetFeature&amp;typeName=bodemkaart%3Abodemtypes&amp;outputFormat=csv&amp;propertyname=Drainageklasse%2CTextuurklasse%2CBodemserie%2CBodemtype&amp;CRS=EPSG%3A31370&amp;CQL_FILTER=INTERSECTS%28geom%2CPOINT%28173995.67%20212093.44%29%29]
-##   Date: 2021-01-28 17:23
+##   Date: 2021-06-24 16:01
 ##   Status: 200
 ##   Content-Type: text/csv;charset=UTF-8
 ##   Size: 129 B
@@ -1144,7 +1187,7 @@ requests are transmitted concurrently to the service.</p>
 called ‘pagination’ can be used to obtain all features one is interested
 in by sending multiple requests to the server. The service is available
 from version ‘2.0.0’ onwards. Servers running older versions may or may
-not have support for ‘pagination’.</p>
+not have support for ‘pagination.’</p>
 <p>We will use the ‘Watervlakken’ WFS service for this example.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># this layer returns just 1000 features (for performance reasons)</span>
 wfs &lt;- <span style="color:#a50">&#34;</span><span style="color:#a50">https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?&#34;</span>
@@ -1159,25 +1202,25 @@ request &lt;- <span style="color:#0a0">build_url</span>(url)
 gd &lt;- <span style="color:#0a0">read_sf</span>(request)
 gd
 </code></pre></div><pre><code>## Simple feature collection with 1000 features and 14 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 136507.8 ymin: 187356 xmax: 192040.7 ymax: 237604.4
-## projected CRS:  Belge 1972 / Belgian Lambert 72
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 136507.8 ymin: 187356 xmax: 192040.7 ymax: 237604.4
+## Projected CRS: Belge 1972 / Belgian Lambert 72
 ## # A tibble: 1,000 x 15
-##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
-##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  
-##  1 Water~ ANTB~ &lt;NA&gt;         0 Zwal~ &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  2 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  3 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  4 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  5 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  6 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  7 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  8 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  9 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-## 10 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-## # ... with 990 more rows, and 5 more variables: FUNCTIE &lt;chr&gt;,
-## #   PEILBEHEER &lt;chr&gt;, OPPWVL &lt;dbl&gt;, OMTWVL &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [m]&gt;
+##    gml_id    WVLC   WTRLICHC HYLAC NAAM   GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  
+##  1 Watervla… ANTBR… &lt;NA&gt;         0 Zwalu… &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  2 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  3 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  4 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  5 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  6 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  7 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  8 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  9 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+## 10 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+## # … with 990 more rows, and 5 more variables: FUNCTIE &lt;chr&gt;, PEILBEHEER &lt;chr&gt;,
+## #   OPPWVL &lt;dbl&gt;, OMTWVL &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [m]&gt;
 </code></pre>
 <p>As we can see from the output, only 1000 features are returned.</p>
 <p>To know in advance how many features the WFS has in total, you can add
@@ -1224,24 +1267,24 @@ gd &lt;- <span style="color:#0a0">map_dfr</span>(.x = <span style="color:#0a0">s
 
 gd
 </code></pre></div><pre><code>## Simple feature collection with 3000 features and 14 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 136507.8 ymin: 187156.5 xmax: 192040.7 ymax: 237604.4
-## projected CRS:  Belge 1972 / Belgian Lambert 72
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 136507.8 ymin: 187156.5 xmax: 192040.7 ymax: 237604.4
+## Projected CRS: Belge 1972 / Belgian Lambert 72
 ## # A tibble: 3,000 x 15
-##    gml_id WVLC  WTRLICHC HYLAC NAAM  GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
-##  * &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  
-##  1 Water~ ANTB~ &lt;NA&gt;         0 Zwal~ &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  2 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  3 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  4 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  5 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  6 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  7 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  8 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-##  9 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-## 10 Water~ ANTB~ &lt;NA&gt;         0 &lt;NA&gt;  &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
-## # ... with 2,990 more rows, and 5 more variables: FUNCTIE &lt;chr&gt;,
+##    gml_id    WVLC   WTRLICHC HYLAC NAAM   GEBIED KRWTYPE KRWTYPES DIEPKL CONNECT
+##  * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  
+##  1 Watervla… ANTBR… &lt;NA&gt;         0 Zwalu… &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  2 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  3 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  4 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  5 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  6 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  7 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  8 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+##  9 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+## 10 Watervla… ANTBR… &lt;NA&gt;         0 &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt;   
+## # … with 2,990 more rows, and 5 more variables: FUNCTIE &lt;chr&gt;,
 ## #   PEILBEHEER &lt;chr&gt;, OPPWVL &lt;dbl&gt;, OMTWVL &lt;dbl&gt;, geometry &lt;MULTIPOLYGON [m]&gt;
 </code></pre>
 <p>Whether it is a good idea or not to request many thousands of features
@@ -1266,9 +1309,7 @@ advised to use a download service instead of a WFS (search) service.</p>
 <em>Geocomputation with R</em>. <a href="https://geocompr.robinlovelace.net">https://geocompr.robinlovelace.net</a>.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<ol>
-<li>Note that CQL was formerly called Common Query Language.</li>
-</ol>
+<p>[1] Note that CQL was formerly called Common Query Language.</p>
 </div>
 
   
@@ -1295,7 +1336,7 @@ advised to use a download service instead of a WFS (search) service.</p>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/style_inbo_bibliography/'>
+      <a href='/tutorials/tutorials/r_renv_update/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -1303,17 +1344,7 @@ advised to use a download service instead of a WFS (search) service.</p>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Use of INBO citation style with bibliography managers</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/inborutils_download_data/'>
-        <span class='screen-reader-text'>Next post: </span>(Down)load KNMI, KMI or MOW-HIC data using the inborutils package<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>Updating the renv environment of an R project</a>
     </div></div>
 </nav>
 

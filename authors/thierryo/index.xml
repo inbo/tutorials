@@ -6,10 +6,20 @@
     <description>Recent content in thierryo on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using WFS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
     
     <item>
       <title>Install R</title>
@@ -20,16 +30,6 @@
       <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
 In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
 Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
-    </item>
-    
-    <item>
-      <title>Using WFS service in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
-The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
