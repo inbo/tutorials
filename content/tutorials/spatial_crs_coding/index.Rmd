@@ -31,23 +31,23 @@ options(stringsAsFactors = FALSE)
 ### What?
 
 A coordinate reference system (**CRS**) -- also called spatial reference system (SRS) -- is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth.
-Two types of coordinate reference system exist: _geodetic_ and _projected_ CRSes.
+Two types of coordinate reference system exist: _geodetic_ and _projected_ CRSs.
 The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.
-Coordinate operations convert or transform coordinates from one CRS to another, and you often need them because the CRS may differ between dataset 1, dataset 2 or a certain mapping technology.
+Coordinate operations convert or transform coordinates from one CRS to another, and you often need them because the CRS may differ between dataset 1, dataset 2 or a specific mapping technology.
 
 As you can expect, a CRS is defined by several elements.
 Essentially, a CRS exists of:
 
 - a coordinate system,
 - a 'datum' (s.l.): it localizes the geodetic coordinate system relative to the Earth and needs a geometric definition of the ellipsoid,
-- _only for projected CRSes:_ coordinate conversion parameters that determine the conversion from the geodetic to the projected coordinates.
+- _only for projected CRSs:_ coordinate conversion parameters that determine the conversion from the geodetic to the projected coordinates.
 
 We will not go deeper into these components, because we want to focus on implementation.
 However it is highly recommended to read further about this, in order to better understand what a CRS means.
 A good contemporary resource in an R context is the section '_Coordinate reference systems: background_' in @bivand_ecs530_2019 (there is also an accompanying [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s) of that lesson).
 
-There are a few coordinated lists of CRSes around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
-You can consult these CRSes interactively at <http://www.epsg-registry.org> (official source) and through third-party websites such as <http://epsg.io>.
+There are a few coordinated lists of CRSs around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
+You can consult these CRSs interactively at <http://www.epsg-registry.org> (official source) and through third-party websites such as <http://epsg.io>.
 For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPSG code `4326`, and 'Belge 1972 / Belgian Lambert 72' is a projected CRS with EPSG code `31370`.
 
 ### How _was_ a CRS represented in R? Evolutions in PROJ and GDAL.
