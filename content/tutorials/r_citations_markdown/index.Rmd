@@ -36,16 +36,19 @@ We also give some guidelines specific to the Research Institute for Nature and F
 
 More general tutorials can be found at the following web pages:
 
-<https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
+-   <https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
+-   <https://rstudio.github.io/visual-markdown-editing/#/citations>
 
-<https://rstudio.github.io/visual-markdown-editing/#/citations>
-
-The latter webpage is part of the documentation about the Visual Markdown Editing mode that is available in RStudio 1.4+.
-As of RStudio 1.4+, apart from writing R Markdown documents in source mode, we also have the option to switch to a visual markdown editing mode (VME).
-VME is a what-you-see-is-what-you-get interface for interacting with R Markdown.
+The latter webpage is part of the documentation about the Visual Markdown Editing (**VME**) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.
+VME is a what-you-see-is-what-you-get [^1] interface for interacting with R Markdown.
 This interface is similar to writing documents in word processing software (google docs, MS Word, ...).
 Moreover, the VME mode has more functionalities for citations than the source mode.
-To switch between source mode and VME press the compass `r knitr::include_graphics('visual-mode-2x.png')` button.
+To switch between source mode and VME, press the ![](visual-mode-2x.png) button
+:
+
+[^1]: Commonly abbreviated as [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG), in contrast to [WYSIWYM](https://en.wikipedia.org/wiki/WYSIWYM), of which plain Markdown (in RStudio source mode) is an example.
+
+![](button-position.png)
 
 In this tutorial, we assume you are familiar with the basics of [R Markdown](https://bookdown.org/yihui/rmarkdown/) or [Bookdown](https://bookdown.org/yihui/bookdown/).
 
