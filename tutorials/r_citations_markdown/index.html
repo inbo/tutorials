@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='How to use Rstudio&#39;s citation tools to cite publications and create bibliographies'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Citations in R Markdown • Hans Van Calster'>
+<meta property='og:description' content='How to use Rstudio&#39;s citation tools to cite publications and create bibliographies'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_citations_markdown/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='bibliography'><meta property='article:tag' content='INBOmd'><meta property='article:tag' content='markdown'><meta property='article:tag' content='bookdown'><meta property='article:tag' content='csl'><meta property='article:tag' content='gitbook'><meta property='article:tag' content='zotero'><meta property='article:tag' content='pandoc'><meta property='article:tag' content='reports'><meta property='article:tag' content='rmarkdown'><meta property='article:tag' content='rstudio'><meta property='article:tag' content='visual markdown editing'><meta property='article:published_time' content='2021-07-08T00:00:00Z'/><meta property='article:modified_time' content='2021-07-08T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.62.2" />
+
+  <title>Citations in R Markdown • Hans Van Calster</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_citations_markdown/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.1111111111111112em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/bibliography/' style='font-size:1.0277777777777777em'>bibliography</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1.0277777777777777em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0277777777777777em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tutorials/tags/csl/' style='font-size:1.0277777777777777em'>csl</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0555555555555556em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.1111111111111112em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0277777777777777em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tutorials/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/generalized-linear-regression/' style='font-size:1em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1.0277777777777777em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.2222222222222223em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.1944444444444444em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1.0277777777777777em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.0277777777777777em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0277777777777777em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1.0555555555555556em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inborutils/' style='font-size:1em'>inborutils</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1.0555555555555556em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.25em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.1111111111111112em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.1388888888888888em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0555555555555556em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.1388888888888888em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.1944444444444444em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.0833333333333333em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1.0277777777777777em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/queries/' style='font-size:1em'>queries</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1.0277777777777777em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0555555555555556em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0833333333333333em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.0555555555555556em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.0833333333333333em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1.0277777777777777em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.1666666666666667em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.0555555555555556em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tutorials/tags/zotero/' style='font-size:1.0277777777777777em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Thu Jul 8 14:53:56 UTC 2021</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Citations in R Markdown</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Citations in R Markdown</h1>
+      
+<p class='desc'>How to use Rstudio&#39;s citation tools to cite publications and create bibliographies</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2021-07-08T00:00:00Z'>2021, Jul 08</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/hansvancalster'>Hans Van Calster</a>, <a href='/tutorials/authors/florisvdh'>Floris Vanderhaeghe</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+8 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/r_citations_markdown/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h1 id="enter-vme-mode">Enter VME mode<a href="#enter-vme-mode" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>With the advent of RStudio version 1.4+, working with bibliographies and
+citing documents in R Markdown has much improved. In this tutorial we
+focus on best practices to further ease the citation experience when
+working with R Markdown documents. We also give some guidelines specific
+to the Research Institute for Nature and Forest.</p>
+<p>More general tutorials can be found at the following web pages:</p>
+<ul>
+<li><a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html</a></li>
+<li><a href="https://rstudio.github.io/visual-markdown-editing/#/citations">https://rstudio.github.io/visual-markdown-editing/#/citations</a></li>
+</ul>
+<p>The latter webpage is part of the documentation about the Visual
+Markdown Editing (<strong>VME</strong>) mode that is available since RStudio 1.4+ as
+an alternative to writing R Markdown documents in source mode. VME is a
+what-you-see-is-what-you-get[1] interface for interacting with R
+Markdown. This interface is similar to writing documents in word
+processing software (google docs, MS Word, …). Moreover, the VME mode
+has more functionalities for citations than the source mode. To switch
+between source mode and VME, press the <img src="visual-mode-2x.png" alt=""> button :</p>
+<p><img src="button-position.png" alt=""></p>
+<p>In this tutorial, we assume you are familiar with the basics of <a href="https://bookdown.org/yihui/rmarkdown/">R
+Markdown</a> or
+<a href="https://bookdown.org/yihui/bookdown/">Bookdown</a>.</p>
+<h1 id="preparing-your-r-markdown-document-to-work-with-citations">Preparing your R Markdown document to work with citations<a href="#preparing-your-r-markdown-document-to-work-with-citations" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>There are various places where you can specify things that impact
+working with citations. The most important are specifications you can
+provide in the YAML header of your R Markdown document. Next to that,
+the RStudio global and project options provide some additional settings.</p>
+<h2 id="document-level-specifications-yaml-header-specifications">Document level specifications (YAML header specifications)<a href="#document-level-specifications-yaml-header-specifications" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="specifying-a-bibliography">Specifying a bibliography<a href="#specifying-a-bibliography" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>You can specify one or more bibliography files with the <code>bibliography</code>
+argument in a number of formats, including the most commonly used
+formats at the Research Institute for Nature and Forest: CSL-JSON,
+CSL-YAML, BibTex and EndNote.</p>
+<p>We strongly recommend however to <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">use CSL-JSON or
+CSL-YAML</a>,
+since CSL is the native format for Pandoc.[2] All other bibliographic
+formats are internally converted to CSL-JSON, but with the exception of
+CSL-YAML this can in general not be perfect. Compared to CSL-JSON,
+Pandoc’s CSL-YAML has identical contents while having the most
+human-friendly syntax.
+<a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL-JSON</a>
+is the formal standard supported by all CSL processors[3] .</p>
+<p>Some example specifications:</p>
+<pre><code>---
+author: Research Institute for Nature and Forest
+date: '`r format(Sys.Date())`'
+bibliography: references.yaml
+---
+</code></pre>
+<p>Note that it is not even necessary at this stage that the bibliography
+file exists. It is possible to just give it a name and <a href="#citing-documents">start adding
+citations in VME mode</a>. When the first citation is
+inserted, for instance from a linked Zotero database, the file will be
+automatically created and the reference will be added to the file.</p>
+<p>For users of Endnote, we recommend to export selected references to
+BibTeX format (as far as we know, it is not possible to export to
+CSL-JSON format). To do this:</p>
+<ul>
+<li>Edit -&gt; Output Styles -&gt; Open style manager and check the
+BibTex Export entry</li>
+<li>make sure that BibTex Export is checked in the Edit -&gt; Output
+styles menu as well</li>
+<li>File -&gt; Export, select Text file from the file type dropdown menu
+and save the file as <code>&lt;filename&gt;.bibtex</code></li>
+</ul>
+<p>We recommend to only include references in the bibliography file that
+are cited in the document.</p>
+<pre><code>---
+author: Research Institute for Nature and Forest
+date: '`r format(Sys.Date())`'
+bibliography:
+- path/to/my/ref.json
+- other_references_from_endnote.bibtex
+---
+</code></pre>
+<h3 id="specifying-a-citation-style">Specifying a citation style<a href="#specifying-a-citation-style" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>The Research Institute for Nature and Forest has its own citation style.
+There is a separate <a href="../style_inbo_bibliography/">tutorial</a> that shows
+how to use this style in various reference manager software.</p>
+<p>Specifying a citation style is done in the YAML header using the <code>csl</code>
+argument. The <code>csl</code> argument should be a path or URL to a CSL style
+file. To specify the style file for the Research Institute for Nature
+and Forest it is best to use the URL of the most up to date version:</p>
+<pre><code>---
+author: Research Institute for Nature and Forest
+date: '`r format(Sys.Date())`'
+bibliography: ref.json
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
+---
+</code></pre>
+<h3 id="other-yaml-citation-arguments">Other YAML citation arguments<a href="#other-yaml-citation-arguments" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>The <a href="https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1">ymlthis field
+guide</a>,
+<a href="https://pandoc.org/MANUAL.html#other-relevant-metadata-fields">Pandoc</a>
+&amp; associated
+<a href="https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md">citeproc</a>
+documentation and <a href="https://rstudio.github.io/visual-markdown-editing/#/citations">RStudio VME citations
+section</a>
+mention the following useful arguments:</p>
+<dl>
+<dt><code>citation-abbreviations</code></dt>
+<dd>
+<p>Path to a CSL abbreviations JSON file, which can be used to
+translate from full journal titles to abbreviated journal titles.
+Examples of such files can be found
+<a href="https://github.com/citation-style-language/abbreviations">here</a>.</p>
+</dd>
+<dt><code>link-citations</code></dt>
+<dd>
+<p>Logical. Add citations hyperlinks to the corresponding bibliography
+entries? Default is <code>false</code>.</p>
+</dd>
+<dt><code>nocite</code></dt>
+<dd>
+<p>Citation IDs (<code>@item1</code>) to include in the bibliography even if they
+are not cited in the document. Including the wildcard pattern <code>@*</code>
+will include all citations in the bibliography regardless of whether
+they are cited in the document.</p>
+</dd>
+<dt><code>suppress-bibliography</code></dt>
+<dd>
+<p>Logical. Suppress bibliography? Default is <code>false</code>.</p>
+</dd>
+<dt><code>lang</code></dt>
+<dd>
+<p>Locale to use in formatting citations. If this is not set, the
+locale is taken from the default-locale attribute of the CSL file.
+<code>en-US</code> is used if a locale is not specified in either the metadata
+or the CSL file.</p>
+</dd>
+<dt><code>reference-section-title</code></dt>
+<dd>
+<p>If this has a value, a section header with this title will be added
+before the bibliography. If <code>reference-section-title</code> is not
+specified and the document ends with a section header, this final
+header will be treated as the bibliography header.</p>
+</dd>
+<dt><code>zotero</code></dt>
+<dd>
+<p>Specify one or more Zotero libraries. Or <code>false</code> to turn of Zotero
+library entirely.</p>
+</dd>
+</dl>
+<p>Here is an example of a valid YAML with all citation arguments:</p>
+<pre><code>---
+author: Research Institute for Nature and Forest
+date: '2021-07-08'
+bibliography: ref.json
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
+citation-abbreviations: abbreviations.json
+link-citations: true
+nocite:
+- '@item1'
+- '@item2'
+suppress-bibliography: false
+lang: en-US
+zotero: true
+---
+</code></pre>
+<h2 id="rstudio-project-and-global-options">Rstudio project and global options<a href="#rstudio-project-and-global-options" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The project options allow you to select a Zotero reference manager
+library or libraries for the RStudio project you are working in. The
+default will detect your local Zotero library. It is also possible to
+point to other libraries, which can include a <a href="https://rstudio.github.io/visual-markdown-editing/#/citations?id=group-libraries">group
+library</a>
+that is shared among co-workers.</p>
+<p><img src="project-options.png" alt=""></p>
+<p>The global options are more or less the same as the project options but
+will apply to all your RStudio projects. The defaults are OK.</p>
+<p><img src="global-options.png" alt=""></p>
+<h1 id="citing-documents">Citing documents<a href="#citing-documents" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="syntax">Syntax<a href="#syntax" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The following Markdown syntax is used to refer to documents. It is based
+on citation keys and the basic building block is <code>@citationkey</code>.</p>
+<table>
+<thead>
+<tr>
+<th>syntax</th>
+<th>result (depending on chosen csl style)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@adams1975</code> concludes that …</td>
+<td><a href="#ref-adams1975">Adams</a> (<a href="#ref-adams1975">1975</a>) concludes that …</td>
+</tr>
+<tr>
+<td><code>@adams1975[p.33]</code> concludes that …</td>
+<td><a href="#ref-adams1975">Adams</a> (<a href="#ref-adams1975">1975, p. 33</a>) concludes that …</td>
+</tr>
+<tr>
+<td>… end of sentence <code>[@adams1975]</code>.</td>
+<td>… end of sentence (<a href="#ref-adams1975">Adams, 1975</a>).</td>
+</tr>
+<tr>
+<td>… end of sentence <code>[see @adams1975,p.33]</code>.</td>
+<td>… end of sentence (see <a href="#ref-adams1975">Adams, 1975, p. 33</a>).</td>
+</tr>
+<tr>
+<td>delineate multiple authors with colon: <code>[@adams1975; @aberdeen1958]</code></td>
+<td>delineate multiple authors with colon: (<a href="#ref-aberdeen1958">Aberdeen, 1958</a>; <a href="#ref-adams1975">Adams, 1975</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="insert-a-citation">Insert a citation<a href="#insert-a-citation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>You can either type the syntax in source mode, or use the insert
+citation button in VME mode. Using the VME mode has multiple benefits:</p>
+<ul>
+<li>
+<p>autocompletion: typing <code>@</code> will automatically show a list of
+available references</p>
+</li>
+<li>
+<p>searching and inserting references using one of the following
+methods (from the menu: Insert -&gt; Citation; or shortcut
+CTRL+SHIFT+F8)</p>
+<ul>
+<li>From the bibliography or bibliographies referred to in the YAML
+header’s <code>bibliography</code> field</li>
+<li>From a Zotero library</li>
+<li>From DOI</li>
+<li>Crossref</li>
+<li>DataCite</li>
+<li>PubMed</li>
+</ul>
+</li>
+</ul>
+<p>This means that the Zotero reference manager is highly recommended when
+you want to work smoothly with citations in R Markdown. This reference
+manager also integrates nicely with other word processing software such
+as MS Word and Googledocs.</p>
+<p><img src="insert-citation.png" alt=""></p>
+<h2 id="citing-r-and-r-packages">Citing R and R packages<a href="#citing-r-and-r-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The <code>knitr::write_bib()</code> function comes in handy if you need to cite R
+packages. The first argument accepts a character vector of R package
+names and the second argument can be used to specify a <code>packages.bib</code>
+file to which the BibTex entries will be written.</p>
+<p>For instance:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># to cite specific packages</span>
+knitr::<span style="color:#0a0">write_bib</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">base&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">bookdown&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">rmarkdown&#34;</span>), <span style="color:#a50">&#34;</span><span style="color:#a50">packages.bib&#34;</span>)
+</code></pre></div><p>… allows us to cite <a href="#ref-R-base">R Core Team</a> (<a href="#ref-R-base">2021</a>),
+<a href="#ref-R-bookdown">Xie</a> (<a href="#ref-R-bookdown">2021</a>) and <a href="#ref-R-rmarkdown">Allaire <em>et
+al.</em></a> (<a href="#ref-R-rmarkdown">2021</a>) if we add
+<code>packages.bib</code> to the bibliography YAML field.</p>
+<h1 id="bibliography-placement">Bibliography placement<a href="#bibliography-placement" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>By default, the bibliography will be placed at the end of the document.
+So, you will want a final header titled <code># References</code> or
+<code># Bibliography</code> at the end your document. See also the
+<code>reference-section-title</code> field that we discussed in <a href="#other-yaml-citation-arguments">Other YAML
+citation arguments</a>.</p>
+<p>If you want to place the bibliography somewhere else, for instance
+before the appendices, you can insert a <code>div</code> html tag in source mode:</p>
+<pre><code># References
+
+&lt;div id=&quot;refs&quot;&gt;&lt;/div&gt;
+
+# Appendix
+</code></pre>
+<p>If you use <a href="https://bookdown.org/yihui/bookdown/html.html#gitbook-style">the <code>bookdown::gitbook</code> output
+format</a>,
+further tweaks are possible. This format allows you to write a html
+report or book that consists of multiple html pages. You can for
+instance choose to split each chapter of a report into separate html
+pages. In that case, by default, the bibliography is split and all
+citation items that are cited on a given html page are put at the end of
+that page, so that readers do not have to navigate to a different
+bibliography page to see the details of citations. This feature can be
+disabled by setting the <code>split_bib</code> YAML field to FALSE, in which case
+all citations cited in the entire report or book are put on a separate
+bibliography page. To do this, you can add specific keys in the YAML
+header:</p>
+<pre><code>---
+author: Research Institute for Nature and Forest
+date: '`r format(Sys.Date())`'
+site: bookdown::bookdown_site
+output:
+  bookdown::gitbook:
+    split_by: chapter
+    split_bib: false
+---
+</code></pre>
+<h1 id="references">References<a href="#references" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Aberdeen J.E.C. (1958). The effect of quadrat size, plant size, and
+plant distribution on frequency estimates in plant ecology. Australian
+Journal of Botany 6 (1): 47–58.
+<a href="http://www.publish.csiro.au/paper/BT9580047">http://www.publish.csiro.au/paper/BT9580047</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Adams S.N. (1975). Sheep and cattle grazing in forests: a review.
+Journal of Applied Ecology 12: 143&ndash;152.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Allaire J., Xie Y., McPherson J., Luraschi J., Ushey K., Atkins A.,
+Wickham H., Cheng J., Chang W. &amp; Iannone R. (2021). Rmarkdown: Dynamic
+documents for r. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>R Core Team (2021). R: A language and environment for statistical
+computing. R Foundation for Statistical Computing, Vienna, Austria.
+<a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Xie Y. (2021). Bookdown: Authoring books and technical documents with r
+markdown. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>[1] Commonly abbreviated as
+<a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>, in contrast to
+<a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a>, of which plain
+Markdown (in RStudio source mode) is an example.</p>
+<p>[2] <a href="https://pandoc.org/">Pandoc</a> is the workhorse for converting
+markdown to a desired output (such as html).</p>
+<p>[3] A CSL processor is a piece of software to parse CSL styles, locale
+files, item metadata and citing details, and generate citations and
+bibliographies in the correct format.
+<a href="https://citationstyles.org/developers/#/csl-processors">Multiple</a> CSL
+processors are available for use in software. The reference
+implementation is the
+<a href="https://citeproc-js.readthedocs.io/en/latest/">citeproc-js</a> processor,
+which is implemented e.g. in Zotero and Mendeley; the citeproc-js
+project has also formulated the CSL-JSON standard. Pandoc, the document
+conversion software used by R Markdown, uses its own
+<a href="https://hackage.haskell.org/package/citeproc">citeproc</a> CSL processor.</p>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/r/'>r</a>, <a class='category' href='/tutorials/categories/literature/'>literature</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/bibliography/'>bibliography</a>, <a class='tag' href='/tutorials/tags/inbomd/'>INBOmd</a>, <a class='tag' href='/tutorials/tags/markdown/'>markdown</a>, <a class='tag' href='/tutorials/tags/bookdown/'>bookdown</a>, <a class='tag' href='/tutorials/tags/csl/'>csl</a>, <a class='tag' href='/tutorials/tags/gitbook/'>gitbook</a>, <a class='tag' href='/tutorials/tags/zotero/'>zotero</a>, <a class='tag' href='/tutorials/tags/pandoc/'>pandoc</a>, <a class='tag' href='/tutorials/tags/reports/'>reports</a>, <a class='tag' href='/tutorials/tags/rmarkdown/'>rmarkdown</a>, <a class='tag' href='/tutorials/tags/rstudio/'>rstudio</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/spatial_wfs_services/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Using WFS service in R</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p> &copy; 2018-2021 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+
+<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+

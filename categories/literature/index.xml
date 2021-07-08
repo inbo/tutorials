@@ -6,7 +6,7 @@
     <description>Recent content in literature on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/categories/literature/index.xml" rel="self" type="application/rss+xml" />
     
@@ -62,6 +62,17 @@ Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a sc
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
+    </item>
+    
+    <item>
+      <title>Citations in R Markdown</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</link>
+      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</guid>
+      <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
+More general tutorials can be found at the following web pages:
+ https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html https://rstudio.github.io/visual-markdown-editing/#/citations  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
     </item>
     
   </channel>

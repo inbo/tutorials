@@ -6,10 +6,21 @@
     <description>Recent content in reports on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/tags/reports/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Citations in R Markdown</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</link>
+      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</guid>
+      <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
+More general tutorials can be found at the following web pages:
+ https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html https://rstudio.github.io/visual-markdown-editing/#/citations  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
+    </item>
     
     <item>
       <title>VMM surface waters - quality data</title>
