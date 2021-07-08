@@ -98,7 +98,7 @@ We recommend to only include references in the bibliography file that are cited 
 ### Specifying a citation style
 
 The Research Institute for Nature and Forest has its own citation style.
-There is a separate [tutorial](%5B%3Chttps://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/%3E%5D(https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/)%7B.uri%7D) that shows how to use this style in various reference manager software.
+There is a separate [tutorial](../style_inbo_bibliography/) that shows how to use this style in various reference manager software.
 
 Specifying a citation style is done in the YAML header using the `csl` argument.
 The \`csl\` argument should be a path or URL to a CSL style file.
