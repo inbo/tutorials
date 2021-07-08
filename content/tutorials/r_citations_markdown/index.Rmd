@@ -217,6 +217,8 @@ Using the VME mode has multiple benefits:
 This means that the Zotero reference manager is highly recommendable when you want to work smoothly with citations in R Markdown.
 This reference manager also integrates nicely with other word processing software such as MS Word and Googledocs.
 
+![](insert-citation.png)
+
 # Bibliography placement
 
 By default, the bibliography will be placed at the end of the document so you will want a final header titled `# References` or `# Bibliography` at the end your document.
