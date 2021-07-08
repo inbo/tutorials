@@ -84,15 +84,24 @@ Some example specifications:
       yml_citations(bibliography = "references.yaml")
     ```
 
-    ```{r results="asis"}
-    yml() %>% 
-      yml_citations(bibliography = c("path/to/my/ref.json",
-                                     "other_references_from_endnote.enl"))
-    ```
-
 Note that it is not even necessary at this stage that the bibliography file exists.
 It is possible to just give it a name and [start adding citations in VME mode](#citing-documents).
 When the first citation is inserted, for instance from a linked Zotero database, the file will be automatically created and the reference will be added to the file.
+
+For users of Endnote, we recommend to export selected references to BibTeX format (as far as we know, it is not possible to export to CSL-JSON format).
+To do this:
+
+-   Edit -\> Output Styles -\> Open style manager and check the BibTex Export entry
+
+-   make sure that BibTex Export is checked in the Edit -\> Output styles menu as well
+
+-   File -\> Export, select Text file from the file type dropdown menu and save the file as `<filename>.bibtex`
+
+    ```{r results="asis"}
+    yml() %>% 
+      yml_citations(bibliography = c("path/to/my/ref.json",
+                                     "other_references_from_endnote.bibtex"))
+    ```
 
 We recommend to only include references in the bibliography file that are cited in the document.
 
