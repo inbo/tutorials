@@ -195,6 +195,8 @@ It is based on citation keys and the basic building block is `@citationkey`.
 | ... end of sentence `[see @adams1975,p.33]`.                         | ... end of sentence [see @adams1975,p.33].                         |
 | delineate multiple authors with colon: `[@adams1975; @aberdeen1958]` | delineate multiple authors with colon: [@adams1975; @aberdeen1958] |
 
+## Insert a citation
+
 You can either type the syntax in source mode, or use the insert citation button in VME mode.
 Using the VME mode has multiple benefits:
 
