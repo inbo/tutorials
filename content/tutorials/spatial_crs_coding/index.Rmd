@@ -54,7 +54,7 @@ For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPS
 It is good to know this, but you _can_ skip this section if you like.
 
 The reason for writing this tutorial are the recent (and ongoing) changes in several important geospatial libraries, especially **GDAL** and **PROJ**.
-They are used by most geospatial tools, including the key geospatial R packages `rgdal`, `sp`, `sf` and `raster`.
+They are used by most geospatial tools, including the key geospatial R packages `rgdal`, `sp`, `sf`, `stars`, `terra` and `raster`.
 
 Since long, coordinate reference systems in R (and many other tools) have been represented by so called 'PROJ.4 strings' (or 'proj4strings'), referring to the long-standing version 4 of the PROJ library.
 But, we will not use them here - it is counteradvised to use them any longer!
