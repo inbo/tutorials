@@ -97,13 +97,13 @@ To do this:
 
 -   File -\> Export, select Text file from the file type dropdown menu and save the file as `<filename>.bibtex`
 
+We recommend to only include references in the bibliography file that are cited in the document.
+
     ```{r results="asis"}
     yml() %>% 
       yml_citations(bibliography = c("path/to/my/ref.json",
                                      "other_references_from_endnote.bibtex"))
     ```
-
-We recommend to only include references in the bibliography file that are cited in the document.
 
 ### Specifying a citation style
 
