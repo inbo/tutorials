@@ -238,7 +238,7 @@ For instance:
 knitr::write_bib(c("base", "bookdown", "rmarkdown"), "packages.bib")
 ```
 
-Allows us to cite @R-base, @R-bookdown and @R-rmarkdown if we add `packages.bib` to the bibliography YAML field.
+... allows us to cite @R-base, @R-bookdown and @R-rmarkdown if we add `packages.bib` to the bibliography YAML field.
 
 # Bibliography placement
 
