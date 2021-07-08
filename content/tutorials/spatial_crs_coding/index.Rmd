@@ -2,17 +2,16 @@
 title: "Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?"
 description: "Current good practice in specifying a CRS in R"
 authors: [florisvdh]
-date: 2020-09-18
+date: 2021-07-08
 categories: ["r", "gis"]
 tags: ["gis", "r", "maps"]
-csl: '`r system.file("research-institute-for-nature-and-forest.csl", package = "INBOmd")`'
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
 link-citations: TRUE
 bibliography: bibliography.json
 output: 
     md_document:
         preserve_yaml: true
         variant: gfm
-    html_document: default
 ---
 
 ```{r include = FALSE}
