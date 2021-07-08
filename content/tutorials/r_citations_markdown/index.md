@@ -5,7 +5,7 @@ authors: [hansvancalster, florisvdh]
 date: "2021-07-08"
 categories: ["r", "literature"]
 tags: ["bibliography", "INBOmd", "markdown", "bookdown", "csl", "gitbook", "zotero", "pandoc", "reports", "rmarkdown", "rstudio", "visual markdown editing"]
-bibliography: "references.json"
+bibliography: ["references.json", "packages.bib"]
 link-citations: true
 reference-section-title: References
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
@@ -258,6 +258,20 @@ as MS Word and Googledocs.
 
 ![](insert-citation.png)
 
+## Citing R and R packages
+
+The `knitr::write_bib()` function comes in handy if you need to cite R
+packages. The first argument accepts a character vector of R package
+names and the second argument can be used to specify a `packages.bib`
+file to which the BibTex entries will be written.
+
+For instance:
+
+Allows us to cite [R Core Team](#ref-R-base) ([2021](#ref-R-base)),
+[Xie](#ref-R-bookdown) ([2021](#ref-R-bookdown)) and [Allaire *et
+al.*](#ref-R-rmarkdown) ([2021](#ref-R-rmarkdown)) if we add
+`packages.bib` to the bibliography YAML field.
+
 # Bibliography placement
 
 By default, the bibliography will be placed at the end of the document.
@@ -316,6 +330,29 @@ Journal of Botany 6 (1): 47–58.
 
 Adams S.N. (1975). Sheep and cattle grazing in forests: a review.
 Journal of Applied Ecology 12: 143--152.
+
+</div>
+
+<div id="ref-R-rmarkdown" class="csl-entry">
+
+Allaire J., Xie Y., McPherson J., Luraschi J., Ushey K., Atkins A.,
+Wickham H., Cheng J., Chang W. & Iannone R. (2021). Rmarkdown: Dynamic
+documents for r. <https://CRAN.R-project.org/package=rmarkdown>.
+
+</div>
+
+<div id="ref-R-base" class="csl-entry">
+
+R Core Team (2021). R: A language and environment for statistical
+computing. R Foundation for Statistical Computing, Vienna, Austria.
+<https://www.R-project.org/>.
+
+</div>
+
+<div id="ref-R-bookdown" class="csl-entry">
+
+Xie Y. (2021). Bookdown: Authoring books and technical documents with r
+markdown. <https://CRAN.R-project.org/package=bookdown>.
 
 </div>
 

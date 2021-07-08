@@ -5,7 +5,7 @@ authors: [hansvancalster, florisvdh]
 date: "`r Sys.Date()`"
 categories: ["r", "literature"]
 tags: ["bibliography", "INBOmd", "markdown", "bookdown", "csl", "gitbook", "zotero", "pandoc", "reports", "rmarkdown", "rstudio", "visual markdown editing"]
-bibliography: "references.json"
+bibliography: ["references.json", "packages.bib"]
 link-citations: true
 reference-section-title: References
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
@@ -225,6 +225,20 @@ This means that the Zotero reference manager is highly recommended when you want
 This reference manager also integrates nicely with other word processing software such as MS Word and Googledocs.
 
 ![](insert-citation.png)
+
+## Citing R and R packages
+
+The `knitr::write_bib()` function comes in handy if you need to cite R packages.
+The first argument accepts a character vector of R package names and the second argument can be used to specify a `packages.bib` file to which the BibTex entries will be written.
+
+For instance:
+
+```{r}
+# to cite specific packages
+knitr::write_bib(c("base", "bookdown", "rmarkdown"), "packages.bib")
+```
+
+Allows us to cite @R-base, @R-bookdown and @R-rmarkdown if we add `packages.bib` to the bibliography YAML field.
 
 # Bibliography placement
 
