@@ -112,7 +112,7 @@ To specify the style file for the Research Institute for Nature and Forest it is
 
 ### Other YAML citation arguments {#other-yaml-citation-arguments}
 
-The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1), [pandoc-citeproc documentation](http://manpages.ubuntu.com/manpages/xenial/man1/pandoc-citeproc.1.html) and [RStudio VME citations section](https://rstudio.github.io/visual-markdown-editing/#/citations?id=citations-from-zotero?id=citations) mention the following useful arguments:
+The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1), [Pandoc](https://pandoc.org/MANUAL.html#other-relevant-metadata-fields) + associated [citeproc](https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md) documentation and [RStudio VME citations section](https://rstudio.github.io/visual-markdown-editing/#/citations) mention the following useful arguments:
 
 citation-abbreviations
 
