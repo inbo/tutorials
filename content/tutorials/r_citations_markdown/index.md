@@ -93,10 +93,8 @@ CSL-JSON format). To do this:
 
 -   Edit -&gt; Output Styles -&gt; Open style manager and check the
     BibTex Export entry
-
 -   make sure that BibTex Export is checked in the Edit -&gt; Output
     styles menu as well
-
 -   File -&gt; Export, select Text file from the file type dropdown menu
     and save the file as `<filename>.bibtex`
 
@@ -266,7 +264,12 @@ file to which the BibTex entries will be written.
 
 For instance:
 
-Allows us to cite [R Core Team](#ref-R-base) ([2021](#ref-R-base)),
+``` r
+# to cite specific packages
+knitr::write_bib(c("base", "bookdown", "rmarkdown"), "packages.bib")
+```
+
+… allows us to cite [R Core Team](#ref-R-base) ([2021](#ref-R-base)),
 [Xie](#ref-R-bookdown) ([2021](#ref-R-bookdown)) and [Allaire *et
 al.*](#ref-R-rmarkdown) ([2021](#ref-R-rmarkdown)) if we add
 `packages.bib` to the bibliography YAML field.
