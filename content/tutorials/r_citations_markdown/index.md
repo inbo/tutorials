@@ -81,22 +81,35 @@ Some example specifications:
     bibliography: references.yaml
     ---
 
-    ---
-    author: Research Institute for Nature and Forest
-    date: '`r format(Sys.Date())`'
-    bibliography:
-    - path/to/my/ref.json
-    - other_references_from_endnote.ens
-    ---
-
 Note that it is not even necessary at this stage that the bibliography
 file exists. It is possible to just give it a name and [start adding
 citations in VME mode](#citing-documents). When the first citation is
 inserted, for instance from a linked Zotero database, the file will be
 automatically created and the reference will be added to the file.
 
+For users of Endnote, we recommend to export selected references to
+BibTeX format (as far as we know, it is not possible to export to
+CSL-JSON format). To do this:
+
+-   Edit -&gt; Output Styles -&gt; Open style manager and check the
+    BibTex Export entry
+
+-   make sure that BibTex Export is checked in the Edit -&gt; Output
+    styles menu as well
+
+-   File -&gt; Export, select Text file from the file type dropdown menu
+    and save the file as `<filename>.bibtex`
+
 We recommend to only include references in the bibliography file that
 are cited in the document.
+
+    ---
+    author: Research Institute for Nature and Forest
+    date: '`r format(Sys.Date())`'
+    bibliography:
+    - path/to/my/ref.json
+    - other_references_from_endnote.bibtex
+    ---
 
 ### Specifying a citation style
 
@@ -169,7 +182,8 @@ mention the following useful arguments:
 :   Specify one or more Zotero libraries. Or `false` to turn of Zotero
     library entirely.
 
-Here is an example of a valid YAML with all citation arguments:
+Here is an example of a valid YAML with all citation arguments (“yes”
+and “no” serve as alternatives to `true` and `false`):
 
     ---
     author: Research Institute for Nature and Forest
@@ -183,7 +197,7 @@ Here is an example of a valid YAML with all citation arguments:
     - '@item2'
     suppress-bibliography: false
     lang: en-US
-    zotero: 'false'
+    zotero: 'no'
     ---
 
 ## Rstudio project and global options
@@ -282,7 +296,7 @@ header:
     output:
       bookdown::gitbook:
         split_by: chapter
-        split_bib: 'FALSE'
+        split_bib: false
     ---
 
 # References
