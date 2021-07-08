@@ -370,10 +370,9 @@ cat(wkt(within_belgium1))
 Let's verify whether all objects do indeed have the same CRS:
 
 ```{r}
-all.equal(wkt(within_belgium1),
-          wkt(within_belgium2),
-          wkt(within_belgium3),
-          wkt(within_belgium4))
+all.equal(wkt(within_belgium1), wkt(within_belgium2))
+all.equal(wkt(within_belgium1), wkt(within_belgium3))
+all.equal(wkt(within_belgium1), wkt(within_belgium4))
 ```
 
 YES!
