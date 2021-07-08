@@ -12,7 +12,7 @@ csl: https://raw.githubusercontent.com/citation-style-language/styles/master/res
 output: 
     md_document:
         preserve_yaml: true
-        variant: gfm
+        variant: gfm+definition_lists
 editor_options:
   markdown:
     wrap: sentence
