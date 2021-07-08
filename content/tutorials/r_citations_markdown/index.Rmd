@@ -173,16 +173,12 @@ The project options allow you to select a Zotero reference manager library or li
 The default will detect your Zotero library is one is installed on your system.
 It is also possible to point to selected libraries, which can include a [group library](https://rstudio.github.io/visual-markdown-editing/#/citations?id=group-libraries) that is shared among co-workers.
 
-```{r}
-knitr::include_graphics("project-options.png")
-```
+![](project-options.png)
 
 The global options are more or less the same as the project options but will apply to all your RStudio projects.
 The defaults are OK.
 
-```{r}
-knitr::include_graphics("global-options.png")
-```
+![](global-options.png)
 
 # Citing documents {#citing-documents}
 
