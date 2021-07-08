@@ -1,5 +1,5 @@
 ---
-title: "Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?"
+title: "Goodbye PROJ.4! How to specify a coordinate reference system in R?"
 description: "Current good practice in specifying a CRS in R"
 authors: [florisvdh]
 date: 2021-07-08
@@ -49,7 +49,7 @@ There are a few coordinated lists of CRSs around the globe, the most famous one 
 You can consult these CRSs interactively at <https://epsg.org> (official source) and through third-party websites such as <http://epsg.io>.
 For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPSG code `4326`, and 'Belge 1972 / Belgian Lambert 72' is a projected CRS with EPSG code `31370`.
 
-### How _was_ a CRS represented in R? Evolutions in PROJ and GDAL.
+### How _did_ we represent a CRS in R? Evolutions in PROJ and GDAL.
 
 It is good to know this, but you _can_ skip this section if you like.
 
@@ -57,19 +57,37 @@ The reason for writing this tutorial are the recent (and ongoing) changes in sev
 They are used by most geospatial tools, including the key geospatial R packages `rgdal`, `sp`, `sf`, `stars`, `terra` and `raster`.
 
 Since long, coordinate reference systems in R (and many other tools) have been represented by so called 'PROJ.4 strings' (or 'proj4strings'), referring to the long-standing version 4 of the PROJ library.
-But, we will not use them here - it is counteradvised to use them any longer!
+But, we will not use them here!
+It is discouraged to use 'PROJ strings'[^projstring] any longer to represent a CRS; several string elements for CRSs are now deprecated or unsupported.
+Currently, PROJ (<https://proj.org>) regards PROJ strings only as a means of specifying a _coordinate operation_ (conversions or transformations _between_ CRSs).
+Performing coordinate operations is the main aim of PROJ.
 
-Let's just have **one last nostalgic peek** (and then, no more!!): the proj4string for the Belgian Lambert 72 CRS (EPSG:31370) "_was_":
+[^projstring]: 'PROJ string' is the term used in current PROJ documentation.
+Here, we only use 'PROJ.4 string' (or 'proj4string') when referring specifically to the PROJ string appearance in version 4 of the PROJ software.
+
+Let's just have **one last nostalgic peek** (and then, no more!!) to the proj4string for EPSG:31370, the Belgian Lambert 72 CRS [^belge72]:
 
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
-Several reasons, such as WGS84 getting outdated, higher accuracy requirements in transformations and the availability of better standards than proj4strings, have led to recent changes in PROJ and GDAL.
-This also implied reduced compatibility with proj4strings.
+[^belge72]: Note that the _currently returned_ PROJ string for EPSG:31370, if requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum reference which, in PROJ.4, was defined indirectly by `+towgs84` with the 7-parameter (Helmert) transformation to the WGS84 datum.
+Hence the current PROJ string is a deficient representation of EPSG:31370.
 
-**GDAL 3** and **PROJ ≥ 6**, which many R packages now support and promote, will just ignore and drop some parts of the proj4strings (such as `+datum` and `+towgs84` keys) if an R package would still provide it to them.
-In R, the older GDAL 2.x and PROJ 4 (and hence, proj4strings) will still be supported for some time [^support], for their continued use in older environments.
+Several reasons have led to recent changes in GDAL and PROJ, such as the use of WGS84 as a transformation hub while it is a dynamic CRS, higher accuracy requirements in transformations and the availability of better CRS specification standards than PROJ strings.
+The changes are included in **GDAL 3** and **PROJ ≥ 6**, which many R packages now support and promote.
 
-[^support]: The core geospatial R packages are aware of the GDAL/PROJ versions, in order to properly communicate with these.
+In consequence, support for PROJ strings to represent a CRS is reduced and discouraged.
+It _can_ still be done, preferrably adding the `+type=crs` element to distinguish such a string from modern PROJ strings.
+The latter represent a coordinate operation, not a CRS.
+Currently, support for most geodetic datums is already lacking in PROJ strings [^projcrs] (unless one defines it indirectly, but likely less accurately, with the now deprecated `+towgs84` key).
+The WGS84 ensemble datum [^wgs84] (EPSG:6326) is now by default assumed for a CRS declared with a PROJ string.
+
+[^projcrs]: Formerly, more geodetic datums could be specified in a PROJ string with the `+datum` key.
+Currently only `WGS84`, `NAD27` and `NAD83` are still supported this way.
+Further, if an ellipsoid is specified with `+ellps` (and that includes the WGS84 ellipsoid), the datum of the resulting CRS is considered as 'unknown'.
+The usage of PROJ strings to define CRSs, including the `+datum` and `+towgs84` elements, will remain supported for mere backward compatibility (to support existing data sets), but is regarded deprecated and is discouraged by PROJ.
+
+[^wgs84]: An [ensemble datum](https://docs.opengeospatial.org/as/18-005r4/18-005r4.html#97) is a collection of different but closely related datum realizations without making a distinction between them.
+By not specifying the applicable datum realization for a coordinate data set, some degree of inaccuracy is allowed when using an ensemble datum as part of a CRS.
 
 If you want to read more about the changes, here are some recommended resources:
 
@@ -79,9 +97,9 @@ If you want to read more about the changes, here are some recommended resources:
 - <https://gdalbarn.com>
 - @nowosad_recent_2020 (webinar and slides, also including other developments in spatial R)
 
-### How _is_ a CRS represented in R?
+### What _is_ the new way to represent a CRS in R?
 
-**Answer**: It is done by using the **[WKT2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html) string**, a recent and much better standard, maintained by the Open Geospatial Consortium.
+**Answer**: The current approach is the **[WKT2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html) string**, a recent and much better standard, maintained by the Open Geospatial Consortium.
 WKT stands for 'Well-known text'.
 'WKT2' is simply the recent version of WKT, approved in 2019, so you can also refer to it as WKT. [^WKT2]
 
@@ -94,7 +112,8 @@ wkt_4326 <- sp::wkt(sp::CRS(SRS_string = "EPSG:4326"))
 cat(wkt_4326)
 ```
 
-
+An alternative representation of the WKT2 string - not yet official at the time of writing - is [PROJJSON](https://proj.org/specifications/projjson.html).
+It is a more convenient format to use in coding.
 
 ## How to specify a CRS in R?
 
@@ -109,25 +128,27 @@ The R packages further down, and many that depend on them, now provide a means o
 
 - **DO:**
 
-  **The _general principle_ that we recommend is: specify the CRS by using the _EPSG code_, but do so _without_ using a proj4string.**
+  **The _general principle_ that we recommend is: specify the CRS by using the _EPSG code_, but do so _without_ using a PROJ string.**
+  
+  _Note: in case you wish to define a custom CRS yourself, ideally use WKT2 or its more convenient [PROJJSON](https://proj.org/specifications/projjson.html) counterpart._
 
 - **DON'T:**
 
-  **Don't use proj4strings, such as `+init=epsg:????`, `+proj=longlat`, ... (even though that _might_ still work, continued support for it is not to be expected).**
+  **It's not longer advised to use PROJ strings to specify a CRS, such as `+init=epsg:????`, `+proj=longlat`, ... (even though that _might_ still work, their usage is discouraged).**
 
-In the below code chunks, this is demonstrated for several important geospatial R packages: **`sf`**, **`sp`** and **`raster`**.
+In the below code chunks, specifying a CRS from the EPSG database is demonstrated for several important geospatial R packages: **`sf`**, **`sp`** and **`raster`**.
 Other geospatial R packages should normally inherit their approach.
 
-First, some practical notes:
+First, a practical note:
 
-- In order to remain compatible with GDAL 2 and PROJ 4, some packages will still internally derive a proj4string as well (notably by calling the core package `rgdal`).
-This happens even while you did not enter a proj4string.
-Note that the derived proj4string will not be used further if you're on GDAL 3 / PROJ ≥ 6, and a WKT2 string will be generated as well for actual use.
-In the presence of GDAL 3 / PROJ ≥ 6, you will (at the time of writing) get a **warning** about dropped keys in the generated proj4strings [^warnings], but in the meantime, for most geospatial R packages you can safely ignore this warning.
-- **Windows** users: to make sure that the `rgdal` and `sf` packages use GDAL 3 / PROJ ≥ 6 -- which is now highly advised: please **update** all your packages in a pure R console (not RStudio) that uses your latest installed R version, by running `update.packages(ask = FALSE, checkBuilt = TRUE)`.
+- Some packages internally still derive a PROJ string as well.
+This happens even while you did not enter a PROJ string.
+Note that the derived PROJ string will not be used further if you're on GDAL 3 / PROJ ≥ 6, and a WKT2 string will be generated as well for actual use.
+In the presence of GDAL 3 / PROJ ≥ 6 and when using `sp` or `raster`, you will (at the time of writing) get a **warning** from `rgdal` about dropped keys in the generated PROJ strings [^warnings].
+You can safely ignore this warning on condition that you didn't define the CRS with a PROJ string.
+Also, you can suppress the warning with `options(rgdal_show_exportToProj4_warnings = "none")` in the beginning of your script (before loading `rgdal` or dependent packages).
 
-
-[^warnings]: The packages give a warning especially to make developers of _other_, dependent packages _aware_ that they should also make sure their functions do not _require_ proj4strings or use hardcoded proj4strings.
+[^warnings]: The packages give a warning especially to make developers of _other_, dependent packages _aware_ that they should also make sure their functions do not _require_ PROJ strings or use hardcoded PROJ strings.
 Instead, they should defer the handling of CRS representation to the basic geospatial R packages (i.e. dependent on the version of PROJ/GDAL).
 So, the appearance of these warnings marks a period of transition in order to let other packages become GDAL 3 and PROJ ≥ 6 compliant.
 And the good news is that most popular geospatial packages _have_ become GDAL 3 and PROJ ≥ 6 compliant!
@@ -206,7 +227,7 @@ crs_wgs84
 crs_wgs84$epsg
 ```
 
-You _can_ (but should you?) export a (stripped) proj4string as well, with `crs_wgs84$proj4string`.
+You _can_ (but should you?) export a PROJ string as well, with `crs_wgs84$proj4string`.
 
 #### Set the CRS of an `sf` object
 
@@ -271,7 +292,7 @@ wkt_wgs84 <- wkt(crs_wgs84)
 cat(wkt_wgs84)
 ```
 
-Also note that, when _printing_ a `CRS` object of `sp` (e.g. by running `crs_wgs84`), you still just get a proj4string (with parts dropped if on recent GDAL/PROJ)!
+Also note that, when _printing_ a `CRS` object of `sp` (e.g. by running `crs_wgs84`), you still just get a PROJ string!
 We won't print it here!
 However do know that the WKT2 string is currently also _contained_ in the `CRS` object, just call `wkt()` to see it.
 
