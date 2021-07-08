@@ -62,19 +62,26 @@ Next to that, the RStudio global and project options provide some additional set
 
 ### Specifying a bibliography
 
-You can specify one or more bibliography files with the \`bibliography\` argument in a number of formats, including the most commonly used formats at the Research Institute for Nature and Forest: CSL-JSON, BibTex and EndNote.
+You can specify one or more bibliography files with the `bibliography` argument in a number of formats, including the most commonly used formats at the Research Institute for Nature and Forest: CSL-JSON, CSL-YAML, BibTex and EndNote.
 
-We strongly recommend however to [use CSL-JSON](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html):
+We strongly recommend however to [use CSL-JSON or CSL-YAML](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), since CSL is the native format for Pandoc [^2].
+All other bibliographic formats are internally converted to CSL-JSON, but with the exception of CSL-YAML this can in general not be perfect.
+Compared to CSL-JSON, Pandoc's CSL-YAML has identical contents while having the most human-friendly syntax.
+[CSL-JSON](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html) is the formal standard supported by all CSL processors [^3]
+.
 
-> CSL-JSON is the recommended format.
-> This is the native format for Pandoc's citation processor, pandoc-citeproc.
-> All other types are internally converted to CSL-JSON.
+[^2]: [Pandoc](https://pandoc.org/) is the workhorse for converting markdown to a desired output (such as html).
+
+[^3]: A CSL processor is a piece of software to parse CSL styles, locale files, item metadata and citing details, and generate citations and bibliographies in the correct format.
+    [Multiple](https://citationstyles.org/developers/#/csl-processors) CSL processors are available for use in software.
+    The reference implementation is the [citeproc-js](https://citeproc-js.readthedocs.io/en/latest/) processor, which is implemented e.g. in Zotero and Mendeley; the citeproc-js project has also formulated the CSL-JSON standard.
+    Pandoc, the document conversion software used by R Markdown, uses its own [citeproc](https://hackage.haskell.org/package/citeproc) CSL processor.
 
 Some example specifications:
 
     ```{r results="asis"}
     yml() %>% 
-      yml_citations(bibliography = "references.json")
+      yml_citations(bibliography = "references.yaml")
     ```
 
     ```{r results="asis"}
