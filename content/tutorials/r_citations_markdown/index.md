@@ -121,7 +121,7 @@ and Forest it is best to use the URL of the most up to date version:
 The [ymlthis field
 guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1),
 [Pandoc](https://pandoc.org/MANUAL.html#other-relevant-metadata-fields)
-+ associated
+& associated
 [citeproc](https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md)
 documentation and [RStudio VME citations
 section](https://rstudio.github.io/visual-markdown-editing/#/citations)
