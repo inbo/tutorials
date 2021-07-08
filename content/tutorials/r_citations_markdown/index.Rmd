@@ -86,7 +86,8 @@ Some example specifications:
 
     ```{r results="asis"}
     yml() %>% 
-      yml_citations(bibliography = c("path/to/my/ref.json", "other_references_from_endnote.ens"))
+      yml_citations(bibliography = c("path/to/my/ref.json",
+                                     "other_references_from_endnote.enl"))
     ```
 
 Note that it is not even necessary at this stage that the bibliography file exists.
@@ -152,7 +153,7 @@ The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.htm
 :   Specify one or more Zotero libraries.
     Or `false` to turn of Zotero library entirely.
 
-Here is an example of a valid YAML with all citation arguments:
+Here is an example of a valid YAML with all citation arguments ("yes" and "no" serve as alternatives to `true` and `false`):
 
     ```{r results="asis"}
     yml() %>% 
@@ -164,7 +165,7 @@ Here is an example of a valid YAML with all citation arguments:
                     nocite = c("@item1", "@item2")
                     ) %>%
       yml_toplevel(lang = "en-US",
-                   zotero = "false")
+                   zotero = "no")
     ```
 
 ## Rstudio project and global options
@@ -240,5 +241,6 @@ To do this, you can add specific keys in the YAML header:
     ```{r results="asis"}
     yml() %>%
       yml_bookdown_site() %>%
-      yml_output(bookdown::gitbook(split_by = "chapter", split_bib = "FALSE"))
+      yml_output(bookdown::gitbook(split_by = "chapter",
+                                   split_bib = FALSE))
     ```
