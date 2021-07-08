@@ -128,7 +128,7 @@ The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.htm
 `nocite`
 
 :   Citation IDs (`@item1`) to include in the bibliography even if they are not cited in the document.
-    Including the wildcard pattern `@*` will include all citations in the bibliography regardless of if they are cited in the document.
+    Including the wildcard pattern `@*` will include all citations in the bibliography regardless of whether they are cited in the document.
 
 `suppress-bibliography`
 
@@ -170,8 +170,8 @@ Here is an example of a valid YAML with all citation arguments:
 ## Rstudio project and global options
 
 The project options allow you to select a Zotero reference manager library or libraries for the RStudio project you are working in.
-The default will detect your Zotero library is one is installed on your system.
-It is also possible to point to selected libraries, which can include a [group library](https://rstudio.github.io/visual-markdown-editing/#/citations?id=group-libraries) that is shared among co-workers.
+The default will detect your local Zotero library.
+It is also possible to point to other libraries, which can include a [group library](https://rstudio.github.io/visual-markdown-editing/#/citations?id=group-libraries) that is shared among co-workers.
 
 ![](project-options.png)
 
@@ -187,44 +187,40 @@ The defaults are OK.
 The following Markdown syntax is used to refer to documents.
 It is based on citation keys and the basic building block is `@citationkey`.
 
-| syntax                                                               | result (depending on chosen csl style)                                 |
-|----------------------------------------------------------------------|------------------------------------------------------------------------|
-| `@adams1975` concludes that ...                                      | @adams1975 concludes that ...                                          |
-| `@adams1975[p.33]` concludes that ...                                | @adams1975 [p.33] concludes that ...                                   |
-| ... end of sentence `[@adams1975]`.                                  | ... end of sentence [@adams1975].                                      |
-| ... end of sentence `[see @adams1975,p.33]`.                         | ... end of sentence [see @adams1975,p.33].                             |
-| delineate multiple authors with colon: `[@adams1975; @aberdeen1958]` | delineate multiple authors with colon: \`[@adams1975; @aberdeen1958]\` |
+| syntax                                                               | result (depending on chosen csl style)                             |
+|----------------------------------------------------------------------|--------------------------------------------------------------------|
+| `@adams1975` concludes that ...                                      | @adams1975 concludes that ...                                      |
+| `@adams1975[p.33]` concludes that ...                                | @adams1975 [p.33] concludes that ...                               |
+| ... end of sentence `[@adams1975]`.                                  | ... end of sentence [@adams1975].                                  |
+| ... end of sentence `[see @adams1975,p.33]`.                         | ... end of sentence [see @adams1975,p.33].                         |
+| delineate multiple authors with colon: `[@adams1975; @aberdeen1958]` | delineate multiple authors with colon: [@adams1975; @aberdeen1958] |
 
 You can either type the syntax in source mode, or use the insert citation button in VME mode.
 Using the VME mode has multiple benefits:
 
--   autocompletion: typing\@ will automatically show a list of available references
+-   autocompletion: typing `@` will automatically show a list of available references
 
 -   searching and inserting references using one of the following methods (from the menu: Insert -\> Citation; or shortcut CTRL+SHIFT+F8)
 
-    -   From the bibliography or bibliographies referred to in the YAML header's \`bibliography\` field
-
+    -   From the bibliography or bibliographies referred to in the YAML header's `bibliography` field
     -   From a Zotero library
-
     -   From DOI
-
     -   Crossref
-
     -   DataCite
-
     -   PubMed
 
-This means that the Zotero reference manager is highly recommendable when you want to work smoothly with citations in R Markdown.
+This means that the Zotero reference manager is highly recommended when you want to work smoothly with citations in R Markdown.
 This reference manager also integrates nicely with other word processing software such as MS Word and Googledocs.
 
 ![](insert-citation.png)
 
 # Bibliography placement
 
-By default, the bibliography will be placed at the end of the document so you will want a final header titled `# References` or `# Bibliography` at the end your document.
-See also the \`reference-section-title\` field that we discussed in [Other YAML citation arguments](#other-yaml-citation-arguments).
+By default, the bibliography will be placed at the end of the document.
+So, you will want a final header titled `# References` or `# Bibliography` at the end your document.
+See also the `reference-section-title` field that we discussed in [Other YAML citation arguments](#other-yaml-citation-arguments).
 
-If you want to place the bibliography somewhere else, for instance before the appendices, you can use the following syntax:
+If you want to place the bibliography somewhere else, for instance before the appendices, you can insert a `div` html tag in source mode:
 
     # References
 
@@ -237,7 +233,7 @@ This format allows you to write a html report or book that consists of multiple 
 You can for instance choose to split each chapter of a report into separate html pages.
 In that case, by default, the bibliography is split and all citation items that are cited on a given html page are put at the end of that page, so that readers do not have to navigate to a different bibliography page to see the details of citations.
 This feature can be disabled by setting the `split_bib` YAML field to FALSE, in which case all citations cited in the entire report or book are put on a separate bibliography page.
-To do this, you can use the following syntax:
+To do this, you can add specific keys in the YAML header:
 
     ```{r results="asis"}
     yml() %>%
