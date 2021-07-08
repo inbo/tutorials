@@ -162,20 +162,22 @@ The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.htm
 :   Specify one or more Zotero libraries.
     Or `false` to turn of Zotero library entirely.
 
-Here is an example of a valid YAML with all citation arguments ("yes" and "no" serve as alternatives to `true` and `false`):
+Here is an example of a valid YAML with all citation arguments:
 
-    ```{r results="asis"}
-    yml() %>% 
-      yml_citations(bibliography = "ref.json", 
-                    csl = "https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl", 
-                    citation_abbreviations = "abbreviations.json",
-                    suppress_bibliography = FALSE, 
-                    link_citations = TRUE,
-                    nocite = c("@item1", "@item2")
-                    ) %>%
-      yml_toplevel(lang = "en-US",
-                   zotero = "no")
-    ```
+    ---
+    author: Research Institute for Nature and Forest
+    date: '`r format(Sys.Date())`'
+    bibliography: ref.json
+    csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
+    citation-abbreviations: abbreviations.json
+    link-citations: true
+    nocite:
+    - '@item1'
+    - '@item2'
+    suppress-bibliography: false
+    lang: en-US
+    zotero: true
+    ---
 
 ## Rstudio project and global options
 

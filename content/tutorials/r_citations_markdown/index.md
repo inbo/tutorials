@@ -182,12 +182,11 @@ mention the following useful arguments:
 :   Specify one or more Zotero libraries. Or `false` to turn of Zotero
     library entirely.
 
-Here is an example of a valid YAML with all citation arguments (“yes”
-and “no” serve as alternatives to `true` and `false`):
+Here is an example of a valid YAML with all citation arguments:
 
     ---
     author: Research Institute for Nature and Forest
-    date: '`r format(Sys.Date())`'
+    date: '2021-07-08'
     bibliography: ref.json
     csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
     citation-abbreviations: abbreviations.json
@@ -197,7 +196,7 @@ and “no” serve as alternatives to `true` and `false`):
     - '@item2'
     suppress-bibliography: false
     lang: en-US
-    zotero: 'no'
+    zotero: true
     ---
 
 ## Rstudio project and global options
