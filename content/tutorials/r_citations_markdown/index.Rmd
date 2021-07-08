@@ -28,7 +28,7 @@ library(ymlthis)
 library(magrittr)
 ```
 
-# Citations in R Markdown
+# Enter VME mode
 
 With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.
 In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.
