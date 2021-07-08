@@ -101,8 +101,8 @@ The Research Institute for Nature and Forest has its own citation style.
 There is a separate [tutorial](../style_inbo_bibliography/) that shows how to use this style in various reference manager software.
 
 Specifying a citation style is done in the YAML header using the `csl` argument.
-The \`csl\` argument should be a path or URL to a CSL style file.
-To specify the style file for the Research Institute for Nature and Forest it is best to use the URL to the most up to date version:
+The `csl` argument should be a path or URL to a CSL style file.
+To specify the style file for the Research Institute for Nature and Forest it is best to use the URL of the most up to date version:
 
     ```{r results="asis"}
     yml() %>% 
@@ -114,43 +114,43 @@ To specify the style file for the Research Institute for Nature and Forest it is
 
 The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1), [Pandoc](https://pandoc.org/MANUAL.html#other-relevant-metadata-fields) + associated [citeproc](https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md) documentation and [RStudio VME citations section](https://rstudio.github.io/visual-markdown-editing/#/citations) mention the following useful arguments:
 
-citation-abbreviations
+`citation-abbreviations`
 
 :   Path to a CSL abbreviations JSON file, which can be used to translate from full journal titles to abbreviated journal titles.
     Examples of such files can be found [here](https://github.com/citation-style-language/abbreviations).
 
-link-citations
+`link-citations`
 
 :   Logical.
     Add citations hyperlinks to the corresponding bibliography entries?
-    Default is false.
+    Default is `false`.
 
-nocite
+`nocite`
 
 :   Citation IDs (`@item1`) to include in the bibliography even if they are not cited in the document.
     Including the wildcard pattern `@*` will include all citations in the bibliography regardless of if they are cited in the document.
 
-suppress-bibliography
+`suppress-bibliography`
 
 :   Logical.
     Suppress bibliography?
-    Default is false.
+    Default is `false`.
 
-lang
+`lang`
 
 :   Locale to use in formatting citations.
     If this is not set, the locale is taken from the default-locale attribute of the CSL file.
-    en-US is used if a locale is not specified in either the metadata or the CSL file.
+    `en-US` is used if a locale is not specified in either the metadata or the CSL file.
 
-reference-section-title
+`reference-section-title`
 
 :   If this has a value, a section header with this title will be added before the bibliography.
-    If reference-section-title is not specified and the document ends with a section header, this final header will be treated as the bibliography header.
+    If `reference-section-title` is not specified and the document ends with a section header, this final header will be treated as the bibliography header.
 
-zotero
+`zotero`
 
 :   Specify one or more Zotero libraries.
-    Or \`false\` to turn of Zotero library entirely.
+    Or `false` to turn of Zotero library entirely.
 
 Here is an example of a valid YAML with all citation arguments:
 
