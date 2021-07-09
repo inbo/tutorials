@@ -134,7 +134,7 @@ The R packages further down, and many that depend on them, now provide a means o
 
 - **DON'T:**
 
-  **It's not longer advised to use PROJ strings to specify a CRS, such as `+init=epsg:????`, `+proj=longlat`, ... (even though that _might_ still work, their usage is discouraged).**
+  **It's no longer advised to use PROJ strings to specify a CRS, such as `+init=epsg:????`, `+proj=longlat`, ... (even though that _might_ still work, their usage is discouraged).**
 
 In the below code chunks, specifying a CRS from the EPSG database is demonstrated for several important geospatial R packages: **`sf`**, **`sp`** and **`raster`**.
 Other geospatial R packages should normally inherit their approach.
