@@ -5,15 +5,15 @@
 <meta name='description' content='Current good practice in specifying a CRS in R'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Goodbye PROJ.4 strings! How to specify a coordinate reference system in R? • Floris Vanderhaeghe'>
+<meta property='og:title' content='Goodbye PROJ.4! How to specify a coordinate reference system in R? • Floris Vanderhaeghe'>
 <meta property='og:description' content='Current good practice in specifying a CRS in R'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2020-09-18T00:00:00Z'/><meta property='article:modified_time' content='2020-09-18T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-07-08T00:00:00Z'/><meta property='article:modified_time' content='2021-07-08T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.62.2" />
 
-  <title>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R? • Floris Vanderhaeghe</title>
+  <title>Goodbye PROJ.4! How to specify a coordinate reference system in R? • Floris Vanderhaeghe</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/'>
   
   
@@ -234,7 +234,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Thu Jul 8 14:53:56 UTC 2021</small></p>
+  <p><small>Built on: Fri Jul 9 13:54:18 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -263,7 +263,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Goodbye PROJ.4! How to specify a coordinate reference system in R?</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -282,7 +282,7 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?</h1>
+      <h1 class='title'>Goodbye PROJ.4! How to specify a coordinate reference system in R?</h1>
       
 <p class='desc'>Current good practice in specifying a CRS in R</p>
 
@@ -298,7 +298,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-09-18T00:00:00Z'>2020, Sep 18</time>
+  <time class='entry-date' datetime='2021-07-08T00:00:00Z'>2021, Jul 08</time>
 </span>
 
   <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -316,7 +316,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-13 mins read
+15 mins read
 </span>
 
 
@@ -358,12 +358,12 @@ Improve this page</a>
 system (SRS) – is what you need if you want to interpret numeric
 coordinates as actual point locations with reference to the Earth. Two
 types of coordinate reference system exist: <em>geodetic</em> and <em>projected</em>
-CRSes. The former serve only to locate coordinates relative to a 3D
-model of the Earth surface, while the latter add a projection to
-generate coordinates on a 2D map. Coordinate operations convert or
-transform coordinates from one CRS to another, and you often need them
-because the CRS may differ between dataset 1, dataset 2 or a certain
-mapping technology.</p>
+CRSs. The former serve only to locate coordinates relative to a 3D model
+of the Earth surface, while the latter add a projection to generate
+coordinates on a 2D map. Coordinate operations convert or transform
+coordinates from one CRS to another, and you often need them because the
+CRS may differ between dataset 1, dataset 2 or a specific mapping
+technology (such as <code>leaflet</code>).</p>
 <p>As you can expect, a CRS is defined by several elements. Essentially, a
 CRS exists of:</p>
 <ul>
@@ -371,7 +371,7 @@ CRS exists of:</p>
 <li>a ‘datum’ (s.l.): it localizes the geodetic coordinate system
 relative to the Earth and needs a geometric definition of the
 ellipsoid,</li>
-<li><em>only for projected CRSes:</em> coordinate conversion parameters that
+<li><em>only for projected CRSs:</em> coordinate conversion parameters that
 determine the conversion from the geodetic to the projected
 coordinates.</li>
 </ul>
@@ -379,67 +379,80 @@ coordinates.</li>
 implementation. However it is highly recommended to read further about
 this, in order to better understand what a CRS means. A good
 contemporary resource in an R context is the section ‘<em>Coordinate
-reference systems: background</em>’ in Bivand
+reference systems: background</em>’ in <a href="#ref-bivand_ecs530_2019">Bivand</a>
 (<a href="#ref-bivand_ecs530_2019">2019</a>) (there is also an accompanying
 <a href="https://www.youtube.com/watch?v=Rgn4Ns2UgAg&amp;list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&amp;index=4&amp;t=0s">video</a>
 of that lesson).</p>
-<p>There are a few coordinated lists of CRSes around the globe, the most
+<p>There are a few coordinated lists of CRSs around the globe, the most
 famous one being the <a href="https://www.epsg.org">EPSG dataset</a>, where each
-CRS has a unique <em>EPSG code</em>. You can consult these CRSes interactively
-at <a href="http://www.epsg-registry.org">http://www.epsg-registry.org</a> (official source) and through
-third-party websites such as <a href="http://epsg.io">http://epsg.io</a>. For example, the ‘World
-Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code <code>4326</code>,
-and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
-<code>31370</code>.</p>
-<h3 id="how-was-a-crs-represented-in-r-evolutions-in-proj-and-gdal">How <em>was</em> a CRS represented in R? Evolutions in PROJ and GDAL.<a href="#how-was-a-crs-represented-in-r-evolutions-in-proj-and-gdal" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+CRS has a unique <em>EPSG code</em>. You can consult these CRSs interactively
+at <a href="https://epsg.org">https://epsg.org</a> (official source) and through third-party websites
+such as <a href="http://epsg.io">http://epsg.io</a>. For example, the ‘World Geodetic System 1984’
+(WGS84) is a geodetic CRS with EPSG code <code>4326</code>, and ‘Belge 1972 /
+Belgian Lambert 72’ is a projected CRS with EPSG code <code>31370</code>.</p>
+<h3 id="how-did-we-represent-a-crs-in-r-evolutions-in-proj-and-gdal">How <em>did</em> we represent a CRS in R? Evolutions in PROJ and GDAL.<a href="#how-did-we-represent-a-crs-in-r-evolutions-in-proj-and-gdal" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>It is good to know this, but you <em>can</em> skip this section if you like.</p>
 <p>The reason for writing this tutorial are the recent (and ongoing)
 changes in several important geospatial libraries, especially <strong>GDAL</strong>
 and <strong>PROJ</strong>. They are used by most geospatial tools, including the key
-geospatial R packages <code>rgdal</code>, <code>sp</code>, <code>sf</code> and <code>raster</code>.</p>
+geospatial R packages <code>rgdal</code>, <code>sp</code>, <code>sf</code>, <code>stars</code>, <code>terra</code> and
+<code>raster</code>.</p>
 <p>Since long, coordinate reference systems in R (and many other tools)
 have been represented by so called ‘PROJ.4 strings’ (or ‘proj4strings’),
 referring to the long-standing version 4 of the PROJ library. But, we
-will not use them here - it is counteradvised to use them any longer!</p>
-<p>Let’s just have <strong>one last nostalgic peek</strong> (and then, no more!!): the
-proj4string for the Belgian Lambert 72 CRS (EPSG:31370) “<em>was</em>”:</p>
+will not use them here! It is discouraged to use ‘PROJ strings’[1] any
+longer to represent a CRS; several string elements for CRSs are now
+deprecated or unsupported. Currently, PROJ (<a href="https://proj.org">https://proj.org</a>) regards
+PROJ strings only as a means of specifying a <em>coordinate operation</em>
+(conversions or transformations <em>between</em> CRSs). Performing coordinate
+operations is the main aim of PROJ.</p>
+<p>Let’s just have <strong>one last nostalgic peek</strong> (and then, no more!!) to the
+proj4string for EPSG:31370, the Belgian Lambert 72 CRS:[2]</p>
 <pre><code>+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 </code></pre>
-<p>Several reasons, such as WGS84 getting outdated, higher accuracy
-requirements in transformations and the availability of better standards
-than proj4strings, have led to recent changes in PROJ and GDAL. This
-also implied reduced compatibility with proj4strings.</p>
-<p><strong>GDAL 3</strong> and <strong>PROJ ≥ 6</strong>, which many R packages now support and
-promote, will just ignore and drop some parts of the proj4strings (such
-as <code>+datum</code> and <code>+towgs84</code> keys) if an R package would still provide it
-to them. In R, the older GDAL 2.x and PROJ 4 (and hence, proj4strings)
-will still be supported for some time,[1] for their continued use in
-older environments.</p>
+<p>Several reasons have led to recent changes in GDAL and PROJ, such as the
+former use of the WGS84 CRS as an intermediate ‘hub’ in coordinate
+transformation or in defining a CRS’s datum (introducing unneeded
+errors), higher accuracy requirements in transformations and the
+availability of better CRS specification standards than PROJ strings.
+The changes are included in <strong>GDAL 3</strong> and <strong>PROJ ≥ 6</strong>, which many R
+packages now support and promote.</p>
+<p>In consequence, support for PROJ strings to represent a CRS is reduced
+and discouraged. It <em>can</em> still be done, preferrably adding the
+<code>+type=crs</code> element to distinguish such a string from modern PROJ
+strings. The latter represent a coordinate operation, not a CRS.
+Currently, support for most geodetic datums is already lacking in PROJ
+strings[3] (unless one defines it indirectly, but likely less
+accurately, with the now deprecated <code>+towgs84</code> key). The WGS84 ensemble
+datum[4]
+(<a href="https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html">datum:EPSG::6326</a>)
+is now by default assumed for a CRS declared with a PROJ string.</p>
 <p>If you want to read more about the changes, here are some recommended
 resources:</p>
 <ul>
 <li><a href="https://www.r-spatial.org">https://www.r-spatial.org</a> (at the time of writing, especially
-Pebesma &amp; Bivand (<a href="#ref-pebesma_r_2020">2020</a>))</li>
-<li>Bivand
-(<a href="#ref-bivand_migration_2020">2020</a><a href="#ref-bivand_migration_2020">a</a>)
-(<code>rgdal</code> vignette)</li>
-<li>Bivand
-(<a href="#ref-bivand_upstream_2020">2020</a><a href="#ref-bivand_upstream_2020">b</a>)
-(video recording; see slides 45-66 in Bivand
-(<a href="#ref-bivand_how_2020_1">2020</a><a href="#ref-bivand_how_2020_1">c</a>))</li>
+<a href="#ref-pebesma_r_2020">Pebesma &amp; Bivand</a>
+(<a href="#ref-pebesma_r_2020">2020</a>))</li>
+<li><a href="#ref-bivand_migration_2020">Bivand</a>
+(<a href="#ref-bivand_migration_2020">2020a</a>) (<code>rgdal</code> vignette)</li>
+<li><a href="#ref-bivand_upstream_2020">Bivand</a>
+(<a href="#ref-bivand_upstream_2020">2020b</a>) (video recording; see slides
+45-66 in <a href="#ref-bivand_how_2020_1">Bivand</a>
+(<a href="#ref-bivand_how_2020_1">2020c</a>))</li>
 <li><a href="https://gdalbarn.com">https://gdalbarn.com</a></li>
-<li>Nowosad &amp; Lovelace (<a href="#ref-nowosad_recent_2020">2020</a>) (webinar and
-slides, also including other developments in spatial R)</li>
+<li><a href="#ref-nowosad_recent_2020">Nowosad &amp; Lovelace</a>
+(<a href="#ref-nowosad_recent_2020">2020</a>) (webinar and slides, also
+including other developments in spatial R)</li>
 </ul>
-<h3 id="how-is-a-crs-represented-in-r">How <em>is</em> a CRS represented in R?<a href="#how-is-a-crs-represented-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p><strong>Answer</strong>: It is done by using the
+<h3 id="what-is-the-new-way-to-represent-a-crs-in-r">What <em>is</em> the new way to represent a CRS in R?<a href="#what-is-the-new-way-to-represent-a-crs-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p><strong>Answer</strong>: The current approach is the
 <strong><a href="http://docs.opengeospatial.org/is/18-010r7/18-010r7.html">WKT2</a>
 string</strong>, a recent and much better standard, maintained by the Open
-Geospatial Consortium. WKT stands for ‘Well-known text’. ‘WKT2’ is
+Geospatial Consortium. WKT stands for ‘Well-known text.’ ‘WKT2’ is
 simply the recent version of WKT, approved in 2019, so you can also
-refer to it as WKT.[2]</p>
+refer to it as WKT.[5]</p>
 <p>For example, this is the WKT2 string for WGS84:</p>
-<pre><code>GEOGCRS[&quot;WGS 84&quot;,
+<pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
     DATUM[&quot;World Geodetic System 1984&quot;,
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
             LENGTHUNIT[&quot;metre&quot;,1]],
@@ -448,19 +461,19 @@ refer to it as WKT.[2]</p>
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
         ID[&quot;EPSG&quot;,8901]],
     CS[ellipsoidal,2],
-        AXIS[&quot;longitude&quot;,east,
+        AXIS[&quot;geodetic longitude (Lon)&quot;,east,
             ORDER[1],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
                 ID[&quot;EPSG&quot;,9122]]],
-        AXIS[&quot;latitude&quot;,north,
+        AXIS[&quot;geodetic latitude (Lat)&quot;,north,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-                ID[&quot;EPSG&quot;,9122]]],
-    USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;World&quot;],
-        BBOX[-90,-180,90,180]]]
+                ID[&quot;EPSG&quot;,9122]]]]
 </code></pre>
+<p>An alternative representation of the WKT2 string - not yet official at
+the time of writing - is
+<a href="https://proj.org/specifications/projjson.html">PROJJSON</a>. It is a more
+convenient format to use in coding.</p>
 <h2 id="how-to-specify-a-crs-in-r">How to specify a CRS in R?<a href="#how-to-specify-a-crs-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(sp)
 <span style="color:#0a0">library</span>(raster)
@@ -473,35 +486,37 @@ hence compliant with newer GDAL/PROJ.</p>
 <li>
 <p><strong>DO:</strong></p>
 <p><strong>The <em>general principle</em> that we recommend is: specify the CRS by
-using the <em>EPSG code</em>, but do so <em>without</em> using a proj4string.</strong></p>
+using the <em>EPSG code</em>, but do so <em>without</em> using a PROJ string.</strong></p>
+<p><em>Note: in case you wish to define a custom CRS yourself, ideally use
+WKT2 or its more convenient
+<a href="https://proj.org/specifications/projjson.html">PROJJSON</a>
+counterpart.</em></p>
 </li>
 <li>
 <p><strong>DON’T:</strong></p>
-<p><strong>Don’t use proj4strings, such as <code>+init=epsg:????</code>,
-<code>+proj=longlat</code>, … (even though that <em>might</em> still work, continued
-support for it is not to be expected).</strong></p>
+<p><strong>It’s no longer advised to use PROJ strings to specify a CRS, such
+as <code>+init=epsg:????</code>, <code>+proj=longlat</code>, … (even though that <em>might</em>
+still work, their usage is discouraged).</strong></p>
 </li>
 </ul>
-<p>In the below code chunks, this is demonstrated for several important
+<p>Below it is demonstrated how to specify a CRS that is defined in the
+EPSG database (hence, having an EPSG code), for several important
 geospatial R packages: <strong><code>sf</code></strong>, <strong><code>sp</code></strong> and <strong><code>raster</code></strong>. Other
 geospatial R packages should normally inherit their approach.</p>
-<p>First, some practical notes:</p>
+<p>First, a practical note:</p>
 <ul>
-<li>In order to remain compatible with GDAL 2 and PROJ 4, some packages
-will still internally derive a proj4string as well (notably by
-calling the core package <code>rgdal</code>). This happens even while you did
-not enter a proj4string. Note that the derived proj4string will not
-be used further if you’re on GDAL 3 / PROJ ≥ 6, and a WKT2 string
-will be generated as well for actual use. In the presence of GDAL 3
-/ PROJ ≥ 6, you will (at the time of writing) get a <strong>warning</strong>
-about dropped keys in the generated proj4strings,[3] but in the
-meantime, for most geospatial R packages you can safely ignore this
-warning.</li>
-<li><strong>Windows</strong> users: to make sure that the <code>rgdal</code> and <code>sf</code> packages
-use GDAL 3 / PROJ ≥ 6 – which is now highly advised: please
-<strong>update</strong> all your packages in a pure R console (not RStudio) that
-uses your latest installed R version, by running
-<code>update.packages(ask = FALSE, checkBuilt = TRUE)</code>.</li>
+<li>Some packages internally still derive a PROJ string as well. This
+happens even while you did not enter a PROJ string. Note that the
+derived PROJ string will not be used further if you’re on GDAL 3 /
+PROJ ≥ 6, and a WKT2 string will be generated as well for actual
+use. In the presence of GDAL 3 / PROJ ≥ 6 and when using <code>sp</code> or
+<code>raster</code>, you will (at the time of writing) get a <strong>warning</strong> from
+<code>rgdal</code> about dropped keys in the generated PROJ strings.[6] You can
+safely ignore this warning on condition that you didn’t define the
+CRS with a PROJ string. Also, you can suppress the warning with
+<code>options(rgdal_show_exportToProj4_warnings = &quot;none&quot;)</code> in the
+beginning of your script (before loading <code>rgdal</code> or dependent
+packages).</li>
 </ul>
 <p>As a demo data set for vector data, we use a dataset of city centers
 (points) included in the <code>rgdal</code> package.</p>
@@ -510,10 +525,10 @@ uses your latest installed R version, by running
 </code></pre></div><p>This is how it looks like:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cities
 </code></pre></div><pre><code>Simple feature collection with 606 features and 4 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -165.27 ymin: -53.15 xmax: 177.1302 ymax: 78.2
-geographic CRS: WGS 84
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -165.27 ymin: -53.15 xmax: 177.1302 ymax: 78.2
+Geodetic CRS:  WGS 84
 First 10 features:
                NAME COUNTRY POPULATION CAPITAL                   geometry
 1          Murmansk  Russia     468000       N  POINT (33.08604 68.96355)
@@ -545,7 +560,8 @@ CRS ourselves!</p>
 8           Glasgow      UK    1800000       N  -4.269948 55.86281
 9            Kazan'  Russia    1140000       N  49.145466 55.73301
 10      Chelyabinsk  Russia    1325000       N  61.392612 55.14500
-</code></pre><h3 id="sf-package"><code>sf</code> package<a href="#sf-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+</code></pre>
+<h3 id="sf-package"><code>sf</code> package<a href="#sf-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Note that also the <a href="https://r-spatial.github.io/stars/"><code>stars</code></a>
 package, useful to represent <em>vector and raster data cubes</em>, uses the
 below approach.</p>
@@ -553,8 +569,9 @@ below approach.</p>
 (for Windows: comes with) the minimal PROJ/GDAL versions that we want!</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sf::<span style="color:#0a0">sf_extSoftVersion</span>()
 </code></pre></div><pre><code>          GEOS           GDAL         proj.4 GDAL_with_GEOS     USE_PROJ_H 
-       &quot;3.8.0&quot;        &quot;3.0.4&quot;        &quot;6.3.1&quot;         &quot;true&quot;         &quot;true&quot; 
-</code></pre><p>Good to go!</p>
+       &quot;3.9.0&quot;        &quot;3.2.1&quot;        &quot;7.2.1&quot;         &quot;true&quot;         &quot;true&quot; 
+</code></pre>
+<p>Good to go!</p>
 <h4 id="defining-a-crs-with-sf">Defining a CRS with <code>sf</code><a href="#defining-a-crs-with-sf" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>You can simply provide the EPSG code using <code>st_crs()</code>:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">st_crs</span>(<span style="color:#099">4326</span>) <span style="color:#aaa;font-style:italic"># WGS84 has EPSG code 4326</span>
@@ -579,8 +596,8 @@ below approach.</p>
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;World&quot;],
+        SCOPE[&quot;Horizontal component of 3D system.&quot;],
+        AREA[&quot;World.&quot;],
         BBOX[-90,-180,90,180]],
     ID[&quot;EPSG&quot;,4326]]
 </code></pre>
@@ -589,7 +606,6 @@ below approach.</p>
 <li>printing the <code>crs</code> object shows us both the EPSG code (more
 generally: the user’s CRS specification) and the WKT2 string:</li>
 </ul>
-<!-- raw HTML omitted -->
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84
 </code></pre></div><pre><code>Coordinate Reference System:
   User input: EPSG:4326 
@@ -608,8 +624,8 @@ GEOGCRS[&quot;WGS 84&quot;,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;World&quot;],
+        SCOPE[&quot;Horizontal component of 3D system.&quot;],
+        AREA[&quot;World.&quot;],
         BBOX[-90,-180,90,180]],
     ID[&quot;EPSG&quot;,4326]]
 </code></pre>
@@ -617,21 +633,20 @@ GEOGCRS[&quot;WGS 84&quot;,
 <li>if the user inputted the CRS with an EPSG code (which we did!), the
 latter can be returned as a number:</li>
 </ul>
-<!-- raw HTML omitted -->
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84$epsg
 </code></pre></div><pre><code>[1] 4326
 </code></pre>
-<p>You <em>can</em> (but should you?) export a (stripped) proj4string as well,
-with <code>crs_wgs84$proj4string</code>.</p>
+<p>You <em>can</em> (but should you?) export a PROJ string as well, with
+<code>crs_wgs84$proj4string</code>.</p>
 <h4 id="set-the-crs-of-an-sf-object">Set the CRS of an <code>sf</code> object<a href="#set-the-crs-of-an-sf-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>First we prepare an <code>sf</code> object from <code>cities</code> but still without a CRS:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cities2 &lt;- <span style="color:#0a0">st_as_sf</span>(cities, coords = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">X&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">Y&#34;</span>))
 cities2
 </code></pre></div><pre><code>Simple feature collection with 606 features and 4 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -165.27 ymin: -53.15 xmax: 177.1302 ymax: 78.2
-CRS:            NA
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -165.27 ymin: -53.15 xmax: 177.1302 ymax: 78.2
+CRS:           NA
 First 10 features:
                NAME COUNTRY POPULATION CAPITAL                   geometry
 1          Murmansk  Russia     468000       N  POINT (33.08604 68.96355)
@@ -670,8 +685,8 @@ GEOGCRS[&quot;WGS 84&quot;,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;World&quot;],
+        SCOPE[&quot;Horizontal component of 3D system.&quot;],
+        AREA[&quot;World.&quot;],
         BBOX[-90,-180,90,180]],
     ID[&quot;EPSG&quot;,4326]]
 </code></pre>
@@ -691,8 +706,9 @@ GDAL and PROJ, so let’s check whether <code>rgdal</code> uses (for Windows: co
 with) the minimal PROJ/GDAL versions that we want.</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rgdal::<span style="color:#0a0">rgdal_extSoftVersion</span>()
 </code></pre></div><pre><code>          GDAL GDAL_with_GEOS           PROJ             sp 
-       &quot;3.0.4&quot;         &quot;TRUE&quot;        &quot;6.3.1&quot;        &quot;1.4-2&quot; 
-</code></pre><p>Okido.</p>
+       &quot;3.2.1&quot;         &quot;TRUE&quot;        &quot;7.2.1&quot;        &quot;1.4-5&quot; 
+</code></pre>
+<p>Okido.</p>
 <h4 id="defining-a-crs-with-sp">Defining a CRS with <code>sp</code><a href="#defining-a-crs-with-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:4326&#34;</span>) <span style="color:#aaa;font-style:italic"># WGS84 has EPSG code 4326</span>
 </code></pre></div><p>It is a so-called <code>CRS</code> object:</p>
@@ -704,7 +720,7 @@ attr(,&quot;package&quot;)
 <h4 id="printing-the-wkt2-string-with-sp">Printing the WKT2 string with <code>sp</code><a href="#printing-the-wkt2-string-with-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wkt_wgs84 &lt;- <span style="color:#0a0">wkt</span>(crs_wgs84)
 <span style="color:#0a0">cat</span>(wkt_wgs84)
-</code></pre></div><pre><code>GEOGCRS[&quot;WGS 84&quot;,
+</code></pre></div><pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
     DATUM[&quot;World Geodetic System 1984&quot;,
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
             LENGTHUNIT[&quot;metre&quot;,1]],
@@ -713,24 +729,19 @@ attr(,&quot;package&quot;)
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
         ID[&quot;EPSG&quot;,8901]],
     CS[ellipsoidal,2],
-        AXIS[&quot;longitude&quot;,east,
+        AXIS[&quot;geodetic longitude (Lon)&quot;,east,
             ORDER[1],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
                 ID[&quot;EPSG&quot;,9122]]],
-        AXIS[&quot;latitude&quot;,north,
+        AXIS[&quot;geodetic latitude (Lat)&quot;,north,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-                ID[&quot;EPSG&quot;,9122]]],
-    USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;World&quot;],
-        BBOX[-90,-180,90,180]]]
+                ID[&quot;EPSG&quot;,9122]]]]
 </code></pre>
 <p>Also note that, when <em>printing</em> a <code>CRS</code> object of <code>sp</code> (e.g. by running
-<code>crs_wgs84</code>), you still just get a proj4string (with parts dropped if on
-recent GDAL/PROJ)! We won’t print it here! However do know that the
-WKT2 string is currently also <em>contained</em> in the <code>CRS</code> object, just call
-<code>wkt()</code> to see it.</p>
+<code>crs_wgs84</code>), you still just get a PROJ string! We won’t print it here!
+However do know that the WKT2 string is currently also <em>contained</em> in
+the <code>CRS</code> object, just call <code>wkt()</code> to see it.</p>
 <h4 id="set-the-crs-of-a-spatial-object-in-sp">Set the CRS of a <code>Spatial*</code> object in <code>sp</code><a href="#set-the-crs-of-a-spatial-object-in-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>First we prepare a <code>SpatialPointsDataFrame</code> from <code>cities</code> but still
 without a CRS:</p>
@@ -745,7 +756,7 @@ the ‘proj4string’ name.</p>
 <h4 id="get-the-crs-of-a-spatial-object-in-sp">Get the CRS of a <code>Spatial*</code> object in <code>sp</code><a href="#get-the-crs-of-a-spatial-object-in-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>Again, use <code>wkt()</code>: it works on both <code>CRS</code> and <code>Spatial*</code> objects!</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">cat</span>(<span style="color:#0a0">wkt</span>(cities2))
-</code></pre></div><pre><code>GEOGCRS[&quot;WGS 84&quot;,
+</code></pre></div><pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
     DATUM[&quot;World Geodetic System 1984&quot;,
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
             LENGTHUNIT[&quot;metre&quot;,1]],
@@ -754,18 +765,14 @@ the ‘proj4string’ name.</p>
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
         ID[&quot;EPSG&quot;,8901]],
     CS[ellipsoidal,2],
-        AXIS[&quot;longitude&quot;,east,
+        AXIS[&quot;geodetic longitude (Lon)&quot;,east,
             ORDER[1],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
                 ID[&quot;EPSG&quot;,9122]]],
-        AXIS[&quot;latitude&quot;,north,
+        AXIS[&quot;geodetic latitude (Lat)&quot;,north,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-                ID[&quot;EPSG&quot;,9122]]],
-    USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;World&quot;],
-        BBOX[-90,-180,90,180]]]
+                ID[&quot;EPSG&quot;,9122]]]]
 </code></pre>
 <p>Et voilà!</p>
 <h3 id="raster-package"><code>raster</code> package<a href="#raster-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
@@ -848,27 +855,28 @@ formats.</p>
             ID[&quot;EPSG&quot;,8826]],
         PARAMETER[&quot;Northing at false origin&quot;,5400088.438,
             LENGTHUNIT[&quot;metre&quot;,1],
-            ID[&quot;EPSG&quot;,8827]],
-        ID[&quot;EPSG&quot;,19961]],
+            ID[&quot;EPSG&quot;,8827]]],
     CS[Cartesian,2],
-        AXIS[&quot;(E)&quot;,east,
+        AXIS[&quot;easting (X)&quot;,east,
             ORDER[1],
-            LENGTHUNIT[&quot;metre&quot;,1,
-                ID[&quot;EPSG&quot;,9001]]],
-        AXIS[&quot;(N)&quot;,north,
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        AXIS[&quot;northing (Y)&quot;,north,
             ORDER[2],
-            LENGTHUNIT[&quot;metre&quot;,1,
-                ID[&quot;EPSG&quot;,9001]]],
+            LENGTHUNIT[&quot;metre&quot;,1]],
     USAGE[
-        SCOPE[&quot;unknown&quot;],
-        AREA[&quot;Belgium - onshore&quot;],
-        BBOX[49.5,2.5,51.51,6.4]]]
+        SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
+        AREA[&quot;Belgium - onshore.&quot;],
+        BBOX[49.5,2.5,51.51,6.4]],
+    ID[&quot;EPSG&quot;,31370]]
 </code></pre>
 <p>Let’s verify whether all objects do indeed have the same CRS:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(<span style="color:#0a0">wkt</span>(within_belgium1),
-          <span style="color:#0a0">wkt</span>(within_belgium2),
-          <span style="color:#0a0">wkt</span>(within_belgium3),
-          <span style="color:#0a0">wkt</span>(within_belgium4))
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(<span style="color:#0a0">wkt</span>(within_belgium1), <span style="color:#0a0">wkt</span>(within_belgium2))
+</code></pre></div><pre><code>[1] TRUE
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(<span style="color:#0a0">wkt</span>(within_belgium1), <span style="color:#0a0">wkt</span>(within_belgium3))
+</code></pre></div><pre><code>[1] TRUE
+</code></pre>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(<span style="color:#0a0">wkt</span>(within_belgium1), <span style="color:#0a0">wkt</span>(within_belgium4))
 </code></pre></div><pre><code>[1] TRUE
 </code></pre>
 <p>YES!</p>
@@ -876,61 +884,72 @@ formats.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <p>Bivand R. (2019). ECS530: (III) Coordinate reference systems. Tuesday 3
-December 2019, 09:15-11.00, aud. C [WWW document].
+December 2019, 09:15-11.00, aud. C.
 <a href="https://rsbivand.github.io/ECS530_h19/ECS530_III.html#coordinate_reference_systems:_background">https://rsbivand.github.io/ECS530_h19/ECS530_III.html#coordinate_reference_systems:_background</a>
 (accessed September 16, 2020).</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<p>Bivand R. (2020a). Migration to PROJ6/GDAL3 [WWW document].
+<p>Bivand R. (2020a). Migration to PROJ6/GDAL3.
 <a href="http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html">http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html</a> (accessed
 September 21, 2020).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Bivand R. (2020b). Upstream software dependencies of the R-spatial
-ecosystem (video recording). In: How R Helped Provide Tools for Spatial
-Data Analysis @ CelebRation 2020 [WWW document].
-<a href="https://youtu.be/D4-roPsMz48?t=2166">https://youtu.be/D4-roPsMz48?t=2166</a> (accessed September 21, 2020).</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <p>Bivand R. (2020c). How R Helped Provide Tools for Spatial Data Analysis.
 <a href="https://github.com/rsbivand/celebRation20_files/raw/master/bivand_200229.pdf">https://github.com/rsbivand/celebRation20_files/raw/master/bivand_200229.pdf</a>.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
+<p>Bivand R. (2020b). Upstream software dependencies of the R-spatial
+ecosystem (video recording). In: How R Helped Provide Tools for Spatial
+Data Analysis @ CelebRation 2020. <a href="https://youtu.be/D4-roPsMz48?t=2166">https://youtu.be/D4-roPsMz48?t=2166</a>
+(accessed September 21, 2020).</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <p>Nowosad J. &amp; Lovelace R. (2020). Recent changes in R spatial and how to
-be ready for them [WWW document].
+be ready for them.
 <a href="https://geocompr.github.io/post/2020/whyr_webinar004/">https://geocompr.github.io/post/2020/whyr_webinar004/</a> (accessed
 September 21, 2020).</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <p>Pebesma E. &amp; Bivand R. (2020). R spatial follows GDAL and PROJ
-development [WWW document].
-<a href="https://www.r-spatial.org/r/2020/03/17/wkt.html">https://www.r-spatial.org/r/2020/03/17/wkt.html</a> (accessed September
-21, 2020).</p>
+development. <a href="https://www.r-spatial.org/r/2020/03/17/wkt.html">https://www.r-spatial.org/r/2020/03/17/wkt.html</a> (accessed
+September 21, 2020).</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<ol>
-<li>
-<p>The core geospatial R packages are aware of the GDAL/PROJ versions,
-in order to properly communicate with these.</p>
-</li>
-<li>
-<p>In order to emphasize the fact that the improvements in version 2
-were instructive to the new versions of GDAL and PROJ, you will
-often see explicit mention of ‘WKT2’.</p>
-</li>
-<li>
-<p>The packages give a warning especially to make developers of
+<p>[1] ‘PROJ string’ is the term used in current PROJ documentation. Here,
+we only use ‘PROJ.4 string’ (or ‘proj4string’) when referring
+specifically to the PROJ string appearance in version 4 of the PROJ
+software.</p>
+<p>[2] Note that the <em>currently returned</em> PROJ string for EPSG:31370, if
+requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum reference
+which, in PROJ.4, was defined indirectly by <code>+towgs84</code> with the
+7-parameter (Helmert) transformation to the WGS84 datum. Hence the
+current PROJ string is a deficient representation of EPSG:31370.</p>
+<p>[3] Formerly, more geodetic datums could be specified in a PROJ string
+with the <code>+datum</code> key. Currently only <code>WGS84</code>, <code>NAD27</code> and <code>NAD83</code> are
+still supported this way. Further, if an ellipsoid is specified with
+<code>+ellps</code> (and that includes the WGS84 ellipsoid), the datum of the
+resulting CRS is considered as ‘unknown.’ The usage of PROJ strings to
+define CRSs, including the <code>+datum</code> and <code>+towgs84</code> elements, will remain
+supported for mere backward compatibility (to support existing data
+sets), but is regarded deprecated and is discouraged by PROJ.</p>
+<p>[4] An <a href="https://docs.opengeospatial.org/as/18-005r4/18-005r4.html#97">ensemble
+datum</a> is
+a collection of different but closely related datum realizations without
+making a distinction between them. By not specifying the applicable
+datum realization for a coordinate data set, some degree of inaccuracy
+is allowed when using an ensemble datum as part of a CRS.</p>
+<p>[5] In order to emphasize the fact that the improvements in version 2
+were instructive to the new versions of GDAL and PROJ, you will often
+see explicit mention of ‘WKT2.’</p>
+<p>[6] The packages give a warning especially to make developers of
 <em>other</em>, dependent packages <em>aware</em> that they should also make sure
-their functions do not <em>require</em> proj4strings or use hardcoded
-proj4strings. Instead, they should defer the handling of CRS
-representation to the basic geospatial R packages (i.e. dependent on
-the version of PROJ/GDAL). So, the appearance of these warnings
-marks a period of transition in order to let other packages become
-GDAL 3 and PROJ ≥ 6 compliant. And the good news is that most
-popular geospatial packages <em>have</em> become GDAL 3 and PROJ ≥ 6
-compliant!</p>
-</li>
-</ol>
+their functions do not <em>require</em> PROJ strings or use hardcoded PROJ
+strings. Instead, they should defer the handling of CRS representation
+to the basic geospatial R packages (i.e. dependent on the version of
+PROJ/GDAL). So, the appearance of these warnings marks a period of
+transition in order to let other packages become GDAL 3 and PROJ ≥ 6
+compliant. And the good news is that most popular geospatial packages
+<em>have</em> become GDAL 3 and PROJ ≥ 6 compliant!</p>
 </div>
 
   
@@ -957,7 +976,7 @@ compliant!</p>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/spatial_standards_raster/'>
+      <a href='/tutorials/tutorials/spatial_wfs_services/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -965,10 +984,10 @@ compliant!</p>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</a>
+        <span class='screen-reader-text'>Previous post: </span>Using WFS service in R</a>
     </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/r_google_sheets/'>
-        <span class='screen-reader-text'>Next post: </span>Read data from Google sheets<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+      <a href='/tutorials/tutorials/r_citations_markdown/'>
+        <span class='screen-reader-text'>Next post: </span>Citations in R Markdown<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>

@@ -23,6 +23,15 @@ More general tutorials can be found at the following web pages:
     </item>
     
     <item>
+      <title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</link>
+      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
+      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system exist: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
+    </item>
+    
+    <item>
       <title>Using WFS service in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
@@ -50,15 +59,6 @@ Start using renv For general advice on renv setup and usage, see https://rstudio
       <guid>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</guid>
       <description>The INBO citation style Most journals, publishers and companies use a specified format for citations and bibliographies. The Research Institute for Nature and Forest (INBO) is no exception.
 All bibliography managers provide ways to automate the formatting of citations and bibliographies which greatly facilitates scientific publishing. Depending on the bibliographic manager software, the style formatting rules are stored in specific files. In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.</description>
-    </item>
-    
-    <item>
-      <title>Goodbye PROJ.4 strings! How to specify a coordinate reference system in R?</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</link>
-      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
-      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system exist: geodetic and projected CRSes. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
     </item>
     
     <item>
