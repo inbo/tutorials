@@ -97,8 +97,9 @@ strings. The latter represent a coordinate operation, not a CRS.
 Currently, support for most geodetic datums is already lacking in PROJ
 strings[3] (unless one defines it indirectly, but likely less
 accurately, with the now deprecated `+towgs84` key). The WGS84 ensemble
-datum[4] (EPSG:6326) is now by default assumed for a CRS declared with a
-PROJ string.
+datum[4]
+([datum:EPSG::6326](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html))
+is now by default assumed for a CRS declared with a PROJ string.
 
 If you want to read more about the changes, here are some recommended
 resources:
