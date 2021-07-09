@@ -27,7 +27,7 @@ of the Earth surface, while the latter add a projection to generate
 coordinates on a 2D map. Coordinate operations convert or transform
 coordinates from one CRS to another, and you often need them because the
 CRS may differ between dataset 1, dataset 2 or a specific mapping
-technology.
+technology (such as `leaflet`).
 
 As you can expect, a CRS is defined by several elements. Essentially, a
 CRS exists of:
@@ -83,11 +83,12 @@ proj4string for EPSG:31370, the Belgian Lambert 72 CRS:[2]
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
 Several reasons have led to recent changes in GDAL and PROJ, such as the
-use of WGS84 as a transformation hub while it is a dynamic CRS, higher
-accuracy requirements in transformations and the availability of better
-CRS specification standards than PROJ strings. The changes are included
-in **GDAL 3** and **PROJ ≥ 6**, which many R packages now support and
-promote.
+former use of the WGS84 CRS as an intermediate ‘hub’ in coordinate
+transformation or in defining a CRS’s datum (introducing unneeded
+errors), higher accuracy requirements in transformations and the
+availability of better CRS specification standards than PROJ strings.
+The changes are included in **GDAL 3** and **PROJ ≥ 6**, which many R
+packages now support and promote.
 
 In consequence, support for PROJ strings to represent a CRS is reduced
 and discouraged. It *can* still be done, preferrably adding the
@@ -175,14 +176,14 @@ hence compliant with newer GDAL/PROJ.
 
 -   **DON’T:**
 
-    **It’s not longer advised to use PROJ strings to specify a CRS, such
+    **It’s no longer advised to use PROJ strings to specify a CRS, such
     as `+init=epsg:????`, `+proj=longlat`, … (even though that *might*
     still work, their usage is discouraged).**
 
-In the below code chunks, specifying a CRS from the EPSG database is
-demonstrated for several important geospatial R packages: **`sf`**,
-**`sp`** and **`raster`**. Other geospatial R packages should normally
-inherit their approach.
+Below it is demonstrated how to specify a CRS that is defined in the
+EPSG database (hence, having an EPSG code), for several important
+geospatial R packages: **`sf`**, **`sp`** and **`raster`**. Other
+geospatial R packages should normally inherit their approach.
 
 First, a practical note:
 
