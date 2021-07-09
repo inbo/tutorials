@@ -72,7 +72,7 @@ Let's just have **one last nostalgic peek** (and then, no more!!) to the proj4st
 [^belge72]: Note that the _currently returned_ PROJ string for EPSG:31370, if requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum reference which, in PROJ.4, was defined indirectly by `+towgs84` with the 7-parameter (Helmert) transformation to the WGS84 datum.
 Hence the current PROJ string is a deficient representation of EPSG:31370.
 
-Several reasons have led to recent changes in GDAL and PROJ, such as the use of WGS84 as a transformation hub while it is a dynamic CRS, higher accuracy requirements in transformations and the availability of better CRS specification standards than PROJ strings.
+Several reasons have led to recent changes in GDAL and PROJ, such as the former use of the WGS84 CRS as an intermediate 'hub' in coordinate transformation or in defining a CRS's datum (introducing unneeded errors), higher accuracy requirements in transformations and the availability of better CRS specification standards than PROJ strings.
 The changes are included in **GDAL 3** and **PROJ ≥ 6**, which many R packages now support and promote.
 
 In consequence, support for PROJ strings to represent a CRS is reduced and discouraged.
