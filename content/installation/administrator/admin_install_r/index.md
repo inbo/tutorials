@@ -1,7 +1,7 @@
 ---
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
-date: "2021-05-21"
+date: "2021-08-27"
 authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
@@ -130,7 +130,10 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
       ),
       repos = c(
         CRAN = "https://cloud.r-project.org/",
-        INLA = "https://inla.r-inla-download.org/R/stable"
+        INLA = "https://inla.r-inla-download.org/R/testing",
+        inbo = "https://inbo.r-universe.dev",
+        ropensci = 'https://ropensci.r-universe.dev',
+        thierryo = "https://thierryo.r-universe.dev"
       ),
       install.packages.check.source = "no",
       install.packages.compile.from.source = "never"
