@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
@@ -86,6 +86,17 @@ Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorial
     </item>
     
     <item>
+      <title>Install R</title>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
+      <pubDate>Fri, 27 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
+      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
+In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
+Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
+    </item>
+    
+    <item>
       <title>Citations in R Markdown</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</link>
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
@@ -123,17 +134,6 @@ The standard output format for reading or downloading data from a WFS is the XML
       <guid>https://inbo.github.io/tutorials/tutorials/r_renv_update/</guid>
       <description>What is renv? renv is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system. Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
 Start using renv For general advice on renv setup and usage, see https://rstudio.</description>
-    </item>
-    
-    <item>
-      <title>Install R</title>
-      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
-      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
-In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
-Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>
     
     <item>
