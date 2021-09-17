@@ -1,0 +1,494 @@
+---
+title: "Coordinate operations and maps in R"
+description: "This tutorial shows how to do coordinate transformations and conversions in R. It also demonstrates how spatial data can be mapped with ggplot2 and mapview."
+authors: [florisvdh, ambermertens]
+date: 2021-09-16
+categories: ["r", "gis"]
+tags: ["gis", "r", "maps"]
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
+link-citations: TRUE
+bibliography: bibliography.yaml
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+```{r include = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  comment = ""
+)
+options(stringsAsFactors = FALSE)
+git_root <- rprojroot::find_root(rprojroot::is_git_root)
+tutorial_root <- file.path(git_root, "content/tutorials/spatial_transform_crs_2")
+dir.create(file.path(tutorial_root, "data_gisclub"), showWarnings = FALSE)
+gisclubdata_path <- file.path(tutorial_root, "data_gisclub")
+```
+
+## Introduction and setup
+
+This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021.
+
+A straightforward approach for transforming spatial data is available in another [tutorial](../spatial_transform_crs/).
+The current tutorial tackles a few extra aspects.
+
+The tutorial assumes you have some pre-existing knowledge:
+
+-   Basic knowledge about coordinate reference systems (CRSs) and geodetic datums; see [another tutorial](../spatial_crs_coding/) and the references and links therein.
+-   Knowing how to read geospatial files with [`sf`](https://r-spatial.github.io/sf).
+There is another [tutorial](../spatial_standards_vector/) demonstrating some aspects.
+
+In this tutorial we will apply conversions (without datum shift) and transformations (with datum shift) to `sf` and `sfc` objects.
+In the background, these operations use the [PROJ](https://proj.org) library.
+
+Let's load the needed R packages and prepare a more appropriate theme for mapping with [`ggplot2`](https://ggplot2.tidyverse.org/):
+
+```{r message=FALSE}
+library(dplyr)
+library(sf)
+library(ggplot2)
+theme_set(theme_bw())
+theme_update(panel.grid = element_line(colour = "grey80"))
+library(mapview)
+```
+
+Set up input data if needed:
+
+```{r}
+if (!file.exists(file.path(gisclubdata_path, "gemeenten_belgie.shp"))) {
+  googledrive::drive_download(googledrive::as_id("1oi-XvO54beBKcoTfbjVd8QRz-0j3Upfx"), 
+                              file.path(gisclubdata_path, "data_gisclub.zip"))
+  unzip(file.path(gisclubdata_path, "data_gisclub.zip"),
+        exdir = gisclubdata_path)
+}
+```
+
+The code assumes that you have a `gisclubdata_path` object defined (directory path as a string).
+
+## Joining and mapping polygon layers
+
+For a given `municipalities` and `watercourses` dataset, we would like to append the municipality name to the watercourses by making a spatial join.
+
+### Reading data and trying to join
+
+Let's read the data file of Belgian municipalities:
+
+```{r}
+path_municipalities <- file.path(gisclubdata_path, "gemeenten_belgie.shp")
+municipalities <- read_sf(path_municipalities)
+```
+
+It looks like this:
+
+```{r paged.print=FALSE}
+municipalities
+```
+
+It appears that the points have three coordinate dimensions (`XYZ`).
+However the features have only two useful dimensions:
+
+```{r}
+st_dimension(municipalities)
+```
+
+Some tools -- e.g. spherical geoprocessing -- expect XY data.
+So we will drop the Z dimension with `st_zm()`.
+Meanwhile we select the only necessary attribute and rename it, using `select()`.
+
+```{r}
+municipalities <- 
+  municipalities %>% 
+  select(municipality = T_MUN_NL) %>% 
+  st_zm()
+```
+
+We perform similar operations on the `watercourses` dataset.
+Here, data are already defined as two dimensions.
+
+```{r}
+path_watercourses <- file.path(gisclubdata_path, "watergangen_antw.shp")
+watercourses <- read_sf(path_watercourses)
+```
+
+```{r paged.print=FALSE}
+watercourses
+```
+
+Note that not all columns are printed.
+Let's preview all columns with `glimpse()`:
+
+```{r}
+glimpse(watercourses)
+```
+
+We only select some:
+
+```{r}
+watercourses <- 
+  watercourses %>% 
+  select(polygon_id = OIDN,
+         vhag_code = VHAG,
+         watercourse = NAAM)
+```
+
+```{r paged.print=FALSE}
+watercourses
+```
+
+In the above prints of the `municipalities` and `watercourses` objects, you could already see their coordinate reference system (CRS).
+With `st_crs()` you can extract the `crs` object; it is printed as:
+
+```{r}
+st_crs(municipalities)
+```
+
+The CRS name '`r st_crs(municipalities)$Name`' can also be returned by `st_crs(municipalities)$Name`.
+As seen from the WKT string, this is a geographical CRS.
+
+However for `watercourses` the CRS is missing:
+
+```{r}
+st_crs(watercourses)
+```
+
+Can we make the spatial join already?
+
+```{r}
+st_join(watercourses, municipalities) %>% try
+```
+
+Fortunately, this doesn't work: `st_join()` requires its inputs to belong to the same CRS.
+
+Well, we know that `watercourses` is in the projected CRS `EPSG:31370` (`r st_crs(31370)$Name`), so we can just update it:
+
+```{r}
+st_crs(watercourses) <- "EPSG:31370"
+```
+
+Since the CRSs are still different, this should *not* be sufficient for the join.
+
+```{r}
+st_join(watercourses, municipalities) %>% try
+```
+
+Indeed!
+
+Let's transform `municipalities` to `EPSG:31370`:
+
+```{r}
+municipalities_31370 <- st_transform(municipalities, "EPSG:31370")
+```
+
+And now...
+
+```{r paged.print=FALSE}
+(watercourses_comm <- st_join(watercourses, municipalities_31370))
+```
+
+Succeeded!
+
+We chose to make the spatial join in the `EPSG:31370` CRS. However, we can equally do it on a spherical model of the Earth, when using the geographical coordinates.
+We expect the resulting joined attributes to be equivalent.
+Let's check:
+
+```{r paged.print=FALSE}
+st_join(st_transform(watercourses, "EPSG:4326"), municipalities) %>% 
+  st_drop_geometry %>% 
+  all.equal(watercourses_comm %>% st_drop_geometry)
+```
+
+### Mapping
+
+While it has only one attribute and `r nrow(municipalities_31370)` rows, the object size of `municipalities_31370` is relatively large because its polygons have numerous vertices:
+
+```{r}
+object.size(municipalities_31370) %>% format(units = "MB")
+```
+
+This makes a simple map take long to render in R (not shown here; just try yourself):
+
+```{r ggplot_map_heavy, eval=FALSE}
+ggplot(data = municipalities_31370) + geom_sf()
+```
+
+For the sake of this exercise, we make a simplified derived object `comm_simpl_31370` with fewer vertices:
+
+```{r}
+comm_simpl_31370 <- st_simplify(municipalities_31370, dTolerance = 10)
+```
+
+Its size is much smaller:
+
+```{r}
+object.size(comm_simpl_31370) %>% format(units = "MB")
+```
+
+So it renders faster.
+
+```{r ggplot_graticule_4326}
+ggplot(data = comm_simpl_31370) + geom_sf()
+```
+
+However, mind that the simplification may be OK for mapping at an appropriate scale, but beware that information has been lost, so shapes have changed and gaps + overlaps will appear between polygons.
+Hence don't use this simplified version if you process it further, or for detailed mapping.
+
+Note the latitude-longitude graticule: the map follows the CRS of the plotted object, but the graticule is latitude-longitude by default.
+
+We can plot the graticule of another CRS with `coord_sf()`:
+
+```{r ggplot_graticule_31370}
+ggplot(data = comm_simpl_31370) + geom_sf() + coord_sf(datum = "EPSG:31370")
+```
+
+The above is the most obvious choice here, since it's the CRS of the object, but we could as well plot the graticule of e.g.
+`EPSG:3035` (`r st_crs(3035)$Name`):
+
+```{r ggplot_graticule_3035}
+ggplot(data = comm_simpl_31370) + geom_sf() + coord_sf(datum = "EPSG:3035")
+```
+
+Next to the [`ggplot2`](https://ggplot2.tidyverse.org/) package, which we used above, interactive maps can be made with the [`mapview`](https://r-spatial.github.io/mapview/) package.
+
+Here too, time to render differs between:
+
+```{r mapview_munic_heavy, eval=FALSE}
+mapview(municipalities_31370, legend = FALSE)
+```
+
+and:
+
+```{r mapview_munic_multicolour}
+mapview(comm_simpl_31370, legend = FALSE)
+```
+
+In this case, `mapview` is using the `leaflet` package with some nice defaults, but in the above examples it makes a color map by default because there's only one attribute.
+We don't want this and we make some further adjustments:
+
+```{r mapview_munic_pink}
+mapview(comm_simpl_31370, 
+        col.regions = "pink", 
+        alpha.regions = 0.3, 
+        legend = FALSE,
+        map.types = "OpenStreetMap")
+```
+
+Note that a separate tutorial about `leaflet` is [available](../spatial_create_leaflet_map/) on this website!
+
+Beware that `mapview` and `leaflet` produce maps in the '`r st_crs(3857)$Name`' CRS (`EPSG:3857`).
+For that to happen, `mapview` transforms spatial objects on-the-fly.
+[Pseudo Mercator or Web Mercator](https://proj.org/operations/projections/webmerc.html) is a much used projection in web mapping because the coordinate projection is computed much faster.
+However it should not be used in official mapping or as a projected CRS for geoprocessing, since it has more distortions (including shape) than e.g. the (truly) conformal Mercator projection (e.g. in CRS `EPSG:3395` -- `r st_crs(3395)$Name` -- which is best used in the equatorial region).
+
+Let's show two layers with `mapview`:
+
+```{r mapview_munic_water}
+mapview(list(comm_simpl_31370, watercourses), 
+        col.regions = c("pink", "blue"), 
+        alpha.regions = c(0.2, 0.5),
+        color = c("grey", NA), 
+        legend = FALSE,
+        map.types = "OpenStreetMap")
+```
+
+## Different transformation pipelines
+
+We consider a layer of points that correspond to locations where characteristics were determined of Flemish surfacewater bodies:
+
+```{r}
+path_points <- file.path(gisclubdata_path, "meetplaatsen_oppwater.shp")
+points <- read_sf(path_points)
+```
+
+Check the CRS:
+
+```{r}
+st_crs(points)
+```
+
+The `points` object has the projected '`r st_crs(points)$Name`' CRS (`EPSG:28992`), which was created for The Netherlands -- onshore.
+See e.g.
+[Wikipedia](https://nl.wikipedia.org/wiki/Rijksdriehoeksco%C3%B6rdinaten) for more background about this CRS.
+
+Essentially we are dealing with a different projected CRS than `EPSG:31370`.
+`EPSG:28992` uses the 'Amersfoort' geodetic datum, defined using the 'Bessel 1841' ellipsoid, while `EPSG:31370` has the 'Reseau National Belge 1972' datum, defined using the 'International 1924' ellipsoid [^1].
+
+[^1]: Note that several European countries, including Belgium, now provide national projected CRSs that use the common ETRS89 datum (European Terrestrial Reference System 1989).
+    An example is the Belgian CRS `EPSG:3812` (`r st_crs(3812)$Name`).
+
+We will transform `points` (back) to `EPSG:31370` since the data are outside the intended area of usage.
+Note that this dataset has been made for mere demonstrative purposes:
+since at least a part of the points fall outside the area of usage (geographic bounding box) of the '`r st_crs(points)$Name`' CRS, the dataset is not appropriate to start from.
+But let's suppose it is all one had available to work with!
+
+### Standard approach
+
+By default, the appropriate transformation pipeline (concatenated coordinate operations) can differ between different areas that are represented in a spatial dataset.
+This is taken care of automatically based on the bounding boxes of each CRS, but it will also depend on the availability of specific transformation grids.
+
+```{r}
+points_31370 <- st_transform(points, "EPSG:31370")
+```
+
+Notice the completely different coordinate ranges between both CRSs:
+
+```{r collapse=TRUE}
+st_geometry(points)
+```
+
+
+```{r collapse=TRUE}
+st_geometry(points_31370)
+```
+
+A specific area shown with `ggplot2` in `EPSG:31370`:
+
+```{r ggplot_water_points}
+ggplot() + 
+  geom_sf(data = watercourses, fill = "lightblue", colour = "lightblue") +
+  geom_sf(data = points_31370, fill = "red", shape = 21) +
+  lims(x = c(154e3, 155e3), y = c(218e3, 219e3)) +
+  coord_sf(datum = "EPSG:31370")
+```
+
+### Enforcing a specific pipeline
+
+We can request available transformation pipelines with `sf_proj_pipelines()`:
+
+```{r}
+pipelines <- sf_proj_pipelines("EPSG:28992", "EPSG:31370")
+```
+
+One can further limit this by specifying the area of interest (`aoi` argument), which we didn't do here.
+
+It is a dataframe with following structure:
+
+```{r}
+glimpse(pipelines)
+```
+
+Some metadata about the pipelines:
+
+```{r paged.print=FALSE}
+pipelines %>% 
+  as_tibble %>% 
+  select(definition, description, grid_count, accuracy, instantiable)
+```
+
+We can see that the first one has best accuracy.
+Several pipelines are based on one or two grids for a better accuracy.
+
+When printing the `pipelines` object, its first row is printed in a more readable manner:
+
+```{r}
+pipelines
+```
+
+Since the rows of pipelines are sorted by `instantiable` and `accuracy`, it makes sense to designate the printed pipeline as _Best instantiable operation_.
+
+So the same information appears as when manually selecting and then printing, except for the number of 'candidate operations found':
+
+```{r}
+pipelines[1,]
+```
+
+If you'd like to get even more metadata on the available pipelines, including the WKT definitions, you can also run PROJ's [`projinfo`](https://proj.org/apps/projinfo.html) command line program from within R if it's available in your system `PATH`.
+
+```{r eval=FALSE}
+system("projinfo -s EPSG:28992 -t EPSG:31370 --spatial-test intersects -o WKT2:2019")
+```
+
+The *default* operation returned by PROJ's `projinfo`, based on the union of the source and target CRS's bounding box, appears to be just one pipeline with so-called [ballpark accuracy](https://proj.org/glossary.html#term-Ballpark-transformation).
+It's obtained by dropping the `--spatial-test intersects` option (or replacing `intersects` by `contains`, which is default), and so it matches the pipeline where `accuracy` equals `NA` in our `pipelines` dataframe:
+
+```{r}
+pipelines[13,]
+```
+
+The low accuracy of a ballpark transformation is because datum differences between source and target CRSs are neglected:
+
+> It does not attempt any datum shift, hence the "ballpark" qualifier in its name.
+> Its accuracy is unknown, and could lead in some cases to errors of a few hundreds of metres.
+
+*(Source: <https://proj.org/glossary.html#term-Ballpark-transformation>)*
+
+With `st_transform()` we can enforce a specific pipeline.
+Note that it is only available for `sfc` objects, not `sf` objects.
+
+Let's apply the most accurate pipeline to *all* points:
+
+```{r}
+chosen_pipeline_definition <- pipelines %>% filter(accuracy < 0.02) %>% pull(definition)
+points_31370_strict <- 
+  st_transform(st_geometry(points), "EPSG:31370",
+               pipeline = chosen_pipeline_definition) %>% 
+  st_sf(st_drop_geometry(points), geometry = .) %>% 
+  as_tibble %>% 
+  st_as_sf
+```
+
+And compare:
+
+```{r collapse=TRUE}
+st_geometry(points_31370)
+```
+
+
+```{r collapse=TRUE}
+st_geometry(points_31370_strict)
+```
+
+Notice the **`r attr(st_geometry(points_31370_strict), "n_empty")` empty geometries** in case of `points_31370_strict`!
+
+What is happening?
+
+```{r ggplot_pipelines}
+p <- 
+  ggplot() + 
+  geom_sf(data = points_31370, colour = "red") +
+  geom_sf(data = points_31370_strict, colour = "green") 
+p
+```
+
+It appears that points too far at sea are considered invalid when applying this pipeline, and their geometry was cleared (although the corresponding row was not dropped).
+
+If we make a zoomable plot, there's more to discover.
+
+```{r ggplotly_pipelines}
+plotly::ggplotly(p)
+```
+
+Most points on the map are on the exact same location between both approaches.
+We can see that points west and south of the *geographic bounding box* for usage of the Dutch CRS have a different position depending on the applied approach.
+
+It can be further investigated with `mapview` (note that this does a further reprojection to `EPSG:3857`):
+
+```{r mapview_pipelines}
+mapview(list(points_31370, points_31370_strict),
+        col.regions = c("red", "green"))
+```
+
+Here it appears that the western and southern points of `points_31370` were transformed with the ballpark-accuracy pipeline:
+they are way off the surfacewater bodies!
+
+In this case, one might prefer enforcing the specific pipeline outside the geographic bounding box of `EPSG:28992`, as we did for `points_31370_strict`.
+However best explore the other pipelines as well, e.g. the most accurate one that doesn't depend on a grid, and consider using that outside the geographic bounding box.
+
+
+## Further reading and more packages
+
+Much more information can be found in the online books by @pebesma_spatial_2021 and @lovelace_geocomputation_2019.
+The `sf` package has a nice website at <https://r-spatial.github.io/sf>; version 0.6-1 was introduced in @pebesma_simple_2018.
+
+There are several more R packages to make beautiful maps.
+We specifically mention [`tmap`](https://r-tmap.github.io/tmap/) [@tennekes_tmap_2018] and [`mapsf`](https://riatelab.github.io/mapsf/) for making production-ready thematic maps.
+`tmap` is used a lot in @lovelace_geocomputation_2019.
+
+Further, there is the [`plotKML`](https://plotkml.r-forge.r-project.org/) package, which renders spatial objects in Google Earth [@hengl_plotkml:_2015]!
+
+## Bibliography
+
+
+

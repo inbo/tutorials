@@ -1,0 +1,105 @@
+---
+references:
+- id: hengl_plotkml:_2015
+  accessed:
+    - year: 2015
+      month: 2
+      day: 11
+  author:
+    - family: Hengl
+      given: Tomislav
+    - family: Roudier
+      given: Pierre
+    - family: Beaudette
+      given: Dylan
+    - family: Pebesma
+      given: Edzer
+  container-title: Journal of Statistical Software
+  container-title-short: JStatSoft
+  issued:
+    - year: 2015
+  source: Google Scholar
+  title: 'plotKML: Scientific Visualization of Spatio-Temporal Data'
+  title-short: plotKML
+  type: article-journal
+  URL: http://www.geostat-course.org/system/files/jss1079.pdf
+  volume: '63'
+- id: lovelace_geocomputation_2019
+  accessed:
+    - year: 2019
+      month: 11
+      day: 19
+  author:
+    - family: Lovelace
+      given: Robin
+    - family: Nowosad
+      given: Jakub
+    - family: Muenchow
+      given: Jannes
+  issued:
+    - year: 2019
+  source: geocompr.robinlovelace.net
+  title: Geocomputation with R
+  type: book
+  URL: https://geocompr.robinlovelace.net/
+- id: pebesma_simple_2018
+  accessed:
+    - year: 2021
+      month: 9
+      day: 17
+  author:
+    - family: Pebesma
+      given: Edzer
+  container-title: The R Journal
+  container-title-short: RJournal
+  ISSN: 2073-4859
+  issue: '1'
+  issued:
+    - year: 2018
+  language: en
+  page: 439-446
+  source: journal.r-project.org
+  title: 'Simple Features for R: Standardized Support for Spatial Vector Data'
+  title-short: Simple Features for R
+  type: article-journal
+  URL: https://journal.r-project.org/archive/2018/RJ-2018-009/index.html
+  volume: '10'
+- id: pebesma_spatial_2021
+  author:
+    - family: Pebesma
+      given: Edzer
+    - family: Bivand
+      given: Roger
+  issued:
+    - year: 2021
+  source: keen-swartz-3146c4.netlify.app
+  title: Spatial Data Science
+  type: book
+  URL: https://r-spatial.org/book
+- id: tennekes_tmap_2018
+  accessed:
+    - year: 2021
+      month: 9
+      day: 17
+  author:
+    - family: Tennekes
+      given: Martijn
+  container-title: Journal of Statistical Software
+  container-title-short: JStatSoft
+  DOI: 10.18637/jss.v084.i06
+  ISSN: 1548-7660
+  issue: '1'
+  issued:
+    - year: 2018
+      month: 4
+      day: 20
+  language: en
+  number: '1'
+  page: 1-39
+  source: www.jstatsoft.org
+  title: 'tmap: Thematic Maps in R'
+  title-short: tmap
+  type: article-journal
+  URL: https://www.jstatsoft.org/index.php/jss/article/view/v084i06
+  volume: '84'
+...
