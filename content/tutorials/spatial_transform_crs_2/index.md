@@ -17,7 +17,9 @@ output:
 ## Introduction and setup
 
 This tutorial originated while preparing an R-demonstration during a GIS
-club at INBO on 16 September 2021.
+club at INBO on 16 September 2021. (Further material of the GIS club is
+available
+[here](https://drive.google.com/drive/folders/1s5HZ5VjnkTbCQSE1vfFyMJz6PVIl4mHW).)
 
 A straightforward approach for transforming spatial data is available in
 another [tutorial](../spatial_transform_crs/). The current tutorial
