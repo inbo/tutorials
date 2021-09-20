@@ -395,7 +395,7 @@ pipelines
 
 Since the rows of pipelines are sorted by `instantiable` and `accuracy`, it makes sense to designate the printed pipeline as _Best instantiable operation_.
 
-So the same information appears as when manually selecting and then printing, except for the number of 'candidate operations found':
+It follows that the same information appears when manually selecting and then printing, except for the number of 'candidate operations found':
 
 ```{r}
 pipelines[1,]
