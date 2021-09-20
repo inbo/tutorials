@@ -336,6 +336,20 @@ And now…
 
 Succeeded!
 
+Two things to note here:
+
+-   `st_join()` has an argument ‘`join`’ that defines the type of
+    topological relationship that is used to either join or *not* join a
+    geometry from the first layer with a geometry from the second.
+    Various so-called ‘binary predicates’ can be used to define this
+    relationship (see `?st_join`), but the default one is
+    `st_intersects()`, i.e. an *intersection* as defined by the
+    ‘[DE-9IM](https://en.wikipedia.org/wiki/DE-9IM)’ model of binary
+    geometry relations.
+-   Since several watercourses intersect more than one municipality,
+    several of them are repeated in `watercourses_comm`, each with
+    another values for `municipality`.
+
 We chose to make the spatial join in the `EPSG:31370` CRS. However, we
 can equally do it on a spherical model of the Earth, when using the
 geographical coordinates. We expect the resulting joined attributes to
@@ -698,8 +712,8 @@ Since the rows of pipelines are sorted by `instantiable` and `accuracy`,
 it makes sense to designate the printed pipeline as *Best instantiable
 operation*.
 
-So the same information appears as when manually selecting and then
-printing, except for the number of ‘candidate operations found’:
+It follows that the same information appears when manually selecting and
+then printing, except for the number of ‘candidate operations found’:
 
 ``` r
 pipelines[1,]
@@ -776,6 +790,8 @@ is only available for `sfc` objects, not `sf` objects.
 Let’s apply the most accurate pipeline to *all* points:
 
 ``` r
+# We select the pipeline with lowest accuracy (< 0.02), by filtering on accuracy.
+# If the grids are installed, this should match the first line of the pipelines object.
 chosen_pipeline_definition <- pipelines %>% filter(accuracy < 0.02) %>% pull(definition)
 points_31370_strict <- 
   st_transform(st_geometry(points), "EPSG:31370",
