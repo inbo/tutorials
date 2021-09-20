@@ -427,6 +427,8 @@ Note that it is only available for `sfc` objects, not `sf` objects.
 Let's apply the most accurate pipeline to *all* points:
 
 ```{r}
+# We select the pipeline with lowest accuracy (< 0.02), by filtering on accuracy.
+# If the grids are installed, this should match the first line of the pipelines object.
 chosen_pipeline_definition <- pipelines %>% filter(accuracy < 0.02) %>% pull(definition)
 points_31370_strict <- 
   st_transform(st_geometry(points), "EPSG:31370",
