@@ -54,10 +54,12 @@ Set up input data if needed:
 
 ``` r
 if (!file.exists(file.path(gisclubdata_path, "gemeenten_belgie.shp"))) {
-  googledrive::drive_download(googledrive::as_id("1oi-XvO54beBKcoTfbjVd8QRz-0j3Upfx"), 
-                              file.path(gisclubdata_path, "data_gisclub.zip"))
-  unzip(file.path(gisclubdata_path, "data_gisclub.zip"),
-        exdir = gisclubdata_path)
+  googledrive::drive_download(googledrive::as_id("1-epL-fyKB8eS-WwuZhjsl8uyZYplAqFA"), 
+                              file.path(tempdir(), "data_gisclub.zip"))
+  unzip(file.path(tempdir(), "data_gisclub.zip"),
+        exdir = tempdir())
+  list.files(file.path(tempdir(), "data_gisclub"), full.names = TRUE) %>% 
+    file.copy(gisclubdata_path, recursive = TRUE)
 }
 ```
 
@@ -573,7 +575,7 @@ But let’s suppose it is all one had available to work with!
 
 By default, the appropriate transformation pipeline (concatenated
 coordinate operations) can differ between different areas that are
-represented in a spatial dataset. This is taken care of automatically
+represented in a spatial dataset. This is taken care of automatically,
 based on the bounding boxes of each CRS, but it will also depend on the
 availability of specific transformation grids.
 
@@ -585,32 +587,32 @@ Notice the completely different coordinate ranges between both CRSs:
 
 ``` r
 st_geometry(points)
-Geometry set for 7320 features 
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: -62470.03 ymin: 300542 xmax: 193543.8 ymax: 427302.7
-Projected CRS: Amersfoort / RD New
-First 5 geometries:
-POINT (-30849.68 354341.7)
-POINT (-31237.91 354683.3)
-POINT (-28757.74 356391.3)
-POINT (709.4341 373861.2)
-POINT (116680.8 340639.1)
+#> Geometry set for 7320 features 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -62470.03 ymin: 300542 xmax: 193543.8 ymax: 427302.7
+#> Projected CRS: Amersfoort / RD New
+#> First 5 geometries:
+#> POINT (-30849.68 354341.7)
+#> POINT (-31237.91 354683.3)
+#> POINT (-28757.74 356391.3)
+#> POINT (709.4341 373861.2)
+#> POINT (116680.8 340639.1)
 ```
 
 ``` r
 st_geometry(points_31370)
-Geometry set for 7320 features 
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1
-Projected CRS: Belge 1972 / Belgian Lambert 72
-First 5 geometries:
-POINT (35483.62 205530.5)
-POINT (35090.55 205866.5)
-POINT (37545.94 207609.8)
-POINT (66666.83 225461.1)
-POINT (183089.2 193870.8)
+#> Geometry set for 7320 features 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1
+#> Projected CRS: Belge 1972 / Belgian Lambert 72
+#> First 5 geometries:
+#> POINT (35483.62 205530.5)
+#> POINT (35090.55 205866.5)
+#> POINT (37545.94 207609.8)
+#> POINT (66666.83 225461.1)
+#> POINT (183089.2 193870.8)
 ```
 
 A specific area shown with `ggplot2` in `EPSG:31370`:
@@ -751,7 +753,7 @@ union of the source and target CRS’s bounding box, appears to be just
 one pipeline with so-called [ballpark
 accuracy](https://proj.org/glossary.html#term-Ballpark-transformation).
 It’s obtained by dropping the `--spatial-test intersects` option (or
-replacing `intersects` by `contains`, which is default), and so it
+replacing `intersects` by `contains`, which is default)[2], and so it
 matches the pipeline where `accuracy` equals `NA` in our `pipelines`
 dataframe:
 
@@ -805,32 +807,32 @@ And compare:
 
 ``` r
 st_geometry(points_31370)
-Geometry set for 7320 features 
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1
-Projected CRS: Belge 1972 / Belgian Lambert 72
-First 5 geometries:
-POINT (35483.62 205530.5)
-POINT (35090.55 205866.5)
-POINT (37545.94 207609.8)
-POINT (66666.83 225461.1)
-POINT (183089.2 193870.8)
+#> Geometry set for 7320 features 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1
+#> Projected CRS: Belge 1972 / Belgian Lambert 72
+#> First 5 geometries:
+#> POINT (35483.62 205530.5)
+#> POINT (35090.55 205866.5)
+#> POINT (37545.94 207609.8)
+#> POINT (66666.83 225461.1)
+#> POINT (183089.2 193870.8)
 ```
 
 ``` r
 st_geometry(points_31370_strict)
-Geometry set for 7320 features  (with 9 geometries empty)
-Geometry type: POINT
-Dimension:     XY
-Bounding box:  xmin: 18976.03 ymin: 152963.3 xmax: 260391 ymax: 244024
-Projected CRS: Belge 1972 / Belgian Lambert 72
-First 5 geometries:
-POINT (35393.39 205495.3)
-POINT (35000.39 205831.3)
-POINT (37455.41 207574.3)
-POINT (66666.83 225461.1)
-POINT (183089.2 193870.8)
+#> Geometry set for 7320 features  (with 9 geometries empty)
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 18976.03 ymin: 152963.3 xmax: 260391 ymax: 244024
+#> Projected CRS: Belge 1972 / Belgian Lambert 72
+#> First 5 geometries:
+#> POINT (35393.39 205495.3)
+#> POINT (35000.39 205831.3)
+#> POINT (37455.41 207574.3)
+#> POINT (66666.83 225461.1)
+#> POINT (183089.2 193870.8)
 ```
 
 Notice the **9 empty geometries** in case of `points_31370_strict`!
@@ -883,6 +885,10 @@ the geographic bounding box of `EPSG:28992`, as we did for
 `points_31370_strict`. However best explore the other pipelines as well,
 e.g. the most accurate one that doesn’t depend on a grid, and consider
 using that outside the geographic bounding box.
+
+Bottomline is that you should be suspicious about coordinates outside
+the CRS’s geographic bounding box! So keep an eye on them when applying
+a default transformation procedure.
 
 ## Further reading and more packages
 
@@ -954,3 +960,14 @@ Software 84 (1): 1–39. <https://doi.org/10.18637/jss.v084.i06>.
 national projected CRSs that use the common ETRS89 datum (European
 Terrestrial Reference System 1989). An example is the Belgian CRS
 `EPSG:3812` (ETRS89 / Belgian Lambert 2008).
+
+[2] In the documentation of `projinfo`, we can read about the
+`--spatial-test` option: ‘*Specify how the area of use of coordinate
+operations found in the database are compared to the area of use
+specified explicitly with `--area` or `--bbox`, or derived implicitly
+from the area of use of the source and target CRS. By default, projinfo
+will only keep coordinate operations whose are of use is strictly within
+the area of interest (**contains** strategy). If using the
+**intersects** strategy, the spatial test is relaxed, and any coordinate
+operation whose area of use at least partly intersects the area of
+interest is listed.*’
