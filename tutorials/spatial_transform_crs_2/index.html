@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='This tutorial shows how to do coordinate transformations and conversions in R. It also demonstrates how spatial data can be mapped with ggplot2 and mapview.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Coordinate operations and maps in R • Floris Vanderhaeghe'>
+<meta property='og:description' content='This tutorial shows how to do coordinate transformations and conversions in R. It also demonstrates how spatial data can be mapped with ggplot2 and mapview.'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-09-16T00:00:00Z'/><meta property='article:modified_time' content='2021-09-16T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.62.2" />
+
+  <title>Coordinate operations and maps in R • Floris Vanderhaeghe</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+     
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.1081081081081081em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/bibliography/' style='font-size:1.027027027027027em'>bibliography</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1.027027027027027em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.027027027027027em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tutorials/tags/csl/' style='font-size:1.027027027027027em'>csl</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.054054054054054em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.1081081081081081em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.027027027027027em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tutorials/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/generalized-linear-regression/' style='font-size:1em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1.027027027027027em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.2432432432432432em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.1891891891891893em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1.027027027027027em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.027027027027027em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.027027027027027em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1.054054054054054em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inborutils/' style='font-size:1em'>inborutils</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1.054054054054054em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.2432432432432432em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.1081081081081081em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.1621621621621623em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.054054054054054em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.135135135135135em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.1891891891891893em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.0810810810810811em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1.027027027027027em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/queries/' style='font-size:1em'>queries</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1.027027027027027em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.054054054054054em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0810810810810811em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.054054054054054em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.0810810810810811em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1.027027027027027em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.1621621621621623em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.054054054054054em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tutorials/tags/zotero/' style='font-size:1.027027027027027em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Thu Sep 23 16:41:38 UTC 2021</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Coordinate operations and maps in R</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Coordinate operations and maps in R</h1>
+      
+<p class='desc'>This tutorial shows how to do coordinate transformations and conversions in R. It also demonstrates how spatial data can be mapped with ggplot2 and mapview.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2021-09-16T00:00:00Z'>2021, Sep 16</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/florisvdh'>Floris Vanderhaeghe</a>, <a href='/tutorials/authors/ambermertens'>Amber Mertens</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+22 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/blob/master/content/tutorials/spatial_transform_crs_2/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h2 id="introduction-and-setup">Introduction and setup<a href="#introduction-and-setup" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>This tutorial originated while preparing an R-demonstration during a GIS
+club at INBO on 16 September 2021. (Further material of the GIS club is
+available
+<a href="https://drive.google.com/drive/folders/1s5HZ5VjnkTbCQSE1vfFyMJz6PVIl4mHW">here</a>.)</p>
+<p>A straightforward approach for transforming spatial data is available in
+another <a href="../spatial_transform_crs/">tutorial</a>. The current tutorial
+tackles a few extra aspects.</p>
+<p>The tutorial assumes you have some pre-existing knowledge:</p>
+<ul>
+<li>Basic knowledge about coordinate reference systems (CRSs) and
+geodetic datums; see <a href="../spatial_crs_coding/">another tutorial</a> and
+the references and links therein.</li>
+<li>Knowing how to read geospatial files with
+<a href="https://r-spatial.github.io/sf"><code>sf</code></a>. There is another
+<a href="../spatial_standards_vector/">tutorial</a> demonstrating some aspects.</li>
+</ul>
+<p>In this tutorial we will apply conversions (without datum shift) and
+transformations (with datum shift) to <code>sf</code> and <code>sfc</code> objects. In the
+background, these operations use the <a href="https://proj.org">PROJ</a> library.</p>
+<p>Let’s load the needed R packages and prepare a more appropriate theme
+for mapping with <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)
+<span style="color:#0a0">library</span>(sf)
+<span style="color:#0a0">library</span>(ggplot2)
+<span style="color:#0a0">theme_set</span>(<span style="color:#0a0">theme_bw</span>())
+<span style="color:#0a0">theme_update</span>(panel.grid = <span style="color:#0a0">element_line</span>(colour = <span style="color:#a50">&#34;</span><span style="color:#a50">grey80&#34;</span>))
+<span style="color:#0a0">library</span>(mapview)
+</code></pre></div><p>Set up input data if needed:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(!<span style="color:#0a0">file.exists</span>(<span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">gemeenten_belgie.shp&#34;</span>))) {
+  googledrive::<span style="color:#0a0">drive_download</span>(googledrive::<span style="color:#0a0">as_id</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">1-epL-fyKB8eS-WwuZhjsl8uyZYplAqFA&#34;</span>), 
+                              <span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;</span><span style="color:#a50">data_gisclub.zip&#34;</span>))
+  <span style="color:#0a0">unzip</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;</span><span style="color:#a50">data_gisclub.zip&#34;</span>),
+        exdir = <span style="color:#0a0">tempdir</span>())
+  <span style="color:#0a0">list.files</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;</span><span style="color:#a50">data_gisclub&#34;</span>), full.names = <span style="color:#00a">TRUE</span>) %&gt;% 
+    <span style="color:#0a0">file.copy</span>(gisclubdata_path, recursive = <span style="color:#00a">TRUE</span>)
+}
+</code></pre></div><p>The code assumes that you have a <code>gisclubdata_path</code> object defined
+(directory path as a string).</p>
+<h2 id="joining-and-mapping-polygon-layers">Joining and mapping polygon layers<a href="#joining-and-mapping-polygon-layers" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>For a given <code>municipalities</code> and <code>watercourses</code> dataset, we would like
+to append the municipality name to the watercourses by making a spatial
+join.</p>
+<h3 id="reading-data-and-trying-to-join">Reading data and trying to join<a href="#reading-data-and-trying-to-join" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Let’s read the data file of Belgian municipalities:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_municipalities &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">gemeenten_belgie.shp&#34;</span>)
+municipalities &lt;- <span style="color:#0a0">read_sf</span>(path_municipalities)
+</code></pre></div><p>It looks like this:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities
+</code></pre></div><pre><code>Simple feature collection with 581 features and 3 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XYZ
+Bounding box:  xmin: 2.541331 ymin: 49.49695 xmax: 6.408098 ymax: 51.50511
+z_range:       zmin: 0 zmax: 0
+Geodetic CRS:  WGS 84
+# A tibble: 581 × 4
+   T_MUN_NL        Shape_Leng Shape_Area                                geometry
+   &lt;chr&gt;                &lt;dbl&gt;      &lt;dbl&gt;                      &lt;MULTIPOLYGON [°]&gt;
+ 1 ’s Gravenbrakel      0.759    0.0108  Z (((4.095037 50.66599 0, 4.095101 50.…
+ 2 Aalst                0.676    0.0101  Z (((4.054666 50.99444 0, 4.054666 50.…
+ 3 Aalter               0.735    0.0154  Z (((3.41099 51.15987 0, 3.41275 51.15…
+ 4 Aarlen               0.951    0.0148  Z (((5.860749 49.72667 0, 5.860889 49.…
+ 5 Aarschot             0.640    0.00807 Z (((4.927684 51.03717 0, 4.92797 51.0…
+ 6 Aartselaar           0.265    0.00141 Z (((4.401293 51.14814 0, 4.400461 51.…
+ 7 Aat                  0.977    0.0163  Z (((3.756864 50.69743 0, 3.757621 50.…
+ 8 Affligem             0.261    0.00229 Z (((4.114181 50.92559 0, 4.115272 50.…
+ 9 Aiseau-Presles       0.393    0.00284 Z (((4.584122 50.43827 0, 4.584458 50.…
+10 Alken                0.336    0.00361 Z (((5.275147 50.9102 0, 5.275645 50.9…
+# … with 571 more rows
+</code></pre>
+<p>It appears that the points have three coordinate dimensions (<code>XYZ</code>).
+However the features have only two useful dimensions:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_dimension</span>(municipalities)
+</code></pre></div><pre><code>  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [75] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[149] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[186] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[223] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[260] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[297] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[334] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[371] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[408] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[445] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[482] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[519] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[556] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+</code></pre>
+<p>Some tools – e.g. spherical geoprocessing – expect XY data. So we will
+drop the Z dimension with <code>st_zm()</code>. Meanwhile we select the only
+necessary attribute and rename it, using <code>select()</code>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities &lt;- 
+  municipalities %&gt;% 
+  <span style="color:#0a0">select</span>(municipality = T_MUN_NL) %&gt;% 
+  <span style="color:#0a0">st_zm</span>()
+</code></pre></div><p>We perform similar operations on the <code>watercourses</code> dataset. Here, data
+are already defined as two dimensions.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_watercourses &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">watergangen_antw.shp&#34;</span>)
+watercourses &lt;- <span style="color:#0a0">read_sf</span>(path_watercourses)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses
+</code></pre></div><pre><code>Simple feature collection with 7258 features and 14 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 138050.5 ymin: 201644.5 xmax: 162761.3 ymax: 230509
+CRS:           NA
+# A tibble: 7,258 × 15
+     OIDN   UIDN VERSIE BEGINDATUM VERSDATUM   VHAG NAAM       OPNDATUM   BGNINV
+    &lt;dbl&gt;  &lt;dbl&gt;  &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;date&gt;      &lt;int&gt;
+ 1 205462 492073      3 2017-07-05 2021-05-06  3320 nvt        2017-06-20     13
+ 2 179828 488809      2 2015-01-20 2021-05-06    -9 nvt        2014-12-02      4
+ 3 223031 499842      2 2018-03-28 2021-05-06 54710 Kallebeek… 2018-02-27      4
+ 4 267383 462960      2 2020-02-22 2021-05-06    -9 nvt        2020-01-08      4
+ 5  72361 481073      3 2010-11-08 2021-05-06 65101 nvt        2020-06-22      6
+ 6 223073 499879      3 2018-03-28 2021-05-06    -9 nvt        2018-02-27     13
+ 7  72079 480970      3 2010-11-08 2021-05-06 53460 nvt        2016-06-20      3
+ 8 145811 567202      3 2012-11-20 2021-07-07    -8 ng         2012-10-19     11
+ 9 205453 492064      3 2017-07-05 2021-05-06    -9 nvt        2017-06-20     10
+10 269842 463401      2 2020-04-22 2021-05-06    -9 nvt        2020-04-03      4
+# … with 7,248 more rows, and 6 more variables: LBLBGNINV &lt;chr&gt;, LENGTE &lt;dbl&gt;,
+#   OPPERVL &lt;dbl&gt;, Shape_Leng &lt;dbl&gt;, Shape_Area &lt;dbl&gt;, geometry &lt;POLYGON&gt;
+</code></pre>
+<p>Note that not all columns are printed. Let’s preview all columns with
+<code>glimpse()</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">glimpse</span>(watercourses)
+</code></pre></div><pre><code>Rows: 7,258
+Columns: 15
+$ OIDN       &lt;dbl&gt; 205462, 179828, 223031, 267383, 72361, 223073, 72079, 14581…
+$ UIDN       &lt;dbl&gt; 492073, 488809, 499842, 462960, 481073, 499879, 480970, 567…
+$ VERSIE     &lt;int&gt; 3, 2, 2, 2, 3, 3, 3, 3, 3, 2, 1, 2, 2, 1, 2, 1, 2, 3, 2, 3,…
+$ BEGINDATUM &lt;date&gt; 2017-07-05, 2015-01-20, 2018-03-28, 2020-02-22, 2010-11-08…
+$ VERSDATUM  &lt;date&gt; 2021-05-06, 2021-05-06, 2021-05-06, 2021-05-06, 2021-05-06…
+$ VHAG       &lt;dbl&gt; 3320, -9, 54710, -9, 65101, -9, 53460, -8, -9, -9, -9, -9, …
+$ NAAM       &lt;chr&gt; &quot;nvt&quot;, &quot;nvt&quot;, &quot;Kallebeekgeul&quot;, &quot;nvt&quot;, &quot;nvt&quot;, &quot;nvt&quot;, &quot;nvt&quot;, …
+$ OPNDATUM   &lt;date&gt; 2017-06-20, 2014-12-02, 2018-02-27, 2020-01-08, 2020-06-22…
+$ BGNINV     &lt;int&gt; 13, 4, 4, 4, 6, 13, 3, 11, 10, 4, 1, 4, 4, 1, 4, 4, 1, 13, …
+$ LBLBGNINV  &lt;chr&gt; &quot;aanmaak uniek percelenplan\r\n&quot;, &quot;bijhouding binnengebiede…
+$ LENGTE     &lt;dbl&gt; 570.19, 185.33, 1491.01, 307.60, 286.06, 270.32, 48.11, 17.…
+$ OPPERVL    &lt;dbl&gt; 2492.23, 494.77, 9350.36, 978.46, 432.97, 405.56, 118.29, 1…
+$ Shape_Leng &lt;dbl&gt; 570.18844, 185.32549, 1491.01243, 307.59691, 286.06075, 270…
+$ Shape_Area &lt;dbl&gt; 2492.22527, 494.77446, 9350.36080, 978.46010, 432.97004, 40…
+$ geometry   &lt;POLYGON&gt; POLYGON ((141976.5 222453.1..., POLYGON ((142200.6 2050…
+</code></pre>
+<p>We only select some:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses &lt;- 
+  watercourses %&gt;% 
+  <span style="color:#0a0">select</span>(polygon_id = OIDN,
+         vhag_code = VHAG,
+         watercourse = NAAM)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses
+</code></pre></div><pre><code>Simple feature collection with 7258 features and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 138050.5 ymin: 201644.5 xmax: 162761.3 ymax: 230509
+CRS:           NA
+# A tibble: 7,258 × 4
+   polygon_id vhag_code watercourse                                     geometry
+        &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                          &lt;POLYGON&gt;
+ 1     205462      3320 nvt           ((141976.5 222453.1, 141973.1 222449.6, 1…
+ 2     179828        -9 nvt           ((142200.6 205085.9, 142197.3 205085, 142…
+ 3     223031     54710 Kallebeekgeul ((146874.6 203777.1, 146879.3 203775.9, 1…
+ 4     267383        -9 nvt           ((148997 209136.1, 148996.7 209136.1, 148…
+ 5      72361     65101 nvt           ((141780.9 213697.8, 141780.7 213695.3, 1…
+ 6     223073        -9 nvt           ((144377.8 205161.2, 144408.7 205152.8, 1…
+ 7      72079     53460 nvt           ((140094.1 210962.7, 140093.8 210962.5, 1…
+ 8     145811        -8 ng            ((149004.6 209659.9, 149002.5 209666.4, 1…
+ 9     205453        -9 nvt           ((139682 225241.4, 139697.5 225222, 13971…
+10     269842        -9 nvt           ((155762.1 207273.7, 155766.5 207273, 155…
+# … with 7,248 more rows
+</code></pre>
+<p>In the above prints of the <code>municipalities</code> and <code>watercourses</code> objects,
+you could already see their coordinate reference system (CRS). With
+<code>st_crs()</code> you can extract the <code>crs</code> object; it is printed as:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(municipalities)
+</code></pre></div><pre><code>Coordinate Reference System:
+  User input: WGS 84 
+  wkt:
+GEOGCRS[&quot;WGS 84&quot;,
+    DATUM[&quot;World Geodetic System 1984&quot;,
+        ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+            LENGTHUNIT[&quot;metre&quot;,1]]],
+    PRIMEM[&quot;Greenwich&quot;,0,
+        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS[&quot;latitude&quot;,north,
+            ORDER[1],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        AXIS[&quot;longitude&quot;,east,
+            ORDER[2],
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+    ID[&quot;EPSG&quot;,4326]]
+</code></pre>
+<p>The CRS name ‘WGS 84’ can also be returned by
+<code>st_crs(municipalities)$Name</code>. As seen from the WKT string, this is a
+geographical CRS.</p>
+<p>However for <code>watercourses</code> the CRS is missing:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses)
+</code></pre></div><pre><code>Coordinate Reference System: NA
+</code></pre>
+<p>Can we make the spatial join already?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(watercourses, municipalities) %&gt;% try
+</code></pre></div><pre><code>Error in st_geos_binop(&quot;intersects&quot;, x, y, sparse = sparse, prepared = prepared,  : 
+  st_crs(x) == st_crs(y) is not TRUE
+</code></pre>
+<p>Fortunately, this doesn’t work: <code>st_join()</code> requires its inputs to
+belong to the same CRS.</p>
+<p>Well, we know that <code>watercourses</code> is in the projected CRS <code>EPSG:31370</code>
+(Belge 1972 / Belgian Lambert 72), so we can just update it:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses) &lt;- <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>
+</code></pre></div><p>Since the CRSs are still different, this should <em>not</em> be sufficient for
+the join.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(watercourses, municipalities) %&gt;% try
+</code></pre></div><pre><code>Error in st_geos_binop(&quot;intersects&quot;, x, y, sparse = sparse, prepared = prepared,  : 
+  st_crs(x) == st_crs(y) is not TRUE
+</code></pre>
+<p>Indeed!</p>
+<p>Let’s transform <code>municipalities</code> to <code>EPSG:31370</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities_31370 &lt;- <span style="color:#0a0">st_transform</span>(municipalities, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+</code></pre></div><p>And now…</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">(watercourses_comm &lt;- <span style="color:#0a0">st_join</span>(watercourses, municipalities_31370))
+</code></pre></div><pre><code>Simple feature collection with 7502 features and 4 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 138050.5 ymin: 201644.5 xmax: 162761.3 ymax: 230509
+Projected CRS: Belge 1972 / Belgian Lambert 72
+# A tibble: 7,502 × 5
+   polygon_id vhag_code watercourse                        geometry municipality
+ *      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                         &lt;POLYGON [m]&gt; &lt;chr&gt;       
+ 1     205462      3320 nvt           ((141976.5 222453.1, 141973.… Beveren     
+ 2     179828        -9 nvt           ((142200.6 205085.9, 142197.… Kruibeke    
+ 3     223031     54710 Kallebeekgeul ((146874.6 203777.1, 146879.… Kruibeke    
+ 4     267383        -9 nvt           ((148997 209136.1, 148996.7 … Antwerpen   
+ 5      72361     65101 nvt           ((141780.9 213697.8, 141780.… Beveren     
+ 6     223073        -9 nvt           ((144377.8 205161.2, 144408.… Kruibeke    
+ 7      72079     53460 nvt           ((140094.1 210962.7, 140093.… Beveren     
+ 8     145811        -8 ng            ((149004.6 209659.9, 149002.… Antwerpen   
+ 9     205453        -9 nvt           ((139682 225241.4, 139697.5 … Beveren     
+10     269842        -9 nvt           ((155762.1 207273.7, 155766.… Mortsel     
+# … with 7,492 more rows
+</code></pre>
+<p>Succeeded!</p>
+<p>Two things to note here:</p>
+<ul>
+<li><code>st_join()</code> has an argument ‘<code>join</code>’ that defines the type of
+topological relationship that is used to either join or <em>not</em> join a
+geometry from the first layer with a geometry from the second.
+Various so-called ‘binary predicates’ can be used to define this
+relationship (see <code>?st_join</code>), but the default one is
+<code>st_intersects()</code>, i.e. an <em>intersection</em> as defined by the
+‘<a href="https://en.wikipedia.org/wiki/DE-9IM">DE-9IM</a>’ model of binary
+geometry relations.</li>
+<li>Since several watercourses intersect more than one municipality,
+several of them are repeated in <code>watercourses_comm</code>, each with
+another values for <code>municipality</code>.</li>
+</ul>
+<p>We chose to make the spatial join in the <code>EPSG:31370</code> CRS. However, we
+can equally do it on a spherical model of the Earth, when using the
+geographical coordinates. We expect the resulting joined attributes to
+be equivalent. Let’s check:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(<span style="color:#0a0">st_transform</span>(watercourses, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:4326&#34;</span>), municipalities) %&gt;% 
+  st_drop_geometry %&gt;% 
+  <span style="color:#0a0">all.equal</span>(watercourses_comm %&gt;% st_drop_geometry)
+</code></pre></div><pre><code>[1] TRUE
+</code></pre>
+<h3 id="mapping">Mapping<a href="#mapping" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>While it has only one attribute and 581 rows, the object size of
+<code>municipalities_31370</code> is relatively large because its polygons have
+numerous vertices:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">object.size</span>(municipalities_31370) %&gt;% <span style="color:#0a0">format</span>(units = <span style="color:#a50">&#34;</span><span style="color:#a50">MB&#34;</span>)
+</code></pre></div><pre><code>[1] &quot;22.1 Mb&quot;
+</code></pre>
+<p>This makes a simple map take long to render in R (not shown here; just
+try yourself):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = municipalities_31370) + <span style="color:#0a0">geom_sf</span>()
+</code></pre></div><p>For the sake of this exercise, we make a simplified derived object
+<code>comm_simpl_31370</code> with fewer vertices:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">comm_simpl_31370 &lt;- <span style="color:#0a0">st_simplify</span>(municipalities_31370, dTolerance = <span style="color:#099">10</span>)
+</code></pre></div><p>Its size is much smaller:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">object.size</span>(comm_simpl_31370) %&gt;% <span style="color:#0a0">format</span>(units = <span style="color:#a50">&#34;</span><span style="color:#a50">MB&#34;</span>)
+</code></pre></div><pre><code>[1] &quot;3 Mb&quot;
+</code></pre>
+<p>So it renders faster.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>()
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_4326-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>However, mind that the simplification may be OK for mapping at an
+appropriate scale, but beware that information has been lost, so shapes
+have changed and gaps + overlaps will appear between polygons. Hence
+don’t use this simplified version if you process it further, or for
+detailed mapping.</p>
+<p>Note the latitude-longitude graticule: the map follows the CRS of the
+plotted object, but the graticule is latitude-longitude by default.</p>
+<p>We can plot the graticule of another CRS with <code>coord_sf()</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_31370-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>The above is the most obvious choice here, since it’s the CRS of the
+object, but we could as well plot the graticule of e.g. <code>EPSG:3035</code>
+(ETRS89-extended / LAEA Europe):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:3035&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_3035-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>Next to the <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> package, which
+we used above, interactive maps can be made with the
+<a href="https://r-spatial.github.io/mapview/"><code>mapview</code></a> package.</p>
+<p>Here too, time to render differs between:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(municipalities_31370, legend = <span style="color:#00a">FALSE</span>)
+</code></pre></div><p>and:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, legend = <span style="color:#00a">FALSE</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_multicolour-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>In this case, <code>mapview</code> is using the <code>leaflet</code> package with some nice
+defaults, but in the above examples it makes a color map by default
+because there’s only one attribute. We don’t want this and we make some
+further adjustments:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, 
+        col.regions = <span style="color:#a50">&#34;</span><span style="color:#a50">pink&#34;</span>, 
+        alpha.regions = <span style="color:#099">0.3</span>, 
+        legend = <span style="color:#00a">FALSE</span>,
+        map.types = <span style="color:#a50">&#34;</span><span style="color:#a50">OpenStreetMap&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_pink-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>Note that a separate tutorial about <code>leaflet</code> is
+<a href="../spatial_create_leaflet_map/">available</a> on this website!</p>
+<p>Beware that <code>mapview</code> and <code>leaflet</code> produce maps in the ‘WGS 84 /
+Pseudo-Mercator’ CRS (<code>EPSG:3857</code>). For that to happen, <code>mapview</code>
+transforms spatial objects on-the-fly. <a href="https://proj.org/operations/projections/webmerc.html">Pseudo Mercator or Web
+Mercator</a> is a
+much used projection in web mapping because the coordinate projection is
+computed much faster. However it should not be used in official mapping
+or as a projected CRS for geoprocessing, since it has more distortions
+(including shape) than e.g. the (truly) conformal Mercator projection
+(e.g. in CRS <code>EPSG:3395</code> – WGS 84 / World Mercator – which is best used
+in the equatorial region).</p>
+<p>Let’s show two layers with <code>mapview</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(comm_simpl_31370, watercourses), 
+        col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">pink&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">blue&#34;</span>), 
+        alpha.regions = <span style="color:#0a0">c</span>(<span style="color:#099">0.2</span>, <span style="color:#099">0.5</span>),
+        color = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">grey&#34;</span>, <span style="color:#00a">NA</span>), 
+        legend = <span style="color:#00a">FALSE</span>,
+        map.types = <span style="color:#a50">&#34;</span><span style="color:#a50">OpenStreetMap&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_water-1.png" alt=""><!-- raw HTML omitted --></p>
+<h2 id="different-transformation-pipelines">Different transformation pipelines<a href="#different-transformation-pipelines" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>We consider a layer of points that correspond to locations where
+characteristics were determined of Flemish surfacewater bodies:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_points &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">meetplaatsen_oppwater.shp&#34;</span>)
+points &lt;- <span style="color:#0a0">read_sf</span>(path_points)
+</code></pre></div><p>Check the CRS:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(points)
+</code></pre></div><pre><code>Coordinate Reference System:
+  User input: Amersfoort / RD New 
+  wkt:
+PROJCRS[&quot;Amersfoort / RD New&quot;,
+    BASEGEOGCRS[&quot;Amersfoort&quot;,
+        DATUM[&quot;Amersfoort&quot;,
+            ELLIPSOID[&quot;Bessel 1841&quot;,6377397.155,299.1528128,
+                LENGTHUNIT[&quot;metre&quot;,1]]],
+        PRIMEM[&quot;Greenwich&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        ID[&quot;EPSG&quot;,4289]],
+    CONVERSION[&quot;RD New&quot;,
+        METHOD[&quot;Oblique Stereographic&quot;,
+            ID[&quot;EPSG&quot;,9809]],
+        PARAMETER[&quot;Latitude of natural origin&quot;,52.1561605555556,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8801]],
+        PARAMETER[&quot;Longitude of natural origin&quot;,5.38763888888889,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8802]],
+        PARAMETER[&quot;Scale factor at natural origin&quot;,0.9999079,
+            SCALEUNIT[&quot;unity&quot;,1],
+            ID[&quot;EPSG&quot;,8805]],
+        PARAMETER[&quot;False easting&quot;,155000,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8806]],
+        PARAMETER[&quot;False northing&quot;,463000,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8807]]],
+    CS[Cartesian,2],
+        AXIS[&quot;easting (X)&quot;,east,
+            ORDER[1],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        AXIS[&quot;northing (Y)&quot;,north,
+            ORDER[2],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+    USAGE[
+        SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
+        AREA[&quot;Netherlands - onshore, including Waddenzee, Dutch Wadden Islands and 12-mile offshore coastal zone.&quot;],
+        BBOX[50.75,3.2,53.7,7.22]],
+    ID[&quot;EPSG&quot;,28992]]
+</code></pre>
+<p>The <code>points</code> object has the projected ‘Amersfoort / RD New’ CRS
+(<code>EPSG:28992</code>), which was created for The Netherlands – onshore. See
+e.g.
+<a href="https://nl.wikipedia.org/wiki/Rijksdriehoeksco%C3%B6rdinaten">Wikipedia</a>
+for more background about this CRS.</p>
+<p>Essentially we are dealing with a different projected CRS than
+<code>EPSG:31370</code>. <code>EPSG:28992</code> uses the ‘Amersfoort’ geodetic datum, defined
+using the ‘Bessel 1841’ ellipsoid, while <code>EPSG:31370</code> has the ‘Reseau
+National Belge 1972’ datum, defined using the ‘International 1924’
+ellipsoid.[1]</p>
+<p>We will transform <code>points</code> (back) to <code>EPSG:31370</code> since the data are
+outside the intended area of usage. Note that this dataset has been made
+for mere demonstrative purposes: since at least a part of the points
+fall outside the area of usage (geographic bounding box) of the
+‘Amersfoort / RD New’ CRS, the dataset is not appropriate to start from.
+But let’s suppose it is all one had available to work with!</p>
+<h3 id="standard-approach">Standard approach<a href="#standard-approach" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>By default, the appropriate transformation pipeline (concatenated
+coordinate operations) can differ between different areas that are
+represented in a spatial dataset. This is taken care of automatically,
+based on the bounding boxes of each CRS, but it will also depend on the
+availability of specific transformation grids.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points_31370 &lt;- <span style="color:#0a0">st_transform</span>(points, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+</code></pre></div><p>Notice the completely different coordinate ranges between both CRSs:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points)
+<span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features </span>
+<span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
+<span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
+<span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: -62470.03 ymin: 300542 xmax: 193543.8 ymax: 427302.7</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Amersfoort / RD New</span>
+<span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (-30849.68 354341.7)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (-31237.91 354683.3)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (-28757.74 356391.3)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (709.4341 373861.2)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (116680.8 340639.1)</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370)
+<span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features </span>
+<span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
+<span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
+<span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Belge 1972 / Belgian Lambert 72</span>
+<span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (35483.62 205530.5)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (35090.55 205866.5)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (37545.94 207609.8)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (66666.83 225461.1)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (183089.2 193870.8)</span>
+</code></pre></div><p>A specific area shown with <code>ggplot2</code> in <code>EPSG:31370</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>() + 
+  <span style="color:#0a0">geom_sf</span>(data = watercourses, fill = <span style="color:#a50">&#34;</span><span style="color:#a50">lightblue&#34;</span>, colour = <span style="color:#a50">&#34;</span><span style="color:#a50">lightblue&#34;</span>) +
+  <span style="color:#0a0">geom_sf</span>(data = points_31370, fill = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>, shape = <span style="color:#099">21</span>) +
+  <span style="color:#0a0">lims</span>(x = <span style="color:#0a0">c</span>(<span style="color:#099">154e3</span>, <span style="color:#099">155e3</span>), y = <span style="color:#0a0">c</span>(<span style="color:#099">218e3</span>, <span style="color:#099">219e3</span>)) +
+  <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_water_points-1.png" alt=""><!-- raw HTML omitted --></p>
+<h3 id="enforcing-a-specific-pipeline">Enforcing a specific pipeline<a href="#enforcing-a-specific-pipeline" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>We can request available transformation pipelines with
+<code>sf_proj_pipelines()</code>:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines &lt;- <span style="color:#0a0">sf_proj_pipelines</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:28992&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+</code></pre></div><p>One can further limit this by specifying the area of interest (<code>aoi</code>
+argument), which we didn’t do here.</p>
+<p>It is a dataframe with following structure:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">glimpse</span>(pipelines)
+</code></pre></div><pre><code>Rows: 13
+Columns: 9
+$ id           &lt;chr&gt; &quot;pipeline&quot;, &quot;pipeline&quot;, &quot;pipeline&quot;, &quot;pipeline&quot;, &quot;pipeline…
+$ description  &lt;chr&gt; &quot;Inverse of RD New + Amersfoort to ETRS89 (9) + Inverse o…
+$ definition   &lt;chr&gt; &quot;+proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605…
+$ has_inverse  &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
+$ accuracy     &lt;dbl&gt; 0.011, 0.201, 0.260, 0.450, 1.001, 1.250, 2.000, 2.000, 2…
+$ axis_order   &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
+$ grid_count   &lt;int&gt; 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+$ instantiable &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
+$ containment  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
+</code></pre>
+<p>Some metadata about the pipelines:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines %&gt;% 
+  as_tibble %&gt;% 
+  <span style="color:#0a0">select</span>(definition, description, grid_count, accuracy, instantiable)
+</code></pre></div><pre><code># A tibble: 13 × 5
+   definition             description           grid_count accuracy instantiable
+   &lt;chr&gt;                  &lt;chr&gt;                      &lt;int&gt;    &lt;dbl&gt; &lt;lgl&gt;       
+ 1 +proj=pipeline +step … Inverse of RD New + …          2    0.011 TRUE        
+ 2 +proj=pipeline +step … Inverse of RD New + …          1    0.201 TRUE        
+ 3 +proj=pipeline +step … Inverse of RD New + …          1    0.26  TRUE        
+ 4 +proj=pipeline +step … Inverse of RD New + …          0    0.45  TRUE        
+ 5 +proj=pipeline +step … Inverse of RD New + …          1    1.00  TRUE        
+ 6 +proj=pipeline +step … Inverse of RD New + …          0    1.25  TRUE        
+ 7 +proj=pipeline +step … Inverse of RD New + …          0    2     TRUE        
+ 8 +proj=pipeline +step … Inverse of RD New + …          0    2     TRUE        
+ 9 +proj=pipeline +step … Inverse of RD New + …          0    2     TRUE        
+10 +proj=pipeline +step … Inverse of RD New + …          0    2     TRUE        
+11 +proj=pipeline +step … Inverse of RD New + …          0    6     TRUE        
+12 +proj=pipeline +step … Inverse of RD New + …          0    6     TRUE        
+13 +proj=pipeline +step … Inverse of RD New + …          0   NA     TRUE        
+</code></pre>
+<p>We can see that the first one has best accuracy. Several pipelines are
+based on one or two grids for a better accuracy.</p>
+<p>When printing the <code>pipelines</code> object, its first row is printed in a more
+readable manner:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines
+</code></pre></div><pre><code>Candidate coordinate operations found:  13 
+Strict containment:     FALSE 
+Axis order auth compl:  FALSE 
+Source:  EPSG:28992 
+Target:  EPSG:31370 
+Best instantiable operation has accuracy: 0.011 m
+Description: Inverse of RD New + Amersfoort to ETRS89 (9) + Inverse of BD72
+             to ETRS89 (3) + Belgian Lambert 72
+Definition:  +proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605555556
+             +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000
+             +y_0=463000 +ellps=bessel +step +proj=hgridshift
+             +grids=nl_nsgi_rdtrans2018.tif +step +inv
+             +proj=hgridshift
+             +grids=be_ign_bd72lb72_etrs89lb08.tif +step
+             +proj=lcc +lat_0=90 +lon_0=4.36748666666667
+             +lat_1=51.1666672333333 +lat_2=49.8333339
+             +x_0=150000.013 +y_0=5400088.438 +ellps=intl
+</code></pre>
+<p>Since the rows of pipelines are sorted by <code>instantiable</code> and <code>accuracy</code>,
+it makes sense to designate the printed pipeline as <em>Best instantiable
+operation</em>.</p>
+<p>It follows that the same information appears when manually selecting and
+then printing, except for the number of ‘candidate operations found’:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[1,]
+</code></pre></div><pre><code>Candidate coordinate operations found:  1 
+Strict containment:     FALSE 
+Axis order auth compl:  FALSE 
+Source:  EPSG:28992 
+Target:  EPSG:31370 
+Best instantiable operation has accuracy: 0.011 m
+Description: Inverse of RD New + Amersfoort to ETRS89 (9) + Inverse of BD72
+             to ETRS89 (3) + Belgian Lambert 72
+Definition:  +proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605555556
+             +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000
+             +y_0=463000 +ellps=bessel +step +proj=hgridshift
+             +grids=nl_nsgi_rdtrans2018.tif +step +inv
+             +proj=hgridshift
+             +grids=be_ign_bd72lb72_etrs89lb08.tif +step
+             +proj=lcc +lat_0=90 +lon_0=4.36748666666667
+             +lat_1=51.1666672333333 +lat_2=49.8333339
+             +x_0=150000.013 +y_0=5400088.438 +ellps=intl
+</code></pre>
+<p>If you’d like to get even more metadata on the available pipelines,
+including the WKT definitions, you can also run PROJ’s
+<a href="https://proj.org/apps/projinfo.html"><code>projinfo</code></a> command line program
+from within R if it’s available in your system <code>PATH</code>.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">system</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">projinfo -s EPSG:28992 -t EPSG:31370 --spatial-test intersects -o WKT2:2019&#34;</span>)
+</code></pre></div><p>The <em>default</em> operation returned by PROJ’s <code>projinfo</code>, based on the
+union of the source and target CRS’s bounding box, appears to be just
+one pipeline with so-called <a href="https://proj.org/glossary.html#term-Ballpark-transformation">ballpark
+accuracy</a>.
+It’s obtained by dropping the <code>--spatial-test intersects</code> option (or
+replacing <code>intersects</code> by <code>contains</code>, which is default)[2], and so it
+matches the pipeline where <code>accuracy</code> equals <code>NA</code> in our <code>pipelines</code>
+dataframe:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[13,]
+</code></pre></div><pre><code>Candidate coordinate operations found:  1 
+Strict containment:     FALSE 
+Axis order auth compl:  FALSE 
+Source:  EPSG:28992 
+Target:  EPSG:31370 
+Best instantiable operation has only ballpark accuracy 
+Description: Inverse of RD New + Ballpark geographic offset from Amersfoort
+             to Belge 1972 + Belgian Lambert 72
+Definition:  +proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605555556
+             +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000
+             +y_0=463000 +ellps=bessel +step +proj=lcc
+             +lat_0=90 +lon_0=4.36748666666667
+             +lat_1=51.1666672333333 +lat_2=49.8333339
+             +x_0=150000.013 +y_0=5400088.438 +ellps=intl
+</code></pre>
+<p>The low accuracy of a ballpark transformation is because datum
+differences between source and target CRSs are neglected:</p>
+<blockquote>
+<p>It does not attempt any datum shift, hence the “ballpark” qualifier in
+its name. Its accuracy is unknown, and could lead in some cases to
+errors of a few hundreds of metres.</p>
+</blockquote>
+<p><em>(Source:
+<a href="https://proj.org/glossary.html#term-Ballpark-transformation">https://proj.org/glossary.html#term-Ballpark-transformation</a>)</em></p>
+<p>With <code>st_transform()</code> we can enforce a specific pipeline. Note that it
+is only available for <code>sfc</code> objects, not <code>sf</code> objects.</p>
+<p>Let’s apply the most accurate pipeline to <em>all</em> points:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># We select the pipeline with lowest accuracy (&lt; 0.02), by filtering on accuracy.</span>
+<span style="color:#aaa;font-style:italic"># If the grids are installed, this should match the first line of the pipelines object.</span>
+chosen_pipeline_definition &lt;- pipelines %&gt;% <span style="color:#0a0">filter</span>(accuracy &lt; <span style="color:#099">0.02</span>) %&gt;% <span style="color:#0a0">pull</span>(definition)
+points_31370_strict &lt;- 
+  <span style="color:#0a0">st_transform</span>(<span style="color:#0a0">st_geometry</span>(points), <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>,
+               pipeline = chosen_pipeline_definition) %&gt;% 
+  <span style="color:#0a0">st_sf</span>(<span style="color:#0a0">st_drop_geometry</span>(points), geometry = .) %&gt;% 
+  as_tibble %&gt;% 
+  st_as_sf
+</code></pre></div><p>And compare:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370)
+<span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features </span>
+<span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
+<span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
+<span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Belge 1972 / Belgian Lambert 72</span>
+<span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (35483.62 205530.5)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (35090.55 205866.5)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (37545.94 207609.8)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (66666.83 225461.1)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (183089.2 193870.8)</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370_strict)
+<span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features  (with 9 geometries empty)</span>
+<span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
+<span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
+<span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: 18976.03 ymin: 152963.3 xmax: 260391 ymax: 244024</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Belge 1972 / Belgian Lambert 72</span>
+<span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (35393.39 205495.3)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (35000.39 205831.3)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (37455.41 207574.3)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (66666.83 225461.1)</span>
+<span style="color:#aaa;font-style:italic">#&gt; POINT (183089.2 193870.8)</span>
+</code></pre></div><p>Notice the <strong>9 empty geometries</strong> in case of <code>points_31370_strict</code>!</p>
+<p>What is happening?</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">p &lt;- 
+  <span style="color:#0a0">ggplot</span>() + 
+  <span style="color:#0a0">geom_sf</span>(data = points_31370, colour = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>) +
+  <span style="color:#0a0">geom_sf</span>(data = points_31370_strict, colour = <span style="color:#a50">&#34;</span><span style="color:#a50">green&#34;</span>) 
+p
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>It appears that points too far at sea are considered invalid when
+applying this pipeline, and their geometry was cleared (although the
+corresponding row was not dropped).</p>
+<p>If we make a zoomable plot, there’s more to discover.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plotly::<span style="color:#0a0">ggplotly</span>(p)
+</code></pre></div><p><img src="index_files/figure-gfm/ggplotly_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>Most points on the map are on the exact same location between both
+approaches. We can see that points west and south of the <em>geographic
+bounding box</em> for usage of the Dutch CRS have a different position
+depending on the applied approach.</p>
+<p>It can be further investigated with <code>mapview</code> (note that this does a
+further reprojection to <code>EPSG:3857</code>):</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(points_31370, points_31370_strict),
+        col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">green&#34;</span>))
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
+<p>Here it appears that the western and southern points of <code>points_31370</code>
+were transformed with the ballpark-accuracy pipeline: they are way off
+the surfacewater bodies!</p>
+<p>In this case, one might prefer enforcing the specific pipeline outside
+the geographic bounding box of <code>EPSG:28992</code>, as we did for
+<code>points_31370_strict</code>. However best explore the other pipelines as well,
+e.g. the most accurate one that doesn’t depend on a grid, and consider
+using that outside the geographic bounding box.</p>
+<p>Bottomline is that you should be suspicious about coordinates outside
+the CRS’s geographic bounding box! So keep an eye on them when applying
+a default transformation procedure.</p>
+<h2 id="further-reading-and-more-packages">Further reading and more packages<a href="#further-reading-and-more-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Much more information can be found in the online books by <a href="#ref-pebesma_spatial_2021">Pebesma &amp;
+Bivand</a> (<a href="#ref-pebesma_spatial_2021">2021</a>)
+and <a href="#ref-lovelace_geocomputation_2019">Lovelace <em>et al.</em></a>
+(<a href="#ref-lovelace_geocomputation_2019">2019</a>). The <code>sf</code> package has a nice
+website at <a href="https://r-spatial.github.io/sf">https://r-spatial.github.io/sf</a>; version 0.6-1 was
+introduced in <a href="#ref-pebesma_simple_2018">Pebesma</a>
+(<a href="#ref-pebesma_simple_2018">2018</a>).</p>
+<p>There are several more R packages to make beautiful maps. We
+specifically mention <a href="https://r-tmap.github.io/tmap/"><code>tmap</code></a>
+(<a href="#ref-tennekes_tmap_2018">Tennekes, 2018</a>) and
+<a href="https://riatelab.github.io/mapsf/"><code>mapsf</code></a> for making production-ready
+thematic maps. <code>tmap</code> is used a lot in <a href="#ref-lovelace_geocomputation_2019">Lovelace <em>et
+al.</em></a>
+(<a href="#ref-lovelace_geocomputation_2019">2019</a>).</p>
+<p>Further, there is the
+<a href="https://plotkml.r-forge.r-project.org/"><code>plotKML</code></a> package, which
+renders spatial objects in Google Earth (<a href="#ref-hengl_plotkml:_2015">Hengl <em>et al.</em>,
+2015</a>)!</p>
+<h2 id="bibliography">Bibliography<a href="#bibliography" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Hengl T., Roudier P., Beaudette D. &amp; Pebesma E. (2015). plotKML:
+Scientific Visualization of Spatio-Temporal Data. Journal of Statistical
+Software 63. <a href="http://www.geostat-course.org/system/files/jss1079.pdf">http://www.geostat-course.org/system/files/jss1079.pdf</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Lovelace R., Nowosad J. &amp; Muenchow J. (2019). Geocomputation with R.
+<a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Pebesma E. (2018). Simple Features for R: Standardized Support for
+Spatial Vector Data. The R Journal 10 (1): 439–446.
+<a href="https://journal.r-project.org/archive/2018/RJ-2018-009/index.html">https://journal.r-project.org/archive/2018/RJ-2018-009/index.html</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Pebesma E. &amp; Bivand R. (2021). Spatial Data Science.
+<a href="https://r-spatial.org/book">https://r-spatial.org/book</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Tennekes M. (2018). tmap: Thematic Maps in R. Journal of Statistical
+Software 84 (1): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>[1] Note that several European countries, including Belgium, now provide
+national projected CRSs that use the common ETRS89 datum (European
+Terrestrial Reference System 1989). An example is the Belgian CRS
+<code>EPSG:3812</code> (ETRS89 / Belgian Lambert 2008).</p>
+<p>[2] In the documentation of <code>projinfo</code>, we can read about the
+<code>--spatial-test</code> option: ‘<em>Specify how the area of use of coordinate
+operations found in the database are compared to the area of use
+specified explicitly with <code>--area</code> or <code>--bbox</code>, or derived implicitly
+from the area of use of the source and target CRS. By default, projinfo
+will only keep coordinate operations whose are of use is strictly within
+the area of interest (<strong>contains</strong> strategy). If using the
+<strong>intersects</strong> strategy, the spatial test is relaxed, and any coordinate
+operation whose area of use at least partly intersects the area of
+interest is listed.</em>’</p>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/r/'>r</a>, <a class='category' href='/tutorials/categories/gis/'>gis</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/gis/'>gis</a>, <a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/maps/'>maps</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/r_citations_markdown/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Citations in R Markdown</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p> &copy; 2018-2021 Research Institute for Nature and Forest (INBO) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+
+<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+

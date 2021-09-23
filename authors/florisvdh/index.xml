@@ -6,10 +6,22 @@
     <description>Recent content in florisvdh on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 16 Sep 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://inbo.github.io/tutorials/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Coordinate operations and maps in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/</guid>
+      <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
+A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
+The tutorial assumes you have some pre-existing knowledge:
+ Basic knowledge about coordinate reference systems (CRSs) and geodetic datums; see another tutorial and the references and links therein.</description>
+    </item>
     
     <item>
       <title>Citations in R Markdown</title>
