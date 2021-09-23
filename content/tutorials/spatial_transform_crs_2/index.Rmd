@@ -58,12 +58,14 @@ library(mapview)
 
 Set up input data if needed:
 
-```{r}
+```{r results="hide"}
 if (!file.exists(file.path(gisclubdata_path, "gemeenten_belgie.shp"))) {
-  googledrive::drive_download(googledrive::as_id("1oi-XvO54beBKcoTfbjVd8QRz-0j3Upfx"), 
-                              file.path(gisclubdata_path, "data_gisclub.zip"))
-  unzip(file.path(gisclubdata_path, "data_gisclub.zip"),
-        exdir = gisclubdata_path)
+  googledrive::drive_download(googledrive::as_id("1-epL-fyKB8eS-WwuZhjsl8uyZYplAqFA"), 
+                              file.path(tempdir(), "data_gisclub.zip"))
+  unzip(file.path(tempdir(), "data_gisclub.zip"),
+        exdir = tempdir())
+  list.files(file.path(tempdir(), "data_gisclub"), full.names = TRUE) %>% 
+    file.copy(gisclubdata_path, recursive = TRUE)
 }
 ```
 
