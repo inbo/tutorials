@@ -411,11 +411,13 @@ system("projinfo -s EPSG:28992 -t EPSG:31370 --spatial-test intersects -o WKT2:2
 ```
 
 The *default* operation returned by PROJ's `projinfo`, based on the union of the source and target CRS's bounding box, appears to be just one pipeline with so-called [ballpark accuracy](https://proj.org/glossary.html#term-Ballpark-transformation).
-It's obtained by dropping the `--spatial-test intersects` option (or replacing `intersects` by `contains`, which is default), and so it matches the pipeline where `accuracy` equals `NA` in our `pipelines` dataframe:
+It's obtained by dropping the `--spatial-test intersects` option (or replacing `intersects` by `contains`, which is default)[^projinfo], and so it matches the pipeline where `accuracy` equals `NA` in our `pipelines` dataframe:
 
 ```{r}
 pipelines[13,]
 ```
+
+[^projinfo]: In the documentation of `projinfo`, we can read about the `--spatial-test` option: '_Specify  how the area of use of coordinate operations found in the database are compared to the area of use specified explicitly with `--area` or `--bbox`, or derived implicitly from the area of use of the source and target CRS.  By default, projinfo will only keep coordinate operations whose are of use is strictly within the area of interest (**contains** strategy).  If using the **intersects** strategy, the spatial test is relaxed, and any coordinate operation whose area of use at least partly intersects the area of interest is listed._'
 
 The low accuracy of a ballpark transformation is because datum differences between source and target CRSs are neglected:
 
@@ -487,6 +489,9 @@ they are way off the surfacewater bodies!
 
 In this case, one might prefer enforcing the specific pipeline outside the geographic bounding box of `EPSG:28992`, as we did for `points_31370_strict`.
 However best explore the other pipelines as well, e.g. the most accurate one that doesn't depend on a grid, and consider using that outside the geographic bounding box.
+
+Bottomline is that you should be suspicious about coordinates outside the CRS's geographic bounding box!
+So keep an eye on them when applying a default transformation procedure.
 
 
 ## Further reading and more packages
