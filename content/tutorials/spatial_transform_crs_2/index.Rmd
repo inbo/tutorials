@@ -336,7 +336,7 @@ But let's suppose it is all one had available to work with!
 ### Standard approach
 
 By default, the appropriate transformation pipeline (concatenated coordinate operations) can differ between different areas that are represented in a spatial dataset.
-This is taken care of automatically based on the bounding boxes of each CRS, but it will also depend on the availability of specific transformation grids.
+This is taken care of automatically, based on the bounding boxes of each CRS, but it will also depend on the availability of specific transformation grids.
 
 ```{r}
 points_31370 <- st_transform(points, "EPSG:31370")
@@ -344,12 +344,12 @@ points_31370 <- st_transform(points, "EPSG:31370")
 
 Notice the completely different coordinate ranges between both CRSs:
 
-```{r collapse=TRUE}
+```{r collapse=TRUE, comment="#>"}
 st_geometry(points)
 ```
 
 
-```{r collapse=TRUE}
+```{r collapse=TRUE, comment="#>"}
 st_geometry(points_31370)
 ```
 
@@ -445,12 +445,12 @@ points_31370_strict <-
 
 And compare:
 
-```{r collapse=TRUE}
+```{r collapse=TRUE, comment="#>"}
 st_geometry(points_31370)
 ```
 
 
-```{r collapse=TRUE}
+```{r collapse=TRUE, comment="#>"}
 st_geometry(points_31370_strict)
 ```
 
