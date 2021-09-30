@@ -15,4 +15,4 @@ De kopie omvat **fysicochemische metingen** en **kwaliteitsindexen** uit het VMM
 zijn rechtstreeks opvraagbaar via het [VMM-geoloket waterkwaliteit](https://www.vmm.be/data/waterkwaliteit), maar de lokale kopie laat een veel vlottere raadpleging toe wanneer analyse van een 
 groter aantal meetpunten gewenst is. De databank wordt ± jaarlijks geactualiseerd.
 
-Meer info over de aard van de gegevens en hoe ze kunnen geraadpleegd worden is te vinden op het intranet van het INBO: https://sites.google.com/a/inbo.be/intranet/ondersteuning/IT-en-data/datasystemen/vmm-oppervlaktewaters
+Meer info over de aard van de gegevens en hoe ze kunnen geraadpleegd worden is te vinden op het intranet van het INBO: https://sites.google.com/a/inbo.be/intranet/home/ondersteuning/IT-en-data/datasystemen/vmm-oppervlaktewaters
