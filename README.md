@@ -26,7 +26,7 @@ The technology used to create the website is [Hugo](https://gohugo.io/), a stati
 
 1. [Install hugo](https://gohugo.io/getting-started/installing/)
 2. Clone the tutorials repository
-3. In the cloned tutorials directory, install the theme with `git clone https://github.com/MunifTanjim/minimo.git --branch v2.7.0 themes/minimo`
+3. In the cloned tutorials directory, install the theme with `git clone https://github.com/MunifTanjim/minimo.git --branch v2.9.0 themes/minimo`
 4. Build and serve the site with `hugo server`
 
 For more information, see [Hugo's getting started documentation](https://gohugo.io/getting-started/usage/).
