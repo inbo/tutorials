@@ -9,7 +9,6 @@ output:
     md_document:
         preserve_yaml: true
         variant: gfm
-weight: 2
 ---
 
 This page lists **selected** literature and online resources. Some are

@@ -8,7 +8,6 @@ tags: ["literature", "open science"]
 output: 
     md_document:
         preserve_yaml: true
-weight: 1
 ---
 
 -   McElreath (2015): Statistical Rethinking is an introduction to
