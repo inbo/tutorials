@@ -12,7 +12,7 @@ Welcome to the tutorials website of the [Research Institute for Nature and Fores
 
 When this is your first time checking this website, welcome! You are always free to look around a bit, but if you are looking for something specific, the website provides 3 options to search for relevant topics:
 
-- [Categories]({{< relref "/categories/_index.md" >}}): A (limited) set of general categories to classify the tutorials. For example, `installation` for support during installation of software or `r` for tutorials about the R programming language. Click on a category to get the relevant tutorials.
+- : A (limited) set of general categories to classify the tutorials. For example, `installation` for support during installation of software or `r` for tutorials about the R programming language. Click on a category to get the relevant tutorials.
 - Tags: Check the cloud of tags listed on each page of the website and pick an item that would be relevant for your topic. By clicking on a specific tag, you will get an overview of the tutorials with this tag
 - Search: Type any word in the search form and you will get a dropdown list of the pages which contain the word you are looking for.
 
