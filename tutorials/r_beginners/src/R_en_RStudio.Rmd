@@ -1,8 +1,9 @@
 ---
 title: "Introductie R en RStudio"
-authors: [ivyjansen, pieterverschelde, thierryo]
-output: pdf_document
-papersize: a4
+author: "Ivy Jansen, Pieter Verschelde, Thierry Onkelinx"
+output:
+  pdf_document: default
+  html_document: default
 urlcolor: blue
 ---
 
@@ -16,83 +17,139 @@ opts_chunk$set(
   inline = TRUE,
   echo = TRUE, 
   eval = FALSE,
-  cache = FALSE, 
+  cache = TRUE, 
   dpi = 300, 
   fig.width = 4.5, 
   fig.height = 3
   )
 ```
 
-\hspace{2cm} ![](../Figuren/R_logo.svg.png){width=2.5cm} \hspace{4cm} ![](../Figuren/logo_rstudio.jpg){width=7cm}\ \hspace{2cm}
+\hspace{2cm} ![](../Figuren/Rlogo.png){width=2.5cm} \hspace{4cm} ![](../Figuren/logo_rstudio.jpg){width=7cm}\ \hspace{2cm}
+
+
+# R vs Rstudio
+
+* R
+    * Scripting taal waarmee je gegevens (statistisch) kan verwerken
+    * De software R is de motor voor de gegevensverwerking
+    * Het programma R zelf beschikt over een rudimentaire GUI (Graphical User Interface)
+        * Zelden rechtstreeks gebruikt
+        * Meestal via een uitgebreide interface die R oproept, zoals RStudio
+* Waarom R?
+    * Open Source en gratis
+    * Softwarepakket speciaal ontworpen voor data verwerking, maar daarnaast ook heel flexibel
+    * Krachtige motor voor visualisaties
+    * Veel tools voor data verkenning en kneding (“wrangling”)
+    * Van zeer eenvoudige tot heel complexe modellen kunnen gemakkelijk gecodeerd worden
+    * Zowat iedere nieuw gepubliceerde techniek is onmiddellijk in R beschikbaar
+    * Kan gemakkelijk met andere programma's interfacen zoals QGIS, STAN, MARK, INLA
+* Hoe werk je met R?
+    * Schrijf een script
+    * Voer de commando’s van het script uit
+    * Bewaar de resultaten en figuren die bekomen worden
+
+* RStudio
+    * Interface (toolbox) rond R
+    * Om het gebruik van R sterk te vereenvoudigen
+    * Meest gebruikte interface voor R, sterk aanbevolen door BMK
+    * Andere toolboxen als TINN-R, Eclipse, Emacs, . . . hebben niet de kracht van RStudio
+
+* Wat te doen na een eerste installatie of een upgrade van R en RStudio?
+    * zie informatie op de [tutorials website](https://inbo.github.io/tutorials/) van INBO
+    * Specifiek voor R en Rstudio kan je de links hieronder vinden (aangeraden, niet verplicht)
+        * [RStudio](https://inbo.github.io/tutorials/installation/user/user_install_rstudio/)
+        * [R](https://inbo.github.io/tutorials/installation/user/user_install_r/)
+
+# Opbouw van de les
+
+* Les 1: Basisprincipes Rstudio en R
+    1. Rstudio leren gebruiken
+    1. Basis R code
+    1. Oefening / Huistaak
+    1. Data inlezen (mogelijks wordt dit deels of in het gehele verschoven naar les 2)
+
+
+# Basisscherm
+
+![](../Figuren/rstudiobasisscherm.png)\
+
+Rstudio bestaat uit een menu bovenaan en bestaat standaard over 4 hoofdpanelen. Je kan de layout, de kleuren, enz... allemaal aanpassen.
+
+1. Titelbalk (helemaal bovenaan):
+    * balk zoals in de meeste programma's om te knippen/plakken, nieuwe bestanden te maken, opties te wijzigen, ... 
+1. Scriptvenster (Linksboven): Alleen zichtbaar al je een script hebt openstaan
+1. Console output (Linksonder): Hierin worden de R commando's uitgevoerd en krijg je standaard de output
+1. R omgeving (Rechtsboven): Bestaat uit verschillende tabbladen
+    1. Environment: Bevat alle objecten die actief zijn in de sessie
+    1. History: Bevat de historiek van je commando's die je hebt uitgevoerd
+    1. Connections / Git / Build: Enkel zichtbaar als je effectief deze nodig hebt
+1. Varia omgeving (Rechtsonder): Bevat veel verschillende types info
+    1. Files: Toont de fysieke bestanden op je harde schijf (een soort verkenner)
+    1. Plots: Als je figuren maakt, worden deze hier getoond
+    1. Packages: overzicht van alle geïnstalleerde en geladen packages
+    1. Help: Help voor R functies
+    1. Andere tabbladen zoals viewer
+
+# R console en eerste korte introductie in de R taal
+
+R kan je gebruiken van een simpele rekenmachine tot een uitgebreide set aan commando's en functies. 
+Dit gebeurt door commando's zoals hieronder te typen in de R console. 
+
+## R als rekenmachine
+
+```{r}
+1 / 200 * 30
+(59 + 73 + 2) / 3
+sin(pi / 2)
+sqrt(169)
+```
+
+## Nieuwe objecten creëren
+
+```{r}
+x <- 3 * 4
+y <- sqrt(169)
+z <- (x > y)
+naam <- "Ivy Jansen"
+```
+
+Alle R commando's waarmee een object aangemaakt wordt, __assignments__, hebben dezelfde vorm
+
+```{r}
+object_name <- value
+```
+
+*Sneltoets* voor " `<-` " : ALT + "-"
+
+  
+# Environment paneel
+
+![](../Figuren/rstudio-env.png){width=12cm}\
+
+* De environment geeft een overzicht van de objecten die gekend zijn
+    * Voor simpele objecten zie je direct de waarde
+    * Voor data en lijsten krijg je de dimensies te zien
+        * Je kan klikken op het object en dan wordt dit getoond in een datavenster, waarin je kan filteren, sorteren, ..., zonder impact op het object zelf
+        * Je kan op het blauwe pijltje klikken om het object uit te vouwen en meer in detail te zien
 
 
 
+# Scripts paneel
 
-# R en Rstudio
+## Wat is een script
 
-- R
-    - Taal waarmee je gegevens (statistisch) kan verwerken
-    - De software `R` is de motor voor gegevensverwerking
-    - Beschikt over een rudimentaire GUI (Graphical User Interface)
-        - Zelden rechtstreeks gebruikt
-        - Meestal via een speciale interface, zoals RStudio
-- Waarom R?
-    - Open Source en gratis
-    - Softwarepakket speciaal ontworpen voor data verwerking, maar daarnaast ook heel flexibel
-    - Krachtige motor voor visualisaties
-    - Veel tools voor data verkenning en manipulatie ("wrangling")
-    - Van zeer eenvoudige tot heel complexe modellen kunnen gemakkelijk gecodeerd worden
-    - Zowat iedere nieuw gepubliceerde techniek is onmiddellijk in R beschikbaar
-- Hoe werk je met R?
-    - Schrijf een script
-    - Voer de commando's van het script uit
-    - Bewaar de resultaten en figuren
-- RStudio
-    - Interface (toolbox) rond R
-    - Om het gebruik van R sterk te vereenvoudigen
-    - Meest gebruikte interface voor R, sterk aanbevolen door BMK
-    - Andere toolboxen als TINN-R, Eclipse, Emacs, ... hebben niet de kracht van RStudio
-- Wat te doen na een eerste installatie of een upgrade van R en RStudio?
-    - [RStudio](https://inbo.github.io/tutorials/installation/user/user_install_rstudio/)
-    - [R](https://inbo.github.io/tutorials/installation/user/user_install_r/)
-
-
-
-
-# Interface RStudio
-
-![](../Figuren/InterfaceRStudio.jpg)\
-
-
-## Titelbalk
-
-- Bovenaan
-- Balk zoals in alle software, om nieuwe files aan te maken, knippen/plakken, zoeken/vervangen, R te herstarten, opties aan te passen, ...
-
-
-## Console venster
-
-- Standaard links onder
-- Hier voer je commando's uit
-- Bovenaan het Console venster zie je de huidige werkdirectory (belangrijk!)
-
-![](../Figuren/rstudio-wd.png)\
-
-
-## Script venster
-
-- Standaard links boven
-- Hier schrijf je scripts
-    - Eenvoudig tekstbestand met .R extensie
-    - Bevat een set van R commando's in een logische volgorde
-    - Gemakkelijk commentaar toe te voegen
+- Eenvoudig tekstbestand met .R extensie
+- Bevat een set van R commando's in een logische volgorde
+    - Programma's als Rstudio zullen de commando's kleuren naargelang ze commentaar, functies, ... zijn
+- Gemakkelijk commentaar toe te voegen
+    - # is het commentaarsymbool. Alles op dezelfde regel na het hekje wordt niet als code aanzien, maar als commentaar
+    - met de snelkoppeling CTRL-SHIFT-C kan je verschillende lijnen tegelijk uitcommentariëren of terug actief maken
 - Principe 
     - Alle code in een script
-    - Code van script naar console sturen om uit te voeren
-        - Met de **Run** knop rechtsboven 
-        - Of met de toetsencombinatie CTRL + ENTER 
-        - Werkt voor de huidige regel (waar de cursor staat), of op alle geselecteerde tekst
-    - Je past de code in het script aan (en voert die opnieuw uit) tot er gebeurt wat jij wenst
+    - De code moet je zelf nog naar de console, voordat R aan de berekeningen begint
+        - CTRL + ENTER stuurt huidige regel naar console (en gaat naar de volgende regel)
+        - Indien tekst geselecteerd, dan wordt de volledige selectie doorgestuurd
+    - Je past de code in het script aan tot dat er gebeurt wat jij wenst
     - Je bewaart het script om het later opnieuw te gebruiken (of aan verder te werken)
 - Nieuw script starten
     - Via menu `File` --> `New file` --> `R Script`
@@ -100,22 +157,37 @@ opts_chunk$set(
 - Bestaand script openen
     - Via menu `File` --> `Recent files`
     - Via menu `File` --> `Open file ...`
-    - Via tabblad `Files` (rechtsonder) dubbelklikken op het bestand
+    - Via tabblad `Files` dubbelklikken op het bestand
 - Je kan meerdere scripts naast elkaar openen
     - Elk script wordt een apart tabblad
 
-### Basisstructuur van een script
+![](../Figuren/rstudio_script.png)\
 
-1. Laden van packages
+
+## Basisstructuur van een script
+
+1. Laden van packages en scripts
 1. Data inlezen
-1. Data formatteren en selecteren (data wrangling)
-1. Exploratieve analyse (tabellen en figuren)
+1. Data formatteren en selecteren
+1. Exploratieve analyse (eenvoudige tabellen en figuren)
+1. Data dieper onderzoeken en samenvatten
 1. Statistische analyses
-1. Resultaten model tonen (tabellen en figuren)
+1. Valideren resultaten
+1. Resultaten rapporteren (mooie en doordachte tabellen en figuren)
 
-### Handige weetjes i.v.m. scripts
+Let op: Een script wordt altijd van boven naar onder uitgevoerd. Dus als je iets nodig hebt van bovenstaande regels, moet je die eerst uitvoeren.
 
-- RStudio beschikt over *syntax highlighting*
+Meestal zal je je code over verschillende scripts verspreiden. Deze zijn niet afhankelijk van elkaar, 
+dus zal je moeten afdwingen dat de nodige scripts eerst uitgevoerd zijn
+
+- Je kan dit manueel
+- Je kan je scripts een logische volgorde geven, zoals een nummering
+- Je kan bovenaan een script `source("pad_naar_script_dat_eerst_uitgevoerd_wordt")` zetten
+
+
+## Handige weetjes i.v.m. scripts
+
+- RStudio beschikt over *syntax highlighting* (code kleuren) een *syntax controle* (codeerfouten opsporen voor je de code uitvoert)
 
     ![](../Figuren/rstudio-diagnostic.png){width=3cm}\
 - Beweeg over het kruisje om te zien wat het probleem is
@@ -132,106 +204,49 @@ opts_chunk$set(
     - Bestand bewaren met CTRL + S of `File` --> `Save`
     - RStudio zorgt continu voor een autosave van alle scripts
 
-\newpage
 
-## Environment / History venster
+## Waar bevind ik me?
 
-- Standaard rechts boven
-- In het **Environment** tabblad zie je alle objecten in de actieve R-sessie
-- In het **History** tabblad zie je alle reeds uitgevoerde commando's
-
-![](../Figuren/rstudio-env.png){width=12cm}\
+![](../Figuren/rstudio-wd.png)\
 
 
-## Files / Plots / Packages / Help venster
-
-- Standaard rechts onder
-- In het **Files** tabblad zie je alle bestanden in de (werk)directory
-- In het **Plots** tabblad verschijnen alle grafieken
-- In het **Packages** tabblad krijg je een overzicht van alle geïnstalleerde packages. De packages die geladen zijn in de huidige sessie, zijn aangevinkt.
-- In het **Help** tabblad kan je informatie terugvinden over alle R functies
-
-
-### Files
-
-- Laat standaard alle files in de werkdirectory zien
-    - Werkdirectory staat bovenaan Console venster
-    - Of op te vragen met `getwd()`
-    - Te veranderen met `setwd("/path/to/my/CoolProject")`
-    - Of via `Files` venster --> `More` --> `Set As Working Directory`
-    - Zelden zinvol om te wijzigen
-- Een verkenner
-    - Snuffelen in mappen
-    - Files verwijderen
-    - Files hernoemen (zelfs al staan ze open in RStudio)
-    - Nieuwe mappen aanmaken
-    - Zelfs mogelijk om files te kopiëren of verplaatsen (via `More`)
+- Working directory
+    - `getwd()`
+    - `setwd("/path/to/my/CoolProject")`
+    - `Files` venster --> `More` --> `Set As Working Directory`
+    - Bovenaan in de console kan je ook je huidige werkdirectory terugvinden
+- Gebruik van paden
+    - Om data in te lezen
+    - Om resultaten weg te schrijven
+    - Keuze tussen absolute en relatieve paden
+- Verwarrend, en vooral **vervelend** als je de structuur van je pc verandert, of werk wil doorgeven aan een collega
 
 
-### Packages
+# Projecten
 
-- Een R __package__ is een collectie van functies, data en documentatie ter uitbreiding van base R. 
-- Deze moeten eerst geïnstalleerd worden met het commando `install.packages("Name_Package")`. Dit dient slechts éénmalig uitgevoerd te worden en mag in de console.
-    - `install.packages("readr")`
-- Kan ook via het `Packages` venster --> `Install`
-- Zorg dat je verbonden bent met het internet !!!
-- Je kan de functies, objecten en help files van een package pas gebruiken nadat het geladen is met het commando `library()`. Zet dit commando steeds bovenaan je R-script, zodat alle packages die nodig zijn voor de analyse, vanaf de start geladen zijn.
-    - `library(readr)`
-- Kan ook via het `Packages` venster, en dan de box voor het package aanvinken, maar dit is niet aan te raden, wegens niet reproduceerbaar.
-
-\newpage
-
-### Help
-
-- Gebruik de built-in RStudio help interface voor meer info over R functies
-
-    ![](../Figuren//rstudiohelp.png){width=10cm}
-- Ik krijg van iemand een script (of open een "oud" script van mezelf) en weet niet (meer) wat een bepaalde functie doet
-    - Zet de cursor op die functie (of selecteer de functie) en druk `F1`
-- Ik ken de naam van de functie die ik wil gebruiken, maar weet niet goed hoe
-    - Gebruik het vraagteken
-    - `?mean`
-- Ik wil een functie gebruiken die `X` doet. Er moet zo een functie bestaan, maar ik weet niet welke
-    - Gebruik `help.search()` of het dubbele vraagteken `??`
-    - `??kruskal`
-    - Dit zoekt enkel in de reeds geïnstalleerde packages
-- [rdocumentation.org](http://www.rdocumentation.org) website 
-    - Doorzoekt de help files van alle bestaande packages
-- Generieke zoektocht op Google "R \<task\>" 
-    - Package documentatie
-    - Forum waar al iemand anders jouw vraag gesteld heeft
-- Ik zit vast... Ik krijg een error message en ik begrijp het niet
-    - Google de error message
-    - Werkt niet altijd, omdat de foutmelding heel generiek kan zijn
-    - Voeg de naam van de functie of het package toe in de zoekopdracht
-- [http://stackoverflow.com/questions/tagged/r](http://stackoverflow.com/questions/tagged/r)
-    - Gebruik de tag `[r]`
-    - Uitdaging is om de juiste woorden te gebruiken in de zoekopdracht
-
-
-
-
-# R project
-
-## Wat is een R project?
-
-- Een R project is niet meer dan een klikbaar tekstbestandje (.Rproj extensie)
-- En een map .Rproj.user die automatisch gemaakt wordt
-- Samen bevatten deze alle instellingen voor je project
-- **Doel**: R werk op een eenvoudige manier structureren
-- **Voordelen**
+- Een handige manier om je R werk te structuren
+    - Dit is niets exotisch: 
+    - er wordt een tekstbestandje aangemaakt met de extensie `.Rproj` waarop je kan in de windows verkenner klikken om het project te openen
+    - daarnaast wordt de map `.Rproj.user` aangemaakt die heel wat info bijhoudt
+    - Wij raden aan zoveel mogelijk met projecten te werken!
+- Voordelen
     - Projectspecifieke basisdirectory
         - Alle scripts en data kan je per project samenzetten
-    - Alle instellingen en bestanden worden geladen zoals het project de laatste keer afgesloten werd
+    - Geopende scripts bij het afsluiten zullen terug geopend worden
     - Meerdere projecten kunnen naast elkaar geopend worden
         - Start hiervoor een RStudio sessie per project
     - Hele project gemakkelijk doorgeven aan een collega
-- **Suggestie**: gebruik minstens één RStudio project per (onderdeel van een) JIRA project
+- **Suggestie**: gebruik minstens één RStudio project per (onderdeel van een) JIRA project al houdt niets je tegen om projecten binnen projecten te gebruiken
+- Starten met een nieuw project
+    - In RStudio via het menu `File` --> `New project...`
+- Bestaand project openen
+    - In Verkenner dubbelklikken op `.Rproj` bestand
+    - In RStudio via menu `File` --> `Recent projects` 
+    - Of `File` --> `Open project...`
+    - Of knop rechtsboven
 
 
-## Nieuw project aanmaken
-
-- Via het menu `File` --> `New project...`
+## Nieuw project
 
 ![](../Figuren/rstudio_nieuw_project.png)\
 
@@ -263,118 +278,83 @@ opts_chunk$set(
     - Jouw R analyse beschikbaar stellen als een webapplicatie
     - Buiten de scope van deze cursus
 
-![](../Figuren/rstudio-project-3.png){width=11cm}\  
-
-**Tip** Maak voor deze lessenreeks 1 project aan volgens variant 1, waarin je het materiaal van de 4 lessen bewaart in de juiste submappen (datasets onder `data`, scripts onder `src`, begeleidende pdf's, oefeningen en huistaken onder `documenten`, ...).
+![](../Figuren/rstudio-project-3.png){width=11cm}\
 
 
-## Bestaand project openen
-
-- In Verkenner dubbelklikken op `.Rproj` bestand
-- In RStudio via menu `File` --> `Recent projects` 
-- Of `File` --> `Open project...`
-- Of knop rechtsboven
-    
-![](../Figuren/Project.jpg){width=4cm}\
 
 
 ## Aanbevolen structuur projectmap
 
-Op het INBO zijn er 2 vaak voorkomende varianten. Ze verschillen enkel in de plaats van het project bestand `.Rproj`. Dit bepaalt ook de default werkdirectory van het project.
+- MijnProject.Rproj
+- ./data
+    - Alle datasets (xls, txt, csv, ...)
+- ./media of ./figuren ./tabellen
+    - Alle figuren en dergelijke
+- ./src of ./R
+    - Alle scripts
+- Nieuwe mappen gemakkelijk aan te maken via `Files` venster
 
-1. Het project bestand staat in de projectmap, op hetzelfde niveau als de mappen die hieronder aangemaakt worden
-1. Het project bestand staat in de submap `src`, naast alle R-scripts
-
-Maak in de projectmap volgende submappen aan
-
-- `src` : hier zet je alle R-scripts
-- `data` : bevat alle datasets (xls, txt, csv, ...)
-- `output` : figuren, tabellen, ... van je analyse
-- `rapport` : bewaar hier het finale rapport van de analyses
-- `documenten` : voor achtergrondliteratuur en dergelijke
-
-Nieuwe mappen zijn gemakkelijk aan te maken via het `Files` venster.
-
-
-## Bestandshiërarchie
-
-- R zal altijd werken relatief aan je werkdirectory
-- Verwijzen naar een bestand in de werkdirectory: `"mijndata.csv"`
-- Naar een bovenliggende directory verwijs je via **../**
-- Als je data in de data folder in je project staat krijg je volgende
-    1. Variant 1 van de projectstructuur: `"data/mijndata.csv"`
-    1. Variant 2 van de projectstructuur: `"../data/mijndata.csv"`
-- Je kan daar heel ver in gaan: rarara waar staat deze file in relatie tot je werkdirectory?   `"../../project2/data/subfolder/mijndata.csv"`
-- Je kan altijd verwijzen naar een absoluut pad (raden we meestal niet aan):  
-`"x:/yyy/zzz/data/mijndata.csv"`
-- Onder Windows kan je ook \\\\ gebruiken (dubbele backslash) in plaats van forward slash en deze zelfs mixen
-    - `"c:\\xxx\\yyy\\project1\\data\\mijndata.csv"`
-    - `"c:\\xxx\\yyy/project1/data/mijndata.csv"`
+![](../Figuren/MappenStructuur.jpg){width=11cm}\
 
 
 
-# Coding basics
 
-## R als rekenmachine
+# Packages (libraries)
 
-```{r}
-1 / 200 * 30
-(59 + 73 + 2) / 3
-sin(pi / 2)
-sqrt(169)
-```
-
-
-## Functies oproepen
-
-R heeft een grote collectie van ingebouwde functies, die je als volgt oproept
-
-```{r eval = FALSE}
-function_name(arg1 = val1, arg2 = val2, ...)
-```
-
-```{r}
-sin(pi / 2)
-sqrt(169)
-seq(1, 10)
-round(5.78)
-```
+- Een R __package__ is een collectie van functies, data en documentatie ter uitbreiding van base R. 
+- Deze moeten eerst geïnstalleerd worden met het commando `install.packages("Name_Package")`. Dit dient slechts éénmalig uitgevoerd te worden en mag in de console
+    - `install.packages("readr")`
+- Kan ook via het `Packages` venster --> `Install`
+- Zorg dat je verbonden bent met het internet !!!
+- Je kan de functies, objecten en help files van een package pas gebruiken nadat het geladen is met het commando `library()`. Zet dit commando steeds bovenaan je R-script, zodat alle packages die nodig zijn voor de analyse, vanaf de start geladen zijn
+    - `library(readr)`
+- Kan ook via het `Packages` venster, en dan de box voor het package aanvinken, maar dit is niet aan te raden, wegens niet reproduceerbaar
+- Packages gebruiken heel vaak andere packages die moeten geïnstalleerd worden (dependency). Dus een installatie kan wel wat duren.
 
 
-## Nieuwe objecten creëren
+# Help
 
-```{r}
-x <- 3 * 4
-y <- sqrt(169)
-z <- (x > y)
-naam <- "Ivy Jansen"
-```
+- Gebruik de built-in RStudio help interface voor meer info over R functies
 
-Alle R commando's waarmee een object aangemaakt wordt, __assignments__, hebben dezelfde vorm
+    ![](../Figuren//rstudiohelp.png){width=12cm}
+- Ik ken de naam van de functie die ik wil gebruiken, maar weet niet goed hoe
+    - Gebruik het vraagteken
+    - `?mean`
+- Ik wil een functie gebruiken die `X` doet. Er moet zo een functie bestaan, maar ik weet niet welke
+    - Gebruik `help.search()` of het dubbele vraagteken `??`
+    - `??kruskal`
+    - Dit zoekt enkel in de reeds geïnstalleerde packages
+- [rdocumentation.org](http://www.rdocumentation.org) website 
+    - Doorzoekt de help files van alle bestaande packages
+- Generieke zoektocht op Google "R \<task\>" 
+    - Package documentatie
+    - Forum waar al iemand anders jouw vraag gesteld heeft
+- Ik zit vast... Ik krijg een error message en ik begrijp het niet
+    - Google de error message
+    - Werkt niet altijd, omdat de foutmelding heel generiek of heel specifiek kan zijn
+    - Voeg de naam van de functie of het package toe in de zoekopdracht
+- [http://stackoverflow.com/questions/tagged/r](http://stackoverflow.com/questions/tagged/r)
+    - Gebruik de tag `[r]`
+    - Uitdaging is om de juiste woorden te gebruiken in de zoekopdracht
+    - R zonder google is quasi onmogelijk, maar via google vind je heel veel antwoorden vrij snel
+- Ik krijg van iemand een script (of open een "oud" script van mezelf) en weet niet (meer) wat een bepaalde functie doet
+    - Zet de cursor op die functie (of selecteer de functie) en druk `F1`
 
-```{r}
-object_name <- value
-```
+# R code basis
 
-*Sneltoets* voor " `<-` " : ALT + "-"
+Eerder hebben we al getoond hoe je R als rekenmachine kan gebruiken en objecten kan maken en eenvoudige functies uitvoeren. Hier gaan we nu op verder.
 
-R helpt waar mogelijk met haakjes en aanhalingstekens
-
-```{r}
-x <- "hello world"
-```
-
-```
-> x <- "hello
-+
-```
-
-Een `+` aan het begin van de regel betekent dat R wacht op meer input. Meestal betekent dit dat je een `"` of een `)` vergeten bent. Voeg het ontbrekende teken toe en duw op ENTER, of duw op ESCAPE om het commando af te breken.
+Je zal zelden code rechtstreeks in de console intypen, maar zal daarvoor meestal een script gebruiken, waar je dan stukken code uit selecteert en laat runnen in de R console (ctrl + ENTER).
 
 
-### What's in a name?
 
-- Object namen starten met een letter
+## Objectnamen
+
+In tegenstelling tot veel andere programma's werkt R steeds met objecten die je manipuleert en bevraagt. Dus als je een berekening uitvoert en bewaart in een object, zal je dat object moeten tonen om het resultaat te zien. Vaak gebeurt dit via `print` of `summary`. Een object kan gaan van een enkel getal, tot een heuse lijst van statistische modellen.
+
+Niet alle objectnamen zijn zomaar toegestaan:
+
+- Objectnamen moeten starten met een letter
 - Bevat alleen letters, cijfers, `_` en `.`
 - Beschrijvende naam
 - Verschillende conventies
@@ -391,13 +371,14 @@ this_is_a_really_long_name <- 2.5
 
 *Sneltoets* om lange naam te vervolledigen : TAB
 
-*Sneltoets* om in de Console vorige commando's terug op te roepen : ↑
+*Sneltoets* om vorige commando's terug op te roepen : ↑
 
 ```{r}
 r_rocks <- 2 ^ 3
 ```
 
 Laten we dit object eens inspecteren
+
 ```{r}
 r_rock
 #> Error: object 'r_rock' not found
@@ -405,246 +386,301 @@ R_rocks
 #> Error: object 'R_rocks' not found
 ```
 
-**There's an implied contract between you and R: it will do the tedious computation for you, but in return, you must be completely precise in your instructions.** 
+*There's an implied contract between you and R: it will do the tedious computation for you, but in return, you must be completely precise in your instructions.* 
 
 - Typos matter 
 - Case matters
 
+## Functies oproepen
 
-\newpage
+R heeft een grote collectie van ingebouwde functies, die je als volgt oproept
 
+```{r}
+function_name(arg1 = val1, arg2 = val2, ...)
+```
 
-# R data types
+```{r}
+sin(pi / 2)
+sqrt(169)
+seq(1, 10)
+round(5.78)
+```
 
-## Enkelvoudige types
+Rstudio helpt waar mogelijk met haakjes en aanhalingstekens
+
+```{r}
+x <- "hello world"
+```
+
+```
+> x <- "hello
++
+```
+
+Een `+` aan het begin van de regel betekent dat R wacht op meer input. Meestal betekent dit dat je een `"` of een `)` vergeten bent. Voeg het ontbrekende teken toe en duw op ENTER, of duw op ESCAPE om het commando af te breken.
+
+## R packages
+
+Veel functies bevinden zich in R packages of libraries. om deze functies te kunnen gebruiken moet je de library eenmalig installeren en bij iedere nieuwe R sessie deze laden als je deze nodig hebt.
+Later gaan we hier veel dieper op in.
+
+```
+  install.packages(tidyverse) #eenmalig
+  
+  tekstje <- "van deze string wil ik het aantal characters tellen"
+  str_count(tekstje) #werkt niet, de functie is nog niet gekend
+  
+  library(tidyverse) #telkens je een nieuwe R sessie start
+  str_count(tekstje) #nu werkt het wel
+  
+```
+
+## Data Types
+
+R gebruikt verschillende datatypes om gegevens te gebruiken. Het gegevenstype kan je via `class(objectnaam)` oproepen.
+
+### Enkelvoudige types
 
 1. Numerieke waarden (geen quotes)
-    - gehele getalen (`integer`): 3, 5, -17
-    - kommagetallen (`numeric`, `float`, `double`): 3.00, 3.14, -7.52, 3.4e08
-    - logische waarden (`logical`): 
-        - waar: `TRUE`, `T`, 1
-        - onwaar: `FALSE`, `F`, 0 
-    - Datum/Datumtijd: 
-        - tekstuele notatie: "2019-04-01 13:13:13"
-        - numerieke notatie (aantal seconden sinds 1970-01-01 00:00:00 GMT): 1554117193
+    * gehele getalen (integer): 3, 5, -17
+    * kommagetallen (numeric, float, double): 3.00, 3.14, -7.52, 3.4e08
+    * logische waarden (logical):
+        * waar: TRUE, T, 1
+        * onwaar: FALSE, F, 0
+    * Datum/Datumtijd: '2019-04-01 13:13:13' of idem 1554117193
 1. Tekstuele waarden (altijd in quotes)
-    - `string`: betekenisloze waarden: "ik beteken helemaal niets"
-    - `factor`: categorische variabele: "appel", "peer", "banaan"
-    - `ordered`: geordende categorieën: "weinig", "middelmatig", "veel"
-    - **Quotes zijn essentieel**. Zonder quotes denkt R dat het gaat over de objecten `appel`, `peer`, `weinig`, `veel`. Aangezien deze niet bestaan in het geheugen van R, zal je een foutmelding krijgen.
+    * string: betekenisloze waarden: “ik beteken helemaal niets”
+    * factor: categorische variabele: “appel”, “peer”, “banaan”
+    * ordered: geordende categorieën: “weinig”, “middelmatig”, “veel”
+    * Quotes zijn essentieel. Zonder quotes denkt R dat het gaat over de objecten appel, peer,
+weinig, veel. Aangezien deze niet bestaan in het geheugen van R, zal je een foutmelding
+krijgen.
 1. Speciale waarden (geen quotes)
-    - `NA`: ontbrekende waarde
-    - `NaN`: ongeldige waarde
-    - `Inf`: $\infty$ 
-    ```{r, eval = TRUE}
-    waarde1 <- 3
-    waarde2 <- 5
-    waarde3 <- 7
-    waarde3
-    naam1 <- "categorie1"
-    naam2 <- "categorie2"
-    naam3 <- "categorie3"
-    naam3
-    opmerking <- "Dit is een simpele dataset"
-    ```
+    * NA: ontbrekende waarde
+    * NaN: ongeldige waarde
+    * Inf: 1
+
+```{r commandosbasis, eval = TRUE}
+waarde1 <- 3
+waarde2 <- 5
+waarde3 <- 7
+waarde3
+
+naam1 <- "categorie1"
+naam2 <- "categorie2"
+naam3 <- "categorie3"
+naam3
+
+opmerking <- "Dit is een simpele dataset"
+```
 
 
-## Array (of vector)
+### Array (of vector)
 
-- Een reeks van enkelvoudige waarden van hetzelfde type
-- Een kolom in een tabel
-- Kan meerdere dimensies hebben: bijvoorbeeld een matrix  
-    ```{r, eval = TRUE}
-    waardekolom <- c(waarde1, waarde2, waarde3)
-    waardekolom
-    namenkolom <- c(naam1, naam2, naam3)
-    namenkolom
-    meerderedimensies <- matrix(1:9, ncol = 3)
-    meerderedimensies
-    ```
+* Een reeks van enkelvoudige waarden van hetzelfde type
+* Een kolom in een tabel
+* Kan meerdere dimensies hebben: bijvoorbeeld een matrix
+* een rij cijfers wordt met c(elem1, elem2, elem3) gecodeerd
 
-## Dataset (data.frame, tibble)
+```{r commandosvectoren, eval = TRUE}
+waardekolom <- c(waarde1, waarde2, waarde3)
+waardekolom
+waardenrange <- 10:1
+waardenrange
+waardenrange2 <- seq(from = 1, to = 20, by = 2)
+waardenrange2
 
-- Verschillende vectoren (kolommen) met hetzelfde aantal elementen
-- Kolommen hebben allemaal een (logische) naam
-- tibble is een speciaal soort dataframe van het `tidyverse` package
-    - Wordt altijd mooi geprint in de Console (in tegenstelling tot grote dataframes)
-    - Belangrijkste informatie wordt getoond
-    ```{r, eval = TRUE}
-    dataset <- data.frame(naam = namenkolom, 
-                          waarde = waardekolom)
-    dataset
-    ```
+namenkolom <- c(naam1, naam2, naam3)
+namenkolom
+
+meerderedimensies <- matrix(1:9, ncol = 3)
+meerderedimensies
+```
 
 
-## Lijst
-    
-- Verzameling die al het voorgaande kan bevatten, alsook andere lijsten
-    ```{r, eval = TRUE}
-    lijst <- list(datasetnaam = dataset, 
-                  beschrijving = opmerking)
-    lijst
-    ```
+### Dataset (data.frame, tibble)
 
+* Lijst van Verschillende vectoren (kolommen) met hetzelfde aantal elementen
+* Kolommen hebben allemaal een (logische) naam
+* tibble is een speciaal soort dataframe van het tidyverse package
+    – Wordt altijd mooi geprint in de Console (in tegenstelling tot grote dataframes)
+    – Belangrijkste informatie wordt getoond
+
+```{r commandosdataframe, eval = TRUE}
+dataset <- data.frame(naam = namenkolom,
+waarde = waardekolom)
+dataset
+```
+
+### Lijst
+
+* Verzameling die al het voorgaande kan bevatten, alsook andere lijsten
+
+```{r commandoslijst, eval = TRUE}
+lijst <- list(datasetnaam = dataset,
+beschrijving = opmerking)
+lijst
+
+```
 
 ## Elementen selecteren in een vector, dataframe en lijst
 
 ### Vector
 
-- Elementen selecteren met indices tussen vierkante haken [], dimensies gescheiden door een komma
-    ```{r}
-    waardekolom[2]
-    namenkolom[c(3, 2)]
-    meerderedimensies[1, 2]
-    ```
-- Negatieve indices: alles behalve die elementen
-    ```{r}
-    waardekolom[-1]
-    namenkolom[-c(2, 4)]
-    meerderedimensies[-3, -2]
-    ```
-- Indices herhalen om bepaalde elementen meer te laten voorkomen
-    ```{r}
-    waardekolom[c(1, 2, 3, 2, 1, 2)]
-    ```
+Selecteren in een vector/array:
 
+* Elementen selecteren met indices tussen vierkante haken [], dimensies gescheiden door een komma
+* Negatieve indices: alles behalve die elementen
+* Indices herhalen om bepaalde elementen meer te laten voorkomen
+* bij meerdimesionele arrays kan je een dimensie leeglaten, dan worden alle elementen gekozen
+    - dus `matrixnaam[1,]` zal alle elementen uit de eerste rij tonen
+    - R wil automatisch vereenvoudigen, dus als je wil dat `matrixnaam[1,]` een matrix blijft en geen vector wordt, kan je `drop = FALSE` gebruiken
+
+```{r selectievector, eval = TRUE}
+waardekolom[2]
+namenkolom[c(3, 2)]
+meerderedimensies[1, 2]
+waardekolom[-1]
+namenkolom[-c(2, 4)]
+meerderedimensies[-3, -2]
+meerderedimensies[1, ]   #selecteer hele eerste rij  --> vereenvoudigd tot vector
+class(meerderedimensies[1, ] )
+meerderedimensies[1, , drop = FALSE] #selecteer hele eerste rij --> blijf matrix
+class(meerderedimensies[1, , drop = FALSE] )
+waardekolom[c(1, 2, 3, 2, 1, 2)]
+```
 
 ### Dataframe
 
-- Kolommen selecteren met $ of [[]], dit wordt dan een vector
-    ```{r}
-    dataset$waarde
-    dataset[[2]]
-    ```
-- Elementen selecteren zoals in een meerdimensionale vector, of uit een kolom zoals bij vectoren
-    ```{r}
-    dataset[3, 2]
-    dataset$waarde[2]
-    ```
+* Elementen selecteren zoals in een meerdimensionale vector, of uit een kolom zoals bij vectoren
+* Kolommen selecteren met $ of [[]], dit wordt dan een vector
+* Kolommen selecteren met enkele haken resulteert normaal gezien in een data.frame met enkel die kolommen, tenzij R kan vereenvoudigen, wat je kan vermijden door `drop = FALSE` te gebruiken
 
+
+```{r selectiedataframe, eval = TRUE}
+dataset$waarde
+dataset[[2]]
+dataset[2]
+dataset["waarde"]    #blijft data.frame
+dataset[["waarde"]]  #conversie naar vector
+dataset[3, 2]
+dataset[3, 2, drop = FALSE]
+class(dataset[3, 2, drop = FALSE])
+dataset$waarde[2]
+```
 
 ### Lijsten
 
-- Deelverzameling selecteren met $ of [[]]
-    ```{r datatypes}
-    lijst$datasetnaam
-    lijst[2]
-    lijst[[2]]
-    ```
-- Daarna verdere selecties zoals bij vectoren of dataframes
-    ```{r}
-    lijst$datasetnaam$waarde[2]
-    lijst[[1]][[2]][[2]]
-    ```
+* Deelverzameling selecteren met $ of [[]]
+* Indien je enkele haken gebruikt [], dan zal het resultaat opnieuw een lijst zijn met enkel de gekozen elementen
+* Daarna verdere selecties zoals bij vectoren of dataframes
 
 
-### Extra: verschil tussen [] en [[]]
+```{r selectielijst, eval = TRUE}
+lijst["datasetnaam"]
+class(lijst["datasetnaam"])
+lijst[2]
+lijst$datasetnaam
+class(lijst$datasetnaam)
+lijst[[2]]
+lijst$datasetnaam$waarde[2]
+lijst[[1]][[2]][[2]]
+```
 
-- Selectie met $ en [[]] resulteert in een vector
-- Ook mogelijk om een selectie te maken met []
-    - Dit behoudt het oorspronkelijke dataformaat
-    ```{r}
-    lijst[2]
-    lijst[[2]]
-    class(dataset[[2]])
-    class(dataset[2])
-    class(lijst[2])
-    ```
-- `lijst[2]` zal een lijst teruggeven met enkel het tweede element
-- `lijst[[2]]` zal de inhoud teruggeven van het tweede element van de lijst
-    
+## Inspecteren van vectoren en data.frames
 
-## Functies om vectoren en dataframes te inspecteren
+* Structuur van een object en zijn elementen: `str()`
+* Datatype van een object: `class()`
+* Samenvatting van een object: `summary()`
+* Meer informatie over factoren: `levels()`, `labels()`
+* Aantal elementen in een vector: `length()`
+* Aantal rijen en/of kolommen in een dataframe: `nrow()`, `ncol()`, `dim()`
+* Rijnamen van een dataframe: `rownames()`
+* Kolomnamen van een dataframe: `colnames()` of `names()`
+* Eerste n regels van een dataframe: `head()`
+* Laatste n regels van een dataframe: `tail()`
+* Een volledig overzicht van een dataframe: `View()` (hoofdletter V)
 
-- Structuur van een object en zijn elementen: `str()`
-- Datatype van een object: `class()`
-- Samenvatting van een object: `summary()`
-- Meer informatie over factoren: `levels()`, `labels()`
-- Aantal elementen in een vector: `length()`
-- Aantal rijen en/of kolommen in een dataframe: `nrow()`, `ncol()`, `dim()`
-- Rijnamen van een dataframe: `rownames()`
-- Kolomnamen van een dataframe: `colnames()` of `names()`
-- Eerste $n$ regels van een dataframe: `head()`
-- Laatste $n$ regels van een dataframe: `tail()`
-- Een volledig overzicht van een dataframe: `View()`
-    
-    ![](../Figuren/View_Data.jpg){width=4.5cm}\  
+Wees kritisch bij het evalueren
 
-**Wees kritisch** bij het evalueren
+* Juiste datatypes
+* Correct aantal NA waarden
+* Realistische waarden voor min, max, mean, . . .
 
-- Juiste datatypes
-- Correct aantal NA waarden
-- Realistische waarden voor min, max, mean, ...
+## Plotjes
+
+De iris datase is een dataset die met R meegeleverd wordt. Onderstaande plotfuncties zijn de basis R plots, maar in de volgende les van de cursus, wordt een ander type figuren (ggplot) gebruikt die standaard heel wat mooiere resultaten geven en veel mogelijkheden bieden zonder te ingewikkelde codering.
+
+```{r eval = TRUE}
+plot(iris$Sepal.Length, iris$Sepal.Width)
+plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species)
+plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species, 
+     main = "Iris Sepal data", xlab = "Length", ylab = "Width")
+barplot(iris$Petal.Length)
+```
 
 
 ## Missing data
+* Ontbrekende waarden codeer je als NA (-9999 = recipe for disaster)
+* Bewerkingen op getallen
+    * Meeste functies geven NA als resultaat wanneer er missing data aanwezig zijn
+    * Veel functies voorzien de parameter `na.rm = TRUE` welke de bereking maakt met de missings eruit gegooid.
+    
+* Functies om te kunnen omgaan met missing data
+    * is.na()
+    * na.omit()
+    * complete.cases()
 
-- Ontbrekende waarden codeer je als `NA` (-9999 = *recipe for disaster*)
-- Bewerkingen op getallen
-    - Meeste functies geven `NA` als resultaat wanneer er missing data aanwezig zijn
-    - Extra moeilijkheid !!!
-    - Argument `na.rm = TRUE` toevoegen aan de functie
-    ```{r}
-    heights <- c(1, 2, 4, 4, NA, 6, 8)
-    mean(heights)
-    max(heights)
-    mean(heights, na.rm = TRUE)
-    max(heights, na.rm = TRUE)
-    ```
-- Functies om te kunnen omgaan met missing data
-    - `is.na()` 
-    - `na.omit()`
-    - `complete.cases()`
-    ```{r}
-    !is.na(heights)
-    na.omit(heights)
-    complete.cases(heights)
-    heights[!is.na(heights)]
-    ```
+```{r missingdata, eval = TRUE}    
+heights <- c(1, 2, 4, 4, NA, 6, 8)
+mean(heights)
+max(heights)
+mean(heights, na.rm = TRUE)
+max(heights, na.rm = TRUE)
+!is.na(heights)
+na.omit(heights)
+complete.cases(heights)
+heights[!is.na(heights)]
+```
 
 
-
-
-
-# Meldingen in de Console
+## Meldingen in de Console
 
 De (rode) meldingen in de Console kunnen 3 verschillende dingen betekenen:
 
-- Foutmelding
-    - Begint met `Error`
-    - R stopt
-    - Moet opgelost worden alvorens verder te kunnen
-- Waarschuwing
-    - Begint met `Warning`
-    - R gaat gewoon verder
-    - Zeker nakijken en indien nodig aanpassen
-    - Kan de reden aangeven waarom *rare* resultaten verkregen worden
-- Mededeling
-    - Begint **niet** met `Error` of `Warning`
-    - Geeft meer informatie (vooral bij laden van packages)
-    - Niet nodig iets aan te passen
+* Foutmelding
+    * Begint met Error
+    * R stopt
+    * Moet opgelost worden alvorens verder te kunnen
+    * Gevaar: Als een object reeds bestaat, en er komt een foutmelding, dan blijft de oude waarde in het object bestaan 
+* Waarschuwing
+    * Begint met Warning
+    * R gaat gewoon verder
+    * Zeker nakijken en indien nodig aanpassen
+    * Kan de reden aangeven waarom rare resultaten verkregen worden
+* Mededeling
+    * Begint niet met Error of Warning
+    * Geeft meer informatie (vooral bij laden van packages)
+    * Niet nodig iets aan te passen
 
 
+## Tips & tricks, shortcuts
+
+* ALT + "-" : maak een toekenningspijltje " `<-` " 
+* TAB : vraag R om het commando aan te vullen
+* ↑ (in Console) : roep het vorige commando terug op
+* CTRL + ENTER : voer het commando uit waar de cursor staat (niet nodig om te selecteren)
+* CTRL + SHIFT + ENTER : voer alle commando's uit
+* CTRL + S : save script
+* CTRL + SHIFT + S : source het script (alle commando's uitvoeren)
+* CTRL + Z : undo
+* CTRL + SHIFT + Z : redo
+* CTRL + L : clear console
+* CTRL + SHIFT + F10 : restart R
+* CTRL + SHIFT + C : verander een regel code in een commentaar regel (#) of omgekeerd
 
 
-# Tips & tricks, shortcuts
-
-- ALT + "-" : maak een toekenningspijltje " `<-` " 
-- TAB : vraag R om het commando aan te vullen
-- ↑ (in Console) : roep het vorige commando terug op
-- CTRL + ENTER : voer het commando uit waar de cursor staat (niet nodig om te selecteren)
-- CTRL + SHIFT + ENTER : voer alle commando's uit
-- CTRL + SHIFT + C : verander een regel code in een commentaar regel (#) of omgekeerd
-- CTRL + S : bewaar het script
-- CTRL + Z : undo
-- CTRL + SHIFT + Z : redo
-- CTRL + L : clear console
-- CTRL + SHIFT + F10 : restart R
-
-
-
-
-# More to learn
+## More to learn
 
 - R for data science
     - Boek van Hadley Wickham en Garrett Grolemund
@@ -667,8 +703,6 @@ De (rode) meldingen in de Console kunnen 3 verschillende dingen betekenen:
 - Cheat Sheets
     - In RStudio onder `Help` menu
     - [Online](https://www.rstudio.com/resources/cheatsheets/)
-
-
 
 
 # Referenties
