@@ -32,7 +32,7 @@ Vetgedrukt heb je de benodigde R packages. Om deze te gebruiken moeten die geïn
 
 
 - tekstbestanden: txt, tsv, csv, fwf ---> **readr** of basis R
-- excel bestanden (enkel inlezen): xls, xlsx  
+- excel bestanden (enkel inlezen): xls, xlsx  ---> **readxl**
 - access databases: mdb, accdb ---> **RODBC / (odbc + DBI)**
 - eenvoudige databestanden: sqlite ---> **odbc**
 - databank server connecties: SQL server, MySql, postgres ---> **RODBC / (DBI + odbc)**
@@ -56,8 +56,8 @@ Standaard gaat R uit van het volgende data formaat:
 Dit is niet vaak het geval, dus 
 
 - in R heb je veel functies om hiermee om te gaan
-- Als je aanpassingen aanbrengt, zorg dat dit op een kopie van je origineel bestand gebeurt!
-- Vaak efficiënter de bronbestanden zelf eerst zo goed mogelijk te zetten voor je in R importeert
+- Als je aanpassingen aanbrengt, doe dit op een kopie van je origineel bestand!
+- Vaak efficiënter de bronbestanden zelf eerst zo goed mogelijk te zetten voor je die in R importeert
 - Wat je extern of in R doet hangt af van situatie tot situatie maar wees hier logisch in
 
 
@@ -81,7 +81,7 @@ data <- read_csv("mijndata.csv")
 #data die in een subfolder van je werkdirectory staat
 data <- read_csv("subfolder/mijndata.csv")
 
-#data die in 1 folder hoger
+#data 1 folder hoger
 data <- read_csv("../mijndata.csv")
 
 #data 2 folders hoger
@@ -104,7 +104,7 @@ data <- read_csv("c:\\ikke/projecten\\data/mijndata.csv")
 
 Tekstbestanden zijn alle bestanden die leesbaar zijn in een programma zoals kladblok of notepad++. Dit zijn meestal .txt, .csv en .tsv bestanden. Deze bestanden kunnen op veel verschillende manieren gecodeerd zijn, zo gebruiken ze in de VS vooral "," als scheidingsteken en "." als decimaalteken, terwijl in Europa doorgaans eerder ";" als scheidingsteken gebruikt wordt en "," als decimaalteken.
 
-Teksbestanden kan je inlezen via het menusysteem (File > Import Dataset). Dit genereert ook R code, welke je best overneemt in je script, zodat je die interactie niet meer nodig hebt.
+Teksbestanden kan je inlezen via het menusysteem (File > Import Dataset). Dit genereert ook R code, welke je best overneemt in je script, zodat je die interactie met het menu niet meer nodig hebt.
 
 Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie in dit pakket is *read_delim*, maar die heeft ook nog afgeleide functies met andere defaultwaarden zoals:
 
@@ -114,7 +114,7 @@ Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie 
 - *read_fwf*: verwacht dat iedere kolom hetzelfde aantal characters bevat
 - *spec_delim*: leest enkel de kolominformatie in
 
-Het is heel belangrijk om goed te checken of je data wel correct ingelezen is, hiervoor zijn de basisfuncties _View_, _summary_, _head_, _str_ , _dim_, _table_, ... een goede hulp.
+Het is heel belangrijk om goed te checken of je data wel correct ingelezen is, hiervoor zijn de basisfuncties _View_, _summary_, _head_, _str_, _dim_, _table_, ... een goede hulp.
 
 
 ### Eenvoudig tekstbestand zonder teveel problemen
@@ -136,7 +136,7 @@ dfSpecies <- read_csv("data/20180222_species.csv")
 #voor help
 ?read_delim
 
-#Altijd alles controkeren
+#Altijd alles controleren
 #Kan ook door in het environment paneel het object dfSpecies 
 #aan te klikken of uit te vouwen
 dim(dfSpecies)
@@ -166,7 +166,7 @@ File > Import Dataset > From Text ... (readr)
 
 ![Duidelijk moeten er nog wat parameters gewijzigd worden](../Figuren/DataInlezenViaMenu.png)
 
-Je ziet dat in dit bestand nog niet correct is (zie figuur)
+Je ziet dat dit bestand nog niet correct zou worden ingelezen (zie figuur)
  --> via parameters aanpassen
 
 ![Aanpassing parameters](../Figuren/DataInlezenViaMenuAangepast.png)
@@ -175,17 +175,17 @@ Je ziet dat in dit bestand nog niet correct is (zie figuur)
 
 Je ziet rechtsonderaan de code die wordt gegenereert. Je kan de file zo inlezen, maar kopieer altijd de code naar je script, zodat je later het menu niet meer nodig hebt. 
 
-Welke parameters kunnen we wijzigen om de file correct in te lezen. Je zal zien dat deze overeen komen met  `?read_delim`
+Welke parameters kunnen we wijzigen om de file correct in te lezen? Je zal zien dat deze overeen komen met  `?read_delim`
 
-- `Name`: de naam van het R object (in de code wat links van <- staat)
-- `Skip`: Hoeveel rijen moeten overgeslaan worden (parameters `skip`)
+- `Name`: Naam van het R object (in de code wat links van <- staat)
+- `Skip`: Hoeveel rijen moeten overgeslaan worden (parameter `skip`)
 - `First row as names`: Bevat de eerste rij rijnamen of niet (parameter `col_names`)
-- `Trim spaces`: Moeten spaties genegeerd worden (paramter `trim_ws`)
+- `Trim spaces`: Moeten spaties genegeerd worden (parameter `trim_ws`)
 - `Open Data Viewer`: zorgt voor de extra regel `View(data)`.
 - `Delimiter`: Wat is het scheidingsteken (parameter `delim`)
 - `Quotes`: Om aan te geven of er quotes in de data zitten en of dit enkele of dubbele zijn (parameter `quote`)
 - `Escape`: Als je data ook de delimiter bevat, kan je hiermee zeggen hoe deze in de file worden gecodeerd (parameter `escape_bakslash` en `escape_double`)
-- `Comment`: Lijnen die in de tekst commentaar is en mag overgelaan worden (parameter `comment`)
+- `Comment`: Lijnen die in de tekst commentaar is en mag overgeslaan worden (parameter `comment.char`)
 - `NA`: Hoe worden NA waarden in de tekst weergegeven (parameter `na`)
 - `Locale`: Is een iets ingewikkeldere manier om aan te kunnen geven walke  het decimaal teken en andere landsinstellingen zijn. (parameter `locale`). Wij gebruiken meestal volgende instelling: `locale = locale(decimal_mark = ",", grouping_mark = "")`
 - In de preview bovenaan kan je het type kolom wijzigen (parameter `col_types`)
@@ -196,7 +196,7 @@ Welke parameters kunnen we wijzigen om de file correct in te lezen. Je zal zien 
 
 
 #De Europese vorm van .csv gaat uit van een ; als scheiding en , als decimaal
-#voor de europese vorm gebruiken we read_csv2, voor de Amerikaansse is dit read_csv
+#voor de Europese vorm gebruiken we read_csv2, voor de Amerikaansse is dit read_csv
 #De eerste 2 rijen in de csv zijn geen onderdeel van de data, die skippen we
 
 #Deze code bekom je ook via het menusysteem (misschien met wat extra parameters)
@@ -221,7 +221,7 @@ testdata <- data.frame(cat = c("A", "B", "C"), val = c(3.1, 4.15,9.26))
 data(iris)
 write_delim(iris, "data/iris.csv", delim = ";") #decimaalteken is .
 write_csv2(iris, "data/iris.csv") #decimaalteken is ,
-write_excel_csv2(iris, "data/iris.csv")
+write_excel_csv2(iris, "data/iris.csv") #decimaalteken is ,
 
 ```
 
@@ -237,7 +237,7 @@ Om Excel bestanden in te lezen gebruiken we hier het package **readxl**.
 
 **Tip: Verzorg je excel bestand en zorg dat elke kolom een consistent datatype is, zeker voor datumtijd, omdat R die dan onmiddellijk juist inleest.**
 
-Data wegschrijven als Excel bestand kan niet met dit pakket, al is hier de excel csv een goed alternatief. Als je echt een native excel bestand wil wegschrijven kan je packages gebruiken zoals **xlsx**, **openxlsx**, **writexl**.
+Data wegschrijven als Excel bestand kan niet met dit pakket, al is hier een csv bestand een goed alternatief, zeker als je `write_excel_csv2` gebruikt. Als je echt een native excel bestand wil wegschrijven, kan je packages gebruiken zoals **xlsx**, **openxlsx**, **writexl**.
 
 Onderstaande code kan ook bekomen worden via het menusysteem: File > Import Dataset > From Excel ...
 
@@ -305,9 +305,10 @@ table(dfSurvey2$Sex) #controle of de geslachten juist ingevuld zijn
     - je geeft toegang aan tidyverse-googlesheets
         - ofwel krijg je dan een code die je in R moet plakken
         - ofwel zal je direct een melding krijgen dat de authorisatie gelukt is
-- Periodiek zal R je vragen de gs4_auth te verversen
+- Periodiek zal R je vragen dit 0auth token te verversen
 - Eens dit gebeurd is zal je iedere R sessie gevraagd worden je naam te selecteren
-  - je zien een selectie van namen en je kiest het correcte nummer
+  - je ziet een selectie van namen en je kiest het correcte nummer
+  - alternatief kan je direct je e-mail adres meegeven zodat de selectie niet meer nodig is
 - Nu kan je de url of key van de sheet gebruiken
     - de url of key nemen de plaats in van `file` bij andere functies zoals `read_csv`
     - de key gebruiken werkt doorgaans sneller en is een deel van de url
@@ -345,7 +346,7 @@ dfLab <- read_sheet(ss = key, #pad + file
 head(dfLab)
 View(dfLab)
 
-?read_sheet #help op overzicht te vinden van alle argumenten
+?read_sheet #help opvragen voor overzicht van alle argumenten
 
 ```
 
@@ -378,24 +379,7 @@ load(file = "mijngegevens.Rdata")
 ```
 
 
-## Connectie met andere data formaten
-
-### Inleiding
-
-Dit is eerder als naslagwerk, en zal niet zonder vraag aan bod komen in de cursus.
-Het basisprincipe is: 
-
-1. Maak een connectie met de databank (SQL, Access, ...) en bewaar dit connectiebestandje in een object met de naam `conn` of `con` of `channel` of om het even wat
-1. Vraag de data op via een leesfunctie
-    - het eerste argument is de connectie, dus de objectnaam van hierboven
-    - het tweede argument is de tabelnaam of de SQL query
-
-
---------------------- EINDE LES --------------------------------------------
-
-
-
-### Connectie met Access, Databanken, Databronnen
+## Connectie met Access, Databanken, Databronnen
 
 Dit zit niet meer in de scope van deze cursus. Als je hierover vragen hebt, ben je altijd welkom.
 Hieronder staat gewoon kort wat voorbeeldcode hoe dat gebeurt.
@@ -444,13 +428,14 @@ Je kan die aanmaken via windows start --> zoek naar gegevensbronnen (odbc) en ki
 library(RODBC)
 conn <- odbcConnect("Naam_Van_Mijn_Gegevensbron")
 
-#hierop kan je dan sqlQuery of sqlFetch gebruiken zoals getoond bij de connectie naar Access.
+#hierop kan je dan sqlQuery of sqlFetch gebruiken,  
+#zoals getoond bij de connectie naar Access.
 
 ```
 
 Alternatief kan je werken via het DBI en odbc package
 
-```{r Databank}
+```{r Databank, eval = FALSE}
 
 library(DBI)
 library(odbc)
@@ -458,12 +443,16 @@ library(odbc)
 #maak de connectie 
 #die zie je in Rstudio in het paneel rechtsboven onder tabblad connections
 #zorg dat je op het INBO netwerk zit, of met vpn verbonden bent
+#de 2  basis db servers op het INBO in 2021 zijn 
+    #inbo-sql08-prd.inbo.be voor data warehouses
+    #inbo-sql07-prd.inbo.be voor databanken
 con <- DBI::dbConnect(odbc::odbc(),
                       driver = "SQL Server",
                       server = "inbo-sql08-prd.inbo.be",
                       database = "W0003_00_Lims")
 
-#toon de beschikbare tabellen in het dbo schema (bij INBO is dit schema standaard voor tabellen)
+#toon de beschikbare tabellen in het dbo schema
+#op het INBO is dit schema standaard voor de tabellen
 dbListTables(con, table_type = "TABLE", schema_name = "dbo")
 
 #Lees een volledige tabel in 

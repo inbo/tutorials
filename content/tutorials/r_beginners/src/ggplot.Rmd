@@ -7,6 +7,8 @@ papersize: a4
 urlcolor: blue
 ---
 
+# Data visualiseren met ggplot
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   out.extra = "",
@@ -29,25 +31,27 @@ fig_height_facet <- 3.6
 
 
 
-# Waarom ggplot?
+## Waarom ggplot?
 
 - `ggplot` maakt grafieken gebaseerd op de [Grammar of Graphics](https://www.springer.com/gp/book/9780387245447)
-- werkt altijd volgens dezelfde structuur
+- Werkt altijd volgens dezelfde structuur
     - geef de dataset aan die je wil plotten
     - geef aan welke variabelen op de assen moeten komen
-        - een as is naast x en y, ook color, fill, shape, ...
+        - de assen x en y
+        - de assen color, fill, shape, ...
+        - geen z as
     - geef aan welk type grafiek je wil maken (punten, lijnen, boxplot, histogram, ...)
     - detailleer je grafiek (titels, kleuren, vormen, ...)
     - toon of print de grafiek
-- De basisgrafieken zien er al deftig uit
+- De basisgrafieken zien er al goed uit
 - Grafieken worden stap voor stap opgebouwd
 - Gemakkelijk om kleuren, groottes, ... te laten variëren per groep
-- gemakkelijk je plot op te splitsen per groep
+- Gemakkelijk je plot op te splitsen per groep
 - Automatische legende
 - Mogelijk om verschillende datasets te combineren
 - ...
 
-# Datasets
+## Datasets
 
 - `iris` data uit R
     - Opgesplitst in `irisSepal` en `irisPetal`
@@ -86,7 +90,7 @@ fig_height_facet <- 3.6
 
 
 
-# Package `ggplot2` om de figuren te maken
+## Package `ggplot2` om de figuren te maken
 
 - Dit package heb je al als je het package `tidyverse` geïnstalleerd hebt
 - Laad het package `tidyverse` (of alleen `ggplot2`)
@@ -102,7 +106,7 @@ fig_height_facet <- 3.6
 
 
 
-# Basis syntax `ggplot`
+## Basis syntax `ggplot`
 
 - Het package heet `ggplot2`, de belangrijkste functie is `ggplot()`
 - Zoek hulp over `ggplot` (?ggplot)
@@ -123,11 +127,29 @@ ggplot(irisSepal, aes(x = Length, y = Width))
 - Enkel dataset gespecifieerd, en X- en Y-as
 - Daarna worden er 1 of meerdere lagen met punten, lijnen,... toegevoegd volgens diezelfde X- en Y-assen, met `+ geom_xxx()`.
 
+GGplot figuren gaan uit van een basisthema
+
+- Dit bevat heel wat zaken
+    - hoe de assen, astitels en achtergrond eruit zien
+    - welke de basiskleuren zijn die gebruikt worden
+- Standaard wordt het `theme_grey()` gebruikt, maar er zijn alternatieven zoals `theme_bw()`
+- Je kan ook eigen thema's definiëren en gebruiken, zo bestaat er een thema voor INBO figuren
+    - hiervoor gebruik je het package `INBOtheme` (komt in de markdown les aan bod)
+    - installeer en laadt het pakket
+    - `+ theme_inbo(base_size = 12)` voor INBO thema met basis font size van 12
+    - bovenaan je script kan je ook het default thema wijzigen  zodat je dit niet telkens voor iedere figuur moet specifiëren: `theme_set(theme_inbo(base_size = 12))`
+    
+
+```{r}
+# gebruik het zwart wit thema
+ggplot(irisSepal, aes(x = Length, y = Width)) + theme_bw()
+
+```
 
 
-# Lagen toevoegen
+## Lagen toevoegen
 
-## Punten
+### Punten
 
 - `geom_point`
     ```{r}
@@ -136,9 +158,9 @@ ggplot(irisSepal, aes(x = Length, y = Width))
     ```
 - `geom_jitter`: voegt wat ruis toe, interessant wanneer er veel punten over mekaar vallen
 
-## Lijnen
+### Lijnen
 
-### `geom_line`
+#### `geom_line`
 
 - Verbindt de punten volgens de waarden op de X-as
     ```{r}
@@ -153,7 +175,7 @@ ggplot(irisSepal, aes(x = Length, y = Width))
       geom_line()
     ```
 
-### `geom_path`
+#### `geom_path`
 
 - Verbindt de punten volgens de volgorde in de data
     ```{r}
@@ -162,7 +184,7 @@ ggplot(irisSepal, aes(x = Length, y = Width))
       geom_path()
     ```
 
-### `geom_smooth`
+#### `geom_smooth`
 
 - Smoother zonder verdere specificatie, om een patroon te herkennen in de punten
     ```{r}
@@ -178,7 +200,7 @@ ggplot(irisSepal, aes(x = Length, y = Width))
     ```
 - Veel meer opties mogelijk, zie help
 
-### Andere lijnen
+#### Andere lijnen
 
 - `geom_hline`: horizontale lijn
 - `geom_vline`: verticale lijn
@@ -286,8 +308,9 @@ Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
 **tip: converteer numerieke waarden naar factor als je ze gebruikt voor groepering**
 
 - Indien een variabele numeriek is zal ggplot deze als een continue range beschouwen
-- Indien je een discrete range wil, maak je van de variabele een factor (?factor)
+- Indien je een discrete range wil, maak je van de variabele een factor
     - factoren laten toe de volgorde te kiezen met het argument `levels`
+    - met het `labels` argument kan je ieder level een naam geven
 
 ```{r factorvariabelen}
 testdata <- data.frame(x = 1:20, y = rnorm(20), grp = rep(1:5, 4))
@@ -298,6 +321,11 @@ ggplot(testdata, aes(x = x, y = y, color = fgrp)) + geom_point()
 
 testdata$fgrp2 <- factor(testdata$grp, levels = 5:1)
 ggplot(testdata, aes(x = x, y = y, color = fgrp2)) + geom_point()
+
+testdata$fgrp3 <- factor(testdata$grp, levels = 5:1, 
+                         labels = c("uitstekend", "goed", 
+                                    "voldoende", "zwak", "slecht"))
+ggplot(testdata, aes(x = x, y = y, color = fgrp3)) + geom_point()
 ```
 
 
@@ -363,7 +391,7 @@ ggplot(irisSepal, aes(x = Length, y = Width, color = Species)) +
     p
     ```
 - Figuur kan dan stapsgewijs verder opgebouwd worden met geschikte lagen
-    - Tonen
+    - Figuur tonen
     ```{r, eval = FALSE}
     p + geom_smooth()
     ```
@@ -478,11 +506,12 @@ ggplot(irisSepal, aes(x = Length)) +
 
 - Enkel een X-as nodig
 - Waarden op de Y-as worden berekend
+    - behalve als je stat = "identity" gebruikt, dan worden de waarden gebruikt die je als Y-as meegeeft
 
 ### `geom_bar`
 
 ```{r}
-#Toont het aantal irissen per soort in de dataset (is hier 3x 50)
+#Toont het aantal irissen per soort in de dataset (is hier 3 keer 50)
 ggplot(irisSepal, aes(x = Species)) +
   geom_bar()
 
@@ -499,6 +528,13 @@ ggplot(irisSepal, aes(x = Species, fill = grootte)) +
 #plot deze naast elkaar
 ggplot(irisSepal, aes(x = Species, fill = grootte)) +
   geom_bar(position = position_dodge())
+
+#soms heb je de aantallen al op voorhand berekend
+#dan moet je dit aantal als Y as meegeven
+#en aan R zeggen dat je de waarden zelf wil gebruiken door stat = "identity"
+testdata <- data.frame(cat = c("cat1", "cat2", "cat3"), N = c(10,7,12))
+ggplot(testdata, aes(x = cat, y = N)) + geom_bar(stat = "identity")
+
 ```
 
 - Enkel een X-as nodig
@@ -563,7 +599,7 @@ v + geom_tile(aes(fill = density)) + geom_contour(color = 'black') +
 
 ### Gecombineerd in 1 functie
 
-```{r, eval = FALSE}
+```{r combilabs}
 
 p + labs(title = "Verband tussen lengte en breedte",
          x = "Lengte (in mm)",
@@ -586,8 +622,9 @@ p + labs(title = "Verband tussen lengte en breedte",
     ```{r, eval = FALSE}
     ggsave(filenaam, p)
     
-    #print(p)
-    #ggsave(filenaam)
+    #alternatief
+    print(p)
+    ggsave(filenaam)
     ```
 - Verschillende formaten door middel van het argument `device = `
     - jpeg, tiff, png, bmp, wmf, ps, pdf, ...
@@ -619,7 +656,7 @@ kan je snel de mogelijkheden bij de autoaanvulling zien als je bv scale_ ingetyp
 
 - scale_
 - astype: x, y, fill, color, size, linetype, shape, . . .
-- hoofdeigenschap: continuous, discrete, date, datetime, time, log10, sqrt, distiller, gradient, . . .
+- hoofdeigenschap: manual, continuous, discrete, date, datetime, time, log10, sqrt, distiller, gradient, . . .
     - bv. `+ scale_fill_manual(values = c("red", "green", "blue"))`
     - R heeft enkele standaard kleurenpalletten  (rainbow, heat, terrain.colors, topo.colors, cm.colors, ...) `+ scale_fill_manual(values = terrain.colors(5))`
     
@@ -700,11 +737,11 @@ ggplot(iris, aes(x = Species, fill = Species)) + geom_bar(width = 1) +
     - Boek van Hadley Wickham en Garrett Grolemund
     - Hardcopy beschikbaar op INBO
     - [Digitale versie](https://r4ds.had.co.nz/)
-- Datacamp
+- Datacamp 
     - (gedeeltelijk) gratis lessen (video tutorials en oefeningen)
     - Account voor 72h voor volledige toegang, daarna betalende licentie (~ €25/maand)
-    - [Data visualization with ggplot2](https://campus.datacamp.com/courses/data-visualization-with-ggplot2-1/chapter-1-introduction-d19c22c0-9d9c-4202-b2fb-8630796b7dde?ex=1)
-    - [Grammar of Graphics](https://campus.datacamp.com/courses/data-visualization-with-ggplot2-1/chapter-1-introduction-d19c22c0-9d9c-4202-b2fb-8630796b7dde?ex=5)
+    - [overzicht](https://www.datacamp.com/)
+
 - Data Carpentry
     - [Visualizing Data](https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html)
 - Stat 545
@@ -715,7 +752,7 @@ ggplot(iris, aes(x = Species, fill = Species)) + geom_bar(width = 1) +
 
 
 
-# Referenties
+## Referenties
 
 - [R for data science](https://r4ds.had.co.nz/)
 - Slides van Thierry uit 2015
