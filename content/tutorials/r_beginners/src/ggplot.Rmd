@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   inline = TRUE,
   echo = TRUE, 
   warning = FALSE,
+  message = FALSE,
   # eval = FALSE,
   # cache = FALSE, 
   dpi = 300, 
@@ -31,14 +32,17 @@ fig_height_facet <- 3.6
 # Waarom ggplot?
 
 - `ggplot` maakt grafieken gebaseerd op de [Grammar of Graphics](https://www.springer.com/gp/book/9780387245447)
-    - Je geeft de gegevens mee
-    - Je vertelt ggplot2 welke variabelen op de assen moeten komen
-    - Je zegt welk type grafiek je wil maken (punten, lijnen, boxplot, histogram, ...)
-    - En je zorgt voor de details (titels, kleuren, vormen, ...)
-- De basisgrafieken zien er al heel mooi uit
-- Alle soorten grafieken vertrekken van dezelfde syntax
+- werkt altijd volgens dezelfde structuur
+    - geef de dataset aan die je wil plotten
+    - geef aan welke variabelen op de assen moeten komen
+        - een as is naast x en y, ook color, fill, shape, ...
+    - geef aan welk type grafiek je wil maken (punten, lijnen, boxplot, histogram, ...)
+    - detailleer je grafiek (titels, kleuren, vormen, ...)
+    - toon of print de grafiek
+- De basisgrafieken zien er al deftig uit
 - Grafieken worden stap voor stap opgebouwd
 - Gemakkelijk om kleuren, groottes, ... te laten variëren per groep
+- gemakkelijk je plot op te splitsen per groep
 - Automatische legende
 - Mogelijk om verschillende datasets te combineren
 - ...
@@ -82,7 +86,7 @@ fig_height_facet <- 3.6
 
 
 
-# Package `ggplot2`
+# Package `ggplot2` om de figuren te maken
 
 - Dit package heb je al als je het package `tidyverse` geïnstalleerd hebt
 - Laad het package `tidyverse` (of alleen `ggplot2`)
@@ -101,7 +105,7 @@ fig_height_facet <- 3.6
 # Basis syntax `ggplot`
 
 - Het package heet `ggplot2`, de belangrijkste functie is `ggplot()`
-- Zoek hulp over `ggplot`
+- Zoek hulp over `ggplot` (?ggplot)
 
 ![](../Figuren/Help_ggplot.jpg){width=12cm}\
 
@@ -182,16 +186,18 @@ ggplot(irisSepal, aes(x = Length, y = Width))
 
 
 
-# Aesthetics
+## Aesthetics
+
 
 Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
 
-- `color`, `shape`, `linetype`, `size`, `fill`
+- meest gebruikt: `color`, `shape`, `linetype`, `size`, `fill`, 
+- andere: `alpha`, `label`, `family`, `fontface`, ...
 - Specifiëer je deze argumenten **binnen** de `aes()`, dan variëren ze volgens een bepaalde variabele (kenmerk van de observaties)
 - Specifiëer je deze argumenten **buiten** de `aes()`, dan zijn het vaste kenmerken
 - Dit kan voor de volledige grafiek hetzelfde, of verschillend per laag, afhankelijk in welke aesthetics `aes()` je dit argument toevoegt
 
-## `color`
+### `color`
 
 - Kleur van de punten variërend volgens soort
     ```{r, fig.width = fig_width_legend}
@@ -219,7 +225,7 @@ Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
       geom_smooth(color = "red", method = "lm")
     ```
 
-## `shape`
+### `shape`
 
 - Symbool van de punten variërend volgens soort
     ```{r, fig.width = fig_width_legend}
@@ -227,7 +233,7 @@ Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
       geom_point()
     ```
 
-## `linetype`
+### `linetype`
 
 - Type lijn varieert volgens soort
     ```{r, fig.width = fig_width_legend}
@@ -236,7 +242,7 @@ Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
       geom_smooth(aes(linetype = Species), method = "lm")
     ```
 
-## `size`
+### `size`
 
 - Grootte van de punten variërend volgens soort
     ```{r, fig.width = fig_width_legend, warning = TRUE}
@@ -258,7 +264,7 @@ Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
       geom_smooth(size = 3, method = "lm")
     ```
 
-## `fill`
+### `fill`
 
 - Hiermee kan je de kleur van het (interne) vlak bepalen
 - Met `color` verander je enkel de kleur van de rand
@@ -275,7 +281,27 @@ Naast de X- en Y-as kunnen we nog extra *assen* toevoegen aan de figuur:
       geom_smooth(aes(fill = Species), method = "lm")
     ```
 
-## Combinatie van aesthetics
+### factorvariabelen
+
+**tip: converteer numerieke waarden naar factor als je ze gebruikt voor groepering**
+
+- Indien een variabele numeriek is zal ggplot deze als een continue range beschouwen
+- Indien je een discrete range wil, maak je van de variabele een factor (?factor)
+    - factoren laten toe de volgorde te kiezen met het argument `levels`
+
+```{r factorvariabelen}
+testdata <- data.frame(x = 1:20, y = rnorm(20), grp = rep(1:5, 4))
+ggplot(testdata, aes(x = x, y = y, color = grp)) + geom_point()
+
+testdata$fgrp <- factor(testdata$grp)
+ggplot(testdata, aes(x = x, y = y, color = fgrp)) + geom_point()
+
+testdata$fgrp2 <- factor(testdata$grp, levels = 5:1)
+ggplot(testdata, aes(x = x, y = y, color = fgrp2)) + geom_point()
+```
+
+
+### Combinatie van aesthetics
 
 - Verschillende kleuren voor de punten en smoothers
 - Verschillend symbool voor de punten
@@ -290,7 +316,7 @@ ggplot(irisSepal, aes(x = Length, y = Width, color = Species)) +
   geom_smooth(aes(linetype = Species, fill = Species), size = 2, method = "lm")
 ```
 
-## Lagen met verschillende assen
+### Lagen met verschillende assen
 
 - Het is mogelijk in elke laag een verschillende dataset en/of aesthetics te gebruiken
 - Beperk de informatie in de `ggplot()` functie dan tot het gemeenschappelijke
@@ -308,7 +334,7 @@ ggplot(irisSepal, aes(x = Length, y = Width, color = Species)) +
       geom_point(data = irisPetal, color = "red")
     ```
 
-## Conclusie
+### Conclusie
 
 - Aesthetics in de `ggplot()` functie hebben een effect op alle lagen die toegevoegd worden
 - Aesthetics in een `geom_xxx()` functie hebben enkel effect op die laag
@@ -321,11 +347,15 @@ ggplot(irisSepal, aes(x = Length, y = Width, color = Species)) +
 - Lagen worden over mekaar gelegd
     - Volgorde belangrijk voor de zichtbaarheid
     - Soms beter om de volgorde te wijzigen
+- Ter info
+    - ggplot voorziet niet om quasi 3D grafieken te maken
+    - Meerdere Y-assen zijn mogelijk, maar afgeraden
+    - Pie charts kunnen in ggplot gemaakt worden door met polaire coördinaten te werken (valt buiten de cursus)
 
 
+## Object stapsgewijs opbouwen
 
-# Object stapsgewijs opbouwen
-
+- R kan een ggplot figuur in een object bewaren
 - Kan handig zijn om gemeenschappelijke delen niet telkens te moeten herhalen
     ```{r, fig.width = fig_width_legend}
     p <- ggplot(irisSepal, aes(x = Length, y = Width)) +
@@ -348,7 +378,7 @@ ggplot(irisSepal, aes(x = Length, y = Width, color = Species)) +
 
 
 
-# Facets
+## Facets
 
 - Gebruik van verschillende kleuren kan verwarrend zijn, zeker als er veel punten en/of lijnen op 1 grafiek staan
 - Duidelijker als gegevens over verschillende deelfiguren weergeven worden
@@ -359,12 +389,16 @@ ggplot(irisSepal, aes(x = Length, y = Width, color = Species)) +
 
 We definiëren onderstaande basisplot `p` die we vanaf nu telkens gaan aanvullen.
 ```{r}
+#de plot wordt bewaard in object p, maar om het te tonen moet het object tonen
+#ofwel een regel met enkel de objectnaam ofwel print(p)
 p <- ggplot(irisAll, aes(x = Length, y = Width)) +
   geom_point() +
   geom_smooth(method = "lm")
+
+print(p)
 ```
 
-## `facet_wrap()`
+### `facet_wrap()`
 
 - Basisnotatie: `facet_wrap(~ NaamVariabele)`
     ```{r, fig.width = fig_width_facet, fig.height = fig_height_facet}
@@ -383,7 +417,7 @@ p <- ggplot(irisAll, aes(x = Length, y = Width)) +
     p + facet_wrap(~ Species, nrow = 2, scales = "free")
     ```
 
-## `facet_grid()`
+### `facet_grid()`
 
 - Basisnotatie: `facet_grid(RijVariabele ~ KolomVariabele)`
 - `scales`
@@ -407,9 +441,9 @@ p <- ggplot(irisAll, aes(x = Length, y = Width)) +
 
 
 
-# Nog enkele handige `geom_xxx()`
+## Nog enkele handige `geom_xxx()`
 
-- `geom_histogram`, `geom_density`: histogram en gesmooth histogram
+- `geom_histogram`, `geom_density`: histogram en histogram density
 - `geom_bar`, `geom_col`: staafdiagram
     - `geom_bar`: hoogte proportioneel tot aantal observaties in die groep 
     - `geom_col`: hoogte proportioneel tot waarde in data
@@ -419,7 +453,7 @@ p <- ggplot(irisAll, aes(x = Length, y = Width)) +
 - `geom_text`: tekst labels per datapunt
 - `geom_tile`, `geom_contour`: bovenaanzicht 3D oppervlak
 
-## `geom_histogram`
+### `geom_histogram`
 
 ```{r, message = TRUE}
 ggplot(irisSepal, aes(x = Length)) +
@@ -435,7 +469,7 @@ ggplot(irisSepal, aes(x = Length)) +
     geom_histogram(binwidth = 0.25)
     ```
 
-## `geom_density`
+### `geom_density`
 
 ```{r}
 ggplot(irisSepal, aes(x = Length)) +
@@ -445,17 +479,32 @@ ggplot(irisSepal, aes(x = Length)) +
 - Enkel een X-as nodig
 - Waarden op de Y-as worden berekend
 
-## `geom_bar`
+### `geom_bar`
 
 ```{r}
+#Toont het aantal irissen per soort in de dataset (is hier 3x 50)
 ggplot(irisSepal, aes(x = Species)) +
   geom_bar()
+
+ggplot(irisSepal, aes(x = Species, fill = Species)) +
+  geom_bar()
+
+#Maak een extra variabele aan die grote en kleine irissen onderscheid
+irisSepal$grootte <- factor(iris$Sepal.Length > 5, labels = c('klein', 'groot'))
+
+#plot deze boven elkaar
+ggplot(irisSepal, aes(x = Species, fill = grootte)) +
+  geom_bar(position = position_stack())
+
+#plot deze naast elkaar
+ggplot(irisSepal, aes(x = Species, fill = grootte)) +
+  geom_bar(position = position_dodge())
 ```
 
 - Enkel een X-as nodig
 - Waarden op de Y-as worden berekend
 
-## `geom_boxplot`
+### `geom_boxplot`
 
 ```{r}
 ggplot(irisSepal, aes(x = "", y = Length)) +
@@ -470,18 +519,39 @@ ggplot(irisSepal, aes(x = "", y = Length)) +
       geom_boxplot()
     ```
 
+### `geom_contour` en `geom_tile`
+
+```{r contour}
+#voorbeeld uit ?geom_contour, data faithfuld is meegeleverd met R
+head(faithfuld)
+v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
+v + geom_contour()
+
+#kleur de plot ook in naast de contour
+v + geom_tile(aes(fill = density)) + geom_contour(color = 'black')
+
+#gebruik een ander kleurpalet
+v + geom_tile(aes(fill = density)) + geom_contour(color = 'black') + 
+  scale_fill_viridis_b()
+```
 
 
-# Titels aanpassen
+## Titels aanpassen
 
-## Titel van de figuur
+### Titel van de figuur
 
 - Gebruik `ggtitle()` om een titel toe te voegen
     ```{r}
-    p + ggtitle("Verband tussen lengte en breedte")
+   p <- ggplot(irisAll, aes(x = Length, y = Width, color = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+  
+  p
+  
+  p + ggtitle("Verband tussen lengte en breedte")
     ```
 
-## Naam van de assen
+### Naam van de assen
 
 - Standaard naam van de as = de naam van de variabele
     - Dus naam variabele wijzigen = naam as wijzigen
@@ -491,17 +561,19 @@ ggplot(irisSepal, aes(x = "", y = Length)) +
     p + xlab("Lengte (in mm)") + ylab("Breedte (in mm)")
     ```
 
-## Gecombineerd in 1 functie
+### Gecombineerd in 1 functie
 
 ```{r, eval = FALSE}
+
 p + labs(title = "Verband tussen lengte en breedte",
          x = "Lengte (in mm)",
-         y = "Breedte (in mm)")
+         y = "Breedte (in mm)", 
+         color = "Soort")
 ```
 
 
 
-# Plot bewaren
+## Plot bewaren
 
 - In het `plot` venster met de `Export` knop
     - Niet aan te raden, niet reproduceerbaar en je maakt fouten !!
@@ -510,8 +582,12 @@ p + labs(title = "Verband tussen lengte en breedte",
     p <- ggplot(data, aes()) + geom_xxx()
     ```
 - Bewaar dit object met een bepaalde naam
+- Indien je het object niet specifieert wordt het laatst getoonde object bewaard
     ```{r, eval = FALSE}
     ggsave(filenaam, p)
+    
+    #print(p)
+    #ggsave(filenaam)
     ```
 - Verschillende formaten door middel van het argument `device = `
     - jpeg, tiff, png, bmp, wmf, ps, pdf, ...
@@ -519,7 +595,7 @@ p + labs(title = "Verband tussen lengte en breedte",
 - Extra argumenten
     - Afmetingen: `width` en `height`
     - Eenheid van de afmetingen: `units` ("in", "cm", "mm")
-    - Resolutie: `dpi`
+    - Resolutie: `dpi` (voor publicaties zet dit op minstens 300)
     - Plaats waar de plot bewaard moet worden, indien anders dan de working directory: `path = `
     ```{r, eval = FALSE}
     ggsave("Figuur_iris.png", p, path = "output/", 
@@ -530,10 +606,92 @@ p + labs(title = "Verband tussen lengte en breedte",
            width = 15, height = 10, dpi = 10)
     ```
 
+## Geavanceerde plotlayout (valt buiten de scope van de cursus)
+
+Deze cursus ging vooral over de basisbegrippen van ggplot. Geavanceerde zaken komen hier niet aan
+bod, maar hierbij kort enkele typische veelgebruikte aanpassingen
+
+### Aanpassing van de scales
+
+Er bestaat een specifieke syntax om de schaal van de assen te controleren: scale_astype_hoofdeigenschap.
+Bijvoorbeeld scale_color_manual laat toe om de kleuras voorgedefinieerde kleuren te geven. In Rstudio
+kan je snel de mogelijkheden bij de autoaanvulling zien als je bv scale_ ingetypt hebt
+
+- scale_
+- astype: x, y, fill, color, size, linetype, shape, . . .
+- hoofdeigenschap: continuous, discrete, date, datetime, time, log10, sqrt, distiller, gradient, . . .
+    - bv. `+ scale_fill_manual(values = c("red", "green", "blue"))`
+    - R heeft enkele standaard kleurenpalletten  (rainbow, heat, terrain.colors, topo.colors, cm.colors, ...) `+ scale_fill_manual(values = terrain.colors(5))`
+    
+- packages als `colorbrewer`, `ggsci` bevatten andere voorgedefinieerde kleurvolgordes
+    - bv. `+ scale_fill_jco()` uit het `ggsci` package 
+
+```{r scalesvoorbeeld}
+ggplot(iris, aes(x = Sepal.Width, y = Petal.Width, color = Species)) + geom_point() +
+scale_color_manual(values = c(setosa = "blue",
+versicolor = "red",
+virginica = "orange"))
+
+ggplot(iris, aes(x = Sepal.Width, y = Petal.Width, color = Species)) + geom_point() +
+scale_color_manual(values = heat.colors(3))
+
+#als je teveel kleuren opgeeft worden enkel de eerste gebruikt
+ggplot(iris, aes(x = Sepal.Width, y = Petal.Width, color = Species)) + geom_point() +
+scale_color_manual(values = heat.colors(5))
+```
+
+### Basisthema overriden
+
+In een ggplot grafiek kan je het basisthema overriden voor specifieke cases. 
+Je schrijft dan gewoon `+ theme(te_wijzigen_element = element_xxx(. . . ))`
+
+```{r themaoverride}
+#Bijvoorbeeld om de x-as labels 90 graden te roteren
+#hjust = 1 wil zeggen rechts uitlijnen (probeer eens andere waarden)
+ggplot(iris, aes(x = Species, y = Sepal.Width)) + geom_boxplot() +
+theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### Meerdere plots in 1 figuur
+
+```{r meerderefiguren}
+install.packages("patchwork") #eenmalig
+library(patchwork)
+
+p1 <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) + geom_point()
+p2 <- ggplot(iris, aes(x = Sepal.Length)) + geom_histogram()
+p3 <- ggplot(iris, aes(x = Sepal.Length)) + geom_boxplot()
+
+#zet p1 bovenaan, p2 en p3 onderaan naast elkaar en maak de bovenste figuur dubbel zo hoog
+p1 / (p2 + p3)  + plot_layout(heights = c(2, 1)) 
+        
+```
+
+### pie charts
+
+Een piechart is een barplot, uitgezet in polaire coördinaten
+
+- maak een gewone barplot
+- zet width op 1, zodat de bars elkaar aanraken
+- zet deze om naar polaire coördinaten via coord_polar, met start op 0, anders zal de cirkel kleiner zijn
+- je kan de labels laten verdwijnen door theme_void te gebruiken
+- ook hier kan je `facet_wrap` en `facet_grid` gebruiken
+
+
+
+```{r piechart}
+
+#Toon het aantal van elke soort in de iris dataset
+ggplot(iris, aes(x = Species, fill = Species)) + geom_bar(width = 1) + 
+  coord_polar(start = 0) + theme_void()
+
+
+```
+
 
 \newpage
 
-# More to learn
+## More to learn
 
 - Google !!!
 - [Cookbook for R](http://www.cookbook-r.com/Graphs/index.html)

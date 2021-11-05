@@ -7,13 +7,13 @@ output:
   html_document: default
 ---
 
-## Data inlezen
+# Data inlezen
 
 ```{r setoptions, echo = FALSE}
 knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 ```
 
-### Inleiding
+## Inleiding
 
 - R laat toe een groot gamma aan databestanden in te lezen
 - Deze functionaliteit zit voornamelijk in R packages
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
         - Ook wegschrijven kan in ieder formaat, al zijn tekstbestanden (.txt, .csv) het eenvoudigste
         - Tip: **Overschrijf nooit je origineel bronbestand!**
 
-### Bestandstypes
+## Bestandstypes
 
 Vetgedrukt heb je de benodigde R packages. Om deze te gebruiken moeten die geïnstalleerd en geladen zijn
 
@@ -40,7 +40,7 @@ Vetgedrukt heb je de benodigde R packages. Om deze te gebruiken moeten die geïn
 - R binaire objecten ---> basis R functialiteit
 
 
-### Hoe wordt de data verwacht
+## Hoe wordt de data verwacht
 
 Standaard gaat R uit van het volgende data formaat:
 
@@ -61,7 +61,7 @@ Dit is niet vaak het geval, dus
 - Wat je extern of in R doet hangt af van situatie tot situatie maar wees hier logisch in
 
 
-### Verwijzen naar een bestand
+## Verwijzen naar een bestand
 
 De data wordt ingelezen via relatieve padnamen ten opzichte van je werkdirectory (die kan je terugvinden via het commando _getwd()_). 
 Alternatief kan je ook altijd je werkdirectory zien bovenaan het consolevenster (venster links onderaan).
@@ -100,7 +100,7 @@ data <- read_csv("c:\\ikke/projecten\\data/mijndata.csv")
 ```
 
 
-### Inlezen van tekstbestanden
+## Inlezen van tekstbestanden
 
 Tekstbestanden zijn alle bestanden die leesbaar zijn in een programma zoals kladblok of notepad++. Dit zijn meestal .txt, .csv en .tsv bestanden. Deze bestanden kunnen op veel verschillende manieren gecodeerd zijn, zo gebruiken ze in de VS vooral "," als scheidingsteken en "." als decimaalteken, terwijl in Europa doorgaans eerder ";" als scheidingsteken gebruikt wordt en "," als decimaalteken.
 
@@ -117,7 +117,7 @@ Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie 
 Het is heel belangrijk om goed te checken of je data wel correct ingelezen is, hiervoor zijn de basisfuncties _View_, _summary_, _head_, _str_ , _dim_, _table_, ... een goede hulp.
 
 
-#### Eenvoudig tekstbestand zonder teveel problemen
+### Eenvoudig tekstbestand zonder teveel problemen
 
 ```{r EenvoudigTeksbestand}
 
@@ -155,7 +155,7 @@ dfSpecies <- read_csv("data/20180222_species.csv", na = "")
 ```
 
 
-### Inlezen van tekstbestanden: via het menusysteem en extra parameters
+## Inlezen van tekstbestanden: via het menusysteem en extra parameters
 
 Om tekstbestanden in te lezen kan je in plaats van rechtstreeks de code te schrijven, de data inlezen via een grafische interface, die dan de R code voor jou zal genereren
 
@@ -207,7 +207,7 @@ View(dfSurvey)
 summary(dfSurvey)
 ```
 
-### Wegschrijven csv bestanden
+## Wegschrijven csv bestanden
 
 Dataframes kan je gemakkelijk wegschrijven als een tekstbestand. Bij voorkeur is dit een csv bestand. Als het de bedoeling is het weggeschreven csv bestand in excel te openen, dan gebruik je best de functie *write_excel_csv2* voor Nederlandstalige besturingssystemen en spreadsheets en *write_excel_csv* voor Amerikaanse.
 
@@ -395,7 +395,7 @@ Het basisprincipe is:
 
 
 
-## Connectie met Access, Databanken, Databronnen
+### Connectie met Access, Databanken, Databronnen
 
 Dit zit niet meer in de scope van deze cursus. Als je hierover vragen hebt, ben je altijd welkom.
 Hieronder staat gewoon kort wat voorbeeldcode hoe dat gebeurt.
