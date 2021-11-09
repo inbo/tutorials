@@ -1,76 +1,77 @@
-
-library(knitr)
-library(tidyverse)
-library(INBOtheme)
-theme_set(theme_inbo(6, transparent = "plot"))
-opts_chunk$set(
-  out.extra = "",
-  inline = TRUE,
-  echo = TRUE,
-  eval = FALSE,
-  cache = TRUE,
-  dpi = 300,
-  fig.width = 4.5,
-  fig.height = 3
-  )
-
-
-##
+## ----Rekenmachine-------------------------------------
 1 / 200 * 30
 (59 + 73 + 2) / 3
 sin(pi / 2)
 sqrt(169)
 
 
-##
+## ----NieuweObjecten-----------------------------------
 x <- 3 * 4
 y <- sqrt(169)
 z <- (x > y)
 naam <- "Ivy Jansen"
 
 
-##
-object_name <- value
+## ----ObjectenVerwijderen------------------------------
+
+#een object verwijderen
+objectnaam <- "dit is een object dat ik wil verwijderen"
+rm(objectnaam)
+
+#Alle objecten verwijderen
+rm(list = ls())
 
 
-#
-i_use_snake_case #dit is aangeraden op het INBO
-otherPeopleUseCamelCase
-some.people.use.periods
+
+## ----InstallerenEnLadenPackages-----------------------
+  install.packages("tidyverse") #eenmalig, quotes zijn nodig
+
+  tekstje <- "van deze string wil ik het aantal characters tellen"
+  str_count(tekstje) #werkt niet, de functie is nog niet gekend
+
+  library(tidyverse) #telkens je een nieuwe R sessie start
+  str_count(tekstje) #nu werkt het wel
 
 
-##
+
+## ----BijwerkenPackages--------------------------------
+update.packages("tidyverse")
+
+
+## ----InstallPackageFromGithub-------------------------
+#eenmalige installatie
+install.packages('remotes') #ook het pakket devtools kan je gebruiken
+
+library(remotes)
+install_github("inbo/INBOtheme") #pakket voor INBO figuurlayout van Thierry
+
+
+
+## ----ObjectNamen--------------------------------------
+i_use_snake_case = "aangeraden" #dit is aangeraden op het INBO
+otherPeopleUseCamelCase = "veel gebruikt"
+some.people.use.periods = "afgeraden"
 this_is_a_really_long_name <- 2.5
 
 
-##
+## ----Hoofdlettergevoelig------------------------------
 r_rocks <- 2 ^ 3
-
-
-##
 r_rock
 #> Error: object 'r_rock' not found
 R_rocks
 #> Error: object 'R_rocks' not found
 
 
-##
-resultaat <- function_name(arg1 = val1, arg2 = val2, ...)
-
-
-##
+## ----EnkeleVeelgebruikteFuncties----------------------
 sin(pi / 2)
 sqrt(169)
 seq(1, 10, length.out = 10)
 seq(to = 10, from = 1, by = 1)
 round(5.78)
+c(3, 5, 10)
 
 
-##
-x <- "hello world"
-
-
-##----eigenfunctie------------------------------------------------
+## ----EigenFunctie-------------------------------------
 #definieer je eigen functie met de naam mijn_som
 #argumenten x en y beiden zonder defaultwaarde
 mijn_som <- function(x, y) {
@@ -85,7 +86,7 @@ mijn_som(x = a, y = b)
 
 
 
-##----loops-------------------------------------------------------
+## ----Lussen-------------------------------------------
 #print voor elke waarde van i (1 tot 10) de waarde van i
 for (i in 1:10) {
   resultaat <- paste("i heeft de waarde", i)
@@ -104,7 +105,7 @@ print(resultaat)
 
 
 
-##----commandosbasis, eval = TRUE---------------------------------
+## ----WaardenToekennen, eval = TRUE--------------------
 waarde1 <- 3
 waarde2 <- 5
 waarde3 <- 7
@@ -118,7 +119,7 @@ naam3
 opmerking <- "Dit is een simpele dataset"
 
 
-##----commandosvectoren, eval = TRUE------------------------------
+## ----Vectoren, eval = TRUE----------------------------
 waardekolom <- c(waarde1, waarde2, waarde3)
 waardekolom
 waardenrange <- 10:1
@@ -133,19 +134,19 @@ meerderedimensies <- matrix(1:9, ncol = 3)
 meerderedimensies
 
 
-##----commandosdataframe, eval = TRUE-----------------------------
+## ----Dataframes, eval = TRUE--------------------------
 dataset <- data.frame(naam = namenkolom, waarde = waardekolom)
 dataset
 
 
-##----commandoslijst, eval = TRUE---------------------------------
+## ----Lijsten, eval = TRUE-----------------------------
 lijst <- list(datasetnaam = dataset,
 beschrijving = opmerking)
 lijst
 
 
 
-##----selectievector, eval = TRUE---------------------------------
+## ----VectorSelectie, eval = TRUE----------------------
 waardekolom[2]
 namenkolom[c(3, 2)]
 meerderedimensies[1, 2]
@@ -159,7 +160,7 @@ class(meerderedimensies[1, , drop = FALSE] )
 waardekolom[c(1, 2, 3, 2, 1, 2)]
 
 
-##----selectiedataframe, eval = TRUE------------------------------
+## ----DataframeSelectie, eval = TRUE-------------------
 dataset$waarde
 dataset[[2]]
 dataset[2]
@@ -171,7 +172,7 @@ class(dataset[3, 2, drop = FALSE])
 dataset$waarde[2]
 
 
-##----selectielijst, eval = TRUE----------------------------------
+## ----LijstSelectie, eval = TRUE-----------------------
 lijst["datasetnaam"]
 class(lijst["datasetnaam"])
 lijst[2]
@@ -182,7 +183,7 @@ lijst$datasetnaam$waarde[2]
 lijst[[1]][[2]][[2]]
 
 
-##----voorwaardeselectie------------------------------------------
+## ----VoorwaardelijkeSelectie--------------------------
 #Toon de waarden in de waardenkolom
 waardekolom
 
@@ -220,7 +221,7 @@ dataset[voorwaarde2, "naam"] #identiek maar via tussenvariabele voorwaarde2
 
 
 
-##----eval = TRUE-------------------------------------------------
+## ----EenvoudigPlotIris--------------------------------
 data(iris) #zorg dat je de data ziet in het Environment paneel
 plot(iris$Sepal.Length, iris$Sepal.Width)
 plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species)
@@ -229,7 +230,7 @@ plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species,
 barplot(iris$Petal.Length)
 
 
-##----missingdata, eval = TRUE------------------------------------
+## ----MissingData--------------------------------------
 heights <- c(1, 2, 4, 4, NA, 6, 8)
 mean(heights)
 max(heights)

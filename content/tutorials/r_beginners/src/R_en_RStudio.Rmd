@@ -1,13 +1,13 @@
 ---
 title: "Introductie R en RStudio"
-author: "Ivy Jansen, Pieter Verschelde, Thierry Onkelinx"
+author: "Ivy Jansen, Pieter Verschelde, Thierry Onkelinx, Raïsa Carmen"
 output:
   pdf_document: default
   html_document: default
 urlcolor: blue
 ---
 
-```{r include = FALSE}
+```{r include = FALSE, purl=FALSE}
 library(knitr)
 library(tidyverse)
 library(INBOtheme)
@@ -77,9 +77,9 @@ opts_chunk$set(
         * [RStudio](https://inbo.github.io/tutorials/installation/user/user_install_rstudio/)
         * [R](https://inbo.github.io/tutorials/installation/user/user_install_r/)
 
-## Basisscherm
+## Basisscherm Rstudio
 
-![](../Figuren/rstudiobasisscherm.png)\
+![Basisscherm Rstudio](../Figuren/rstudiobasisscherm.png)\
 
 Rstudio bestaat uit een menu bovenaan en bestaat standaard over 4 hoofdpanelen die elk verschillende tabbladen kunnen bevatten. Je kan de layout, de kleuren, enz... allemaal aanpassen.
 
@@ -117,7 +117,7 @@ Je kan operatoren gebruiken zoals
 - matrixvermenigvuldiging: `%*%`
 - haakjes `(` en `)`
 
-```{r}
+```{r Rekenmachine}
 1 / 200 * 30
 (59 + 73 + 2) / 3
 sin(pi / 2)
@@ -126,7 +126,7 @@ sqrt(169)
 
 ### Nieuwe objecten creëren
 
-```{r}
+```{r NieuweObjecten}
 x <- 3 * 4
 y <- sqrt(169)
 z <- (x > y)
@@ -135,16 +135,38 @@ naam <- "Ivy Jansen"
 
 Alle R commando's waarmee een object aangemaakt wordt, __assignments__, hebben dezelfde vorm
 
-```{r}
+```
 object_name <- value
+
 ```
 
 *Sneltoets* voor " `<-` " : ALT + "-"
 
-  
-## Environment paneel
+### Objecten verwijderen
 
-![](../Figuren/rstudio-env.png){width=12cm}\
+Objecten verwijderen gebeurt niet zoveel, al is dit van toepassing in volgende gevallen 
+
+- de objectnamen zorgen voor verwarring
+- enkele objecten zijn reusachtig groot (bv 5x5m grid Vlaanderen) en je wil RAM geheugen vrijmaken
+
+``` {r ObjectenVerwijderen}
+
+#een object verwijderen
+objectnaam <- "dit is een object dat ik wil verwijderen"
+rm(objectnaam)
+
+#Alle objecten verwijderen
+rm(list = ls())
+
+```
+
+## Environment
+
+De environment in R is de collectie van alle objecten en instellingen die actief zijn in de huidige R sessie. Een R sessie is alles wat je doet vanaf je Rstudio opstart totdat je Rstudio afsluit.
+
+### Environment paneel
+
+![Environment paneel](../Figuren/rstudio-env.png){width=12cm}\
 
 * De environment geeft een overzicht van de objecten die gekend zijn
     * Voor simpele objecten zie je direct de waarde
@@ -156,9 +178,20 @@ object_name <- value
 * Git bevat de interface met git en github
 * Connections geeft een overzicht over de beschikbare connecties met databanken
 
+### Afsluiten van Rstudio
+ 
+- Als je Rstudio afsluit zal gevraagd worden om alle niet bewaarde scripts te bewaren
+- Daarnaast zal ook gevraad worden .Rdata (alle objecten in je R sessie) te bewaren
+    - Al je huidige objecten zullen dan actief zijn de volgende keer je R opent
+    - Toch is dit afgeraden, omdat je liever met een propere R sessie begint wat problemen vermijdt met objecten die je niet verwacht aanwezig te zijn
+    - De vraag om .Rdata te bewaren kan je vermijden door in het Tools menu > Global options Save workspace op *never* te zetten en Restore .Rdata into workspace uit te vinken
+
+![](../Figuren/RStudio-globaloptions.png)
 
 
-## Scripts paneel
+## Scripts
+
+De geopende R scripts kan je zien in het Scripts paneel in Rstudio.
 
 ### Wat is een script
 
@@ -188,7 +221,7 @@ object_name <- value
     - Via menu `File` --> `Save As ...`
     - het bewaaricoontje bovenaan het scriptvenster
 
-![](../Figuren/rstudio_script.png)\
+![Scripts paneel](../Figuren/rstudio_script.png)\
 
 
 ### Basisstructuur van een script
@@ -232,17 +265,6 @@ dus zal je moeten afdwingen dat de nodige scripts eerst uitgevoerd zijn
     - Bestand bewaren met CTRL + S of `File` --> `Save`
     - RStudio zorgt continu voor een autosave van alle scripts
 
-### Afsluiten van Rstudio
- 
-- Als je Rstudio afsluit zal gevraagd worden om alle niet bewaarde scripts te bewaren
-- Daarnaast zal ook gevraad worden .Rdata te bewaren
-    - Al je huidige objecten zullen dan actief zijn de volgende keer je R opent
-    - Toch is dit afgeraden, omdat je liever met een propere R sessie begint wat problemen vermijdt met objecten die je niet verwacht aanwezig te zijn
-    - De vraag om .Rdata te bewaren kan je vermijden door in het Tools menu > Global options Save workspace op *never* te zetten en Restore .Rdata into workspace uit te vinken
-
-![globaloptions](../Figuren/RStudio-globaloptions.png)
-
-
 
 ## Werkdirectory: Waar bevind ik me?
 
@@ -266,20 +288,22 @@ De werkdirectory in R is wat R ziet als het pad waarin je werkt, dus als je file
 
 ## Projecten
 
+### Wat zijn projecten
+
 Projecten zijn een belangrijke manier om je werk te structureren en gemakkelijk door te geven aan iemand anders.
 
 - Dit is niets exotisch: 
-- er wordt een tekstbestandje aangemaakt met de extensie `.Rproj` waarop je kan in de windows verkenner klikken om het project in Rstudio te openen
-- daarnaast wordt de map `.Rproj.user` aangemaakt die heel wat info bijhoudt
+- Er wordt een tekstbestandje aangemaakt met de extensie `.Rproj` waarop je kan in de windows verkenner klikken om het project in Rstudio te openen
+- Daarnaast wordt de map `.Rproj.user` aangemaakt die heel wat info bijhoudt
     - Geopende scripts bij het afsluiten zullen terug geopend worden
-    - instellingen rond git, het bouwen van je applicatie, rapport, ... worden in het project bewaard
+    - Instellingen rond git, het bouwen van je applicatie, rapport, ... worden in het project bewaard
 - Wij raden aan zoveel mogelijk met projecten te werken!
 - Voordelen
     - Projectspecifieke basisdirectory
         - Alle scripts en data kan je per project samenzetten
-        - projectspecifieke instellingen bewaren
+        - Projectspecifieke instellingen bewaren
         - Het is altijd duidelijk wat de werkdirectory is, nl. de projectdirectory
-        - relatieve verwijzingen naar directories vertrekken uit je projectdirectory
+        - Relatieve verwijzingen naar directories vertrekken uit je projectdirectory
     - Meerdere projecten kunnen naast elkaar geopend worden zonder elkaar te beïnvloeden
         - Open Rstudio apart per project (je kan gerust 5 keer Rstudio tegelijk open hebben)
     - Een project kan je gemakkelijk doorgeven aan een collega
@@ -306,7 +330,7 @@ Projecten zijn een belangrijke manier om je werk te structureren en gemakkelijk 
     - Start een project met versiebeheer
         - Geavanceerde versie van _track changes_ in Word
         - Als je met git en github werkt zal je deze optie vaak gebruiken
-        - je zal de optie krijgen op de git clone url in te vullen
+        - Je zal de optie krijgen op de git clone url in te vullen
 
 
 ![](../Figuren/rstudio_nieuw_project2.png)\
@@ -343,7 +367,7 @@ Projecten zijn een belangrijke manier om je werk te structureren en gemakkelijk 
 
 Met deze structuur kan je dan bv data inlezen met de relatieve padnaam `data/mijndata.csv` of figuren wegschrijven met de relatieve padnaam `figuren/mijnfiguur.png`
 
-![](../Figuren/MappenStructuur.jpg){width=11cm}\
+![Mappenstructuur](../Figuren/MappenStructuur.jpg){width=11cm}\
 
 
 ## Packages (libraries)
@@ -360,7 +384,7 @@ Met deze structuur kan je dan bv data inlezen met de relatieve padnaam `data/mij
 
 **Let op: als je functies uit een pakket wil gebruiken zal je iedere keer je Rstudio opstart de code die de pakketten laadt moeten uitvoeren `library(pakketnaam)` daarom dat je die code best bovenaan je script zet**
 
-```
+```{r InstallerenEnLadenPackages}
   install.packages("tidyverse") #eenmalig, quotes zijn nodig
   
   tekstje <- "van deze string wil ik het aantal characters tellen"
@@ -374,11 +398,10 @@ Met deze structuur kan je dan bv data inlezen met de relatieve padnaam `data/mij
 
 Je kan code uit een pakket gebruiken zonder het pakket te laden met `::` bv `readr::read_csv(...)` maar dit wordt zeker voor beginners afgeraden.
 
-Soms komen er nieuwe versies uit van packages, dan kan je deze updaten 
+Soms komen er nieuwe versies uit van packages, dan kan je deze bijwerken (updaten) 
 
-```
+```{r BijwerkenPackages}
 update.packages("tidyverse")
-
 ```
 Je kan ook alle packages die een nieuwe versie hebben updaten. Via checkBuilt = TRUE worden enkel de packages met een nieuwe versie bijgewerkt, ask = FALSE zorgt dat niet telkens een bevestiging gevraagd wordt
 
@@ -388,7 +411,7 @@ update.packages(checkBuilt = TRUE, ask = FALSE)
 ```
 Sommige packages staan niet op CRAN (de website waar de packages van gedownload worden), maar staan bijvoorbeeld op github. Die kan je rechtstreeks installeren als volgt: 
 
-```
+```{r InstallPackageFromGithub}
 #eenmalige installatie
 install.packages('remotes') #ook het pakket devtools kan je gebruiken
 
@@ -398,11 +421,11 @@ install_github("inbo/INBOtheme") #pakket voor INBO figuurlayout van Thierry
 ```
 
 
-## Help
+## Help opvragen
 
 - Gebruik de built-in RStudio help interface voor meer info over R functies
 
-    ![](../Figuren//rstudiohelp.png){width=12cm}
+    ![Rstudio help](../Figuren//rstudiohelp.png){width=12cm}
 - Ik ken de naam van de functie die ik wil gebruiken, maar weet niet goed hoe
     - Gebruik het vraagteken
     - `?mean`
@@ -416,7 +439,9 @@ install_github("inbo/INBOtheme") #pakket voor INBO figuurlayout van Thierry
     - Vaak komen R packages met een tutorial (noemt vignette in R)
     - `browseVignettes()` toont een overzicht van alle tutorials van de packages die je geïnstalleerd hebt
     - als je in het packages tabblad een pakket aanklikt krijg je bovenaan een link naar de vignettes voor dit pakket 
+    
 ![vignettes](../Figuren/rstudio-vignettes.png)
+
 - [rdocumentation.org](http://www.rdocumentation.org) website 
     - Doorzoekt de help files van alle bestaande packages
 - Generieke zoektocht op Google "R \<task\>" 
@@ -454,13 +479,10 @@ Niet alle objectnamen zijn zomaar toegestaan:
 - Beschrijvende naam
 - Verschillende conventies
 
-```{r}
-i_use_snake_case #dit is aangeraden op het INBO
-otherPeopleUseCamelCase
-some.people.use.periods
-```
-
-```{r}
+```{r ObjectNamen}
+i_use_snake_case = "aangeraden" #dit is aangeraden op het INBO
+otherPeopleUseCamelCase = "veel gebruikt"
+some.people.use.periods = "afgeraden"
 this_is_a_really_long_name <- 2.5
 ```
 
@@ -468,13 +490,10 @@ this_is_a_really_long_name <- 2.5
 
 *Sneltoets* om vorige commando's terug op te roepen : ↑
 
-```{r}
-r_rocks <- 2 ^ 3
-```
-
 Laten we dit object eens inspecteren
 
-```{r}
+```{r Hoofdlettergevoelig}
+r_rocks <- 2 ^ 3
 r_rock
 #> Error: object 'r_rock' not found
 R_rocks
@@ -491,29 +510,29 @@ R_rocks
 R heeft een grote collectie van ingebouwde functies, die je als volgt oproept.
 
 
-```{r}
+```
 resultaat <- function_name(arg1 = val1, arg2 = val2, ...)
+
 ```
 
 Indien je de argumenten niet benoemt zal R die in volgorde interpreteren. Indien je argumenten wel benoemd zal die de waarde voor het corresponderende element gebruiken.
 
-Het is best alle argumenten te benoemen, met uitzondering voor de eerste elementen, waarbij dit wel mag maar minder onduidelijkheid schept. Bv bij het maken van een sequentie `seq` kan je er vanuit gaan dat de eerste argumenten van ... tot zijn, dus die hoeven niet benoemd te worden, maar alle andere argumenten best wel
+Het is best alle argumenten te benoemen, met uitzondering voor de eerste elementen, waarbij dit wel mag maar minder onduidelijkheid schept. Bv bij het maken van een sequentie `seq` kan je er vanuit gaan dat de eerste argumenten `from` en `to` zijn, dus die hoeven niet benoemd te worden, maar alle andere argumenten best wel.
 
-```{r}
+```{r EnkeleVeelgebruikteFuncties}
 sin(pi / 2)
 sqrt(169)
 seq(1, 10, length.out = 10)
 seq(to = 10, from = 1, by = 1)
 round(5.78)
+c(3, 5, 10) 
 ```
 
 Rstudio helpt waar mogelijk met haakjes en aanhalingstekens
 
-```{r}
+```
 x <- "hello world"
-```
 
-```
 > x <- "hello
 +
 ```
@@ -522,7 +541,7 @@ Als je de functie aan het typen bent en je drukt op TAB, dan krijg je een overzi
 
 Een `+` aan het begin van de regel betekent dat R wacht op meer input. Meestal betekent dit dat je een `"` of een `)` vergeten bent. Voeg het ontbrekende teken toe en duw op ENTER, of duw op ESCAPE om het commando af te breken.
 
-### zelf functies schrijven
+### Zelf functies schrijven
 
 Dit gaat te ver voor deze cursus, maar het basisprincipe is als volgt
 
@@ -534,7 +553,7 @@ mijn_functie <- function(argument1 = defaultwaarde, argument2 = defaultwaarde) {
 }
 
 ```
-```{r eigenfunctie}
+```{r EigenFunctie}
 #definieer je eigen functie met de naam mijn_som
 #argumenten x en y beiden zonder defaultwaarde
 mijn_som <- function(x, y) {
@@ -554,7 +573,7 @@ mijn_som(x = a, y = b)
 Je kan in R zaken herhaald uitvoeren met functies zoals `for` en `while`.
 Dit is te complex voor de cursus, maar hier een kort voorbeeld: 
 
-```{r loops}
+```{r Lussen}
 #print voor elke waarde van i (1 tot 10) de waarde van i
 for (i in 1:10) {
   resultaat <- paste("i heeft de waarde", i)
@@ -601,7 +620,7 @@ weinig, veel. Aangezien deze niet bestaan in het geheugen van R, zal je een fout
     * NaN: ongeldige waarde
     * Inf: 1
 
-```{r commandosbasis, eval = TRUE}
+```{r WaardenToekennen, eval = TRUE}
 waarde1 <- 3
 waarde2 <- 5
 waarde3 <- 7
@@ -623,10 +642,10 @@ opmerking <- "Dit is een simpele dataset"
 - Een reeks van enkelvoudige waarden van hetzelfde type
 - Een kolom in een tabel
 - Kan meerdere dimensies hebben: bijvoorbeeld een matrix
-- een rij cijfers wordt met `c(cijfer1, cijfer2, cijfer3)` gecodeerd
-- een rij tekst wordt met `c("elem1", "elem2", "elem3")` gecodeerd
+- Een rij cijfers wordt met `c(cijfer1, cijfer2, cijfer3)` gecodeerd
+- Een rij tekst wordt met `c("elem1", "elem2", "elem3")` gecodeerd
 
-```{r commandosvectoren, eval = TRUE}
+```{r Vectoren, eval = TRUE}
 waardekolom <- c(waarde1, waarde2, waarde3)
 waardekolom
 waardenrange <- 10:1
@@ -650,7 +669,7 @@ meerderedimensies
     - Wordt altijd mooi geprint in de Console (in tegenstelling tot grote dataframes)
     - Belangrijkste informatie wordt getoond
 
-```{r commandosdataframe, eval = TRUE}
+```{r Dataframes, eval = TRUE}
 dataset <- data.frame(naam = namenkolom, waarde = waardekolom)
 dataset
 ```
@@ -659,7 +678,7 @@ dataset
 
 - Verzameling die al het voorgaande kan bevatten, alsook andere lijsten
 
-```{r commandoslijst, eval = TRUE}
+```{r Lijsten, eval = TRUE}
 lijst <- list(datasetnaam = dataset,
 beschrijving = opmerking)
 lijst
@@ -675,11 +694,11 @@ Selecteren in een vector/array:
 * Elementen selecteren met indices tussen vierkante haken [], dimensies gescheiden door een komma
 * Negatieve indices: alles behalve die elementen
 * Indices herhalen om bepaalde elementen meer te laten voorkomen
-* bij meerdimesionele arrays kan je een dimensie leeglaten, dan worden alle elementen gekozen in deze dimensie
+* Bij meerdimesionele arrays kan je een dimensie leeglaten, dan worden alle elementen gekozen in deze dimensie
     - dus `matrixnaam[1,]` zal alle elementen uit de eerste rij tonen
     - R wil automatisch vereenvoudigen, dus als je wil dat `matrixnaam[1,]` een matrix blijft en geen vector wordt, kan je `drop = FALSE` gebruiken
 
-```{r selectievector, eval = TRUE}
+```{r VectorSelectie, eval = TRUE}
 waardekolom[2]
 namenkolom[c(3, 2)]
 meerderedimensies[1, 2]
@@ -700,7 +719,7 @@ waardekolom[c(1, 2, 3, 2, 1, 2)]
 * Kolommen selecteren met enkele haken resulteert normaal gezien in een data.frame met enkel die kolommen, tenzij R kan vereenvoudigen, wat je kan vermijden door `drop = FALSE` te gebruiken
 
 
-```{r selectiedataframe, eval = TRUE}
+```{r DataframeSelectie, eval = TRUE}
 dataset$waarde
 dataset[[2]]
 dataset[2]
@@ -719,7 +738,7 @@ dataset$waarde[2]
 * Daarna verdere selecties zoals bij vectoren of dataframes
 
 
-```{r selectielijst, eval = TRUE}
+```{r LijstSelectie, eval = TRUE}
 lijst["datasetnaam"]
 class(lijst["datasetnaam"])
 lijst[2]
@@ -738,7 +757,7 @@ In plaats van elementen te selecteren op nummer kan je elementen ook selecteren 
 - Je kan vergelijkingsoperatoren `<`,  `>`,  `==`,  `!=`,  `<=`,  `>=`, `%in%` gebruiken
 - Je kan ook logische operatoren EN (`&`), OF (`\`),  NIET (`!`) gebruiken 
 
-```{r voorwaardeselectie}
+```{r VoorwaardelijkeSelectie}
 #Toon de waarden in de waardenkolom
 waardekolom
 
@@ -797,11 +816,11 @@ Wees kritisch bij het evalueren
 * Correct aantal NA waarden
 * Realistische waarden voor min, max, mean, . . .
 
-## Plotjes
+## Eenvoudige figuren
 
 De iris datase is een dataset die met R meegeleverd wordt. Onderstaande plotfuncties zijn de basis R plots, maar in de volgende les van de cursus, wordt een ander type figuren (ggplot) gebruikt die standaard heel wat mooiere resultaten geven en veel mogelijkheden bieden zonder te ingewikkelde codering.
 
-```{r eval = TRUE}
+```{r EenvoudigPlotIris}
 data(iris) #zorg dat je de data ziet in het Environment paneel
 plot(iris$Sepal.Length, iris$Sepal.Width)
 plot(iris$Sepal.Length, iris$Sepal.Width, col = iris$Species)
@@ -823,7 +842,7 @@ barplot(iris$Petal.Length)
     * na.omit()
     * complete.cases()
 
-```{r missingdata, eval = TRUE}    
+```{r MissingData}    
 heights <- c(1, 2, 4, 4, NA, 6, 8)
 mean(heights)
 max(heights)
