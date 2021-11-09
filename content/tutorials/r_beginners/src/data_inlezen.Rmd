@@ -9,7 +9,7 @@ output:
 
 # Data inlezen
 
-```{r setoptions, echo = FALSE}
+```{r setoptions, echo = FALSE, purl = FALSE}
 knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 ```
 
@@ -44,7 +44,7 @@ Vetgedrukt heb je de benodigde R packages. Om deze te gebruiken moeten die geïn
 
 Standaard gaat R uit van het volgende data formaat:
 
-- rechthoekig 
+- rechthoekig (alle rijen even lang)
 - kolomnamen op de eerste rij
 - 1 observatieeenheid per rij
 - slechts 1 datatype per kolom
@@ -68,7 +68,7 @@ Alternatief kan je ook altijd je werkdirectory zien bovenaan het consolevenster 
 
 R werkt standaard met forward slash voor directories (/). Wil je een backslash gebruiken moet je die verdubbelen \\\\
 
-```{r relatiefpad}
+```{r relatiefpad, purl=FALSE}
 
 getwd() #via setwd("padnaam") kan je die zetten, 
 #alternatief: via het menu bovenaan: Session > Set Working Directory
@@ -106,7 +106,7 @@ Tekstbestanden zijn alle bestanden die leesbaar zijn in een programma zoals klad
 
 Teksbestanden kan je inlezen via het menusysteem (File > Import Dataset). Dit genereert ook R code, welke je best overneemt in je script, zodat je die interactie met het menu niet meer nodig hebt.
 
-Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie in dit pakket is *read_delim*, maar die heeft ook nog afgeleide functies met andere defaultwaarden zoals:
+Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie in dit pakket is ***read_delim***, maar die heeft ook nog afgeleide functies met andere defaultwaarden zoals:
 
 - *read_table* en *read_table2* : verwachten een of meerdere spaties als kolomscheidingsteken
 - *read_csv* en *read_csv2*: Amerikaanse en Europese csv bestanden
@@ -115,6 +115,8 @@ Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie 
 - *spec_delim*: leest enkel de kolominformatie in
 
 Het is heel belangrijk om goed te checken of je data wel correct ingelezen is, hiervoor zijn de basisfuncties _View_, _summary_, _head_, _str_, _dim_, _table_, ... een goede hulp.
+
+Niet aanwezige waarden worden in R als `NA` gecodeerd. 
 
 
 ### Eenvoudig tekstbestand zonder teveel problemen
@@ -148,8 +150,9 @@ View(dfSpecies)
 
 #De file werd niet volledig correct ingelezen
 # een NA waarde in eerste kolom die wel degelijk de waarde afkorting NA bedoelt
-#in dit geval moet je het na argument meegeven. 
-#Oefening: Waarom? (zie help)
+#Bij de view zie je dat de NA in kolom 1 cursief is in tegenstelling tot de rest 
+#in dit geval moet je het na argument meegeven.
+#zodat de waarde NA in het bestand niet als een missende waarde aanzien wordt
 dfSpecies <- read_csv("data/20180222_species.csv", na = "")
 
 ```
@@ -159,7 +162,7 @@ dfSpecies <- read_csv("data/20180222_species.csv", na = "")
 
 Om tekstbestanden in te lezen kan je in plaats van rechtstreeks de code te schrijven, de data inlezen via een grafische interface, die dan de R code voor jou zal genereren
 
-**De code die gegenereerd wordt zet je best in je script!**
+**De code die gegenereerd wordt zet je best in je script!**, dan moet je de volgende keer enkel de code in het script runnen in plaats van dit proces opnieuw te moeten doorlopen. Eens je wat aan R gewend bent, zal je het menu nog zelden gebruiken.
 
 
 File > Import Dataset > From Text ... (readr)
@@ -173,7 +176,12 @@ Je ziet dat dit bestand nog niet correct zou worden ingelezen (zie figuur)
 
 ![Hoe de locale configureren](../Figuren/datainlezen_locales.png)
 
-Je ziet rechtsonderaan de code die wordt gegenereert. Je kan de file zo inlezen, maar kopieer altijd de code naar je script, zodat je later het menu niet meer nodig hebt. 
+Het Date format en Time Format mag op %AD en %AT gelaten worden, dit betekent dat R dit automatisch zal proberen detecteren. %AD herkend datums in formaten Y-m-d of Y/m/d, %AT herkend tijd in het formaat H:M eventueel aangevuld met :S en am/pm.
+Wil je bijvoorbeeld de datums laten herkennen in het formaat 14/07/2021 dan kan je in het veld Date Format `%d/%m/%Y` invullen. 
+
+Als je in je voorbeeldvenster van je data op het datatype klikt onder de kolomnaam, dan krijg je hier ook opties om de datatypes te wijzigen, zoals een suggestie hoe je je datum kan configureren.
+
+Je ziet rechtsonderaan de code die wordt gegenereert. Je kan de file inlezen door op OK te drukken, maar kopieer altijd de code naar je script, zodat je later het menu niet meer nodig hebt als je de data opnieuw wil inlezen.
 
 Welke parameters kunnen we wijzigen om de file correct in te lezen? Je zal zien dat deze overeen komen met  `?read_delim`
 
@@ -187,34 +195,43 @@ Welke parameters kunnen we wijzigen om de file correct in te lezen? Je zal zien 
 - `Escape`: Als je data ook de delimiter bevat, kan je hiermee zeggen hoe deze in de file worden gecodeerd (parameter `escape_bakslash` en `escape_double`)
 - `Comment`: Lijnen die in de tekst commentaar is en mag overgeslaan worden (parameter `comment.char`)
 - `NA`: Hoe worden NA waarden in de tekst weergegeven (parameter `na`)
-- `Locale`: Is een iets ingewikkeldere manier om aan te kunnen geven walke  het decimaal teken en andere landsinstellingen zijn. (parameter `locale`). Wij gebruiken meestal volgende instelling: `locale = locale(decimal_mark = ",", grouping_mark = "")`
-- In de preview bovenaan kan je het type kolom wijzigen (parameter `col_types`)
+In de preview bovenaan kan je het type kolom wijzigen (parameter `col_types`)
+- `Locale`: Is een iets ingewikkeldere manier om aan te kunnen geven welke  het decimaal teken en andere landsinstellingen zijn. (parameter `locale`). Wij gebruiken meestal volgende instelling: 
 
+```
+locale = locale(decimal_mark = ",", grouping_mark = "", date_format = "%d/%m/%Y")`
 
-```{r tekstbestandMetOpties}
-#Voorbeeld
+```
 
+```{r TekstbestandMetOpties}
+
+#Voorbeeld:
 
 #De Europese vorm van .csv gaat uit van een ; als scheiding en , als decimaal
 #voor de Europese vorm gebruiken we read_csv2, voor de Amerikaansse is dit read_csv
 #De eerste 2 rijen in de csv zijn geen onderdeel van de data, die skippen we
 
-#Deze code bekom je ook via het menusysteem (misschien met wat extra parameters)
-library(readr)
-dfSurvey <- read_delim("data/survey.csv", delim = ";", skip = 2,
-                       locale = locale(decimal_mark = ",", grouping_mark = ""))
+#Dit is wat je krijgt via het menu 
+#aantal en volgorde van argumenten kan verschillen
+#het pad is mogelijks het absolute pad ipv het relatieve pad zoals hieronder
+dfSurvey <- read_delim("data/survey.csv", 
+                       delim = ";", skip = 2, 
+                       escape_double = FALSE, 
+                       col_types = cols(Datum = col_date(format = "%d/%m/%Y")), 
+                       locale = locale(decimal_mark = ",", grouping_mark = ""),
+                       trim_ws = TRUE, skip = 2)
 View(dfSurvey)
 summary(dfSurvey)
+
 ```
 
 ## Wegschrijven csv bestanden
 
 Dataframes kan je gemakkelijk wegschrijven als een tekstbestand. Bij voorkeur is dit een csv bestand. Als het de bedoeling is het weggeschreven csv bestand in excel te openen, dan gebruik je best de functie *write_excel_csv2* voor Nederlandstalige besturingssystemen en spreadsheets en *write_excel_csv* voor Amerikaanse.
 
-```{r tekstbestandwegschrijven}
+**Let op: je krijgt geen waarschuwing als een bestaand bestand zal worden overschreven**
 
-library(readr)
-testdata <- data.frame(cat = c("A", "B", "C"), val = c(3.1, 4.15,9.26))
+```{r WegschrijvenTekstbestand}
 
 #onderstaande alternatieven doen hetzelfde, maar write_excel_csv2 is de voorkeur
 #iris is een meegeleverde dataset in R, via data(iris) zie je die in je environment
@@ -242,7 +259,7 @@ Data wegschrijven als Excel bestand kan niet met dit pakket, al is hier een csv 
 Onderstaande code kan ook bekomen worden via het menusysteem: File > Import Dataset > From Excel ...
 
 
-```{r Excel}
+```{r ExcelInlezen}
 
 library("readxl")
 bestandsnaam <- "data/20190124_survey_part1.xlsx"
@@ -278,11 +295,12 @@ View(dfSurvey3)
     - col_types: kolomtypes indien ze niet correct herkend worden (normaal gezien als je excel goed is opgebouwd kloppen deze automatisch)
     - na: hoe worden ontbrekende waarden gecodeerd
     - guess_max: hoeveel rijen moet R bekijken om te beslissen welk kolomtype het is
+        - belangrijk als een kolom heel veel lege rijen in het begin heeft: R denkt dan soms dat de kolom enkel TRUE / FALSE bevat
+        - belangrijk als de eerste tekst maar heel ver voorkomt, dan kan het zijn dat R de kolom numeriek interpreteert, en al je tekst wordt dan missing data
 
-```{r surveyxls}
+```{r ExcelSheetEnRange}
 
 library(readxl)
-
 #De gegevens staan in het tabblad Plot2 in de range A2:D21
 dfSurvey2 <- read_excel(path = "data/survey.xlsx", 
                         sheet = "Plot2",
@@ -311,13 +329,14 @@ table(dfSurvey2$Sex) #controle of de geslachten juist ingevuld zijn
   - alternatief kan je direct je e-mail adres meegeven zodat de selectie niet meer nodig is
 - Nu kan je de url of key van de sheet gebruiken
     - de url of key nemen de plaats in van `file` bij andere functies zoals `read_csv`
-    - de key gebruiken werkt doorgaans sneller en is een deel van de url
+    - **de key is een deel van de url** en werkt doorgaans sneller 
 - Eens geregistreerd kan je de data eruit halen via `read_sheet`
 
 ![google auhtorisatie](../Figuren/datainlezen_gs_auth.png)
 
 
-```{r google, eval=FALSE}
+```{r GooglesheetInlezen, eval=FALSE}
+
 library(googlesheets4) #laden van het googlesheets package
 
 gs4_auth() #authorisatie (de eerste keer en dan periodiek eens nodig)
@@ -325,14 +344,15 @@ gs4_auth() #authorisatie (de eerste keer en dan periodiek eens nodig)
 
 #geef je email direct mee, dan moet je je naam niet selecteren
 #als je 0auth-token nog geldig is
-gs4_auth(email = "xxx@yyy.zzz")
+gs4_auth(email = "xxx@yyy.zzz") #e-mail adres naar je eigen adres wijzigen
 
 #Je kan registreren met de html van de sheet of de sheet key
 url <- "https://docs.google.com/spreadsheets/d/1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY/edit?usp=sharing"
+#De key is onderdeel van de url
 key <- "1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY"
 
 dfLab <- read_sheet(url) #zal volledig eerste sheet lezen in de url
-dfLab <- read_sheet(key) #zal volledig eerste sheet lezen in de key
+dfLab <- read_sheet(key) #identiek maar voor de key
 
 #Optioneel: Indien je de titel en sheetnamen wil kennen
 gs4_get(key) #ook hier kan je de url gebruiken
@@ -362,7 +382,8 @@ Belangrijke argumenten voor `read_sheet`
 
 Vaak heb je 1 grote data cleaning en eens je data op orde staat, is het niet meer nodig dat je telkens diezelfde stappen opnieuw uitvoert. Je kan de gecleande data opslaan als een tekstbestand, maar zeker voor grote data is een binair bestand veel sneller.
 
-```{r binair}
+```{r BinaireBestanden}
+
 #Bewaar enkele geïmporteerde datasets samen in de file mijngegevens.Rdata
 save(dfLab, dfSpecies, file = "mijngegevens.Rdata")
 
@@ -394,9 +415,10 @@ In grote lijnen doen ze allemaal iets zeer gelijkaardig:
 
 Let op, indien je nog niet Office365 hebt, kan het zijn dat je nog niet de 64-bit drivers voor Access hebt. In dit geval werkt het enkel als je in Rstudio de R versie op 32-bit zet. (Menu --> Tools > Global Options > General > R version --> kies 32-bit versie uit de lijst)
  
-```{r Access}
+```{r AccessInlezen}
  
-#!!! Werkt enkel bij 32-bit versie van R
+#!!! Werkt enkel bij 32-bit versie van R als je enkel 32-bit Office drivers hebt
+#Vanaf office365 is 64-bit geen probleem
 
 bestand <- "data/bosvitaliteit.accdb"
 
@@ -424,7 +446,8 @@ Hiervoor kan je ook RODBC gebruiken en een databron aanmaken in windows.
 Je kan die aanmaken via windows start --> zoek naar gegevensbronnen (odbc) en kies een naam voor de databron en vul de connectiegegevens in (dat kan een Access bestand zijn, verwijzing naar SQL server, ...)
 **Let op: dit is pc specifiek, dus als je het script doorgeeft moet die ook deze databron gedefinieerd hebben in windows**
 
-``` {r Gegevensbron}
+``` {r GegevensbronInlezen}
+
 library(RODBC)
 conn <- odbcConnect("Naam_Van_Mijn_Gegevensbron")
 
@@ -435,7 +458,7 @@ conn <- odbcConnect("Naam_Van_Mijn_Gegevensbron")
 
 Alternatief kan je werken via het DBI en odbc package
 
-```{r Databank, eval = FALSE}
+```{r DatabankInlezen, eval = FALSE}
 
 library(DBI)
 library(odbc)
