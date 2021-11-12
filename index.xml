@@ -12,69 +12,6 @@
     
     
     <item>
-      <title>Software by INBO: packages for environmentalists and ecologists!</title>
-      <link>https://inbo.github.io/tutorials/articles/inbo_software/</link>
-      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
-      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
-    </item>
-    
-    <item>
-      <title>Books and articles on statistics</title>
-      <link>https://inbo.github.io/tutorials/articles/statistics/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
-      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&#39;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
-    </item>
-    
-    <item>
-      <title>Scientific computing and data handling workflows</title>
-      <link>https://inbo.github.io/tutorials/articles/computing/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/computing/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-Overviews  Wilson et al. (2017): set of good computing practices that every researcher can adopt British Ecological Society (2014): planning the data life cycle; creating, processing, documenting, preserving, sharing &amp;amp; reusing data Goudeseune et al.</description>
-    </item>
-    
-    <item>
-      <title>Acquiring the skills</title>
-      <link>https://inbo.github.io/tutorials/articles/skills/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/skills/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
-    </item>
-    
-    <item>
-      <title>Sharing and communicating</title>
-      <link>https://inbo.github.io/tutorials/articles/communicating/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/communicating/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
-    </item>
-    
-    <item>
-      <title>The discipline of open science</title>
-      <link>https://inbo.github.io/tutorials/articles/open_science/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/open_science/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
-    </item>
-    
-    <item>
       <title>Create tutorial</title>
       <link>https://inbo.github.io/tutorials/create_tutorial/</link>
       <pubDate>Fri, 14 Dec 2018 00:00:00 +0000</pubDate>
@@ -168,6 +105,16 @@ While we do plan to periodically repeat these courses for new employees and as a
     </item>
     
     <item>
+      <title>Software by INBO: packages for environmentalists and ecologists!</title>
+      <link>https://inbo.github.io/tutorials/articles/inbo_software/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
+      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
+Please, feel invited to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
+    </item>
+    
+    <item>
       <title>Use of INBO citation style with bibliography managers</title>
       <link>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</link>
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
@@ -200,6 +147,39 @@ This package is very well documented, so we just have to provide you with the ri
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
 A complete list of vignettes can be found in the Articles page.
 googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&#39;t work anymore as it is built on the outdated Sheets v3 API.</description>
+    </item>
+    
+    <item>
+      <title>Acquiring the skills</title>
+      <link>https://inbo.github.io/tutorials/articles/skills/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/skills/</guid>
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
+Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
+    </item>
+    
+    <item>
+      <title>Scientific computing and data handling workflows</title>
+      <link>https://inbo.github.io/tutorials/articles/computing/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/computing/</guid>
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
+Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+Overviews  Wilson et al. (2017): set of good computing practices that every researcher can adopt British Ecological Society (2014): planning the data life cycle; creating, processing, documenting, preserving, sharing &amp;amp; reusing data Goudeseune et al.</description>
+    </item>
+    
+    <item>
+      <title>The discipline of open science</title>
+      <link>https://inbo.github.io/tutorials/articles/open_science/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/open_science/</guid>
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
+Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
     </item>
     
     <item>
@@ -466,6 +446,26 @@ The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination wi
       <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
  create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
 The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
+    </item>
+    
+    <item>
+      <title>Books and articles on statistics</title>
+      <link>https://inbo.github.io/tutorials/articles/statistics/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
+      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&#39;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
+    </item>
+    
+    <item>
+      <title>Sharing and communicating</title>
+      <link>https://inbo.github.io/tutorials/articles/communicating/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/communicating/</guid>
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
+Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
     </item>
     
     <item>

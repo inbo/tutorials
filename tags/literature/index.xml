@@ -12,12 +12,14 @@
     
     
     <item>
-      <title>Books and articles on statistics</title>
-      <link>https://inbo.github.io/tutorials/articles/statistics/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      <title>Acquiring the skills</title>
+      <link>https://inbo.github.io/tutorials/articles/skills/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
-      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&#39;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
+      <guid>https://inbo.github.io/tutorials/articles/skills/</guid>
+      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
+Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
+These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
     </item>
     
     <item>
@@ -32,14 +34,23 @@ Overviews  Wilson et al. (2017): set of good computing practices that every rese
     </item>
     
     <item>
-      <title>Acquiring the skills</title>
-      <link>https://inbo.github.io/tutorials/articles/skills/</link>
+      <title>The discipline of open science</title>
+      <link>https://inbo.github.io/tutorials/articles/open_science/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/skills/</guid>
+      <guid>https://inbo.github.io/tutorials/articles/open_science/</guid>
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
+These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
+    </item>
+    
+    <item>
+      <title>Books and articles on statistics</title>
+      <link>https://inbo.github.io/tutorials/articles/statistics/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
+      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&#39;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
     </item>
     
     <item>
@@ -51,17 +62,6 @@ These resources focus on the learning and teaching aspect, while they often also
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
-    </item>
-    
-    <item>
-      <title>The discipline of open science</title>
-      <link>https://inbo.github.io/tutorials/articles/open_science/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/open_science/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
     </item>
     
   </channel>
