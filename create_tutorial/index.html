@@ -234,7 +234,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:14:05 UTC 2021</small></p>
+  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -315,7 +315,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-9 mins read
+10 mins read
 </span>
 
 
@@ -483,6 +483,16 @@ output:
 <li>When ready, <code>push</code> your tutorial a last time and create a <code>Pull request</code> to the website maintainers as explained in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master">STEP 4 of the workflow</a>.</li>
 </ul>
 <p>After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.</p>
+<h2 id="tips">Tips<a href="#tips" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>In the rare cases where your tutorial includes a link to a raw HTML document (to be delivered as-is, without any visual integration in the rest of the INBO tutorials website), you can proceed like this:</p>
+<ol>
+<li>Place your HTML document in <code>static/html</code> (in the top directory of the site, outside of <code>tutorials</code>, <code>articles</code>, &hellip;)</li>
+<li>To link it, use a relative URL (<code>..</code> can be used to point to the parent directory). The content of the <code>static</code> directory is accessible at the root URL.</li>
+</ol>
+<p>This should be more clear with a practical example:</p>
+<p>The file at <code>content/tutorials/r_beginners/index.md</code> has a link to a static HTML file in <code>static/html/Rmarkdown_oefening_resultaat.html</code>.</p>
+<p>Since that tutorial page will be visible at the <code>tutorials/r_beginners/</code> relative URL and that the static file will be accessible at <code>html/Rmarkdown_oefening_resultaat.html</code>, you need to create a link that goes up twice to reach the site root before going down in the <code>html</code> directory, for example:</p>
+<p><code>[Oefening](../../html/Rmarkdown_oefening_resultaat.html)</code></p>
 </div>
 
   
