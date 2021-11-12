@@ -183,3 +183,18 @@ As the Rmarkown file will not be part of the website, make sure to click the `kn
 - When ready, `push` your tutorial a last time and create a `Pull request` to the website maintainers as explained in [STEP 4 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master).
 
 After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.
+
+## Tips
+
+In the rare cases where your tutorial includes a link to a raw HTML document (to be delivered as-is, without any visual integration in the rest of the INBO tutorials website), you can proceed like this:
+
+1) Place your HTML document in `static/html` (in the top directory of the site, outside of `tutorials`, `articles`, ...)
+2) To link it, use a relative URL (`..` can be used to point to the parent directory). The content of the `static` directory is accessible at the root URL.
+
+This should be more clear with a practical example:
+
+The file at `content/tutorials/r_beginners/index.md` has a link to a static HTML file in `static/html/Rmarkdown_oefening_resultaat.html`. 
+
+Since that tutorial page will be visible at the `tutorials/r_beginners/` relative URL and that the static file will be accessible at `html/Rmarkdown_oefening_resultaat.html`, you need to create a link that goes up twice to reach the site root before going down in the `html` directory, for example: 
+
+`[Oefening](../../html/Rmarkdown_oefening_resultaat.html)`
