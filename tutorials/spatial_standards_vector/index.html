@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='A simple tutorial to demonstrate the use of *.gpkg and *.geojson files in R'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-02-03T00:00:00Z'/><meta property='article:modified_time' content='2020-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON • Floris Vanderhaeghe</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -358,7 +360,7 @@ Improve this page</a>
 functions are used, you can use the previous hyperlinks to access the
 tutorials (vignettes) of these packages for more functions and
 information.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">options</span>(stringsAsFactors = <span style="color:#00a">FALSE</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">options</span>(stringsAsFactors = <span style="color:#00a">FALSE</span>)
 <span style="color:#0a0">library</span>(tidyverse)
 <span style="color:#0a0">library</span>(sf)
 <span style="color:#0a0">library</span>(inborutils)
@@ -374,83 +376,83 @@ formats.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Property</th>
-<th align="center">GeoPackage</th>
-<th align="center">GeoJSON RFC7946</th>
-<th align="center">Shapefile</th>
-<th align="center">ESRI geodatabase</th>
+<th style="text-align:left">Property</th>
+<th style="text-align:center">GeoPackage</th>
+<th style="text-align:center">GeoJSON RFC7946</th>
+<th style="text-align:center">Shapefile</th>
+<th style="text-align:center">ESRI geodatabase</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Open standard?</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">no</td>
-<td align="center">no</td>
+<td style="text-align:left">Open standard?</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Write support by GDAL (OGR)</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">no</td>
+<td style="text-align:left">Write support by GDAL (OGR)</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Supported OS</td>
-<td align="center">cross-platform</td>
-<td align="center">cross-platform</td>
-<td align="center">cross-platform</td>
-<td align="center">Windows</td>
+<td style="text-align:left">Supported OS</td>
+<td style="text-align:center">cross-platform</td>
+<td style="text-align:center">cross-platform</td>
+<td style="text-align:center">cross-platform</td>
+<td style="text-align:center">Windows</td>
 </tr>
 <tr>
-<td align="left">Extends non-spatial format:</td>
-<td align="center">SQLite</td>
-<td align="center">JSON</td>
-<td align="center">dBase IV</td>
-<td align="center">MS Access (for personal gdb)</td>
+<td style="text-align:left">Extends non-spatial format:</td>
+<td style="text-align:center">SQLite</td>
+<td style="text-align:center">JSON</td>
+<td style="text-align:center">dBase IV</td>
+<td style="text-align:center">MS Access (for personal gdb)</td>
 </tr>
 <tr>
-<td align="left">Text or binary?</td>
-<td align="center">binary</td>
-<td align="center">text</td>
-<td align="center">binary</td>
-<td align="center">binary</td>
+<td style="text-align:left">Text or binary?</td>
+<td style="text-align:center">binary</td>
+<td style="text-align:center">text</td>
+<td style="text-align:center">binary</td>
+<td style="text-align:center">binary</td>
 </tr>
 <tr>
-<td align="left">Number of files</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">3 or more</td>
-<td align="center">1 (personal gdb) / many (file gdb)</td>
+<td style="text-align:left">Number of files</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3 or more</td>
+<td style="text-align:center">1 (personal gdb) / many (file gdb)</td>
 </tr>
 <tr>
-<td align="left">Inspect version’s differences in git version control?</td>
-<td align="center">no</td>
-<td align="center">yes (but care must be taken)</td>
-<td align="center">no</td>
-<td align="center">no</td>
+<td style="text-align:left">Inspect version’s differences in git version control?</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes (but care must be taken)</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Can store multiple layers?</td>
-<td align="center">yes</td>
-<td align="center">no</td>
-<td align="center">no</td>
-<td align="center">yes</td>
+<td style="text-align:left">Can store multiple layers?</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes</td>
 </tr>
 <tr>
-<td align="left">Multiple geometry types allowed per layer?</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">no</td>
-<td align="center">yes</td>
+<td style="text-align:left">Multiple geometry types allowed per layer?</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes</td>
 </tr>
 <tr>
-<td align="left">Coordinate reference system (CRS) in file</td>
-<td align="center">same as input CRS</td>
-<td align="center">WGS84</td>
-<td align="center">same as input CRS</td>
-<td align="center">same as input CRS</td>
+<td style="text-align:left">Coordinate reference system (CRS) in file</td>
+<td style="text-align:center">same as input CRS</td>
+<td style="text-align:center">WGS84</td>
+<td style="text-align:center">same as input CRS</td>
+<td style="text-align:center">same as input CRS</td>
 </tr>
 </tbody>
 </table>
@@ -458,21 +460,21 @@ formats.</p>
 <h3 id="making-a-geopackage-from-a-geospatial-sf-object-in-r">Making a GeoPackage from a geospatial <code>sf</code> object in R<a href="#making-a-geopackage-from-a-geospatial-sf-object-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>As an example, we download a geospatial layer of Special Areas of
 Conservation in Flanders (version <em>sac_2013-01-18</em>) from Zenodo:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># meeting a great function from the &#39;inborutils&#39; package:</span>
-<span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;</span><span style="color:#a50">10.5281/zenodo.3386815&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># meeting a great function from the &#39;inborutils&#39; package:</span>
+<span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;10.5281/zenodo.3386815&#34;</span>)
 </code></pre></div><p><em>Did you know this: you can visit a website of this dataset by just
 prefixing the DOI [1] with <code>doi.org/</code>!</em></p>
 <p>The data source is a shapefile, in this case consisting of 6 different
 files. Read the geospatial data into R as an <code>sf</code> object, and let’s just
 keep the essentials (though it doesn’t matter for the GeoPackage):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac &lt;- 
-  <span style="color:#0a0">read_sf</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.shp&#34;</span>) %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac &lt;- 
+  <span style="color:#0a0">read_sf</span>(<span style="color:#a50">&#34;sac.shp&#34;</span>) %&gt;% 
   <span style="color:#0a0">select</span>(sac_code = GEBCODE,
          sac_name = NAAM,
          subsac_code = DEELGEBIED,
          polygon_id = POLY_ID)
 </code></pre></div><p>Have a look at its contents by printing the object:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac
 </code></pre></div><pre><code>## Simple feature collection with 616 features and 4 fields
 ## geometry type:  POLYGON
 ## dimension:      XY
@@ -497,8 +499,8 @@ keep the essentials (though it doesn’t matter for the GeoPackage):</p>
 <p>To write the GeoPackage, we just use the GPKG driver of the powerful
 <a href="https://gdal.org">GDAL</a> library (supporting most open and some closed
 formats), which can be elegantly accessed through <code>sf::st_write()</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
-  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>)
 </code></pre></div><pre><code>## Updating layer `sac' to data source `sac.gpkg' using driver `GPKG'
 ## Writing 616 features with 4 fields and geometry type Polygon.
 </code></pre>
@@ -510,9 +512,9 @@ formats), which can be elegantly accessed through <code>sf::st_write()</code>:</
 <p>A GeoPackage can contain many layers. So, it is good practice to
 explicitly define the layer name within the GeoPackage (above, it was
 automatically called ‘sac’). For example:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
-  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>,
-           layer = <span style="color:#a50">&#34;</span><span style="color:#a50">special_areas_conservation&#34;</span>,
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>,
+           layer = <span style="color:#a50">&#34;special_areas_conservation&#34;</span>,
            delete_dsn = <span style="color:#00a">TRUE</span>)
 </code></pre></div><pre><code>## Deleting source `sac.gpkg' using driver `GPKG'
 ## Updating layer `special_areas_conservation' to data source `sac.gpkg' using driver `GPKG'
@@ -524,10 +526,10 @@ automatically called ‘sac’). For example:</p>
 <p>Let’s extract a selection of features from the
 <code>special_areas_conservation</code> layer, and add it as a second layer into
 the GeoPackage file:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
-  <span style="color:#0a0">filter</span>(<span style="color:#0a0">str_detect</span>(sac_name, <span style="color:#a50">&#34;</span><span style="color:#a50">Turnhout&#34;</span>)) %&gt;% <span style="color:#aaa;font-style:italic"># only polygons having &#39;Turnhout&#39; in their name field</span>
-  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>,
-           layer = <span style="color:#a50">&#34;</span><span style="color:#a50">turnhout&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
+  <span style="color:#0a0">filter</span>(<span style="color:#0a0">str_detect</span>(sac_name, <span style="color:#a50">&#34;Turnhout&#34;</span>)) %&gt;% <span style="color:#aaa;font-style:italic"># only polygons having &#39;Turnhout&#39; in their name field</span>
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>,
+           layer = <span style="color:#a50">&#34;turnhout&#34;</span>)
 </code></pre></div><pre><code>## Updating layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
 ## Writing 16 features with 4 fields and geometry type Polygon.
 </code></pre>
@@ -535,8 +537,8 @@ the GeoPackage file:</p>
 again to the same GeoPackage file (by default, <code>delete_dsn</code> is <code>FALSE</code>),
 and defining the new layer’s name.</p>
 <p>So, which layers are available in the GeoPackage?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">ogrinfo</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>) %&gt;% 
-  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;</span><span style="color:#a50">\n&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">ogrinfo</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>) %&gt;% 
+  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;\n&#34;</span>)
 </code></pre></div><pre><code>## INFO: Open of `sac.gpkg'
 ##       using driver `GPKG' successful.
 ## 1: special_areas_conservation (Polygon)
@@ -545,9 +547,9 @@ and defining the new layer’s name.</p>
 <p><em><strong>You see?</strong></em></p>
 <h3 id="reading-a-geopackage-file">Reading a GeoPackage file<a href="#reading-a-geopackage-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Can it become more simple than this?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># (note: the &#39;layer&#39; argument is unneeded if there&#39;s just one layer)</span>
-sac_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">sac.gpkg&#34;</span>,
-                    layer = <span style="color:#a50">&#34;</span><span style="color:#a50">special_areas_conservation&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># (note: the &#39;layer&#39; argument is unneeded if there&#39;s just one layer)</span>
+sac_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>,
+                    layer = <span style="color:#a50">&#34;special_areas_conservation&#34;</span>)
 </code></pre></div><pre><code>## Reading layer `special_areas_conservation' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' using driver `GPKG'
 ## Simple feature collection with 616 features and 4 fields
 ## geometry type:  POLYGON
@@ -565,17 +567,17 @@ GeoPackage format. It is an open standard, after all!</p>
 <h3 id="making-a-geojson-file-from-a-geospatial-sf-object-in-r">Making a GeoJSON file from a geospatial <code>sf</code> object in R<a href="#making-a-geojson-file-from-a-geospatial-sf-object-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>As another example, let’s download a shapefile of stream habitat 3260 in
 Flanders (version <em>2018</em>):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;</span><span style="color:#a50">10.5281/zenodo.3386246&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;10.5281/zenodo.3386246&#34;</span>)
 </code></pre></div><p><em>Again: you can visit a website of this dataset by just prefixing the
 DOI with <code>doi.org/</code>!</em></p>
 <p>The data source is a shapefile again, in this case consisting of 4
 different files. Similar as above, we read the geospatial data into R as
 an <code>sf</code> object and select a few attributes to work with:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams &lt;- 
-  <span style="color:#0a0">read_sf</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">habitatstreams.shp&#34;</span>) %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams &lt;- 
+  <span style="color:#0a0">read_sf</span>(<span style="color:#a50">&#34;habitatstreams.shp&#34;</span>) %&gt;% 
   <span style="color:#0a0">select</span>(river_name = NAAM,
          source = BRON)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams
 </code></pre></div><pre><code>## Simple feature collection with 560 features and 2 fields
 ## geometry type:  LINESTRING
 ## dimension:      XY
@@ -606,9 +608,9 @@ for a bit more background).</p>
 GDAL must be given the explicit option <code>RFC7946=YES</code> in order to use it
 already [2].</p>
 <p>Write the GeoJSON file as follows:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams %&gt;% 
-  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">habitatstreams.geojson&#34;</span>,
-           layer_options = <span style="color:#a50">&#34;</span><span style="color:#a50">RFC7946=YES&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams %&gt;% 
+  <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;habitatstreams.geojson&#34;</span>,
+           layer_options = <span style="color:#a50">&#34;RFC7946=YES&#34;</span>)
 </code></pre></div><pre><code>## Writing layer `habitatstreams' to data source `habitatstreams.geojson' using driver `GeoJSON'
 ## options:        RFC7946=YES 
 ## Writing 560 features with 2 fields and geometry type Line String.
@@ -642,7 +644,7 @@ GeoPackage format for larger (more complex) cases.</p>
 <h3 id="reading-a-geojson-file">Reading a GeoJSON file<a href="#reading-a-geojson-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Just do
 this:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">habitatstreams.geojson&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;habitatstreams.geojson&#34;</span>)
 </code></pre></div><pre><code>## Reading layer `habitatstreams' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/habitatstreams.geojson' using driver `GeoJSON'
 ## Simple feature collection with 560 features and 2 fields
 ## geometry type:  LINESTRING
@@ -659,7 +661,7 @@ well established standard.</p>
 reading a GeoJSON file.</p>
 <p>If you want to transform the data to another CRS, e.g. Belgian Lambert
 72 (<a href="https://epsg.io/31370">EPSG-code 31370</a>), use <code>sf::st_transform()</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test %&gt;% 
   <span style="color:#0a0">st_transform</span>(<span style="color:#099">31370</span>)
 </code></pre></div><pre><code>## Simple feature collection with 560 features and 2 fields
 ## geometry type:  LINESTRING
@@ -755,9 +757,9 @@ stage, it seems.</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Learn what the effect is of having the same variable in the fixed and random part of a mixed model.'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='r'><meta property='article:tag' content='analysis'><meta property='article:tag' content='mixed model'><meta property='article:published_time' content='2020-07-01T00:00:00Z'/><meta property='article:modified_time' content='2020-07-01T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Same variable in fixed and random effects • Thierry Onkelinx</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_fixed_random/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -353,17 +355,17 @@ Improve this page</a>
   
 
   <div class='container entry-content'><h2 id="used-packages">Used packages<a href="#used-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(ggplot2)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(ggplot2)
 </code></pre></div><pre><code>## Warning: package 'ggplot2' was built under R version 4.0.2
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(lme4)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(lme4)
 </code></pre></div><pre><code>## Loading required package: Matrix
 </code></pre>
 <h2 id="dummy-data">Dummy data<a href="#dummy-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>For the sake of this demontration we use a very simple dataset with a
 very high signal versus noise ratio. Let’s look at a simple timeseries
 with multiple observations per timepoint.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">set.seed</span>(<span style="color:#099">213354</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">set.seed</span>(<span style="color:#099">213354</span>)
 n.year &lt;- <span style="color:#099">30</span>
 n.replicate &lt;- <span style="color:#099">10</span>
 sd.noise &lt;- <span style="color:#099">0.1</span>
@@ -376,15 +378,15 @@ dataset$Noise &lt;- <span style="color:#0a0">rnorm</span>(<span style="color:#0a
 dataset$Linear &lt;- <span style="color:#099">1</span> + <span style="color:#099">2</span> * dataset$Year + dataset$Noise
 dataset$Quadratic &lt;- <span style="color:#099">1</span> + <span style="color:#099">20</span> * dataset$Year - <span style="color:#099">0.5</span> * dataset$Year ^ <span style="color:#099">2</span> + 
   dataset$Noise
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + <span style="color:#0a0">geom_point</span>()
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + <span style="color:#0a0">geom_point</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/linear-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + <span style="color:#0a0">geom_point</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + <span style="color:#0a0">geom_point</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/quadratic-1.png" alt=""><!-- raw HTML omitted --></p>
 <h2 id="quadratic-trend-but-fit-as-a-linear-trend">Quadratic trend but fit as a linear trend<a href="#quadratic-trend-but-fit-as-a-linear-trend" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Assume that we assume that the trend is linear but in reality it is
 quadratic. In this case the random intercept of year will pickup the
 differences with the linear trend.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model.quadratric &lt;- <span style="color:#0a0">lmer</span>(Quadratic ~ Year + (<span style="color:#099">1</span>|Year), 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model.quadratric &lt;- <span style="color:#0a0">lmer</span>(Quadratic ~ Year + (<span style="color:#099">1</span>|Year), 
                          data = dataset)
 <span style="color:#0a0">summary</span>(model.quadratric)
 </code></pre></div><pre><code>## Linear mixed model fit by REML ['lmerMod']
@@ -412,20 +414,20 @@ differences with the linear trend.</p>
 ##      (Intr)
 ## Year -0.873
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset$QuadraticPredict &lt;- <span style="color:#0a0">predict</span>(model.quadratric)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset$QuadraticPredict &lt;- <span style="color:#0a0">predict</span>(model.quadratric)
 dataset$QuadraticFixed &lt;- <span style="color:#0a0">predict</span>(model.quadratric, re.form = ~<span style="color:#099">0</span>)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + 
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + 
   <span style="color:#0a0">geom_point</span>() + 
-  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticFixed), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>) + 
-  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticPredict), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">blue&#34;</span>)
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticFixed), colour = <span style="color:#a50">&#34;red&#34;</span>) + 
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticPredict), colour = <span style="color:#a50">&#34;blue&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>The random effects will have a strong pattern. Indicating that a second
 order polynomial makes more sense than a linear trend.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf &lt;- <span style="color:#0a0">data.frame</span>(
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf &lt;- <span style="color:#0a0">data.frame</span>(
   Year = <span style="color:#0a0">seq_len</span>(n.year),
   RandomIntercept = <span style="color:#0a0">ranef</span>(model.quadratric)$Year[, <span style="color:#099">1</span>]
 )
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(rf, <span style="color:#0a0">aes</span>(x = Year, y = RandomIntercept)) + 
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(rf, <span style="color:#0a0">aes</span>(x = Year, y = RandomIntercept)) + 
   <span style="color:#0a0">geom_point</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
 <h2 id="what-if-the-trend-is-perfectly-linear">What if the trend is perfectly linear?<a href="#what-if-the-trend-is-perfectly-linear" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -439,10 +441,10 @@ exactly the same fit generated by strong random effects.</p>
 <p>In this case the linear trend is very strong compared to the noise. So
 the linear trend in the fixed effect fits the data very well. Note that
 the random effect variance is zero.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model.linear &lt;- <span style="color:#0a0">lmer</span>(Linear ~ Year + (<span style="color:#099">1</span>|Year), data = dataset)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model.linear &lt;- <span style="color:#0a0">lmer</span>(Linear ~ Year + (<span style="color:#099">1</span>|Year), data = dataset)
 </code></pre></div><pre><code>## boundary (singular) fit: see ?isSingular
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">summary</span>(model.linear)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">summary</span>(model.linear)
 </code></pre></div><pre><code>## Linear mixed model fit by REML ['lmerMod']
 ## Formula: Linear ~ Year + (1 | Year)
 ##    Data: dataset
@@ -470,12 +472,12 @@ the random effect variance is zero.</p>
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset$LinearPredict &lt;- <span style="color:#0a0">predict</span>(model.linear)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset$LinearPredict &lt;- <span style="color:#0a0">predict</span>(model.linear)
 dataset$LinearFixed &lt;- <span style="color:#0a0">predict</span>(model.linear, re.form = ~<span style="color:#099">0</span>)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + 
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + 
   <span style="color:#0a0">geom_point</span>() + 
-  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearFixed), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>) + 
-  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearPredict), colour = <span style="color:#a50">&#34;</span><span style="color:#a50">blue&#34;</span>)
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearFixed), colour = <span style="color:#a50">&#34;red&#34;</span>) + 
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearPredict), colour = <span style="color:#a50">&#34;blue&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-8-1.png" alt=""><!-- raw HTML omitted --></p>
 <h2 id="what-about-fitting-year-as-a-factor-in-the-fixed-effects">What about fitting year as a factor in the fixed effects<a href="#what-about-fitting-year-as-a-factor-in-the-fixed-effects" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Combining the same variables as a factor in the fixed effects and as a
@@ -497,7 +499,7 @@ fit and thus the random intercept will always shrink to zero.</p>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a>, <a class='tag' href='/tutorials/tags/mixed-model/'>mixed model</a></div>
 
   </div>
 </footer>
@@ -543,9 +545,9 @@ fit and thus the random intercept will always shrink to zero.</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

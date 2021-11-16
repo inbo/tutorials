@@ -6,11 +6,7 @@
     <description>Recent content in damianooldoni on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial setup_codingclub_session()</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</link>
@@ -33,7 +29,7 @@ library(inborutils) The function takes four arguments with the following default
 This package is very well documented, so we just have to provide you with the right links:
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
 A complete list of vignettes can be found in the Articles page.
-googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&#39;t work anymore as it is built on the outdated Sheets v3 API.</description>
+googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&amp;rsquo;t work anymore as it is built on the outdated Sheets v3 API.</description>
     </item>
     
     <item>

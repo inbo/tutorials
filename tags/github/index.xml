@@ -6,11 +6,7 @@
     <description>Recent content in github on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Mar 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/tags/github/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 17 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Styleguide new git repositories</title>
       <link>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</link>
@@ -18,7 +14,7 @@
       
       <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
- https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&#39;t use underscores.
+ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
     </item>
     

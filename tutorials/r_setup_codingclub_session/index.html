@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Tutorial on how to use setup_codingclub_session() to load data and scripts to use during coding clubs.'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='data'><meta property='article:tag' content='coding club'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-11-12T00:00:00Z'/><meta property='article:modified_time' content='2020-11-12T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Tutorial setup_codingclub_session() • Emma Cartuyvels</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -358,12 +360,12 @@ GitHub webpages but it is much easier to use the
 <code>setup_codingclub_session()</code> function of the <code>inborutils</code> package.</p>
 <p>To begin, make sure that you have the latest version of <code>inborutils</code>
 installed by running the following code:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(!<span style="color:#a50">&#34;</span><span style="color:#a50">remotes&#34;</span> %in% <span style="color:#0a0">rownames</span>(<span style="color:#0a0">installed.packages</span>())) {
-  <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">remotes&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(!<span style="color:#a50">&#34;remotes&#34;</span> %in% <span style="color:#0a0">rownames</span>(<span style="color:#0a0">installed.packages</span>())) {
+  <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;remotes&#34;</span>)
 }
-remotes::<span style="color:#0a0">install_github</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">inbo/inborutils&#34;</span>)
+remotes::<span style="color:#0a0">install_github</span>(<span style="color:#a50">&#34;inbo/inborutils&#34;</span>)
 </code></pre></div><p>Next load the package:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inborutils)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inborutils)
 </code></pre></div><p>The function takes four arguments with the following default settings:</p>
 <ul>
 <li><code>session_date</code> which is set to the present day</li>
@@ -372,7 +374,7 @@ remotes::<span style="color:#0a0">install_github</span>(<span style="color:#a50"
 <li><code>data_rel_path</code> which is set to the subdirectory <code>data</code></li>
 </ul>
 <p>So when we just run the function like this:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>()
 </code></pre></div><p>… we will get the coding club materials for the date of today (if and
 only if today there is a coding club, otherwise there are no materials
 and nothing will be downloaded). These materials will be saved in the
@@ -394,7 +396,7 @@ coding club folder will look like this:</p>
 </code></pre>
 <p>If you want to get the coding club materials for a past date, use the
 “YYYYMMDD” format, e.g. for material of August 25, 2020:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">20200225&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>(<span style="color:#a50">&#34;20200225&#34;</span>)
 </code></pre></div><p>The subfolders <code>./src/20200225</code> and <code>./data/20200225</code> are automatically
 created and files downloaded if not present:</p>
 <pre><code>├── src
@@ -416,9 +418,9 @@ secret…)</p>
 <p>If your folders are not named <code>src</code> or <code>data</code> (although we recommend to
 name them as such) but for example <code>scripts</code> and <code>data_codingclub</code> you
 can specify them as such:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">20200225&#34;</span>,
-                         src_rel_path = <span style="color:#a50">&#34;</span><span style="color:#a50">scripts&#34;</span>,
-                         data_rel_path = <span style="color:#a50">&#34;</span><span style="color:#a50">data_codingclub&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>(<span style="color:#a50">&#34;20200225&#34;</span>,
+                         src_rel_path = <span style="color:#a50">&#34;scripts&#34;</span>,
+                         data_rel_path = <span style="color:#a50">&#34;data_codingclub&#34;</span>)
 </code></pre></div><pre><code>├── scripts
     ├── 20200225
         ├── 20200225_create_messy_project.r
@@ -432,11 +434,11 @@ can specify them as such:</p>
 directory although you shouldn’t need to while working within an RStudio
 project. For example, if you want to move the root to the parent
 directory:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>(root_dir = <span style="color:#a50">&#34;</span><span style="color:#a50">../&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">setup_codingclub_session</span>(root_dir = <span style="color:#a50">&#34;../&#34;</span>)
 </code></pre></div><p>Last but not least, you can always check examples and documentation
 <a href="https://inbo.github.io/inborutils/reference/setup_codingclub_session.html">online</a>
 or via R console:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">?setup_codingclub_session
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">?setup_codingclub_session
 </code></pre></div><p>Doesn’t <code>setup_codingclub_session()</code> work as expected? Do you think
 there is a bug? Or do you have some ideas to improve the function? Raise
 your hand! Write an <a href="https://github.com/inbo/inborutils/issues">issue</a>
@@ -459,7 +461,7 @@ help you.</p>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/data/'>data</a>, <a class='tag' href='/tutorials/tags/r/'>r</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/data/'>data</a>, <a class='tag' href='/tutorials/tags/coding-club/'>coding club</a>, <a class='tag' href='/tutorials/tags/r/'>r</a></div>
 
   </div>
 </footer>
@@ -505,9 +507,9 @@ help you.</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

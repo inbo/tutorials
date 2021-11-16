@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='This tutorial shows how to do coordinate transformations and conversions in R. It also demonstrates how spatial data can be mapped with ggplot2 and mapview.'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2021-09-16T00:00:00Z'/><meta property='article:modified_time' content='2021-09-16T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Coordinate operations and maps in R • Floris Vanderhaeghe</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -374,19 +376,19 @@ transformations (with datum shift) to <code>sf</code> and <code>sfc</code> objec
 background, these operations use the <a href="https://proj.org">PROJ</a> library.</p>
 <p>Let’s load the needed R packages and prepare a more appropriate theme
 for mapping with <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)
 <span style="color:#0a0">library</span>(sf)
 <span style="color:#0a0">library</span>(ggplot2)
 <span style="color:#0a0">theme_set</span>(<span style="color:#0a0">theme_bw</span>())
-<span style="color:#0a0">theme_update</span>(panel.grid = <span style="color:#0a0">element_line</span>(colour = <span style="color:#a50">&#34;</span><span style="color:#a50">grey80&#34;</span>))
+<span style="color:#0a0">theme_update</span>(panel.grid = <span style="color:#0a0">element_line</span>(colour = <span style="color:#a50">&#34;grey80&#34;</span>))
 <span style="color:#0a0">library</span>(mapview)
 </code></pre></div><p>Set up input data if needed:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(!<span style="color:#0a0">file.exists</span>(<span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">gemeenten_belgie.shp&#34;</span>))) {
-  googledrive::<span style="color:#0a0">drive_download</span>(googledrive::<span style="color:#0a0">as_id</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">1-epL-fyKB8eS-WwuZhjsl8uyZYplAqFA&#34;</span>), 
-                              <span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;</span><span style="color:#a50">data_gisclub.zip&#34;</span>))
-  <span style="color:#0a0">unzip</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;</span><span style="color:#a50">data_gisclub.zip&#34;</span>),
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(!<span style="color:#0a0">file.exists</span>(<span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;gemeenten_belgie.shp&#34;</span>))) {
+  googledrive::<span style="color:#0a0">drive_download</span>(googledrive::<span style="color:#0a0">as_id</span>(<span style="color:#a50">&#34;1-epL-fyKB8eS-WwuZhjsl8uyZYplAqFA&#34;</span>), 
+                              <span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;data_gisclub.zip&#34;</span>))
+  <span style="color:#0a0">unzip</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;data_gisclub.zip&#34;</span>),
         exdir = <span style="color:#0a0">tempdir</span>())
-  <span style="color:#0a0">list.files</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;</span><span style="color:#a50">data_gisclub&#34;</span>), full.names = <span style="color:#00a">TRUE</span>) %&gt;% 
+  <span style="color:#0a0">list.files</span>(<span style="color:#0a0">file.path</span>(<span style="color:#0a0">tempdir</span>(), <span style="color:#a50">&#34;data_gisclub&#34;</span>), full.names = <span style="color:#00a">TRUE</span>) %&gt;% 
     <span style="color:#0a0">file.copy</span>(gisclubdata_path, recursive = <span style="color:#00a">TRUE</span>)
 }
 </code></pre></div><p>The code assumes that you have a <code>gisclubdata_path</code> object defined
@@ -397,10 +399,10 @@ to append the municipality name to the watercourses by making a spatial
 join.</p>
 <h3 id="reading-data-and-trying-to-join">Reading data and trying to join<a href="#reading-data-and-trying-to-join" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Let’s read the data file of Belgian municipalities:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_municipalities &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">gemeenten_belgie.shp&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_municipalities &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;gemeenten_belgie.shp&#34;</span>)
 municipalities &lt;- <span style="color:#0a0">read_sf</span>(path_municipalities)
 </code></pre></div><p>It looks like this:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities
 </code></pre></div><pre><code>Simple feature collection with 581 features and 3 fields
 Geometry type: MULTIPOLYGON
 Dimension:     XYZ
@@ -424,7 +426,7 @@ Geodetic CRS:  WGS 84
 </code></pre>
 <p>It appears that the points have three coordinate dimensions (<code>XYZ</code>).
 However the features have only two useful dimensions:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_dimension</span>(municipalities)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_dimension</span>(municipalities)
 </code></pre></div><pre><code>  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
  [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
  [75] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
@@ -445,15 +447,15 @@ However the features have only two useful dimensions:</p>
 <p>Some tools – e.g. spherical geoprocessing – expect XY data. So we will
 drop the Z dimension with <code>st_zm()</code>. Meanwhile we select the only
 necessary attribute and rename it, using <code>select()</code>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities &lt;- 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities &lt;- 
   municipalities %&gt;% 
   <span style="color:#0a0">select</span>(municipality = T_MUN_NL) %&gt;% 
   <span style="color:#0a0">st_zm</span>()
 </code></pre></div><p>We perform similar operations on the <code>watercourses</code> dataset. Here, data
 are already defined as two dimensions.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_watercourses &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">watergangen_antw.shp&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_watercourses &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;watergangen_antw.shp&#34;</span>)
 watercourses &lt;- <span style="color:#0a0">read_sf</span>(path_watercourses)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses
 </code></pre></div><pre><code>Simple feature collection with 7258 features and 14 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -477,7 +479,7 @@ CRS:           NA
 </code></pre>
 <p>Note that not all columns are printed. Let’s preview all columns with
 <code>glimpse()</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">glimpse</span>(watercourses)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">glimpse</span>(watercourses)
 </code></pre></div><pre><code>Rows: 7,258
 Columns: 15
 $ OIDN       &lt;dbl&gt; 205462, 179828, 223031, 267383, 72361, 223073, 72079, 14581…
@@ -497,12 +499,12 @@ $ Shape_Area &lt;dbl&gt; 2492.22527, 494.77446, 9350.36080, 978.46010, 432.97004
 $ geometry   &lt;POLYGON&gt; POLYGON ((141976.5 222453.1..., POLYGON ((142200.6 2050…
 </code></pre>
 <p>We only select some:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses &lt;- 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses &lt;- 
   watercourses %&gt;% 
   <span style="color:#0a0">select</span>(polygon_id = OIDN,
          vhag_code = VHAG,
          watercourse = NAAM)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">watercourses
 </code></pre></div><pre><code>Simple feature collection with 7258 features and 3 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -526,7 +528,7 @@ CRS:           NA
 <p>In the above prints of the <code>municipalities</code> and <code>watercourses</code> objects,
 you could already see their coordinate reference system (CRS). With
 <code>st_crs()</code> you can extract the <code>crs</code> object; it is printed as:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(municipalities)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(municipalities)
 </code></pre></div><pre><code>Coordinate Reference System:
   User input: WGS 84 
   wkt:
@@ -549,11 +551,11 @@ GEOGCRS[&quot;WGS 84&quot;,
 <code>st_crs(municipalities)$Name</code>. As seen from the WKT string, this is a
 geographical CRS.</p>
 <p>However for <code>watercourses</code> the CRS is missing:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses)
 </code></pre></div><pre><code>Coordinate Reference System: NA
 </code></pre>
 <p>Can we make the spatial join already?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(watercourses, municipalities) %&gt;% try
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(watercourses, municipalities) %&gt;% try
 </code></pre></div><pre><code>Error in st_geos_binop(&quot;intersects&quot;, x, y, sparse = sparse, prepared = prepared,  : 
   st_crs(x) == st_crs(y) is not TRUE
 </code></pre>
@@ -561,18 +563,18 @@ geographical CRS.</p>
 belong to the same CRS.</p>
 <p>Well, we know that <code>watercourses</code> is in the projected CRS <code>EPSG:31370</code>
 (Belge 1972 / Belgian Lambert 72), so we can just update it:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses) &lt;- <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses) &lt;- <span style="color:#a50">&#34;EPSG:31370&#34;</span>
 </code></pre></div><p>Since the CRSs are still different, this should <em>not</em> be sufficient for
 the join.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(watercourses, municipalities) %&gt;% try
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(watercourses, municipalities) %&gt;% try
 </code></pre></div><pre><code>Error in st_geos_binop(&quot;intersects&quot;, x, y, sparse = sparse, prepared = prepared,  : 
   st_crs(x) == st_crs(y) is not TRUE
 </code></pre>
 <p>Indeed!</p>
 <p>Let’s transform <code>municipalities</code> to <code>EPSG:31370</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities_31370 &lt;- <span style="color:#0a0">st_transform</span>(municipalities, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">municipalities_31370 &lt;- <span style="color:#0a0">st_transform</span>(municipalities, <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
 </code></pre></div><p>And now…</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">(watercourses_comm &lt;- <span style="color:#0a0">st_join</span>(watercourses, municipalities_31370))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">(watercourses_comm &lt;- <span style="color:#0a0">st_join</span>(watercourses, municipalities_31370))
 </code></pre></div><pre><code>Simple feature collection with 7502 features and 4 fields
 Geometry type: POLYGON
 Dimension:     XY
@@ -612,7 +614,7 @@ another values for <code>municipality</code>.</li>
 can equally do it on a spherical model of the Earth, when using the
 geographical coordinates. We expect the resulting joined attributes to
 be equivalent. Let’s check:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(<span style="color:#0a0">st_transform</span>(watercourses, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:4326&#34;</span>), municipalities) %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_join</span>(<span style="color:#0a0">st_transform</span>(watercourses, <span style="color:#a50">&#34;EPSG:4326&#34;</span>), municipalities) %&gt;% 
   st_drop_geometry %&gt;% 
   <span style="color:#0a0">all.equal</span>(watercourses_comm %&gt;% st_drop_geometry)
 </code></pre></div><pre><code>[1] TRUE
@@ -621,21 +623,21 @@ be equivalent. Let’s check:</p>
 <p>While it has only one attribute and 581 rows, the object size of
 <code>municipalities_31370</code> is relatively large because its polygons have
 numerous vertices:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">object.size</span>(municipalities_31370) %&gt;% <span style="color:#0a0">format</span>(units = <span style="color:#a50">&#34;</span><span style="color:#a50">MB&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">object.size</span>(municipalities_31370) %&gt;% <span style="color:#0a0">format</span>(units = <span style="color:#a50">&#34;MB&#34;</span>)
 </code></pre></div><pre><code>[1] &quot;22.1 Mb&quot;
 </code></pre>
 <p>This makes a simple map take long to render in R (not shown here; just
 try yourself):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = municipalities_31370) + <span style="color:#0a0">geom_sf</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = municipalities_31370) + <span style="color:#0a0">geom_sf</span>()
 </code></pre></div><p>For the sake of this exercise, we make a simplified derived object
 <code>comm_simpl_31370</code> with fewer vertices:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">comm_simpl_31370 &lt;- <span style="color:#0a0">st_simplify</span>(municipalities_31370, dTolerance = <span style="color:#099">10</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">comm_simpl_31370 &lt;- <span style="color:#0a0">st_simplify</span>(municipalities_31370, dTolerance = <span style="color:#099">10</span>)
 </code></pre></div><p>Its size is much smaller:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">object.size</span>(comm_simpl_31370) %&gt;% <span style="color:#0a0">format</span>(units = <span style="color:#a50">&#34;</span><span style="color:#a50">MB&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">object.size</span>(comm_simpl_31370) %&gt;% <span style="color:#0a0">format</span>(units = <span style="color:#a50">&#34;MB&#34;</span>)
 </code></pre></div><pre><code>[1] &quot;3 Mb&quot;
 </code></pre>
 <p>So it renders faster.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_4326-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>However, mind that the simplification may be OK for mapping at an
 appropriate scale, but beware that information has been lost, so shapes
@@ -645,30 +647,30 @@ detailed mapping.</p>
 <p>Note the latitude-longitude graticule: the map follows the CRS of the
 plotted object, but the graticule is latitude-longitude by default.</p>
 <p>We can plot the graticule of another CRS with <code>coord_sf()</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_31370-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>The above is the most obvious choice here, since it’s the CRS of the
 object, but we could as well plot the graticule of e.g. <code>EPSG:3035</code>
 (ETRS89-extended / LAEA Europe):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:3035&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;EPSG:3035&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_3035-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>Next to the <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> package, which
 we used above, interactive maps can be made with the
 <a href="https://r-spatial.github.io/mapview/"><code>mapview</code></a> package.</p>
 <p>Here too, time to render differs between:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(municipalities_31370, legend = <span style="color:#00a">FALSE</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(municipalities_31370, legend = <span style="color:#00a">FALSE</span>)
 </code></pre></div><p>and:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, legend = <span style="color:#00a">FALSE</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, legend = <span style="color:#00a">FALSE</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_multicolour-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>In this case, <code>mapview</code> is using the <code>leaflet</code> package with some nice
 defaults, but in the above examples it makes a color map by default
 because there’s only one attribute. We don’t want this and we make some
 further adjustments:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, 
-        col.regions = <span style="color:#a50">&#34;</span><span style="color:#a50">pink&#34;</span>, 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, 
+        col.regions = <span style="color:#a50">&#34;pink&#34;</span>, 
         alpha.regions = <span style="color:#099">0.3</span>, 
         legend = <span style="color:#00a">FALSE</span>,
-        map.types = <span style="color:#a50">&#34;</span><span style="color:#a50">OpenStreetMap&#34;</span>)
+        map.types = <span style="color:#a50">&#34;OpenStreetMap&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_pink-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>Note that a separate tutorial about <code>leaflet</code> is
 <a href="../spatial_create_leaflet_map/">available</a> on this website!</p>
@@ -683,20 +685,20 @@ or as a projected CRS for geoprocessing, since it has more distortions
 (e.g. in CRS <code>EPSG:3395</code> – WGS 84 / World Mercator – which is best used
 in the equatorial region).</p>
 <p>Let’s show two layers with <code>mapview</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(comm_simpl_31370, watercourses), 
-        col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">pink&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">blue&#34;</span>), 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(comm_simpl_31370, watercourses), 
+        col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;pink&#34;</span>, <span style="color:#a50">&#34;blue&#34;</span>), 
         alpha.regions = <span style="color:#0a0">c</span>(<span style="color:#099">0.2</span>, <span style="color:#099">0.5</span>),
-        color = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">grey&#34;</span>, <span style="color:#00a">NA</span>), 
+        color = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;grey&#34;</span>, <span style="color:#00a">NA</span>), 
         legend = <span style="color:#00a">FALSE</span>,
-        map.types = <span style="color:#a50">&#34;</span><span style="color:#a50">OpenStreetMap&#34;</span>)
+        map.types = <span style="color:#a50">&#34;OpenStreetMap&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_water-1.png" alt=""><!-- raw HTML omitted --></p>
 <h2 id="different-transformation-pipelines">Different transformation pipelines<a href="#different-transformation-pipelines" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>We consider a layer of points that correspond to locations where
 characteristics were determined of Flemish surfacewater bodies:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_points &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;</span><span style="color:#a50">meetplaatsen_oppwater.shp&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">path_points &lt;- <span style="color:#0a0">file.path</span>(gisclubdata_path, <span style="color:#a50">&#34;meetplaatsen_oppwater.shp&#34;</span>)
 points &lt;- <span style="color:#0a0">read_sf</span>(path_points)
 </code></pre></div><p>Check the CRS:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(points)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(points)
 </code></pre></div><pre><code>Coordinate Reference System:
   User input: Amersfoort / RD New 
   wkt:
@@ -761,9 +763,9 @@ coordinate operations) can differ between different areas that are
 represented in a spatial dataset. This is taken care of automatically,
 based on the bounding boxes of each CRS, but it will also depend on the
 availability of specific transformation grids.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points_31370 &lt;- <span style="color:#0a0">st_transform</span>(points, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">points_31370 &lt;- <span style="color:#0a0">st_transform</span>(points, <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
 </code></pre></div><p>Notice the completely different coordinate ranges between both CRSs:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points)
 <span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features </span>
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
@@ -775,7 +777,7 @@ availability of specific transformation grids.</p>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (-28757.74 356391.3)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (709.4341 373861.2)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (116680.8 340639.1)</span>
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370)
 <span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features </span>
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
@@ -788,20 +790,20 @@ availability of specific transformation grids.</p>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (66666.83 225461.1)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (183089.2 193870.8)</span>
 </code></pre></div><p>A specific area shown with <code>ggplot2</code> in <code>EPSG:31370</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>() + 
-  <span style="color:#0a0">geom_sf</span>(data = watercourses, fill = <span style="color:#a50">&#34;</span><span style="color:#a50">lightblue&#34;</span>, colour = <span style="color:#a50">&#34;</span><span style="color:#a50">lightblue&#34;</span>) +
-  <span style="color:#0a0">geom_sf</span>(data = points_31370, fill = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>, shape = <span style="color:#099">21</span>) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>() + 
+  <span style="color:#0a0">geom_sf</span>(data = watercourses, fill = <span style="color:#a50">&#34;lightblue&#34;</span>, colour = <span style="color:#a50">&#34;lightblue&#34;</span>) +
+  <span style="color:#0a0">geom_sf</span>(data = points_31370, fill = <span style="color:#a50">&#34;red&#34;</span>, shape = <span style="color:#099">21</span>) +
   <span style="color:#0a0">lims</span>(x = <span style="color:#0a0">c</span>(<span style="color:#099">154e3</span>, <span style="color:#099">155e3</span>), y = <span style="color:#0a0">c</span>(<span style="color:#099">218e3</span>, <span style="color:#099">219e3</span>)) +
-  <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+  <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/ggplot_water_points-1.png" alt=""><!-- raw HTML omitted --></p>
 <h3 id="enforcing-a-specific-pipeline">Enforcing a specific pipeline<a href="#enforcing-a-specific-pipeline" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>We can request available transformation pipelines with
 <code>sf_proj_pipelines()</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines &lt;- <span style="color:#0a0">sf_proj_pipelines</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:28992&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines &lt;- <span style="color:#0a0">sf_proj_pipelines</span>(<span style="color:#a50">&#34;EPSG:28992&#34;</span>, <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
 </code></pre></div><p>One can further limit this by specifying the area of interest (<code>aoi</code>
 argument), which we didn’t do here.</p>
 <p>It is a dataframe with following structure:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">glimpse</span>(pipelines)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">glimpse</span>(pipelines)
 </code></pre></div><pre><code>Rows: 13
 Columns: 9
 $ id           &lt;chr&gt; &quot;pipeline&quot;, &quot;pipeline&quot;, &quot;pipeline&quot;, &quot;pipeline&quot;, &quot;pipeline…
@@ -815,7 +817,7 @@ $ instantiable &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,
 $ containment  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
 </code></pre>
 <p>Some metadata about the pipelines:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines %&gt;% 
   as_tibble %&gt;% 
   <span style="color:#0a0">select</span>(definition, description, grid_count, accuracy, instantiable)
 </code></pre></div><pre><code># A tibble: 13 × 5
@@ -839,7 +841,7 @@ $ containment  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS
 based on one or two grids for a better accuracy.</p>
 <p>When printing the <code>pipelines</code> object, its first row is printed in a more
 readable manner:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines
 </code></pre></div><pre><code>Candidate coordinate operations found:  13 
 Strict containment:     FALSE 
 Axis order auth compl:  FALSE 
@@ -863,7 +865,7 @@ it makes sense to designate the printed pipeline as <em>Best instantiable
 operation</em>.</p>
 <p>It follows that the same information appears when manually selecting and
 then printing, except for the number of ‘candidate operations found’:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[1,]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[1,]
 </code></pre></div><pre><code>Candidate coordinate operations found:  1 
 Strict containment:     FALSE 
 Axis order auth compl:  FALSE 
@@ -886,7 +888,7 @@ Definition:  +proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605555556
 including the WKT definitions, you can also run PROJ’s
 <a href="https://proj.org/apps/projinfo.html"><code>projinfo</code></a> command line program
 from within R if it’s available in your system <code>PATH</code>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">system</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">projinfo -s EPSG:28992 -t EPSG:31370 --spatial-test intersects -o WKT2:2019&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">system</span>(<span style="color:#a50">&#34;projinfo -s EPSG:28992 -t EPSG:31370 --spatial-test intersects -o WKT2:2019&#34;</span>)
 </code></pre></div><p>The <em>default</em> operation returned by PROJ’s <code>projinfo</code>, based on the
 union of the source and target CRS’s bounding box, appears to be just
 one pipeline with so-called <a href="https://proj.org/glossary.html#term-Ballpark-transformation">ballpark
@@ -895,7 +897,7 @@ It’s obtained by dropping the <code>--spatial-test intersects</code> option (o
 replacing <code>intersects</code> by <code>contains</code>, which is default)[2], and so it
 matches the pipeline where <code>accuracy</code> equals <code>NA</code> in our <code>pipelines</code>
 dataframe:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[13,]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[13,]
 </code></pre></div><pre><code>Candidate coordinate operations found:  1 
 Strict containment:     FALSE 
 Axis order auth compl:  FALSE 
@@ -923,17 +925,17 @@ errors of a few hundreds of metres.</p>
 <p>With <code>st_transform()</code> we can enforce a specific pipeline. Note that it
 is only available for <code>sfc</code> objects, not <code>sf</code> objects.</p>
 <p>Let’s apply the most accurate pipeline to <em>all</em> points:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># We select the pipeline with lowest accuracy (&lt; 0.02), by filtering on accuracy.</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># We select the pipeline with lowest accuracy (&lt; 0.02), by filtering on accuracy.</span>
 <span style="color:#aaa;font-style:italic"># If the grids are installed, this should match the first line of the pipelines object.</span>
 chosen_pipeline_definition &lt;- pipelines %&gt;% <span style="color:#0a0">filter</span>(accuracy &lt; <span style="color:#099">0.02</span>) %&gt;% <span style="color:#0a0">pull</span>(definition)
 points_31370_strict &lt;- 
-  <span style="color:#0a0">st_transform</span>(<span style="color:#0a0">st_geometry</span>(points), <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:31370&#34;</span>,
+  <span style="color:#0a0">st_transform</span>(<span style="color:#0a0">st_geometry</span>(points), <span style="color:#a50">&#34;EPSG:31370&#34;</span>,
                pipeline = chosen_pipeline_definition) %&gt;% 
   <span style="color:#0a0">st_sf</span>(<span style="color:#0a0">st_drop_geometry</span>(points), geometry = .) %&gt;% 
   as_tibble %&gt;% 
   st_as_sf
 </code></pre></div><p>And compare:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370)
 <span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features </span>
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
@@ -945,7 +947,7 @@ points_31370_strict &lt;-
 <span style="color:#aaa;font-style:italic">#&gt; POINT (37545.94 207609.8)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (66666.83 225461.1)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (183089.2 193870.8)</span>
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370_strict)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_geometry</span>(points_31370_strict)
 <span style="color:#aaa;font-style:italic">#&gt; Geometry set for 7320 features  (with 9 geometries empty)</span>
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
@@ -959,17 +961,17 @@ points_31370_strict &lt;-
 <span style="color:#aaa;font-style:italic">#&gt; POINT (183089.2 193870.8)</span>
 </code></pre></div><p>Notice the <strong>9 empty geometries</strong> in case of <code>points_31370_strict</code>!</p>
 <p>What is happening?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">p &lt;- 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">p &lt;- 
   <span style="color:#0a0">ggplot</span>() + 
-  <span style="color:#0a0">geom_sf</span>(data = points_31370, colour = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>) +
-  <span style="color:#0a0">geom_sf</span>(data = points_31370_strict, colour = <span style="color:#a50">&#34;</span><span style="color:#a50">green&#34;</span>) 
+  <span style="color:#0a0">geom_sf</span>(data = points_31370, colour = <span style="color:#a50">&#34;red&#34;</span>) +
+  <span style="color:#0a0">geom_sf</span>(data = points_31370_strict, colour = <span style="color:#a50">&#34;green&#34;</span>) 
 p
 </code></pre></div><p><img src="index_files/figure-gfm/ggplot_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>It appears that points too far at sea are considered invalid when
 applying this pipeline, and their geometry was cleared (although the
 corresponding row was not dropped).</p>
 <p>If we make a zoomable plot, there’s more to discover.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plotly::<span style="color:#0a0">ggplotly</span>(p)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plotly::<span style="color:#0a0">ggplotly</span>(p)
 </code></pre></div><p><img src="index_files/figure-gfm/ggplotly_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>Most points on the map are on the exact same location between both
 approaches. We can see that points west and south of the <em>geographic
@@ -977,8 +979,8 @@ bounding box</em> for usage of the Dutch CRS have a different position
 depending on the applied approach.</p>
 <p>It can be further investigated with <code>mapview</code> (note that this does a
 further reprojection to <code>EPSG:3857</code>):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(points_31370, points_31370_strict),
-        col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">green&#34;</span>))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(points_31370, points_31370_strict),
+        col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;red&#34;</span>, <span style="color:#a50">&#34;green&#34;</span>))
 </code></pre></div><p><img src="index_files/figure-gfm/mapview_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>Here it appears that the western and southern points of <code>points_31370</code>
 were transformed with the ballpark-accuracy pipeline: they are way off
@@ -1101,9 +1103,9 @@ interest is listed.</em>’</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

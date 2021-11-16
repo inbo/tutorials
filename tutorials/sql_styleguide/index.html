@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Layout guidelines for writing clear SQL-scripts'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='styleguide'><meta property='article:tag' content='SQL'><meta property='article:published_time' content='2020-06-23T00:00:00Z'/><meta property='article:modified_time' content='2020-06-23T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Styleguide SQL-scripts • Frederic Piesschaert</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/sql_styleguide/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -354,7 +356,7 @@ Improve this page</a>
 
   <div class='container entry-content'><p>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.</p>
 <h1 id="in-short">In short<a href="#in-short" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<pre><code>    --This is how a basic SQL-script should look like
+<pre tabindex="0"><code>    --This is how a basic SQL-script should look like
     
     /**
     Description: Lijst met broedvogels per UTM1-hok sinds 2010
@@ -398,19 +400,19 @@ Improve this page</a>
 <ul>
 <li>
 <p>SQL-keywords (SELECT, FROM, JOIN, WHERE, GROUP BY, &hellip;) are written in capitals</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT *
 FROM person p
   INNER JOIN address a ON a.personid = p.id
 WHERE p.age &gt; 50
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 Select *
 From person p
   Inner join address a on a.personid = p.id
 where p.age &gt; 50
-</code></pre><pre><code>--Ugly
+</code></pre><pre tabindex="0"><code>--Ugly
 
 :)
 </code></pre></li>
@@ -419,14 +421,14 @@ where p.age &gt; 50
 </li>
 <li>
 <p>Aliases are written in lowercase</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.*
   , a.city
 FROM person p
   INNER JOIN address a ON a.personid = p.id
 WHERE p.age &gt; 50
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT P.*
   , A.city
@@ -436,14 +438,14 @@ WHERE P.age &gt; 50
 </code></pre></li>
 <li>
 <p>Table aliases are short and meaningful in the context of the query</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.*
   , a.city
 FROM person p
   INNER JOIN address a ON a.personid = p.id
 WHERE p.age &gt; 50
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT x.*
   , placewheresomeonelives.city
@@ -456,7 +458,7 @@ WHERE x.age &gt; 50
 </li>
 <li>
 <p>Use a new line for each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause.</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.firstname
   , p.lastname
@@ -465,7 +467,7 @@ FROM person p
   INNER JOIN address a ON a.personid = p.id
 WHERE p.age &gt; 50
   AND a.city like ‘Ar%’
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT p.firstname, p.lastname, a.city
 FROM person p
@@ -474,7 +476,7 @@ WHERE p.age &gt; 50 AND a.city like ‘Ar%’
 </code></pre></li>
 <li>
 <p>Put the comma in front of the line in SELECT and GROUP BY statements</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.firstname
   , p.lastname
@@ -487,7 +489,7 @@ WHERE p.age &gt; 50
 GROUP BY p.firstname
   , p.lastname
   , a.city
-</code></pre><pre><code>--Less good
+</code></pre><pre tabindex="0"><code>--Less good
 
 SELECT p.firstname,
   p.lastname,
@@ -503,7 +505,7 @@ GROUP BY p.firstname,
 </code></pre></li>
 <li>
 <p>Indent each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.firstname
   , p.lastname
@@ -512,7 +514,7 @@ FROM person p
   INNER JOIN address a ON a.personid = p.id
 WHERE p.age &gt; 50
   AND a.city like ‘Ar%’
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT p.firstname
 , p.lastname
@@ -524,7 +526,7 @@ AND a.city like ‘Ar%’
 </code></pre></li>
 <li>
 <p>When multiple arguments are used in the WHERE clause, AND/OR keywords are always placed at the front</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT *
 FROM person p
@@ -532,7 +534,7 @@ FROM person p
 WHERE p.age &gt; 50
   AND a.city like ‘Ar%’
   AND p.firstname = 'Billy'
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT *
 FROM person p
@@ -543,7 +545,7 @@ WHERE p.age &gt; 50 AND
 </code></pre></li>
 <li>
 <p>Multiple constraints for a JOIN are on the same line</p>
-<pre><code>--Good layout (for a poorly designed database)
+<pre tabindex="0"><code>--Good layout (for a poorly designed database)
 
 SELECT *
 FROM person p
@@ -551,7 +553,7 @@ FROM person p
 WHERE p.age &gt; 50
   AND a.city like ‘Ar%’
   AND p.firstname = 'Billy'
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT *
 FROM person p
@@ -563,14 +565,14 @@ WHERE p.age &gt; 50
 </code></pre></li>
 <li>
 <p>Use a full INNER JOIN statement</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.*
   , a.city
 FROM person p
   INNER JOIN address a ON a.personid = p.id
   LEFT JOIN hobby h ON h.personid = p.id
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT p.*
   , a.city
@@ -580,7 +582,7 @@ FROM person p
 </code></pre></li>
 <li>
 <p>Joins should be indented</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT p.*
   , a.city
@@ -588,7 +590,7 @@ FROM person p
   INNER JOIN address a ON a.personid = p.id
   LEFT OUTER JOIN hobby h ON h.personid = p.id
 WHERE p.age &gt; 50
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT p.*
   , a.city
@@ -599,7 +601,7 @@ WHERE p.age &gt; 50
 </code></pre></li>
 <li>
 <p>Subqueries should be indented and properly named. Opening bracket is on a new line and aligned with the JOIN. Closing bracket is aligned with the opening bracket.</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT ppds.ppnt_cde
   , ds.drso_ser_nbr
@@ -616,7 +618,7 @@ FROM tblDruksondetoestandhistoriek dsth
     WHERE p.ppnt_cde like 'KAMP%'
   )ppds ON ppds.ppds_drso_id = dsth.dsth_drso_id
 WHERE dsth.dsth_dsha_cde = 'PROG’
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT ppds.ppnt_cde
   , ds.drso_ser_nbr
@@ -637,13 +639,13 @@ WHERE dsth.dsth_dsha_cde = 'PROG’
 <ul>
 <li>
 <p>Rename your output fields when necessary. It makes the output comprehensible for users that are not familiar with the datamodel.</p>
-<pre><code>--Good
+<pre tabindex="0"><code>--Good
 
 SELECT mpnt_cde AS meetpunt
   , mpnt_mpst_cde AS meetpuntstatus
   , mpnt_mptp_cde AS meetpuntype
 FROM tblmeetpunt
-</code></pre><pre><code>--Bad
+</code></pre><pre tabindex="0"><code>--Bad
 
 SELECT mpnt_cde
   , mpnt_mpst_cde
@@ -652,7 +654,7 @@ FROM tblmeetpunt
 </code></pre></li>
 <li>
 <p>Use  /** and **/ for comment blocks, e.g. a description at the beginning of the query</p>
-<pre><code>--Example
+<pre tabindex="0"><code>--Example
 
 /**
 Deze query haalt naam en gemeente op van de werknemers boven de 50 jaar
@@ -670,7 +672,7 @@ WHERE p.age &gt; 50
 </code></pre></li>
 <li>
 <p>Use &ndash; for small comments in the query</p>
-<pre><code>--Example
+<pre tabindex="0"><code>--Example
 
 SELECT mpnt_cde AS meetpunt
   , mpnt_mpst_cde AS meetpuntstatus
@@ -686,7 +688,7 @@ WHERE mpnt_mpst_cde = ‘VLD’ --only validated points
 </li>
 <li>
 <p>Use 1 = 1 as the first line of the WHERE clause. This allows you to easily turn on and off all restrictions while designing your query. Beware of OR: where 1 = 1 OR age &gt; 50 doesn’t mean that everybody is +50.</p>
-<pre><code>--Example
+<pre tabindex="0"><code>--Example
 
 SELECT p.firstname
   , p.lastname
@@ -709,7 +711,7 @@ WHERE p.age &gt; 50
 </code></pre></li>
 <li>
 <p>Ordering the output records can be done by explicitly using the name of the fields or by using the field number as you have defined them in the SELECT statement</p>
-<pre><code>--Example
+<pre tabindex="0"><code>--Example
 
 SELECT p.firstname
   , p.lastname
@@ -793,9 +795,9 @@ ORDER BY 3, 2
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

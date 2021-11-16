@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:published_time' content='2020-09-15T00:00:00Z'/><meta property='article:modified_time' content='2020-09-15T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage • Floris Vanderhaeghe</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -362,7 +364,7 @@ Improve this page</a>
 functions are used, you can use the previous hyperlinks to access the
 tutorials (vignettes) of these packages for more functions and
 information.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">options</span>(stringsAsFactors = <span style="color:#00a">FALSE</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">options</span>(stringsAsFactors = <span style="color:#00a">FALSE</span>)
 <span style="color:#0a0">library</span>(raster)
 <span style="color:#0a0">library</span>(tidyverse)
 <span style="color:#0a0">library</span>(inborutils)
@@ -378,72 +380,72 @@ formats.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Property</th>
-<th align="center">GeoTIFF</th>
-<th align="center">GeoPackage</th>
-<th align="center">ESRI geodatabase</th>
+<th style="text-align:left">Property</th>
+<th style="text-align:center">GeoTIFF</th>
+<th style="text-align:center">GeoPackage</th>
+<th style="text-align:center">ESRI geodatabase</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Open standard?</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">no</td>
+<td style="text-align:left">Open standard?</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Write support by GDAL</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">no</td>
+<td style="text-align:left">Write support by GDAL</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Supported OS</td>
-<td align="center">cross-platform</td>
-<td align="center">cross-platform</td>
-<td align="center">Windows</td>
+<td style="text-align:left">Supported OS</td>
+<td style="text-align:center">cross-platform</td>
+<td style="text-align:center">cross-platform</td>
+<td style="text-align:center">Windows</td>
 </tr>
 <tr>
-<td align="left">Extends non-spatial format:</td>
-<td align="center">TIFF</td>
-<td align="center">SQLite</td>
-<td align="center">MS Access (for personal gdb)</td>
+<td style="text-align:left">Extends non-spatial format:</td>
+<td style="text-align:center">TIFF</td>
+<td style="text-align:center">SQLite</td>
+<td style="text-align:center">MS Access (for personal gdb)</td>
 </tr>
 <tr>
-<td align="left">Text or binary?</td>
-<td align="center">binary</td>
-<td align="center">binary</td>
-<td align="center">binary</td>
+<td style="text-align:left">Text or binary?</td>
+<td style="text-align:center">binary</td>
+<td style="text-align:center">binary</td>
+<td style="text-align:center">binary</td>
 </tr>
 <tr>
-<td align="left">Number of files</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1 (personal gdb) / many (file gdb)</td>
+<td style="text-align:left">Number of files</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1 (personal gdb) / many (file gdb)</td>
 </tr>
 <tr>
-<td align="left">Inspect version’s differences in git version control?</td>
-<td align="center">no</td>
-<td align="center">no</td>
-<td align="center">no</td>
+<td style="text-align:left">Inspect version’s differences in git version control?</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Can store multiple layers?</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
-<td align="center">yes</td>
+<td style="text-align:left">Can store multiple layers?</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
 </tr>
 <tr>
-<td align="left">Do layers need same extent and resolution?</td>
-<td align="center">yes</td>
-<td align="center">no</td>
-<td align="center">no</td>
+<td style="text-align:left">Do layers need same extent and resolution?</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
 </tr>
 <tr>
-<td align="left">Coordinate reference system (CRS) in file</td>
-<td align="center">same as input CRS</td>
-<td align="center">same as input CRS</td>
-<td align="center">same as input CRS</td>
+<td style="text-align:left">Coordinate reference system (CRS) in file</td>
+<td style="text-align:center">same as input CRS</td>
+<td style="text-align:center">same as input CRS</td>
+<td style="text-align:center">same as input CRS</td>
 </tr>
 </tbody>
 </table>
@@ -452,13 +454,13 @@ formats.</p>
 <p>Let’s create a small dummy <code>RasterLayer</code> object from scratch, for some
 area in Belgium (using the CRS [1] Belgian Lambert 72, i.e.
 <a href="https://epsg.io/31370">EPSG-code 31370</a>):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork &lt;- 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork &lt;- 
   <span style="color:#0a0">raster</span>(<span style="color:#0a0">extent</span>(<span style="color:#099">188500</span>, <span style="color:#099">190350</span>, <span style="color:#099">227550</span>, <span style="color:#099">229550</span>), <span style="color:#aaa;font-style:italic"># xmin, xmax, ymin, ymax</span>
          res = <span style="color:#099">50</span>, <span style="color:#aaa;font-style:italic"># resolution of 50 meters</span>
          crs = <span style="color:#099">31370</span>) %&gt;% 
   <span style="color:#0a0">setValues</span>(<span style="color:#0a0">runif</span>(<span style="color:#0a0">ncell</span>(.)))  <span style="color:#aaa;font-style:italic"># fill with random values</span>
 </code></pre></div><p>What does this look like?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
@@ -469,27 +471,27 @@ area in Belgium (using the CRS [1] Belgian Lambert 72, i.e.
 ## values     : 0.0001557397, 0.9997439  (min, max)
 </code></pre>
 <p>A simple trick to plot this raster:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">spplot</span>(artwork)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">spplot</span>(artwork)
 </code></pre></div><p><img src="index_files/figure-gfm/artwork-1.png" alt=""><!-- raw HTML omitted --></p>
 <p>To write this <code>RasterLayer</code> object as a GeoTIFF, you can use the
 <code>raster::writeRaster()</code> function. In the background, it uses the GeoTIFF
 driver of the powerful <a href="https://gdal.org">GDAL</a> library.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
-  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.tif&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;artwork.tif&#34;</span>)
 </code></pre></div><p>And now?<br>
 <em><strong>Say HURRAY!!</strong></em></p>
 <h3 id="making-a-multi-layered-geotiff-file-from-a-rasterbrick-r-object">Making a multi-layered GeoTIFF file from a <code>RasterBrick</code> R object<a href="#making-a-multi-layered-geotiff-file-from-a-rasterbrick-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Let’s create a <code>RasterBrick</code> object of three
 layers:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts &lt;- <span style="color:#0a0">brick</span>(artwork) <span style="color:#aaa;font-style:italic"># RasterBrick with one layer (the RasterLayer from above)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts &lt;- <span style="color:#0a0">brick</span>(artwork) <span style="color:#aaa;font-style:italic"># RasterBrick with one layer (the RasterLayer from above)</span>
 arts[[2]] &lt;- artwork + <span style="color:#099">10</span> <span style="color:#aaa;font-style:italic"># Add second layer, e.g. based on first one</span>
 arts[[3]] &lt;- <span style="color:#0a0">calc</span>(arts[[2]], <span style="color:#0a0">function</span>(x) {<span style="color:#099">20</span> ^ x}) <span style="color:#aaa;font-style:italic"># Making third layer from second</span>
-<span style="color:#0a0">names</span>(arts) &lt;- <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">layer&#34;</span>, <span style="color:#099">1</span>:<span style="color:#099">3</span>)
+<span style="color:#0a0">names</span>(arts) &lt;- <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;layer&#34;</span>, <span style="color:#099">1</span>:<span style="color:#099">3</span>)
 </code></pre></div><p><em>Note: for complex formulas on large datasets, the <code>calc()</code> function is
 more efficient than simple algebraic expressions such as for layer2 (see
 <code>?raster::calc</code>).</em></p>
 <p>How does the result look like?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts
 </code></pre></div><pre><code>## class      : RasterBrick 
 ## dimensions : 40, 37, 1480, 3  (nrow, ncol, ncell, nlayers)
 ## resolution : 50, 50  (x, y)
@@ -500,7 +502,7 @@ more efficient than simple algebraic expressions such as for layer2 (see
 ## min values : 1.557397e-04, 1.000016e+01, 1.024478e+13 
 ## max values : 9.997439e-01, 1.099974e+01, 2.046429e+14
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
   as.list %&gt;% 
   <span style="color:#0a0">lapply</span>(spplot)
 </code></pre></div><pre><code>## [[1]]
@@ -516,25 +518,25 @@ more efficient than simple algebraic expressions such as for layer2 (see
 <p><img src="index_files/figure-gfm/arts-3.png" alt=""><!-- raw HTML omitted --></p>
 <p>So now what?<br>
 <em><strong>Let’s write it!</strong></em></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
-  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">arts.tif&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;arts.tif&#34;</span>)
 </code></pre></div><p>But, I want to add 20 extra layers!<br>
 <em><strong>(…<em>😣😮</em>…)</strong></em></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts2 &lt;- 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts2 &lt;- 
   <span style="color:#0a0">calc</span>(artwork, 
        <span style="color:#0a0">function</span>(x) {<span style="color:#099">-1</span>:<span style="color:#099">-20</span> * x}, <span style="color:#aaa;font-style:italic"># first layer = -1 * artwork</span>
                                  <span style="color:#aaa;font-style:italic"># second layer = -2 * artwork</span>
                                  <span style="color:#aaa;font-style:italic"># ....</span>
        forceapply = <span style="color:#00a">TRUE</span>)
-<span style="color:#0a0">names</span>(arts2) &lt;- <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">neg_layer&#34;</span>, <span style="color:#099">1</span>:<span style="color:#099">20</span>)
+<span style="color:#0a0">names</span>(arts2) &lt;- <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;neg_layer&#34;</span>, <span style="color:#099">1</span>:<span style="color:#099">20</span>)
 <span style="color:#aaa;font-style:italic"># adding it to arts:</span>
 arts &lt;- <span style="color:#0a0">brick</span>(<span style="color:#0a0">list</span>(arts, arts2))
 <span style="color:#aaa;font-style:italic"># saving layer names for later use:</span>
 mynames &lt;- <span style="color:#0a0">names</span>(arts)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">nlayers</span>(arts)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">nlayers</span>(arts)
 </code></pre></div><pre><code>## [1] 23
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts)
 </code></pre></div><pre><code>##  [1] &quot;layer1&quot;      &quot;layer2&quot;      &quot;layer3&quot;      &quot;neg_layer1&quot;  &quot;neg_layer2&quot; 
 ##  [6] &quot;neg_layer3&quot;  &quot;neg_layer4&quot;  &quot;neg_layer5&quot;  &quot;neg_layer6&quot;  &quot;neg_layer7&quot; 
 ## [11] &quot;neg_layer8&quot;  &quot;neg_layer9&quot;  &quot;neg_layer10&quot; &quot;neg_layer11&quot; &quot;neg_layer12&quot;
@@ -542,16 +544,16 @@ mynames &lt;- <span style="color:#0a0">names</span>(arts)
 ## [21] &quot;neg_layer18&quot; &quot;neg_layer19&quot; &quot;neg_layer20&quot;
 </code></pre>
 <p><strong>Overwrite</strong> the earlier written file:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
-  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">arts.tif&#34;</span>,
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;arts.tif&#34;</span>,
               overwrite = <span style="color:#00a">TRUE</span>)
 </code></pre></div><p>That’s about it!</p>
 <h3 id="reading-a-geotiff-file">Reading a GeoTIFF file<a href="#reading-a-geotiff-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Nothing can be more simple…</p>
 <p>Reading a mono-layered GeoTIFF file with <code>raster()</code> gives back the
 <code>RasterLayer</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_test &lt;- <span style="color:#0a0">raster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.tif&#34;</span>)
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_test
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_test &lt;- <span style="color:#0a0">raster</span>(<span style="color:#a50">&#34;artwork.tif&#34;</span>)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_test
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
@@ -563,9 +565,9 @@ mynames &lt;- <span style="color:#0a0">names</span>(arts)
 </code></pre>
 <p>Reading a multi-layered GeoTIFF file with <code>brick()</code> returns the
 <code>RasterBrick</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts_test &lt;- <span style="color:#0a0">brick</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">arts.tif&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts_test &lt;- <span style="color:#0a0">brick</span>(<span style="color:#a50">&#34;arts.tif&#34;</span>)
 </code></pre></div><p>However:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts_test)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts_test)
 </code></pre></div><pre><code>##  [1] &quot;arts.1&quot;  &quot;arts.2&quot;  &quot;arts.3&quot;  &quot;arts.4&quot;  &quot;arts.5&quot;  &quot;arts.6&quot;  &quot;arts.7&quot; 
 ##  [8] &quot;arts.8&quot;  &quot;arts.9&quot;  &quot;arts.10&quot; &quot;arts.11&quot; &quot;arts.12&quot; &quot;arts.13&quot; &quot;arts.14&quot;
 ## [15] &quot;arts.15&quot; &quot;arts.16&quot; &quot;arts.17&quot; &quot;arts.18&quot; &quot;arts.19&quot; &quot;arts.20&quot; &quot;arts.21&quot;
@@ -573,7 +575,7 @@ mynames &lt;- <span style="color:#0a0">names</span>(arts)
 </code></pre>
 <p>As you see, layer names are not saved in the GeoTIFF. You define them in
 R:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts_test) &lt;- mynames
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(arts_test) &lt;- mynames
 arts_test
 </code></pre></div><pre><code>## class      : RasterBrick 
 ## dimensions : 40, 37, 1480, 23  (nrow, ncol, ncell, nlayers)
@@ -589,11 +591,11 @@ arts_test
 <p>The actual data are not loaded into memory, but read in chunks when
 performing operations. This makes it convenient when using larger
 rasters:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">inMemory</span>(arts_test)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">inMemory</span>(arts_test)
 </code></pre></div><pre><code>## [1] FALSE
 </code></pre>
 <p>Selecting a specific layer by its name:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts_test$neg_layer20
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts_test$neg_layer20
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## band       : 23  (of  23  bands)
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
@@ -628,8 +630,8 @@ GeoPackage format for rasters, if you’re not hindered by the supported
 data types.</p>
 <h3 id="making-a-single-raster-geopackage-from-a-rasterlayer-r-object">Making a single-raster GeoPackage from a <code>RasterLayer</code> R object<a href="#making-a-single-raster-geopackage-from-a-rasterlayer-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>This it is no more difficult than:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
-  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, format = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
+  <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, format = <span style="color:#a50">&#34;GPKG&#34;</span>)
 </code></pre></div><pre><code>## Warning in .gd_SetNoDataValue(object, ...): setting of missing value not
 ## supported by this driver
 </code></pre>
@@ -643,7 +645,7 @@ GDAL’s capabilities, and therefore <em>is</em> able to write multiple raster
 layers, as we will do in a minute. Anyway, <code>raster::writeRaster</code> already
 works fine for single <code>RasterLayer</code> objects.</p>
 <p>Reading the GeoPackage:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_gpkg &lt;- <span style="color:#0a0">raster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_gpkg &lt;- <span style="color:#0a0">raster</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>)
 artwork_gpkg
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
@@ -656,15 +658,15 @@ artwork_gpkg
 </code></pre>
 <p>Let’s make sure: are the data we’ve read from the GeoTIFF identical to
 those from the GeoPackage?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg[])
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg[])
 </code></pre></div><pre><code>## [1] TRUE
 </code></pre>
 <p>Yeah!</p>
 <p>Given that the GPKG-support of <code>raster</code> is limited, we’re lucky that
 Edzer Pebesma – the creator of <code>sf</code> – has also made the amazing package
 <code>stars</code>!!</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">unlink</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>) <span style="color:#aaa;font-style:italic"># delete gpkg; we&#39;re going to create it here again</span>
-<span style="color:#0a0">Sys.setenv</span>(GDAL_PAM_ENABLED = <span style="color:#a50">&#34;</span><span style="color:#a50">NO&#34;</span>) <span style="color:#aaa;font-style:italic"># prevents an auxiliary file being written next to *.gpkg</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">unlink</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>) <span style="color:#aaa;font-style:italic"># delete gpkg; we&#39;re going to create it here again</span>
+<span style="color:#0a0">Sys.setenv</span>(GDAL_PAM_ENABLED = <span style="color:#a50">&#34;NO&#34;</span>) <span style="color:#aaa;font-style:italic"># prevents an auxiliary file being written next to *.gpkg</span>
 <span style="color:#0a0">library</span>(stars)
 </code></pre></div><pre><code>## Loading required package: abind
 
@@ -675,15 +677,15 @@ Edzer Pebesma – the creator of <code>sf</code> – has also made the amazing p
 <p>We could as well have written <code>artwork</code> to a GeoPackage with <code>stars</code>, so
 let’s just see what we get by converting the <code>RasterLayer</code> object to a
 <code>stars</code> object and then apply <code>write_stars()</code>, hm?</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork %&gt;% 
   st_as_stars %&gt;% <span style="color:#aaa;font-style:italic"># this converts the RasterLayer to a stars object</span>
-  <span style="color:#0a0">write_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>,
-              driver = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>)
+  <span style="color:#0a0">write_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>,
+              driver = <span style="color:#a50">&#34;GPKG&#34;</span>)
 </code></pre></div><p>Reading it back with <code>stars::read_stars()</code>, followed by back-conversion
 to a <code>RasterLayer</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_gpkg_stars &lt;- 
-  <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>) %&gt;% 
-  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Raster&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork_gpkg_stars &lt;- 
+  <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>) %&gt;% 
+  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;Raster&#34;</span>)
 artwork_gpkg_stars
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
@@ -696,7 +698,7 @@ artwork_gpkg_stars
 </code></pre>
 <p>And yes again, the data we’ve read from the GeoTIFF file are identical
 to those from the GeoPackage:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg_stars[])
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg_stars[])
 </code></pre></div><pre><code>## [1] TRUE
 </code></pre>
 <p>That’s it!</p>
@@ -707,7 +709,7 @@ multi-layer case!</p>
 raster layers (or vector + raster layers).</p>
 <p>Let’s suppose we’d like to add <code>layer2</code> (a <code>RasterLayer</code>) from the
 <code>RasterBrick</code> object <code>arts</code>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts$layer2
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts$layer2
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
@@ -719,23 +721,23 @@ raster layers (or vector + raster layers).</p>
 </code></pre>
 <p>Unfortunately, the <code>raster</code> package does not support GDAL’s options to
 add extra raster layers in a GPKG file:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">try</span>(
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">try</span>(
   arts$layer2 %&gt;% 
-    <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, 
-                format = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>,
-                options = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">RASTER_TABLE=layer2&#34;</span>,
-                            <span style="color:#a50">&#34;</span><span style="color:#a50">APPEND_SUBDATASET=YES&#34;</span>))
+    <span style="color:#0a0">writeRaster</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, 
+                format = <span style="color:#a50">&#34;GPKG&#34;</span>,
+                options = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;RASTER_TABLE=layer2&#34;</span>,
+                            <span style="color:#a50">&#34;APPEND_SUBDATASET=YES&#34;</span>))
 )
 </code></pre></div><pre><code>## Error in .getGDALtransient(x, filename = filename, options = options,  : 
 ##   filename exists; use overwrite=TRUE
 </code></pre>
 <p>So let’s proceed with <code>stars</code>!</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts$layer2 %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts$layer2 %&gt;% 
   st_as_stars %&gt;% 
-  <span style="color:#0a0">write_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>,
-              driver = <span style="color:#a50">&#34;</span><span style="color:#a50">GPKG&#34;</span>,
-              options = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">RASTER_TABLE=layer2&#34;</span>,
-                          <span style="color:#a50">&#34;</span><span style="color:#a50">APPEND_SUBDATASET=YES&#34;</span>))
+  <span style="color:#0a0">write_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>,
+              driver = <span style="color:#a50">&#34;GPKG&#34;</span>,
+              options = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;RASTER_TABLE=layer2&#34;</span>,
+                          <span style="color:#a50">&#34;APPEND_SUBDATASET=YES&#34;</span>))
 </code></pre></div><p>Mind the <code>options</code> argument: those options are passed directly to GDAL’s
 GPKG-raster driver, and they’re documented <a href="https://gdal.org/drivers/raster/gpkg.html#creation-options">at
 GDAL</a>.</p>
@@ -752,8 +754,8 @@ Defaults to NO.</p>
 <p>We got no errors above, but no feedback either…<br>
 Thrilling!</p>
 <p>Let’s peek:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">gdalinfo</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>) %&gt;% 
-  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;</span><span style="color:#a50">\n&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">gdalinfo</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>) %&gt;% 
+  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;\n&#34;</span>)
 </code></pre></div><pre><code>## Driver: GPKG/GeoPackage
 ## Files: artwork.gpkg
 ## Size is 512, 512
@@ -775,12 +777,12 @@ It’s interesting to see how the info at this level disregards CRS and
 extent.</p>
 <p>When we query the metadata of one sublayer, it is seen that CRS and
 extent are layer-specific:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">gdalinfo</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">gdalinfo</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, 
                     <span style="color:#aaa;font-style:italic"># provide metadata of first subdataset:</span>
                     sd=<span style="color:#099">1</span>, 
                     <span style="color:#aaa;font-style:italic"># the following arguments just control formatting of the output:</span>
                     approx_stats = <span style="color:#00a">TRUE</span>, mm = <span style="color:#00a">TRUE</span>, proj4 = <span style="color:#00a">TRUE</span>) %&gt;% 
-  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;</span><span style="color:#a50">\n&#34;</span>)
+  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;\n&#34;</span>)
 </code></pre></div><pre><code>## Driver: GPKG/GeoPackage
 ## Files: none associated
 ## Size is 37, 40
@@ -826,11 +828,11 @@ extent are layer-specific:</p>
 </code></pre>
 <p><code>raster</code> will not help us for reading the layers. But <code>read_stars()</code> is
 there to assist us!!</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># brick(&#34;artwork.gpkg&#34;) ## this won&#39;t work...</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># brick(&#34;artwork.gpkg&#34;) ## this won&#39;t work...</span>
 <span style="color:#aaa;font-style:italic"># but this will work:</span>
 artwork_gpkg2 &lt;- 
-  <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, sub = <span style="color:#a50">&#34;</span><span style="color:#a50">artwork&#34;</span>, quiet = <span style="color:#00a">TRUE</span>) %&gt;% 
-  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Raster&#34;</span>)
+  <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, sub = <span style="color:#a50">&#34;artwork&#34;</span>, quiet = <span style="color:#00a">TRUE</span>) %&gt;% 
+  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;Raster&#34;</span>)
 artwork_gpkg2
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
@@ -843,12 +845,12 @@ artwork_gpkg2
 </code></pre>
 <p>Wow!</p>
 <p>Checking data again with GeoTIFF result:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg2[])
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">all.equal</span>(artwork_test[], artwork_gpkg2[])
 </code></pre></div><pre><code>## [1] TRUE
 </code></pre>
 <p>Same story for the other layer:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, sub = <span style="color:#a50">&#34;</span><span style="color:#a50">layer2&#34;</span>, quiet = <span style="color:#00a">TRUE</span>) %&gt;% 
-  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Raster&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, sub = <span style="color:#a50">&#34;layer2&#34;</span>, quiet = <span style="color:#00a">TRUE</span>) %&gt;% 
+  <span style="color:#0a0">as</span>(<span style="color:#a50">&#34;Raster&#34;</span>)
 </code></pre></div><pre><code>## class      : RasterLayer 
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
@@ -861,7 +863,7 @@ artwork_gpkg2
 <p>Splendid.</p>
 <p>By the way, this is how the full <code>stars</code> object looks like – it holds
 information similar to a <code>RasterBrick</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">artwork.gpkg&#34;</span>, quiet = <span style="color:#00a">TRUE</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, quiet = <span style="color:#00a">TRUE</span>)
 </code></pre></div><pre><code>## stars object with 2 dimensions and 2 attributes
 ## attribute(s):
 ##     artwork             layer2      
@@ -881,10 +883,10 @@ information similar to a <code>RasterBrick</code>:</p>
 multidimensional hypercubes… Really, visit its
 <a href="https://r-spatial.github.io/stars/">website</a> and never look (or turn?)
 back!</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(stars)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(stars)
 </code></pre></div><p>For now, my time’s up and I’ll just demonstrate how easy it is to
 transform a <code>Raster*</code> object into a <code>stars</code> object:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar &lt;- 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar &lt;- 
   arts[[1:<span style="color:#099">5</span>]] %&gt;% 
   <span style="color:#0a0">st_as_stars</span>()
 interstellar
@@ -909,7 +911,7 @@ interstellar
 </code></pre>
 <p>It does make sense, right?</p>
 <p>What about:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar %&gt;% <span style="color:#0a0">split</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">band&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar %&gt;% <span style="color:#0a0">split</span>(<span style="color:#a50">&#34;band&#34;</span>)
 </code></pre></div><pre><code>## stars object with 2 dimensions and 5 attributes
 ## attribute(s):
 ##     layer1              layer2          layer3            neg_layer1         
@@ -1008,9 +1010,9 @@ definitions</a>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

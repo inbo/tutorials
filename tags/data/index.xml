@@ -6,11 +6,7 @@
     <description>Recent content in data on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/tags/data/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/data/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial setup_codingclub_session()</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</link>
@@ -31,7 +27,7 @@ library(inborutils) The function takes four arguments with the following default
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
       <description>Introduction (shamelessly taken from wikipedia)
 Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
-Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
     </item>
     
     <item>

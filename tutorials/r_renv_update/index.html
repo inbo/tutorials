@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Updating R and packages in an renv environment'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='renv'><meta property='article:tag' content='r'><meta property='article:tag' content='packages'><meta property='article:published_time' content='2021-06-09T00:00:00Z'/><meta property='article:modified_time' content='2021-06-09T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Updating the renv environment of an R project • Floris Vanderhaeghe</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_renv_update/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -375,8 +377,8 @@ You may also want to update packages from other sources, such as GitHub: use <co
 <p><strong>To apply step 2, choose the applicable situation below.</strong>
 <strong>We assume you already applied step 1!</strong></p>
 <h3 id="only-updating-packages-keeping-same-r-version">Only updating packages (keeping same R version)<a href="#only-updating-packages-keeping-same-r-version" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>Within the project's R session (with <code>renv</code> activated):</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">renv::<span style="color:#0a0">upgrade</span>() <span style="color:#aaa;font-style:italic"># upgrades renv, if new version is available</span>
+<p>Within the project&rsquo;s R session (with <code>renv</code> activated):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">renv::<span style="color:#0a0">upgrade</span>() <span style="color:#aaa;font-style:italic"># upgrades renv, if new version is available</span>
 renv::<span style="color:#0a0">update</span>() <span style="color:#aaa;font-style:italic"># updates packages from CRAN and GitHub, within the project</span>
 renv::<span style="color:#0a0">snapshot</span>() <span style="color:#aaa;font-style:italic"># inspect the message before confirming to overwrite renv.lock</span>
 </code></pre></div><p>Note:</p>
@@ -385,7 +387,7 @@ renv::<span style="color:#0a0">snapshot</span>() <span style="color:#aaa;font-st
 Note that the copies are stored in a <a href="https://rstudio.github.io/renv/articles/renv.html#cache-1">global <code>renv</code> package cache</a>, i.e. a central directory where <code>renv</code> stores packages versions for all projects where it is used, for each R <code>x.y</code> version, on an as-needed basis.
 The project environment itself is based on symlinks to the particular package versions in the cache.</li>
 </ul>
-<p>If you use version control, then don't forget to effectively commit the changed <code>renv.lock</code> file.</p>
+<p>If you use version control, then don&rsquo;t forget to effectively commit the changed <code>renv.lock</code> file.</p>
 <h3 id="updating-r-and-packages">Updating R and packages<a href="#updating-r-and-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>This procedure is relevant to the <code>x.y</code> upgrades, not to the patches.
 That is, when <code>x</code> or <code>y</code> change in R version <code>x.y.z</code>.
@@ -394,15 +396,15 @@ When only <code>z</code> has changed (i.e. a &lsquo;patch&rsquo;), previous proc
 <ul>
 <li>you already installed the new R version on your system;</li>
 <li>you already updated your R packages in the default user R library of your system;</li>
-<li>you have now started the project's R session with the new R version (with <code>renv</code> activated).</li>
+<li>you have now started the project&rsquo;s R session with the new R version (with <code>renv</code> activated).</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">renv::<span style="color:#0a0">upgrade</span>() <span style="color:#aaa;font-style:italic"># upgrades renv, if new version is available</span>
-renv::<span style="color:#0a0">hydrate</span>(update = <span style="color:#a50">&#34;</span><span style="color:#a50">all&#34;</span>) <span style="color:#aaa;font-style:italic"># populates the renv cache with copies of up to </span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">renv::<span style="color:#0a0">upgrade</span>() <span style="color:#aaa;font-style:italic"># upgrades renv, if new version is available</span>
+renv::<span style="color:#0a0">hydrate</span>(update = <span style="color:#a50">&#34;all&#34;</span>) <span style="color:#aaa;font-style:italic"># populates the renv cache with copies of up to </span>
                               <span style="color:#aaa;font-style:italic"># date package versions, needed by the project</span>
   <span style="color:#aaa;font-style:italic"># renv::update() should have no effect now, but running it as well won&#39;t harm </span>
   <span style="color:#aaa;font-style:italic"># to check that all packages are indeed up to date</span>
 renv::<span style="color:#0a0">snapshot</span>() <span style="color:#aaa;font-style:italic"># inspect the message before confirming to overwrite renv.lock</span>
-</code></pre></div><p>If you use version control, then don't forget to effectively commit the changed <code>renv.lock</code> file.</p>
+</code></pre></div><p>If you use version control, then don&rsquo;t forget to effectively commit the changed <code>renv.lock</code> file.</p>
 </div>
 
   
@@ -465,9 +467,9 @@ renv::<span style="color:#0a0">snapshot</span>() <span style="color:#aaa;font-st
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

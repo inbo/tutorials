@@ -6,11 +6,7 @@
     <description>Recent content in User installation notes on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/installation/user/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/installation/user/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Kerberos authentication for database connection</title>
       <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
@@ -19,7 +15,7 @@
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
       <description>Introduction (shamelessly taken from wikipedia)
 Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
-Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&#39;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;lsquo;s Solaris, IBM&#39;s AIX and Z/OS, HP&#39;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
+Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
     </item>
     
     <item>
@@ -29,7 +25,7 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
       
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
-The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination with RStudio projects or Git projects. We&#39;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
+The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>
     
     <item>
@@ -49,7 +45,7 @@ The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination wi
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_r/</guid>
       <description>Na de eerste installatie Bij een nieuwe R installatie hoeft de gebruiker geen bijkomende stappen te ondernemen.
 Na elke upgrade Voor onderstaande instructies uit telkens een nieuwe R versie geïnstalleerd werd. Je kan dit, indien gewenst, ook frequenter uitvoeren.
-Windows  Zorg dat de computer verbonden is met het internet. Zorg dat er geen enkele R sessie actief is op de computer. Start R x64 x.y.z via het menu Start &amp;gt; Alle programma&#39;s &amp;gt; R.</description>
+Windows  Zorg dat de computer verbonden is met het internet. Zorg dat er geen enkele R sessie actief is op de computer. Start R x64 x.y.z via het menu Start &amp;gt; Alle programma&amp;rsquo;s &amp;gt; R.</description>
     </item>
     
     <item>

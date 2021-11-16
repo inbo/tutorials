@@ -6,11 +6,7 @@
     <description>Recent content in version control on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jun 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/categories/version-control/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 13 Jun 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/categories/version-control/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Applying the INBO corporate identity to bookdown documents</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_inbomd/</link>
@@ -69,7 +65,7 @@ git fetch origin push changes to the server</description>
 git fetch origin git checkout master git merge --ff-only origin/master   STEP 2: Choose your option:
   OPTION 2A: I already have a branch I want to continue working on:
 Switch to existing topic branch:
-git checkout name_existing_branch git fetch origin git rebase origin/master   OPTION 2B: I&#39;ll make a new branch to work with: Create a new topic branch from master(!</description>
+git checkout name_existing_branch git fetch origin git rebase origin/master   OPTION 2B: I&amp;rsquo;ll make a new branch to work with: Create a new topic branch from master(!</description>
     </item>
     
     <item>

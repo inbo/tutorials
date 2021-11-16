@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines.'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='styleguide'><meta property='article:tag' content='r'><meta property='article:published_time' content='2017-10-18T16:01:34&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T16:01:34&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Styleguide R code • Thierry Onkelinx</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/styleguide_r_code/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -355,7 +357,7 @@ Improve this page</a>
   <div class='container entry-content'><h2 id="scope">Scope<a href="#scope" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.</p>
 <ol>
-<li>Don't apply the style guide to existing code.</li>
+<li>Don&rsquo;t apply the style guide to existing code.</li>
 <li>R users are free to apply the style guide to new personal R code.</li>
 <li>Using the style guide is highly recommended for new or revised R code intended to be distributed and used by other R users.</li>
 <li>The style guide is mandatory for new or revised R packages distributed by INBO.</li>
@@ -380,26 +382,26 @@ Improve this page</a>
 </ul>
 </li>
 <li>use double quotes (<code>&quot;</code>) around characters and not single quotes (<code>'</code>)</li>
-<li>don't add commented code
+<li>don&rsquo;t add commented code
 <ul>
 <li>use version control if you want to keep old versions of code</li>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 example_text &lt;- <span style="color:#0a0">example_function</span>(
-  first_argument = <span style="color:#a50">&#34;</span><span style="color:#a50">Some text&#34;</span>,
-  second_argument = <span style="color:#a50">&#34;</span><span style="color:#a50">More text&#34;</span>
+  first_argument = <span style="color:#a50">&#34;Some text&#34;</span>,
+  second_argument = <span style="color:#a50">&#34;More text&#34;</span>
 )
 
 <span style="color:#aaa;font-style:italic"># Bad</span>
-some.really.long.dot.separated.name &lt;- <span style="color:#0a0">MyCoolFunction</span>(FirstArgument = <span style="color:#a50">&#39;</span><span style="color:#a50">Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;</span><span style="color:#a50">More text&#39;</span>)
+some.really.long.dot.separated.name &lt;- <span style="color:#0a0">MyCoolFunction</span>(FirstArgument = <span style="color:#a50">&#39;Some text&#39;</span>, second.argument = <span style="color:#a50">&#39;More text&#39;</span>)
 </code></pre></div><h3 id="whitespace">Whitespace<a href="#whitespace" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <pre><code>naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
 </code></pre>
 <p>Natural languages use whitespace and punctuation to make texts more readable. Programming languages are no exception to this rule.</p>
 <ul>
-<li>don't use tabs, use two spaces instead
+<li>don&rsquo;t use tabs, use two spaces instead
 <ul>
 <li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Editing</em>: Check <em>Insert spaces for tab</em> and set <em>Tab width</em> to 2</li>
 </ul>
@@ -429,7 +431,7 @@ some.really.long.dot.separated.name &lt;- <span style="color:#0a0">MyCoolFunctio
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 x &lt;- <span style="color:#0a0">data.frame</span>(z = <span style="color:#099">1</span>:<span style="color:#099">10</span>)
 <span style="color:#0a0">summary</span>(x)
 
@@ -460,7 +462,7 @@ d   &lt;- <span style="color:#099">245</span>
 <li><code>{</code> should not start on a newline and is always the end of a line</li>
 <li>apply indentation when splitting long text inside brackets over multiple lines</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 y &lt;- <span style="color:#0a0">seq</span>(<span style="color:#099">0</span>, <span style="color:#099">2</span>)
 <span style="color:#0a0">if </span>(<span style="color:#0a0">max</span>(y) &lt;= <span style="color:#099">10</span>) {
   x &lt;- <span style="color:#099">1</span>
@@ -499,7 +501,7 @@ y &lt;- <span style="color:#0a0">seq </span>(<span style="color:#099">0</span>, 
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 relevant_subset &lt;- original_dataframe[
   original_dataframe$x &gt; some_value | original_dataframe$y &lt; some_other_value,
 ]
@@ -524,7 +526,7 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </li>
 </ul>
 </li>
-<li>functions from other packages with names that don't comply with this style guide
+<li>functions from other packages with names that don&rsquo;t comply with this style guide
 <ul>
 <li>solution: add <code># nolint</code> at the end of the line</li>
 </ul>
@@ -536,7 +538,7 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 <ul>
 <li>always explicitly mention <code>return</code> in functions</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 sum &lt;- <span style="color:#0a0">function</span>(x, y) {
   z &lt;- x + y
   <span style="color:#0a0">return</span>(z)
@@ -555,13 +557,13 @@ sum &lt;- <span style="color:#0a0">function</span>(x, y) {
 <p>Extra hint: start correcting for the last lines and work your way forward. This leaves the line numbers of the errors intact until you solve them.</p>
 <p>An example to clarify this. Suppose you have an error at line 10 and an error at line 100. Both errors are <code>lines should not be more than 80 characters</code>, so to solve them we have to split the lines over multiple lines.</p>
 <p>Let say that we start with solving line 10 by splitting it over four lines. So the old line 10 becomes the new lines 10 to 13. Hence the old line 11 becomes the new line 14, and the old line 100 becomes the new line 103. When we now click on the marker for line 100, RStudio will go the current line 100 which is the old line 97. So you end up looking for an error at the wrong position.</p>
-<p>Starting at the back solved this issue. In the same example we would start by solving line 100. Let's assume we split this over two lines. So old line 100 because new line 100 and 101. Old line 101 becomes new line 102 but more importantly <strong>all line numbers before 100 are unchanged</strong>. So clicking on the marker for line 10 will take you the current line 10 which is the old line 10.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># validate a single file</span>
-lintr::<span style="color:#0a0">lint</span>(filename = <span style="color:#a50">&#34;</span><span style="color:#a50">file.R&#34;</span>)
-lintr::<span style="color:#0a0">lint</span>(filename = <span style="color:#a50">&#34;</span><span style="color:#a50">file.Rmd&#34;</span>)
+<p>Starting at the back solved this issue. In the same example we would start by solving line 100. Let&rsquo;s assume we split this over two lines. So old line 100 because new line 100 and 101. Old line 101 becomes new line 102 but more importantly <strong>all line numbers before 100 are unchanged</strong>. So clicking on the marker for line 10 will take you the current line 10 which is the old line 10.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># validate a single file</span>
+lintr::<span style="color:#0a0">lint</span>(filename = <span style="color:#a50">&#34;file.R&#34;</span>)
+lintr::<span style="color:#0a0">lint</span>(filename = <span style="color:#a50">&#34;file.Rmd&#34;</span>)
 
 <span style="color:#aaa;font-style:italic"># validate a package</span>
-lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a50">&#34;</span><span style="color:#a50">.&#34;</span>)
+lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a50">&#34;.&#34;</span>)
 </code></pre></div><h2 id="documentation">Documentation<a href="#documentation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="functions-1">Functions<a href="#functions-1" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
@@ -569,13 +571,13 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <li>Add inline comments where relevant</li>
 </ul>
 <h4 id="required-roxygen-tags">Required Roxygen tags<a href="#required-roxygen-tags" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic">#&#39; @title Title of the helpfile</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic">#&#39; @title Title of the helpfile</span>
 <span style="color:#aaa;font-style:italic">#&#39; @description Description of the function in the helpfile</span>
 <span style="color:#aaa;font-style:italic">#&#39; @param define a parameter</span>
 <span style="color:#aaa;font-style:italic">#&#39; @export is the function exported by the package NAMESPACE</span>
 <span style="color:#aaa;font-style:italic">#&#39; @importFrom import a function from another package</span>
 </code></pre></div><h4 id="optional-roxygen-tags">Optional Roxygen tags<a href="#optional-roxygen-tags" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic">#&#39; @seealso link to other functions</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic">#&#39; @seealso link to other functions</span>
 <span style="color:#aaa;font-style:italic">#&#39; @section section title</span>
 <span style="color:#aaa;font-style:italic">#&#39; @alias other name for the topic</span>
 <span style="color:#aaa;font-style:italic">#&#39; @keywords a set of standardised keywords. See file.path(R.home(&#34;doc&#34;), &#34;KEYWORDS&#34;)</span>
@@ -597,10 +599,10 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 </ul>
 </li>
 </ul>
-<p><a href="mailto:Authors@R">Authors@R</a>: c(person(&ldquo;Els&rdquo;, &ldquo;Lommelen&rdquo;, email = &ldquo;<a href="mailto:els.lommelen@inbo.be">els.lommelen@inbo.be</a>&rdquo;, role = c(&ldquo;aut&rdquo;, &ldquo;cre&rdquo;)), person(&ldquo;Thierry&rdquo;, &ldquo;Onkelinx&rdquo;, email = &ldquo;<a href="mailto:thierry.onkelinx@inbo.be">thierry.onkelinx@inbo.be</a>&rdquo;, role = &ldquo;aut&rdquo;), person(&ldquo;Anja&rdquo;, &ldquo;Leyman&rdquo;, email = &ldquo;<a href="mailto:anja.leyman@inbo.be">anja.leyman@inbo.be</a>&rdquo;, role = &ldquo;ctb&rdquo;), person(family = &ldquo;Research Institute for Nature and Forest (INBO)&quot;, email = &ldquo;<a href="mailto:info@inbo.be">info@inbo.be</a>&rdquo;, role = &ldquo;cph&rdquo;))</p>
-<h3 id="how-tos">How-to's<a href="#how-tos" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p><a href="mailto:Authors@R">Authors@R</a>: c(person(&ldquo;Els&rdquo;, &ldquo;Lommelen&rdquo;, email = &ldquo;<a href="mailto:els.lommelen@inbo.be">els.lommelen@inbo.be</a>&rdquo;, role = c(&ldquo;aut&rdquo;, &ldquo;cre&rdquo;)), person(&ldquo;Thierry&rdquo;, &ldquo;Onkelinx&rdquo;, email = &ldquo;<a href="mailto:thierry.onkelinx@inbo.be">thierry.onkelinx@inbo.be</a>&rdquo;, role = &ldquo;aut&rdquo;), person(&ldquo;Anja&rdquo;, &ldquo;Leyman&rdquo;, email = &ldquo;<a href="mailto:anja.leyman@inbo.be">anja.leyman@inbo.be</a>&rdquo;, role = &ldquo;ctb&rdquo;), person(family = &ldquo;Research Institute for Nature and Forest (INBO)&rdquo;, email = &ldquo;<a href="mailto:info@inbo.be">info@inbo.be</a>&rdquo;, role = &ldquo;cph&rdquo;))</p>
+<h3 id="how-tos">How-to&rsquo;s<a href="#how-tos" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
-<li>Add one or more how-to's to a package</li>
+<li>Add one or more how-to&rsquo;s to a package</li>
 <li>Add them as RMarkdown vignettes</li>
 </ul>
 <h2 id="file-structure">File structure<a href="#file-structure" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -668,9 +670,9 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">lintr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) {
-  <span style="color:#0a0">context</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">lints&#34;</span>)
-  <span style="color:#0a0">test_that</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">Package Style&#34;</span>, {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;lintr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) {
+  <span style="color:#0a0">context</span>(<span style="color:#a50">&#34;lints&#34;</span>)
+  <span style="color:#0a0">test_that</span>(<span style="color:#a50">&#34;Package Style&#34;</span>, {
     lintr::<span style="color:#0a0">expect_lint_free</span>()
   })
 }
@@ -718,7 +720,7 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <h3 id="rmarkdown">RMarkdown<a href="#rmarkdown" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
 <li>each chunk has only one output (figure, table, summary, &hellip;)</li>
-<li>don't mix (heavy) calculations and output in the same chunk: this is more interesting for caching the results</li>
+<li>don&rsquo;t mix (heavy) calculations and output in the same chunk: this is more interesting for caching the results</li>
 <li>give chunks a relevant name: this make debugging easier and file name of figures and Bookdown label will be based on the chunk name</li>
 <li>avoid writing code that generates Markdown
 <ul>
@@ -828,9 +830,9 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

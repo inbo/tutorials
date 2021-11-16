@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Database access using R'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='database'><meta property='article:tag' content='r'><meta property='article:tag' content='data'><meta property='article:published_time' content='2017-02-03T00:00:00Z'/><meta property='article:modified_time' content='2017-02-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Read data from INBO databases (SQL Server) with R • Stijn Van Hoey</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_database_access/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -358,7 +360,7 @@ by RStudio.[1]. This package enables the link between R and the (remote)
 database. After installation of the needed packages
 (<code>install.packages(c(&quot;DBI&quot;, &quot;glue&quot;, &quot;tidyverse&quot;))</code>), the packages can be
 loaded:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(DBI)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(DBI)
 <span style="color:#0a0">library</span>(glue)
 <span style="color:#0a0">library</span>(tidyverse)
 </code></pre></div><p>To create a database connection, different approaches are available as
@@ -380,8 +382,8 @@ databases and uses the <em>Connections pane</em> in the Rstudio interface:</p>
 instructions</a>. After a
 successfull installation, load the library and create a database
 connection:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inbodb)
-my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">D0021_00_userFlora&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(inbodb)
+my_connection &lt;- <span style="color:#0a0">connect_inbo_dbase</span>(<span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>)
 </code></pre></div><p>Once the connection is successfully established, the database can be
 queried.</p>
 <p><strong>Remark for Linux users</strong>: When working in Linux, this setup (using
@@ -392,12 +394,12 @@ installation</a>.</p>
 <h3 id="setting-up-the-connection-yourself">Setting up the connection yourself<a href="#setting-up-the-connection-yourself" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>In case you want to setup the connection yourself (e.g. errors using
 inbodb), you can do so by providing the necessary parameters:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(odbc::<span style="color:#0a0">odbc</span>(),
-      driver = <span style="color:#a50">&#34;</span><span style="color:#a50">ODBC Driver 17 for SQL Server&#34;</span>,
-      server = <span style="color:#a50">&#34;</span><span style="color:#a50">inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(odbc::<span style="color:#0a0">odbc</span>(),
+      driver = <span style="color:#a50">&#34;ODBC Driver 17 for SQL Server&#34;</span>,
+      server = <span style="color:#a50">&#34;inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
       port = <span style="color:#099">1433</span>,
-      database = <span style="color:#a50">&#34;</span><span style="color:#a50">D0021_00_userFlora&#34;</span>, <span style="color:#aaa;font-style:italic"># or your database of interest</span>
-      trusted_connection = <span style="color:#a50">&#34;</span><span style="color:#a50">Yes&#34;</span>)
+      database = <span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>, <span style="color:#aaa;font-style:italic"># or your database of interest</span>
+      trusted_connection = <span style="color:#a50">&#34;Yes&#34;</span>)
 </code></pre></div><p>The most important parameters are <code>server</code> and <code>database</code>, the others
 should normally be kept as such (except for maybe <code>driver</code>). For the
 first one, remember that database names starting with <code>M</code>, <code>S</code> or <code>W</code>
@@ -433,53 +435,53 @@ the one used in MSAccess. First of all, the connection with the database
 need to be established, by using the <code>odbcConnect</code> function, providing
 the DSN name as argument:</p>
 <p>For Windows users:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- <span style="color:#0a0">odbcConnect</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">UserFlora&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- <span style="color:#0a0">odbcConnect</span>(<span style="color:#a50">&#34;UserFlora&#34;</span>)
 </code></pre></div><p>Once the connection is successfully established, the database can be
 queried.</p>
 <h2 id="get-a-complete-table-from-the-database">Get a complete table from the database<a href="#get-a-complete-table-from-the-database" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The function <code>dbReadTable</code> can be used to load an entire table from a
 database. For example, to extract the <code>tblTaxon</code> table from the flora
 database:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rel_taxa &lt;- <span style="color:#0a0">dbReadTable</span>(my_connection, <span style="color:#a50">&#34;</span><span style="color:#a50">relTaxonTaxonGroep&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rel_taxa &lt;- <span style="color:#0a0">dbReadTable</span>(my_connection, <span style="color:#a50">&#34;relTaxonTaxonGroep&#34;</span>)
 <span style="color:#0a0">head</span>(rel_taxa) %&gt;% knitr::<span style="color:#0a0">kable</span>()
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">ID</th>
-<th align="right">TaxonGroepID</th>
-<th align="right">TaxonID</th>
+<th style="text-align:right">ID</th>
+<th style="text-align:right">TaxonGroepID</th>
+<th style="text-align:right">TaxonID</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">1</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">1</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right">2</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">2</td>
 </tr>
 <tr>
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">3</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">3</td>
 </tr>
 <tr>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">4</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">4</td>
 </tr>
 <tr>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">5</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">5</td>
 </tr>
 <tr>
-<td align="right">6</td>
-<td align="right">4</td>
-<td align="right">6</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">6</td>
 </tr>
 </tbody>
 </table>
@@ -494,110 +496,110 @@ the table using a query.</p>
 try any SQL-query on the database. A complete introduction to the SQL
 language is out of scope here. We will focus on the application and the
 reusage of a query.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">SELECT TOP 10 * FROM dbo.tblMeting&#34;</span>, 
-                                          <span style="color:#a50">&#34;</span><span style="color:#a50">WHERE COR_X IS NOT NULL&#34;</span>))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;SELECT TOP 10 * FROM dbo.tblMeting&#34;</span>, 
+                                          <span style="color:#a50">&#34;WHERE COR_X IS NOT NULL&#34;</span>))
 <span style="color:#0a0">head</span>(meting) %&gt;% knitr::<span style="color:#0a0">kable</span>()
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">ID</th>
-<th align="right">WaarnemingID</th>
-<th align="right">TaxonID</th>
-<th align="left">MetingStatusCode</th>
-<th align="right">Cor_X</th>
-<th align="right">Cor_Y</th>
-<th align="left">CommentaarTaxon</th>
-<th align="left">CommentaarHabitat</th>
-<th align="left">CREATION_DATE</th>
-<th align="left">CREATION_USER</th>
-<th align="left">UPDATE_DATE</th>
-<th align="left">UPDATE_USER</th>
+<th style="text-align:right">ID</th>
+<th style="text-align:right">WaarnemingID</th>
+<th style="text-align:right">TaxonID</th>
+<th style="text-align:left">MetingStatusCode</th>
+<th style="text-align:right">Cor_X</th>
+<th style="text-align:right">Cor_Y</th>
+<th style="text-align:left">CommentaarTaxon</th>
+<th style="text-align:left">CommentaarHabitat</th>
+<th style="text-align:left">CREATION_DATE</th>
+<th style="text-align:left">CREATION_USER</th>
+<th style="text-align:left">UPDATE_DATE</th>
+<th style="text-align:left">UPDATE_USER</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">2</td>
-<td align="right">21748</td>
-<td align="right">3909</td>
-<td align="left">GDGA</td>
-<td align="right">109948</td>
-<td align="right">185379</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">21748</td>
+<td style="text-align:right">3909</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:right">109948</td>
+<td style="text-align:right">185379</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="right">14</td>
-<td align="right">45523</td>
-<td align="right">3909</td>
-<td align="left">GDGA</td>
-<td align="right">127708</td>
-<td align="right">179454</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td style="text-align:right">14</td>
+<td style="text-align:right">45523</td>
+<td style="text-align:right">3909</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:right">127708</td>
+<td style="text-align:right">179454</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="right">15</td>
-<td align="right">124394</td>
-<td align="right">3909</td>
-<td align="left">GDGA</td>
-<td align="right">109424</td>
-<td align="right">192152</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">124394</td>
+<td style="text-align:right">3909</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:right">109424</td>
+<td style="text-align:right">192152</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="right">23</td>
-<td align="right">38561</td>
-<td align="right">3909</td>
-<td align="left">GDGA</td>
-<td align="right">128290</td>
-<td align="right">179297</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td style="text-align:right">23</td>
+<td style="text-align:right">38561</td>
+<td style="text-align:right">3909</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:right">128290</td>
+<td style="text-align:right">179297</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="right">24</td>
-<td align="right">126500</td>
-<td align="right">3909</td>
-<td align="left">GDGA</td>
-<td align="right">98714</td>
-<td align="right">178373</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td style="text-align:right">24</td>
+<td style="text-align:right">126500</td>
+<td style="text-align:right">3909</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:right">98714</td>
+<td style="text-align:right">178373</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="right">173</td>
-<td align="right">73725</td>
-<td align="right">3909</td>
-<td align="left">GDGA</td>
-<td align="right">102612</td>
-<td align="right">189891</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td style="text-align:right">173</td>
+<td style="text-align:right">73725</td>
+<td style="text-align:right">3909</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:right">102612</td>
+<td style="text-align:right">189891</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">NA</td>
 </tr>
 </tbody>
 </table>
@@ -609,8 +611,8 @@ query <em>templates</em>, that can be used within the <code>dbGetQuery</code> fu
 <p>Consider the execution of the following query. We are interested in
 those records with valid X and Y coordinates for the measurement, based
 on a given dutch name:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subset_meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, 
-    <span style="color:#a50">&#34;</span><span style="color:#a50">SELECT meet.COR_X
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subset_meting &lt;- <span style="color:#0a0">dbGetQuery</span>(my_connection, 
+    <span style="color:#a50">&#34;SELECT meet.COR_X
 </span><span style="color:#a50">         , meet.Cor_Y
 </span><span style="color:#a50">         , meet.MetingStatusCode
 </span><span style="color:#a50">         , tax.NaamNederlands
@@ -626,62 +628,62 @@ on a given dutch name:</p>
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">COR_X</th>
-<th align="right">Cor_Y</th>
-<th align="left">MetingStatusCode</th>
-<th align="left">NaamNederlands</th>
-<th align="left">NaamWetenschappelijk</th>
-<th align="right">IFBLHokID</th>
+<th style="text-align:right">COR_X</th>
+<th style="text-align:right">Cor_Y</th>
+<th style="text-align:left">MetingStatusCode</th>
+<th style="text-align:left">NaamNederlands</th>
+<th style="text-align:left">NaamWetenschappelijk</th>
+<th style="text-align:right">IFBLHokID</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">88720</td>
-<td align="right">208327</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">11195</td>
+<td style="text-align:right">88720</td>
+<td style="text-align:right">208327</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">11195</td>
 </tr>
 <tr>
-<td align="right">24106</td>
-<td align="right">199925</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">9601</td>
+<td style="text-align:right">24106</td>
+<td style="text-align:right">199925</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">9601</td>
 </tr>
 <tr>
-<td align="right">103111</td>
-<td align="right">190915</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">6990</td>
+<td style="text-align:right">103111</td>
+<td style="text-align:right">190915</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">6990</td>
 </tr>
 <tr>
-<td align="right">118123</td>
-<td align="right">183942</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">5672</td>
+<td style="text-align:right">118123</td>
+<td style="text-align:right">183942</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">5672</td>
 </tr>
 <tr>
-<td align="right">106107</td>
-<td align="right">182343</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">5217</td>
+<td style="text-align:right">106107</td>
+<td style="text-align:right">182343</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">5217</td>
 </tr>
 <tr>
-<td align="right">105765</td>
-<td align="right">180785</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">4830</td>
+<td style="text-align:right">105765</td>
+<td style="text-align:right">180785</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">4830</td>
 </tr>
 </tbody>
 </table>
@@ -692,9 +694,9 @@ query as a template. Let’s create a function
 <code>flora_records_on_dutch_name</code> that takes a valid database connection and
 a given Dutch name and returns the relevant subset of the data for this
 query:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">flora_records_on_dutch_name &lt;- <span style="color:#0a0">function</span>(dbase_connection, dutch_name) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">flora_records_on_dutch_name &lt;- <span style="color:#0a0">function</span>(dbase_connection, dutch_name) {
      <span style="color:#0a0">dbGetQuery</span>(dbase_connection, <span style="color:#0a0">glue_sql</span>(
-            <span style="color:#a50">&#34;</span><span style="color:#a50">SELECT meet.Cor_X
+            <span style="color:#a50">&#34;SELECT meet.Cor_X
 </span><span style="color:#a50">                 , meet.COr_Y
 </span><span style="color:#a50">                 , meet.MetingStatusCode
 </span><span style="color:#a50">                 , tax.NaamNederlands
@@ -711,136 +713,136 @@ query:</p>
 }
 </code></pre></div><p>Hence, instead of copy-pasting the whole query each time (which could be
 error-prone), we can reuse the function for different names:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">hyacint &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;</span><span style="color:#a50">Wilde hyacint&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">hyacint &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;Wilde hyacint&#34;</span>)
 <span style="color:#0a0">head</span>(hyacint) %&gt;% knitr::<span style="color:#0a0">kable</span>()
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">Cor_X</th>
-<th align="right">COr_Y</th>
-<th align="left">MetingStatusCode</th>
-<th align="left">NaamNederlands</th>
-<th align="left">NaamWetenschappelijk</th>
-<th align="right">IFBLHokID</th>
+<th style="text-align:right">Cor_X</th>
+<th style="text-align:right">COr_Y</th>
+<th style="text-align:left">MetingStatusCode</th>
+<th style="text-align:left">NaamNederlands</th>
+<th style="text-align:left">NaamWetenschappelijk</th>
+<th style="text-align:right">IFBLHokID</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">88720</td>
-<td align="right">208327</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">11195</td>
+<td style="text-align:right">88720</td>
+<td style="text-align:right">208327</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">11195</td>
 </tr>
 <tr>
-<td align="right">24106</td>
-<td align="right">199925</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">9601</td>
+<td style="text-align:right">24106</td>
+<td style="text-align:right">199925</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">9601</td>
 </tr>
 <tr>
-<td align="right">103111</td>
-<td align="right">190915</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">6990</td>
+<td style="text-align:right">103111</td>
+<td style="text-align:right">190915</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">6990</td>
 </tr>
 <tr>
-<td align="right">118123</td>
-<td align="right">183942</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">5672</td>
+<td style="text-align:right">118123</td>
+<td style="text-align:right">183942</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">5672</td>
 </tr>
 <tr>
-<td align="right">106107</td>
-<td align="right">182343</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">5217</td>
+<td style="text-align:right">106107</td>
+<td style="text-align:right">182343</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">5217</td>
 </tr>
 <tr>
-<td align="right">105765</td>
-<td align="right">180785</td>
-<td align="left">GDGA</td>
-<td align="left">Wilde hyacint</td>
-<td align="left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
-<td align="right">4830</td>
+<td style="text-align:right">105765</td>
+<td style="text-align:right">180785</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Wilde hyacint</td>
+<td style="text-align:left">Hyacinthoides non-scripta (L.) Chouard ex Rothm.</td>
+<td style="text-align:right">4830</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bosanemoon &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;</span><span style="color:#a50">Bosanemoon&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bosanemoon &lt;- <span style="color:#0a0">flora_records_on_dutch_name</span>(my_connection, <span style="color:#a50">&#34;Bosanemoon&#34;</span>)
 <span style="color:#0a0">head</span>(bosanemoon) %&gt;% knitr::<span style="color:#0a0">kable</span>()
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">Cor_X</th>
-<th align="right">COr_Y</th>
-<th align="left">MetingStatusCode</th>
-<th align="left">NaamNederlands</th>
-<th align="left">NaamWetenschappelijk</th>
-<th align="right">IFBLHokID</th>
+<th style="text-align:right">Cor_X</th>
+<th style="text-align:right">COr_Y</th>
+<th style="text-align:left">MetingStatusCode</th>
+<th style="text-align:left">NaamNederlands</th>
+<th style="text-align:left">NaamWetenschappelijk</th>
+<th style="text-align:right">IFBLHokID</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">119247</td>
-<td align="right">204936</td>
-<td align="left">GDGA</td>
-<td align="left">Bosanemoon</td>
-<td align="left">Anemone nemorosa L.</td>
-<td align="right">10234</td>
+<td style="text-align:right">119247</td>
+<td style="text-align:right">204936</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Bosanemoon</td>
+<td style="text-align:left">Anemone nemorosa L.</td>
+<td style="text-align:right">10234</td>
 </tr>
 <tr>
-<td align="right">73658</td>
-<td align="right">199081</td>
-<td align="left">GDGA</td>
-<td align="left">Bosanemoon</td>
-<td align="left">Anemone nemorosa L.</td>
-<td align="right">8823</td>
+<td style="text-align:right">73658</td>
+<td style="text-align:right">199081</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Bosanemoon</td>
+<td style="text-align:left">Anemone nemorosa L.</td>
+<td style="text-align:right">8823</td>
 </tr>
 <tr>
-<td align="right">72752</td>
-<td align="right">199010</td>
-<td align="left">GDGA</td>
-<td align="left">Bosanemoon</td>
-<td align="left">Anemone nemorosa L.</td>
-<td align="right">8824</td>
+<td style="text-align:right">72752</td>
+<td style="text-align:right">199010</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Bosanemoon</td>
+<td style="text-align:left">Anemone nemorosa L.</td>
+<td style="text-align:right">8824</td>
 </tr>
 <tr>
-<td align="right">72921</td>
-<td align="right">198828</td>
-<td align="left">GDGA</td>
-<td align="left">Bosanemoon</td>
-<td align="left">Anemone nemorosa L.</td>
-<td align="right">8824</td>
+<td style="text-align:right">72921</td>
+<td style="text-align:right">198828</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Bosanemoon</td>
+<td style="text-align:left">Anemone nemorosa L.</td>
+<td style="text-align:right">8824</td>
 </tr>
 <tr>
-<td align="right">72874</td>
-<td align="right">198735</td>
-<td align="left">GDGA</td>
-<td align="left">Bosanemoon</td>
-<td align="left">Anemone nemorosa L.</td>
-<td align="right">8824</td>
+<td style="text-align:right">72874</td>
+<td style="text-align:right">198735</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Bosanemoon</td>
+<td style="text-align:left">Anemone nemorosa L.</td>
+<td style="text-align:right">8824</td>
 </tr>
 <tr>
-<td align="right">72887</td>
-<td align="right">198660</td>
-<td align="left">GDGA</td>
-<td align="left">Bosanemoon</td>
-<td align="left">Anemone nemorosa L.</td>
-<td align="right">8824</td>
+<td style="text-align:right">72887</td>
+<td style="text-align:right">198660</td>
+<td style="text-align:left">GDGA</td>
+<td style="text-align:left">Bosanemoon</td>
+<td style="text-align:left">Anemone nemorosa L.</td>
+<td style="text-align:right">8824</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Remark:</strong> Do not forget to close your connection when finished.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">dbDisconnect</span>(my_connection)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">dbDisconnect</span>(my_connection)
 </code></pre></div><h2 id="the-glue_sql-function">The <code>glue_sql</code> function<a href="#the-glue_sql-function" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>In order to accomplish the re-usage of a query for different input names
 (<code>dutch_name</code>), the <code>glue_sql</code> function is used from the <a href="https://glue.tidyverse.org/reference/glue_sql.html">glue
@@ -852,10 +854,10 @@ query (any part of your query you want to have interchangeable), a
 representation in the query is given by the variable name you use in R,
 put in between curly brackets. For example, if you have the <code>dutch_name</code>
 variable in R, you can use it inside the query as <code>{dutch_name}</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dutch_name &lt;- <span style="color:#a50">&#39;</span><span style="color:#a50">Jan&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dutch_name &lt;- <span style="color:#a50">&#39;Jan&#39;</span>
 an_integer &lt;- <span style="color:#099">3</span>
 a_float &lt;- <span style="color:#099">2.8</span>
-<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;</span><span style="color:#a50">This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}&#39;</span>)
+<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;This prints a combination of a name: {dutch_name}, an integer: {an_integer} and a float value: {a_float}&#39;</span>)
 </code></pre></div><pre><code>## This prints a combination of a name: Jan, an integer: 3 and a float value: 2.8
 </code></pre>
 <p>Whereas the <code>glue</code> function is a general function for strings, the
@@ -917,9 +919,9 @@ and <a href="https://glue.tidyverse.org/reference/glue_sql.html">here</a>.</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

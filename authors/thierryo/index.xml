@@ -6,11 +6,7 @@
     <description>Recent content in thierryo on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install R</title>
       <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
@@ -88,7 +84,7 @@ library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects
       
       <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
- https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&#39;t use underscores.
+ https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
     </item>
     
@@ -128,7 +124,7 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
       
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
-The problem with GoogleDrive GoogleDrive doesn&#39;t work well in combination with RStudio projects or Git projects. We&#39;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
+The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>
     
     <item>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Git workflow using the command line'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='git'><meta property='article:tag' content='version control'><meta property='article:published_time' content='2017-10-18T14:42:43&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T14:42:43&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Git workflow using the command line • Stijn Van Hoey</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/git_workflow/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -356,7 +358,7 @@ Improve this page</a>
 <ul>
 <li>
 <p><strong>STEP 1</strong>: Update the master branch on my PC to make sure it is aligned with the remote master</p>
-<pre><code>git fetch origin
+<pre tabindex="0"><code>git fetch origin
 git checkout master
 git merge --ff-only origin/master
 </code></pre></li>
@@ -366,13 +368,13 @@ git merge --ff-only origin/master
 <li>
 <p><strong>OPTION 2A</strong>: I already have a branch I want to continue working on:<br>
 Switch to existing topic branch:</p>
-<pre><code>git checkout name_existing_branch
+<pre tabindex="0"><code>git checkout name_existing_branch
 git fetch origin
 git rebase origin/master
 </code></pre></li>
 <li>
-<p><strong>OPTION 2B</strong>:  I'll make a new branch to work with: Create a new topic branch from master(!):</p>
-<pre><code>git checkout master
+<p><strong>OPTION 2B</strong>:  I&rsquo;ll make a new branch to work with: Create a new topic branch from master(!):</p>
+<pre tabindex="0"><code>git checkout master
 git checkout -b name_new_branch
 </code></pre></li>
 </ul>
@@ -384,11 +386,11 @@ git checkout -b name_new_branch
 <ul>
 <li>
 <p><strong>New files added</strong></p>
-<pre><code>git add .
+<pre tabindex="0"><code>git add .
 </code></pre></li>
 <li>
 <p><strong>Adaptation</strong></p>
-<pre><code>git commit -am &quot;clear and understandable message about edits&quot;
+<pre tabindex="0"><code>git commit -am &quot;clear and understandable message about edits&quot;
 </code></pre></li>
 </ul>
 </li>
@@ -400,11 +402,11 @@ git checkout -b name_new_branch
 <ul>
 <li>
 <p><strong>OPTION 2A CHOSEN</strong>:</p>
-<pre><code>git push origin name_existing_branch
+<pre tabindex="0"><code>git push origin name_existing_branch
 </code></pre></li>
 <li>
 <p><strong>OPTION 2B CHOSEN</strong>:</p>
-<pre><code>git push origin name_new_branch
+<pre tabindex="0"><code>git push origin name_new_branch
 </code></pre></li>
 </ul>
 </li>
@@ -412,15 +414,15 @@ git checkout -b name_new_branch
 <p><strong>STEP 5</strong>: Code review!</p>
 <p>Go to your repo on Github.com and click the <em>create pull request</em> block. You and collaborators can make comments about the edits and review the code.</p>
 <p>If everything is ok, click the  <em>Merge pull request</em>, followed by <em>confirm merge</em>. (all online actions on GitHub). Delete the online branch, since obsolete.</p>
-<p>You're work is now tracked and added to master! Congratulations.</p>
-<p>If the code can't be merged automatically (provided by a message online), go to <strong>STEP 6</strong>.</p>
+<p>You&rsquo;re work is now tracked and added to master! Congratulations.</p>
+<p>If the code can&rsquo;t be merged automatically (provided by a message online), go to <strong>STEP 6</strong>.</p>
 </li>
 </ul>
 <h3 id="pull-request-cannot-be-merged-by-github">PULL REQUEST CANNOT BE MERGED BY GITHUB<a href="#pull-request-cannot-be-merged-by-github" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
 <li>
 <p><strong>STEP 6</strong>: master has changed and there are conflicts:  update your working branch with rebase</p>
-<pre><code>git checkout name_existing_branch
+<pre tabindex="0"><code>git checkout name_existing_branch
 git fetch origin
 git rebase origin/master
 # fix conflicts local
@@ -438,14 +440,14 @@ git push -f origin name_existing_branch
   <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
   
 </svg>
-<span class='screen-reader-text'>Categories: </span></div>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/version-control/'>version control</a></div>
 <div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a>, <a class='tag' href='/tutorials/tags/version-control/'>version control</a></div>
 
   </div>
 </footer>
@@ -491,9 +493,9 @@ git push -f origin name_existing_branch
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

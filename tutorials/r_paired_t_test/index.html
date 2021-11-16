@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Learn some insights about mixed models based on a simple example'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='r'><meta property='article:tag' content='analysis'><meta property='article:tag' content='mixed model'><meta property='article:published_time' content='2020-07-01T00:00:00Z'/><meta property='article:modified_time' content='2020-07-01T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Mixed model formulation of a paired t-test • Hans Van Calster</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_paired_t_test/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -356,7 +358,7 @@ Improve this page</a>
 <p>In this tutorial we explain the analogy between the paired t-test and
 the corresponding mixed model formulation.</p>
 <h2 id="used-packages">Used packages<a href="#used-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(knitr)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(knitr)
 <span style="color:#0a0">library</span>(lme4)
 <span style="color:#0a0">library</span>(tidyr)
 <span style="color:#0a0">library</span>(broom)
@@ -368,12 +370,12 @@ the corresponding mixed model formulation.</p>
 <li>treatment: identifies two treatments (a and b)</li>
 </ul>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">set.seed</span>(<span style="color:#099">124</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">set.seed</span>(<span style="color:#099">124</span>)
 
 paired_data &lt;- <span style="color:#0a0">data.frame</span>(
   plot = <span style="color:#0a0">rep</span>(<span style="color:#099">1</span>:<span style="color:#099">10</span>, <span style="color:#099">2</span>),
   response = <span style="color:#0a0">c</span>(<span style="color:#0a0">rnorm</span>(<span style="color:#099">10</span>), <span style="color:#0a0">rnorm</span>(<span style="color:#099">10</span>, <span style="color:#099">3</span>, <span style="color:#099">1.5</span>)),
-  treatment = <span style="color:#0a0">rep</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">a&#34;</span>, <span style="color:#a50">&#34;</span><span style="color:#a50">b&#34;</span>), each = <span style="color:#099">10</span>)
+  treatment = <span style="color:#0a0">rep</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#34;a&#34;</span>, <span style="color:#a50">&#34;b&#34;</span>), each = <span style="color:#099">10</span>)
 )
 
 paired_data$treatment &lt;- <span style="color:#0a0">as.factor</span>(paired_data$treatment)
@@ -386,318 +388,318 @@ paired_data_wide &lt;- <span style="color:#0a0">pivot_wider</span>(
   names_from = treatment,
   values_from = response
 )
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(paired_data)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(paired_data)
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="left">plot</th>
-<th align="right">response</th>
-<th align="center">treatment</th>
+<th style="text-align:left">plot</th>
+<th style="text-align:right">response</th>
+<th style="text-align:center">treatment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">1</td>
-<td align="right">-1.3850706</td>
-<td align="center">a</td>
+<td style="text-align:left">1</td>
+<td style="text-align:right">-1.3850706</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">2</td>
-<td align="right">0.0383232</td>
-<td align="center">a</td>
+<td style="text-align:left">2</td>
+<td style="text-align:right">0.0383232</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">3</td>
-<td align="right">-0.7630302</td>
-<td align="center">a</td>
+<td style="text-align:left">3</td>
+<td style="text-align:right">-0.7630302</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">4</td>
-<td align="right">0.2123061</td>
-<td align="center">a</td>
+<td style="text-align:left">4</td>
+<td style="text-align:right">0.2123061</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">5</td>
-<td align="right">1.4255380</td>
-<td align="center">a</td>
+<td style="text-align:left">5</td>
+<td style="text-align:right">1.4255380</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">6</td>
-<td align="right">0.7444798</td>
-<td align="center">a</td>
+<td style="text-align:left">6</td>
+<td style="text-align:right">0.7444798</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">7</td>
-<td align="right">0.7002294</td>
-<td align="center">a</td>
+<td style="text-align:left">7</td>
+<td style="text-align:right">0.7002294</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">8</td>
-<td align="right">-0.2293546</td>
-<td align="center">a</td>
+<td style="text-align:left">8</td>
+<td style="text-align:right">-0.2293546</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">9</td>
-<td align="right">0.1970939</td>
-<td align="center">a</td>
+<td style="text-align:left">9</td>
+<td style="text-align:right">0.1970939</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">10</td>
-<td align="right">1.2071538</td>
-<td align="center">a</td>
+<td style="text-align:left">10</td>
+<td style="text-align:right">1.2071538</td>
+<td style="text-align:center">a</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="right">3.4775051</td>
-<td align="center">b</td>
+<td style="text-align:left">1</td>
+<td style="text-align:right">3.4775051</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">2</td>
-<td align="right">0.8643017</td>
-<td align="center">b</td>
+<td style="text-align:left">2</td>
+<td style="text-align:right">0.8643017</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">3</td>
-<td align="right">2.3923637</td>
-<td align="center">b</td>
+<td style="text-align:left">3</td>
+<td style="text-align:right">2.3923637</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">4</td>
-<td align="right">4.4930798</td>
-<td align="center">b</td>
+<td style="text-align:left">4</td>
+<td style="text-align:right">4.4930798</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">5</td>
-<td align="right">4.4382267</td>
-<td align="center">b</td>
+<td style="text-align:left">5</td>
+<td style="text-align:right">4.4382267</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">6</td>
-<td align="right">4.3771318</td>
-<td align="center">b</td>
+<td style="text-align:left">6</td>
+<td style="text-align:right">4.3771318</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">7</td>
-<td align="right">2.7735456</td>
-<td align="center">b</td>
+<td style="text-align:left">7</td>
+<td style="text-align:right">2.7735456</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">8</td>
-<td align="right">1.1653968</td>
-<td align="center">b</td>
+<td style="text-align:left">8</td>
+<td style="text-align:right">1.1653968</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">9</td>
-<td align="right">1.6967636</td>
-<td align="center">b</td>
+<td style="text-align:left">9</td>
+<td style="text-align:right">1.6967636</td>
+<td style="text-align:center">b</td>
 </tr>
 <tr>
-<td align="left">10</td>
-<td align="right">1.4362720</td>
-<td align="center">b</td>
+<td style="text-align:left">10</td>
+<td style="text-align:right">1.4362720</td>
+<td style="text-align:center">b</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(paired_data_wide)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(paired_data_wide)
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="left">plot</th>
-<th align="right">a</th>
-<th align="right">b</th>
+<th style="text-align:left">plot</th>
+<th style="text-align:right">a</th>
+<th style="text-align:right">b</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">1</td>
-<td align="right">-1.3850706</td>
-<td align="right">3.4775051</td>
+<td style="text-align:left">1</td>
+<td style="text-align:right">-1.3850706</td>
+<td style="text-align:right">3.4775051</td>
 </tr>
 <tr>
-<td align="left">2</td>
-<td align="right">0.0383232</td>
-<td align="right">0.8643017</td>
+<td style="text-align:left">2</td>
+<td style="text-align:right">0.0383232</td>
+<td style="text-align:right">0.8643017</td>
 </tr>
 <tr>
-<td align="left">3</td>
-<td align="right">-0.7630302</td>
-<td align="right">2.3923637</td>
+<td style="text-align:left">3</td>
+<td style="text-align:right">-0.7630302</td>
+<td style="text-align:right">2.3923637</td>
 </tr>
 <tr>
-<td align="left">4</td>
-<td align="right">0.2123061</td>
-<td align="right">4.4930798</td>
+<td style="text-align:left">4</td>
+<td style="text-align:right">0.2123061</td>
+<td style="text-align:right">4.4930798</td>
 </tr>
 <tr>
-<td align="left">5</td>
-<td align="right">1.4255380</td>
-<td align="right">4.4382267</td>
+<td style="text-align:left">5</td>
+<td style="text-align:right">1.4255380</td>
+<td style="text-align:right">4.4382267</td>
 </tr>
 <tr>
-<td align="left">6</td>
-<td align="right">0.7444798</td>
-<td align="right">4.3771318</td>
+<td style="text-align:left">6</td>
+<td style="text-align:right">0.7444798</td>
+<td style="text-align:right">4.3771318</td>
 </tr>
 <tr>
-<td align="left">7</td>
-<td align="right">0.7002294</td>
-<td align="right">2.7735456</td>
+<td style="text-align:left">7</td>
+<td style="text-align:right">0.7002294</td>
+<td style="text-align:right">2.7735456</td>
 </tr>
 <tr>
-<td align="left">8</td>
-<td align="right">-0.2293546</td>
-<td align="right">1.1653968</td>
+<td style="text-align:left">8</td>
+<td style="text-align:right">-0.2293546</td>
+<td style="text-align:right">1.1653968</td>
 </tr>
 <tr>
-<td align="left">9</td>
-<td align="right">0.1970939</td>
-<td align="right">1.6967636</td>
+<td style="text-align:left">9</td>
+<td style="text-align:right">0.1970939</td>
+<td style="text-align:right">1.6967636</td>
 </tr>
 <tr>
-<td align="left">10</td>
-<td align="right">1.2071538</td>
-<td align="right">1.4362720</td>
+<td style="text-align:left">10</td>
+<td style="text-align:right">1.2071538</td>
+<td style="text-align:right">1.4362720</td>
 </tr>
 </tbody>
 </table>
 <h2 id="the-paired-t-test">The paired t-test<a href="#the-paired-t-test" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ttest &lt;- <span style="color:#0a0">with</span>(
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ttest &lt;- <span style="color:#0a0">with</span>(
   paired_data_wide,
   <span style="color:#0a0">t.test</span>(y = a, x = b, paired = <span style="color:#00a">TRUE</span>)
 )
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">tidy</span>(ttest))
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">tidy</span>(ttest))
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">estimate</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
-<th align="right">parameter</th>
-<th align="right">conf.low</th>
-<th align="right">conf.high</th>
-<th align="left">method</th>
-<th align="left">alternative</th>
+<th style="text-align:right">estimate</th>
+<th style="text-align:right">statistic</th>
+<th style="text-align:right">p.value</th>
+<th style="text-align:right">parameter</th>
+<th style="text-align:right">conf.low</th>
+<th style="text-align:right">conf.high</th>
+<th style="text-align:left">method</th>
+<th style="text-align:left">alternative</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">2.496692</td>
-<td align="right">5.157401</td>
-<td align="right">0.0005972</td>
-<td align="right">9</td>
-<td align="right">1.401584</td>
-<td align="right">3.591799</td>
-<td align="left">Paired t-test</td>
-<td align="left">two.sided</td>
+<td style="text-align:right">2.496692</td>
+<td style="text-align:right">5.157401</td>
+<td style="text-align:right">0.0005972</td>
+<td style="text-align:right">9</td>
+<td style="text-align:right">1.401584</td>
+<td style="text-align:right">3.591799</td>
+<td style="text-align:left">Paired t-test</td>
+<td style="text-align:left">two.sided</td>
 </tr>
 </tbody>
 </table>
 <h2 id="alternative-but-equivalent-formulation-via-a-lineair-mixed-model">Alternative, but equivalent formulation via a lineair mixed model<a href="#alternative-but-equivalent-formulation-via-a-lineair-mixed-model" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Plot identifies the paired measurements. A random effect for plot allows
 us to take this dependence into account.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mm &lt;- <span style="color:#0a0">lmer</span>(response ~ treatment + (<span style="color:#099">1</span> | plot),
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mm &lt;- <span style="color:#0a0">lmer</span>(response ~ treatment + (<span style="color:#099">1</span> | plot),
   data = paired_data
 )
 </code></pre></div><p>The parameter estimates for treatment b gives the difference compared to
 treatment a (= intercept), accounting for the paired nature of the data.
 This difference is the same as the <em>estimate</em> for the paired t-test.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">tidy</span>(mm))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">tidy</span>(mm))
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="center">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="left">group</th>
+<th style="text-align:center">term</th>
+<th style="text-align:right">estimate</th>
+<th style="text-align:right">std.error</th>
+<th style="text-align:right">statistic</th>
+<th style="text-align:left">group</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">(Intercept)</td>
-<td align="right">0.2147669</td>
-<td align="right">0.3711260</td>
-<td align="right">0.578690</td>
-<td align="left">fixed</td>
+<td style="text-align:center">(Intercept)</td>
+<td style="text-align:right">0.2147669</td>
+<td style="text-align:right">0.3711260</td>
+<td style="text-align:right">0.578690</td>
+<td style="text-align:left">fixed</td>
 </tr>
 <tr>
-<td align="center">treatmentb</td>
-<td align="right">2.4966918</td>
-<td align="right">0.4840988</td>
-<td align="right">5.157401</td>
-<td align="left">fixed</td>
+<td style="text-align:center">treatmentb</td>
+<td style="text-align:right">2.4966918</td>
+<td style="text-align:right">0.4840988</td>
+<td style="text-align:right">5.157401</td>
+<td style="text-align:left">fixed</td>
 </tr>
 <tr>
-<td align="center">sd_(Intercept).plot</td>
-<td align="right">0.4534165</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">plot</td>
+<td style="text-align:center">sd_(Intercept).plot</td>
+<td style="text-align:right">0.4534165</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:left">plot</td>
 </tr>
 <tr>
-<td align="center">sd_Observation.Residual</td>
-<td align="right">1.0824778</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Residual</td>
+<td style="text-align:center">sd_Observation.Residual</td>
+<td style="text-align:right">1.0824778</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:left">Residual</td>
 </tr>
 </tbody>
 </table>
 <p>The anova output gives us a test for treatment in terms of an F-test.
 The t-test is based on the t-statistic. Both test statistics are
 related: (F = t^2).</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">anova</span>(mm))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">anova</span>(mm))
 </code></pre></div><table>
 <thead>
 <tr>
 <th></th>
-<th align="right">npar</th>
-<th align="right">Sum Sq</th>
-<th align="right">Mean Sq</th>
-<th align="right">F value</th>
+<th style="text-align:right">npar</th>
+<th style="text-align:right">Sum Sq</th>
+<th style="text-align:right">Mean Sq</th>
+<th style="text-align:right">F value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>treatment</td>
-<td align="right">1</td>
-<td align="right">31.16735</td>
-<td align="right">31.16735</td>
-<td align="right">26.59879</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">31.16735</td>
+<td style="text-align:right">31.16735</td>
+<td style="text-align:right">26.59879</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">anova</span>(mm)[[<span style="color:#a50">&#34;</span><span style="color:#a50">F value&#34;</span>]]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">anova</span>(mm)[[<span style="color:#a50">&#34;F value&#34;</span>]]
 </code></pre></div><pre><code>## [1] 26.59879
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">unname</span>(ttest[[<span style="color:#a50">&#34;</span><span style="color:#a50">statistic&#34;</span>]])^2
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">unname</span>(ttest[[<span style="color:#a50">&#34;statistic&#34;</span>]])^2
 </code></pre></div><pre><code>## [1] 26.59879
 </code></pre>
 <p>We can calculate the confidence interval given as part of the t-test
 output, based on the t-distributie.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">difference &lt;- <span style="color:#0a0">data.frame</span>(
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">difference &lt;- <span style="color:#0a0">data.frame</span>(
   diff = <span style="color:#0a0">summary</span>(mm)$coefficients[2, <span style="color:#099">1</span>],
   se = <span style="color:#0a0">summary</span>(mm)$coefficients[2, <span style="color:#099">2</span>]
 )
 
 difference$lwr &lt;- difference$diff - <span style="color:#0a0">qt</span>(p = <span style="color:#099">1</span> - <span style="color:#099">0.05</span> / <span style="color:#099">2</span>, df = <span style="color:#099">9</span>) * difference$se
 difference$upr &lt;- difference$diff + <span style="color:#0a0">qt</span>(p = <span style="color:#099">1</span> - <span style="color:#099">0.05</span> / <span style="color:#099">2</span>, df = <span style="color:#099">9</span>) * difference$se
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(difference)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(difference)
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="right">diff</th>
-<th align="right">se</th>
-<th align="right">lwr</th>
-<th align="right">upr</th>
+<th style="text-align:right">diff</th>
+<th style="text-align:right">se</th>
+<th style="text-align:right">lwr</th>
+<th style="text-align:right">upr</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="right">2.496692</td>
-<td align="right">0.4840988</td>
-<td align="right">1.401584</td>
-<td align="right">3.591799</td>
+<td style="text-align:right">2.496692</td>
+<td style="text-align:right">0.4840988</td>
+<td style="text-align:right">1.401584</td>
+<td style="text-align:right">3.591799</td>
 </tr>
 </tbody>
 </table>
@@ -707,45 +709,45 @@ Either an approximation (Wald statistic) or a profile likelihood
 confidence interval can be calculated. These intervals are slightly
 different from the t-distribution based confidence interval.</p>
 <p>Via profile likelihood:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">confint</span>(mm, parm = <span style="color:#a50">&#34;</span><span style="color:#a50">treatmentb&#34;</span>, method = <span style="color:#a50">&#34;</span><span style="color:#a50">profile&#34;</span>))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">confint</span>(mm, parm = <span style="color:#a50">&#34;treatmentb&#34;</span>, method = <span style="color:#a50">&#34;profile&#34;</span>))
 </code></pre></div><pre><code>## Computing profile confidence intervals ...
 </code></pre>
 <table>
 <thead>
 <tr>
 <th></th>
-<th align="right">2.5 %</th>
-<th align="right">97.5 %</th>
+<th style="text-align:right">2.5 %</th>
+<th style="text-align:right">97.5 %</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>treatmentb</td>
-<td align="right">1.505743</td>
-<td align="right">3.487635</td>
+<td style="text-align:right">1.505743</td>
+<td style="text-align:right">3.487635</td>
 </tr>
 </tbody>
 </table>
 <p>Wald-type confidence interval:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">confint</span>(mm, parm = <span style="color:#a50">&#34;</span><span style="color:#a50">treatmentb&#34;</span>, method = <span style="color:#a50">&#34;</span><span style="color:#a50">Wald&#34;</span>))
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(<span style="color:#0a0">confint</span>(mm, parm = <span style="color:#a50">&#34;treatmentb&#34;</span>, method = <span style="color:#a50">&#34;Wald&#34;</span>))
 </code></pre></div><table>
 <thead>
 <tr>
 <th></th>
-<th align="right">2.5 %</th>
-<th align="right">97.5 %</th>
+<th style="text-align:right">2.5 %</th>
+<th style="text-align:right">97.5 %</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>treatmentb</td>
-<td align="right">1.547876</td>
-<td align="right">3.445508</td>
+<td style="text-align:right">1.547876</td>
+<td style="text-align:right">3.445508</td>
 </tr>
 </tbody>
 </table>
 <p>Were model assuptions met? Yes.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">DHARMa::<span style="color:#0a0">plotQQunif</span>(mm)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">DHARMa::<span style="color:#0a0">plotQQunif</span>(mm)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-2-1.png" alt=""><!-- raw HTML omitted --></p>
 <h2 id="take-home-message">Take home message<a href="#take-home-message" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The standard paired t-test is typically used to test for a significant
@@ -777,7 +779,7 @@ an obvious choice).</p>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a>, <a class='tag' href='/tutorials/tags/mixed-model/'>mixed model</a></div>
 
   </div>
 </footer>
@@ -823,9 +825,9 @@ an obvious choice).</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

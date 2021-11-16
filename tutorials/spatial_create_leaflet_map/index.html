@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Creating interactive maps with leaflet'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2018-06-14T00:00:00Z'/><meta property='article:modified_time' content='2018-06-14T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Let&#39;s create an interactive map! • Jeroen Speybroeck</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -358,30 +360,30 @@ this tutorial, is still maintained in order to support the newest
 versions of the GDAL and PROJ backends.</em></p>
 <h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The required packages are <strong>leaflet</strong> and <strong>sp</strong>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(leaflet)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(leaflet)
 <span style="color:#0a0">library</span>(sp)
 </code></pre></div><h2 id="dummy-data">Dummy data<a href="#dummy-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Let’s create a dumy <code>data.frame</code> to play around, i.e. the three
 locations of INBO:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">names &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">VAC HT&#34;</span>,<span style="color:#a50">&#34;</span><span style="color:#a50">Geraardsbergen&#34;</span>,<span style="color:#a50">&#34;</span><span style="color:#a50">Linkebeek&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">names &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;VAC HT&#34;</span>,<span style="color:#a50">&#34;Geraardsbergen&#34;</span>,<span style="color:#a50">&#34;Linkebeek&#34;</span>)
 lat &lt;- <span style="color:#0a0">c</span>(<span style="color:#099">50.865664</span>, <span style="color:#099">50.760201</span>, <span style="color:#099">50.767950</span>)
 lon &lt;- <span style="color:#0a0">c</span>(<span style="color:#099">4.349944</span>, <span style="color:#099">3.874300</span>, <span style="color:#099">4.333044</span>)
 data &lt;- <span style="color:#0a0">data.frame</span>(names,lat,lon)
 </code></pre></div><p>We created three points:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot</span>(data$lon, data$lat)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot</span>(data$lon, data$lat)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-3-1.png" alt=""><!-- raw HTML omitted --></p>
 <h2 id="creating-a-map">Creating a map<a href="#creating-a-map" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>We need to convert the <code>data.frame</code> to a <code>SpatialPointsDataFrame</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;</span><span style="color:#a50">EPSG:4326&#34;</span>)
-pts &lt;- <span style="color:#0a0">SpatialPointsDataFrame</span>(data<span style="color:#0a0">[c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">lon&#34;</span>,<span style="color:#a50">&#34;</span><span style="color:#a50">lat&#34;</span>)], 
-                              data[!(<span style="color:#0a0">names</span>(data) %in% <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">lon&#34;</span>,<span style="color:#a50">&#34;</span><span style="color:#a50">lat&#34;</span>))],
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;EPSG:4326&#34;</span>)
+pts &lt;- <span style="color:#0a0">SpatialPointsDataFrame</span>(data<span style="color:#0a0">[c</span>(<span style="color:#a50">&#34;lon&#34;</span>,<span style="color:#a50">&#34;lat&#34;</span>)], 
+                              data[!(<span style="color:#0a0">names</span>(data) %in% <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;lon&#34;</span>,<span style="color:#a50">&#34;lat&#34;</span>))],
                               proj4string = crs_wgs84)
 </code></pre></div><p>The <code>leaflet</code> package is ideal to create a basic interactive map:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(leaflet)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(leaflet)
 leaf_map &lt;- <span style="color:#0a0">leaflet</span>(pts) %&gt;% 
-  <span style="color:#0a0">addTiles</span>(group = <span style="color:#a50">&#34;</span><span style="color:#a50">OSM&#34;</span>) %&gt;%
+  <span style="color:#0a0">addTiles</span>(group = <span style="color:#a50">&#34;OSM&#34;</span>) %&gt;%
   <span style="color:#0a0">addCircleMarkers</span>()
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">leaf_map
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">leaf_map
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
 <p><strong>Nice, no?!</strong></p>
 <p>More information is provided <a href="https://rstudio.github.io/leaflet/">at the leaflet information
@@ -448,9 +450,9 @@ website</a>!</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

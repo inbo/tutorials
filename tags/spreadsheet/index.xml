@@ -6,11 +6,7 @@
     <description>Recent content in spreadsheet on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://inbo.github.io/tutorials/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Read data from Google sheets</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</link>
@@ -21,7 +17,7 @@
 This package is very well documented, so we just have to provide you with the right links:
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
 A complete list of vignettes can be found in the Articles page.
-googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&#39;t work anymore as it is built on the outdated Sheets v3 API.</description>
+googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&amp;rsquo;t work anymore as it is built on the outdated Sheets v3 API.</description>
     </item>
     
   </channel>

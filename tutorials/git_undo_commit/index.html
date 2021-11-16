@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Undo git commits using the command line'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='git'><meta property='article:tag' content='version control'><meta property='article:published_time' content='2017-10-18T15:31:53&#43;02:00'/><meta property='article:modified_time' content='2017-10-18T15:31:53&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Undo a git commit • Stijn Van Hoey</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/git_undo_commit/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -355,9 +357,9 @@ Improve this page</a>
   <div class='container entry-content'><h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.</p>
 <p>First, check your history of commits to see which commits are the faulty ones.</p>
-<pre><code>git log --oneline
+<pre tabindex="0"><code>git log --oneline
 </code></pre><p><em>Example output</em></p>
-<pre><code>b7119f2 Continue doing crazy things
+<pre tabindex="0"><code>b7119f2 Continue doing crazy things
 872fa7e Try something crazy
 a1e8fb5 Make some important changes to hello.py
 435b61d Create hello.py
@@ -366,28 +368,28 @@ a1e8fb5 Make some important changes to hello.py
 <p>The git checkout command serves three distinct functions: checking out files, checking out commits, and checking out branches. In this part, only the first two configurations are addressed. Checking out a commit makes the entire working directory match that commit. This can be used to view an old state of your project without altering your current state in any way. Checking out a file lets you see an old version of that particular file, <strong>leaving the rest of your working directory untouched</strong>. (This will put you in a detached HEAD state.)</p>
 <p><img src="./undo_commits_images/01.svg" alt=""></p>
 <p>You can use git checkout to view the “Make some import changes to hello.py” commit as follows:</p>
-<pre><code>git checkout a1e8fb5
+<pre tabindex="0"><code>git checkout a1e8fb5
 </code></pre><p>This makes your working directory match the exact state of the a1e8fb5 commit. You can look at files, and even edit files without worrying about losing the current state of the project. Nothing you do in here will be saved in your repository. Checking out an old commit is a read-only operation. It’s impossible to harm your repository while viewing an old revision. To continue developing, you need to get back to the “current” state of your project (assuming your master branch is the head of the project):</p>
-<pre><code>git checkout master
+<pre tabindex="0"><code>git checkout master
 </code></pre><p>If you’re only interested in a single file, you can also use git checkout to fetch an old version of it. For example, if you only wanted to see the <code>hello.py</code> file from the old commit, you could use the following command:</p>
-<pre><code>git checkout a1e8fb5 hello.py
+<pre tabindex="0"><code>git checkout a1e8fb5 hello.py
 </code></pre><p>Remember, unlike checking out a commit, this <strong>does affect the current state of your project</strong>. The old file revision will show up as a “Change to be committed,” giving you the opportunity to revert back to the previous version of the file. If you decide you don’t want to keep the old version, you can check out the most recent version with the following:</p>
-<pre><code>git checkout HEAD hello.py
+<pre tabindex="0"><code>git checkout HEAD hello.py
 </code></pre><p>This concludes the part on checking your previous commits. In the following part, some methods of rollback to a previous state will be elucidated.</p>
 <h2 id="git-revert">git revert<a href="#git-revert" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>The git revert command undoes a committed snapshot. But, instead of removing the commit from the project history, it figures out how to undo the changes introduced by the commit and appends a new commit with the resulting content. This prevents Git from losing history, which is important for the integrity of your revision history and for reliable collaboration.</p>
 <p><img src="./undo_commits_images/03.svg" alt=""></p>
 <p>Usage:</p>
-<pre><code>git revert &lt;commit&gt;
+<pre tabindex="0"><code>git revert &lt;commit&gt;
 </code></pre><p>Generate a new commit that undoes all of the changes introduced in <!-- raw HTML omitted -->, then apply it to the current branch.</p>
 <p>Reverting should be used when you want to remove an entire commit from your project history. This can be useful, for example, if you’re tracking down a bug and find that it was introduced by a single commit. Instead of manually going in, fixing it, and committing a new snapshot, you can use git revert to automatically do all of this for you.</p>
-<p>It's important to understand that git revert undoes a single commit—it does not “revert” back to the previous state of a project by removing all subsequent commits. In Git, this is actually called a reset, not a revert.</p>
+<p>It&rsquo;s important to understand that git revert undoes a single commit—it does not “revert” back to the previous state of a project by removing all subsequent commits. In Git, this is actually called a reset, not a revert.</p>
 <p><img src="./undo_commits_images/04.svg" alt=""></p>
 <p>Reverting has two important advantages over resetting. First, it doesn’t change the project history, which makes it a “safe” operation for commits that have already been published to a shared repository. For details about why altering shared history is dangerous, please see the git reset page.</p>
 <p>Second, git revert is able to target an individual commit at an arbitrary point in the history, whereas git reset can only work backwards from the current commit. For example, if you wanted to undo an old commit with git reset, you would have to remove all of the commits that occurred after the target commit, remove it, then re-commit all of the subsequent commits. Needless to say, this is not an elegant undo solution.</p>
 <p>Example</p>
 <p>The following example is a simple demonstration of git revert. It commits a snapshot, then immediately undoes it with a revert.</p>
-<pre><code>// edit some tracked files
+<pre tabindex="0"><code>// edit some tracked files
 
 // commit a snapshot
 git commit -m 'make some changes that will be undone'
@@ -401,15 +403,15 @@ git revert HEAD
 <p>If git revert is a “safe” way to undo changes, you can think of git reset as the dangerous method. When you undo with git reset(and the commits are no longer referenced by any ref or the reflog), there is no way to retrieve the original copy—it is a permanent undo. Care must be taken when using this tool, as it’s one of the only Git commands that has the potential to lose your work.</p>
 <p>Like git checkout, git reset is a versatile command with many configurations. It can be used to remove committed snapshots, although it’s more often used to undo changes in the staging area and the working directory. In either case, it should only be used to undo local changes—you should never reset snapshots that have been shared with other developers.</p>
 <p>Usage:</p>
-<pre><code>git reset &lt;file&gt;
+<pre tabindex="0"><code>git reset &lt;file&gt;
 </code></pre><p>Remove the specified file from the staging area, but leave the working directory unchanged. This unstages a file without overwriting any changes.</p>
-<pre><code>git reset
+<pre tabindex="0"><code>git reset
 </code></pre><p>Reset the staging area to match the most recent commit, but leave the working directory unchanged. This unstages all files without overwriting any changes, giving you the opportunity to re-build the staged snapshot from scratch.</p>
-<pre><code>git reset --hard
+<pre tabindex="0"><code>git reset --hard
 </code></pre><p>Reset the staging area and the working directory to match the most recent commit. In addition to unstaging changes, the &ndash;hard flag tells Git to overwrite all changes in the working directory, too. Put another way: this obliterates all uncommitted changes, so make sure you really want to throw away your local developments before using it.</p>
-<pre><code>git reset &lt;commit&gt;
+<pre tabindex="0"><code>git reset &lt;commit&gt;
 </code></pre><p>Move the current branch tip backward to <!-- raw HTML omitted -->, reset the staging area to match, but leave the working directory alone. All changes made since <!-- raw HTML omitted --> will reside in the working directory, which lets you re-commit the project history using cleaner, more atomic snapshots.</p>
-<pre><code>git reset --hard &lt;commit&gt;
+<pre tabindex="0"><code>git reset --hard &lt;commit&gt;
 </code></pre><p>Move the current branch tip backward to <!-- raw HTML omitted --> and reset both the staging area and the working directory to match. This obliterates not only the uncommitted changes, but all commits after <!-- raw HTML omitted -->, as well.</p>
 <p>Discussion</p>
 <p>All of the above invocations are used to remove changes from a repository. Without the &ndash;hard flag, git reset is a way to clean up a repository by unstaging changes or uncommitting a series of snapshots and re-building them from scratch. The &ndash;hard flag comes in handy when an experiment has gone horribly wrong and you need a clean slate to work with.</p>
@@ -424,7 +426,7 @@ git revert HEAD
 <h2 id="examples">Examples:<a href="#examples" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="unstaging-a-file"><em>unstaging a file</em><a href="#unstaging-a-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>The git reset command is frequently encountered while preparing the staged snapshot. The next example assumes you have two files called <code>hello.py</code> and <code>main.py</code> that you’ve already added to the repository.</p>
-<pre><code># Edit both hello.py and main.py
+<pre tabindex="0"><code># Edit both hello.py and main.py
 
 # Stage everything in the current directory
 git add .
@@ -444,7 +446,7 @@ git commit -m &quot;Edit main.py&quot;
 </code></pre><p>As you can see, git reset helps you keep your commits highly-focused by letting you unstage changes that aren’t related to the next commit.</p>
 <h3 id="removing-local-commits"><em>removing local commits</em><a href="#removing-local-commits" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>The next example shows a more advanced use case. It demonstrates what happens when you’ve been working on a new experiment for a while, but decide to completely throw it away after committing a few snapshots.</p>
-<pre><code># Create a new file called `foo.py` and add some code to it
+<pre tabindex="0"><code># Create a new file called `foo.py` and add some code to it
 
 # Commit it to the project history
 git add foo.py
@@ -469,14 +471,14 @@ git reset --hard HEAD~2
   <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
   
 </svg>
-<span class='screen-reader-text'>Categories: </span></div>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/version-control/'>version control</a></div>
 <div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a>, <a class='tag' href='/tutorials/tags/version-control/'>version control</a></div>
 
   </div>
 </footer>
@@ -522,9 +524,9 @@ git reset --hard HEAD~2
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

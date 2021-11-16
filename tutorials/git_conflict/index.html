@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='How to handle git conflicts using command line'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='git'><meta property='article:tag' content='version control'><meta property='article:published_time' content='2017-10-18T00:00:00Z'/><meta property='article:modified_time' content='2017-10-18T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Handle conflicts • Stijn Van Hoey</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/git_conflict/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:45 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -355,23 +357,23 @@ Improve this page</a>
   <div class='container entry-content'><h2 id="fix-merge-conflict-with-a-pull-request">Fix merge conflict with a pull request<a href="#fix-merge-conflict-with-a-pull-request" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.</p>
 <p>Locally on your computer:</p>
-<pre><code>git fetch origin
+<pre tabindex="0"><code>git fetch origin
 </code></pre><p>Rebase your feature branch with your master</p>
-<pre><code>git rebase origin/master
+<pre tabindex="0"><code>git rebase origin/master
 </code></pre><p>Git will now state that there are merge conflicts. These will look like this:</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt; HEAD:&lt;some git nonsense&gt;
+<pre tabindex="0"><code>&lt;&lt;&lt;&lt;&lt; HEAD:&lt;some git nonsense&gt;
         This part is from a version of this file
 =====
 	This is from another version of a file
 &gt;&gt;&gt;&gt;&gt; blahdeblahdeblah:&lt;some more git nonsense&gt;
 </code></pre><p>The &laquo;&laquo;&lt;, ===== and &raquo;&raquo;&gt; markers show which lines were changed simultaneously. In order to remove the conflict, choose which line you want to keep (first or second), remove the other line and the markers, and finally commit the result.</p>
 <p>Add your files that you fixed.</p>
-<pre><code>git add &lt;fixed files&gt;
+<pre tabindex="0"><code>git add &lt;fixed files&gt;
 </code></pre><p>Continue with your rebase</p>
-<pre><code>git rebase --continue
+<pre tabindex="0"><code>git rebase --continue
 </code></pre><p>If more troubles occur, fix them, add them, and do a <code>git rebase --continue</code></p>
 <p>Force push your branch to the server. (force because you changed the commit)</p>
-<pre><code>git push -f origin branchname
+<pre tabindex="0"><code>git push -f origin branchname
 </code></pre><p>On the server, you can now automatically close your Pull Request.</p>
 </div>
 
@@ -382,14 +384,14 @@ Improve this page</a>
   <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
   
 </svg>
-<span class='screen-reader-text'>Categories: </span></div>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/version-control/'>version control</a></div>
 <div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a>, <a class='tag' href='/tutorials/tags/version-control/'>version control</a></div>
 
   </div>
 </footer>
@@ -435,9 +437,9 @@ Improve this page</a>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

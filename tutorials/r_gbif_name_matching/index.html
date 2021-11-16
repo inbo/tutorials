@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='How to use inborutils function gbif_species_name_match() to match a list of scientific names against the GBIF backbone taxonomy.'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='api'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='gbif'><meta property='article:tag' content='biodiversity'><meta property='article:published_time' content='2019-08-21T00:00:00Z'/><meta property='article:modified_time' content='2019-08-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Match scientific names with the GBIF Backbone Taxonomy • Dirk Maes</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -359,50 +361,50 @@ taxonomy</a>.</p>
 <p>It is important that you have the most recent version of
 <a href="https://inbo.github.io/inborutils/">inborutils</a> installed and
 available:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remotes::<span style="color:#0a0">install_github</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">inbo/inborutils&#34;</span>)   <span style="color:#aaa;font-style:italic"># install inborutils</span>
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse)    <span style="color:#aaa;font-style:italic"># To do datascience</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remotes::<span style="color:#0a0">install_github</span>(<span style="color:#a50">&#34;inbo/inborutils&#34;</span>)   <span style="color:#aaa;font-style:italic"># install inborutils</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse)    <span style="color:#aaa;font-style:italic"># To do datascience</span>
 <span style="color:#0a0">library</span>(rgbif)        <span style="color:#aaa;font-style:italic"># To lookup names in the GBIF backbone taxonomy</span>
 <span style="color:#0a0">library</span>(inborutils)   <span style="color:#aaa;font-style:italic"># To wrap GBIF API data</span>
 <span style="color:#0a0">library</span>(knitr)
 </code></pre></div><h2 id="read-data-file-containing-the-scientific-names">Read data file containing the scientific names<a href="#read-data-file-containing-the-scientific-names" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Read file containing the scientific names you want to check against the
 <a href="https://www.gbif.org/species/search?q=">GBIF</a> taxonomic backbone:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;</span><span style="color:#a50">https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = <span style="color:#0a0">cols</span>())
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df &lt;- <span style="color:#0a0">read_csv</span>(<span style="color:#a50">&#34;https://raw.githubusercontent.com/inbo/inbo-pyutils/master/gbif/gbif_name_match/sample.csv&#34;</span>, trim_ws = <span style="color:#00a">TRUE</span>, col_types = <span style="color:#0a0">cols</span>())
 </code></pre></div><p>Take a look at the data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(species_df)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(species_df)
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="left">name</th>
-<th align="left">kingdom</th>
-<th align="left">euConcernStatus</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">kingdom</th>
+<th style="text-align:left">euConcernStatus</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Alopochen aegyptiaca</td>
-<td align="left">Animalia</td>
-<td align="left">under consideration</td>
+<td style="text-align:left">Alopochen aegyptiaca</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">under consideration</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster ganghobaensis</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
+<td style="text-align:left">Cotoneaster ganghobaensis</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster hylmoei</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
+<td style="text-align:left">Cotoneaster hylmoei</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster x suecicus</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
+<td style="text-align:left">Cotoneaster x suecicus</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
 </tr>
 <tr>
-<td align="left">Euthamia graminifolia</td>
-<td align="left">Plantae</td>
-<td align="left">under preparation</td>
+<td style="text-align:left">Euthamia graminifolia</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">under preparation</td>
 </tr>
 </tbody>
 </table>
@@ -412,131 +414,131 @@ name against GBIF Backbone Taxonomy, using the
 <a href="https://inbo.github.io/inborutils/reference/gbif_species_name_match.html"><code>gbif_species_name_match</code></a>
 function from the <a href="https://inbo.github.io/inborutils/">inborutils</a>
 package. You need to pass a data.frame, <code>df</code> and a column name, <code>name</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- <span style="color:#0a0">gbif_species_name_match</span>(df = species_df, name = <span style="color:#a50">&#34;</span><span style="color:#a50">name&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- <span style="color:#0a0">gbif_species_name_match</span>(df = species_df, name = <span style="color:#a50">&#34;name&#34;</span>)
 </code></pre></div><pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
 <p>As the <code>name</code> argument has <code>&quot;name&quot;</code> as default value, the code above is
 equivalent to:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- <span style="color:#0a0">gbif_species_name_match</span>(species_df)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- <span style="color:#0a0">gbif_species_name_match</span>(species_df)
 </code></pre></div><p>or using pipe <code>%&gt;%</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- species_df_matched %&gt;% <span style="color:#0a0">gbif_species_name_match</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched &lt;- species_df_matched %&gt;% <span style="color:#0a0">gbif_species_name_match</span>()
 </code></pre></div><p>By default <code>gbif_species_name_match</code> returns the following GBIF fields:
 <code>usageKey</code>, <code>scientificName</code>, <code>rank</code>, <code>order</code>, <code>matchType</code>, <code>phylum</code>,
 <code>kingdom</code>, <code>genus</code>, <code>class</code>, <code>confidence</code>, <code>synonym</code>, <code>status</code>,
 <code>family</code>.</p>
 <p>Take a look at the updated data:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(species_df_matched)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(species_df_matched)
 </code></pre></div><table>
 <thead>
 <tr>
-<th align="left">name</th>
-<th align="left">kingdom</th>
-<th align="left">euConcernStatus</th>
-<th align="right">usageKey</th>
-<th align="left">scientificName</th>
-<th align="left">rank</th>
-<th align="left">order</th>
-<th align="left">matchType</th>
-<th align="left">phylum</th>
-<th align="left">kingdom1</th>
-<th align="left">genus</th>
-<th align="left">class</th>
-<th align="right">confidence</th>
-<th align="left">synonym</th>
-<th align="left">status</th>
-<th align="left">family</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">kingdom</th>
+<th style="text-align:left">euConcernStatus</th>
+<th style="text-align:right">usageKey</th>
+<th style="text-align:left">scientificName</th>
+<th style="text-align:left">rank</th>
+<th style="text-align:left">order</th>
+<th style="text-align:left">matchType</th>
+<th style="text-align:left">phylum</th>
+<th style="text-align:left">kingdom1</th>
+<th style="text-align:left">genus</th>
+<th style="text-align:left">class</th>
+<th style="text-align:right">confidence</th>
+<th style="text-align:left">synonym</th>
+<th style="text-align:left">status</th>
+<th style="text-align:left">family</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Alopochen aegyptiaca</td>
-<td align="left">Animalia</td>
-<td align="left">under consideration</td>
-<td align="right">2498252</td>
-<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
-<td align="left">SPECIES</td>
-<td align="left">Anseriformes</td>
-<td align="left">EXACT</td>
-<td align="left">Chordata</td>
-<td align="left">Animalia</td>
-<td align="left">Alopochen</td>
-<td align="left">Aves</td>
-<td align="right">98</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Anatidae</td>
+<td style="text-align:left">Alopochen aegyptiaca</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">under consideration</td>
+<td style="text-align:right">2498252</td>
+<td style="text-align:left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Anseriformes</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Chordata</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Alopochen</td>
+<td style="text-align:left">Aves</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Anatidae</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster ganghobaensis</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="right">3025989</td>
-<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
-<td align="left">SPECIES</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Cotoneaster</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">98</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Rosaceae</td>
+<td style="text-align:left">Cotoneaster ganghobaensis</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">3025989</td>
+<td style="text-align:left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Cotoneaster</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Rosaceae</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster hylmoei</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="right">3025758</td>
-<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
-<td align="left">SPECIES</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Cotoneaster</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">98</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Rosaceae</td>
+<td style="text-align:left">Cotoneaster hylmoei</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">3025758</td>
+<td style="text-align:left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Cotoneaster</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Rosaceae</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster x suecicus</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="right">3026040</td>
-<td align="left">Cotoneaster suecicus G.Klotz</td>
-<td align="left">SPECIES</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Cotoneaster</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">98</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Rosaceae</td>
+<td style="text-align:left">Cotoneaster x suecicus</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">3026040</td>
+<td style="text-align:left">Cotoneaster suecicus G.Klotz</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Cotoneaster</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Rosaceae</td>
 </tr>
 <tr>
-<td align="left">Euthamia graminifolia</td>
-<td align="left">Plantae</td>
-<td align="left">under preparation</td>
-<td align="right">3092782</td>
-<td align="left">Euthamia graminifolia (L.) Nutt.</td>
-<td align="left">SPECIES</td>
-<td align="left">Asterales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Euthamia</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">98</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Asteraceae</td>
+<td style="text-align:left">Euthamia graminifolia</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">under preparation</td>
+<td style="text-align:right">3092782</td>
+<td style="text-align:left">Euthamia graminifolia (L.) Nutt.</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Asterales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Euthamia</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Asteraceae</td>
 </tr>
 </tbody>
 </table>
@@ -544,7 +546,7 @@ equivalent to:</p>
 automatically renamed by adding suffix <code>1</code>. In our case, input
 data.frame <code>species_df</code> contains already a column called <code>kingdom</code>. The
 GBIF kingdom values are returned in column <code>kingdom1</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched %&gt;% <span style="color:#0a0">select</span>(kingdom, kingdom1)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df_matched %&gt;% <span style="color:#0a0">select</span>(kingdom, kingdom1)
 </code></pre></div><pre><code>## # A tibble: 5 x 2
 ##   kingdom  kingdom1
 ##   &lt;chr&gt;    &lt;chr&gt;   
@@ -555,94 +557,94 @@ GBIF kingdom values are returned in column <code>kingdom1</code>:</p>
 ## 5 Plantae  Plantae
 </code></pre>
 <p>You can also specify which GBIF fields you would like to have:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df %&gt;% 
     <span style="color:#0a0">gbif_species_name_match</span>(
       gbif_terms = <span style="color:#0a0">c</span>(
-        <span style="color:#a50">&#39;</span><span style="color:#a50">scientificName&#39;</span>, 
-        <span style="color:#a50">&#39;</span><span style="color:#a50">family&#39;</span>,
-        <span style="color:#a50">&#39;</span><span style="color:#a50">order&#39;</span>,
-        <span style="color:#a50">&#39;</span><span style="color:#a50">rank&#39;</span>,
-        <span style="color:#a50">&#39;</span><span style="color:#a50">matchType&#39;</span>,
-        <span style="color:#a50">&#39;</span><span style="color:#a50">confidence&#39;</span>,
-        <span style="color:#a50">&#39;</span><span style="color:#a50">status&#39;</span>)) %&gt;%
+        <span style="color:#a50">&#39;scientificName&#39;</span>, 
+        <span style="color:#a50">&#39;family&#39;</span>,
+        <span style="color:#a50">&#39;order&#39;</span>,
+        <span style="color:#a50">&#39;rank&#39;</span>,
+        <span style="color:#a50">&#39;matchType&#39;</span>,
+        <span style="color:#a50">&#39;confidence&#39;</span>,
+        <span style="color:#a50">&#39;status&#39;</span>)) %&gt;%
     <span style="color:#0a0">kable</span>()
 </code></pre></div><pre><code>## [1] &quot;All column names present&quot;
 </code></pre>
 <table>
 <thead>
 <tr>
-<th align="left">name</th>
-<th align="left">kingdom</th>
-<th align="left">euConcernStatus</th>
-<th align="left">scientificName</th>
-<th align="left">family</th>
-<th align="left">order</th>
-<th align="left">rank</th>
-<th align="left">matchType</th>
-<th align="right">confidence</th>
-<th align="left">status</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">kingdom</th>
+<th style="text-align:left">euConcernStatus</th>
+<th style="text-align:left">scientificName</th>
+<th style="text-align:left">family</th>
+<th style="text-align:left">order</th>
+<th style="text-align:left">rank</th>
+<th style="text-align:left">matchType</th>
+<th style="text-align:right">confidence</th>
+<th style="text-align:left">status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Alopochen aegyptiaca</td>
-<td align="left">Animalia</td>
-<td align="left">under consideration</td>
-<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
-<td align="left">Anatidae</td>
-<td align="left">Anseriformes</td>
-<td align="left">SPECIES</td>
-<td align="left">EXACT</td>
-<td align="right">98</td>
-<td align="left">ACCEPTED</td>
+<td style="text-align:left">Alopochen aegyptiaca</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">under consideration</td>
+<td style="text-align:left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td style="text-align:left">Anatidae</td>
+<td style="text-align:left">Anseriformes</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">ACCEPTED</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster ganghobaensis</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
-<td align="left">Rosaceae</td>
-<td align="left">Rosales</td>
-<td align="left">SPECIES</td>
-<td align="left">EXACT</td>
-<td align="right">98</td>
-<td align="left">ACCEPTED</td>
+<td style="text-align:left">Cotoneaster ganghobaensis</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
+<td style="text-align:left">Rosaceae</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">ACCEPTED</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster hylmoei</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
-<td align="left">Rosaceae</td>
-<td align="left">Rosales</td>
-<td align="left">SPECIES</td>
-<td align="left">EXACT</td>
-<td align="right">98</td>
-<td align="left">ACCEPTED</td>
+<td style="text-align:left">Cotoneaster hylmoei</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td style="text-align:left">Rosaceae</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">ACCEPTED</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster x suecicus</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="left">Cotoneaster suecicus G.Klotz</td>
-<td align="left">Rosaceae</td>
-<td align="left">Rosales</td>
-<td align="left">SPECIES</td>
-<td align="left">EXACT</td>
-<td align="right">98</td>
-<td align="left">ACCEPTED</td>
+<td style="text-align:left">Cotoneaster x suecicus</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:left">Cotoneaster suecicus G.Klotz</td>
+<td style="text-align:left">Rosaceae</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">ACCEPTED</td>
 </tr>
 <tr>
-<td align="left">Euthamia graminifolia</td>
-<td align="left">Plantae</td>
-<td align="left">under preparation</td>
-<td align="left">Euthamia graminifolia (L.) Nutt.</td>
-<td align="left">Asteraceae</td>
-<td align="left">Asterales</td>
-<td align="left">SPECIES</td>
-<td align="left">EXACT</td>
-<td align="right">98</td>
-<td align="left">ACCEPTED</td>
+<td style="text-align:left">Euthamia graminifolia</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">under preparation</td>
+<td style="text-align:left">Euthamia graminifolia (L.) Nutt.</td>
+<td style="text-align:left">Asteraceae</td>
+<td style="text-align:left">Asterales</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">ACCEPTED</td>
 </tr>
 </tbody>
 </table>
@@ -650,7 +652,7 @@ GBIF kingdom values are returned in column <code>kingdom1</code>:</p>
 <code>rgbif::name_backbone</code>, so you can pass any argument of <code>name_backbone</code>.
 For example, you can set <code>strict = TRUE</code> to fuzzy match only the given
 names, but never a taxon in the upper classification:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df %&gt;% 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">species_df %&gt;% 
     <span style="color:#0a0">gbif_species_name_match</span>(strict = <span style="color:#00a">TRUE</span>) %&gt;%
     <span style="color:#0a0">kable</span>()
 </code></pre></div><pre><code>## [1] &quot;All column names present&quot;
@@ -658,114 +660,114 @@ names, but never a taxon in the upper classification:</p>
 <table>
 <thead>
 <tr>
-<th align="left">name</th>
-<th align="left">kingdom</th>
-<th align="left">euConcernStatus</th>
-<th align="right">usageKey</th>
-<th align="left">scientificName</th>
-<th align="left">rank</th>
-<th align="left">order</th>
-<th align="left">matchType</th>
-<th align="left">phylum</th>
-<th align="left">kingdom1</th>
-<th align="left">genus</th>
-<th align="left">class</th>
-<th align="right">confidence</th>
-<th align="left">synonym</th>
-<th align="left">status</th>
-<th align="left">family</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">kingdom</th>
+<th style="text-align:left">euConcernStatus</th>
+<th style="text-align:right">usageKey</th>
+<th style="text-align:left">scientificName</th>
+<th style="text-align:left">rank</th>
+<th style="text-align:left">order</th>
+<th style="text-align:left">matchType</th>
+<th style="text-align:left">phylum</th>
+<th style="text-align:left">kingdom1</th>
+<th style="text-align:left">genus</th>
+<th style="text-align:left">class</th>
+<th style="text-align:right">confidence</th>
+<th style="text-align:left">synonym</th>
+<th style="text-align:left">status</th>
+<th style="text-align:left">family</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Alopochen aegyptiaca</td>
-<td align="left">Animalia</td>
-<td align="left">under consideration</td>
-<td align="right">2498252</td>
-<td align="left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
-<td align="left">SPECIES</td>
-<td align="left">Anseriformes</td>
-<td align="left">EXACT</td>
-<td align="left">Chordata</td>
-<td align="left">Animalia</td>
-<td align="left">Alopochen</td>
-<td align="left">Aves</td>
-<td align="right">99</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Anatidae</td>
+<td style="text-align:left">Alopochen aegyptiaca</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">under consideration</td>
+<td style="text-align:right">2498252</td>
+<td style="text-align:left">Alopochen aegyptiaca (Linnaeus, 1766)</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Anseriformes</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Chordata</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Alopochen</td>
+<td style="text-align:left">Aves</td>
+<td style="text-align:right">99</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Anatidae</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster ganghobaensis</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="right">3025989</td>
-<td align="left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
-<td align="left">SPECIES</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Cotoneaster</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">99</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Rosaceae</td>
+<td style="text-align:left">Cotoneaster ganghobaensis</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">3025989</td>
+<td style="text-align:left">Cotoneaster ganghobaensis J.Fryer &amp; B.HylmÃ¶</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Cotoneaster</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">99</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Rosaceae</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster hylmoei</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="right">3025758</td>
-<td align="left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
-<td align="left">SPECIES</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Cotoneaster</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">99</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Rosaceae</td>
+<td style="text-align:left">Cotoneaster hylmoei</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">3025758</td>
+<td style="text-align:left">Cotoneaster hylmoei K.E.Flinck &amp; J.Fryer</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Cotoneaster</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">99</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Rosaceae</td>
 </tr>
 <tr>
-<td align="left">Cotoneaster x suecicus</td>
-<td align="left">Plantae</td>
-<td align="left">NA</td>
-<td align="right">3026040</td>
-<td align="left">Cotoneaster suecicus G.Klotz</td>
-<td align="left">SPECIES</td>
-<td align="left">Rosales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Cotoneaster</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">99</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Rosaceae</td>
+<td style="text-align:left">Cotoneaster x suecicus</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">3026040</td>
+<td style="text-align:left">Cotoneaster suecicus G.Klotz</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Rosales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Cotoneaster</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">99</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Rosaceae</td>
 </tr>
 <tr>
-<td align="left">Euthamia graminifolia</td>
-<td align="left">Plantae</td>
-<td align="left">under preparation</td>
-<td align="right">3092782</td>
-<td align="left">Euthamia graminifolia (L.) Nutt.</td>
-<td align="left">SPECIES</td>
-<td align="left">Asterales</td>
-<td align="left">EXACT</td>
-<td align="left">Tracheophyta</td>
-<td align="left">Plantae</td>
-<td align="left">Euthamia</td>
-<td align="left">Magnoliopsida</td>
-<td align="right">98</td>
-<td align="left">FALSE</td>
-<td align="left">ACCEPTED</td>
-<td align="left">Asteraceae</td>
+<td style="text-align:left">Euthamia graminifolia</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">under preparation</td>
+<td style="text-align:right">3092782</td>
+<td style="text-align:left">Euthamia graminifolia (L.) Nutt.</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">Asterales</td>
+<td style="text-align:left">EXACT</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Euthamia</td>
+<td style="text-align:left">Magnoliopsida</td>
+<td style="text-align:right">98</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">Asteraceae</td>
 </tr>
 </tbody>
 </table>
@@ -837,9 +839,9 @@ in <code>inbo-pyutils</code>.</p>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

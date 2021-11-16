@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='A quick and dirty illustration of how spatially correlated random effects can be fit with INLA'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='r'><meta property='article:tag' content='analysis'><meta property='article:tag' content='mixed model'><meta property='article:tag' content='INLA'><meta property='article:published_time' content='2020-07-01T00:00:00Z'/><meta property='article:modified_time' content='2020-07-01T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Spatially correlated random effects with INLA • Thierry Onkelinx</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_spde/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -64,7 +66,7 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/tutorials/'>Home</a></li><li class='item'>
-  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
   <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:58 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:46 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -356,7 +358,7 @@ Improve this page</a>
 correlated random effect can be fit with INLA. It is based on the
 question and the data posted on the R-Sig-mixedmodels mailing list:
 <a href="https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html">https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html</a>.</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(dplyr)
 </code></pre></div><pre><code>## 
 ## Attaching package: 'dplyr'
 
@@ -368,11 +370,11 @@ question and the data posted on the R-Sig-mixedmodels mailing list:
 ## 
 ##     intersect, setdiff, setequal, union
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyr)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyr)
 <span style="color:#0a0">library</span>(ggplot2)
 </code></pre></div><pre><code>## Warning: package 'ggplot2' was built under R version 4.0.2
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(scales)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(scales)
 <span style="color:#0a0">library</span>(INLA)
 </code></pre></div><pre><code>## Loading required package: Matrix
 
@@ -392,11 +394,11 @@ question and the data posted on the R-Sig-mixedmodels mailing list:
 ## This is INLA_20.03.17 built 2020-05-05 07:15:25 UTC.
 ## See www.r-inla.org/contact-us for how to get help.
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(rprojroot)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(rprojroot)
 </code></pre></div><h1 id="data-import-and-cleaning">Data import and cleaning<a href="#data-import-and-cleaning" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset &lt;- <span style="color:#0a0">readRDS</span>(<span style="color:#0a0">find_root_file</span>(
-  <span style="color:#a50">&#34;</span><span style="color:#a50">content/tutorials/r_spde/&#34;</span>,
-  <span style="color:#a50">&#34;</span><span style="color:#a50">data.Rd&#34;</span>, 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset &lt;- <span style="color:#0a0">readRDS</span>(<span style="color:#0a0">find_root_file</span>(
+  <span style="color:#a50">&#34;content/tutorials/r_spde/&#34;</span>,
+  <span style="color:#a50">&#34;data.Rd&#34;</span>, 
   criterion = is_git_root))
 <span style="color:#0a0">summary</span>(dataset)
 </code></pre></div><pre><code>##   prec_nov_apr   t_min_nov_apr     srad_nov_apr         age          date    
@@ -414,10 +416,10 @@ question and the data posted on the R-Sig-mixedmodels mailing list:
 ##                     3rd Qu.:4789497   3rd Qu.:553595  
 ##                     Max.   :4810808   Max.   :602423
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset &lt;- dataset %&gt;%
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset &lt;- dataset %&gt;%
   <span style="color:#0a0">filter</span>(!<span style="color:#0a0">is.na</span>(date)) %&gt;%
   <span style="color:#0a0">mutate</span>(
-    hail = <span style="color:#0a0">as.integer</span>(hail == <span style="color:#a50">&#34;</span><span style="color:#a50">1&#34;</span>),
+    hail = <span style="color:#0a0">as.integer</span>(hail == <span style="color:#a50">&#34;1&#34;</span>),
     rx = rlat * <span style="color:#099">1e-3</span>,
     ry = rlon * <span style="color:#099">1e-3</span>,
     srad = srad_nov_apr * <span style="color:#099">1e-3</span> - <span style="color:#099">1</span>,
@@ -448,75 +450,75 @@ question and the data posted on the R-Sig-mixedmodels mailing list:
 ##  Max.   :602.4   Max.   : 0.7690   Max.   : 0.5220   Max.   : 2.91667
 </code></pre>
 <h1 id="eda">EDA<a href="#eda" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = age)) + <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">1</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = age)) + <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">1</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-5-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = srad)) + <span style="color:#0a0">geom_density</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = srad)) + <span style="color:#0a0">geom_density</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = temp)) + <span style="color:#0a0">geom_density</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = temp)) + <span style="color:#0a0">geom_density</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-7-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = age, y = hail)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = age, y = hail)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">geom_smooth</span>(
-    method = <span style="color:#a50">&#34;</span><span style="color:#a50">gam&#34;</span>, 
-    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;</span><span style="color:#a50">cs&#34;</span>, k = <span style="color:#099">4</span>),
+    method = <span style="color:#a50">&#34;gam&#34;</span>, 
+    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;cs&#34;</span>, k = <span style="color:#099">4</span>),
     method.args = <span style="color:#0a0">list</span>(family = binomial)
   )
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-8-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = srad, y = hail)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = srad, y = hail)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">geom_smooth</span>(
-    method = <span style="color:#a50">&#34;</span><span style="color:#a50">gam&#34;</span>, 
-    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;</span><span style="color:#a50">cs&#34;</span>, k = <span style="color:#099">4</span>),
+    method = <span style="color:#a50">&#34;gam&#34;</span>, 
+    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;cs&#34;</span>, k = <span style="color:#099">4</span>),
     method.args = <span style="color:#0a0">list</span>(family = binomial)
   )
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-9-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = temp, y = hail)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = temp, y = hail)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">geom_smooth</span>(
-    method = <span style="color:#a50">&#34;</span><span style="color:#a50">gam&#34;</span>, 
-    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;</span><span style="color:#a50">cs&#34;</span>, k = <span style="color:#099">4</span>),
+    method = <span style="color:#a50">&#34;gam&#34;</span>, 
+    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;cs&#34;</span>, k = <span style="color:#099">4</span>),
     method.args = <span style="color:#0a0">list</span>(family = binomial)
   )
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-10-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = prec, y = hail)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = prec, y = hail)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">geom_smooth</span>(
-    method = <span style="color:#a50">&#34;</span><span style="color:#a50">gam&#34;</span>, 
-    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;</span><span style="color:#a50">cs&#34;</span>, k = <span style="color:#099">4</span>),
+    method = <span style="color:#a50">&#34;gam&#34;</span>, 
+    formula = y ~ <span style="color:#0a0">s</span>(x, bs = <span style="color:#a50">&#34;cs&#34;</span>, k = <span style="color:#099">4</span>),
     method.args = <span style="color:#0a0">list</span>(family = binomial)
   )
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-11-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = prec, colour = date)) + <span style="color:#0a0">geom_density</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = prec, colour = date)) + <span style="color:#0a0">geom_density</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-12-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = temp, colour = date)) + <span style="color:#0a0">geom_density</span>()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = temp, colour = date)) + <span style="color:#0a0">geom_density</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-13-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = <span style="color:#0a0">factor</span>(hail))) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = <span style="color:#0a0">factor</span>(hail))) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">coord_fixed</span>() +
   <span style="color:#0a0">facet_wrap</span>(~date)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-14-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = temp)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = temp)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">coord_fixed</span>() +
   <span style="color:#0a0">scale_colour_gradientn</span>(colors = <span style="color:#0a0">rainbow</span>(<span style="color:#099">5</span>)) +
   <span style="color:#0a0">facet_wrap</span>(~date)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-15-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = prec)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = prec)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">coord_fixed</span>() +
   <span style="color:#0a0">scale_colour_gradientn</span>(colors = <span style="color:#0a0">rainbow</span>(<span style="color:#099">5</span>)) +
   <span style="color:#0a0">facet_wrap</span>(~date)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-16-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = srad)) +
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = rx, y = ry, colour = srad)) +
   <span style="color:#0a0">geom_point</span>() +
   <span style="color:#0a0">coord_fixed</span>() +
   <span style="color:#0a0">scale_colour_gradientn</span>(colors = <span style="color:#0a0">rainbow</span>(<span style="color:#099">5</span>)) +
   <span style="color:#0a0">facet_wrap</span>(~date)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-17-1.png" alt=""><!-- raw HTML omitted --></p>
 <h1 id="model-without-spatial-correlation">Model without spatial correlation<a href="#model-without-spatial-correlation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m1 &lt;- <span style="color:#0a0">inla</span>(
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m1 &lt;- <span style="color:#0a0">inla</span>(
   hail ~ prec + t_min_nov_apr + srad + age + date,
-  family = <span style="color:#a50">&#34;</span><span style="color:#a50">binomial&#34;</span>,
+  family = <span style="color:#a50">&#34;binomial&#34;</span>,
   data = dataset
 )
 <span style="color:#0a0">summary</span>(m1)
@@ -543,7 +545,7 @@ question and the data posted on the R-Sig-mixedmodels mailing list:
 ## Marginal log-Likelihood:  -467.48
 </code></pre>
 <h1 id="model-with-spatial-random-intercept">Model with spatial random intercept<a href="#model-with-spatial-random-intercept" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">coordinates &lt;- dataset %&gt;%
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">coordinates &lt;- dataset %&gt;%
   <span style="color:#0a0">select</span>(rx, ry) %&gt;%
   <span style="color:#0a0">as.matrix</span>()
 
@@ -555,12 +557,12 @@ mesh &lt;- <span style="color:#0a0">inla.mesh.2d</span>(
   max.edge = <span style="color:#099">20</span>,
   cutoff = <span style="color:#099">5</span>
 )
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot</span>(mesh)
-<span style="color:#0a0">points</span>(coordinates, col = <span style="color:#a50">&#34;</span><span style="color:#a50">red&#34;</span>)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot</span>(mesh)
+<span style="color:#0a0">points</span>(coordinates, col = <span style="color:#a50">&#34;red&#34;</span>)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-20-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">spde &lt;- <span style="color:#0a0">inla.spde2.matern</span>(mesh = mesh)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">spde &lt;- <span style="color:#0a0">inla.spde2.matern</span>(mesh = mesh)
 A &lt;- <span style="color:#0a0">inla.spde.make.A</span>(mesh = mesh, loc = coordinates)
-s.index &lt;- <span style="color:#0a0">inla.spde.make.index</span>(name = <span style="color:#a50">&#34;</span><span style="color:#a50">spatial.field&#34;</span>, n.spde = spde$n.spde)
+s.index &lt;- <span style="color:#0a0">inla.spde.make.index</span>(name = <span style="color:#a50">&#34;spatial.field&#34;</span>, n.spde = spde$n.spde)
 stack &lt;- <span style="color:#0a0">inla.stack</span>(
   data = dataset %&gt;%
     <span style="color:#0a0">select</span>(hail) %&gt;%
@@ -581,7 +583,7 @@ m2 &lt;- <span style="color:#0a0">inla</span>(
   hail ~ <span style="color:#099">0</span> + intercept + temp + prec + srad + age + 
     <span style="color:#0a0">f</span>(spatial.field, model = spde),
   data = <span style="color:#0a0">inla.stack.data</span>(stack),
-  family = <span style="color:#a50">&#34;</span><span style="color:#a50">binomial&#34;</span>,
+  family = <span style="color:#a50">&#34;binomial&#34;</span>,
   control.predictor = <span style="color:#0a0">list</span>(
     A = <span style="color:#0a0">inla.stack.A</span>(stack),
     compute = <span style="color:#00a">TRUE</span>
@@ -622,7 +624,7 @@ m2 &lt;- <span style="color:#0a0">inla</span>(
 ##  the fitted values are computed
 </code></pre>
 <h2 id="predict-values-on-a-grid">Predict values on a grid<a href="#predict-values-on-a-grid" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n.grid &lt;- <span style="color:#099">50</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n.grid &lt;- <span style="color:#099">50</span>
 dx &lt;- <span style="color:#0a0">diff</span>(<span style="color:#0a0">pretty</span>(dataset$rx, n.grid)[1:<span style="color:#099">2</span>])
 dy &lt;- <span style="color:#0a0">diff</span>(<span style="color:#0a0">pretty</span>(dataset$ry, n.grid)[1:<span style="color:#099">2</span>])
 delta &lt;- <span style="color:#0a0">max</span>(dx, dy)
@@ -649,14 +651,14 @@ stack.grid &lt;- <span style="color:#0a0">inla.stack</span>(
       <span style="color:#0a0">list</span>(intercept = <span style="color:#0a0">rep</span>(<span style="color:#099">1</span>, spde$n.spde))
     )
   ),
-  tag = <span style="color:#a50">&#34;</span><span style="color:#a50">grid&#34;</span>
+  tag = <span style="color:#a50">&#34;grid&#34;</span>
 )
 
 stack.join &lt;- <span style="color:#0a0">inla.stack</span>(stack, stack.grid)
 m3 &lt;- <span style="color:#0a0">inla</span>(
   hail ~ <span style="color:#099">0</span> + intercept + temp + prec + srad + age + <span style="color:#0a0">f</span>(spatial.field, model = spde),
   data = <span style="color:#0a0">inla.stack.data</span>(stack.join),
-  family = <span style="color:#a50">&#34;</span><span style="color:#a50">binomial&#34;</span>,
+  family = <span style="color:#a50">&#34;binomial&#34;</span>,
   control.predictor = <span style="color:#0a0">list</span>(
     A = <span style="color:#0a0">inla.stack.A</span>(stack.join),
     compute = <span style="color:#00a">TRUE</span>
@@ -695,32 +697,32 @@ m3 &lt;- <span style="color:#0a0">inla</span>(
 ## Posterior marginals for the linear predictor and
 ##  the fitted values are computed
 </code></pre>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid.index &lt;- <span style="color:#0a0">inla.stack.index</span>(stack.join, tag = <span style="color:#a50">&#34;</span><span style="color:#a50">grid&#34;</span>)$data
-grid$mean &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#34;</span><span style="color:#a50">mean&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid.index &lt;- <span style="color:#0a0">inla.stack.index</span>(stack.join, tag = <span style="color:#a50">&#34;grid&#34;</span>)$data
+grid$mean &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#34;mean&#34;</span>]
 <span style="color:#0a0">ggplot</span>(grid, <span style="color:#0a0">aes</span>(x = rx, y = ry, fill = mean)) + 
   <span style="color:#0a0">geom_tile</span>() + 
   <span style="color:#0a0">scale_fill_gradient2</span>() +
   <span style="color:#0a0">coord_fixed</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-23-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid$lcl &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#34;</span><span style="color:#a50">0.025quant&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid$lcl &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#34;0.025quant&#34;</span>]
 <span style="color:#0a0">ggplot</span>(grid, <span style="color:#0a0">aes</span>(x = rx, y = ry, fill = lcl)) + 
   <span style="color:#0a0">geom_tile</span>() + 
   <span style="color:#0a0">scale_fill_gradient2</span>() +
   <span style="color:#0a0">coord_fixed</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-24-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid$ucl &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#34;</span><span style="color:#a50">0.975quant&#34;</span>]
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid$ucl &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#34;0.975quant&#34;</span>]
 <span style="color:#0a0">ggplot</span>(grid, <span style="color:#0a0">aes</span>(x = rx, y = ry, fill = ucl)) + 
   <span style="color:#0a0">geom_tile</span>() + 
   <span style="color:#0a0">scale_fill_gradient2</span>() +
   <span style="color:#0a0">coord_fixed</span>()
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-25-1.png" alt=""><!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid %&gt;%
-  <span style="color:#0a0">gather</span>(key = <span style="color:#a50">&#34;</span><span style="color:#a50">type&#34;</span>, value = <span style="color:#a50">&#34;</span><span style="color:#a50">estimate&#34;</span>, mean:ucl) %&gt;%
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">grid %&gt;%
+  <span style="color:#0a0">gather</span>(key = <span style="color:#a50">&#34;type&#34;</span>, value = <span style="color:#a50">&#34;estimate&#34;</span>, mean:ucl) %&gt;%
   <span style="color:#0a0">mutate</span>(estimate = <span style="color:#0a0">plogis</span>(estimate)) %&gt;%
   <span style="color:#0a0">ggplot</span>(<span style="color:#0a0">aes</span>(x = rx, y = ry, fill = estimate)) +
   <span style="color:#0a0">geom_tile</span>() +
   <span style="color:#0a0">scale_fill_gradient2</span>(
-    <span style="color:#a50">&#34;</span><span style="color:#a50">Probabily of hail\nat reference values&#34;</span>, 
+    <span style="color:#a50">&#34;Probabily of hail\nat reference values&#34;</span>, 
     midpoint = <span style="color:#099">0.5</span>, 
     limits = <span style="color:#099">0</span>:<span style="color:#099">1</span>, 
     label = percent
@@ -744,7 +746,7 @@ grid$mean &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#
   <line x1="7" y1="7" x2="7" y2="7"/>
   
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a>, <a class='tag' href='/tutorials/tags/inla/'>INLA</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/analysis/'>analysis</a>, <a class='tag' href='/tutorials/tags/mixed-model/'>mixed model</a>, <a class='tag' href='/tutorials/tags/inla/'>INLA</a></div>
 
   </div>
 </footer>
@@ -790,9 +792,9 @@ grid$mean &lt;- m3$summary.fitted.values[grid.index, <span style="color:#a50">&#
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, GoogleDrive refers to the sync tools provided by Google.'>
@@ -11,14 +11,14 @@
 <meta property='og:site_name' content='INBO Tutorials'>
 <meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='google'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2018-04-19T11:01:31&#43;02:00'/><meta property='article:modified_time' content='2018-04-19T11:01:31&#43;02:00'/><meta name='twitter:card' content='summary'>
 
-<meta name="generator" content="Hugo 0.62.2" />
+<meta name="generator" content="Hugo 0.88.1" />
 
   <title>Insync installation • Thierry Onkelinx</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/installation/user/user_install_insync/'>
   
   
   <link rel='icon' href='/tutorials/favicon.ico'>
-<link rel='stylesheet' href='/tutorials/assets/css/main.dd2efce5.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
 :root{--color-accent:#c04384;}
 </style>
 
@@ -40,7 +40,9 @@
     </div>
     
     <h2 class='title site-title '>
-     
+      <a href='/tutorials/'>
+       
+      </a>
     </h2>
     <div class='desc'>
     
@@ -66,14 +68,14 @@
   <a href='/tutorials/'>Home</a></li><li class='item'>
   <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
   <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
-  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children has-current'>
   <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
     <span class='screen-reader-text'>expand sub menu</span>
     <span class='sign'></span>
   </button>
 
   <ul class='sub-menu'><li class='item'>
-  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item has-current'>
   <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
   <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
   <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
@@ -234,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Nov 12 18:21:59 UTC 2021</small></p>
+  <p><small>Built on: Tue Nov 16 09:52:45 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -355,11 +357,11 @@ Improve this page</a>
 
   <div class='container entry-content'><p><a href="https://www.insynchq.com/">Insync</a> is a thirth party tool that synchronises files with <a href="https://www.google.be/drive/about.html">Google Drive</a>. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &ldquo;GoogleDrive&rdquo; refers to the sync tools provided by Google.</p>
 <h2 id="the-problem-with-googledrive">The problem with GoogleDrive<a href="#the-problem-with-googledrive" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>GoogleDrive doesn't work well in combination with <a href="https://www.rstudio.com">RStudio</a> projects or <a href="https://git-scm.com/">Git</a> projects. We'll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash. As soon as the user changes a few characters in a script, the auto save kicks in. This functionality stores the backup information into a hidden subdirectory of the project (<code>.Rproj.user</code>). It writes very often to the files in this subdirectory.</p>
+<p>GoogleDrive doesn&rsquo;t work well in combination with <a href="https://www.rstudio.com">RStudio</a> projects or <a href="https://git-scm.com/">Git</a> projects. We&rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash. As soon as the user changes a few characters in a script, the auto save kicks in. This functionality stores the backup information into a hidden subdirectory of the project (<code>.Rproj.user</code>). It writes very often to the files in this subdirectory.</p>
 <p>GoogleDrive is constantly monitoring the synchronised directory for new, changed or deleted files. As soon as it detects such file, it will lock the file, synchronise the file and unlock the file. The locking of the file pervents that changes are made to the file while it is being synchronised, because this would mess up the synchronisation. GoogleDrive synchronises all files within a synced directory, including those created by the RStudio auto save function. But as this function writes very often to those files, it often ends in trying to write to a file which still is locked by GoogleDrive. This results in a &ldquo;cannot save to file&rdquo; dialog box in RStudio, which has to be dismissed by the user. This happens so often that it becomes frustrating for the user.</p>
 <h2 id="how-insync-solves-this-problem">How Insync solves this problem<a href="#how-insync-solves-this-problem" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Insync is also constantly monitoring all files in the synchronised directories. Unlike GoogleDrive, Insync has an option to ignore directories or files when synchronising. When Insync is set to ignore <code>.Rproj.user</code>, the files within <code>.Rproj.user</code> are no longer synchronised and thus never locked, causing no problem with the RStudio auto save function.</p>
-<p><em>Wait a minute, so these files will be no longer be available through the GoogleDrive website? Isn't that a problem?</em> Indeed, they will not be available. And no, that is not a problem. Only your <strong>temporary</strong> changes are no longer synchronised. When you <strong>save</strong> your script file in RStudio, you are saving a file to a location which is <strong>not</strong> on the ignore list and will thus be synchronised. <em>But after saving, this file will be locked during sync?</em> Yes, but the time between two consecutive <strong>manual</strong> saves of a script is a lot larger that the time required to sync the script. So the file will be unlocked by the next time you save the file.</p>
+<p><em>Wait a minute, so these files will be no longer be available through the GoogleDrive website? Isn&rsquo;t that a problem?</em> Indeed, they will not be available. And no, that is not a problem. Only your <strong>temporary</strong> changes are no longer synchronised. When you <strong>save</strong> your script file in RStudio, you are saving a file to a location which is <strong>not</strong> on the ignore list and will thus be synchronised. <em>But after saving, this file will be locked during sync?</em> Yes, but the time between two consecutive <strong>manual</strong> saves of a script is a lot larger that the time required to sync the script. So the file will be unlocked by the next time you save the file.</p>
 <!-- raw HTML omitted -->
 <h2 id="how-to-set-the-ignore-list-in-insync">How to set the ignore list in Insync<a href="#how-to-set-the-ignore-list-in-insync" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>First of all, it is important to do this <strong>prior</strong> to syncing files to your computer. Once a file or directory has been synced between the computer and the cloud, Insync will keep syncing it. Even when a file or directory is afterward added to the ignore list.</p>
@@ -388,7 +390,7 @@ Improve this page</a>
 <li>It is safer you use a different folder.</li>
 </ul>
 </li>
-<li>I've already synced an RStudio project with Insync without setting the ignore list
+<li>I&rsquo;ve already synced an RStudio project with Insync without setting the ignore list
 <ul>
 <li>Create a new RStudio project in a different folder and copy your data an script to this new RStudio project</li>
 </ul>
@@ -456,9 +458,9 @@ Improve this page</a>
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/tutorials\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
 
-<script src='/tutorials/assets/js/main.00df04b7.js'></script><script src='/tutorials/js/custom.js'></script>
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
 
 </body>
 
