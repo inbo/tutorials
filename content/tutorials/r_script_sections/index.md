@@ -6,20 +6,22 @@ date: 2018-06-14
 categories: ["r"]
 tags: ["tidyverse", "r"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: markdown_github
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
-Introduction
-------------
+## Introduction
 
-R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
+R code can become elaborate and consequently unclear or difficult to
+navigate. Yet, it is possible to introduce headers and navigate through
+them.
 
-Creating sections manually
---------------------------
+## Creating sections manually
 
-To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (\#) automatically creates a code section.
+To create a header of a section, different methods can be applied. Any
+comment line which includes at least four trailing dashes (-), equal
+signs (=), or hash tags (\#) automatically creates a code section.
 
 ``` r
 # 1. Header 1 ####
@@ -29,27 +31,30 @@ To create a header of a section, different methods can be applied. Any comment l
 # 3. Header 3 ====
 ```
 
-On the right side of the code editor, nex to the buttons to run your code, a button with horizontal lines can be found. When you click it, the headers will be visible. As such, the structure of your code is visible and allows more easily to navigate through it.
+On the right side of the code editor, nex to the buttons to run your
+code, a button with horizontal lines can be found. When you click it,
+the headers will be visible. As such, the structure of your code is
+visible and allows more easily to navigate through it.
 
-Another way of navigation is via the button with the name of the selected header On the bottom of the code editor.
+Another way of navigation is via the button with the name of the
+selected header On the bottom of the code editor.
 
-Creating sections automatically
--------------------------------
+## Creating sections automatically
 
-It is also possible to add sections automatically by clicking on the tab **Code** and select **Insert Section...**
+It is also possible to add sections automatically by clicking on the tab
+**Code** and select **Insert Section…**
 
-Drop down
----------
+## Drop down
 
-Note there is a drop down button next to each header, allowing to collapse or expand your code. Yet, there are shortcuts to this:
+Note there is a drop down button next to each header, allowing to
+collapse or expand your code. Yet, there are shortcuts to this:
 
 1.  **Collapse** — Alt+L
 2.  **Expand** — Shift+Alt+L
 3.  **Collapse All** — Alt+O
 4.  **Expand All** — Shift+Alt+O
 
-An example
-----------
+## An example
 
 Now we will illustrate its use with an example of an analysis.
 
@@ -59,18 +64,20 @@ Run tidyverse package
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 
-    ## ✔ ggplot2 3.1.0.9000     ✔ purrr   0.2.5     
-    ## ✔ tibble  1.4.2          ✔ dplyr   0.7.6     
-    ## ✔ tidyr   0.8.1          ✔ stringr 1.3.1     
-    ## ✔ readr   1.1.1          ✔ forcats 0.3.0
+    ## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+    ## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
+    ## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
+    ## ✓ readr   2.0.2     ✓ forcats 0.5.1
 
-    ## ── Conflicts ────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
 
-Now different manipulations will be performed on the dataset. To make navigation through the different manipulations more straightforward, we add sections.
+Now different manipulations will be performed on the dataset. To make
+navigation through the different manipulations more straightforward, we
+add sections.
 
 ``` r
 # 1. Plot hindfoot length over weight per year ----

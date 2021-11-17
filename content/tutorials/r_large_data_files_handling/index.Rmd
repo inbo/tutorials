@@ -6,9 +6,9 @@ date: 2017-02-10
 categories: ["r"]
 tags: ["tidyverse", "r", "database"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: markdown_github
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
 ```{r setup, include=FALSE}
@@ -300,4 +300,3 @@ Remark that the dates are properly handled, by making sure the date representati
 file.remove("example.sqlite")
 file.remove("example2.sqlite")
 ```
-

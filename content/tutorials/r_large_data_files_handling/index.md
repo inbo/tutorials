@@ -6,36 +6,50 @@ date: 2017-02-10
 categories: ["r"]
 tags: ["tidyverse", "r", "database"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: markdown_github
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
-Intro
------
+## Intro
 
-R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
+R is known to have difficulties handling large data files. Here we will
+explore some tips that make working with such files in R less painfull.
 
-tl;dr
------
+## tl;dr
 
--   If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the `data.table` package and [read the file with its `fread` function](#loadentire).
+-   If you can comfortably work with the entire file in memory, but
+    reading the file is rather slow, consider using the `data.table`
+    package and [read the file with its `fread` function](#loadentire).
 -   If your file does not comfortably fit in memory:
     -   [Use `sqldf`](#sqldftit) if you have to stick to `csv` files.
-    -   Use a SQLite database and query it using either [SQL queries](#sqlitestrat) or [`dplyr`](#dplyrstrat).
-    -   [Convert](#convertsqlite) your `csv` file to a `sqlite` database in order to query
+    -   Use a SQLite database and query it using either [SQL
+        queries](#sqlitestrat) or [`dplyr`](#dplyrstrat).
+    -   [Convert](#convertsqlite) your `csv` file to a `sqlite` database
+        in order to query
 
-Downloading the example files
------------------------------
+## Downloading the example files
 
-While you can directly test this tutorial on your own large data files, we will use bird tracking data from the [LifeWatch bird tracking network](https://doi.org/10.3897/zookeys.555.6173) for the examples. We have made two versions of some tracking data available for download: a `.csv` file (text data) and a `.db` file (sqlite data). Both contain processed log files; for more information on the processing, see the [BirdTrackingEtl package](https://github.com/inbo/bird-tracking-etl).
+While you can directly test this tutorial on your own large data files,
+we will use bird tracking data from the [LifeWatch bird tracking
+network](https://doi.org/10.3897/zookeys.555.6173) for the examples. We
+have made two versions of some tracking data available for download: a
+`.csv` file (text data) and a `.db` file (sqlite data). Both contain
+processed log files; for more information on the processing, see the
+[BirdTrackingEtl package](https://github.com/inbo/bird-tracking-etl).
 
 ``` r
 csv.name <- "2016-04-20-processed-logs-big-file-example.csv"
 db.name <- "2016-04-20-processed-logs-big-file-example.db"
 ```
 
-The evaluation of the next code chunk is ignored by default as the downloading and unzipping of the files results in more than 3 GB of data. If you do want to download the files yourself and test the other chunks, run the code and download the `csv` and `sqlite` examples. Make sure you have the `R.utils` package available (for unzipping the downloaded files). If not, use the command `install.packages("R.utils")` in your R console to download the package.
+The evaluation of the next code chunk is ignored by default as the
+downloading and unzipping of the files results in more than 3 GB of
+data. If you do want to download the files yourself and test the other
+chunks, run the code and download the `csv` and `sqlite` examples. Make
+sure you have the `R.utils` package available (for unzipping the
+downloaded files). If not, use the command `install.packages("R.utils")`
+in your R console to download the package.
 
 ``` r
 library("R.utils")
@@ -56,15 +70,19 @@ if (!file.exists(db.name)) {
 }
 ```
 
-Loading a large dataset: use `fread()` or functions from `readr` instead of `read.xxx()`.
------------------------------------------------------------------------------------------
+## Loading a large dataset: use `fread()` or functions from `readr` instead of `read.xxx()`.
 
 ``` r
 library("data.table")
 library("readr")
 ```
 
-If you really need to read an entire csv in memory, by default, R users use the `read.table` method or variations thereof (such as `read.csv`). However, `fread` from the `data.table` package is a lot faster. Furthermore, the `readr` package also provides more optimized reading functions (`read_csv`, `read_delim`,...). Let's measure the time to read in the data using these three different methods.
+If you really need to read an entire csv in memory, by default, R users
+use the `read.table` method or variations thereof (such as `read.csv`).
+However, `fread` from the `data.table` package is a lot faster.
+Furthermore, the `readr` package also provides more optimized reading
+functions (`read_csv`, `read_delim`,…). Let’s measure the time to read
+in the data using these three different methods.
 
 ``` r
 read.table.timing <- system.time(read.table(csv.name, header = TRUE, sep = ","))
@@ -76,27 +94,57 @@ data
 ```
 
     ##       method  timing
-    ## 1 read.table 362.819
-    ## 2      readr  34.016
-    ## 3      fread  24.785
+    ## 1 read.table 183.732
+    ## 2      readr   3.625
+    ## 3      fread  12.564
 
-`fread` and `read_delim` are indeed much faster then the default `read.table`. However, the result of `fread` is a `data.table` and the result of `read_delim` is a `tibble`. Both are not a `data.frame`. The `data.table` package describes the `data.table` object as a more performant replacement for the `data.frame`. This means that selecting, filtering and aggregating data is much faster on a `data.table` compared to the standard `data.frame` but it requires you to use a slightly different syntax. A `tibble` is very similar to a `data.frame`, but provides more convenience when printing or subsetting the data table.
+`fread` and `read_delim` are indeed much faster then the default
+`read.table`. However, the result of `fread` is a `data.table` and the
+result of `read_delim` is a `tibble`. Both are not a `data.frame`. The
+`data.table` package describes the `data.table` object as a more
+performant replacement for the `data.frame`. This means that selecting,
+filtering and aggregating data is much faster on a `data.table` compared
+to the standard `data.frame` but it requires you to use a slightly
+different syntax. A `tibble` is very similar to a `data.frame`, but
+provides more convenience when printing or subsetting the data table.
 
-You can find the `data.table` package on [CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A good place to learn this package are the package vignettes. The [introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html) should be enough to get started. The `readr` package is also on [CRAN](https://cran.r-project.org/web/packages/readr/index.html). It belongs to a suite of R packages aiming to improve data manipulation in R, called [tidyverse](http://tidyverse.org/). More examples and explanation about `readr` is provided on the [readr website](http://readr.tidyverse.org/).
+You can find the `data.table` package on
+[CRAN](https://cran.r-project.org/web/packages/data.table/index.html). A
+good place to learn this package are the package vignettes. The
+[introduction to
+data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro-vignette.html)
+should be enough to get started. The `readr` package is also on
+[CRAN](https://cran.r-project.org/web/packages/readr/index.html). It
+belongs to a suite of R packages aiming to improve data manipulation in
+R, called [tidyverse](http://tidyverse.org/). More examples and
+explanation about `readr` is provided on the [readr
+website](http://readr.tidyverse.org/).
 
-Data files that don't fit in memory
------------------------------------
+## Data files that don’t fit in memory
 
-If you are not able to read in the data file, because it does not fit in memory (or because R becomes too slow when you load the entire dataset), you will need to limit the amount of data that will actually be stored in memory. There are a couple of options which we will investigate:
+If you are not able to read in the data file, because it does not fit in
+memory (or because R becomes too slow when you load the entire dataset),
+you will need to limit the amount of data that will actually be stored
+in memory. There are a couple of options which we will investigate:
 
-1.  limit the number of lines you are trying to read for some exploratory analysis. Once you are happy with the analysis you want to run on the entire dataset, move to another machine.
-2.  limit the number of columns you are reading to reduce the memory required to store the data.
-3.  limit both the number of rows and the number of columns using `sqldf`.
+1.  limit the number of lines you are trying to read for some
+    exploratory analysis. Once you are happy with the analysis you want
+    to run on the entire dataset, move to another machine.
+2.  limit the number of columns you are reading to reduce the memory
+    required to store the data.
+3.  limit both the number of rows and the number of columns using
+    `sqldf`.
 4.  stream the data.
 
 ### 1. Limit the number of lines you read (`fread`)
 
-Limiting the number of lines you read is easy. Just use the `nrows` and/or `skip` option (available to both `read.table` and `fread`). `skip` can be used to skip a number of rows, but you can also pass a string to this parameter causing `fread` to only start reading lines from the first line matching that string. Let's say we only want to start reading lines after we find a line matching the pattern `2015-06-12 15:14:39`. We can do that like this:
+Limiting the number of lines you read is easy. Just use the `nrows`
+and/or `skip` option (available to both `read.table` and `fread`).
+`skip` can be used to skip a number of rows, but you can also pass a
+string to this parameter causing `fread` to only start reading lines
+from the first line matching that string. Let’s say we only want to
+start reading lines after we find a line matching the pattern
+`2015-06-12 15:14:39`. We can do that like this:
 
 ``` r
 sprintf("Number of lines in full data set: %s", nrow(allData))
@@ -111,11 +159,21 @@ sprintf("Number of lines in data set with skipped lines: %s", nrow(subSet))
 
     ## [1] "Number of lines in data set with skipped lines: 9998"
 
-Skipping rows this way is obviously not giving you the entire dataset, so this strategy is only useful for doing exploratory analysis on a subset of your data. Note that also `read_delim` provides a `n_max` argument to limit the number of lines to read. If you want to explore the whole dataset, limiting the number of columns you read can be a more useful strategy.
+Skipping rows this way is obviously not giving you the entire dataset,
+so this strategy is only useful for doing exploratory analysis on a
+subset of your data. Note that also `read_delim` provides a `n_max`
+argument to limit the number of lines to read. If you want to explore
+the whole dataset, limiting the number of columns you read can be a more
+useful strategy.
 
 ### 2. Limit the number of columns you read (`fread`)
 
-If you only need 4 columns of the 21 columns present in the file, you can tell `fread` to only select those 4. This can have a major impact on the memory footprint of your data. The option you need for this is: `select`. With this, you can specify a number of columns to keep. The opposite - specifying the columns you want to drop - can be accomplished with the `drop` option.
+If you only need 4 columns of the 21 columns present in the file, you
+can tell `fread` to only select those 4. This can have a major impact on
+the memory footprint of your data. The option you need for this is:
+`select`. With this, you can specify a number of columns to keep. The
+opposite - specifying the columns you want to drop - can be accomplished
+with the `drop` option.
 
 ``` r
 fourColumns = fread(csv.name, select = c("device_info_serial", "date_time", 
@@ -124,27 +182,47 @@ fourColumns = fread(csv.name, select = c("device_info_serial", "date_time",
 sprintf("Size of total data in memory: %s MB", utils::object.size(allData)/1000000)
 ```
 
-    ## [1] "Size of total data in memory: 1434.074264 MB"
+    ## [1] "Size of total data in memory: 1173.480728 MB"
 
 ``` r
 sprintf("Size of only four columns in memory: %s MB", utils::object.size(fourColumns)/1000000)
 ```
 
-    ## [1] "Size of only four columns in memory: 365.90692 MB"
+    ## [1] "Size of only four columns in memory: 105.311936 MB"
 
-The difference might not be as large as you would expect. R objects claim more memory than needed to store the data alone, as they keep pointers, and other object attributes. But still, the difference could save you.
+The difference might not be as large as you would expect. R objects
+claim more memory than needed to store the data alone, as they keep
+pointers, and other object attributes. But still, the difference could
+save you.
 
 ### 3. Limiting both the number of rows and the number of columns using `sqldf`
 
-The [sqldf package](https://cran.r-project.org/web/packages/sqldf/sqldf.pdf) allows you to run SQL-like queries on a file, resulting in only a selection of the file being read. It allows you to limit both the number of lines and the number of rows at the same time. In the background, this actually creates a sqlite database on the fly to execute the query. Consider using the package when starting from a csv file, but the actual strategy boils down to making a sqlite database file of your data. See [this section below](#the-database-file-strategy) to learn how to interact with those and create a SQlite database from a CSV-file.
+The [sqldf
+package](https://cran.r-project.org/web/packages/sqldf/sqldf.pdf) allows
+you to run SQL-like queries on a file, resulting in only a selection of
+the file being read. It allows you to limit both the number of lines and
+the number of rows at the same time. In the background, this actually
+creates a sqlite database on the fly to execute the query. Consider
+using the package when starting from a csv file, but the actual strategy
+boils down to making a sqlite database file of your data. See [this
+section below](#the-database-file-strategy) to learn how to interact
+with those and create a SQlite database from a CSV-file.
 
 ### 4. Streaming data
 
-**Short:** streaming a file in R is a bad idea. If you are interested why, read the rest of this section.
+**Short:** streaming a file in R is a bad idea. If you are interested
+why, read the rest of this section.
 
-Streaming a file means reading it line by line and only keeping the lines you need or do stuff with the lines while you read through the file. It turns out that R is really not very efficient in streaming files. The main reason is the memory allocation process that has difficulties with a constantly growing object (which can be a dataframe containing only the selected lines).
+Streaming a file means reading it line by line and only keeping the
+lines you need or do stuff with the lines while you read through the
+file. It turns out that R is really not very efficient in streaming
+files. The main reason is the memory allocation process that has
+difficulties with a constantly growing object (which can be a dataframe
+containing only the selected lines).
 
-In the next code block, we will read parts of our data file once using the `fread`function, and once line by line. You'll see the performance issue with the streaming solution.
+In the next code block, we will read parts of our data file once using
+the `fread`function, and once line by line. You’ll see the performance
+issue with the streaming solution.
 
 ``` r
 library(ggplot2)
@@ -186,21 +264,36 @@ qplot(n, execTime, data = pdata, color = algorithm,
       xlab = "number of lines read", ylab = "execution time (s)")
 ```
 
-![](index_files/figure-markdown_github/streamexample-1.png)
+![](index_files/figure-gfm/streamexample-1.png)<!-- -->
 
-The database file strategy
---------------------------
+## The database file strategy
 
 ### Working with SQLite databases
 
-SQLite databases are single file databases meaning you can simply download them, store them in a folder or share them with colleagues. Similar to a csv. They are however more powerful than csv's because of two important features:
+SQLite databases are single file databases meaning you can simply
+download them, store them in a folder or share them with colleagues.
+Similar to a csv. They are however more powerful than csv’s because of
+two important features:
 
--   Support for SQL: this allows you to execute intelligent filters on your data, similar to the `sqldf` package or database environments you are familiar with. That way, you can reduce the amount of data that's stored in memory by filtering out rows or columns.
--   Indexes: SQLite databases contain indexes. An index is something like an ordered version of a column. When enabled on a column, you can search through the column much faster. We will demonstrate this below.
+-   Support for SQL: this allows you to execute intelligent filters on
+    your data, similar to the `sqldf` package or database environments
+    you are familiar with. That way, you can reduce the amount of data
+    that’s stored in memory by filtering out rows or columns.
+-   Indexes: SQLite databases contain indexes. An index is something
+    like an ordered version of a column. When enabled on a column, you
+    can search through the column much faster. We will demonstrate this
+    below.
 
-We have downloaded a second file `2016-04-20-processed-logs-big-file-example.db` that contains the same data as the `2016-04-20-processed-logs-big-file-example.csv` file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, you can first convert your csv into a SQlite as described [further in this tutorial](#convertsqlite).
+We have downloaded a second file
+`2016-04-20-processed-logs-big-file-example.db` that contains the same
+data as the `2016-04-20-processed-logs-big-file-example.csv` file, but
+as a sqlite database. Furthermore, the database file contains indexes
+which will dramatically drop the time needed to perform search queries.
+If you do not have a SQLite database containing your data, you can first
+convert your csv into a SQlite as described [further in this
+tutorial](#create-a-sqlite-database-from-a-csv-file).
 
-Let's first connect to the database and list the available tables.
+Let’s first connect to the database and list the available tables.
 
 ``` r
 library(RSQLite)
@@ -210,32 +303,23 @@ db <- dbConnect(SQLite(), dbname = db.name)
 dbListTables(db)
 ```
 
-    ##  [1] "SpatialIndex"                      
-    ##  [2] "geom_cols_ref_sys"                 
-    ##  [3] "geometry_columns"                  
-    ##  [4] "geometry_columns_auth"             
-    ##  [5] "geometry_columns_field_infos"      
-    ##  [6] "geometry_columns_statistics"       
-    ##  [7] "geometry_columns_time"             
-    ##  [8] "processed_logs"                    
-    ##  [9] "spatial_ref_sys"                   
-    ## [10] "spatialite_history"                
-    ## [11] "sql_statements_log"                
-    ## [12] "sqlite_sequence"                   
-    ## [13] "vector_layers"                     
-    ## [14] "vector_layers_auth"                
-    ## [15] "vector_layers_field_infos"         
-    ## [16] "vector_layers_statistics"          
-    ## [17] "views_geometry_columns"            
-    ## [18] "views_geometry_columns_auth"       
-    ## [19] "views_geometry_columns_field_infos"
-    ## [20] "views_geometry_columns_statistics" 
-    ## [21] "virts_geometry_columns"            
-    ## [22] "virts_geometry_columns_auth"       
-    ## [23] "virts_geometry_columns_field_infos"
-    ## [24] "virts_geometry_columns_statistics"
+    ##  [1] "SpatialIndex"                       "geom_cols_ref_sys"                 
+    ##  [3] "geometry_columns"                   "geometry_columns_auth"             
+    ##  [5] "geometry_columns_field_infos"       "geometry_columns_statistics"       
+    ##  [7] "geometry_columns_time"              "processed_logs"                    
+    ##  [9] "spatial_ref_sys"                    "spatialite_history"                
+    ## [11] "sql_statements_log"                 "sqlite_sequence"                   
+    ## [13] "vector_layers"                      "vector_layers_auth"                
+    ## [15] "vector_layers_field_infos"          "vector_layers_statistics"          
+    ## [17] "views_geometry_columns"             "views_geometry_columns_auth"       
+    ## [19] "views_geometry_columns_field_infos" "views_geometry_columns_statistics" 
+    ## [21] "virts_geometry_columns"             "virts_geometry_columns_auth"       
+    ## [23] "virts_geometry_columns_field_infos" "virts_geometry_columns_statistics"
 
-Let's try to select rows where the device id matches a given value (e.g. 860), and the date time is between two given timestamps. For our analysis, we only need `date_time`, `latitude`, `longitude` and `altitude` so we will only select those.
+Let’s try to select rows where the device id matches a given value
+(e.g. 860), and the date time is between two given timestamps. For our
+analysis, we only need `date_time`, `latitude`, `longitude` and
+`altitude` so we will only select those.
 
 ``` r
 sqlTiming <- system.time(data <-  dbGetQuery(conn = db,
@@ -250,9 +334,16 @@ print(sqlTiming[3])
 ```
 
     ## elapsed 
-    ##   13.48
+    ##  40.405
 
-This provides a convenient and fast way to request subsets of data from our large data file. We could do the same analysis for each of the serial numbers, each time only loading that subset of the data. As an example, consider the calculation of the average altitude over the specified period for each of the bird serial identifiers in the list `serial_id_list`. By using a for loop, the calculation is done for each of the birds separately and the amount of data loaded into memory at the same time is lower:
+This provides a convenient and fast way to request subsets of data from
+our large data file. We could do the same analysis for each of the
+serial numbers, each time only loading that subset of the data. As an
+example, consider the calculation of the average altitude over the
+specified period for each of the bird serial identifiers in the list
+`serial_id_list`. By using a for loop, the calculation is done for each
+of the birds separately and the amount of data loaded into memory at the
+same time is lower:
 
 ``` r
 serial_id_list <- c(853, 860, 783)
@@ -277,11 +368,20 @@ for (serialid in serial_id_list) {
     ## [1] "serialID 860: 23.550518"
     ## [1] "serialID 783: 14.900030"
 
-Remark that we use the `sprintf` function to dynamically replace the serial id in the sqlite query we will execute. For each loop, the `%d` is replaced by the value of the serial id of the respective loop. Read the [manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/sprintf.html) of the `sprintf` function for more information and options.
+Remark that we use the `sprintf` function to dynamically replace the
+serial id in the sqlite query we will execute. For each loop, the `%d`
+is replaced by the value of the serial id of the respective loop. Read
+the
+[manual](https://stat.ethz.ch/R-manual/R-devel/library/base/html/sprintf.html)
+of the `sprintf` function for more information and options.
 
 ### Interacting with SQLite databases using `dplyr`
 
-If you're not comfortable with writing queries in SQL, R has a great alternative: `dplyr`. `dplyr` can connect to a SQLite database and you can perform the same operations on it that you would do on a dataframe. However, dplyr will translate your commands to SQL, allowing you to take advantage of the indexes in the SQLite database.
+If you’re not comfortable with writing queries in SQL, R has a great
+alternative: `dplyr`. `dplyr` can connect to a SQLite database and you
+can perform the same operations on it that you would do on a dataframe.
+However, dplyr will translate your commands to SQL, allowing you to take
+advantage of the indexes in the SQLite database.
 
 ``` r
 library(dplyr)
@@ -296,8 +396,8 @@ head(results)
 ```
 
     ## # Source:   lazy query [?? x 4]
-    ## # Database: sqlite 3.19.3
-    ## #   [/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/r_large_data_files_handling/2016-04-20-processed-logs-big-file-example.db]
+    ## # Database: sqlite 3.36.0
+    ## #   [/Users/peter_desmet/Coding/Repositories/inbo/tutorials/content/tutorials/r_large_data_files_handling/2016-04-20-processed-logs-big-file-example.db]
     ##   date_time           latitude longitude altitude
     ##   <chr>                  <dbl>     <dbl>    <dbl>
     ## 1 2014-03-10 12:43:37     44.0     -7.59      626
@@ -307,13 +407,23 @@ head(results)
     ## 5 2014-03-10 13:43:54     44.1     -7.72      174
     ## 6 2014-03-10 13:59:06     44.1     -7.73       23
 
-Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use `dplyr` with a SQLite database, head over to [this vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
+Dplyr provides the ability to perform queries as above without the need
+to know SQL. If you want to learn more about how to use `dplyr` with a
+SQLite database, head over to [this
+vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
-### Create a SQLite databases from a CSV file
+### Create a SQLite database from a CSV file
 
-In the case you have a CSV file available and you would like to query the data using SQL queries or with `dplyr` as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with `dplyr` as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with.
+In the case you have a CSV file available and you would like to query
+the data using SQL queries or with `dplyr` as shown in the previous
+sections, you can decide to convert the data to a SQlite database. The
+conversion will require some time, but once available, it provides the
+opportunity to query the data using SQL queries or with `dplyr` as shown
+in the previous sections. Moreover, you can easily add additional tables
+with related information to combine the data with.
 
-If you already loaded the CSV file into memory, the creation of a SQLITE database is very straighforward and can be achieved in two steps:
+If you already loaded the CSV file into memory, the creation of a SQLITE
+database is very straighforward and can be achieved in two steps:
 
 ``` r
 db <- dbConnect(SQLite(), dbname = "example.sqlite")
@@ -321,7 +431,11 @@ dbWriteTable(db, "birdtracks", allData)
 dbDisconnect(db)
 ```
 
-The first command creates a new database when the file `example.sqlite` does not exist already. The command `dbWriteTable` writes the table in the database. Hence, we can rerun the query from the previous section, but now on the newly created SQlite database, with the single created table `birdtracks`:
+The first command creates a new database when the file `example.sqlite`
+does not exist already. The command `dbWriteTable` writes the table in
+the database. Hence, we can rerun the query from the previous section,
+but now on the newly created SQlite database, with the single created
+table `birdtracks`:
 
 ``` r
 my_db <- src_sqlite("example.sqlite", create = FALSE)
@@ -335,22 +449,35 @@ head(results)
 ```
 
     ## # Source:   lazy query [?? x 4]
-    ## # Database: sqlite 3.19.3
-    ## #   [/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/r_large_data_files_handling/example.sqlite]
-    ##   date_time           latitude longitude altitude
-    ##   <chr>                  <dbl>     <dbl>    <int>
-    ## 1 2014-03-10 12:43:37     44.0     -7.59      626
-    ## 2 2014-03-10 12:58:32     44.1     -7.67      405
-    ## 3 2014-03-10 13:13:52     44.1     -7.69      326
-    ## 4 2014-03-10 13:28:57     44.1     -7.71      250
-    ## 5 2014-03-10 13:43:54     44.1     -7.72      174
-    ## 6 2014-03-10 13:59:06     44.1     -7.73       23
+    ## # Database: sqlite 3.36.0
+    ## #   [/Users/peter_desmet/Coding/Repositories/inbo/tutorials/content/tutorials/r_large_data_files_handling/example.sqlite]
+    ## # … with 4 variables: date_time <dbl>, latitude <dbl>, longitude <dbl>,
+    ## #   altitude <int>
 
-However, when working with really large CSV files, you do not want to load the entire file into memory first (this is the whole point of this tutorial). An alternative strategy is to load the data from the CSV file in chunks (small sections) and write them step by step to the SQlite database.
+However, when working with really large CSV files, you do not want to
+load the entire file into memory first (this is the whole point of this
+tutorial). An alternative strategy is to load the data from the CSV file
+in chunks (small sections) and write them step by step to the SQlite
+database.
 
-This can be implemented by reading the CSV file in small sections (let's say 50000 lines each time) and move all sections to a given table in a sqlite database. As this is a recurrent task, we will provide the transformation in a custom written function, called `csv_to_sqlite`. The function is available within the [`inborutils` package](https://inbo.github.io/inborutils/). Check the function documentation [online](https://inbo.github.io/inborutils/reference/csv_to_sqlite.html) or by typing `?csv_to_sqlite` after installing and loading the `inborutils` package. As SQlite does not natively support `date` and `datetime` representations, the function converts those columns to an appropriate string representation before copying the dates to sqlite. To check for the date handling, the `lubridate` package is used.
+This can be implemented by reading the CSV file in small sections (let’s
+say 50000 lines each time) and move all sections to a given table in a
+sqlite database. As this is a recurrent task, we will provide the
+transformation in a custom written function, called `csv_to_sqlite`. The
+function is available within the [`inborutils`
+package](https://inbo.github.io/inborutils/). Check the function
+documentation
+[online](https://inbo.github.io/inborutils/reference/csv_to_sqlite.html)
+or by typing `?csv_to_sqlite` after installing and loading the
+`inborutils` package. As SQlite does not natively support `date` and
+`datetime` representations, the function converts those columns to an
+appropriate string representation before copying the dates to sqlite. To
+check for the date handling, the `lubridate` package is used.
 
-As an example, let's convert the processed bird logs csv file to a sqlite database, called `example.sqlite` as a table `birdtracks`. Using the default values for the preprocessing number of lines and the chunk size, the conversion is as follows:
+As an example, let’s convert the processed bird logs csv file to a
+sqlite database, called `example.sqlite` as a table `birdtracks`. Using
+the default values for the preprocessing number of lines and the chunk
+size, the conversion is as follows:
 
 ``` r
 library(inborutils)
@@ -363,10 +490,20 @@ inborutils::csv_to_sqlite(csv_file = csv.name,
               chunk_size = 50000, show_progress_bar = FALSE)
 ```
 
-Hence, this approach will work for large files as well and is an ideal first step when doing this kind of analysis. Once performed, the SQlite database is available to query, similar to the previous examples:
+Hence, this approach will work for large files as well and is an ideal
+first step when doing this kind of analysis. Once performed, the SQlite
+database is available to query, similar to the previous examples:
 
 ``` r
 my_db <- src_sqlite("example2.sqlite", create = FALSE)
+```
+
+    ## Warning: `src_sqlite()` was deprecated in dplyr 1.0.0.
+    ## Please use `tbl()` directly with a database connection
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+
+``` r
 bird_tracking <- tbl(my_db, "birdtracks")
 results <- bird_tracking %>%
     filter(device_info_serial == 860) %>%
@@ -377,10 +514,10 @@ head(results)
 ```
 
     ## # Source:   lazy query [?? x 4]
-    ## # Database: sqlite 3.19.3
-    ## #   [/home/stijn_vanhoey/githubs/inbo_tutorials/content/tutorials/r_large_data_files_handling/example2.sqlite]
+    ## # Database: sqlite 3.36.0
+    ## #   [/Users/peter_desmet/Coding/Repositories/inbo/tutorials/content/tutorials/r_large_data_files_handling/example2.sqlite]
     ##   date_time           latitude longitude altitude
-    ##   <chr>                  <dbl>     <dbl>    <int>
+    ##   <chr>                  <dbl>     <dbl>    <dbl>
     ## 1 2014-03-10 12:43:37     44.0     -7.59      626
     ## 2 2014-03-10 12:58:32     44.1     -7.67      405
     ## 3 2014-03-10 13:13:52     44.1     -7.69      326
@@ -388,4 +525,5 @@ head(results)
     ## 5 2014-03-10 13:43:54     44.1     -7.72      174
     ## 6 2014-03-10 13:59:06     44.1     -7.73       23
 
-Remark that the dates are properly handled, by making sure the date representation inside SQlite is the converted string version.
+Remark that the dates are properly handled, by making sure the date
+representation inside SQlite is the converted string version.
