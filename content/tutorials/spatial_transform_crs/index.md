@@ -58,8 +58,9 @@ dataset. `CRS()` defines the coordinate reference system.
 proj4string(ngi) <- CRS(SRS_string = "EPSG:3812")
 ```
 
-    ## Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO"): Discarded
-    ## datum European_Terrestrial_Reference_System_1989 in CRS definition
+    ## Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO", prefer_proj
+    ## = prefer_proj): Discarded datum European Terrestrial Reference System 1989 in
+    ## Proj4 definition
 
 The `proj4string()` function refers to the older PROJ.4 strings to
 represent a CRS, which the `sp` package can still return for backward
@@ -68,7 +69,7 @@ information is not supported anymore. `sp` now uses the much better WKT2
 representation, which it will derive directly from the EPSG-code that we
 provided (even though the function to assign a CRS to an object is still
 called `proj4string()`). The WKT2 string is what the geospatial GDAL and
-PROJ libraries (the background workhorses) work with since PROJ \>= 6,
+PROJ libraries (the background workhorses) work with since PROJ &gt;= 6,
 and it looks like this:
 
 ``` r
@@ -104,21 +105,19 @@ cat(wkt_lambert2008)
     ##             ID["EPSG",8826]],
     ##         PARAMETER["Northing at false origin",665262,
     ##             LENGTHUNIT["metre",1],
-    ##             ID["EPSG",8827]],
-    ##         ID["EPSG",3811]],
+    ##             ID["EPSG",8827]]],
     ##     CS[Cartesian,2],
-    ##         AXIS["(E)",east,
+    ##         AXIS["easting (X)",east,
     ##             ORDER[1],
-    ##             LENGTHUNIT["metre",1,
-    ##                 ID["EPSG",9001]]],
-    ##         AXIS["(N)",north,
+    ##             LENGTHUNIT["metre",1]],
+    ##         AXIS["northing (Y)",north,
     ##             ORDER[2],
-    ##             LENGTHUNIT["metre",1,
-    ##                 ID["EPSG",9001]]],
+    ##             LENGTHUNIT["metre",1]],
     ##     USAGE[
-    ##         SCOPE["unknown"],
-    ##         AREA["Belgium - onshore"],
-    ##         BBOX[49.5,2.5,51.51,6.4]]]
+    ##         SCOPE["Engineering survey, topographic mapping."],
+    ##         AREA["Belgium - onshore."],
+    ##         BBOX[49.5,2.5,51.51,6.4]],
+    ##     ID["EPSG",3812]]
 
 We could verify the correctness of this position by plotting it on a
 map. Here we use the `leaflet` package which requires the data to be in
@@ -130,7 +129,7 @@ ngi_ll <- spTransform(ngi, CRS(SRS_string = "EPSG:4326"))
 cat(wkt(ngi_ll))
 ```
 
-    ## GEOGCRS["WGS 84",
+    ## GEOGCRS["WGS 84 (with axis order normalized for visualization)",
     ##     DATUM["World Geodetic System 1984",
     ##         ELLIPSOID["WGS 84",6378137,298.257223563,
     ##             LENGTHUNIT["metre",1]],
@@ -139,18 +138,14 @@ cat(wkt(ngi_ll))
     ##         ANGLEUNIT["degree",0.0174532925199433],
     ##         ID["EPSG",8901]],
     ##     CS[ellipsoidal,2],
-    ##         AXIS["longitude",east,
+    ##         AXIS["geodetic longitude (Lon)",east,
     ##             ORDER[1],
     ##             ANGLEUNIT["degree",0.0174532925199433,
     ##                 ID["EPSG",9122]]],
-    ##         AXIS["latitude",north,
+    ##         AXIS["geodetic latitude (Lat)",north,
     ##             ORDER[2],
     ##             ANGLEUNIT["degree",0.0174532925199433,
-    ##                 ID["EPSG",9122]]],
-    ##     USAGE[
-    ##         SCOPE["unknown"],
-    ##         AREA["World"],
-    ##         BBOX[-90,-180,90,180]]]
+    ##                 ID["EPSG",9122]]]]
 
 ``` r
 leaflet(ngi_ll) %>%
@@ -164,8 +159,10 @@ leaflet(ngi_ll) %>%
   #frameWidget()
 ```
 
+*Note: run the code to see the interactive map.*
+
 | CRS                             |  EPSG |
-| :------------------------------ | ----: |
+|:--------------------------------|------:|
 | WGS 84                          |  4326 |
 | Belge 1972 / Belgian Lambert 72 | 31370 |
 | ETRS89 / Belgian Lambert 2008   |  3812 |
