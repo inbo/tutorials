@@ -6,9 +6,9 @@ date: "`r Sys.Date()`"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model", "INLA"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
 This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. 

@@ -10,9 +10,9 @@ link-citations: true
 reference-section-title: References
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm+definition_lists
+  md_document:
+    preserve_yaml: true
+    variant: gfm+definition_lists
 editor_options:
   markdown:
     wrap: sentence

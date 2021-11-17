@@ -6,8 +6,8 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
+  md_document:
+    preserve_yaml: true
 ---
 
 ```{r setup, include = FALSE}
