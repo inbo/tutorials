@@ -6,7 +6,6 @@ date: 2020-09-15
 categories: ["r", "gis"]
 tags: ["gis", "r"]
 output: 
-    html_document: default
   md_document:
     preserve_yaml: true
     variant: gfm

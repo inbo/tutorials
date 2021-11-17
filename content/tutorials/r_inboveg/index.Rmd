@@ -7,6 +7,7 @@ tags: ["database", "queries"]
 output: 
   md_document:
     preserve_yaml: true
+    variant: gfm
 ---
 
 ```{r setup, include=FALSE}
