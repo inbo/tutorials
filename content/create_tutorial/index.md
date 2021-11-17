@@ -74,7 +74,7 @@ Replace all the CAPITAL words with appropriate information:
 
 Underneath the last triple dahs (`---`), you can write the tutorial as you like using [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). Use the `Preview` button to check how it would look like rendered on a website.
 
-**Notice:** You can add images from online source by using the URL of the image, e.g. `![short image description](http://.../my_image.jpg)`. For example, `https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png` will impor the INBO logo into your document:
+**Notice:** You can add images from online source by using the URL of the image, e.g. `![short image description](http://.../my_image.jpg)`. For example, `https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png` will include the INBO logo into your document:
 
 ![](https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png)
 
