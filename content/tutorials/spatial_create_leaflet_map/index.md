@@ -72,6 +72,8 @@ leaf_map
 
 ![](index_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
+*Note: run the code to see the interactive map.*
+
 **Nice, no?!**
 
 More information is provided [at the leaflet information
