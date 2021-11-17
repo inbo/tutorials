@@ -9,9 +9,9 @@ csl: https://raw.githubusercontent.com/citation-style-language/styles/master/res
 link-citations: TRUE
 bibliography: bibliography.yaml
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
 ```{r include = FALSE}
@@ -274,6 +274,8 @@ and:
 mapview(comm_simpl_31370, legend = FALSE)
 ```
 
+_Note: run the code to see this and the following interactive maps._
+
 In this case, `mapview` is using the `leaflet` package with some nice defaults, but in the above examples it makes a color map by default because there's only one attribute.
 We don't want this and we make some further adjustments:
 
@@ -347,7 +349,6 @@ Notice the completely different coordinate ranges between both CRSs:
 ```{r collapse=TRUE, comment="#>"}
 st_geometry(points)
 ```
-
 
 ```{r collapse=TRUE, comment="#>"}
 st_geometry(points_31370)
@@ -506,6 +507,3 @@ We specifically mention [`tmap`](https://r-tmap.github.io/tmap/) [@tennekes_tmap
 Further, there is the [`plotKML`](https://plotkml.r-forge.r-project.org/) package, which renders spatial objects in Google Earth [@hengl_plotkml:_2015]!
 
 ## Bibliography
-
-
-

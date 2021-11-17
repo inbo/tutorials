@@ -452,6 +452,8 @@ mapview(comm_simpl_31370, legend = FALSE)
 
 ![](index_files/figure-gfm/mapview_munic_multicolour-1.png)<!-- -->
 
+*Note: run the code to see this and the following interactive maps.*
+
 In this case, `mapview` is using the `leaflet` package with some nice
 defaults, but in the above examples it makes a color map by default
 because there’s only one attribute. We don’t want this and we make some
