@@ -6,9 +6,9 @@ date: 2019-06-20
 categories: ["r", "gis"]
 tags: ["gis", "r", "maps"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
 ``` r
@@ -55,7 +55,7 @@ invasive_species <- occ_download_get("0032582-190415153152247",
 
     ## Download file size: 0.01 MB
 
-    ## On disk at /tmp/RtmpXZ7Jlq/0032582-190415153152247.zip
+    ## On disk at /var/folders/c2/7_7qg3r93993m4kk3kjqgj2n76h_tn/T//RtmpYC9cBo/0032582-190415153152247.zip
 
 We will use the European reference grid system from the European
 Environmental Agency as an example of a GIS vector layer (each grid cell
@@ -102,23 +102,23 @@ be10grid
 ```
 
     ## Simple feature collection with 580 features and 3 fields
-    ## geometry type:  POLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: -22402.56 ymin: -1449.985 xmax: 311353.3 ymax: 305932.2
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
-    ## # A tibble: 580 x 4
-    ##    cellcode   eoforigin noforigin                                       GEOMETRY
-    ##  * <chr>          <dbl>     <dbl>                                  <POLYGON [m]>
-    ##  1 10kmE376N…   3760000   3180000 ((-20851.02 240718.4, -21626.25 250679.5, -11…
-    ##  2 10kmE376N…   3760000   3190000 ((-21626.25 250679.5, -22402.56 260640.9, -12…
-    ##  3 10kmE377N…   3770000   3140000 ((-7781.475 201650, -8552.253 211611, 1426.98…
-    ##  4 10kmE377N…   3770000   3150000 ((-8552.253 211611, -9324.075 221572.1, 655.3…
-    ##  5 10kmE377N…   3770000   3160000 ((-9324.075 221572.1, -10096.95 231533.3, -11…
-    ##  6 10kmE377N…   3770000   3170000 ((-10096.95 231533.3, -10870.87 241494.6, -89…
-    ##  7 10kmE377N…   3770000   3180000 ((-10870.87 241494.6, -11645.85 251456.1, -16…
-    ##  8 10kmE377N…   3770000   3190000 ((-11645.85 251456.1, -12421.9 261417.9, -244…
-    ##  9 10kmE377N…   3770000   3200000 ((-12421.9 261417.9, -13199.02 271379.8, -321…
-    ## 10 10kmE377N…   3770000   3210000 ((-13199.02 271379.8, -13977.21 281342.1, -39…
+    ## Geometry type: POLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -22402.56 ymin: -1449.985 xmax: 311353.3 ymax: 305932.2
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 580 × 4
+    ##    cellcode     eoforigin noforigin                                     GEOMETRY
+    ##  * <chr>            <dbl>     <dbl>                                <POLYGON [m]>
+    ##  1 10kmE376N318   3760000   3180000 ((-20851.02 240718.4, -21626.25 250679.5, -…
+    ##  2 10kmE376N319   3760000   3190000 ((-21626.25 250679.5, -22402.56 260640.9, -…
+    ##  3 10kmE377N314   3770000   3140000 ((-7781.475 201650, -8552.253 211611, 1426.…
+    ##  4 10kmE377N315   3770000   3150000 ((-8552.253 211611, -9324.075 221572.1, 655…
+    ##  5 10kmE377N316   3770000   3160000 ((-9324.075 221572.1, -10096.95 231533.3, -…
+    ##  6 10kmE377N317   3770000   3170000 ((-10096.95 231533.3, -10870.87 241494.6, -…
+    ##  7 10kmE377N318   3770000   3180000 ((-10870.87 241494.6, -11645.85 251456.1, -…
+    ##  8 10kmE377N319   3770000   3190000 ((-11645.85 251456.1, -12421.9 261417.9, -2…
+    ##  9 10kmE377N320   3770000   3200000 ((-12421.9 261417.9, -13199.02 271379.8, -3…
+    ## 10 10kmE377N321   3770000   3210000 ((-13199.02 271379.8, -13977.21 281342.1, -…
     ## # … with 570 more rows
 
 We can see that the spatial information resides in a `GEOMETRY` list
@@ -143,35 +143,30 @@ invasive_spatial
 ```
 
     ## Simple feature collection with 513 features and 43 fields
-    ## geometry type:  POINT
-    ## dimension:      XY
-    ## bbox:           xmin: 35125.77 ymin: 188235.3 xmax: 153743.3 ymax: 220135
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
-    ## # A tibble: 513 x 44
-    ##    gbifID datasetKey occurrenceID kingdom phylum class order family genus
-    ##  *  <int> <chr>      <chr>        <chr>   <chr>  <chr> <chr> <chr>  <chr>
-    ##  1 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  2 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  3 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  4 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  5 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  6 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  7 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  8 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ##  9 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-    ## 10 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ## Geometry type: POINT
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 35125.7 ymin: 188235.3 xmax: 153743.2 ymax: 220135
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 513 × 44
+    ##        gbifID datasetKey   occurrenceID  kingdom phylum class order family genus
+    ##  *      <int> <chr>        <chr>         <chr>   <chr>  <chr> <chr> <chr>  <chr>
+    ##  1 1146738051 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  2 1146738044 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  3 1146738029 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  4 1146738026 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  5 1146737979 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  6 1146737949 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  7 1146737902 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  8 1146737751 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ##  9 1146737736 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+    ## 10 1146737717 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
     ## # … with 503 more rows, and 35 more variables: species <chr>,
     ## #   infraspecificEpithet <lgl>, taxonRank <chr>, scientificName <chr>,
     ## #   countryCode <chr>, locality <lgl>, publishingOrgKey <chr>,
     ## #   coordinateUncertaintyInMeters <dbl>, coordinatePrecision <lgl>,
     ## #   elevation <lgl>, elevationAccuracy <lgl>, depth <lgl>, depthAccuracy <lgl>,
     ## #   eventDate <dttm>, day <int>, month <int>, year <int>, taxonKey <int>,
-    ## #   speciesKey <int>, basisOfRecord <chr>, institutionCode <chr>,
-    ## #   collectionCode <lgl>, catalogNumber <lgl>, recordNumber <lgl>,
-    ## #   identifiedBy <chr>, dateIdentified <lgl>, license <chr>,
-    ## #   rightsHolder <chr>, recordedBy <chr>, typeStatus <lgl>,
-    ## #   establishmentMeans <lgl>, lastInterpreted <dttm>, mediaType <lgl>,
-    ## #   issue <chr>, geometry <POINT [m]>
+    ## #   speciesKey <int>, basisOfRecord <chr>, institutionCode <chr>, …
 
 Now we are ready to make the spatial overlay. This is done with the aid
 of `sf::st_join`. The default join type is `st_intersects`. This will
@@ -203,22 +198,24 @@ invasive_be10grid_sf %>%
 ```
 
     ## Simple feature collection with 513 features and 3 fields
-    ## geometry type:  POINT
-    ## dimension:      XY
-    ## bbox:           xmin: 35125.77 ymin: 188235.3 xmax: 153743.3 ymax: 220135
-    ## projected CRS:  Belge 1972 / Belgian Lambert 72
-    ## First 10 features:
-    ##               species  eventDate     cellcode                  geometry
-    ## 1  Eriocheir sinensis 2008-09-17 10kmE392N312   POINT (143788.9 201487)
-    ## 2  Eriocheir sinensis 2008-06-03 10kmE392N312   POINT (143788.9 201487)
-    ## 3  Eriocheir sinensis 2008-03-20 10kmE389N311 POINT (114822.9 188235.3)
-    ## 4  Eriocheir sinensis 2008-07-03 10kmE393N311 POINT (153743.3 191634.8)
-    ## 5  Eriocheir sinensis 2008-09-17 10kmE392N312   POINT (143788.9 201487)
-    ## 6  Eriocheir sinensis 2008-04-10 10kmE392N312 POINT (147138.3 199035.5)
-    ## 7  Eriocheir sinensis 2008-03-13 10kmE381N314 POINT (35125.77 205808.5)
-    ## 8  Eriocheir sinensis 2008-03-19 10kmE391N312 POINT (136197.7 197300.7)
-    ## 9  Eriocheir sinensis 2008-03-19 10kmE391N312 POINT (136197.7 197300.7)
-    ## 10 Eriocheir sinensis 2008-10-28 10kmE389N311 POINT (121593.9 190203.2)
+    ## Geometry type: POINT
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 35125.7 ymin: 188235.3 xmax: 153743.2 ymax: 220135
+    ## Projected CRS: Belge 1972 / Belgian Lambert 72
+    ## # A tibble: 513 × 4
+    ##    species            eventDate           cellcode                geometry
+    ##    <chr>              <dttm>              <chr>                <POINT [m]>
+    ##  1 Eriocheir sinensis 2008-09-17 00:00:00 10kmE392N312 (143788.9 201487.1)
+    ##  2 Eriocheir sinensis 2008-06-03 00:00:00 10kmE392N312 (143788.9 201487.1)
+    ##  3 Eriocheir sinensis 2008-03-20 00:00:00 10kmE389N311 (114822.9 188235.3)
+    ##  4 Eriocheir sinensis 2008-07-03 00:00:00 10kmE393N311 (153743.2 191634.8)
+    ##  5 Eriocheir sinensis 2008-09-17 00:00:00 10kmE392N312 (143788.9 201487.1)
+    ##  6 Eriocheir sinensis 2008-04-10 00:00:00 10kmE392N312 (147138.3 199035.5)
+    ##  7 Eriocheir sinensis 2008-03-13 00:00:00 10kmE381N314  (35125.7 205808.5)
+    ##  8 Eriocheir sinensis 2008-03-19 00:00:00 10kmE391N312 (136197.7 197300.8)
+    ##  9 Eriocheir sinensis 2008-03-19 00:00:00 10kmE391N312 (136197.7 197300.8)
+    ## 10 Eriocheir sinensis 2008-10-28 00:00:00 10kmE389N311 (121593.8 190203.2)
+    ## # … with 503 more rows
 
 ## Point in polygon with the `sp` package
 
@@ -259,11 +256,11 @@ be10grid <- readOGR(dsn = file.path(tempdir(), "Belgium.sqlite"),
 
     ## Warning in OGRSpatialRef(dsn, layer, morphFromESRI = morphFromESRI, dumpSRS
     ## = dumpSRS, : Discarded datum European_Terrestrial_Reference_System_1989 in
-    ## CRS definition: +proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000
+    ## Proj4 definition: +proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000
     ## +ellps=GRS80 +units=m +no_defs
 
     ## OGR data source with driver: SQLite 
-    ## Source: "/tmp/RtmpXZ7Jlq/Belgium.sqlite", layer: "be_10km"
+    ## Source: "/private/var/folders/c2/7_7qg3r93993m4kk3kjqgj2n76h_tn/T/RtmpYC9cBo/Belgium.sqlite", layer: "be_10km"
     ## with 580 features
     ## It has 3 fields
 
@@ -274,7 +271,7 @@ workhorses for spatial R packages). The spatialite database from the EEA
 website (with the 10 km x 10 km grid) still uses the older PROJ.4 string
 . Because the `rgdal` package is still backwards compatible, we should
 not (yet) worry about this: `rgdal` does the translation for the newer
-GDAL 3 and PROJ \>= 6. Do know that, instead of *PROJ.4* strings, the
+GDAL 3 and PROJ &gt;= 6. Do know that, instead of *PROJ.4* strings, the
 *WKT2* string is now used in R to better represent coordinate reference
 systems (so it would best be incorporated in the EEA data source). Just
 compare these:
@@ -325,8 +322,8 @@ wkt(be10grid) %>% cat  # or: be10grid@proj4string %>% comment %>% cat
     ##             ORDER[2],
     ##             LENGTHUNIT["metre",1]],
     ##     USAGE[
-    ##         SCOPE["unknown"],
-    ##         AREA["Europe - LCC & LAEA"],
+    ##         SCOPE["Statistical analysis."],
+    ##         AREA["Europe - European Union (EU) countries and candidates. Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Cyprus; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Iceland; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal including Madeira and Azores; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain including Canary Islands; Sweden; Switzerland; Turkey; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State."],
     ##         BBOX[24.6,-35.58,84.17,44.83]],
     ##     ID["EPSG",3035]]
 
@@ -361,7 +358,7 @@ invasive_species_be10grid %>%
   head(10)
 ```
 
-    ## # A tibble: 10 x 5
+    ## # A tibble: 10 × 5
     ##    species       decimalLatitude decimalLongitude eventDate           cellcode  
     ##    <chr>                   <dbl>            <dbl> <dttm>              <chr>     
     ##  1 Eriocheir si…            51.1             4.28 2008-09-17 00:00:00 10kmE392N…
@@ -404,3 +401,5 @@ leaflet(be10grid) %>%
 ```
 
 ![](index_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+*Note: run the code to see the interactive map.*
