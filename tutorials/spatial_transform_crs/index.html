@@ -236,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Mon Nov 22 08:12:00 UTC 2021</small></p>
+  <p><small>Built on: Mon Nov 22 16:58:51 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -318,7 +318,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-3 mins read
+4 mins read
 </span>
 
 
@@ -388,8 +388,9 @@ code which you can find at <a href="http://epsg.io/">http://epsg.io/</a>. The EP
 2008” is 3812. Let’s set this coordinate reference system to our
 dataset. <code>CRS()</code> defines the coordinate reference system.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">proj4string</span>(ngi) &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;EPSG:3812&#34;</span>)
-</code></pre></div><pre><code>## Warning in showSRID(SRS_string, format = &quot;PROJ&quot;, multiline = &quot;NO&quot;): Discarded
-## datum European_Terrestrial_Reference_System_1989 in CRS definition
+</code></pre></div><pre><code>## Warning in showSRID(SRS_string, format = &quot;PROJ&quot;, multiline = &quot;NO&quot;, prefer_proj
+## = prefer_proj): Discarded datum European Terrestrial Reference System 1989 in
+## Proj4 definition
 </code></pre>
 <p>The <code>proj4string()</code> function refers to the older PROJ.4 strings to
 represent a CRS, which the <code>sp</code> package can still return for backward
@@ -430,21 +431,19 @@ and it looks like this:</p>
 ##             ID[&quot;EPSG&quot;,8826]],
 ##         PARAMETER[&quot;Northing at false origin&quot;,665262,
 ##             LENGTHUNIT[&quot;metre&quot;,1],
-##             ID[&quot;EPSG&quot;,8827]],
-##         ID[&quot;EPSG&quot;,3811]],
+##             ID[&quot;EPSG&quot;,8827]]],
 ##     CS[Cartesian,2],
-##         AXIS[&quot;(E)&quot;,east,
+##         AXIS[&quot;easting (X)&quot;,east,
 ##             ORDER[1],
-##             LENGTHUNIT[&quot;metre&quot;,1,
-##                 ID[&quot;EPSG&quot;,9001]]],
-##         AXIS[&quot;(N)&quot;,north,
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         AXIS[&quot;northing (Y)&quot;,north,
 ##             ORDER[2],
-##             LENGTHUNIT[&quot;metre&quot;,1,
-##                 ID[&quot;EPSG&quot;,9001]]],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
 ##     USAGE[
-##         SCOPE[&quot;unknown&quot;],
-##         AREA[&quot;Belgium - onshore&quot;],
-##         BBOX[49.5,2.5,51.51,6.4]]]
+##         SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
+##         AREA[&quot;Belgium - onshore.&quot;],
+##         BBOX[49.5,2.5,51.51,6.4]],
+##     ID[&quot;EPSG&quot;,3812]]
 </code></pre>
 <p>We could verify the correctness of this position by plotting it on a
 map. Here we use the <code>leaflet</code> package which requires the data to be in
@@ -452,7 +451,7 @@ the “WGS84” coordinate reference system. Therefore we use
 <code>spTransform()</code> to do this transformation. “WGS84” has EPSG code 4326.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">ngi_ll &lt;- <span style="color:#0a0">spTransform</span>(ngi, <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;EPSG:4326&#34;</span>))
 <span style="color:#0a0">cat</span>(<span style="color:#0a0">wkt</span>(ngi_ll))
-</code></pre></div><pre><code>## GEOGCRS[&quot;WGS 84&quot;,
+</code></pre></div><pre><code>## GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
 ##     DATUM[&quot;World Geodetic System 1984&quot;,
 ##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
 ##             LENGTHUNIT[&quot;metre&quot;,1]],
@@ -461,25 +460,22 @@ the “WGS84” coordinate reference system. Therefore we use
 ##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
 ##         ID[&quot;EPSG&quot;,8901]],
 ##     CS[ellipsoidal,2],
-##         AXIS[&quot;longitude&quot;,east,
+##         AXIS[&quot;geodetic longitude (Lon)&quot;,east,
 ##             ORDER[1],
 ##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
 ##                 ID[&quot;EPSG&quot;,9122]]],
-##         AXIS[&quot;latitude&quot;,north,
+##         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
 ##             ORDER[2],
 ##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-##                 ID[&quot;EPSG&quot;,9122]]],
-##     USAGE[
-##         SCOPE[&quot;unknown&quot;],
-##         AREA[&quot;World&quot;],
-##         BBOX[-90,-180,90,180]]]
+##                 ID[&quot;EPSG&quot;,9122]]]]
 </code></pre>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>(ngi_ll) %&gt;%
   <span style="color:#0a0">addTiles</span>() %&gt;%
   <span style="color:#0a0">addMarkers</span>() <span style="color:#aaa;font-style:italic"># %&gt;%</span>
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#aaa;font-style:italic">#frameWidget()</span>
-</code></pre></div><table>
+</code></pre></div><p><em>Note: run the code to see the interactive map.</em></p>
+<table>
 <thead>
 <tr>
 <th style="text-align:left">CRS</th>

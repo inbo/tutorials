@@ -236,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Mon Nov 22 08:12:00 UTC 2021</small></p>
+  <p><small>Built on: Mon Nov 22 16:58:51 UTC 2021</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -318,7 +318,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-10 mins read
+11 mins read
 </span>
 
 
@@ -386,7 +386,7 @@ environment.</p>
   <span style="color:#0a0">filter</span>(!<span style="color:#0a0">is.na</span>(decimalLongitude), !<span style="color:#0a0">is.na</span>(decimalLatitude))
 </code></pre></div><pre><code>## Download file size: 0.01 MB
 
-## On disk at /tmp/RtmpXZ7Jlq/0032582-190415153152247.zip
+## On disk at /var/folders/c2/7_7qg3r93993m4kk3kjqgj2n76h_tn/T//RtmpYC9cBo/0032582-190415153152247.zip
 </code></pre>
 <p>We will use the European reference grid system from the European
 Environmental Agency as an example of a GIS vector layer (each grid cell
@@ -415,23 +415,23 @@ functions to read spatial data (which uses GDAL as backbone).</p>
 <p>Let’s have a look at this object:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">be10grid
 </code></pre></div><pre><code>## Simple feature collection with 580 features and 3 fields
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: -22402.56 ymin: -1449.985 xmax: 311353.3 ymax: 305932.2
-## projected CRS:  Belge 1972 / Belgian Lambert 72
-## # A tibble: 580 x 4
-##    cellcode   eoforigin noforigin                                       GEOMETRY
-##  * &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;                                  &lt;POLYGON [m]&gt;
-##  1 10kmE376N…   3760000   3180000 ((-20851.02 240718.4, -21626.25 250679.5, -11…
-##  2 10kmE376N…   3760000   3190000 ((-21626.25 250679.5, -22402.56 260640.9, -12…
-##  3 10kmE377N…   3770000   3140000 ((-7781.475 201650, -8552.253 211611, 1426.98…
-##  4 10kmE377N…   3770000   3150000 ((-8552.253 211611, -9324.075 221572.1, 655.3…
-##  5 10kmE377N…   3770000   3160000 ((-9324.075 221572.1, -10096.95 231533.3, -11…
-##  6 10kmE377N…   3770000   3170000 ((-10096.95 231533.3, -10870.87 241494.6, -89…
-##  7 10kmE377N…   3770000   3180000 ((-10870.87 241494.6, -11645.85 251456.1, -16…
-##  8 10kmE377N…   3770000   3190000 ((-11645.85 251456.1, -12421.9 261417.9, -244…
-##  9 10kmE377N…   3770000   3200000 ((-12421.9 261417.9, -13199.02 271379.8, -321…
-## 10 10kmE377N…   3770000   3210000 ((-13199.02 271379.8, -13977.21 281342.1, -39…
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -22402.56 ymin: -1449.985 xmax: 311353.3 ymax: 305932.2
+## Projected CRS: Belge 1972 / Belgian Lambert 72
+## # A tibble: 580 × 4
+##    cellcode     eoforigin noforigin                                     GEOMETRY
+##  * &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;                                &lt;POLYGON [m]&gt;
+##  1 10kmE376N318   3760000   3180000 ((-20851.02 240718.4, -21626.25 250679.5, -…
+##  2 10kmE376N319   3760000   3190000 ((-21626.25 250679.5, -22402.56 260640.9, -…
+##  3 10kmE377N314   3770000   3140000 ((-7781.475 201650, -8552.253 211611, 1426.…
+##  4 10kmE377N315   3770000   3150000 ((-8552.253 211611, -9324.075 221572.1, 655…
+##  5 10kmE377N316   3770000   3160000 ((-9324.075 221572.1, -10096.95 231533.3, -…
+##  6 10kmE377N317   3770000   3170000 ((-10096.95 231533.3, -10870.87 241494.6, -…
+##  7 10kmE377N318   3770000   3180000 ((-10870.87 241494.6, -11645.85 251456.1, -…
+##  8 10kmE377N319   3770000   3190000 ((-11645.85 251456.1, -12421.9 261417.9, -2…
+##  9 10kmE377N320   3770000   3200000 ((-12421.9 261417.9, -13199.02 271379.8, -3…
+## 10 10kmE377N321   3770000   3210000 ((-13199.02 271379.8, -13977.21 281342.1, -…
 ## # … with 570 more rows
 </code></pre>
 <p>We can see that the spatial information resides in a <code>GEOMETRY</code> list
@@ -447,35 +447,30 @@ containing coordinates to a spatial <code>sf</code> object:</p>
 </code></pre></div><p>Resulting in:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_spatial
 </code></pre></div><pre><code>## Simple feature collection with 513 features and 43 fields
-## geometry type:  POINT
-## dimension:      XY
-## bbox:           xmin: 35125.77 ymin: 188235.3 xmax: 153743.3 ymax: 220135
-## projected CRS:  Belge 1972 / Belgian Lambert 72
-## # A tibble: 513 x 44
-##    gbifID datasetKey occurrenceID kingdom phylum class order family genus
-##  *  &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-##  1 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  2 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  3 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  4 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  5 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  6 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  7 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  8 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-##  9 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
-## 10 1.15e9 258c9ce5-… INBO:VIS:00… Animal… Arthr… Mala… Deca… Pseud… Erio…
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 35125.7 ymin: 188235.3 xmax: 153743.2 ymax: 220135
+## Projected CRS: Belge 1972 / Belgian Lambert 72
+## # A tibble: 513 × 44
+##        gbifID datasetKey   occurrenceID  kingdom phylum class order family genus
+##  *      &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+##  1 1146738051 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  2 1146738044 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  3 1146738029 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  4 1146738026 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  5 1146737979 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  6 1146737949 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  7 1146737902 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  8 1146737751 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+##  9 1146737736 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
+## 10 1146737717 258c9ce5-1b… INBO:VIS:007… Animal… Arthr… Mala… Deca… Pseud… Erio…
 ## # … with 503 more rows, and 35 more variables: species &lt;chr&gt;,
 ## #   infraspecificEpithet &lt;lgl&gt;, taxonRank &lt;chr&gt;, scientificName &lt;chr&gt;,
 ## #   countryCode &lt;chr&gt;, locality &lt;lgl&gt;, publishingOrgKey &lt;chr&gt;,
 ## #   coordinateUncertaintyInMeters &lt;dbl&gt;, coordinatePrecision &lt;lgl&gt;,
 ## #   elevation &lt;lgl&gt;, elevationAccuracy &lt;lgl&gt;, depth &lt;lgl&gt;, depthAccuracy &lt;lgl&gt;,
 ## #   eventDate &lt;dttm&gt;, day &lt;int&gt;, month &lt;int&gt;, year &lt;int&gt;, taxonKey &lt;int&gt;,
-## #   speciesKey &lt;int&gt;, basisOfRecord &lt;chr&gt;, institutionCode &lt;chr&gt;,
-## #   collectionCode &lt;lgl&gt;, catalogNumber &lt;lgl&gt;, recordNumber &lt;lgl&gt;,
-## #   identifiedBy &lt;chr&gt;, dateIdentified &lt;lgl&gt;, license &lt;chr&gt;,
-## #   rightsHolder &lt;chr&gt;, recordedBy &lt;chr&gt;, typeStatus &lt;lgl&gt;,
-## #   establishmentMeans &lt;lgl&gt;, lastInterpreted &lt;dttm&gt;, mediaType &lt;lgl&gt;,
-## #   issue &lt;chr&gt;, geometry &lt;POINT [m]&gt;
+## #   speciesKey &lt;int&gt;, basisOfRecord &lt;chr&gt;, institutionCode &lt;chr&gt;, …
 </code></pre>
 <p>Now we are ready to make the spatial overlay. This is done with the aid
 of <code>sf::st_join</code>. The default join type is <code>st_intersects</code>. This will
@@ -498,22 +493,24 @@ completely within (excluding polygon boundary).</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">invasive_be10grid_sf %&gt;%
   <span style="color:#0a0">select</span>(species, eventDate, cellcode, geometry)
 </code></pre></div><pre><code>## Simple feature collection with 513 features and 3 fields
-## geometry type:  POINT
-## dimension:      XY
-## bbox:           xmin: 35125.77 ymin: 188235.3 xmax: 153743.3 ymax: 220135
-## projected CRS:  Belge 1972 / Belgian Lambert 72
-## First 10 features:
-##               species  eventDate     cellcode                  geometry
-## 1  Eriocheir sinensis 2008-09-17 10kmE392N312   POINT (143788.9 201487)
-## 2  Eriocheir sinensis 2008-06-03 10kmE392N312   POINT (143788.9 201487)
-## 3  Eriocheir sinensis 2008-03-20 10kmE389N311 POINT (114822.9 188235.3)
-## 4  Eriocheir sinensis 2008-07-03 10kmE393N311 POINT (153743.3 191634.8)
-## 5  Eriocheir sinensis 2008-09-17 10kmE392N312   POINT (143788.9 201487)
-## 6  Eriocheir sinensis 2008-04-10 10kmE392N312 POINT (147138.3 199035.5)
-## 7  Eriocheir sinensis 2008-03-13 10kmE381N314 POINT (35125.77 205808.5)
-## 8  Eriocheir sinensis 2008-03-19 10kmE391N312 POINT (136197.7 197300.7)
-## 9  Eriocheir sinensis 2008-03-19 10kmE391N312 POINT (136197.7 197300.7)
-## 10 Eriocheir sinensis 2008-10-28 10kmE389N311 POINT (121593.9 190203.2)
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 35125.7 ymin: 188235.3 xmax: 153743.2 ymax: 220135
+## Projected CRS: Belge 1972 / Belgian Lambert 72
+## # A tibble: 513 × 4
+##    species            eventDate           cellcode                geometry
+##    &lt;chr&gt;              &lt;dttm&gt;              &lt;chr&gt;                &lt;POINT [m]&gt;
+##  1 Eriocheir sinensis 2008-09-17 00:00:00 10kmE392N312 (143788.9 201487.1)
+##  2 Eriocheir sinensis 2008-06-03 00:00:00 10kmE392N312 (143788.9 201487.1)
+##  3 Eriocheir sinensis 2008-03-20 00:00:00 10kmE389N311 (114822.9 188235.3)
+##  4 Eriocheir sinensis 2008-07-03 00:00:00 10kmE393N311 (153743.2 191634.8)
+##  5 Eriocheir sinensis 2008-09-17 00:00:00 10kmE392N312 (143788.9 201487.1)
+##  6 Eriocheir sinensis 2008-04-10 00:00:00 10kmE392N312 (147138.3 199035.5)
+##  7 Eriocheir sinensis 2008-03-13 00:00:00 10kmE381N314  (35125.7 205808.5)
+##  8 Eriocheir sinensis 2008-03-19 00:00:00 10kmE391N312 (136197.7 197300.8)
+##  9 Eriocheir sinensis 2008-03-19 00:00:00 10kmE391N312 (136197.7 197300.8)
+## 10 Eriocheir sinensis 2008-10-28 00:00:00 10kmE389N311 (121593.8 190203.2)
+## # … with 503 more rows
 </code></pre>
 <h2 id="point-in-polygon-with-the-sp-package">Point in polygon with the <code>sp</code> package<a href="#point-in-polygon-with-the-sp-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p><em>General note: migration to the more actively developed <code>sf</code> package is
@@ -543,11 +540,11 @@ or vector files.</p>
                   layer = <span style="color:#a50">&#34;be_10km&#34;</span>)
 </code></pre></div><pre><code>## Warning in OGRSpatialRef(dsn, layer, morphFromESRI = morphFromESRI, dumpSRS
 ## = dumpSRS, : Discarded datum European_Terrestrial_Reference_System_1989 in
-## CRS definition: +proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000
+## Proj4 definition: +proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000
 ## +ellps=GRS80 +units=m +no_defs
 
 ## OGR data source with driver: SQLite 
-## Source: &quot;/tmp/RtmpXZ7Jlq/Belgium.sqlite&quot;, layer: &quot;be_10km&quot;
+## Source: &quot;/private/var/folders/c2/7_7qg3r93993m4kk3kjqgj2n76h_tn/T/RtmpYC9cBo/Belgium.sqlite&quot;, layer: &quot;be_10km&quot;
 ## with 580 features
 ## It has 3 fields
 </code></pre>
@@ -602,8 +599,8 @@ compare these:</p>
 ##             ORDER[2],
 ##             LENGTHUNIT[&quot;metre&quot;,1]],
 ##     USAGE[
-##         SCOPE[&quot;unknown&quot;],
-##         AREA[&quot;Europe - LCC &amp; LAEA&quot;],
+##         SCOPE[&quot;Statistical analysis.&quot;],
+##         AREA[&quot;Europe - European Union (EU) countries and candidates. Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Cyprus; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Iceland; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal including Madeira and Azores; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain including Canary Islands; Sweden; Switzerland; Turkey; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.&quot;],
 ##         BBOX[24.6,-35.58,84.17,44.83]],
 ##     ID[&quot;EPSG&quot;,3035]]
 </code></pre>
@@ -626,7 +623,7 @@ variables and print it (first ten rows).</p>
   <span style="color:#0a0">select</span>(species, <span style="color:#0a0">starts_with</span>(<span style="color:#a50">&#34;decimal&#34;</span>),
          eventDate, cellcode) %&gt;%
   <span style="color:#0a0">head</span>(<span style="color:#099">10</span>)
-</code></pre></div><pre><code>## # A tibble: 10 x 5
+</code></pre></div><pre><code>## # A tibble: 10 × 5
 ##    species       decimalLatitude decimalLongitude eventDate           cellcode  
 ##    &lt;chr&gt;                   &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;     
 ##  1 Eriocheir si…            51.1             4.28 2008-09-17 00:00:00 10kmE392N…
@@ -659,6 +656,7 @@ named in <code>be10grid</code>.</p>
   <span style="color:#0a0">addMarkers</span>(data = invasive_be10grid_sf,
              label = ~cellcode)
 </code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-19-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><em>Note: run the code to see the interactive map.</em></p>
 </div>
 
   

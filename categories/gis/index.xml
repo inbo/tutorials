@@ -68,5 +68,16 @@ Why use open standards?  Open file standards ease collaboration, portability and
 Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
     </item>
     
+    <item>
+      <title>Using WMS service in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
+      <pubDate>Mon, 19 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
+      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
+wms_grb links to the WMS of the GRB-basiskaart, the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
+wms_ortho contains a mosaic of recent orthophotos made during the winter. The layer Ortho contains the images, the layer Vliegdagcontour detail on the time when the pictures were taken.</description>
+    </item>
+    
   </channel>
 </rss>

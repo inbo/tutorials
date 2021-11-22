@@ -281,8 +281,8 @@ Creating sections manually To create a header of a section, different methods ca
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let’s create a dumy data.frame to play around, i.e. the three locations of INBO:
-names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;,&amp;#34;Geraardsbergen&amp;#34;,&amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.</description>
+library(leaflet) library(sp) Dummy data Let’s create a dummy data.frame to play around, i.e. the three locations of INBO:
+names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;, &amp;#34;Geraardsbergen&amp;#34;, &amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.</description>
     </item>
     
     <item>
@@ -298,7 +298,7 @@ head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6
     <item>
       <title>Using WMS service in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
-      <pubDate>Mon, 19 Feb 2018 12:09:22 +0100</pubDate>
+      <pubDate>Mon, 19 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
