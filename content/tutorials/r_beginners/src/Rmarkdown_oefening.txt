@@ -1,3 +1,8 @@
+
+<!--
+Formatteer dit tekstbestand als een Rmarkdown file en render het
+-->
+
 Analyse van de iris dataset
 Jouw Naam
 
@@ -9,9 +14,9 @@ Beschrijving
 
 De iris dataset zit standaard in R, en bevat 5 variabelen:
 
-Sepal.Length 
-Sepal.Width 
-Petal.Length 
+Sepal.Length
+Sepal.Width
+Petal.Length
 Petal.Width
 Species
 
@@ -52,16 +57,16 @@ rangePL <- max(iris$Petal.Length) - min(iris$Petal.Length)
 PW <- round(mean(iris$Petal.Width), 2)
 rangePW <- max(iris$Petal.Width) - min(iris$Petal.Width)
 
-- Voor het kelkblad hebben we de volgende kenmerken 
+- Voor het kelkblad hebben we de volgende kenmerken
     - Lengte
-        - gemiddelde: SL cm 
+        - gemiddelde: SL cm
         - range: rangeSL cm
     - Breedte
         - gemiddelde: SW cm
         - range: rangeSW cm
-- Voor het bloemblad hebben we de volgende kenmerken 
+- Voor het bloemblad hebben we de volgende kenmerken
     - Lengte
-        - gemiddelde: SL cm 
+        - gemiddelde: SL cm
         - range: rangeSL cm
     - Breedte
         - gemiddelde: SW cm
@@ -97,10 +102,10 @@ ggplot(iris, aes(x = Species, y = Petal.Width)) +
 Scatterplots
 
 ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
-  geom_point() + 
+  geom_point() +
   geom_smooth(aes(fill = Species), method = "lm")
 ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
-  geom_point() + 
+  geom_point() +
   geom_smooth(aes(fill = Species), method = "lm")
 
 
