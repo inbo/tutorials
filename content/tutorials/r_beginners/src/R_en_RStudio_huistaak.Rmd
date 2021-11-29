@@ -1,7 +1,7 @@
 ---
 title: 'Les1: Huistaak'
-author: "Ivy, Pieter en Thierry"
-date: "18 februari 2020"
+author: "Ivy, Pieter, Raïsa en Thierry"
+date: "27 oktober 2021"
 output:
   pdf_document: default
   html_document: default
@@ -40,8 +40,3 @@ wil importeren en visualiseren
 1. Maak een dataframe met een kolom ‘Diameter’ die tien waarden bevat
 2. Bereken de omtrek en voeg die toe aan de dataframe
 3. Bereken de oppervlakte en voeg die toe aan de dataframe (oppervlakte = pi * straal^2)
-
-## Taak 4: Wegschrijven en inlezen (indien dit reeds in de les behandeld is)
-
-1. Bewaar je data.frame in een csv bestand in de folder ./data in je project die je in taak 2 aanmaakte
-1. Lees de data.frame terug in vanuit dit bestand.
