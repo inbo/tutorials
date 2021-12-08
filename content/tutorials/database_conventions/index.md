@@ -1,9 +1,9 @@
 ---
 title: "Database conventions"
 description: "These are INBO database conventions. This page is intended for those who design (ms-SQL Server)databases for their project."
-author: "Gert Van Spaendonk, Jo Loos, Frederic Piesschaert"
+authors: [gertvanspaendonk, joloos, fredericpiesschaert]
 date: 2019-07-04
-categories: ["styleguide databases"]
+categories: ["styleguide", "databases"]
 tags: ["database", "styleguide"]
 ---
 
