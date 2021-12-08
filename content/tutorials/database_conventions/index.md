@@ -1,6 +1,6 @@
 ---
-title: "Database conventions"
-description: "These are INBO database conventions. This page is intended for those who design (ms-SQL Server)databases for their project."
+title: "Database conventions (MS SQL Server)"
+description: "These are INBO database conventions. This page is intended for those who design (MS SQL Server) databases for their project."
 authors: [gertvanspaendonk, joloos, fredericpiesschaert]
 date: 2019-07-04
 categories: ["styleguide", "databases"]
