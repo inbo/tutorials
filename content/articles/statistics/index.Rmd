@@ -1,14 +1,13 @@
 ---
 title: "Books and articles on statistics"
 date: 2018-03-21
-csl: ../inbo.csl
+csl: '`r cslfile <- file.path(tempdir(), "research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/inbocsl-0.1.0/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
     md_document:
         preserve_yaml: true
-weight: 1
 ---
 
 ```{r setup, include = FALSE}

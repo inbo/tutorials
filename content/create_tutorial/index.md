@@ -2,7 +2,7 @@
 title: Create tutorial
 description: Guidelines to create a new tutorial
 date: 2018-12-14
-author: Stijn Van Hoey
+authors: [stijnvanhoey, nicolasnoe]
 menu: sidebar
 weight: 21
 ---
@@ -54,7 +54,7 @@ Next, in the edit field you can start typing your tutorial. The header has an ag
 ---
 title: "YOUR TITLE"
 description: "SHORT DESCRIPTION ON TUTORIAL"
-author: "YOUR NAME"
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
@@ -67,14 +67,14 @@ Replace all the CAPITAL words with appropriate information:
 
 - a short clear title
 - a single or two line description
-- your name
+- your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
 - the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
 
 Underneath the last triple dahs (`---`), you can write the tutorial as you like using [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). Use the `Preview` button to check how it would look like rendered on a website.
 
-**Notice:** You can add images from online source by using the URL of the image, e.g. `![short image description](http://.../my_image.jpg)`. For example, `https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png` will impor the INBO logo into your document:
+**Notice:** You can add images from online source by using the URL of the image, e.g. `![short image description](http://.../my_image.jpg)`. For example, `https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png` will include the INBO logo into your document:
 
 ![](https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png)
 
@@ -108,7 +108,7 @@ Next, we use the [git workflow](https://inbo.github.io/git-course/workflow_rstud
 ---
 title: "YOUR TITLE"
 description: "SHORT DESCRIPTION ON TUTORIAL"
-author: "YOUR NAME"
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
@@ -121,7 +121,7 @@ Replace all the CAPITAL words with appropriate information:
 
 - a short clear title
 - a single or two line description
-- your name
+- your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
 - the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
@@ -149,7 +149,7 @@ Next, we use the [git workflow](https://inbo.github.io/git-course/workflow_rstud
 ---
 title: "YOUR TITLE"
 description: "SHORT DESCRIPTION ON TUTORIAL"
-author: "YOUR NAME"
+authors: [YOUR_AUTHOR_ID]
 date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
@@ -165,7 +165,7 @@ Replace all the CAPITAL words with appropriate information:
 
 - a short clear title
 - a single or two line description
-- your name
+- your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
 - the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
@@ -183,3 +183,18 @@ As the Rmarkown file will not be part of the website, make sure to click the `kn
 - When ready, `push` your tutorial a last time and create a `Pull request` to the website maintainers as explained in [STEP 4 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master).
 
 After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.
+
+## Tips
+
+In the rare cases where your tutorial includes a link to a raw HTML document (to be delivered as-is, without any visual integration in the rest of the INBO tutorials website), you can proceed like this:
+
+1) Place your HTML document in `static/html` (in the top directory of the site, outside of `tutorials`, `articles`, ...)
+2) To link it, use a relative URL (`..` can be used to point to the parent directory). The content of the `static` directory is accessible at the root URL.
+
+This should be more clear with a practical example:
+
+The file at `content/tutorials/r_beginners/index.md` has a link to a static HTML file in `static/html/Rmarkdown_oefening_resultaat.html`. 
+
+Since that tutorial page will be visible at the `tutorials/r_beginners/` relative URL and that the static file will be accessible at `html/Rmarkdown_oefening_resultaat.html`, you need to create a link that goes up twice to reach the site root before going down in the `html` directory, for example: 
+
+`[Oefening](../../html/Rmarkdown_oefening_resultaat.html)`

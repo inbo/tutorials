@@ -1,6 +1,6 @@
 --- 
 title: "INLA and inlabru with spatial patterns"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 site: bookdown::bookdown_site
 output:
   bookdown::pdf_book:
@@ -16,6 +16,7 @@ output:
 library(knitr)
 opts_chunk$set(
   message = FALSE,
+  warning = FALSE, # suppress rgdal CRS warnings here and there
   dev = "cairo_pdf",
   dpi = 300
 )
@@ -329,8 +330,8 @@ PRborder %>%
   list() %>%
   Polygons(ID = 1) %>%
   list() %>%
-  SpatialPolygons(proj4string = CRS("+init=epsg:4326")) %>%
-  spTransform(CRS("+init=epsg:5880")) -> boundary
+  SpatialPolygons(proj4string = CRS(SRS_string = "EPSG:4326")) %>%
+  spTransform(CRS(SRS_string = "EPSG:5880")) -> boundary
 ```
 
 ```{r mesh-rainfall-1}
@@ -577,7 +578,7 @@ si <- inla.stack.index(stack_all, "grid")$data
 grid_data %>%
   bind_cols(model_grid$summary.fitted.values[si, ]) %>%
   `coordinates<-`(~X + Y) %>%
-  `proj4string<-`(CRS("+init=epsg:5880")) -> gd
+  `proj4string<-`(CRS(SRS_string = "EPSG:5880")) -> gd
 gd[!is.na(over(gd, boundary)), ] %>%
   as.data.frame() %>%
   ggplot() + geom_tile(aes(x = X, y = Y, fill = mean)) + coord_fixed()

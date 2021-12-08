@@ -1,0 +1,172 @@
+---
+title: "Mixed model formulation of a paired t-test"
+description: "Learn some insights about mixed models based on a simple example"
+authors: [hansvancalster]
+date: "`r Sys.Date()`"
+categories: ["r", "statistics"]
+tags: ["r", "analysis", "mixed model"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## What you will learn
+
+In this tutorial we explain the analogy between the paired t-test and the corresponding mixed model formulation.
+
+## Used packages
+
+```{r packages, message=FALSE, comment=FALSE, warning=FALSE}
+library(knitr)
+library(lme4)
+library(tidyr)
+library(broom)
+library(DHARMa)
+```
+
+
+
+## Data
+
+- plot: identifies paired measurements
+- response: measurement values
+- treatment: identifies two treatments (a and b)
+
+
+```{r data}
+set.seed(124)
+
+paired_data <- data.frame(
+  plot = rep(1:10, 2),
+  response = c(rnorm(10), rnorm(10, 3, 1.5)),
+  treatment = rep(c("a", "b"), each = 10)
+)
+
+paired_data$treatment <- as.factor(paired_data$treatment)
+paired_data$plot <- as.factor(paired_data$plot)
+
+# in wide format
+paired_data_wide <- pivot_wider(
+  paired_data,
+  id_cols = plot,
+  names_from = treatment,
+  values_from = response
+)
+```
+
+
+```{r paired-data}
+kable(paired_data)
+```
+
+
+```{r paired-data-wide}
+kable(paired_data_wide)
+```
+
+
+## The paired t-test
+
+
+```{r t-test}
+ttest <- with(
+  paired_data_wide,
+  t.test(y = a, x = b, paired = TRUE)
+)
+```
+
+
+```{r t-test-table}
+kable(tidy(ttest))
+```
+
+
+## Alternative, but equivalent formulation via a lineair mixed model
+
+Plot identifies the paired measurements. 
+A random effect for plot allows us to take this dependence into account.
+
+```{r lmm}
+mm <- lmer(response ~ treatment + (1 | plot),
+  data = paired_data
+)
+```
+
+The parameter estimates for treatment b gives the difference compared to treatment a (= intercept), accounting for the paired nature of the data. 
+This difference is the same as the *estimate* for the paired t-test.
+
+```{r lmmsummary, warning=FALSE}
+kable(tidy(mm))
+```
+
+The anova output gives us a test for treatment in terms of an F-test. 
+The t-test is based on the t-statistic.
+Both test statistics are related: $F = t^2$.
+
+```{r lmmanova}
+kable(anova(mm))
+```
+
+```{r}
+anova(mm)[["F value"]]
+unname(ttest[["statistic"]])^2
+```
+
+We can calculate the confidence interval given as part of the t-test output, based on the t-distributie.
+
+
+```{r verschil}
+difference <- data.frame(
+  diff = summary(mm)$coefficients[2, 1],
+  se = summary(mm)$coefficients[2, 2]
+)
+
+difference$lwr <- difference$diff - qt(p = 1 - 0.05 / 2, df = 9) * difference$se
+difference$upr <- difference$diff + qt(p = 1 - 0.05 / 2, df = 9) * difference$se
+```
+
+
+```{r ci-diff}
+kable(difference)
+```
+
+
+The recommended procedure to calculate a confidence interval for parameters of mixed models is, however, to use the `confint` function. 
+Either an approximation (Wald statistic) or a profile likelihood confidence interval can be calculated.
+These intervals are slightly different from the t-distribution based confidence interval.
+
+Via profile likelihood:
+
+```{r BIprofile, warning=FALSE}
+kable(confint(mm, parm = "treatmentb", method = "profile"))
+```
+
+Wald-type confidence interval:
+
+```{r BIwald}
+kable(confint(mm, parm = "treatmentb", method = "Wald"))
+```
+
+Were model assuptions met? 
+Yes.
+
+```{r}
+DHARMa::plotQQunif(mm)
+```
+
+
+## Take home message
+
+The standard paired t-test is typically used to test for a significant differences between two paired treatments.
+We can formulate the test in terms of a mixed model.
+The benefit is that we get more informative model output, which allows us among other things to check if model assumptions were met.
+For the paired t-test, one assumption is that the paired differences between treatments follow a normal distribution.
+When these assumptions are not met, the flexibility of the mixed model framework allows to improve the model to better fit the requirements for the data at hand.
+For instance, one can choose from a number of parametric statistical distributions that are likely to fit the data (for counts, the Poisson or negative binomial distribution can be chosen, and for binary or proportional data, a binomial distribution is an obvious choice).
+

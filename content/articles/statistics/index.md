@@ -1,14 +1,13 @@
 ---
 title: "Books and articles on statistics"
 date: 2018-03-21
-csl: ../inbo.csl
+csl: download.file("https://github.com/citation-style-language/styles/raw/master/research-institute-for-nature-and-forest.csl", tempfile())
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
     md_document:
         preserve_yaml: true
-weight: 1
 ---
 
 -   McElreath (2015): Statistical Rethinking is an introduction to

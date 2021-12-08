@@ -1,14 +1,13 @@
 ---
 title: "Sharing and communicating"
 date: 2018-03-21
-csl: ../inbo.csl
+csl: '`r cslfile <- file.path(tempdir(), "research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/inbocsl-0.1.0/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
     md_document:
         preserve_yaml: true
-weight: 4
 ---
 
 This page lists **selected** literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site's users.

@@ -1,7 +1,7 @@
 ---
 title: "Applying the INBO corporate identity to bookdown documents"
 description: "Slides, code and data used during the INBOmd workshop"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: 2019-06-13
 categories: ["r", "styleguide", "version control"]
 tags: ["r", "bookdown", "rmarkdown", "INBOmd", "gitbook", "e-book"]

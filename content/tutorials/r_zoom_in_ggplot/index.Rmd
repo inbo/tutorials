@@ -1,0 +1,72 @@
+---
+title: "'Zoom in' on `ggplot2` figures"
+description: "Learn the difference between zooming in with scales and coordinates."
+authors: [thierryo]
+date: "`r Sys.Date()`"
+categories: ["r"]
+tags: ["r", "ggplot2"]
+output: 
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Original figure
+
+```{r}
+library(ggplot2)
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+  geom_boxplot()
+```
+
+# "Zoom in" with scales
+
+Data points outside the limits are considered to be `NA`. 
+Note that this will alter all calculated geoms.
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+  geom_boxplot() + 
+  scale_y_continuous(limits = c(20, 25))
+```
+
+# "Zoom in" with coord
+
+This doesn't affect the values:
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+  geom_boxplot() + 
+  coord_cartesian(ylim = c(20, 25))
+```
+
+Note that you can use only one `coord`. 
+Only the last one will have an effect on the plot.
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+  geom_boxplot() + 
+  coord_cartesian(ylim = c(20, 25)) + 
+  coord_flip()
+```
+
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+  geom_boxplot() + 
+  coord_flip() + 
+  coord_cartesian(ylim = c(20, 25))
+```
+
+
+Set the limits in `coord_flip` to get the effects of both.
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+  geom_boxplot() + 
+  coord_flip(ylim = c(20, 25))
+```

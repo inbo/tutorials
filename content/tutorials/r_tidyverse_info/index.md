@@ -1,7 +1,7 @@
 ---
 title: "Data wrangling with tidyverse"
 description: "Some introductionary information about tidyverse"
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: 2018-02-09T14:14:49+01:00
 categories: ["r"]
 tags: ["tidyverse", "r"]

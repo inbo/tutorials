@@ -12,7 +12,7 @@ tags: ["r", "rstudio", "installation"]
 1. Start `Rstudio`
 1. Kies in het menu `Tools -> Global Options`
 1. In het tabblad `General`
-    1. Pas de _Default working directory_ aan naar de locatie waar je `R` versie staat (`C:/Program Files/R/R-3.x.y`) [^1]
+    1. Pas de _Default working directory_ aan naar de locatie waar je `R` versie staat (`C:/R/R-4.x.y`) [^1]
     1. _Restore .RData into workspace at startup:_ `uitvinken`
     1. _Save workspace to.RData on exit:_ `Never`
 1. In het tabblad _Code_
@@ -39,8 +39,8 @@ tags: ["r", "rstudio", "installation"]
 1. Kies in het menu `Tools -> Global Options`
 1. Indien niet de laatste versie vermeld staat bij R version: klik op _Change_ om het aan te passen.
 1. Klik op _OK_ als je een waarschuwing krijgt dat je `RStudio` moet herstarten.
-1. Wijzig de initial working directory in `C:/Program Files/R/R-3.x.y` [^1]
+1. Wijzig de initial working directory in `C:/R/R-4.x.y` [^1]
 1. Klik op _OK_
 1. Herstart `RStudio`
 
-[^1]: x en y verwijzen naar het versienummer. Dus bij R-3.1.0 is x = 1 en y = 0. De working directory is in dat geval `C:/Progam Files/R/R-3.1.0`
+[^1]: x en y verwijzen naar het versienummer. Dus bij R-4.1.0 is x = 1 en y = 0. De working directory is in dat geval `C:/R/R-4.1.0`

@@ -1,6 +1,6 @@
 ---
 title: "ggplot2 - Oefening"
-author: "Ivy Jansen, Pieter Verschelde"
+authors: [ivyjansen, pieterverschelde]
 output: pdf_document
 papersize: a4
 urlcolor: blue
@@ -36,8 +36,8 @@ Wees aandachtig voor warnings en foutmeldingen. Probeer deze te begrijpen alvore
 1. Verschilt de gemeten temperatuur per maand?
     a. Maak hiervoor een boxplot.
     a. Splits deze op volgens maand.
-    a. Krijg je de figuur die je in gedachten had? Waarom (niet)? Lees zeker de warning.
-    a. Hoe kan je dit oplossen?
+    a. Krijg je de figuur die je in gedachten had? Waarom (niet)? Lees zeker de warning. 
+    a. Hoe kan je dit oplossen? (Denk aan het datatype)
 1. Is er een verband tussen temperatuur en ozon? 
     a. Maak hiervoor een scatterplot.
     a. Voeg een (al dan niet lineaire) smoother toe.

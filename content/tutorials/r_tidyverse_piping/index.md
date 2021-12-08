@@ -1,7 +1,7 @@
 ---
 title: "Using `%>%` pipes in R"
 description: "Using the %>% pipe functionality in R scripts"
-author: "Yasmine Verzelen & Lien Reyserhove"
+authors: [yasmineverzelen, lienreyserhove]
 date: 2018-06-14
 categories: ["r"]
 tags: ["tidyverse", "r"]

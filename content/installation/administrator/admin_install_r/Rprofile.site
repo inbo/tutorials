@@ -3,24 +3,38 @@ options(
   tab.width = 2,
   width = 80,
   help_type = "html",
-  stringsAsFactors = TRUE,
   keep.source.pkgs = TRUE,
   xpinch = 300,
   ypinch = 300,
   yaml.eval.expr = TRUE,
+  usethis.full_name = "Research Institute for Nature and Forest",
+  usethis.description = list(
+    `Authors@R` = "c(
+  person(
+    \"Voornaam\", \"Achternaam\", role = c(\"aut\", \"cre\"),
+    email = \"voornaam.achternaam@inbo.be\",
+    comment = c(ORCID = \"9999-9999-9999-9999\")),
+  person(
+    \"Research Institute for Nature and Forest\",
+    role = c(\"cph\", \"fnd\"), email = \"info@inbo.be\"))",
+    License = "GPL-3",
+    Language = "en-GB",
+    Encoding = "UTF-8",
+    Roxygen = "list(markdown = TRUE)"
+  ),
   repos = c(
-    RStudio = "https://cloud.r-project.org/",
-    INLA = "https://inla.r-inla-download.org/R/stable"
+    CRAN = "https://cloud.r-project.org/",
+    INLA = "https://inla.r-inla-download.org/R/testing",
+    inbo = "https://inbo.r-universe.dev",
+    ropensci = 'https://ropensci.r-universe.dev',
+    thierryo = "https://thierryo.r-universe.dev"
   ),
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never"
 )
 
+# display fortune when starting new interactive R session
 if (interactive()) {
-  if (length(find.package("drat", quiet = TRUE)) == 0) {
-    utils::install.packages("drat")
-  }
-  drat::addRepo("inbo")
   if (length(find.package("fortunes", quiet = TRUE)) == 0) {
     utils::install.packages("fortunes")
   }
@@ -31,5 +45,3 @@ if (interactive()) {
     }
   )
 }
-# required for RStan and brms
-Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")

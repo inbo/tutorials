@@ -1,7 +1,7 @@
 ---
 title: "Styleguide R code"
 description: "This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines."
-author: "Thierry Onkelinx"
+authors: [thierryo]
 date: 2017-10-18T16:01:34+02:00
 categories: ["styleguide"]
 tags: ["styleguide", "r"]

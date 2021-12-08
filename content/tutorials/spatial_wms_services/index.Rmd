@@ -1,14 +1,14 @@
 ---
 title: "Using WMS service in R"
 description: "How to use WMS (raster) GIS services within R scripts"
-author: "Thierry Onkelinx"
-date: 2018-02-19T12:09:22+01:00
-categories: ["r"]
+authors: [thierryo]
+date: 2018-02-19
+categories: ["r", "gis"]
 tags: ["gis", "webservice", "r", "maps"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: markdown_github
+  md_document:
+    preserve_yaml: true
+    variant: gfm
 ---
 
 ```{r include = FALSE}
@@ -49,6 +49,8 @@ leaflet() %>%
     options = WMSTileOptions(format = "image/png", transparent = TRUE)
   )
 ```
+
+_Note: run the code to see this and the following interactive maps._
 
 ```{r fig.cap = "Leaflet map with the orthophoto mosaic as background"}
 leaflet() %>% 

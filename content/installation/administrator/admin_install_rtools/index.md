@@ -10,19 +10,19 @@ tags: ["r", "windows", "installation"]
 
 ### Installatie en upgrade
 
-De installatiebestanden zijn beschikbaar via https://cloud.r-project.org/bin/windows/Rtools/
+De installatiebestanden zijn beschikbaar via [cloud.r-project.org](https://cloud.r-project.org/bin/windows/Rtools/).
+Kies de 64-bit versie van de installer.
 
 Bij een upgrade dient eerst de vorige versie te worden verwijderd.
 
-1. Kies `Nederlands` als taal voor de installatie en klik _volgende_.
-1. Klik _volgende_.
-1. Kies `C:\Rtools` (standaard) als installatiemap en klik _volgende_.
-1. Kies uit dropdown menu `Tools for building R packages from source` (standaard) en klik _volgende_.
-1. Vink `Add rtools to system path` aan en klik _volgende_.
-1. Klik _volgende_.
-1. Klik _installeren_.
-1. Klik _voltooien_.
+1. Klik _Ja_.
+1. Kies `C:\rtools40` (standaard) als installatiemap en klik _Next_.
+1. Laat alles aangevinkt en klik _Next_.
+1. Klik _Install_.
+1. Klik _Finish_.
+1. Wijzing `PATH` naar `PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"`.
+1. Start R en controleer of `Sys.which("make")` verwijst naar `"C:\\rtools40\\usr\\bin\\make.exe"`.
 
 ### Afwijkingen t.o.v. default installatie
 
-- Aanvinken van _Add rtools to system path_
+- Wijzig de systeemvariabele `PATH` naar `PATH="${RTOOLS40_HOME}\usr\bin;${PATH}"`

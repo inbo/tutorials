@@ -1,0 +1,55 @@
+{
+    "panes": {
+        "quadrants": [
+            "Source",
+            "Console",
+            "TabSet1",
+            "TabSet2"
+        ],
+        "tabSet1": [
+            "Environment",
+            "History",
+            "Connections",
+            "Build",
+            "VCS",
+            "Tutorial",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Files",
+            "Plots",
+            "Packages",
+            "Help",
+            "Viewer"
+        ],
+        "console_left_on_top": false,
+        "console_right_on_top": true
+    },
+    "save_workspace": "never",
+    "load_workspace": false,
+    "soft_wrap_r_files": true,
+    "continue_comments_on_newline": true,
+    "highlight_selected_line": true,
+    "show_invisibles": true,
+    "show_indent_guides": true,
+    "syntax_color_console": true,
+    "scroll_past_end_of_document": true,
+    "highlight_r_function_calls": true,
+    "auto_append_newline": true,
+    "strip_trailing_whitespace": true,
+    "show_help_tooltip_on_idle": true,
+    "check_arguments_to_r_function_calls": true,
+    "check_unexpected_assignment_in_function_call": true,
+    "warn_if_no_such_variable_in_scope": true,
+    "warn_variable_defined_but_not_used": true,
+    "style_diagnostics": true,
+    "line_ending_conversion": "posix",
+    "default_encoding": "UTF-8",
+    "font_size_points": 10,
+    "show_doc_outline_rmd": true,
+    "default_sweave_engine": "knitr",
+    "default_latex_program": "XeLaTeX",
+    "use_tinytex": true,
+    "windows_terminal_shell": "win-cmd",
+    "jobs_tab_visibility": "shown"
+}

@@ -1,0 +1,432 @@
+---
+title: "How to use open raster file formats in R: GeoTIFF & GeoPackage"
+description: "A simple tutorial to demonstrate the use of GeoTIFF and *.gpkg files in R"
+authors: [florisvdh]
+date: 2020-09-15
+categories: ["r", "gis"]
+tags: ["gis", "r"]
+output: 
+    html_document: default
+    md_document:
+        preserve_yaml: true
+        variant: gfm
+---
+
+_General note: the way the `raster` package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ >= 6 versions._
+_At the time of writing, it was necessary to use the current development version of `raster` ([link](https://github.com/rspatial/raster))._
+_During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them._
+_For more information, see the [CRS tutorial](../spatial_crs_coding/)._
+
+```{r include = FALSE}
+library(knitr)
+library(googlesheets4)
+source("token_option.R")
+opts_chunk$set(
+  echo = TRUE
+)
+set.seed(123456789)
+unlink("art*")
+```
+
+
+This tutorial uses a few basic functions from the [dplyr](https://dplyr.tidyverse.org) and [raster](https://rspatial.org/raster/pkg) packages.
+While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
+
+```{r warning=FALSE, message=FALSE}
+options(stringsAsFactors = FALSE)
+library(raster)
+library(tidyverse)
+library(inborutils)
+```
+
+You will find a bit more background about 'why and what', regarding the considered open standards, in [a separate post](../../articles/geospatial_standards/) on this website.
+
+In short, the GeoTIFF and GeoPackage formats are ideal for exchange, publication, interoperability & durability and to open science in general.
+
+The below table compares a few raster formats that are currently used a lot.
+This tutorial focuses on the open formats.
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+gs4_deauth()
+range_read("15KVm87QvVis--vyCHa8EQBcXAeQ23M1oaCL_dENempk", 
+            sheet = "Raster",
+            col_types = "c") %>% 
+  kable(align = "lccc")
+```
+
+## How to make and use GeoTIFF files (`*.tif`)
+
+### Making a mono-layered GeoTIFF file from a `RasterLayer` R object
+
+Let's create a small dummy `RasterLayer` object from scratch, for some area in Belgium (using the CRS ^[CRS = coordinate reference system] Belgian Lambert 72, i.e. [EPSG-code 31370](https://epsg.io/31370)):
+
+```{r}
+artwork <- 
+  raster(extent(188500, 190350, 227550, 229550), # xmin, xmax, ymin, ymax
+         res = 50, # resolution of 50 meters
+         crs = 31370) %>% 
+  setValues(runif(ncell(.)))  # fill with random values
+```
+
+What does this look like?
+
+```{r}
+artwork
+```
+
+A simple trick to plot this raster:
+
+```{r artwork}
+spplot(artwork)
+```
+
+To write this `RasterLayer` object as a GeoTIFF, you can use the `raster::writeRaster()` function.
+In the background, it uses the GeoTIFF driver of the powerful [GDAL](https://gdal.org) library.
+
+```{r}
+artwork %>% 
+  writeRaster("artwork.tif")
+```
+
+And now?\
+_**Say HURRAY!!**_
+
+### Making a multi-layered GeoTIFF file from a `RasterBrick` R object
+
+Let's create a `RasterBrick` object of three layers:
+
+```{r}
+arts <- brick(artwork) # RasterBrick with one layer (the RasterLayer from above)
+arts[[2]] <- artwork + 10 # Add second layer, e.g. based on first one
+arts[[3]] <- calc(arts[[2]], function(x) {20 ^ x}) # Making third layer from second
+names(arts) <- paste0("layer", 1:3)
+```
+
+_Note: for complex formulas on large datasets, the `calc()` function is more efficient than simple algebraic expressions such as for layer2 (see `?raster::calc`)._
+
+How does the result look like?
+
+```{r}
+arts
+```
+
+```{r arts}
+arts %>% 
+  as.list %>% 
+  lapply(spplot)
+```
+
+So now what?\
+_**Let's write it!**_
+
+```{r}
+arts %>% 
+  writeRaster("arts.tif")
+```
+
+But, I want to add 20 extra layers!\
+**_(..._😣😮_...)_**
+
+```{r}
+arts2 <- 
+  calc(artwork, 
+       function(x) {-1:-20 * x}, # first layer = -1 * artwork
+                                 # second layer = -2 * artwork
+                                 # ....
+       forceapply = TRUE)
+names(arts2) <- paste0("neg_layer", 1:20)
+# adding it to arts:
+arts <- brick(list(arts, arts2))
+# saving layer names for later use:
+mynames <- names(arts)
+```
+
+```{r}
+nlayers(arts)
+```
+
+```{r}
+names(arts)
+```
+
+
+**Overwrite** the earlier written file:
+
+```{r}
+arts %>% 
+  writeRaster("arts.tif",
+              overwrite = TRUE)
+```
+
+That's about it!
+
+### Reading a GeoTIFF file
+
+Nothing can be more simple...
+
+Reading a mono-layered GeoTIFF file with `raster()` gives back the `RasterLayer`:
+
+```{r}
+artwork_test <- raster("artwork.tif")
+```
+
+```{r}
+artwork_test
+```
+
+Reading a multi-layered GeoTIFF file with `brick()` returns the `RasterBrick`:
+
+```{r}
+arts_test <- brick("arts.tif")
+```
+
+However:
+
+```{r}
+names(arts_test)
+```
+
+As you see, layer names are not saved in the GeoTIFF.
+You define them in R:
+
+```{r}
+names(arts_test) <- mynames
+arts_test
+```
+ 
+That's what we wanted!
+
+The actual data are not loaded into memory, but read in chunks when performing operations.
+This makes it convenient when using larger rasters:
+
+```{r}
+inMemory(arts_test)
+```
+
+Selecting a specific layer by its name:
+
+```{r}
+arts_test$neg_layer20
+```
+
+
+## How to make and use GeoPackages with raster layers (`*.gpkg`)
+
+'GeoPackage' may sound new and unfamiliar to you -- more information can be found in [a separate post](../../articles/geospatial_standards/) on this website.
+
+While its vector capabilities are already beautifully supported by GDAL and the `sf` package (demonstrated in the [other tutorial](../../tutorials/spatial_standards_vector/))), its raster capabilities are still less supported by GDAL and dependent applications such as the R-packages [raster](https://rspatial.org/raster/pkg) and [stars](https://r-spatial.github.io/stars/).
+This is something we can expect to grow in the future.
+
+GDAL's GPKG-raster driver itself is still less worked out than its drivers for GeoTIFF or GPKG-vector (note that one GPKG file can accommodate both layer types).
+For example, only the _Byte, Int16, UInt16_ and _Float32_ datatypes can be written by GDAL, while for GeoTIFFs these are _Byte UInt16, Int16, UInt32, Int32, Float32, Float64, CInt16, CInt32, CFloat32_ and _CFloat64_ ^[
+See the GDAL [datatype definitions](https://gdal.org/api/raster_c_api.html#_CPPv412GDALDataType) -- note that `raster` uses its own abbreviations: `?raster::dataType`
+].
+
+From my experience, raster GeoPackage files are smaller than GeoTIFF files in the case of larger rasters.
+This, and the capability to combine raster and vector layers, certainly make it worthwile to consider the GeoPackage format for rasters, if you're not hindered by the supported data types.
+
+
+### Making a single-raster GeoPackage from a `RasterLayer` R object
+
+This it is no more difficult than:
+
+```{r}
+artwork %>% 
+  writeRaster("artwork.gpkg", format = "GPKG")
+```
+
+A bit more information on the 'missing value' warning can be found in GDAL's documentation of [GeoPackage raster](https://gdal.org/drivers/raster/gpkg.html#nodata-value).
+You should know that the `raster` package does not yet officially support the GeoPackage! (see `?writeFormats()`)
+
+However, the `stars` package (see [further)](#homework)) fully supports GDAL's capabilities, and therefore _is_ able to write multiple raster layers, as we will do in a minute.
+Anyway, `raster::writeRaster` already works fine for single `RasterLayer` objects.
+
+Reading the GeoPackage:
+
+```{r}
+artwork_gpkg <- raster("artwork.gpkg")
+artwork_gpkg
+```
+
+Let's make sure: are the data we've read from the GeoTIFF identical to those from the GeoPackage?
+
+```{r}
+all.equal(artwork_test[], artwork_gpkg[])
+```
+
+Yeah!
+
+Given that the GPKG-support of `raster` is limited, we're lucky that Edzer Pebesma -- the creator of `sf` -- has also made the amazing package `stars`!!
+
+```{r}
+unlink("artwork.gpkg") # delete gpkg; we're going to create it here again
+Sys.setenv(GDAL_PAM_ENABLED = "NO") # prevents an auxiliary file being written next to *.gpkg
+library(stars)
+```
+
+We could as well have written `artwork` to a GeoPackage with `stars`, so let's just see what we get by converting the `RasterLayer` object to a `stars` object and then apply `write_stars()`, hm?
+
+```{r}
+artwork %>% 
+  st_as_stars %>% # this converts the RasterLayer to a stars object
+  write_stars("artwork.gpkg",
+              driver = "GPKG")
+```
+
+Reading it back with `stars::read_stars()`, followed by back-conversion to a `RasterLayer`:
+
+```{r}
+artwork_gpkg_stars <- 
+  read_stars("artwork.gpkg") %>% 
+  as("Raster")
+artwork_gpkg_stars
+```
+
+And yes again, the data we've read from the GeoTIFF file are identical to those from the GeoPackage:
+
+```{r}
+all.equal(artwork_test[], artwork_gpkg_stars[])
+```
+
+That's it!
+
+Knowing how to write and read with `stars` will help us for the multi-layer case!
+
+### Making a multi-raster GeoPackage
+
+Indeed, just as with vector layers, GeoPackage can accommodate multiple raster layers (or vector + raster layers).
+
+Let's suppose we'd like to add `layer2` (a `RasterLayer`) from the `RasterBrick` object `arts`.
+
+```{r}
+arts$layer2
+```
+
+Unfortunately, the `raster` package does not support GDAL's options to add extra raster layers in a GPKG file:
+
+```{r}
+try(
+  arts$layer2 %>% 
+    writeRaster("artwork.gpkg", 
+                format = "GPKG",
+                options = c("RASTER_TABLE=layer2",
+                            "APPEND_SUBDATASET=YES"))
+)
+```
+
+So let's proceed with `stars`!
+
+```{r}
+arts$layer2 %>% 
+  st_as_stars %>% 
+  write_stars("artwork.gpkg",
+              driver = "GPKG",
+              options = c("RASTER_TABLE=layer2",
+                          "APPEND_SUBDATASET=YES"))
+```
+
+Mind the `options` argument: those options are passed directly to GDAL's GPKG-raster driver, and they're documented [at GDAL](https://gdal.org/drivers/raster/gpkg.html#creation-options).
+
+Over there we read:
+
+> RASTER_TABLE=string. Name of tile user table. By default, based on the filename (i.e. if filename is foo.gpkg, the table will be called “foo”).
+>
+> APPEND_SUBDATASET=YES/NO: If set to YES, an existing GeoPackage will not be priorly destroyed, such as to be able to add new content to it. Defaults to NO.
+
+Ahaa!
+
+We got no errors above, but no feedback either...\
+Thrilling!
+
+Let's peek:
+
+```{r}
+gdalUtils::gdalinfo("artwork.gpkg") %>% 
+  cat(sep = "\n")
+```
+
+Yay!\
+It's interesting to see how the info at this level disregards CRS and extent.
+
+When we query the metadata of one sublayer, it is seen that CRS and extent are layer-specific:
+
+```{r}
+gdalUtils::gdalinfo("artwork.gpkg", 
+                    # provide metadata of first subdataset:
+                    sd=1, 
+                    # the following arguments just control formatting of the output:
+                    approx_stats = TRUE, mm = TRUE, proj4 = TRUE) %>% 
+  cat(sep = "\n")
+```
+
+`raster` will not help us for reading the layers.
+But `read_stars()` is there to assist us!!
+
+```{r}
+# brick("artwork.gpkg") ## this won't work...
+# but this will work:
+artwork_gpkg2 <- 
+  read_stars("artwork.gpkg", sub = "artwork", quiet = TRUE) %>% 
+  as("Raster")
+artwork_gpkg2
+```
+
+Wow!
+
+Checking data again with GeoTIFF result:
+
+```{r}
+all.equal(artwork_test[], artwork_gpkg2[])
+```
+
+Same story for the other layer:
+
+```{r}
+read_stars("artwork.gpkg", sub = "layer2", quiet = TRUE) %>% 
+  as("Raster")
+```
+
+Splendid.
+
+By the way, this is how the full `stars` object looks like -- it holds information similar to a `RasterBrick`:
+
+```{r paged.print=FALSE}
+read_stars("artwork.gpkg", quiet = TRUE)
+```
+
+
+## Homework: further explore the amazing `stars` package {#homework}
+
+Enter deep hyperspace and explore the `stars` package, which stores multidimensional hypercubes...
+Really, visit its [website](https://r-spatial.github.io/stars/) and never look (or turn?) back!
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+library(stars)
+```
+
+For now, my time's up and I'll just demonstrate how easy it is to transform a `Raster*` object into a `stars` object:
+
+```{r paged.print=FALSE}
+interstellar <- 
+  arts[[1:5]] %>% 
+  st_as_stars()
+interstellar
+```
+
+It does make sense, right?
+
+What about:
+
+```{r paged.print=FALSE}
+interstellar %>% split("band")
+```
+
+
+The `stars` package has a number of efficient geospatial algorithms that make it worth using, even for simple raster layers!
+
+And sure, as seen above, you can read from files with `read_stars()`, write to files with `write_stars()`, convert to Raster* objects with `as("Raster")` and backconvert with `st_as_stars()`!
+
+
+```{r include=FALSE}
+unlink("art*")
+```

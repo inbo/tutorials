@@ -1,7 +1,7 @@
 ---
 title: "Handle conflicts"
 description: "How to handle git conflicts using command line"
-author: "Stijn Van Hoey"
+authors: [stijnvanhoey]
 date: 2017-10-18
 categories: ["version control"]
 tags: ["git", "version control"]
@@ -47,7 +47,7 @@ Continue with your rebase
 git rebase --continue
 ```
 
-If more troubles occur, fix them, add them, and do a ```git rebase continue```
+If more troubles occur, fix them, add them, and do a ```git rebase --continue```
 
 Force push your branch to the server. (force because you changed the commit)
 

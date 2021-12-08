@@ -1,7 +1,7 @@
 ---
 title: "Reading large data files in R"
 description: "Handling large text files in R"
-author: "Bart Aelterman, Stijn Van Hoey"
+authors: [bartaelterman, stijnvanhoey]
 date: 2017-02-10
 categories: ["r"]
 tags: ["tidyverse", "r", "database"]
@@ -177,7 +177,7 @@ SQLite databases are single file databases meaning you can simply download them,
 * Support for SQL: this allows you to execute intelligent filters on your data, similar to the `sqldf` package or database environments you are familiar with. That way, you can reduce the amount of data that's stored in memory by filtering out rows or columns.
 * Indexes: SQLite databases contain indexes. An index is something like an ordered version of a column. When enabled on a column, you can search through the column much faster. We will demonstrate this below.
 
-We have downloaded a second file `2016-04-20-processed-logs-big-file-example.db` that contains the same data as the `2016-04-20-processed-logs-big-file-example.csv` file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, you can first convert your csv into a SQlite as described [further in this tutorial](#convertsqlite).
+We have downloaded a second file `2016-04-20-processed-logs-big-file-example.db` that contains the same data as the `2016-04-20-processed-logs-big-file-example.csv` file, but as a sqlite database. Furthermore, the database file contains indexes which will dramatically drop the time needed to perform search queries. If you do not have a SQLite database containing your data, you can first convert your csv into a SQlite as described [further in this tutorial](#create-a-sqlite-database-from-a-csv-file).
 
 Let's first connect to the database and list the available tables.
 
@@ -239,7 +239,7 @@ head(results)
 
 Dplyr provides the ability to perform queries as above without the need to know SQL. If you want to learn more about how to use `dplyr` with a SQLite database, head over to [this vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
-### Create a SQLite databases from a CSV file {#convertsqlite}
+### Create a SQLite database from a CSV file {#convertsqlite}
 
 In the case you have a CSV file available and you would like to query the data using SQL queries or with `dplyr` as shown in the previous sections, you can decide to convert the data to a SQlite database. The conversion will require some time, but once available, it provides the opportunity to query the data using SQL queries or with `dplyr` as shown in the previous sections. Moreover, you can easily add additional tables with related information to combine the data with. 
 

@@ -1,0 +1,46 @@
+name: On PR, build the site and save the result to an artifact
+
+on:
+  pull_request
+
+jobs:
+  build-and-save:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout (tutorials)
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Checkout (theme)
+        uses: actions/checkout@v2
+        with:
+          repository: MunifTanjim/minimo
+          ref: v2.9.0
+          path: themes/minimo
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.88.1'
+          # extended: true
+
+      - name: Build
+        run: hugo
+
+      # Need to add post build for the search functionality...
+      - name: Install JS dependencies to build the index
+        run: npm install lunr glob
+
+      - name: Generate search index
+        run: node themes/minimo/scripts/generate-search-index-lunr.js
+
+      - name: Archive built site to an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: pr-${{ env.PR_NUMBER }}-inbo-tutorials-website
+          path: public
+        env:
+          PR_NUMBER: ${{ github.event.number }}

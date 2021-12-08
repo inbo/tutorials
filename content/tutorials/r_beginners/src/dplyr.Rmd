@@ -1,7 +1,7 @@
 ---
 title: "Introductie dplyr"
 subtitle: "Data manipulatie"
-author: "Ivy Jansen, Pieter Verschelde"
+authors: [ivyjansen, pieterverschelde, raisacarmen]
 output: pdf_document
 papersize: a4
 urlcolor: blue
@@ -13,189 +13,329 @@ knitr::opts_chunk$set(
   inline = TRUE,
   echo = TRUE, 
   warning = FALSE,
-  # eval = FALSE,
+  eval = FALSE,
   # cache = FALSE, 
   dpi = 300, 
   fig.width = 3.6, 
   fig.height = 2.4
   )
 library(knitr)
+library(tidyverse)
+piloot <- read_csv2('../data/pilootstudie.csv')
+
 set.seed(1234)
 ```
 
+# Data wrangling met `dplyr`, `dbplyr` en `tidyr`
+
+## Inleiding
+
 \hspace{7cm} ![](../Figuren/hex-dplyr.png){width=2.5cm} \hspace{5cm}
 
+In deze les gaan we het volgende leren:
+
+- Werken met pipes 
+- Rijen en kolommen selecteren op basis van voorwaarden
+- Nieuwe kolommen berekenen
+- Data samenvatten
+- Data samenvoegen en transformeren
+- We gebruiken 2 datasets
+    - de interne dataset `iris` die standaard in R zit
+    - `pilootstudie.csv` die meegeleverd is met de code
+
+Voorbereidingen in Rstudio: 
+
+```{r voorbereidingen}
+
+#Laadt het pakket tidyverse
+library(tidyverse)
+
+#Kijk wat je werkdirectory is, en pas die eventueel aan met setwd of het menu
+getwd()
+
+#Lees pilootstudie.csv in
+#Deze code gaat er vanuit dat dit in de data folder staat in je werkdirectory
+piloot <- read_csv2('data/pilootstudie.csv')
 
 
-# Wat kan je allemaal met dplyr?
+```
+
+
+Waarom dplyr:
+
+- Basis R syntax met heel veel geneste haakjes is moeilijk te lezen en te debuggen
+- Alle dplyr functies hebben een dataset als input en als output, zodat er geen datatype conversie problemen ontstaan
+- Werkt heel snel in vergelijking met andere R functies 
+
+### Dataset datatypes
+
+In R hebben hebben datasets doorgaans het datatype `data.frame` of `tibble`.
+
+- `data.frame` is de standaard in R voor datasets
+- `tibble` is een uitbreiding hierop
+    - ondersteunt definitie van groepering (zie verder)
+    - toont de dataset op een meer elegante manier in de console, zodat je geen ellenlange output krijgt
+        - de dimensies worden getoond
+        - eventuele groepering
+        - standaard 10 rijen getoond
+        - zoveel kolommen getoond als je R consolebreedte toelaat, het bestaan van extra kolommen wordt aangegeven 
+    - `View()` aangeraden als je de volledige data wil kunnen zien
+    - `data.frames` kunnen naar `tibble` geconverteerd worden met de functie `as_tibble()`
+
+```{r piloottibble, eval = TRUE}
+#output als data.frame
+head(iris, n = 10)
+
+#output als tibble
+piloot #piloot is een tibble omdat die met read_csv2 ingelezen is
+```
+
+
+### Wat kan je allemaal met het pakket dplyr?
 
 ![](../Figuren/dplyr_overview.jpg)\
 
 
-- `dplyr` is een onderdeel van het `tidyverse` package
-- Niet nodig om `dplyr` apart te installeren / laden
+- `dplyr` (en ook `dbplyr` en `tidyr`) is een onderdeel van het `tidyverse` package
+- Niet nodig om `dplyr` apart te installeren of te laden als je tidyverse laadt
     ```{r, message = FALSE}
     library(tidyverse)
     ```
 
+Belangrijk om dplyr vlot te gebruiken is gebruik maken van `pipes`.
+
+### Pipe `%>%`
+
+Een pipe kan je gebruiken om in R code leesbaar en uitvoerbaar te maken van boven naar beneden, in plaats van uit de binnnenste haakjes naar buiten toe te werken.
+Een pipe lees je als: **neem de uitkomst van wat voor de pipe staat en doe daarmee wat na de pipe staat**.
+
+Hieronder wordt de data gebruikt en daar `functie1()` op uitgevoerd, de uitkomst hiervan wordt dan gebruikt voor `functie2()`, en zo kan je een heel lange ketting maken.
+
+Nieuwe of aangepaste kolommen die je in `functie1()` gemaakt hebt zijn direct bruikbaar door `functie2()`
+
+```
+resultaat <- data %>% functie1() %>% functie2()
+
+```
+- Eerste argument in de functie (wat een dataset is) na de pipe moet niet opgegeven worden
+    - Hetgeen voor de `pipe` staat, wordt als eerste argument (data) gebruikt in de functie na de `pipe`
+- *Shortcut voor pipe*: CTRL + SHIFT + M
+- **Tip: Eindig de regel met een `pipe`** en zet de volgende bewerking op een nieuwe regel. Dit maakt de code beter leesbaar en vereenvoudigt het debuggen
+```
+resultaat <- data %>% 
+  functie1() %>% 
+  functie2() %>%
+  ...
+  functieN()
+  
+```
+- Je kan gemakkelijk de code deels laten uitvoeren, dus als je wil weten wat het resultaat is nadat `functie1()` uitgevoerd is, kan je de code selecteren tot net voor de pipe na `functie1()` en dan dat geselecteerde stuk uitvoeren.
+
+**resultaat <- data %>% **
+
+**functie1()** %>%
+
+  functie2() %>%
+  
+  ...
+  
+  functieN()
 
 
 
-# Pipe `%>%`
 
 ![](../Figuren/Pipes.jpg){width=3cm}\
+
+### Dplyr syntax
 
 Alle functies in het `dplyr` package werken op dezelfde manier. 
 
 - Als eerste argument verwachten ze de data waarop de bewerking uitgevoerd moet worden.
 - Alle volgende argumenten zijn details over de uit te voeren bewerking.
 
-Ideaal om gebruik te maken van `pipes`.
+Ideaal dus om gebruik te maken van pipes `%>%`.
 
-- Deze worden aangeduid met `%>%`
-- Eerste argument in de functie is overbodig
-    - Hetgeen voor de `pipe` staat, wordt als eerste argument (data) gebruikt in de functie na de `pipe`
-- Een opeenvolging van bewerkingen mogelijk
-    - Resultaat van de vorige bewerking is input voor volgende bewerking
-- *Shortcut*: CTRL + SHIFT + M
-- *Tip*: Eindig de regel met een `pipe` en zet de volgende bewerking op een nieuwe regel. Dit maakt de code beter leesbaar en vereenvoudigt het debuggen
-    ```{r, eval = FALSE, purl = FALSE}
-    dataset %>%
-      functie1() %>%
-      functie2() %>%
-      ... %>%
-      functieN()
+
+## Veel gebruikte functies
+
+
+## `filter()`
+
+- Rijen selecteren op basis van één of meerdere logische voorwaarden
+```{r, eval = FALSE, purl = FALSE}
+#filter code zonder pipes
+filter(dataset, voorwaarden)
     ```
 
-
-
-
-# `filter()`
-
-- Rijen selecteren op basis van een of meerdere logische voorwaarden
-    ```{r, eval = FALSE, purl = FALSE}
-    filter(dataset, voorwaarden)
-    ```
-- Syntax met pipes
-    ```{r, eval = FALSE, purl = FALSE}
-    dataset %>%
-      filter(voorwaarde)
+```{r, eval = FALSE, purl = FALSE}
+#filter code met pipes
+dataset %>%
+  filter(voorwaarden)
     ```
 
-## Logische voorwaarden
+### Logische voorwaarden
 
 ![](../Figuren/LogischeVoorwaarden.jpg){width=7cm}\
 
 
-## Voorwaarden combineren
+### Voorwaarden combineren
 
 ![](../Figuren/Boolean.jpg){width=6cm}\
 
 De ampersand `&` mag ook vervangen worden door een komma om voorwaarden te combineren die beiden voldaan moeten zijn.
 
 
-## Voorbeelden 
+### Voorbeelden 
 
-### `iris` data
+#### `iris` data
 
-- Selecteer alle records voor de soort `virginica` en bewaar in `iris1`
-    ```{r filter}
-    iris1 <- filter(iris, Species == "virginica")
-    head(iris1)
-    ```
-- Selecteer alle records van `virginica` waarvoor `Sepal.Length` groter is dan of gelijk aan 7
-    ```{r}
-    filter(iris1, Sepal.Length >= 7)
-    ```
-    ```{r, eval = FALSE}
-    filter(iris, Species == "virginica" & Sepal.Length >= 7)
-    ```
-    ```{r, eval = FALSE}
-    iris %>% 
-      filter(Species == "virginica") %>%
-      filter(Sepal.Length >= 7)
-    ```
+1. Selecteer alle records voor de soort `virginica` en bewaar in het object `iris1`
+1. Selecteer alle records van `virginica` waarvoor `Sepal.Length` groter dan of gelijk aan 7 is  
+1. Bewaar het resultaat in iris2
 
-### `pilootstudie.csv` data
+```{r filter_iris_vb1, eval = TRUE, message = FALSE}
 
-```{r, include = FALSE}
-piloot <- read_csv2("../data/pilootstudie.csv")
-summary(piloot)
+##vb1: selecteer de virginicas
+iris1 <- filter(iris, Species == "virginica")
+head(iris1)
+    
 ```
 
-- Verwijder alle records waarvoor `Omtrek` of `Hoogte` ontbrekend zijn en bewaar het resultaat in `piloot2` (voor later gebruik)
-    ```{r}
-    piloot2 <- piloot %>%
-      filter(!is.na(Omtrek) & !is.na(Hoogte))
-    ```
-- Selecteer in `piloot2` alle records van de ploegen 1, 5 en 7
-    ```{r}
-    piloot2 %>%
-      filter(Ploeg %in% c(1, 5, 7))
-    ```
+```{r filter_iris_vb2}
+ 
+##vb2: 3 methoden om virginicas met Sepal>Length >= 7 te filteren
+filter(iris, Species == "virginica" & Sepal.Length >= 7) #methode1
+filter(iris, Species == "virginica",  Sepal.Length >= 7) #methode2
+iris %>%                                                 #methode3
+  filter(Species == "virginica") %>%
+  filter(Sepal.Length >= 7)
+```
 
-## Veel voorkomende fouten 
+```{r filter_iris_vb3, eval = TRUE}
+##vb3: Bewaar je resultaat in een nieuwe dataset
+iris2 <- 
+  iris %>% 
+  filter(Species == "virginica") %>%
+  filter(Sepal.Length >= 7)
+     
+#vaak wordt gekozen om de data op dezelfde regel te zetten
+#deze code doet hetzelfde als hierboven
+iris2 <- iris %>% 
+  filter(Species == "virginica") %>%
+  filter(Sepal.Length >= 7)
+
+#De meest gebruikte methode op INBO is als volgt (identiek als hierboven)   
+iris2 <- iris %>% 
+  filter(Species == "virginica", 
+         Sepal.Length >= 7)
+head(iris2)
+    
+```
+
+#### `pilootstudie.csv` data
+
+De data moet je eerst inlezen (zie voorbereidingen in Rstudio)
+
+1. Verwijder alle records waarvoor `Omtrek` of `Hoogte` ontbrekend zijn en bewaar het resultaat in `piloot2` (voor later gebruik)
+1. Selecteer in `piloot2` alle records van de ploegen 1, 5 en 7 
+
+```{r filterpiloot_vb1, eval = TRUE}
+
+##vb1: Behou enkel rijen met aanwezige Omtrek en Hoogte
+piloot2 <- piloot %>%
+  filter(!is.na(Omtrek) & !is.na(Hoogte))
+    
+#Kijk of er rijen verdwenen zijn
+nrow(piloot)
+nrow(piloot2)
+    
+```
+
+```{r filterpiloot_vb2}
+
+##vb2: behou enkel ploeg 1, 5 en 7  
+piloot2 %>%
+  filter(Ploeg %in% c(1, 5, 7))
+    
+#identiek maar met een logische OR
+piloot2 %>%
+  filter(Ploeg == 1 | Ploeg == 5 | Ploeg == 7)    
+    
+```
+
+### Veel voorkomende fouten 
 
 - Gebruik van `=` in plaats van `==`
-    ```{r, eval = FALSE, purl = FALSE}
-    filter(iris, Species = "virginica")
-    filter(iris, Species == "virginica")
+    ```{r,  purl = FALSE}
+    filter(iris, Species = "virginica") #fout
+    filter(iris, Species == "virginica") #ok
     ```
 - Vergeten van de aanhalingstekens rond tekst
-    ```{r, eval = FALSE, purl = FALSE}
-    filter(iris, Species == virginica)
-    filter(iris, Species == "virginica")
+    ```{r,  purl = FALSE}
+    filter(iris, Species == virginica) #fout, R verwacht het object virginica
+    filter(iris, Species == "virginica") #ok, R verwacht de tekst virginica
     ```
 - Verschillende testen samengevoegd
-    ```{r, eval = FALSE, purl = FALSE}
-    filter(iris, 5 < Sepal.Length < 7)
-    filter(iris, 5 < Sepal.Length & Sepal.Length < 7)
+    ```{r, purl = FALSE}
+    filter(iris, 5 < Sepal.Length < 7) #fout
+    filter(iris, 5 < Sepal.Length & Sepal.Length < 7) #ok
     ```
 
-
-
-
-# `arrange()`
+## `arrange()`
 
 - Rijen ordenen van klein naar groot volgens een of meerdere kolommen (gescheiden door komma's)
-    ```{r, eval = FALSE, purl = FALSE}
-    arrange(dataset, variabele1, variabele2, ...)
-    dataset %>%
-      arrange(variabele1, variabele2, ...)
-    ```
+```{r, purl = FALSE}
+    
+arrange(dataset, variabele1, variabele2, ...)
+    
+dataset %>%
+  arrange(variabele1, variabele2, ...)
+    
+```
 - Ordenen van groot naar klein kan met `desc()`
-    ```{r, eval = FALSE, purl = FALSE}
+    ```{r, purl = FALSE}
+    
     arrange(dataset, desc(variabele))
+    
     ```
 - **Opgelet**: Volgorde van variabelen is belangrijk voor het resultaat van de rangschikking
 
-## Voorbeelden
+### Voorbeelden `piloot2` data
 
-### `piloot2` data
+1. Vind de dunste bomen. Sorteer daarvoor volgens `Omtrek` 
+1. Vind de hoogste bomen. Sorteer daarvoor volgens `Hoogte` van groot naar klein
+1. Sorteer de bomen eerst op `Omtrek` daarna op `Hoogte`
+1. Sorteer de bomen eerst volgens `Omtrek` van klein naar groot, daarna op `Hoogte` van groot naar klein 
+```{r arrange_vb1}
 
-- Vind de dunste bomen. Sorteer daarvoor volgens `Omtrek`
-    ```{r arrange}
-    arrange(piloot2, Omtrek)
-    ```
-- Vind de hoogste bomen. Sorteer daarvoor volgens `Hoogte`
-    ```{r}
-    piloot2 %>%
-      arrange(desc(Hoogte))
-    ```
-- Sorteer de bomen eerst volgens `Omtrek` en daarna volgens `Hoogte`
-    ```{r}
-    arrange(piloot2, Omtrek, Hoogte)
-    ```
-- Sorteer de bomen eerst volgens `Hoogte` en daarna volgens `Omtrek` 
-    ```{r}
-    piloot2 %>%
-      arrange(Hoogte, Omtrek)
-    ```
+##vb1: sorteer volgens kleinste omtrek   
+arrange(piloot2, Omtrek)
+    
+```
 
+```{r arrange_vb2}
+   
+##vb2: sorteer volgens grootste Hoogte
+piloot2 %>%
+  arrange(desc(Hoogte))
+    
+```
 
+```{r arrange_vb3}
+##vb3: Sorteer eerst om omtrek, daarna op hoogte    
+arrange(piloot2, Omtrek, Hoogte)
+    
+```
 
+```{r arrange_vb4}
+##vb4: sorteer op omtrek daarna volgens grootste Hoogte  
+piloot2 %>%
+  arrange(Omtrek, desc(Hoogte)) %>% 
+  View() #toon de resultaten in het Rstudio grid
+    
+```
 
-# `mutate()`
+## `mutate()`
 
 - Nieuwe variabele(n) aanmaken op basis van bestaande variabele(n) in de dataset
     ```{r, eval = FALSE, purl = FALSE}
@@ -203,34 +343,46 @@ summary(piloot)
     dataset %>% 
       mutate(NieuweVariabele1, NieuweVariabele2, ...)
     ```
-- Altijd van de vorm `NieuweVariabele = bewerking op bestaande variabele(n)`
+- Altijd in de vorm `NieuweVariabele = bewerking op bestaande variabele(n)`
 - Mogelijk om meerdere variabelen tegelijk aan te maken
     - Gescheiden door komma's
-    - Al mogelijk om nieuwe variabele onmiddellijk te gebruiken
+    - Mogelijk om nieuwe variabele onmiddellijk te gebruiken als input 
 - **Belangrijk**: resultaat moet een even lange vector zijn als de input
+- Voor de leesbaarheid gebruik je best een nieuwe regel  voor iedere variabele die je met `mutate` aanmaakt
 
-## Voorbeelden
 
-### `iris` data
+### Voorbeeld `iris` data
 
-- Oppervlakte van de Sepal blaadjes
-    ```{r mutate}
-    NieuweIris <- mutate(iris, Sepal.Opp = Sepal.Length * Sepal.Width)
-    head(NieuweIris)
-    ```
-- Verhouding van de oppervlakte van de kelk- en kroonblaadjes
-    ```{r}
-    iris %>%
-      mutate(Sepal.Opp = Sepal.Length * Sepal.Width,
-             Petal.Opp = Petal.Length * Petal.Width,
+1. Oppervlakte van de Sepal blaadjes
+1. Verhouding van de oppervlakte van de kelk- en kroonblaadjes
+
+```{r mutate_vb1, eval = TRUE}
+  
+##vb1: oppervlakte Sepal  
+nieuwe_iris <- mutate(iris, Sepal.Opp = Sepal.Length * Sepal.Width)
+head(nieuwe_iris)
+    
+```
+
+```{r mutate_vb2, eval = TRUE}
+##vb2: Verhouding oppervlaktes kelk- en kroonblaadjes
+#voor de leesbaarheid gebruik best nieuwe regels
+iris %>%
+  mutate(Sepal.Opp = Sepal.Length * Sepal.Width,
+         Petal.Opp = Petal.Length * Petal.Width,
              Verhouding = Sepal.Opp / Petal.Opp) %>%
-      head()
-    ```
+  head() #toon de eerste rijen met de nieuwe berekeningen
+    
+#Bovenstaande bewaart je resultaat niet en toont enkel een deel
+#Onderstaande bewaart het resultaat als object nieuwe_iris
+nieuwe_iris <- iris %>%
+  mutate(Sepal.Opp = Sepal.Length * Sepal.Width,
+          Petal.Opp = Petal.Length * Petal.Width,
+          Verhouding = Sepal.Opp / Petal.Opp)
+```
 
 
-
-
-# `select()`
+## `select()` en `transmute()`
 
 - Een of meerdere kolommen selecteren, namen gescheiden door komma's
     ```{r, eval = FALSE, purl = FALSE}
@@ -238,184 +390,579 @@ summary(piloot)
     dataset %>%
       select(kolomnaam1, kolomnaam2, ...)
     ```
-- Alternatief voor vierkante haken `[]` of namen expliciet meegeven
+- Alternatief voor vierkante haken `[ ]` of namen expliciet meegeven
     - Past in de hele piping filosofie
-- Interessante functies om gelijkaardige kolommen te selecteren
-    - `starts_with("xxx")`: alle kolommen waarvan de naam begint met `xxx`
-    - `ends_with("xxx")`: alle kolommen waarvan de naam eindigt met `xxx`
-    - `contains("xxx")`: alle kolommen waarvan de naam `xxx` bevat
-    ```{r select, eval = FALSE}
+- Interessante functies om gelijkaardige kolomnamen te selecteren
+    - `starts_with("xxx")`: alle kolomnamen waarvan de naam begint met `xxx`
+    - `ends_with("xxx")`: alle kolomnamen waarvan de naam eindigt met `xxx`
+    - `contains("xxx")`: alle kolomnamen waarvan de naam `xxx` bevat
+    - `everything()`: alle kolomnamen
+    - `any_of()`: alle kolomnamen die je in een charactervector meegeeft
+    - `where()`:alle kolomnamen die TRUE geven voor een functie
+    - Je kan ook `-` ervoor zetten om kolomnamen niet te selecteren
+        - bv. `-contains("xxx")`: alle kolomnamen die `xxx` niet bevatten
+    - bovenstaande wordt impliciet als de variabele `.vars` meegegeven
+    
+```{r select1}
+    
+    #selecteer alle variabelen die beginnen met Petal
     select(iris, starts_with("Petal"))
+    
+    #selecteer alle variabelen die niet eindigen met Width
     select(iris, -ends_with("Width"))
-    ```
+    
+    #identiek als hierboven maar met .vars expliciet opgegeven
+    select(iris, .vars = -ends_with("Width"))   
+    
+    #selecteer alle numerieke variabelen
+    #.vars hoeft niet expliciet vermeld
+    select(iris, .vars = where(is.numeric))
+    
+    #via kolomnaamvector
+    kolommen <- c("Species", "Petal.Width")
+    select(iris, .vars = any_of(kolommen))
+    
+```
+
 - Mogelijk om geselecteerde variabelen ineens van naam te veranderen
     - Nadeel dat alle niet-genoemde variabelen niet meegenomen worden
-    ```{r, eval = FALSE}
+```{r select2, eval = FALSE}
+    #selecteer enkel Species en hernoem deze als Soort
     select(iris, Soort = Species)
-    ```
     
+```
+- `transmute()` combineert mutate en select: het werkt hetzelfde als mutate, maar enkel de kolommen die binnen `transmute()` staan worden behouden  
+```{r transmute, eval = FALSE}
+    #Behou de soort als uppercase en de Petal.Area in de data
+    #verwijder de rest
+    iris %>% 
+      transmute(Soort = toupper(Species), 
+                Petal.Area = Petal.Length * Petal.Width) 
+```
 
 
-
-# `summarise()`
+## `summarise()` of `summarize()`
 
 - Samenvattende waarde(n) berekenen
 - Mogelijkheid om meerdere kenmerken (functies) te combineren
-- Geeft slechts 1 waarde (per functie) terug
+- Geeft doorgaans slechts 1 waarde (per functie) terug
+- zowel het Engelse `summarise` als het Amerikaanse `summarize` kunnen worden gebruikt
     ```{r, eval = FALSE, purl = FALSE}
     summarise(data, functie(variabele))
+    
     data %>%
       summarise(functie(variabele))
     ```
 - Varianten om kenmerken te berekenen voor alle variabelen, of een selectie van variabelen (gebruiken een iets andere syntax, zie `help`)
-    - `summarise_all()`
-    - `summarise_at()`
-    - `summarise_if()`
+    - In de nieuwe dplyr versie wordt dit gebruik vervangen door `across`, al blijven onderstaande functies wel bestaan en mogen ze gebruikt worden
+    - `summarise_all()`: vat samen voor alle variabelen
+    - `summarise_at()` : vat samen voor specifiek opgegeven variabelen
+    - `summarise_if()` : vat samen voor variabelen die aan een voorwaarde voldoen
+- enkele voor summarise veel gebruikte speciaal gemaakte functies
+    - `n()`: geef het aantal elementen terug
+    - `n_distinct()` : geef het aantal verschillende elementen terug
+    - `n_groups()` : geef het aantal verschillende groepen (zie group_by verder)
 
-## Voorbeelden
+### Voorbeelden
 
 ### `piloot2` data
 
-- Vind de dunste boom
-    ```{r summarise}
-    summarise(piloot2, Dunste = min(Omtrek))
-    ```
-- Vind de hoogste boom, het aantal proefvlakken, en de mediaan voor de referentiemetingen
-    ```{r}
-    piloot2 %>%
-      summarise(HoogsteBoom = max(Hoogte),
-                AantalProefVlakken = n_distinct(Proefvlak),
-                MediaanRef = median(Referentie))
-    ```
-- Bereken voor alle variabelen het gemiddelde
-    ```{r}
-    piloot2 %>%
-      summarise_all(mean)
-    ```
+1. Vind de dunste boom
+1. Vind de hoogste boom, het aantal proefvlakken, en de mediaan voor de referentiemetingen
+1. Bereken voor alle variabelen het gemiddelde
+```{r summarise_pilot_vb1, eval = TRUE}
+##vb1: kleinste omtrek
+summarise(piloot2, Dunste = min(Omtrek))
+
+```
+
+```{r summarise_pilot_vb2, eval = TRUE}
+##vb2: maximale Hoogte, aantal proefvlakken, mediaan referentie
+piloot2 %>%
+  summarise(HoogsteBoom = max(Hoogte),
+            AantalProefVlakken = n_distinct(Proefvlak),
+            MediaanRef = median(Referentie))
+```
+
+```{r summarise_pilot_vb3, eval = TRUE}
+##vb3: gemiddelde van alle variabelen
+piloot2 %>%
+  summarise_all(mean)
+```
 
 ### `iris` data
 
-- Bereken voor alle numerieke variabelen het gemiddelde
-    ```{r}
-    iris %>%
-      summarise_if(is.numeric, mean)
+1. Bereken voor alle numerieke variabelen het gemiddelde
+1. Bereken voor alle variabelen (behalve Species) het minimum en het maximum
+
+```{r summarise_iris_vb1, eval = TRUE}
+##vb1: gemiddelde van alle numerieke variabelen
+iris %>%
+  summarise_if(is.numeric, mean)
+```
+
+```{r summarise_iris_vb2, eval = TRUE}
+##vb2; minimum en maximum van alles behalve Species
+#beter met across werken
+#het commando list is hier nodig voor verschillende kolommen
+iris %>%
+  summarise_at(vars(-Species), 
+               list(minimum = min, 
+                    maximum = max))
     ```
-- Bereken voor alle variabelen (behalve Species) het minimum en het maximum
-    ```{r}
-    iris %>%
-      summarise_at(vars(-Species), 
-                   list(minimum = min, 
-                        maximum = max))
-    ```
 
 
+## `group_by()`
 
-
-# `group_by()`
-
-- Gegevens groeperen volgens een of meerdere variabelen. Dit doet niks, behalve er een gegroepeerde `tibble` van maken.
+- Gegevens groeperen volgens een of meerdere variabelen in een dataset. Dit doet niks, behalve er een gegroepeerde `tibble` van maken.
     ```{r, eval = FALSE, purl = FALSE}
     group_by(data, variabele1, variabele2, ...)
+    
     data %>%
       group_by(variabele1, variabele2, ...)
     ```
 - Groepering ongedaan maken met `ungroup()`
     - Meestal niet nodig, maar sommige functies kunnen niet om met gegroepeerde data
 - Meestal gebruikt in combinatie met `summarise()` om per groep samenvattende kenmerken te kunnen berekenen
+    - De kolommen die in `group_by()` staan worden altijd in het resultaat opgenomen
+        - als je dit niet wenst, moet je `ungroup()`gebruiken
     ```{r, eval = FALSE, purl = FALSE}
     data %>%
       group_by(variabele_i) %>%
       summarise(functie(variabele_j))
+    
     ```
 
-## Voorbeelden
+### Voorbeelden
 
-### `iris` data
+#### `iris` data
 
- - Bereken per soort het aantal waarnemingen en de gemiddelde `Sepal.Width`
-    ```{r group_by}
-    iris %>%
-      group_by(Species) %>%
-      summarise(Aantal = n(),
-                Gemiddelde = mean(Sepal.Width))
-    ```
+1. Bereken per soort het aantal waarnemingen en de gemiddelde `Sepal.Width`
 
-### `piloot2` data
+```{r iris_group_by_vb1, eval = TRUE}
+iris %>%
+  group_by(Species) %>%
+  summarise(Aantal = n(),
+            Gemiddelde = mean(Sepal.Width))
+```
 
-- Bereken per boom het minimum, gemiddelde en maximum van de omtrek en de hoogte (ook nodig om te groeperen per proefvlak omdat de nummering van de bomen in elk proefvlak opnieuw begint)
-    ```{r}
-    piloot2 %>%
-      group_by(Proefvlak, Boom) %>%
-      summarise(MinOmtrek = min(Omtrek),
-                GemOmtrek = mean(Omtrek),
-                MaxOmtrek = max(Omtrek),
-                MinHoogte = min(Hoogte),
-                GemHoogte = mean(Hoogte),
-                MaxHoogte = max(Hoogte))
-    ```
-- Bereken per ploeg het aantal metingen per proefvlak
-    ```{r}
-    piloot2 %>%
-      group_by(Proefvlak, Ploeg) %>%
-      summarise(Aantal = n())
-    ```
+#### `piloot2` data
 
+1. Bereken per boom het minimum, gemiddelde en maximum van de omtrek en de hoogte (Proefvlak ook nodig om te groeperen omdat de nummering van de bomen in elk proefvlak opnieuw begint)
+1. Bereken per ploeg het aantal metingen per proefvlak
+    
+```{r piloot_group_by_vb1, eval = TRUE}
+piloot2 %>%
+  group_by(Proefvlak, Boom) %>%
+  summarise(MinOmtrek = min(Omtrek),
+            GemOmtrek = mean(Omtrek),
+            MaxOmtrek = max(Omtrek),
+            MinHoogte = min(Hoogte),
+            GemHoogte = mean(Hoogte),
+            MaxHoogte = max(Hoogte))
+```
 
+```{r piloot_group_by_vb2, eval = TRUE}
+piloot2 %>%
+  group_by(Proefvlak, Ploeg) %>%
+  summarise(Aantal = n())
+```
 
+### summarize .groups parameter
 
-# Andere interessante functies
+- In nieuwere dplyr versie is krijg je soms een melding dat je .groups moet aangeven. Dit is geen foutmelding, gewoon informatie.
+```
+summarise()` has grouped output by 'groeperingsvariabelenamen'. 
+You can override using the `.groups` argument.
+```
+- Standaard als je de `.groups` parameter niet gebruikt zal de functie summary het laatste groeplevel weglaten
+    - dit is handig als je summaries maakt op een vorige summary
+- Je kan dit gedrag wijzigen door het `.groups` argument te gebruiken binnen de summary functie
+    - `.groups = "drop_last"` of `.groups = NULL`: groepeert niet langer op de laatste variabele in `group_by`
+    - `.groups = "drop"`: verwijder alle groepering
+    - `.groups = "keep"`: behou alle groepering
+    - `.groups = "rowwise"`: maak van iedere rij in de output een aparte groep
 
-## `distinct()`
+```{r dotgroups, eval = TRUE}
+test <- piloot %>%  
+  group_by(Proefvlak, Boom) 
+test #output: Groups: Proefvlak, Boom [96] (96 combinaties boom en proefvlak)
+
+#na de summary verdwijnt de laatste variabele in de groepering
+#enkel nog:  Groups:   Proefvlak [8] blijft over
+test %>% 
+  summarize(GemOmtrek = mean(Omtrek))
+#je krijgt volgende melding boven het resultaat: 
+    #`summarise()` has grouped output by 'Proefvlak'. 
+    #You can override using the `.groups` argument.
+
+#de groepering is volledig verdwenen
+test %>% 
+  summarize(GemOmtrek = mean(Omtrek, na.rm = TRUE), .groups = "drop")
+
+#de oorspronkelijke groepering op Proefvlak en Proef blijft behouden
+test %>% 
+  summarize(GemOmtrek = mean(Omtrek, na.rm = TRUE), .groups = "keep")
+
+#iedere rij is een aparte groep
+test %>% 
+  summarize(GemOmtrek = mean(Omtrek, na.rm = TRUE), .groups = "rowwise")
+
+#waarvoor 'drop_last' handig is
+piloot %>%  
+  group_by(Proefvlak, Boom) %>% 
+  summarize(GemOmtrek = mean(Omtrek, na.rm = TRUE)) %>% #groepering op Boom is weg
+  summarize(GemOmtrek = mean(GemOmtrek)) #dus nu per Proefvlak berekend
+  
+
+```
+
+## Andere interessante functies
+
+### `distinct()`
 
 - Verwijder dubbele rijen
-- Mogelijk om een of meerdere variabelen te specifiëren waarnaar gekeken moet worden
+- Mogelijk om één of meerdere variabelen te specifiëren
+    - Indien je variabelen specifieert, zullen enkel deze nog overblijven in de dataset samen met eventuele groeperingsvariabelen
 
-## `top_n(data, n, variabele)`
+```{r distinct}
 
-- Sorteer rijen volgens een variabele en neem de bovenste $n$ rijen
+#1 rij valt weg omdat die identiek is aan een andere rij
+#alle kolommen worden behouden
+iris %>%  distinct()
 
-## `slice()`
+#Toon alle verschillende Sepal.Length en Species combinaties
+#enkel de vermelde kolommen worden behouden
+iris %>% distinct(Sepal.Length, Species)
 
-- Selecteer rijen op basis van de positie
+```
 
-## `transmute()`
+### `slice()`
 
-- Alternatief voor `mutate()`
-- Behoudt enkel de nieuw aangemaakte variabelen
+- Selecteer rijen op basis van de rijnummer of een vector van rijnummers
+- Er zijn enkele wat varianten op slice
+    - `slice_head()` en `slice_tail()`
+        - Toon de bovenste n of onderste n rijen
+    - `slice_min()` en `slice_max()`
+        - Toon Sorteer rijen volgens een variabele en neem de bovenste of onderste $n$ rijen
+        - Je kan ook kiezen voor de bovenste fractie van rijen, bv. het bovenste kwart
+        - In de help van `slice_min` vind je meer informatie
 
-## `rename(data, NieuweNaam = OudeNaam)`
+    - `slice_sample()`
+        - Toon een random aantal of fractie van het totaal aantal rijen
+        - De mogelijkheid is er ook om de sampling te wegen of dezelfde rij verschillende keren te selecteren
+
+```{r slice, eval = TRUE}
+
+#Toon de eerste, vijfde en zevende rij
+iris %>% 
+  slice(c(1, 5, 7))
+
+```
+
+```{r slicespeciaal}
+#Toon de 3 eerste rijen
+iris %>% 
+  slice_head(n = 3)
+
+#Toon de laatste 10% rijen
+iris %>% 
+  slice_tail(prop = 0.10)
+
+#Toon de 7 grootste Sepal.Length
+iris %>% 
+  slice_max(Sepal.Length, n = 7)
+
+#Toon de 7 kleinste Sepal.Length
+iris %>% 
+  slice_min(Sepal.Length, n = 7)
+
+#Toon de kleinste 25% Sepal.Length
+iris %>% 
+  slice_min(Sepal.Length, prop = 0.25)
+
+#Toon 10 willekeurige rijen
+iris %>% 
+  slice_sample(n = 10)
+
+```
+
+### `pull()`
+
+- haal een waarde  uit een dataset
+    - resultaat is nu meestal een vector of een enkele waarde
+```{r pull1}
+#resultaat is een vector in plaats van een dataset
+iris %>% pull(Sepal.Width)
+```
+
+```{r pull2, eval = TRUE}
+#haal alle Petal.Width op voor de  virginica's
+iris %>% filter(Species == "virginica") %>% pull(Petal.Width)
+```
+
+### `rename(data, NieuweNaam = OudeNaam)`
 
 - Variabelen hernoemen
 - Alternatief voor hernoemen met `select()`
-- Voordeel dat alle variabelen die niet hernoemd worden, identiek in de data blijven
+- Voordeel dat alle variabelen die niet hernoemd worden, identiek in de data blijven 
+- Je kan ook hernoemen door een functie te gebruiken (bv `toupper()` om alles uppercase te zetten) met de functie `rename_with()`
+```{r rename, eval = TRUE}
+#Hernoem species naar soortnaam
+iris_soort <- iris %>% 
+  rename(Soortnaam = Species)
+colnames(iris_soort)
 
-## `count(data, variabelen)`
+#maak alle namen uppercase
+iris_soort <- iris_soort %>% 
+  rename_with(.fn = toupper, .cols = everything())
+colnames(iris_soort)
 
-- Tel het aantal rijen in de groepen gedefinieerd door de variabelen
-- Verkorte vorm voor 
-    ```{r, eval = FALSE, purl = FALSE}
-    data %>%
-      group_by(variabelen) %>%
-      summarise(n = n())
-    ```
-- Heeft nog de extra optie om te sorteren: `count(variabele, sort = TRUE)`
-
-
-## Alle varianten van `join`
-
-Voeg kolommen van de ene tabel toe aan de andere tabel, door de rijen te koppelen volgens corresponderende waarden. Kan ook gebruikt worden om een tabel te filteren op de rijen van een andere tabel. Elke `join` resulteert in een andere combinatie van waarden uit beide tabellen.
-
-- `left_join()`
-- `right_join()`
-- `inner_join()`
-- `full_join()`
-- `semi_join()`
-- `anti_join()`
+```
 
 
+### `count()`
+
+- Tel het aantal  rijen in de groepen gedefinieerd door 1 of meer variabelen
+- Verkorte vorm voor eerst groeperen, en dan het aantal te berekenen per groep
+- Heeft nog de extra optie om te sorteren: `count(..., sort = TRUE)`
+
+```{r, eval = TRUE}
+#tel de volledige lengte van de dataset
+count(iris)
+    
+#tel het aantal per soort
+iris %>% 
+  count(Species)
+    
+    #identiek als hierboven (maar is een tibble door group_by)
+iris %>%
+  group_by(Species) %>%
+  summarise(n = n())
+    
+#Tel het aantal Petal.Length > 5 voor de verschillende soorten
+#en sorteer op het aantal (via sort = TRUE)
+iris %>% 
+  count(Species, Petal.Length > 5, sort = TRUE)
+```
+
+### `separate()`
+
+- Splits een kolom op in meerdere kolommen volgens een splitsingscharacter
+- In het argument `sep` geef je het splitsinscharacter 
+- Sommige speciale  karakters zoals een `.` moeten als `\\.` in het `sep`argument genoteerd worden
+```{r separate, eval = TRUE}
+
+testdata <- data.frame(Name = c("pieter_verschelde", "raisa_carmen"))
+testdata
+
+separate(testdata, col = Name, into = c("voornaam", "naam"), sep = "_")
+
+```
+
+## Werken met across (geavanceerd)
 
 
-# Tidy data
+Vanaf dplyr versie 1.0 wordt `accross()` gestimuleerd ten nadele van `summarise_at`, `summarise_if`, `summarise_all`
+
+- over de geselecteerde kolommen voer eenzelfde functie uit op deze kolommen
+- wordt meestal gebruikt samen met een `mutate` of `summarize` functie
+- via een lijst kan je verschillende functies tegelijk doorgeven die op de gekozen variabelen moeten gebeuren
+
+
+```{r across, eval = TRUE}
+#geef per soort de gemiddelde waarde van de Petal variabelen
+iris %>% 
+  group_by(Species) %>% 
+  summarize(across(.cols = starts_with("Petal"), mean))
+
+#bereken per soort het gemiddelde en mediaan van de Petal variabelen
+iris %>% group_by(Species) %>% 
+  summarize(across(.cols = starts_with("Petal"), 
+                  list(gemiddelde = mean, 
+                       mediaan = median)))
+
+#bereken de vierkantswortel van alle numerieke variabelen
+iris %>% 
+  mutate(across(where(is.numeric), sqrt)) %>% 
+  slice_head(n = 5)
+
+#je kan ook je eigen functies maken en gebruiken 
+cm_to_mm <- function(x) { return(x * 10)}
+iris %>% 
+  mutate(across(where(is.numeric), cm_to_mm)) %>% 
+  slice_head(n = 5)
+```
+
+```{r across2}
+#identiek als hierboven maar door de functie inline te gebruiken
+#met .x zeg je dat dat de berekening op de respectievelijke kolom moet gebeuren
+iris %>% 
+  mutate(across(where(is.numeric), ~ .x * 10)) %>% 
+  slice_head(n = 5)
+```
+
+
+## Resultaat met meerdere records (geavanceerd)
+
+- Doorgaans kan de summarise functie maar 1 resultaat per kolom teruggeven
+- Maar het is mogelijk ook een volledige dataset als resultaat terug te krijgen
+
+```{r meerdere_records, eval = TRUE}
+
+#maak een functie die het gemiddelde en mediaan berekent, zowel in cm als in mm
+#het resultaat is een dataset met 3 kolommen: name, calc_cm en calc_mm
+mean_and_median <- function(x) {
+  data.frame(name = c("avg", "med"), 
+             calc_cm = c(mean(x), median(x)), 
+             calc_mm = c(mean(x * 10), median(x * 10)))
+}
+
+#voer de functie uit voor Petal.Width
+iris %>% 
+  group_by(Species) %>% 
+  summarise(Resultaat = mean_and_median(Petal.Width)) %>% 
+  slice_head(n = 5)
+
+#dit kan ook met across toegepast worden op meerdere variabelen
+#let op, dit is een data.frame die data.frames bevat
+ingewikkeld <- 
+  iris %>% 
+  group_by(Species) %>% 
+  summarise(across(contains("Width"), mean_and_median))
+
+ingewikkeld
+
+#Slechts 3 kolomnamen
+#Petal.Width en Sepal.Width zijn elk data.frames binnen de data.frame ingewikkeld
+colnames(ingewikkeld)
+
+#Selecteer enkel de berekende gemiddeldes in mm voor de Sepal.Width 
+ingewikkeld %>% 
+  pull(Sepal.Width) %>% #haal eerst de Sepal.Width dataset eruit
+  filter(name == "avg") %>% #behou enkel de gemiddeldes
+  pull(calc_mm) #haal hieruit dat de berekening in mm
+
+
+```
+
+## `do` en `nest_by` functie (geavanceerd) 
+
+- De `do()` functie maakt het mogelijk een heel ingewikkelde berekening uit te voeren op de groepen in de dataset
+- Binnen de do zorg je dat het resultaat een dataset is
+- Het object `.` binnen de do functie verwijst naar de huidige dataset
+    - die kan je dan gewoon gebruiken zoals iedere andere dataset
+    - alles wat je in do doet, zet je tussen accolades
+    - de laatste regel moet de naam van de variabele zijn die je teruggeeft
+- Een nieuw alternatief is werken met `nest_by`
+    - `nest_by`: maakt een dataset waar iedere rij een volledige dataset per groep bevat
+    - je gebruikt een functie zoals `mutate` of `summarise`
+    - wat je hierbinnen programmeert wordt dan voor iedere subdataset uitgevoerd
+    - het object `data` wordt gebruikt om binnen een `nest_by` naar de huidige dataset te verwijzen
+    - via `summarize(nieuwe_variabele)` kan je de nesting weer ongedaan maken
+
+```{r do, eval = TRUE}
+#Selecteer voor elke soort de 3 grootste Sepal.Width
+# binnen do werken pipes niet
+iris %>% 
+  group_by(Species) %>% 
+  do({
+    resultaat <- slice_max(., Sepal.Width, n = 3, with_ties = FALSE)
+    resultaat
+  })
+
+```
+
+```{r nest1, eval = TRUE}
+
+#wat doet nest: de dataset is maar 3 rijen lang (1 rij per groep), 
+#maar iedere rij bevat een dataset met alle informatie
+iris %>% nest_by(Species)
+```
+
+```{r nest2, eval = TRUE, message = FALSE}
+#bewaar in de kolom res de 3 grootste Sepal.Width per soort
+#Dit geeft een kolom die een dataset is
+#Je maakt die terug enkelvoudig door summarise op de kolomnaam 
+iris %>% 
+  nest_by(Species) %>% 
+  summarise(res = data %>% 
+              slice_max(Sepal.Width, n = 3, with_ties = FALSE)) %>% 
+  summarise(res)
+
+```
+
+## Datasets samenvoegen 
+
+### bind_rows en bind_cols
+
+- Datasets onder elkaar samenplakken kan via `bind_rows`
+    - Kolomnamen die overeenkomen worden onder elkaar geplakt
+    - Niet overeenkomende kolommen worden aan de dataset toegevoegd en krijgen een NA waarde 
+- Datasets naast elkaar plakken kan via `bind_cols`
+    - Je bent zelf verantwoordelijk dat de rijen met elkaar corresponderen
+    - De rijen van de 2 datasets moeten even lang zijn
+    - Als er dubbele namen zijn zal R die naar unieke namen hernoemen, tenzij je dit met het argument `.name_repair` anders instelt
+
+```{r bindrows, eval = TRUE}
+
+#Maak 2 datasets en voeg aan de tweede een variabele toe 
+#en bind die terug samen
+irisA <- iris %>% 
+  slice(1:3)
+irisB <- iris %>% 
+  slice(148:150) %>% 
+  mutate(Opmerking = 'foutieve waarde')
+bind_rows(irisA, irisB)
+
+#Maak 2 datasets en bindt die samen via kolommen
+#Hoe omgegaan wordt met dubbele namen kan je via .name_repair regelen (zie help)
+irisC <- iris %>% 
+  select(Species, Petal.Length) %>% 
+  slice(1:3)
+irisD <- iris %>% 
+  select(Species, Sepal.Length) %>% 
+  slice(1:3)
+bind_cols(irisC, irisD)
+
+```
+
+### Join
+
+- `bind_cols` kan foutieve resultaten veroorzaken als de data niet juist geordend zijn, daarom dat je beter werkt met joins (functies in  het pakket `dbplyr` (onderdeel van tidyverse))
+- Kolommen van tabellen worden aaneen gebonden door de rijen te koppelen volgens corresponderende waarden. 
+- Je moet de datasets koppelen aan de hand van 1 of meerdere variabelen
+    - je kan dit met het argument `by`
+    - bv. `inner_join(df1, df2, by = c("groep", "anderegroep")`
+    - bv. `inner_join(df1, df2, by = c("groep_in_df1" = "groep_in_df2")`
+    - indien je geen `by` opgeeft zal R joinen op basis van de kolomnamen die in beide datasets hetzelfde zijn
+    
+ 
+- Elke `join` resulteert in een andere combinatie van waarden uit beide tabellen.
+    - `left_join()`: behou alle rijen van de eerste dataset en enkel de corresponderende van de andere, niet overeenkomende rijen worden met NA aangeduid
+    - `right_join()`: hetzelfde, maar nu alle rijen van de tweede datasest
+    - `inner_join()`: enkel de corresponderende rijen tussen de datasets blijven behouden
+    - `full_join()`: behou alle rijen van beide datasets
+    - `semi_join()`: behou enkel de eerste dataset, waarvoor de rijen corresponderen met de tweede dataset
+    - `anti_join()`: behou enkel de eerste dataset, en enkel de rijen die niet corresponderen met de tweede dataset
+
+```{r joins, eval = TRUE}
+df1 <- data.frame(x = 1:3, grp = letters[1:3])
+df2 <- data.frame(y = 4:6, grp = letters[c(1:2, 4)])
+df1
+df2
+
+df1 %>% inner_join(df2, by = "grp")
+df1 %>% left_join(df2, by = "grp")
+df1 %>% right_join(df2, by = "grp")
+df1 %>% full_join(df2, by = "grp")
+df1 %>% semi_join(df2, by = "grp")
+df1 %>% anti_join(df2, by = "grp")
+
+```
+
+
+## Tidy data
 
 - Tidy data = ordelijke gegevens
 - Volgens 4 principes
@@ -438,7 +985,7 @@ kable(untidy)
 ```{r, echo = FALSE, purl = FALSE}
 tidy1 <- untidy %>%
   select(-Oppervlakte, -Provincie) %>%
-  gather(key = "Jaar", value = "Inwoners", -Locatie) %>%
+  pivot_longer(names_to = "Jaar", values_to = "Inwoners", cols = -Locatie) %>%
   mutate(OppWoonfunctie = c(1732, 2991, 2067, 1837, 3132, 2148),
          PrijsBouwgrond = c(134, 181, 205, 190, 276, 223))
 kable(tidy1)
@@ -452,117 +999,122 @@ kable(tidy2)
 Gebruik functies uit het `tidyr` package (vervat in `tidyverse`) om de gegevens *tidy* te maken.
 
 
-
-
-# Van breed naar lang formaat met `gather()`
+## Data transformeren van breed naar lang `pivot_longer()` (vervangt `gather()`)
 
 - Kolomnamen zijn geen variabelen, maar waarden van een variabele
 - Informatie van deze kolommen *verzamelen* in nieuwe variabelen
     ```{r, eval = FALSE, purl = FALSE}
-    gather(data, key = key, value = value, ...)
+    pivot_longer(data, cols, names_to, values_to)
     data %>%
-      gather(key = key, value = value, ...)
+       pivot_longer(cols, names_to, values_to)
     ```
-- `key`: naam van de nieuwe variabele die de kolomnamen zal bevatten
-- `value`: naam van de nieuwe variabele die de waarden zal bevatten
-- `...`: kolomnamen die onder mekaar geplaatst moeten worden
-    - Op dezelfde manier te selecteren als in de functie `select()`
+- `cols`: naam van de kolommen waarvoor je de waarden onder elkaar wil, quotes zijn niet nodig, functies zoals by `select()` kan je gebruiken
+- `names_to`: naam van de nieuwe variabele die de kolomnamen zal bevatten, indien je dit niet invult kiest R `name`
+- `values_to`: naam van de nieuwe variabele die de waarden zal bevatten, indien je dit niet invult kiest R `value`
+
 
 ![](../Figuren/gather_data_R.png)\
 
 
-## Voorbeelden 
+### Voorbeelden 
 
-### `iris` data
+#### `iris` data
 
-We tonen deze resultaten voor een subset van de `iris` data (rijen 1, 51 en 101)
-```{r}
+- We tonen deze resultaten voor een subset van de `iris` data (rijen 1, 51 en 101)
+```{r pivot_make_iris_mini, eval = TRUE}
 iris_mini <- iris %>%
   slice(c(1, 51, 101))
 iris_mini
 ```
 
-- Maak de kolommen `Kenmerk` en `Waarde` aan, die alle info bevatten van de 4 `Sepal` en `Petal` variabelen
-    ```{r gather}
+- Maak de kolommen `Kenmerk` en `Waarde` aan, die alle info bevatten van de 4 `Sepal` en `Petal` variabelen. Let op: `names_to` en `values_to` moeten met quotes gebruikt worden, anders worden de objecten `Meting` en `Waarde` verwacht
+    ```{r pivot_longer_iris, eval = TRUE}
     iris_mini %>%
-      gather(key = Kenmerk, value = Waarde, 
-             Sepal.Length, Sepal.Width, Petal.Length, Petal.Width)
+      pivot_longer(cols = c(Sepal.Length, Sepal.Width, 
+                            Petal.Length, Petal.Width), 
+                   names_to = "Meting", 
+                   values_to = "Waarde")
     ```
 - Nieuwe kolommen bevatten info van alle kolommen, behalve van `Species` (idem resultaat)
-    ```{r, eval = FALSE}
+    ```{r pivot_longer_iris2, eval = FALSE}
     iris_mini %>%
-      gather(key = Kenmerk, value = Waarde, -Species)
+      pivot_longer(cols = -Species, values_to = "Waarde")
     ```
 
-### `pilootstudie.csv` data
+#### `pilootstudie.csv` data
 
-We tonen deze resultaten voor een subset van 4 rijen uit de `pilootstudie` data
-```{r}
+- We tonen deze resultaten voor een subset van 4 random rijen uit de `pilootstudie` data
+```{r make_piloot_mini}
 piloot_mini <- piloot %>%
   sample_n(4)
 piloot_mini
 ```
-
 - Maak de kolommen `Kenmerk` en `Waarde` aan, die alle info bevatten van de variabelen `Omtrek` en `Hoogte`
-    ```{r}
+    ```{r piloot_pivot_longer}
     piloot_mini %>%
-      gather(key = Kenmerk, value = Waarde, 
-             Omtrek, Hoogte)
+      pivot_longer(names_to = "Kenmerk", 
+                   values_to = "Waarde", 
+                  cols = c(Omtrek, Hoogte))
     ```
 
 
+# Data transformeren van lang naar breed formaat met `pivot_wider()` (vervangt `spread()`)
 
-
-# Van lang naar breed formaat met `spread()`
-
-- Omgekeerde van `gather()`
+- Omgekeerde van `pivot_longer()`
 - Observaties zijn verspreid over meerdere rijen, en je wil ze *uitspreiden* over de kolommen
     ```{r, eval = FALSE, purl = FALSE}
-    spread(data, key = key, value = value)
+    pivot_wider(data, id_cols, names_from, values_from)
     data %>%
-      spread(key = key, value = value)
+      pivot_wider(id_cols, names_from, values_from)
     ```
-- `key`: de variabele die de nieuwe kolomnamen bevat
-- `value`: de variabele die de waarden bevat
+- `id_cols`: de kolomnamen  die als rijen moeten behouden worden. Indien je die niet invult, worden alle variabelen behouden die niet in names_from of values_from voorkomen
+- `names_from`: de namen van de variabelen
+- `values_from`: de variabele die de waarden bevat
+- `values_fill`: wat moet gebeuren met records die geen waarden voor elke kolom bevatten
 
 ![](../Figuren/spread_data_R.png)\
 
 
-## Voorbeelden
+### Voorbeelden
 
-### `iris` data
+#### `iris` data
 
-In de lange dataset (uit de voorbeelden van `gather()`) splitsen we de variabele `Kenmerk` nog op in `Blad` en `Afmeting` en bewaren het resultaat in `iris_lang`.
+- In de lange dataset (uit de voorbeelden van `pivot_longer()`) splitsen we de variabele `Kenmerk` nog op in `Blad` en `Afmeting` en bewaren het resultaat in `iris_lang`.
 
-```{r spread, echo = FALSE}
+```{r maak_iris_lang, echo = FALSE}
 iris_lang <- iris %>%
   slice(c(1, 51, 101)) %>%
-  gather(key = Kenmerk, value = Waarde, -Species) %>%
+  pivot_longer(names_to = "Kenmerk", values_to = "Waarde", -Species) %>%
   separate(Kenmerk, into = c("Blad", "Afmeting"))
 iris_lang
 ```
 
 - Maak nieuwe kolommen die de lengte en breedte van de blaadjes bevatten
-    ```{r}
-    iris_lang %>%
-      spread(key = Afmeting, value = Waarde)
+    ```{r pivot_wider_iris}
+    iris_lang %>% 
+      pivot_wider(names_from = c(Afmeting, Blad), 
+                  values_from = Waarde)
+    
     ```
 
-### `pilootstudie.csv` data
+#### `pilootstudie.csv` data
 
-We behouden telkens de eerste meting en selecteren de variabelen `Proefvlak`, `Boom`, `Ploeg` en `Omtrek`.
-```{r, echo = FALSE}
+- We behouden telkens de eerste meting en selecteren de variabelen `Proefvlak`, `Boom`, `Ploeg` en `Omtrek`.
+```{r maak_piloot_lang, eval = TRUE, echo = FALSE}
 piloot_lang <- piloot %>%
   filter(Meting == 1) %>%
   select(Proefvlak, Boom, Ploeg, Omtrek) %>%
   distinct()     # Nodig omdat er voor Ploeg 4 nog 2 records overblijven (hoogtemeting met 2 toestellen)
-piloot_lang
+head(piloot_lang)
 ```
 
 - Spreid de metingen van elke ploeg over verschillende kolommen
-    ```{r}
-    piloot_lang %>%
-      spread(key = Ploeg, value = Omtrek)
+    ```{r piloot_pivot_wider, eval = TRUE}
+    
+    piloot_lang %>% 
+      pivot_wider(values_from = Omtrek, 
+                  names_from = Ploeg)
+      
     ```
 
 \newpage
@@ -586,8 +1138,6 @@ piloot_lang
 - Stat 545
     - [Introduction to dplyr](http://stat545.com/block009_dplyr-intro.html)
     - [dplyr functions for a single dataset](http://stat545.com/block010_dplyr-end-single-table.html)
-- Coding Club Edinburgh
-    - [Easy and efficient data manipulation](https://ourcodingclub.github.io/2017/01/16/piping.html)
 - INBO Coding Club
     - [Tidy data](https://docs.google.com/presentation/d/1Fv91mNOk3Qv0WYC07FJPOg_kn3gPCQx8YOItxcU1EX4/edit#slide=id.g4b08f8312d_1_240)
 - Cheat Sheets

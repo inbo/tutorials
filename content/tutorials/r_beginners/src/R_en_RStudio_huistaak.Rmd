@@ -1,7 +1,10 @@
 ---
-title: "R en RStudio - Huistaak"
-author: "Ivy Jansen, Pieter Verschelde, Thierry Onkelinx"
-output: pdf_document
+title: 'Les1: Huistaak'
+author: "Ivy, Pieter, Raïsa en Thierry"
+date: "27 oktober 2021"
+output:
+  pdf_document: default
+  html_document: default
 urlcolor: blue
 ---
 
@@ -9,43 +12,31 @@ urlcolor: blue
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Taak 1
+* Doorloop de handleiding van de eerste les
+    * Noteer alle onduidelijkheden en mail die naar Pieter en Raisa(pieter.verschelde@inbo.be, raisa.carmen@inbo.be)
+    * Probeer ook eens de andere (online) manieren om hulp te zoeken dan degene die in de les aangehaald werden
 
+## Taak 2: Maak een project aan en installeer de nodige packages
 
-__Hoe download je een script__? Klik op de link `Code`. Het script wordt geopend. Zoek nu de knop `Raw`. Rechtsklik op deze knop en kies `Link opslaan als...` Navigeer naar de `src` folder en bewaar het bestand.
+1. Installeer de packages tidyverse, remotes, googlesheets4 en googledrive
+1. Maak een nieuw project aan in een folder waar je interessante datasets hebt staan die je graag in R
+wil importeren en visualiseren
 
-__Hoe download je een dataset__? Klik op de link `Data` en zoek de dataset. Klik op deze dataset. Afhankelijk van de extensie krijg je de dataset reeds te zien, of een *blanco* pagina. Zoek in het eerste geval de knop `Raw`, in het tweede geval de knop `Download`. Rechtsklik op deze knop en kies `Link opslaan als...` Navigeer naar de `data` folder en bewaar het bestand.
+## Taak 3: Oefening R code
 
-
-
-# Herhaling lesmateriaal
-
-- Download het materiaal van de [eerste les](https://inbo.github.io/tutorials/tutorials/r_beginners/)
-- Doorloop het document rond **R en RStudio**, eventueel met behulp van het script
-    - Noteer alle onduidelijkheden en mail die naar Ivy (ivy.jansen@inbo.be)
-    - Probeer ook eens de andere (online) manieren om hulp te zoeken dan degene die in de les aangehaald werden
-
-
-
-# Voorbereidend werk voor volgende les
-
-1. Installeer de packages `tidyverse` en `googlesheets`
-1. Maak een nieuw project aan in een folder waar je interessante datasets hebt staan die je graag in R wil importeren en visualiseren 
-
-
-
-# Vectoren
+### Vectoren
 
 1. Maak een vector met tien diameters
-1. Bereken een vector met de overeenkomstige omtrekken (omtrek = $\pi$ * diameter)
-1. Tel bij elke diameter 10 cm op
-1. Bereken het gemiddelde van de eerste vier omtrekken
-1. Bereken de standaard afwijking van alle omtrekken behalve de vijfde
-    - TIP: *standard deviation* 
+    * gebruik eventueel de functie `runif` (gebruik R help) hiervoor
+2. Bereken een vector met de overeenkomstige omtrekken (omtrek = pi * diameter)
+3. Tel bij elke diameter 10 cm op
+4. Bereken het gemiddelde van de eerste vier omtrekken
+5. Bereken de standaard afwijking van alle omtrekken behalve de vijfde
+    * TIP: Zoek uit welke functie in R de standaarddeviatie (standard deviation) berekent
 
+### Dataframe
 
-
-# Dataframe
-
-1. Maak een dataframe met een kolom 'Diameter' die tien waarden bevat
-1. Bereken de omtrek en voeg die toe aan de dataframe
-1. Bereken de oppervlakte en voeg die toe aan de dataframe (oppervlakte = $\pi$ * straal$^2$)
+1. Maak een dataframe met een kolom ‘Diameter’ die tien waarden bevat
+2. Bereken de omtrek en voeg die toe aan de dataframe
+3. Bereken de oppervlakte en voeg die toe aan de dataframe (oppervlakte = pi * straal^2)

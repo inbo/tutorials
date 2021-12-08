@@ -1,7 +1,7 @@
 ---
 title: "Git without internet"
 description: "Git usage when working offline"
-author: "Stijn Van Hoey"
+authors: [stijnvanhoey]
 date: 2017-10-18T15:30:15+02:00
 categories: ["version control"]
 tags: ["git", "version control"]

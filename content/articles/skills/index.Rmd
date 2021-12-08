@@ -1,14 +1,13 @@
 ---
 title: "Acquiring the skills"
-date: 2018-03-21
-csl: ../inbo.csl
+date: 2020-09-23
+csl: '`r cslfile <- file.path(tempdir(), "research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/inbocsl-0.1.0/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
 bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
     md_document:
         preserve_yaml: true
-weight: 3
 ---
 
 This page lists **selected** literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site's users.
@@ -24,6 +23,7 @@ These resources focus on the learning and teaching aspect, while they often also
 - @lowndes_our_2017: **learning** open data science tools
 - @hampton_skills_2017: **training approaches and needed skills** in data science
 - @stevens_building_2018: **local community of practice** for scientific programming: why, how (including scheme), challenges
+- @national_center_for_ecological_analysis__synthesis_openscapes_2020: **resources** for learning, collaborating and inspiring others
 
 ## In relation to statistics teaching
 
