@@ -234,6 +234,15 @@ remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils 
     </item>
     
     <item>
+      <title>Database conventions (MS SQL Server)</title>
+      <link>https://inbo.github.io/tutorials/tutorials/database_conventions/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/database_conventions/</guid>
+      <description>General  All SQL objects are prefixed, except for databases, schemas, tables and columns and users/logins. The prefixes used depend on the type of object:     Prefix Object type     PK_ primary key constraint   FK_ foreign key constraint   CU_ unique key constraint   CC_ check constraint   CD_ default   IN_ index   VW_ view   TR_ trigger   SQ_ sequence   DR_ database role     choose English or Dutch for the naming of objects and be consistent  Database  The database is created by the DBA.</description>
+    </item>
+    
+    <item>
       <title>How to make spatial joins (point in polygon)?</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</link>
       <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
