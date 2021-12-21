@@ -1,6 +1,6 @@
 ---
 title: "Introduction to bioRad"
-description: "Vignette for bioRad R package: An introduction to the package structure and functionality, analysis of the workflow and a description of the example datasets."
+description: "Vignette for the bioRad R package: An introduction to the package structure and functionality, analysis of the workflow and a description of the example datasets."
 authors: [adokter, peterdesmet]
 categories: ["r"]
 tags: ["r", "vignette", "bioRad"]
@@ -11,3 +11,4 @@ output:
 ---
 
 See the vignette/tutorial at <https://cran.r-project.org/web/packages/bioRad/vignettes/bioRad.html>
+
