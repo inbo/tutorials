@@ -1,6 +1,6 @@
 ---
 title: "Setting a prior for the random intercept variance and fixed effects"
-description: "Vignette for the inlatools R package: How to visualise random effects."
+description: "Vignette for the R package inlatools."
 authors: [ThierryO]
 date: 2019-01-21
 categories: ["r"]

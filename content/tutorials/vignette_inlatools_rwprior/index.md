@@ -1,6 +1,6 @@
 ---
 title: "Getting a grasp on the random walk hyperparameter"
-description: "Vignette for the inlatools R package: an illustration on how to simulate and inspect simulated random walks."
+description: "Vignette for the Rpackage inlatools."
 authors: [ThierryO]
 date: 2019-01-21
 categories: ["r"]
