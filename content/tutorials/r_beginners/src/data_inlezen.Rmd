@@ -1,69 +1,79 @@
+
 ---
-title: Data inlezen
+title: "Data inlezen"
+authors: Pieter en Ivy en Raïsa
 output:
   pdf_document: default
   html_document: default
-
 ---
 
-#Data inlezen
+# Data inlezen
 
-```{r setup, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+```{r setoptions, echo = FALSE, purl = FALSE}
+knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 ```
 
-##Inleiding
+## Inleiding
 
 - R laat toe een groot gamma aan databestanden in te lezen
 - Deze functionaliteit zit voornamelijk in R packages
 - In deze sessie kiezen we voor de "tidyverse" omgeving
 - **R werkt niet rechtstreeks op de bronbestanden!**
     - Je leest een extern databestand in als een R object
-    - Op dit R object zal je dan werken
+    - op dit R object zal je dan werken
     - Verandert je extern databestand, dan moet je dit opnieuw inlezen
-    - R heeft functionaliteiten om resultaten terug weg te schrijven naar de externe bestanden
+    - Wijzigingen aan de data die je in R hebt gedaan moet je terug exporteren
+        - Ook wegschrijven kan in ieder formaat, al zijn tekstbestanden (.txt, .csv) het eenvoudigste
+        - Tip: **Overschrijf nooit je origineel bronbestand!**
 
-##Bestandstypes
+## Bestandstypes
+
+Vetgedrukt heb je de benodigde R packages. Om deze te gebruiken moeten die geïnstalleerd en geladen zijn
 
 
-- tekstbestanden: txt, tsv, csv, fwf ---> **readr**
-- excel bestanden: xls, xlsx  ---> **readxl**
-- access databases: mdb, accdb ---> **RODBC** **(odbc)**
+- tekstbestanden: txt, tsv, csv, fwf ---> **readr** of basis R
+- excel bestanden (enkel inlezen): xls, xlsx  ---> **readxl**
+- access databases: mdb, accdb ---> **RODBC / (odbc + DBI)**
 - eenvoudige databestanden: sqlite ---> **odbc**
-- databank server connecties: SQL server, MySql, postgres ---> **RODBC / DBI / odbc**
-- googlesheets ---> **googlesheets**
-- R binaire objecten ---> basis R
-
-Vetgedrukt zijn de benodigde R packages. Om deze te gebruiken moeten die geïnstalleerd en geladen zijn
+- databank server connecties: SQL server, MySql, postgres ---> **RODBC / (DBI + odbc)**
+- googlesheets ---> **googledrive / googlesheets4**
+- R binaire objecten ---> basis R functialiteit
 
 
-##Data formaat
+## Hoe wordt de data verwacht
 
 Standaard gaat R uit van het volgende data formaat:
 
-- rechthoekig (bv. een excel tabblad met rijen van gelijke lengte) 
+- rechthoekig (alle rijen even lang)
 - kolomnamen op de eerste rij
-- 1 observatie-eenheid per rij
+- 1 observatieeenheid per rij
 - slechts 1 datatype per kolom
 - geen exotische karakters
-- kleurcodes kan R niet inlezen, daarvoor maak je een aparte kolom in je data
+- kleurcodes van cellen staan in een extra kolom, kleuren zelf zijn niet importeerbaar
 - 1 dataset per tabblad
 - tabblad of extern bestand met metadata die beschrijft wat de kolommen voorstellen en wat de mogelijke waarden zijn
 
-Dit is niet vaak het geval, dus:
+Dit is niet vaak het geval, dus 
 
-- ofwel pas je de bronbestanden aan voor je in R importeert
-- ofwel gebruik je R functies om dit goed te zetten
+- in R heb je veel functies om hiermee om te gaan
+- Als je aanpassingen aanbrengt, doe dit op een kopie van je origineel bestand!
+- Vaak efficiënter de bronbestanden zelf eerst zo goed mogelijk te zetten voor je die in R importeert
+- Wat je extern of in R doet hangt af van situatie tot situatie maar wees hier logisch in
 
-##Verwijzen naar een bestand
 
-- R zoekt de data relatief aan de werkdirectory
-    - deze staat links bovenaan de console
-    - of kan je opvragen via `getwd()`
+## Verwijzen naar een bestand
 
-```{r relatiefpad, eval = FALSE}
+De data wordt ingelezen via relatieve padnamen ten opzichte van je werkdirectory (die kan je terugvinden via het commando _getwd()_). 
+Alternatief kan je ook altijd je werkdirectory zien bovenaan het consolevenster (venster links onderaan).
 
-getwd()
+R werkt standaard met forward slash voor directories (/). Wil je een backslash gebruiken moet je die verdubbelen \\\\
+
+```{r relatiefpad, purl=FALSE}
+
+getwd() #via setwd("padnaam") kan je die zetten, 
+#alternatief: via het menu bovenaan: Session > Set Working Directory
+
+#onderstaande code werkt pas als het csv bestand bestaat op de juiste locatie
 
 #data die in de werkdirectory staat
 data <- read_csv("mijndata.csv")
@@ -71,7 +81,7 @@ data <- read_csv("mijndata.csv")
 #data die in een subfolder van je werkdirectory staat
 data <- read_csv("subfolder/mijndata.csv")
 
-#data die 1 folder hoger staat
+#data 1 folder hoger
 data <- read_csv("../mijndata.csv")
 
 #data 2 folders hoger
@@ -80,146 +90,198 @@ data <- read_csv("../../mijndata.csv")
 #data die in een andere folder staat op hetzelfde niveau als je werkfolder
 data <- read_csv("../anderefolder/mijndata.csv")
 
+#je kan ook absolute padnamen gebruiken
+data <- read_csv("c:/ikke/projecten/data/mijndata.csv")
+
+#in plaats van / kan je ook altijd \\ gebruiken in Windows systemen
+#en je kan die zelfs mixen als je verwarrend wil overkomen
+data <- read_csv("c:\\ikke/projecten\\data/mijndata.csv")
+
 ```
 
-#Inlezen van tekstbestanden
 
-##Formaten
+## Inlezen van tekstbestanden
 
-- Tekstbestanden zijn alle bestanden die leesbaar zijn in een programma zoals kladblok
-- Dit zijn meestal .txt, .csv en .tsv, .fwf bestanden. 
+Tekstbestanden zijn alle bestanden die leesbaar zijn in een programma zoals kladblok of notepad++. Dit zijn meestal .txt, .csv en .tsv bestanden. Deze bestanden kunnen op veel verschillende manieren gecodeerd zijn, zo gebruiken ze in de VS vooral "," als scheidingsteken en "." als decimaalteken, terwijl in Europa doorgaans eerder ";" als scheidingsteken gebruikt wordt en "," als decimaalteken.
 
+Teksbestanden kan je inlezen via het menusysteem (File > Import Dataset). Dit genereert ook R code, welke je best overneemt in je script, zodat je die interactie met het menu niet meer nodig hebt.
 
-##Tekstbestanden in R
+Tekstbestanden zullen we hier via het **readr** pakket inlezen. De basisfunctie in dit pakket is ***read_delim***, maar die heeft ook nog afgeleide functies met andere defaultwaarden zoals:
 
-- Wij gebruiken het pakket **readr**
-- R heeft ook basisfuncties hiervoor (`read.csv`, `read.csv2`, `read.table`, ...)
-    - wij gaan deze niet gebruiken
-    - de ingelezen data is anders van structuur in het readr package
-- Basisfunctie **`read_delim`** kan je voor alle formaten gebruiken
-- Afgeleide functies met voorgekozen defaultwaarden:
+- *read_table* en *read_table2* : verwachten een of meerdere spaties als kolomscheidingsteken
+- *read_csv* en *read_csv2*: Amerikaanse en Europese csv bestanden
+- *read_tsv*: verwacht een tab als scheidingsteken (een tab wordt in R voorgesteld als "\\t")
+- *read_fwf*: verwacht dat iedere kolom hetzelfde aantal characters bevat
+- *spec_delim*: leest enkel de kolominformatie in
 
-    - `read_table`: spatie als scheidingsteken
-    - `read_table2` : 1 of meerdere spaties als scheidingsteken
-    - `read_csv`: Amerikaanse CSV (`","` als scheiding en `"."` als decimaal)
-    - `read_csv2`: Europese CSV (`";"` als scheiding en `","` als decimaal)
-    - `read_tsv`:  tab als scheidingsteken (in R voorgesteld als `"\t"`)
-    - `read_fwf`: iedere kolom hetzelfde aantal characters
-    - `spec_delim`: leest enkel de kolominformatie in, niet de data zelf
-    
-- Goed nakijken of je data correct ingelezen is
+Het is heel belangrijk om goed te checken of je data wel correct ingelezen is, hiervoor zijn de basisfuncties _View_, _summary_, _head_, _str_, _dim_, _table_, ... een goede hulp.
 
-    - `View`: toont je data in sorteerbaar en filterbaar Excel-achtig formaat
-    - `summary`: toont voor iedere kolom de basisinfo
-    - `head`: toont de eerste datarijen
-    - `str`: toont de datastructuur
-    - `dim`: toont de dimensies (aantal rijen en kolommen)
-    - `table`: toont voor een kolom het aantal waarden per categorie
-
-Tekstbestanden kan je ook via het menu inlezen
-
-![GUI tekstbestanden inlezen](../Figuren/GUI-readr.png)
-
-- File > Import Dataset > From Text (readr)
-    - R zal zelf al proberen te raden wat de best geschikte `read_` functie is
-    - Bovenaan browse je naar je bestand
-    - Links onderaan geef je de naam van je R object
-- Verder kan je nog heel wat parameters meegeven in het midden onderaan
-    - scheidingsteken, skip rows, NA codering, ...
-- In het voorbeeldvenster kan je de kolomtypes wijzigen en kijken of alles correct ingesteld is
-- De code rechtsonderaan altijd naar je script kopiëren in kader van reproduceerbaarheid!
-- Klik op import als je tevreden bent
-
-##Eenvoudig tekstbestand (Amerikaanse CSV)
-
-Onderstaand  voorbeeldbestand is bijna rechtstreeks inleesbaar in R, er zit 1 klein probleem in omtrent hoe ontbrekende waarden gecodeerd worden, wat we via argumenten in R oplossen.
+Niet aanwezige waarden worden in R als `NA` gecodeerd. 
 
 
-```{r example_speciesERR}
+### Eenvoudig tekstbestand zonder teveel problemen
 
-#Benodigde package laden
-library(readr)
+```{r EenvoudigTeksbestand}
 
-#de bestandsnaam is 20180222_species.csv
-#maar deze staat in de folder data in de werkdirectory
+library(readr) 
+bestandSP <- "data/20180222_species.csv"
 
-#het inlezen
-#alternatief 1
+#het inlezen van de csv inhoud in het R object dfSpecies
 dfSpecies <- read_delim("data/20180222_species.csv", delim = ",") 
-#alternatief 2
-bestandsnaam <- "data/20180222_species.csv"
-dfSpecies <- read_delim(bestandsnaam, delim = ",")
-#alternatief 3
-dfSpecies <- read_csv(bestandsnaam)
 
-#Toon de eerste/laatste 6 rijen
+#idem, maar we steken de filenaam in een R object
+dfSpecies <- read_delim(bestandSP, delim = ",") 
+
+#identiek, maar het formaat is al door de functie geregeld
+dfSpecies <- read_csv("data/20180222_species.csv")
+
+#voor help
+?read_delim
+
+#Altijd alles controleren
+#Kan ook door in het environment paneel het object dfSpecies 
+#aan te klikken of uit te vouwen
+dim(dfSpecies)
 head(dfSpecies)
 tail(dfSpecies)
-
-#Toon de dimensies
-dim(dfSpecies)
-
-#Toon een samenvatting van de kolommen
 summary(dfSpecies)
-
-#Toon de data in een sorteerbare en filterbare tabel
-#Hetzelfde als dubbelklikken op object in "Environment"
+str(dfSpecies)
 View(dfSpecies)
 
-#Toon de inwendige structuur van de data
-#Hetzelfde als het object uitvouwen in "Environment"
-str(dfSpecies)
-
-#Stukje code dat je gewoon kan repliceren, checkt gewoon het aantal ontbrekende waarden
-apply(dfSpecies, 2, function(x) sum(is.na(x)))
-
-# ---> Waar zit de fout?
-
-?read_csv #kijk naar de parameter "na"
-
-#Correct ingelezen:
-dfSpecies <- read_csv(bestandsnaam, na = "") #ofwel na = character()
+#De file werd niet volledig correct ingelezen
+# een NA waarde in eerste kolom die wel degelijk de waarde afkorting NA bedoelt
+#Bij de view zie je dat de NA in kolom 1 cursief is in tegenstelling tot de rest 
+#in dit geval moet je het na argument meegeven.
+#zodat de waarde NA in het bestand niet als een missende waarde aanzien wordt
+dfSpecies <- read_csv("data/20180222_species.csv", na = "")
 
 ```
 
 
-Belangrijke argumenten voor de **`read_`** functies 
+## Inlezen van tekstbestanden: via het menusysteem en extra parameters
 
-- file: bestandsnaam (incl. relatief pad) van het in te lezen bestand
-- delim: het scheidingsteken `","`  `";"` `" "` `"\t"` 
-- guess_max: op basis van hoeveel rijen moet R proberen het juiste kolomtype te raden
-- col_types: manueel aangeven welk type elke kolom heeft (meestal niet nodig)
-- na: hoe zijn ontbrekende waarden gecodeerd
-- skip: hoeveel rijen overslaan vooraleer de data begint
+Om tekstbestanden in te lezen kan je in plaats van rechtstreeks de code te schrijven, de data inlezen via een grafische interface, die dan de R code voor jou zal genereren
+
+**De code die gegenereerd wordt zet je best in je script!**, dan moet je de volgende keer enkel de code in het script runnen in plaats van dit proces opnieuw te moeten doorlopen. Eens je wat aan R gewend bent, zal je het menu nog zelden gebruiken.
 
 
-##Europese CSV
+File > Import Dataset > From Text ... (readr)
 
-Als je naar de data survey.csv kijkt voldoet dit niet volledig aan het verwachte formaat. Namelijk de eerste 2 rijen bevatten geen data. Daarnaast wordt de datum niet correct herkend. Onderstaande code om dit op te lossen kan ook volledig via de menu import bekomen worden.
+![Duidelijk moeten er nog wat parameters gewijzigd worden](../Figuren/DataInlezenViaMenu.png)
 
-```{r surveycsv}
+Je ziet dat dit bestand nog niet correct zou worden ingelezen (zie figuur)
+ --> via parameters aanpassen
 
-library(readr)
+![Aanpassing parameters](../Figuren/DataInlezenViaMenuAangepast.png)
 
-dfSurvey <- read_csv2(file = "data/survey.csv", 
-                      skip = 2) #skip = 2 slaat de eerste 2 rijen over
-dfSurvey
-summary(dfSurvey)
-View(dfSurvey)
+![Hoe de locale configureren](../Figuren/datainlezen_locales.png)
 
-#Spijtig genoeg werden de datums niet herkend
-#Dit moet met wat code opgelost worden
-#via col_types zeg je dat de datum moet gehaald worden 
-#uit de kolom Datum met als formaat dag/maand/jaar.
-dfSurvey <- read_csv2(file = "data/survey.csv", 
-                      skip = 2, 
-                      col_types = cols(Datum = col_date(format = "%d/%m/%Y")))
+Het Date format en Time Format mag op %AD en %AT gelaten worden, dit betekent dat R dit automatisch zal proberen detecteren. %AD herkend datums in formaten Y-m-d of Y/m/d, %AT herkend tijd in het formaat H:M eventueel aangevuld met :S en am/pm.
+Wil je bijvoorbeeld de datums laten herkennen in het formaat 14/07/2021 dan kan je in het veld Date Format `%d/%m/%Y` invullen. 
+
+Als je in je voorbeeldvenster van je data op het datatype klikt onder de kolomnaam, dan krijg je hier ook opties om de datatypes te wijzigen, zoals een suggestie hoe je je datum kan configureren.
+
+Je ziet rechtsonderaan de code die wordt gegenereert. Je kan de file inlezen door op OK te drukken, maar kopieer altijd de code naar je script, zodat je later het menu niet meer nodig hebt als je de data opnieuw wil inlezen.
+
+Welke parameters kunnen we wijzigen om de file correct in te lezen? Je zal zien dat deze overeen komen met  `?read_delim`
+
+- `Name`: Naam van het R object (in de code wat links van <- staat)
+- `Skip`: Hoeveel rijen moeten overgeslaan worden (parameter `skip`)
+- `First row as names`: Bevat de eerste rij rijnamen of niet (parameter `col_names`)
+- `Trim spaces`: Moeten spaties genegeerd worden (parameter `trim_ws`)
+- `Open Data Viewer`: zorgt voor de extra regel `View(data)`.
+- `Delimiter`: Wat is het scheidingsteken (parameter `delim`)
+- `Quotes`: Om aan te geven of er quotes in de data zitten en of dit enkele of dubbele zijn (parameter `quote`)
+- `Escape`: Als je data ook de delimiter bevat, kan je hiermee zeggen hoe deze in de file worden gecodeerd (parameter `escape_bakslash` en `escape_double`)
+- `Comment`: Lijnen die in de tekst commentaar is en mag overgeslaan worden (parameter `comment.char`)
+- `NA`: Hoe worden NA waarden in de tekst weergegeven (parameter `na`)
+In de preview bovenaan kan je het type kolom wijzigen (parameter `col_types`)
+- `Locale`: Is een iets ingewikkeldere manier om aan te kunnen geven welke  het decimaal teken en andere landsinstellingen zijn. (parameter `locale`). Wij gebruiken meestal volgende instelling: 
+
+```
+locale = locale(decimal_mark = ",", grouping_mark = "", date_format = "%d/%m/%Y")`
+
+```
+
+```{r TekstbestandMetOpties}
+
+#Voorbeeld:
+
+#De Europese vorm van .csv gaat uit van een ; als scheiding en , als decimaal
+#voor de Europese vorm gebruiken we read_csv2, voor de Amerikaansse is dit read_csv
+#De eerste 2 rijen in de csv zijn geen onderdeel van de data, die skippen we
+
+#Dit is wat je krijgt via het menu 
+#aantal en volgorde van argumenten kan verschillen
+#het pad is mogelijks het absolute pad ipv het relatieve pad zoals hieronder
+dfSurvey <- read_delim("data/survey.csv", 
+                       delim = ";", skip = 2, 
+                       escape_double = FALSE, 
+                       col_types = cols(Datum = col_date(format = "%d/%m/%Y")), 
+                       locale = locale(decimal_mark = ",", grouping_mark = ""),
+                       trim_ws = TRUE, skip = 2)
 View(dfSurvey)
 summary(dfSurvey)
 
 ```
 
-#Inlezen Excel Data
+## Wegschrijven csv bestanden
+
+Dataframes kan je gemakkelijk wegschrijven als een tekstbestand. Bij voorkeur is dit een csv bestand. Als het de bedoeling is het weggeschreven csv bestand in excel te openen, dan gebruik je best de functie *write_excel_csv2* voor Nederlandstalige besturingssystemen en spreadsheets en *write_excel_csv* voor Amerikaanse.
+
+**Let op: je krijgt geen waarschuwing als een bestaand bestand zal worden overschreven**
+
+```{r WegschrijvenTekstbestand}
+
+#onderstaande alternatieven doen hetzelfde, maar write_excel_csv2 is de voorkeur
+#iris is een meegeleverde dataset in R, via data(iris) zie je die in je environment
+data(iris)
+write_delim(iris, "data/iris.csv", delim = ";") #decimaalteken is .
+write_csv2(iris, "data/iris.csv") #decimaalteken is ,
+write_excel_csv2(iris, "data/iris.csv") #decimaalteken is ,
+
+```
+
+
+## Inlezen Excel Data
+
+Om Excel bestanden in te lezen gebruiken we hier het package **readxl**.
+
+- de functie *read_excel* uit het **readxl** package
+- Codering argumenten heel gelijkaardig als  via het **readr** package
+- Extra argumenten specifiek voor excel bestanden zoals *sheet* en *range*
+- Het uiteindelijke R object is in dezelfde vorm
+
+**Tip: Verzorg je excel bestand en zorg dat elke kolom een consistent datatype is, zeker voor datumtijd, omdat R die dan onmiddellijk juist inleest.**
+
+Data wegschrijven als Excel bestand kan niet met dit pakket, al is hier een csv bestand een goed alternatief, zeker als je `write_excel_csv2` gebruikt. Als je echt een native excel bestand wil wegschrijven, kan je packages gebruiken zoals **xlsx**, **openxlsx**, **writexl**.
+
+Onderstaande code kan ook bekomen worden via het menusysteem: File > Import Dataset > From Excel ...
+
+
+```{r ExcelInlezen}
+
+library("readxl")
+bestandsnaam <- "data/20190124_survey_part1.xlsx"
+
+#als sheet kan je ook de naam gebruiken "Blad1"
+dfSurvey1 <- read_excel(bestandsnaam, sheet = 1) 
+
+summary(dfSurvey1) #geen kolomnamen, allemaal characters, zelfs 1 logical
+head(dfSurvey1)
+
+#Dit kan gemakkelijk als volgt opgelost worden
+dfSurvey2 <- read_excel(bestandsnaam, sheet = "Blad1", skip = 1, n_max = 19 )
+summary(dfSurvey2)
+str(dfSurvey2)
+
+#Je kan ook een range specifiëren en de na-waarden instellen
+dfSurvey3 <- read_excel(bestandsnaam, sheet = "Blad1", skip = 0, 
+                        range = "A2:D21", 
+                        na = c("", "#NAAM?"))
+View(dfSurvey3)
+
+```
 
 - Functie `read_excel` uit het package **readxl**
 - Kan ook via het menu en werkt analoog aan via het menu inlezen uit tekstbestanden
@@ -233,11 +295,12 @@ summary(dfSurvey)
     - col_types: kolomtypes indien ze niet correct herkend worden (normaal gezien als je excel goed is opgebouwd kloppen deze automatisch)
     - na: hoe worden ontbrekende waarden gecodeerd
     - guess_max: hoeveel rijen moet R bekijken om te beslissen welk kolomtype het is
+        - belangrijk als een kolom heel veel lege rijen in het begin heeft: R denkt dan soms dat de kolom enkel TRUE / FALSE bevat
+        - belangrijk als de eerste tekst maar heel ver voorkomt, dan kan het zijn dat R de kolom numeriek interpreteert, en al je tekst wordt dan missing data
 
-```{r surveyxls}
+```{r ExcelSheetEnRange}
 
 library(readxl)
-
 #De gegevens staan in het tabblad Plot2 in de range A2:D21
 dfSurvey2 <- read_excel(path = "data/survey.xlsx", 
                         sheet = "Plot2",
@@ -252,65 +315,75 @@ table(dfSurvey2$Sex) #controle of de geslachten juist ingevuld zijn
 
 ```
 
-#Googlesheets
+## Googlesheets
 
-- Maakt gebruik van het **googlesheets** package
-- Je moet jezelf authoriseren via de functie `gs_auth()`
-    - dit moet slechts periodiek
-    - je wordt verwezen naar een login website voor google
+- Maakt gebruik van het **googlesheets4** package
+- Je moet jezelf authoriseren via de functie `gs4_auth()`
+- Eenmalig wordt je verwezen naar een login website voor google
     - je geeft toegang aan tidyverse-googlesheets
         - ofwel krijg je dan een code die je in R moet plakken
         - ofwel zal je direct een melding krijgen dat de authorisatie gelukt is
-- Nu kan je je spreadsheet registreren
-    - De registratie maakt soort google-bestandsnaam
-    - Deze verkregen bestandsnaam gebruik je dan net zoals bij `read_excel` of `read_csv`
-    - Registreren (bestandsnaam ophalen) kan op 3 manieren
-        - via de url `gs_url`
-        - via de key (snelste) `gs_key`
-        - via de titel van de sheet `gs_title`
-- Eens geregistreerd kan je de data eruit halen via `gs_read`
+- Periodiek zal R je vragen dit 0auth token te verversen
+- Eens dit gebeurd is zal je iedere R sessie gevraagd worden je naam te selecteren
+  - je ziet een selectie van namen en je kiest het correcte nummer
+  - alternatief kan je direct je e-mail adres meegeven zodat de selectie niet meer nodig is
+- Nu kan je de url of key van de sheet gebruiken
+    - de url of key nemen de plaats in van `file` bij andere functies zoals `read_csv`
+    - **de key is een deel van de url** en werkt doorgaans sneller 
+- Eens geregistreerd kan je de data eruit halen via `read_sheet`
 
-```{r google}
-library(googlesheets) #laden van het googlesheets package
+![google auhtorisatie](../Figuren/datainlezen_gs_auth.png)
 
-gs_auth() #authorisatie (niet altijd nodig)
 
-#Mogelijkheid 1: Registreren via de URL
+```{r GooglesheetInlezen, eval=FALSE}
+
+library(googlesheets4) #laden van het googlesheets package
+
+gs4_auth() #authorisatie (de eerste keer en dan periodiek eens nodig)
+#Let op. dit is interactief, dus de volgende code nog niet plakken
+
+#geef je email direct mee, dan moet je je naam niet selecteren
+#als je 0auth-token nog geldig is
+gs4_auth(email = "xxx@yyy.zzz") #e-mail adres naar je eigen adres wijzigen
+
+#Je kan registreren met de html van de sheet of de sheet key
 url <- "https://docs.google.com/spreadsheets/d/1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY/edit?usp=sharing"
-my_spreadsheet <- gs_url(url)
+#De key is onderdeel van de url
+key <- "1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY"
 
-#Mogelijkheid 2: Registreren via de KEY (die code zie je ook in de URL staan)
-my_spreadsheet <- gs_key("1f4vpxZdscu_8854M-z69nKT9MxQlag-4iQ1R3rJKYfY")
+dfLab <- read_sheet(url) #zal volledig eerste sheet lezen in de url
+dfLab <- read_sheet(key) #identiek maar voor de key
 
-#Mogelijkheid 3: Registreren via de titel
-my_spreadsheet <- gs_title("R_Introductie_Les_1_2019")
+#Optioneel: Indien je de titel en sheetnamen wil kennen
+gs4_get(key) #ook hier kan je de url gebruiken
 
-#Nu is het tijd om de data uit de sheet te halen
-#tot nu hebben we immers enkel nog maar de bestandsnaam gekregen
-dfLab <- gs_read(ss = my_spreadsheet, #pad + file
-                 ws = 1,  #worksheetnummer of "naam"
-                 na = "NULL" #hoe wordt NA gecodeerd
-                 )
+#Je kan het inlezen meer finetunen en een sheet opgeven en optioneel ook een range
+dfLab <- read_sheet(ss = key, #pad + file
+                    sheet = 1,  #worksheetnummer of "naam"
+                    na = "NULL", #hoe wordt NA gecodeerd
+                    range = "A1:H44" #de range (optioneel)
+                    )
 head(dfLab)
 View(dfLab)
 
-?gs_read #help op overzicht te vinden van alle argumenten
+?read_sheet #help opvragen voor overzicht van alle argumenten
 
 ```
 
-Belangrijke argumenten voor `gs_read`
+Belangrijke argumenten voor `read_sheet`
 
-- ss: het object met de google registratie (de google bestandsnaam)
-- ws: het nummer of `"naam"` van het tabblad
+- ss: url of key van het google sheets bestand
+- sheet: het nummer of `"naam"` van het tabblad
 - range: het bereik zoals in Excel bv `"A1:C20"`
 - col_types, na, skip, ... zoals bij `read_delim` en `read_excel`
 
 
-#Binaire R objecten inlezen
+## Binaire R objecten inlezen
 
 Vaak heb je 1 grote data cleaning en eens je data op orde staat, is het niet meer nodig dat je telkens diezelfde stappen opnieuw uitvoert. Je kan de gecleande data opslaan als een tekstbestand, maar zeker voor grote data is een binair bestand veel sneller.
 
-```{r binair}
+```{r BinaireBestanden}
+
 #Bewaar enkele geïmporteerde datasets samen in de file mijngegevens.Rdata
 save(dfLab, dfSpecies, file = "mijngegevens.Rdata")
 
@@ -327,205 +400,100 @@ load(file = "mijngegevens.Rdata")
 ```
 
 
-#Connectie met andere data formaten
+## Connectie met Access, Databanken, Databronnen
 
-## Inleiding
+Dit zit niet meer in de scope van deze cursus. Als je hierover vragen hebt, ben je altijd welkom.
+Hieronder staat gewoon kort wat voorbeeldcode hoe dat gebeurt.
 
-Dit is eerder als naslagwerk, en zal niet zonder vraag aan bod komen in de cursus.
-Het basisprincipe is: 
+In grote lijnen doen ze allemaal iets zeer gelijkaardig:
 
-1. Maak een connectie met de databank (SQL, Access, ...) en bewaar dit connectiebestandje in een object met de naam `conn` of `con` of `channel` of om het even wat
-1. Vraag de data op via een leesfunctie
-    - het eerste argument is de connectie, dus de objectnaam van hierboven
-    - het tweede argument is de tabelnaam of de SQL query
+1. Leg een connectie met de databron (access, sql server, ...)
+1. Voer met deze connectie een SQL query uit of lees een tabel in zijn geheel in
+1. Sluit de connectie
 
+### Access
 
---------------------- EINDE LES --------------------------------------------
-
-##Connectie met Access
-
-- Via de pakketten **DBI** en **odbc** is het elegantste, maar werkt alleen als de access drivers geïnstalleerd zijn, wat op INBO niet altijd het geval is
-- Alternatief: **RODBC** 
-    - Dit geeft een data.frame in plaats van een tibble als resultaat
-    - Je R architectuur moet hetzelfde zijn als je Access versie
-        - Op INBO hebben we 32-bit MS Access
-        - dus je moet R ook op 32-bit zetten (Tools > Global Options en dan bovenaan de juiste R versie kiezen en Rstudio heropstarten)
-
-### Access inlezen via RODBC
-
-- Laadt RODBC als library
-- Maak connectie met de databank (analoog aan hoe je een googlesheet registreert)
-    - voor .mdb: `odbcConnectAccess`
-    - voor .accdb: `odbcConnectAccess2007`
-- Bevraag de data via SQL queries via `sqlQuery`
-- Of maak in Access je Queries en lees deze in R in via `sqlFetch`
-- Belangrijke argumenten `sqlFetch`
-    - channel: connectie met databank
-    - sqtable: naam van de tabel tussen quotes bv. "tblOpnames"
-- Belangrijkste argumenten `sqlQuery`
-    - channel: connectie met databank
-    - query: een SQL query tussen quotes bv. "select * from tblOpnames"
-- Als alles ingelezen is, sluit je connectie af (is niet verplicht, maar properder)
-    
-**LET OP! ZET MS ACCESS BESTANDEN NIET OP GOOGLE DRIVE ZONDER BACKUP**
-
-```{r accessrodbc}
-library(RODBC)
+Let op, indien je nog niet Office365 hebt, kan het zijn dat je nog niet de 64-bit drivers voor Access hebt. In dit geval werkt het enkel als je in Rstudio de R versie op 32-bit zet. (Menu --> Tools > Global Options > General > R version --> kies 32-bit versie uit de lijst)
+ 
+```{r AccessInlezen}
+ 
+#!!! Werkt enkel bij 32-bit versie van R als je enkel 32-bit Office drivers hebt
+#Vanaf office365 is 64-bit geen probleem
 
 bestand <- "data/bosvitaliteit.accdb"
 
-conn <- odbcConnectAccess2007(bestand)
-conn #als dit -1 is, of een tekst van 2 regels dan is de connectie niet gelukt
+conn <- odbcConnectAccess2007(bestand) #voor .accdb bestanden (voor .mdb: odbcConnectAccess(bestand))
+sqlTables(conn) #optioneel toon de aanwezige tabellen
 
-#Toon alle aanwezige tabellen
-sqlTables(conn)
+#haal een volledige tabel binnen
+dfTest <- sqlFetch(conn, sqtable = "qryMetingen") 
 
-#Toon enkel tabellen en views
-sqlTables(conn, tableType =  c("TABLE", "VIEW")) #toon enkel tabellen en views
-
-#Je kan de queries ook gewoon als een tabel inlezen
-dfTest <- sqlFetch(conn, sqtable = "qryMetingen")
-summary(dfTest)
-
-#Dit kan ieder mogelijke query zijn die Access aankan
+#haal data binnen via een sql query
 query <- "select JAAR, PRVNR, BMNR, OMTREK from tblOpnames"
-
-#Hier pas haal je je data binnen
 dfTest <- sqlQuery(conn, query)
-summary(dfTest)
 
-odbcClose(conn) #is altijd  properder je connecties weer af te sluiten
+#sluit de connectie
+odbcClose(conn) #is niet per sé nodig, maar is properder
 
-```
-
-###Access inlezen via DBI
-
-- Dit is een veel snellere manier
-- De codering is iets minder elegant, al kan dat op termijn verbeteren
-- Hoe te werk gaan
-    - Maak een connectiestring die 2 argumenten heeft
-        - DBQ: bestandsnaam van de databank
-        - Driver: de driver die gebruikt moet worden
-        - beide argumenten moeten gescheiden zijn door `";"`
-    - Connecteer met de databank via `dbConnect` wat een object geeft analoog als bij RODBC
-    - Bevraag je data via SQL met de functie `dbGetQuery`
-    - Of haal een hele tabel binnen met de functie `dbReadTable`
-        
-
-```{r accessdbi}
-##Via DBI (werkt niet als je niet alle drivers hebt)
-
-library(DBI)
-library(odbc)
-
-db_connect_string <- paste0("DBQ=", 
-                        bestand, #je bestandsnaam van eerder
-                        ";",
-                        "Driver={Microsoft Access Driver (*.mdb, *.accdb)};"
-                       )
-myconn <-  dbConnect(odbc::odbc(),
-                     .connection_string = db_connect_string)
-myconn #indien -1 of een warning van 2 regels --> mislukt
-
-#Hele tabel inlezen
-dfOpnames2 <- dbReadTable(myconn, "tblOpnames")
-
-#QUery inlezen
-sql <- "select * from tblOpnames"
-dfOpnames2 <- dbGetQuery(myconn, sql)
+str(dfTest)
+head(dfTest)
  
 ```
 
+### Connectie met INBO databank of datawarehouse
 
-#Connectie met INBO databanken en datawarehouses
+Hiervoor kan je ook RODBC gebruiken en een databron aanmaken in windows.
+Je kan die aanmaken via windows start --> zoek naar gegevensbronnen (odbc) en kies een naam voor de databron en vul de connectiegegevens in (dat kan een Access bestand zijn, verwijzing naar SQL server, ...)
+**Let op: dit is pc specifiek, dus als je het script doorgeeft moet die ook deze databron gedefinieerd hebben in windows**
 
-##Connectie met databases via **RODBC**
-
-- Hier niet van belang of je 32-bit of 64-bit R gebruikt
-- Maak best je gegevensbron op voorhand of vraag dit aan IT
-    1. Je gaat naar start en typt gegevensbronnen en selecteert "Gegevensbronnen (ODBC)"
-    1. Dan kom je in het venster ODBC-gegevensbronbeheer
-    1. Kies toevoegen ...
-    1. Kies SQL server (of SQL server Native client 11 als dit niet werkt)
-    1. Druk op voltooien
-    1. Geef bij naam en beschrijving "W0003_00_Lims" in (je mag dit vrij kiezen, maar dit is de naam die je in R zal gebruiken)
-    1. Als server kies je voor inbo-sql08-prd.inbo.be
-    1. Ga naar volgende
-    1. Laat op Windows Authentificatie staan en ga naar volgende
-    1. Vink "change default database" aan en kies "W0003_00_Lims" uit de lijst
-    1. Druk op volgende
-    1. Druk op voltooien
-    1. Test Data Source
-- Nu kan je je data bevragen zoals bij Access via  `sqlQuery` of `sqlFetch`
-
-```{r dbconnectRODBC}
+``` {r GegevensbronInlezen}
 
 library(RODBC)
+conn <- odbcConnect("Naam_Van_Mijn_Gegevensbron")
 
-odbcDataSources() #toont de beschikbare datasources
-conn <- odbcConnect("W0003_00_Lims")
-conn
-
-#Toon alle aanwezige tabellen met sqlTables, head is om te beperken tot de eerste
-head(sqlTables(conn))
-
-#Dit zijn de nuttige in INBO databases
-sqlTables(conn, tableType = c("VIEW", "TABLE"), schema = "dbo")
-
-#Hele tabel ophalen
-dfDocu <- sqlFetch(conn, "vwDocumentatie", max = 1000)
-
-sql <- "select LabSampleID, FieldSampleID, SampleType, Project "
-sql <- paste(sql, "from dimSample where Project = 'I-17W001-02'")
-dfSamples <- sqlQuery(conn, query =  sql)
-
-head(dfSamples)
-
-odbcClose(conn)
+#hierop kan je dan sqlQuery of sqlFetch gebruiken,  
+#zoals getoond bij de connectie naar Access.
 
 ```
 
-## Connecties met databases via DBI
+Alternatief kan je werken via het DBI en odbc package
 
-- Leest veel sneller in dan RODBC
-- Alles komt direct in het tibble formaat
-- Rechtsbovenaan Rstudio zie je het tabeloverzicht in het blad "Connections"
-- Hoe te werk gaan
-    - maak opnieuw een connectie zoals bij Access en RODBC, maar nu via `dbConnect`
-    - vul de driver, server en database in
-    - passwoord en gebruikersnaam zijn bij INBO databanken gekoppeld aan je google account, en moet je in principe niet meegeven, indien die niet gekoppeld zijn, kan je dit via uid en pwd in te vullen
-    - gebruik de functie  `dbReadTable` voor een hele tabel in te lezen
-    - of `dbGetQuery` om een query mee te geven
-    
-```{r dbConnectDBI}
+```{r DatabankInlezen, eval = FALSE}
 
 library(DBI)
 library(odbc)
 
-#Connectie met het LIMS datawarehouse
-con <- dbConnect(odbc::odbc(),
-                 driver = "SQL Server",
-                 server = "inbo-sql08-prd.inbo.be",
-                 database = "W0003_00_Lims")
-con
+#maak de connectie 
+#die zie je in Rstudio in het paneel rechtsboven onder tabblad connections
+#zorg dat je op het INBO netwerk zit, of met vpn verbonden bent
+#de 2  basis db servers op het INBO in 2021 zijn 
+    #inbo-sql08-prd.inbo.be voor data warehouses
+    #inbo-sql07-prd.inbo.be voor databanken
+con <- DBI::dbConnect(odbc::odbc(),
+                      driver = "SQL Server",
+                      server = "inbo-sql08-prd.inbo.be",
+                      database = "W0003_00_Lims")
 
+#toon de beschikbare tabellen in het dbo schema
+#op het INBO is dit schema standaard voor de tabellen
 dbListTables(con, table_type = "TABLE", schema_name = "dbo")
 
+#Lees een volledige tabel in 
 dfUnits <- dbReadTable(con, "dimUnit")
 head(dfUnits)
-View(dfUnits)
 
-sql <- "select LabSampleID, FieldSampleID, SampleType, Project"
-sql <- paste(sql, "from dimSample where Project = 'I-17W001-02'")
-dfSamples <- dbGetQuery(con, sql, n = 500)
+#Lees gegevens in ahv een query
+sql = "select LabSampleID, FieldSampleID, SampleType, Project from dimSample " 
+sql = paste(sql, "where Project = 'I-17W001-02'")
+dfSamples <-dbGetQuery(con, sql, n = 500)
 head(dfSamples)
-View(dfSamples)
 
-dbDisconnect(con) #stop de connectie met de db
+#Optioneel: Sluit de connectie
+dbDisconnect(con)
 
 ```
 
-
+Voor enkele INBO databases is een in-house pakket **inbodb** ontwikkeld om de communicatie met de databases te vereenvoudigen. Voor meer info hieromtrent contacteer het BMK of OSCIBIO team.
 
 
 

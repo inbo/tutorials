@@ -46,7 +46,7 @@ Introductie tot het inlezen van externe databestanden
 
 - `readr` 
 - `readxl`
-- `googlesheets`
+- `googlesheets4`
 
 [Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen.pdf)   
 [Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)  
@@ -106,6 +106,6 @@ Introductie tot het maken van een reproduceerbaar document met Rmarkdown
 
 [Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/Rmarkdown.pdf)  
 [Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/Rmarkdown_oefening.txt)  
-[Oefening](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/Rmarkdown_oefening_resultaat.html)  
+[Oefening](../../html/Rmarkdown_oefening_resultaat.html)  
 [Figuur voor oefening](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Figuren/iris-machinelearning.png)  
 [Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/Rmarkdown_huistaak.pdf)  

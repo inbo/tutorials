@@ -7,7 +7,6 @@ output:
     md_document:
         preserve_yaml: true
         variant: gfm
-weight: 1
 ---
 
 At the Research Institute for Nature and Forest (INBO), we are eager to

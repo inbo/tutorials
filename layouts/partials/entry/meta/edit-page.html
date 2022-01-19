@@ -10,7 +10,7 @@
             {{ $.Scratch.Set "FilePath" .File.Path }}
         {{ end }}
 
-        {{ with .Site.Params.githublink.GithubContentLink}}
+        {{ with .Site.Params.githublink.GithubEditLink }}
             <a href='{{ . }}{{ $.Scratch.Get "FilePath" }}'> {{- partial "svg/icons" "github" -}} Improve this page</a>
         {{ end }}
 
