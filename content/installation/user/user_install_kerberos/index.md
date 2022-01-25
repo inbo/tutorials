@@ -31,6 +31,7 @@ sudo apt-get install openssl # if not yet available on your system (it probably 
 During installation, you may be asked for extra configuration input.
 To answer that, see next section: [Configure Kerberos client](#configure-kerberos-client).
 
+For Mac users, note that *Heimdal Kerberos* is installed by default, so there is no need to install a client. Mac users can jump to the paragraph "Next, adapt the `krb5.conf`..."
 
 ### Configure Kerberos client
 
@@ -76,6 +77,10 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 
 INBO staff can download a preconfigured `krb5.conf` file here:
 <https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing>.
+
+Note for Mac users: 
+* You additionally need to comment out (add “#”) the lines below: "(add “#”) for lines below: "# The following krb5.conf variables are only for MIT Kerberos."
+* You can skip the paragraph "Time synchronisation" and jump to the next section: [MS SQL Server ODBC driver and tools](#ms-sql-server-odbc-driver-and-tools)
 
 ### Time synchronization
 
@@ -126,6 +131,7 @@ Apart from the ODBC driver, we will also install following tools:
 * **bcp**: Bulk import-export utility.
 
 For Linux,  follow [these installation instructions](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server).[^installnotes]
+For Mac, [installation instructions can be found here](https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos).[^installnotesmac]
 
 Also follow the 'optional' instructions, as these will install the tools.
 
@@ -149,7 +155,7 @@ On Ubuntu 20.04, if installing `msodbcsql17` and `mssql-tools` fails because of 
 
 [^installnotes]: You can also find the debian packages of Microsoft ODBC Driver for SQL Server [here](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server).
 You can find separate installation instructions for `sqlcmd`, `bcp` and `unixodbc-dev` [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools).
-
+[^installnotesmac]: The installation on Mac is done through Homebrew. The commands suggested in the link need to be entered in 2 turns: first install Homebrew and next issue the remaining commands.
 
 ## Test installation
 
@@ -171,6 +177,8 @@ Valid starting     Expires            Service principal
 03/01/18 15:42:08  04/01/18 01:42:08  krbtgt/INBO.BE@INBO.BE
 	renew until 10/01/18 15:42:08
 ```
+
+For Mac users, note that you can also use the Ticketviewer application which can be found in `/System/Library/CoreServices/Applications`. Click `Add Identity` and enter your_user_name@INBO.BE and password.
 
 ### SQL database connections
 
