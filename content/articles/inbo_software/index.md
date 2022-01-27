@@ -9,21 +9,11 @@ output:
         variant: gfm
 ---
 
-At the Research Institute for Nature and Forest (INBO), we are eager to
-sustain, promote and develop open-source software that is relevant to
-biodiversity researchers\! This page lists **R and Python packages**
-which INBO developed or made a significant contribution to. Several of
-these packages continue being developed.
+At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists **R and Python packages** which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 
-Please, feel invited to **try out** packages\! If you encounter a
-problem or if you have a suggestion, we encourage you to post an issue
-on the package’s code repository. You can also directly contribute
-improvements with a pull request.
+Please, feel free to **try out** packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository. You can also directly contribute improvements with a pull request.
 
-The package hyperlinks below refer to the package’s **documentation
-website**, if available. When there is no documentation website, often
-one or more **vignettes** are available within the package, describing
-the package’s purpose and demonstrating its use.
+The package links below refer to the package’s **documentation website**, if available. When there is no documentation website, often one or more **vignettes** are available within the package, describing the package’s purpose and demonstrating its use.
 
 The following table gives a **quick overview**:
 
