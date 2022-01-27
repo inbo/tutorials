@@ -49,6 +49,15 @@ All bibliography managers provide ways to automate the formatting of citations a
     </item>
     
     <item>
+      <title>inbodb: How to retrieve data from the INBOVEG database</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inbodb_get_data_inboveg/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inbodb_get_data_inboveg/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inbodb/articles/get_data_inboveg.html</description>
+    </item>
+    
+    <item>
       <title>Mixed model formulation of a paired t-test</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_paired_t_test/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
@@ -67,16 +76,6 @@ Used packages library(knitr) library(lme4) library(tidyr) library(broom) library
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
  https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
-    </item>
-    
-    <item>
-      <title>Tutorial on how to retrieve data from the INBOVEG database</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_inboveg/</link>
-      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/r_inboveg/</guid>
-      <description>Introduction The Flemish vegetation database, INBOVEG, is an application developed to provide a repository of relevés and makes the relevés available for future use.
-INBOVEG supports different types of recordings: BioHab recordings (protocol of Natura 2000 monitoring) and the classic relevés. The classic relevés can stand alone, be an element of a collection or element of a chain where the linkage is used to give information about the relative position of recording within a series.</description>
     </item>
     
     <item>

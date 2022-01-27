@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>wateRinfo on INBO Tutorials</title>
+    <link>https://inbo.github.io/tutorials/tags/waterinfo/</link>
+    <description>Recent content in wateRinfo on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/waterinfo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Define the date period to download</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_define_date_periods/</link>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_define_date_periods/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Download time series from multiple stations/variables</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html</description>
+    </item>
+    
+  </channel>
+</rss>

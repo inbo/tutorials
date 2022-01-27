@@ -6,7 +6,16 @@
     <description>Recent content in effectclass on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/effectclass/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/effectclass/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>effectclass: Standardised classification of effects based on their uncertainty</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_classification/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_classification/</guid>
+      <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/classification.html</description>
+    </item>
+    
     <item>
       <title>Classification and visualisation of estimates and their uncertainty</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_effectclass/</link>
@@ -14,6 +23,15 @@
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_effectclass/</guid>
       <description>Here are the slides of a presentation about the effectclass package.</description>
+    </item>
+    
+    <item>
+      <title>effectclass: Visualising effects</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_visualisation/</link>
+      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_visualisation/</guid>
+      <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/visualisation.html</description>
     </item>
     
   </channel>

@@ -6,7 +6,7 @@
     <description>Recent content in stijnvanhoey on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/stijnvanhoey/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/stijnvanhoey/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create tutorial</title>
       <link>https://inbo.github.io/tutorials/create_tutorial/</link>
@@ -16,6 +16,15 @@
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html</description>
     </item>
     
     <item>
@@ -39,6 +48,15 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
     </item>
     
     <item>
+      <title>inborutils: GBIF scientific name matching</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
+    </item>
+    
+    <item>
       <title>How to make spatial joins (point in polygon)?</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</link>
       <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
@@ -57,6 +75,42 @@ Typically, both data sources contain information (apart from the spatial locatio
       <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
 To introduce the concept of version control with Git and Github, a separate git course website is available here.
 The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>
+    </item>
+    
+    <item>
+      <title>inborutils: (Down)load data from external partners</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_data_loaders_examples/</link>
+      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_data_loaders_examples/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/data_loaders_examples.html</description>
+    </item>
+    
+    <item>
+      <title>inborutils: Check coordinate system</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_guess_projection/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_guess_projection/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/guess_projection.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Define the date period to download</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_define_date_periods/</link>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_define_date_periods/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Download time series from multiple stations/variables</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html</description>
     </item>
     
     <item>

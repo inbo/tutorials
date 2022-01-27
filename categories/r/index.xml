@@ -6,7 +6,43 @@
     <description>Recent content in r on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</link>
+      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/zenodo.html</description>
+    </item>
+    
+    <item>
+      <title>frictionless: Introduction to frictionless</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_frictionless_frictionless/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_frictionless_frictionless/</guid>
+      <description>See the vignette/tutorial at https://frictionlessdata.github.io/frictionless-r/articles/frictionless.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</link>
+      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html</description>
+    </item>
+    
+    <item>
+      <title>etn: Explore acoustic telemetry data</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_etn_acoustic_telemetry/</link>
+      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_etn_acoustic_telemetry/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/etn/articles/acoustic_telemetry.html</description>
+    </item>
+    
     <item>
       <title>Coordinate operations and maps in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/</link>
@@ -50,6 +86,33 @@ The standard output format for reading or downloading data from a WFS is the XML
     </item>
     
     <item>
+      <title>rgbif: Cleaning data using GBIF issues</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_issues/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_issues/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/issues.html</description>
+    </item>
+    
+    <item>
+      <title>rgbif: Downloading data from GBIF</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_downloads/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_downloads/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/downloads.html</description>
+    </item>
+    
+    <item>
+      <title>rgbif: Taxonomic names</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_taxonomic_names/</link>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_taxonomic_names/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/taxonomic_names.html</description>
+    </item>
+    
+    <item>
       <title>Updating the renv environment of an R project</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_renv_update/</link>
       <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
@@ -57,6 +120,33 @@ The standard output format for reading or downloading data from a WFS is the XML
       <guid>https://inbo.github.io/tutorials/tutorials/r_renv_update/</guid>
       <description>What is renv? renv is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system. Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
 Start using renv For general advice on renv setup and usage, see https://rstudio.</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
+      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html</description>
+    </item>
+    
+    <item>
+      <title>checklist: Philosophy of the checklist package</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_philosophy/</link>
+      <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_philosophy/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/philosophy.html</description>
+    </item>
+    
+    <item>
+      <title>checklist: Setting up checklist</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_getting_started/</link>
+      <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_getting_started/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/getting_started.html</description>
     </item>
     
     <item>
@@ -76,6 +166,51 @@ Start using renv For general advice on renv setup and usage, see https://rstudio
       <guid>https://inbo.github.io/tutorials/articles/inbo_stats_courses/</guid>
       <description>During the course of the years, we have taught many statistics courses at the Research Institute for Nature and Forest (INBO), both for scientists and technicians. Most of these courses have been developed and taught in-house. Some (mostly advanced) courses were taught in-house by external teachers.
 While we do plan to periodically repeat these courses for new employees and as a refresher, the course material can always be consulted and used for self-teaching or as a reference.</description>
+    </item>
+    
+    <item>
+      <title>watina: Getting started with watina: connecting and selecting locations</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_watina_v010_getstarted/</link>
+      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_watina_v010_getstarted/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v010_getstarted.html</description>
+    </item>
+    
+    <item>
+      <title>gwloggeR: Air pressure</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_airpressure/</link>
+      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_airpressure/</guid>
+      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure.html</description>
+    </item>
+    
+    <item>
+      <title>gwloggeR: Air pressure: drift</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_airpressure_drift/</link>
+      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_airpressure_drift/</guid>
+      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure-Drift.html</description>
+    </item>
+    
+    <item>
+      <title>gwloggeR: Hydrostatic pressure</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_hydropressure/</link>
+      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_hydropressure/</guid>
+      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Hydropressure.html</description>
+    </item>
+    
+    <item>
+      <title>gwloggeR: Introduction to gwloggeR</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_gwlogger/</link>
+      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_gwlogger/</guid>
+      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html</description>
     </item>
     
     <item>
@@ -133,6 +268,15 @@ Sometimes we have a layer in one coordinate reference system (CRS) and need to t
     </item>
     
     <item>
+      <title>inbodb: How to retrieve data from the INBOVEG database</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inbodb_get_data_inboveg/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inbodb_get_data_inboveg/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inbodb/articles/get_data_inboveg.html</description>
+    </item>
+    
+    <item>
       <title>&#39;Zoom in&#39; on `ggplot2` figures</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_zoom_in_ggplot/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
@@ -182,6 +326,24 @@ library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects
     </item>
     
     <item>
+      <title>effectclass: Standardised classification of effects based on their uncertainty</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_classification/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_classification/</guid>
+      <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/classification.html</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v022_example/</link>
+      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v022_example/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v022_example.html</description>
+    </item>
+    
+    <item>
       <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
@@ -212,6 +374,33 @@ Why use open standards?  Open file standards ease collaboration, portability and
     </item>
     
     <item>
+      <title>effectclass: Visualising effects</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_visualisation/</link>
+      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_visualisation/</guid>
+      <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/visualisation.html</description>
+    </item>
+    
+    <item>
+      <title>watina: Using hydrochemical data to characterize and select locations</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_watina_v210_chem/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_watina_v210_chem/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v210_chem.html</description>
+    </item>
+    
+    <item>
+      <title>watina: Using XG3 values to characterize and select locations</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_watina_v110_xg3/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_watina_v110_xg3/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v110_xg3.html</description>
+    </item>
+    
+    <item>
       <title>Match scientific names with the GBIF Backbone Taxonomy</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</link>
       <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
@@ -220,6 +409,24 @@ Why use open standards?  Open file standards ease collaboration, portability and
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
 remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Where to store the N2KHAB input data sources</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v020_datastorage/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v020_datastorage/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v020_datastorage.html</description>
+    </item>
+    
+    <item>
+      <title>inborutils: GBIF scientific name matching</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
     </item>
     
     <item>
@@ -244,6 +451,33 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
     </item>
     
     <item>
+      <title>n2khab: Using the GRTS data sources</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v030_grtsmh/</link>
+      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v030_grtsmh/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v030_GRTSmh.html</description>
+    </item>
+    
+    <item>
+      <title>bioRad: Introduction to bioRad</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_biorad/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_biorad/</guid>
+      <description>See the vignette/tutorial at https://adokter.github.io/bioRad/articles/bioRad.html</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Reference lists and using them</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v010_reference_lists/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v010_reference_lists/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v010_reference_lists.html</description>
+    </item>
+    
+    <item>
       <title>R voor beginners</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_beginners/</link>
       <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
@@ -260,6 +494,51 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_inla/</guid>
       <description>These workshops are a follow-up of the course on &amp;ldquo;Spatial, temporal and spatial-temporal models using R-INLA&amp;rdquo; by Alain Zuur and Elena Ieno (Highland Statistics Ltd.). The main goal is the get people using R-INLA with their own data in a workshop setting so they can tap into the knowledge of others. The workshops are not a copy of the Highstat course but elaborate certain topics. We also introduce the inlatools and inlabru.</description>
+    </item>
+    
+    <item>
+      <title>inlatools: Checking the distribution and dispersion of a model</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_distribution/</link>
+      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_distribution/</guid>
+      <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/distribution.html</description>
+    </item>
+    
+    <item>
+      <title>inlatools: Getting a grasp on the random walk hyperparameter</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_rwprior/</link>
+      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_rwprior/</guid>
+      <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/rwprior.html</description>
+    </item>
+    
+    <item>
+      <title>inlatools: Setting a prior for the random intercept variance and fixed effects</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_prior/</link>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_prior/</guid>
+      <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/prior.html</description>
+    </item>
+    
+    <item>
+      <title>inborutils: (Down)load data from external partners</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_data_loaders_examples/</link>
+      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_data_loaders_examples/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/data_loaders_examples.html</description>
+    </item>
+    
+    <item>
+      <title>INBOmd: Introduction to INBOmd</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inbomd_introduction/</link>
+      <pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inbomd_introduction/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/INBOmd/articles/introduction.html</description>
     </item>
     
     <item>
@@ -313,6 +592,33 @@ wms_ortho contains a mosaic of recent orthophotos made during the winter. The la
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_tidyverse_info/</guid>
       <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
+    </item>
+    
+    <item>
+      <title>inborutils: Check coordinate system</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_guess_projection/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_guess_projection/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/guess_projection.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Define the date period to download</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_define_date_periods/</link>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_define_date_periods/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html</description>
+    </item>
+    
+    <item>
+      <title>wateRinfo: Download time series from multiple stations/variables</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html</description>
     </item>
     
     <item>

@@ -60,6 +60,24 @@ Start using renv For general advice on renv setup and usage, see https://rstudio
     </item>
     
     <item>
+      <title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
+      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html</description>
+    </item>
+    
+    <item>
+      <title>watina: Getting started with watina: connecting and selecting locations</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_watina_v010_getstarted/</link>
+      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_watina_v010_getstarted/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v010_getstarted.html</description>
+    </item>
+    
+    <item>
       <title>Use of INBO citation style with bibliography managers</title>
       <link>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</link>
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
@@ -100,6 +118,15 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
     </item>
     
     <item>
+      <title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v022_example/</link>
+      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v022_example/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v022_example.html</description>
+    </item>
+    
+    <item>
       <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_standards_vector/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
@@ -118,6 +145,51 @@ In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication
       <guid>https://inbo.github.io/tutorials/articles/geospatial_standards/</guid>
       <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
 Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
+    </item>
+    
+    <item>
+      <title>watina: Using hydrochemical data to characterize and select locations</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_watina_v210_chem/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_watina_v210_chem/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v210_chem.html</description>
+    </item>
+    
+    <item>
+      <title>watina: Using XG3 values to characterize and select locations</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_watina_v110_xg3/</link>
+      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_watina_v110_xg3/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v110_xg3.html</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Where to store the N2KHAB input data sources</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v020_datastorage/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v020_datastorage/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v020_datastorage.html</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Using the GRTS data sources</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v030_grtsmh/</link>
+      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v030_grtsmh/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v030_GRTSmh.html</description>
+    </item>
+    
+    <item>
+      <title>n2khab: Reference lists and using them</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v010_reference_lists/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_n2khab_v010_reference_lists/</guid>
+      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v010_reference_lists.html</description>
     </item>
     
   </channel>
