@@ -1,6 +1,6 @@
 ---
-title: "Huistaak"
-authors: [ivyjansen, pieterverschelde]
+title: "Huistaak Rmarkdown"
+authors: [ivyjansen, pieterverschelde, raisacarmen]
 output: pdf_document
 urlcolor: blue
 ---
@@ -11,16 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-# Herhaling lesmateriaal
+## Herhaling lesmateriaal
 
-- Download het materiaal van de [tutorials website](https://inbo.github.io/tutorials/tutorials/r_beginners/)
-- Doorloop het [document rond Rmarkdown](https://drive.google.com/open?id=1FYb8r4OxgEbVLaZFrbYhkD8gLVkTmd_z)
-    - Indien er iets niet duidelijk is, zoek online hulp, of in [een van de 2](https://drive.google.com/open?id=1Ff8Fknki8YtUwvgud9zgg1hTtM25Sg-U) [cheatsheets](https://drive.google.com/open?id=104g2kGA4GL6JGOOQCyRTtNEZUVPzVkcj).
-    - Geraak je er nog niet wijs uit, mail dan je vraag met het stukje code naar Ivy (ivy.jansen@inbo.be).
+- Herhaal het lesmateriaal
+- Als er iets onduidelijk is, en online bronnen kunnen je niet helpen, contacteer Pieter (pieter.verschelde@inbo.be) of Raïsa (raisa.carmen@inbo.be)
 
 
-
-# Opdracht
+## Opdracht
 
 - Neem het uitgewerkte script van de oefening (of huistaak) van les 2 of les 3
     - `airquality` dataset
