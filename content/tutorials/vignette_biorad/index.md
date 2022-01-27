@@ -11,5 +11,5 @@ output:
         variant: markdown_github
 ---
 
-See the vignette/tutorial at <https://cran.r-project.org/web/packages/bioRad/vignettes/bioRad.html>
+See the vignette/tutorial at <https://adokter.github.io/bioRad/articles/bioRad.html>
 
