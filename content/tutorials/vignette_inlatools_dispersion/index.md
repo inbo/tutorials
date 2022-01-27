@@ -1,7 +1,7 @@
 ---
 title: "Check the dispersion of a model"
 description: "Vignette for the R package inlatools."
-authors: [ThierryO]
+authors: [thierryo]
 date: 2019-01-21
 categories: ["r"]
 tags: ["r", "vignette", "inlatools"]

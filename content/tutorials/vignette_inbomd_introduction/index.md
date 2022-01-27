@@ -1,7 +1,7 @@
 ---
 title: "Introduction to INBOmd"
 description: "Vignette for the R package INBOmd."
-authors: [ThierryO]
+authors: [thierryo]
 date: 2018-06-20
 categories: ["r"]
 tags: ["r", "vignette", "INBOmd"]

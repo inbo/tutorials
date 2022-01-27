@@ -1,7 +1,7 @@
 ---
 title: "Setting a prior for the random intercept variance and fixed effects"
 description: "Vignette for the R package inlatools."
-authors: [ThierryO]
+authors: [thierryo]
 date: 2019-01-21
 categories: ["r"]
 tags: ["r", "vignette", "inlatools"]

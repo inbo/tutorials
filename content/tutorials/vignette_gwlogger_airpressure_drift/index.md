@@ -1,7 +1,7 @@
 ---
 title: "Using the detect_drift function for air pressure data"
 description: "Vignette for the R package gwloggeR."
-authors: [DavorJ]
+authors: [davorj]
 date: 2020-12-14
 categories: ["r"]
 tags: ["r", "vignette", "gwloggeR"]

@@ -1,7 +1,7 @@
 ---
 title: "Using XG3 values to characterize and select locations"
 description: "Vignette for the R package watina."
-authors: [florisvdh, peterdesmet, w_jan, fredericpiesschaert, Mathias Wackenier]
+authors: [florisvdh, peterdesmet, janwouters, fredericpiesschaert, mathiaswackenier]
 date: 
 categories: ["r"]
 tags: ["r", "vignette", "watina"]

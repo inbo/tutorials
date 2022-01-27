@@ -1,7 +1,7 @@
 ---
 title: "Getting a grasp on the random walk hyperparameter"
 description: "Vignette for the Rpackage inlatools."
-authors: [ThierryO]
+authors: [thierryo]
 date: 2019-01-21
 categories: ["r"]
 tags: ["r", "vignette", "inlatools"]

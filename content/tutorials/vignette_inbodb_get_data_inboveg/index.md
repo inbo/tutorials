@@ -1,7 +1,7 @@
 ---
 title: "How to retrieve data from the INBOVEG database"
 description: "Vignette for the R package inbodb."
-authors: [elsdebie, hansvancalster, Jo-Loos]
+authors: [elsdebie, hansvancalster, joloos]
 date: 2020-07-03
 categories: ["r"]
 tags: ["r", "vignette", "inbodb"]

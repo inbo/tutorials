@@ -1,7 +1,7 @@
 ---
 title: "Visualising Effects"
 description: "Vignette for the R package effectclass."
-authors: [ThierryO]
+authors: [thierryo]
 categories: ["r"]
 tags: ["r", "vignette", "effectclass"]
 output: 
