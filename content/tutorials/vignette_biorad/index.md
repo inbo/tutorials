@@ -1,6 +1,6 @@
 ---
-title: "Introduction to bioRad"
-description: "Vignette for the R package bioRad."
+title: "bioRad: Introduction to bioRad"
+description: "📦 R package vignette."
 authors: [adokter, peterdesmet]
 categories: ["r"]
 tags: ["r", "vignette", "bioRad"]

@@ -1,6 +1,6 @@
 ---
-title: "Philosophy of the checklist package"
-description: "Vignette for the R package checklist."
+title: "checklist: Philosophy of the checklist package"
+description: "📦 R package vignette."
 authors: [thierryo]
 categories: ["r"]
 tags: ["r", "vignette", "checklist"]

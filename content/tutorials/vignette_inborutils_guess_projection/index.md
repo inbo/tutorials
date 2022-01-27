@@ -1,6 +1,6 @@
 ---
-title: "Check the coordinate system"
-description: "Vignette for the R package inborutils."
+title: "inborutils: Check coordinate system"
+description: "📦 R package vignette."
 authors: [stijnvanhoey]
 date: 2021-06-21
 categories: ["r"]

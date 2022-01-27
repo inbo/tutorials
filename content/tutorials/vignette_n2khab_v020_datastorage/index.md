@@ -1,6 +1,6 @@
 ---
-title: "Where to store the N2KHAB input data sources"
-description: "Vignette for the R package n2khab."
+title: "n2khab: Where to store the N2KHAB input data sources"
+description: "📦 R package vignette."
 authors: [florisvdh]
 date: 2019-08-02
 categories: ["r"]

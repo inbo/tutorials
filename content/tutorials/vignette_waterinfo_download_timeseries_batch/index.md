@@ -1,6 +1,6 @@
 ---
-title: "Download time series from multiple stations/variables"
-description: "Vignette for the R package wateRinfo."
+title: "wateRinfo: Download time series from multiple stations/variables"
+description: "📦 R package vignette."
 authors: [stijnvanhoey]
 date: 2021-07-01
 categories: ["r"]

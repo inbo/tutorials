@@ -1,6 +1,6 @@
 ---
-title: "Cleaning data using GBIF issues"
-description: "Vignette for the R package rgbif."
+title: "rgbif: Cleaning data using GBIF issues"
+description: "📦 R package vignette."
 authors: [sckott]
 date: 2021-06-11
 categories: ["r"]

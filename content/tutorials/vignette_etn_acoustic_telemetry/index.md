@@ -1,6 +1,6 @@
 ---
-title: "Explore acoustic telemetry data"
-description: "Vignette for the R package etn. "
+title: "etn: Explore acoustic telemetry data"
+description: "📦 R package vignette."
 authors: [damianooldoni]
 date: 2021-10-13
 categories: ["r"]

@@ -1,6 +1,6 @@
 ---
-title: "Working with geospatial data sources of habitat (sub)types and RIBs"
-description: "Vignette for the R package n2khab."
+title: "n2khab: Working with geospatial data sources of habitat (sub)types and RIBs"
+description: "📦 R package vignette."
 authors: [florisvdh, toonwestra, janwouters, cecileherr]
 date: 2021-05-12
 categories: ["r"]

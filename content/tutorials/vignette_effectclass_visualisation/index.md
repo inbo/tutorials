@@ -1,6 +1,6 @@
 ---
-title: "Visualising Effects"
-description: "Vignette for the R package effectclass."
+title: "effectclass: Visualising effects"
+description: "📦 R package vignette."
 authors: [thierryo]
 categories: ["r"]
 tags: ["r", "vignette", "effectclass"]

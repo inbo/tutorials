@@ -1,6 +1,6 @@
 ---
-title: "Checking the distribution and dispersion of a model"
-description: "Vignette for the R package inlatools."
+title: "inlatools: Checking the distribution and dispersion of a model"
+description: "📦 R package vignette."
 authors: [thierryo]
 date: 2019-01-21
 categories: ["r"]

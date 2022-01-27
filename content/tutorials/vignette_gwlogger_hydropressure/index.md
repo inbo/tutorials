@@ -1,6 +1,6 @@
 ---
-title: "Using the decect functions for hydrostatic pressure data"
-description: "Vignette for the R package gwloggeR."
+title: "gwloggeR: Hydrostatic pressure"
+description: "📦 R package vignette."
 authors: [davorj]
 date: 2020-12-14
 categories: ["r"]

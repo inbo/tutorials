@@ -1,7 +1,7 @@
 ---
-title: "Using hydrochemical data to characterize and select locations"
-description: "Vignette for the R package watina."
 authors: [florisvdh, peterdesmet, janwouters, fredericpiesschaert, mathiaswackenier]
+title: "watina: Using hydrochemical data to characterize and select locations"
+description: "📦 R package vignette."
 categories: ["r"]
 tags: ["r", "vignette", "watina"]
 output: 

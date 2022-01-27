@@ -1,6 +1,6 @@
 ---
-title: "Introduction to gwloggeR"
-description: "Vignette for the R package gwloggeR."
+title: "gwloggeR: Introduction to gwloggeR"
+description: "📦 R package vignette."
 authors: [davorj]
 date: 2020-12-14
 categories: ["r"]

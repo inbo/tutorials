@@ -1,6 +1,6 @@
 ---
-title: "Demonstrating n2khab package & data setup and handling of sf objects: a case with read_soilmap()"
-description: "Vignette for the R package n2khab."
+title: "n2khab: Demonstrating package & data setup and handling of sf objects: a case with read_soilmap()"
+description: "📦 R package vignette."
 authors: [florisvdh]
 date: 2020-04-10
 categories: ["r"]

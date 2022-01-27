@@ -1,6 +1,6 @@
 ---
-title: "Setting up checklist"
-description: "Vignette for the R package checklist."
+title: "checklist: Setting up checklist"
+description: "📦 R package vignette."
 authors: [thierryo]
 categories: ["r"]
 tags: ["r", "vignette", "checklist"]

@@ -1,6 +1,6 @@
 ---
-title: "Standardised Classification of Effects Based on Their Uncertainty"
-description: "Vignette for the R package effectclass."
+title: "effectclass: Standardised classification of effects based on their uncertainty"
+description: "📦 R package vignette."
 authors: [thierryo]
 categories: ["r"]
 tags: ["r", "vignette", "effectclass"]

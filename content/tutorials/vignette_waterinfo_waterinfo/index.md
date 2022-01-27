@@ -1,6 +1,6 @@
 ---
-title: "Introduction to downloading time series data from waterinfo.be"
-description: "Vignette for the R package wateRinfo."
+title: "wateRinfo: Introduction to downloading time series data from waterinfo.be"
+description: "📦 R package vignette."
 authors: [stijnvanhoey]
 date: 2021-07-01
 categories: ["r"]

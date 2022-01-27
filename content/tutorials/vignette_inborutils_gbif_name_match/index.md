@@ -1,6 +1,6 @@
 ---
-title: "GBIF scientific name matching"
-description: "Vignette for the R package inborutils."
+title: "inborutils: GBIF scientific name matching"
+description: "📦 R package vignette."
 authors: [stijnvanhoey, damianooldoni]
 date: 2021-06-21
 categories: ["r"]

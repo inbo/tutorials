@@ -1,8 +1,8 @@
 ---
-title: "Getting started with watina: connecting and selecting locations"
-description: "Vignette for the R package watina."
 authors: [florisvdh, peterdesmet, janwouters, fredericpiesschaert, mathiaswackenier]
 date: 
+title: "watina: Getting started with watina: connecting and selecting locations"
+description: "📦 R package vignette."
 categories: ["r"]
 tags: ["r", "vignette", "watina"]
 output: 

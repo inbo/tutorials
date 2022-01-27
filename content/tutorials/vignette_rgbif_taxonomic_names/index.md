@@ -1,6 +1,6 @@
 ---
-title: "Using taxonomic names in GBIF"
-description: "Vignette for the R package rgbif."
+title: "rgbif: Taxonomic names"
+description: "📦 R package vignette."
 authors: [sckott]
 date: 2021-06-11
 categories: ["r"]

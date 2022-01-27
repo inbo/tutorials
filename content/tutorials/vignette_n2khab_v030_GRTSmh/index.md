@@ -1,6 +1,6 @@
 ---
-title: "Using the GRTS data sources"
-description: "Vignette for the R package n2khab."
+title: "n2khab: Using the GRTS data sources"
+description: "📦 R package vignette."
 authors: [florisvdh]
 date: 2019-05-29
 categories: ["r"]
