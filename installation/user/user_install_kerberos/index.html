@@ -236,7 +236,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Thu Jan 27 10:19:04 UTC 2022</small></p>
+  <p><small>Built on: Thu Jan 27 13:25:49 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -319,7 +319,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-6 mins read
+7 mins read
 </span>
 
 
@@ -367,14 +367,15 @@ Improve this page</a>
 sudo apt-get install openssl <span style="color:#aaa;font-style:italic"># if not yet available on your system (it probably is)</span>
 </code></pre></div><p>During installation, you may be asked for extra configuration input.
 To answer that, see next section: <a href="#configure-kerberos-client">Configure Kerberos client</a>.</p>
+<p>Note for Mac users: <em>Heimdal Kerberos</em> is installed by default, so there is no need to install a client. Mac users can jump to the paragraph &ldquo;Next, adapt the <code>krb5.conf</code>&rdquo;</p>
 <h3 id="configure-kerberos-client">Configure Kerberos client<a href="#configure-kerberos-client" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p><em>(again, the commands assume root privileges)</em></p>
 <p>Start with the Kerberos configuration dialogue:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dpkg-reconfigure krb5-config
-</code></pre></div><p>Use <code>INBO.BE</code> as the realm (this is the realm of the kerberos servers):
-<img src="./images/kerberos_config_1.png" alt=""></p>
-<p>Make sure to use DNS to find these servers, so choose &lsquo;NO&rsquo; if you get the below question:
-<img src="./images/kerberos_config_2.png" alt=""></p>
+</code></pre></div><p>Use <code>INBO.BE</code> as the realm (this is the realm of the kerberos servers):</p>
+<p><img src="./images/kerberos_config_1.png" alt=""></p>
+<p>Make sure to use DNS to find these servers, so choose &lsquo;NO&rsquo; if you get the below question:</p>
+<p><img src="./images/kerberos_config_2.png" alt=""></p>
 <p>Next, adapt the <code>krb5.conf</code>, probably available in the <code>/etc</code> directory.  Add the following sections with configurations to the file:</p>
 <pre tabindex="0"><code>[realms]
         INBO.BE = {
@@ -400,6 +401,11 @@ To answer that, see next section: <a href="#configure-kerberos-client">Configure
 	forwardable=  true
 </code></pre><p>INBO staff can download a preconfigured <code>krb5.conf</code> file here:
 <a href="https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing">https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing</a>.</p>
+<p>Note for Mac users:</p>
+<ul>
+<li>When using the preconfigured <code>krb5.conf</code> file, also comment out (add <code>#</code>) the lines following <code># The following krb5.conf variables are only for MIT Kerberos</code>.</li>
+<li>You can skip the paragraph &ldquo;Time synchronisation&rdquo; and jump to the next section: <a href="#ms-sql-server-odbc-driver-and-tools">MS SQL Server ODBC driver and tools</a>.</li>
+</ul>
 <h3 id="time-synchronization">Time synchronization<a href="#time-synchronization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>This is needed in order to sync the timing of the domain controller server and client side.</p>
 <p>Check whether the <code>systemd-timesyncd</code> daemon is already active on your system:</p>
@@ -434,7 +440,8 @@ Further information can be found <a href="https://wiki.archlinux.org/index.php/S
 <li><strong>sqlcmd</strong>: Command-line query utility.</li>
 <li><strong>bcp</strong>: Bulk import-export utility.</li>
 </ul>
-<p>For Linux,  follow <a href="https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server">these installation instructions</a>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>For Linux,  follow <a href="https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server">these installation instructions</a>.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
+For Mac, <a href="https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos">installation instructions can be found here</a>.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
 <p>Also follow the &lsquo;optional&rsquo; instructions, as these will install the tools.</p>
 <p>Hence, for Ubuntu 20.04 or Linux Mint 20 you would do:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo su
@@ -459,7 +466,8 @@ sudo apt-get install unixodbc-dev
 <pre tabindex="0"><code>Valid starting     Expires            Service principal
 03/01/18 15:42:08  04/01/18 01:42:08  krbtgt/INBO.BE@INBO.BE
 	renew until 10/01/18 15:42:08
-</code></pre><h3 id="sql-database-connections">SQL database connections<a href="#sql-database-connections" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+</code></pre><p>For Mac users, note that you can also use the Ticketviewer application which can be found in <code>/System/Library/CoreServices/Applications</code>. Click <code>Add Identity</code> and enter <a href="mailto:your_user_name@INBO.BE">your_user_name@INBO.BE</a> and password.</p>
+<h3 id="sql-database-connections">SQL database connections<a href="#sql-database-connections" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>When the ticketing is working, the next step is to use the authentication to connect to the databases itself. To test this, we&rsquo;ll use the <code>sqlcmd</code> command line tool. In a next section, we&rsquo;ll focus on the ODBC settings.</p>
 <p>Testing with <code>sqlcmd</code> (make sure you have an active ticket). Type <code>quit</code> to exit.</p>
 <p>Inbo staff can consult a list of connection strings ( including server names ) for a server to query
@@ -526,6 +534,9 @@ Port        = 1433
 <li id="fn:1" role="doc-endnote">
 <p>You can also find the debian packages of Microsoft ODBC Driver for SQL Server <a href="https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server">here</a>.
 You can find separate installation instructions for <code>sqlcmd</code>, <code>bcp</code> and <code>unixodbc-dev</code> <a href="https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools">here</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>The installation on Mac is done through Homebrew. The commands suggested in the link need to be entered in 2 turns: first install Homebrew and next issue the remaining commands.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
