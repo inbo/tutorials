@@ -49,13 +49,13 @@ The following table gives a **quick overview**:
 Research stage | Related INBO packages
 --- | ---
 Study design | [grts][grts], [protocolhelper][protocolhelper]
-Retrieve data: general | [inbodb][inbodb], [frictionless][frictionless]
-Retrieve data: environmental | [wateRinfo][wateRinfo], [pydov][pydov], [watina][watina]
-Retrieve data: biological | [pyinaturalist][pyinaturalist], [rgbif][rgbif], [gulltracking][gulltracking], [etn][etn], [n2khab][n2khab], [forrescalc][forrescalc], [bioRad][biorad], [camtrapdp][camtrapdp]
-Store data | [git2rdata][git2rdata], [frictionless][frictionless]
+Retrieve data: general | [frictionless][frictionless], [inbodb][inbodb]
+Retrieve data: environmental | [pydov][pydov], [wateRinfo][wateRinfo], [watina][watina]
+Retrieve data: biological | [bioRad][biorad], [camtrapdp][camtrapdp], [etn][etn], [forrescalc][forrescalc], [gulltracking][gulltracking],  [n2khab][n2khab], [pyinaturalist][pyinaturalist], [rgbif][rgbif]
+Store data | [frictionless][frictionless], [git2rdata][git2rdata]
 Validate data | [pywhip][pywhip]
 Analyze data: graphs | [inboggvegan][inboggvegan]
-Analyze data: models | [inlatools][inlatools], [multimput][multimput], [effectclass][effectclass], [niche_vlaanderen][niche_vlaanderen], [gwloggeR][gwloggeR], [dhcurve][dhcurve]
+Analyze data: models | [dhcurve][dhcurve], [effectclass][effectclass], [gwloggeR][gwloggeR], [inlatools][inlatools], [multimput][multimput], [niche_vlaanderen][niche_vlaanderen]
 Analyze data: indices | [LSVI][LSVI]
 Publish | [INBOmd][INBOmd], [INBOtheme][INBOtheme]
 Miscellaneous (mixed content) | [inborutils][inborutils]
@@ -69,25 +69,29 @@ Miscellaneous (mixed content) | [inborutils][inborutils]
 
 ### General
 
+- **R package [frictionless][frictionless]**: read and write Frictionless Data Packages. A [Data Package](https://specs.frictionlessdata.io/data-package/) is a simple container format and standard to describe and package a collection of (tabular) data. It is typically used to publish FAIR and open datasets.
 - **R package [inbodb][inbodb]**: connect to and retrieve data from databases on the INBO server, with dedicated functions to query some of these databases.
 
 ### Environmental data
 
-- **R package [wateRinfo][wateRinfo]**: facilitates access to [waterinfo.be](https://www.waterinfo.be/), a website managed by the [Flanders Environment Agency (VMM)](https://en.vmm.be/) and [Flanders Hydraulics Research](https://www.waterbouwkundiglaboratorium.be/). The website provides access to real-time water and weather related environmental variables for Flanders (Belgium), such as rainfall, air pressure, discharge, and water level. The package provides functions to search for stations and variables, and download time series.
 - **Python package [pydov][pydov]**: to query and download data from [Databank Ondergrond Vlaanderen (DOV)](https://www.dov.vlaanderen.be/). DOV aggregates data about soil, subsoil and groundwater of Flanders and makes them publicly available. Interactive and human-readable extraction and querying of the data is provided by a web application, whereas the focus of this package is to support machine-based extraction and conversion of the data.
+- **R package [wateRinfo][wateRinfo]**: facilitates access to [waterinfo.be](https://www.waterinfo.be/), a website managed by the [Flanders Environment Agency (VMM)](https://en.vmm.be/) and [Flanders Hydraulics Research](https://www.waterbouwkundiglaboratorium.be/). The website provides access to real-time water and weather related environmental variables for Flanders (Belgium), such as rainfall, air pressure, discharge, and water level. The package provides functions to search for stations and variables, and download time series.
 - **R package [watina][watina]**: provides functions to query and process data from the Watina database (mainly groundwater data).
 
 ### Biological data
 
-- **Python package [pyinaturalist][pyinaturalist]**: Python client for the iNaturalist APIs.
-- **R package [rgbif][rgbif]**: provides an R interface to the [Global Biodiversity Information Facility API](https://www.gbif.org/developer/summary).
-- **R package [gulltracking][gulltracking]**: provides an R interface to the [UvA-BiTS database](http://www.uva-bits.nl/), which stores bird movement data collected with UvA-BiTS GPS trackers. The package provides functionality to download data and metadata, calculate some metrics, and load the data into a query-optimized SQLite database for local analysis. It also allows to download the data in a format that can easily be uploaded to [Movebank](https://www.movebank.org/), a free online database for animal tracking data.
+- **R package [bioRad][bioRad]**: extract, visualize and summarize aerial movements of birds and insects from weather radar data.
+- **R package [camtrapdp][camtrapdp]**: aims to experiment and test visualization functionalities for camera trap data formatted following the [Camera Trap Data Package standard](https://github.com/tdwg/camtrap-dp).
 - **R package [etn][etn]**: provides functionality to access and process data from the [European Tracking Network (ETN)](http://www.lifewatch.be/etn/) database hosted by the Flanders Marine Institute (VLIZ) as part of the Flemish contribution to LifeWatch.
-- **R package [n2khab][n2khab]**: provides preprocessed reference data *(including checklists, spatial habitat distribution, administrative & environmental layers, GRTSmaster_habitats)* and preprocessing functions, supporting reproducible and transparent analyses on Flemish Natura 2000 (*n2k*) habitats (*hab*) and regionally important biotopes (RIBs).
 - **R package [forrescalc][forrescalc]**: provides aggregated values on dendrometry, regeneration and vegetation of the Flemish forest reserve monitoring network, and functions to derive these data starting from individual tree measurements in Fieldmap.
+- **R package [gulltracking][gulltracking]**: provides functionality to annotate GPS tracking data of gulls stored in [Movebank](https://www.movebank.org/). These data are collected by the LifeWatch [GPS tracking network for large birds](http://lifewatch.be/en/gps-tracking-network-large-birds).
+- **R package [n2khab][n2khab]**: provides preprocessed reference data *(including checklists, spatial habitat distribution, administrative & environmental layers, GRTSmaster_habitats)* and preprocessing functions, supporting reproducible and transparent analyses on Flemish Natura 2000 (*n2k*) habitats (*hab*) and regionally important biotopes (RIBs).
+- **Python package [pyinaturalist][pyinaturalist]**: Python client for the [iNaturalist](https://inaturalist.org) APIs.
+- **R package [rgbif][rgbif]**: provides an R interface to the [Global Biodiversity Information Facility API](https://www.gbif.org/developer/summary).
 
 ## Store data
 
+- **R package [frictionless][frictionless]**: read and write Frictionless Data Packages. A [Data Package](https://specs.frictionlessdata.io/data-package/) is a simple container format and standard to describe and package a collection of (tabular) data. It is typically used to publish FAIR and open datasets.
 - **R package [git2rdata][git2rdata]**: an R package for writing and reading dataframes as plain text files. Important information is stored in a metadata file, which allows to maintain the classes of variables. `git2rdata` is ideal for storing R dataframes as plain text files under version control, as it strives to minimize row based diffs between two consecutive commits. The package is intended to facilitate a reproducible and traceable workflow.
 
 ## Validate data
@@ -102,12 +106,12 @@ Miscellaneous (mixed content) | [inborutils][inborutils]
 
 ### Fit models and make model predictions
 
+- **R package [dhcurve][dhcurve]**: an R package to predict tree height for a given girth, based on a model and data on tree height, tree girth, tree species and location (in Dutch).
+- **R package [effectclass][effectclass]**: an R package to classify and visualize modelled effects by comparing their confidence interval with thresholds.
+- **R package [gwloggeR][gwloggeR]**: an R package to detect anomalous observations in timeseries of groundwater loggerdata (water pressure and air pressure). Additive outliers, temporal changes and level shifts are detected.
 - **R package [inlatools][inlatools]**: provides a set of functions which can be useful to diagnose [INLA models](http://www.r-inla.org/): calculating Pearson residuals, simulation based checks for over- or underdispersion, simulation based checks for the distribution, visualising the effect of the variance or precision on random effects (random intercept, first order random walk, second order random walk). The functions can be useful to choose sensible priors and diagnose the fitted model.
 - **R package [multimput][multimput]**: an R package that assists with analysing datasets with missing values using multiple imputation.
-- **R package [effectclass][effectclass]**: an R package to classify and visualize modelled effects by comparing their confidence interval with thresholds.
 - **Python package [niche_vlaanderen][niche_vlaanderen]**: Python package to run the NICHE Vlaanderen model. Based on calculated abiotic properties of the location, NICHE Vlaanderen determines whether certain vegetation types can develop. An additional flooding module allows the user to test whether the predicted vegetations are compatible with a particular flooding regime. The package is a redevelopment of an existing ArcGIS plugin in Python, without external non-open source dependencies.
-- **R package [gwloggeR][gwloggeR]**: an R package to detect anomalous observations in timeseries of groundwater loggerdata (water pressure and air pressure). Additive outliers, temporal changes and level shifts are detected.
-- **R package [dhcurve][dhcurve]**: an R package to predict tree height for a given girth, based on a model and data on tree height, tree girth, tree species and location (in Dutch).
 
 ### Calculate indices
 
