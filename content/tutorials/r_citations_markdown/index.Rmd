@@ -118,7 +118,7 @@ To specify the style file for the Research Institute for Nature and Forest it is
                     csl = "https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl")
     ```
 
-### Other YAML citation arguments {\#other-yaml-citation-arguments}
+### Other YAML citation arguments {#other-yaml-citation-arguments}
 
 The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1), [Pandoc](https://pandoc.org/MANUAL.html#other-relevant-metadata-fields) & associated [citeproc](https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md) documentation and [RStudio VME citations section](https://rstudio.github.io/visual-markdown-editing/#/citations) mention the following useful arguments:
 
@@ -190,19 +190,19 @@ The defaults are OK.
 
 ![](global-options.png)
 
-# Citing documents {\#citing-documents}
+# Citing documents {#citing-documents}
 ## Syntax
 
 The following Markdown syntax is used to refer to documents.
 It is based on citation keys and the basic building block is `@citationkey`.
 
-| syntax                                                               | result (depending on chosen csl style)                                 |
-|----------------------------------------------------------------------|------------------------------------------------------------------------|
-| `@adams1975` concludes that ...                                      | \@adams1975 concludes that ...                                         |
-| `@adams1975[p.33]` concludes that ...                                | \@adams1975 \[p.33\] concludes that ...                                |
-| ... end of sentence `[@adams1975]`.                                  | ... end of sentence \[\@adams1975\].                                   |
-| ... end of sentence `[see @adams1975,p.33]`.                         | ... end of sentence \[see \@adams1975,p.33\].                          |
-| delineate multiple authors with colon: `[@adams1975; @aberdeen1958]` | delineate multiple authors with colon: \[\@adams1975; \@aberdeen1958\] |
+| syntax                                                               | result (depending on chosen csl style)                             |
+|----------------------------------------------------------------------|--------------------------------------------------------------------|
+| `@adams1975` concludes that ...                                      | @adams1975 concludes that ...                                      |
+| `@adams1975[p.33]` concludes that ...                                | @adams1975 [p.33] concludes that ...                               |
+| ... end of sentence `[@adams1975]`.                                  | ... end of sentence [@adams1975].                                  |
+| ... end of sentence `[see @adams1975,p.33]`.                         | ... end of sentence [see @adams1975,p.33].                         |
+| delineate multiple authors with colon: `[@adams1975; @aberdeen1958]` | delineate multiple authors with colon: [@adams1975; @aberdeen1958] |
 
 ## Insert a citation
 
