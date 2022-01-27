@@ -7,7 +7,6 @@ categories: ["databases"]
 tags: ["database", "vmm", "reports"]
 ---
 
-
 OPGELET: deze databank is alleen raadpleegbaar voor INBO-medewerkers, niet voor externen. Externen kunnen gebruik maken van het [VMM-geoloket waterkwaliteit](https://www.vmm.be/data/waterkwaliteit).
 
 Het INBO krijgt jaarlijks een (gedeeltelijke) kopie van de waterkwaliteitsdatabank van de Vlaamse Milieumaatschappij (VMM). 
