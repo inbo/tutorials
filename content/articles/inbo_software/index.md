@@ -17,20 +17,6 @@ The package links below refer to the package’s **documentation website**, if a
 
 The following table gives a **quick overview**:
 
-| Research stage | Related INBO packages |
-| :------------- | :-------------------- |
-| Study design | [grts](https://github.com/ThierryO/grts), [protocolhelper](https://inbo.github.io/protocolhelper/)  |
-| Retrieve data: general | [inbodb](https://inbo.github.io/inbodb/), [datapackage](https://inbo.github.io/datapackage/) |
-| Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina) |
-| Retrieve data: biological | [pyinaturalist](https://pyinaturalist.readthedocs.io/), [rgbif](https://docs.ropensci.org/rgbif/), [gulltracking](https://inbo.github.io/gulltracking/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/), [bioRad](https://adokter.github.io/bioRad/), [camtrap](https://inbo.github.io/camtrapdp/) |
-| Store data | [git2rdata](https://ropensci.github.io/git2rdata/) |
-| Validate data | [pywhip](https://inbo.github.io/pywhip/) |
-| Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan) |
-| Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/),\n [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html),
-[dhcurve](https://inbo.github.io/dhcurve/)|
-| Analyze data: indices | [LSVI](https://inbo.github.io/LSVI) |
-| Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/) |
-| Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/) |
 
 ## Study design
 
@@ -41,6 +27,19 @@ The following table gives a **quick overview**:
   provides templates for protocols and helper functions to start developing a 
   new protocol or move an existing protocol to the 
   [INBO protocols repository](https://github.com/inbo/protocols)
+Research stage | Related INBO packages
+--- | ---
+Study design | [grts](https://github.com/ThierryO/grts), [protocolhelper](https://inbo.github.io/protocolhelper/)
+Retrieve data: general | [inbodb](https://inbo.github.io/inbodb/), [frictionless](https://frictionlessdata.github.io/frictionless-r/)
+Retrieve data: environmental | [wateRinfo](https://ropensci.github.io/wateRinfo/), [pydov](https://pydov.readthedocs.io/), [watina](https://inbo.github.io/watina)
+Retrieve data: biological | [pyinaturalist](https://pyinaturalist.readthedocs.io/), [rgbif](https://docs.ropensci.org/rgbif/), [gulltracking](https://inbo.github.io/gulltracking/), [etn](https://inbo.github.io/etn/), [n2khab](https://inbo.github.io/n2khab), [forrescalc](https://inbo.github.io/forrescalc/), [bioRad](https://adokter.github.io/bioRad/), [camtrap](https://inbo.github.io/camtrapdp/)
+Store data | [git2rdata](https://ropensci.github.io/git2rdata/), [frictionless](https://frictionlessdata.github.io/frictionless-r/)
+Validate data | [pywhip](https://inbo.github.io/pywhip/)
+Analyze data: graphs | [inboggvegan](https://github.com/inbo/inboggvegan)
+Analyze data: models | [inlatools](https://inlatools.netlify.com/), [multimput](https://github.com/inbo/multimput), [effectclass](https://effectclass.netlify.com), [niche\_vlaanderen](https://inbo.github.io/niche_vlaanderen/), [gwloggeR](https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html), [dhcurve](https://inbo.github.io/dhcurve/)
+Analyze data: indices | [LSVI](https://inbo.github.io/LSVI)
+Publish | [INBOmd](https://inbomd.netlify.com/articles/introduction.html), [INBOtheme](https://inbo.github.io/INBOtheme/)
+Miscellaneous (mixed content) | [inborutils](https://inbo.github.io/inborutils/)
 
 ## Retrieve data
 
