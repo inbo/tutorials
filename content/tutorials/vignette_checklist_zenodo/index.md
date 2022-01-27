@@ -1,7 +1,8 @@
 ---
-title: "Setting up the integration between GitHub, Zenodo and ORCID"
-description: "Vignette for the R package checklist."
+title: "checklist: Setting up the integration between GitHub, Zenodo and ORCID"
+description: "📦 R package vignette."
 authors: [thierryo]
+date: 2022-01-12
 categories: ["r"]
 tags: ["r", "vignette", "checklist"]
 output: 
