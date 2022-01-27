@@ -1,6 +1,6 @@
 ---
-title: "📦 rgbif: Downloading data from GBIF"
-description: "R package vignette."
+title: "rgbif: Downloading data from GBIF"
+description: "📦 R package vignette."
 authors: [sckott]
 date: 2021-06-11
 categories: ["r"]
