@@ -31,7 +31,7 @@ sudo apt-get install openssl # if not yet available on your system (it probably 
 During installation, you may be asked for extra configuration input.
 To answer that, see next section: [Configure Kerberos client](#configure-kerberos-client).
 
-For Mac users, note that *Heimdal Kerberos* is installed by default, so there is no need to install a client. Mac users can jump to the paragraph "Next, adapt the `krb5.conf`..."
+Note for Mac users: *Heimdal Kerberos* is installed by default, so there is no need to install a client. Mac users can jump to the paragraph "Next, adapt the `krb5.conf`"
 
 ### Configure Kerberos client
 
@@ -43,9 +43,11 @@ Start with the Kerberos configuration dialogue:
 dpkg-reconfigure krb5-config
 ```
 Use `INBO.BE` as the realm (this is the realm of the kerberos servers):
+
 ![](./images/kerberos_config_1.png)
 
 Make sure to use DNS to find these servers, so choose 'NO' if you get the below question:
+
 ![](./images/kerberos_config_2.png)
 
 Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add the following sections with configurations to the file:
@@ -78,9 +80,10 @@ Next, adapt the `krb5.conf`, probably available in the `/etc` directory.  Add th
 INBO staff can download a preconfigured `krb5.conf` file here:
 <https://drive.google.com/a/inbo.be/file/d/1q4MOWl3i-DDy1s3vwOeqPkpToa1S-3zE/view?usp=sharing>.
 
-Note for Mac users: 
-* You additionally need to comment out (add “#”) the lines below: "(add “#”) for lines below: "# The following krb5.conf variables are only for MIT Kerberos."
-* You can skip the paragraph "Time synchronisation" and jump to the next section: [MS SQL Server ODBC driver and tools](#ms-sql-server-odbc-driver-and-tools)
+Note for Mac users:
+
+* When using the preconfigured `krb5.conf` file, also comment out (add `#`) the lines following `# The following krb5.conf variables are only for MIT Kerberos`.
+* You can skip the paragraph "Time synchronisation" and jump to the next section: [MS SQL Server ODBC driver and tools](#ms-sql-server-odbc-driver-and-tools).
 
 ### Time synchronization
 
