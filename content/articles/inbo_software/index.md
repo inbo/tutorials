@@ -63,7 +63,7 @@ Miscellaneous (mixed content) | [inborutils][inborutils]
 ## Study design 
 
 - **R package [grts][grts]**: draw a sample from a sampling frame with the Generalized Random Tessellation Stratified (GRTS) sampling strategy.
-- **R package [protocolhelper][protocolhelper]**: provides templates for protocols and helper functions to start developing a new protocol or move an existing protocol to the [INBO protocols repository](https://github.com/inbo/protocols)
+- **R package [protocolhelper][protocolhelper]**: provides templates for protocols and helper functions to start developing a new protocol or move an existing protocol to the [INBO protocols repository](https://github.com/inbo/protocolsource)
 
 ## Retrieve data
 
