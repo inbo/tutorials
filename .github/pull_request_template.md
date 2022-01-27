@@ -17,8 +17,6 @@ it like "#4" -->
 <!--See https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword-->
 
 
-<!--For previewing the website version of your (draft) tutorial, see the instructions further below.-->
-
 ## Task list
 
 <!--see https://docs.github.com/en/github/managing-your-work-on-github/about-task-lists
