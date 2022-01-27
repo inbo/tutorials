@@ -2,7 +2,7 @@
 title: "wateRinfo: Define the date period to download"
 description: "📦 R package vignette."
 authors: [stijnvanhoey]
-date: 2021-07-01
+date: 2017-10-20
 categories: ["r"]
 tags: ["r", "vignette", "wateRinfo"]
 output: 

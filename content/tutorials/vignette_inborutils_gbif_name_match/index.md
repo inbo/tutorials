@@ -2,7 +2,7 @@
 title: "inborutils: GBIF scientific name matching"
 description: "📦 R package vignette."
 authors: [stijnvanhoey, damianooldoni]
-date: 2021-06-21
+date: 2019-07-25
 categories: ["r"]
 tags: ["r", "vignette", "inboRutils"]
 output: 

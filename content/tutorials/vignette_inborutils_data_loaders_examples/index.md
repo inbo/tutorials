@@ -2,7 +2,7 @@
 title: "inborutils: (Down)load data from external partners"
 description: "📦 R package vignette."
 authors: [stijnvanhoey]
-date: 2021-06-21
+date: 2018-09-20
 categories: ["r"]
 tags: ["r", "vignette", "inboRutils"]
 output: 

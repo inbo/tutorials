@@ -1,8 +1,8 @@
 ---
 authors: [florisvdh, peterdesmet, janwouters, fredericpiesschaert, mathiaswackenier]
-date: 
 title: "watina: Using XG3 values to characterize and select locations"
 description: "📦 R package vignette."
+date: 2019-09-16
 categories: ["r"]
 tags: ["r", "vignette", "watina"]
 output: 
