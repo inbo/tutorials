@@ -12,7 +12,7 @@ New tutorials should go in a new directory in `content/tutorials`. Use plain mar
 ## Reviewing the website in a pull request (before merging)
 
 Thanks to GitHub Actions, an artifact (=zip file) of the rendered website is now automatically created on each pull request.
-Read [REVIEWING.md](.github/workflows/REVIEWING.md) to learn about showing the development website in your browser.
+[Learn more](https://github.com/inbo/tutorials/blob/master/.github/pull_request_template.md#previewing-the-pull-request) about showing the development website of a pull request in your browser.
 
 ## Building the site
 

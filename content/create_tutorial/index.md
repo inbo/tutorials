@@ -68,13 +68,13 @@ Replace all the CAPITAL words with appropriate information:
 - a short clear title
 - a single or two line description
 - your author id: for each author on INBO tutorials, there's a `AUTHOR_ID.toml` file under `data/authors`. If it's your first contribution, please choose an author id (suggestion: your full name, lowercase, with no space) and add a file about yourself there. Start by copying the content from a preexisting author file. If a tutorial is written by multiple authors, use the following syntax in the header: `authors: [1ST_AUTHOR_ID, 2ND_AUTHOR_ID, ...]`
-- the creation date, in the specified forma (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
+- the creation date, in the specified format (`year-month-day`), e.g. 2019-01-04 or 2018-04-02
 - one or two categories from the specified list available [here](https://github.com/inbo/tutorials/blob/master/static/list_of_categories)
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
 
 Underneath the last triple dahs (`---`), you can write the tutorial as you like using [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). Use the `Preview` button to check how it would look like rendered on a website.
 
-**Notice:** You can add images from online source by using the URL of the image, e.g. `![short image description](http://.../my_image.jpg)`. For example, `https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png` will impor the INBO logo into your document:
+**Notice:** You can add images from online source by using the URL of the image, e.g. `![short image description](http://.../my_image.jpg)`. For example, `https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png` will include the INBO logo into your document:
 
 ![](https://www.inbo.be/sites/all/themes/bootstrap_inbo/img/inbo/logo_nl.png)
 
