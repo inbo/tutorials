@@ -154,8 +154,9 @@ date: YYYY-MM-DD
 categories: ["YOUR_CATEGORY"]
 tags: ["FIRST_TAG", "SECOND_TAG", "..."]
 output: 
-    md_document:
-        preserve_yaml: true
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 # your text starts here...
