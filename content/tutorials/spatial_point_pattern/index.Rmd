@@ -5,8 +5,8 @@ date: '2017-06-28'
 output: 
   html_document: default
   md_document:
-        preserve_yaml: true
-        variant: gfm
+    preserve_yaml: true
+    variant: gfm+footnotes
 params:
   cellsize: 20
 ---
