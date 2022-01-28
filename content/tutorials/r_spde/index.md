@@ -6,9 +6,9 @@ date: "2020-07-01"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model", "INLA"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This document is a quick and dirty illustration of how spatially

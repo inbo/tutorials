@@ -10,7 +10,7 @@ tags: ["gis", "r", "open science"]
 output: 
   md_document:
     preserve_yaml: true
-    variant: gfm
+    variant: gfm+footnotes
 ---
 
 Some inspiration for this post came from the beautiful books of @lovelace_geocomputation_2020, @pebesma_edzer_spatial_2019 and @heijmans_spatial_2019, and from various websites.

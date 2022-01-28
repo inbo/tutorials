@@ -6,8 +6,9 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This page lists **selected** literature and online resources. Some are
@@ -29,8 +30,7 @@ computing workflows](../computing).
 -   Donati & Woolston (2017): how data science is becoming a large
     discipline
 
-Focus on reproducible research
-------------------------------
+## Focus on reproducible research
 
 -   Stodden *et al.* (2014): **book** on computational reproducibility
     and (experiment) replicability; the three parts are *Tools*,
@@ -42,8 +42,7 @@ Focus on reproducible research
 -   ROpenSci Contributors (2018): a comprehensive **overview** of
     aspects and R-oriented tools in reproducible research
 
-Bibliography
-------------
+## Bibliography
 
 Begley C.G., Buchan A.M. & Dirnagl U. (2015). Institutions must do their
 part for reproducibility. Nature 525 (7567): 25–27.

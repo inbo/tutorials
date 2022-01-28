@@ -9,9 +9,9 @@ csl: https://raw.githubusercontent.com/citation-style-language/styles/master/res
 link-citations: TRUE
 bibliography: bibliography.json
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 ## Coordinate reference systems: minimal background
@@ -70,7 +70,7 @@ geospatial R packages `rgdal`, `sp`, `sf`, `stars`, `terra` and
 Since long, coordinate reference systems in R (and many other tools)
 have been represented by so called ‘PROJ.4 strings’ (or ‘proj4strings’),
 referring to the long-standing version 4 of the PROJ library. But, we
-will not use them here! It is discouraged to use ‘PROJ strings’[1] any
+will not use them here! It is discouraged to use ‘PROJ strings’[^1] any
 longer to represent a CRS; several string elements for CRSs are now
 deprecated or unsupported. Currently, PROJ (<https://proj.org>) regards
 PROJ strings only as a means of specifying a *coordinate operation*
@@ -78,7 +78,7 @@ PROJ strings only as a means of specifying a *coordinate operation*
 operations is the main aim of PROJ.
 
 Let’s just have **one last nostalgic peek** (and then, no more!!) to the
-proj4string for EPSG:31370, the Belgian Lambert 72 CRS:[2]
+proj4string for EPSG:31370, the Belgian Lambert 72 CRS:[^2]
 
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
@@ -95,9 +95,9 @@ and discouraged. It *can* still be done, preferrably adding the
 `+type=crs` element to distinguish such a string from modern PROJ
 strings. The latter represent a coordinate operation, not a CRS.
 Currently, support for most geodetic datums is already lacking in PROJ
-strings[3] (unless one defines it indirectly, but likely less
+strings[^3] (unless one defines it indirectly, but likely less
 accurately, with the now deprecated `+towgs84` key). The WGS84 ensemble
-datum[4]
+datum[^4]
 ([datum:EPSG::6326](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html))
 is now by default assumed for a CRS declared with a PROJ string.
 
@@ -125,7 +125,7 @@ resources:
 string**, a recent and much better standard, maintained by the Open
 Geospatial Consortium. WKT stands for ‘Well-known text.’ ‘WKT2’ is
 simply the recent version of WKT, approved in 2019, so you can also
-refer to it as WKT.[5]
+refer to it as WKT.[^5]
 
 For example, this is the WKT2 string for WGS84:
 
@@ -194,9 +194,9 @@ First, a practical note:
     PROJ ≥ 6, and a WKT2 string will be generated as well for actual
     use. In the presence of GDAL 3 / PROJ ≥ 6 and when using `sp` or
     `raster`, you will (at the time of writing) get a **warning** from
-    `rgdal` about dropped keys in the generated PROJ strings.[6] You can
-    safely ignore this warning on condition that you didn’t define the
-    CRS with a PROJ string. Also, you can suppress the warning with
+    `rgdal` about dropped keys in the generated PROJ strings.[^6] You
+    can safely ignore this warning on condition that you didn’t define
+    the CRS with a PROJ string. Also, you can suppress the warning with
     `options(rgdal_show_exportToProj4_warnings = "none")` in the
     beginning of your script (before loading `rgdal` or dependent
     packages).
@@ -748,43 +748,47 @@ September 21, 2020).
 
 </div>
 
-[1] ‘PROJ string’ is the term used in current PROJ documentation. Here,
-we only use ‘PROJ.4 string’ (or ‘proj4string’) when referring
-specifically to the PROJ string appearance in version 4 of the PROJ
-software.
+[^1]: ‘PROJ string’ is the term used in current PROJ documentation.
+    Here, we only use ‘PROJ.4 string’ (or ‘proj4string’) when referring
+    specifically to the PROJ string appearance in version 4 of the PROJ
+    software.
 
-[2] Note that the *currently returned* PROJ string for EPSG:31370, if
-requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum reference
-which, in PROJ.4, was defined indirectly by `+towgs84` with the
-7-parameter (Helmert) transformation to the WGS84 datum. Hence the
-current PROJ string is a deficient representation of EPSG:31370.
+[^2]: Note that the *currently returned* PROJ string for EPSG:31370, if
+    requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum
+    reference which, in PROJ.4, was defined indirectly by `+towgs84`
+    with the 7-parameter (Helmert) transformation to the WGS84 datum.
+    Hence the current PROJ string is a deficient representation of
+    EPSG:31370.
 
-[3] Formerly, more geodetic datums could be specified in a PROJ string
-with the `+datum` key. Currently only `WGS84`, `NAD27` and `NAD83` are
-still supported this way. Further, if an ellipsoid is specified with
-`+ellps` (and that includes the WGS84 ellipsoid), the datum of the
-resulting CRS is considered as ‘unknown.’ The usage of PROJ strings to
-define CRSs, including the `+datum` and `+towgs84` elements, will remain
-supported for mere backward compatibility (to support existing data
-sets), but is regarded deprecated and is discouraged by PROJ.
+[^3]: Formerly, more geodetic datums could be specified in a PROJ string
+    with the `+datum` key. Currently only `WGS84`, `NAD27` and `NAD83`
+    are still supported this way. Further, if an ellipsoid is specified
+    with `+ellps` (and that includes the WGS84 ellipsoid), the datum of
+    the resulting CRS is considered as ‘unknown.’ The usage of PROJ
+    strings to define CRSs, including the `+datum` and `+towgs84`
+    elements, will remain supported for mere backward compatibility (to
+    support existing data sets), but is regarded deprecated and is
+    discouraged by PROJ.
 
-[4] An [ensemble
-datum](https://docs.opengeospatial.org/as/18-005r4/18-005r4.html#97) is
-a collection of different but closely related datum realizations without
-making a distinction between them. By not specifying the applicable
-datum realization for a coordinate data set, some degree of inaccuracy
-is allowed when using an ensemble datum as part of a CRS.
+[^4]: An [ensemble
+    datum](https://docs.opengeospatial.org/as/18-005r4/18-005r4.html#97)
+    is a collection of different but closely related datum realizations
+    without making a distinction between them. By not specifying the
+    applicable datum realization for a coordinate data set, some degree
+    of inaccuracy is allowed when using an ensemble datum as part of a
+    CRS.
 
-[5] In order to emphasize the fact that the improvements in version 2
-were instructive to the new versions of GDAL and PROJ, you will often
-see explicit mention of ‘WKT2.’
+[^5]: In order to emphasize the fact that the improvements in version 2
+    were instructive to the new versions of GDAL and PROJ, you will
+    often see explicit mention of ‘WKT2.’
 
-[6] The packages give a warning especially to make developers of
-*other*, dependent packages *aware* that they should also make sure
-their functions do not *require* PROJ strings or use hardcoded PROJ
-strings. Instead, they should defer the handling of CRS representation
-to the basic geospatial R packages (i.e. dependent on the version of
-PROJ/GDAL). So, the appearance of these warnings marks a period of
-transition in order to let other packages become GDAL 3 and PROJ ≥ 6
-compliant. And the good news is that most popular geospatial packages
-*have* become GDAL 3 and PROJ ≥ 6 compliant!
+[^6]: The packages give a warning especially to make developers of
+    *other*, dependent packages *aware* that they should also make sure
+    their functions do not *require* PROJ strings or use hardcoded PROJ
+    strings. Instead, they should defer the handling of CRS
+    representation to the basic geospatial R packages (i.e. dependent on
+    the version of PROJ/GDAL). So, the appearance of these warnings
+    marks a period of transition in order to let other packages become
+    GDAL 3 and PROJ ≥ 6 compliant. And the good news is that most
+    popular geospatial packages *have* become GDAL 3 and PROJ ≥ 6
+    compliant!

@@ -6,8 +6,9 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This page lists **selected** literature and online resources. Some are
@@ -22,8 +23,7 @@ These resources focus on the learning and teaching aspect, while they
 often also give an overview of [scientific computing
 workflows](../computing).
 
-Open data science in general
-----------------------------
+## Open data science in general
 
 -   Lowndes *et al.* (2017): **learning** open data science tools
 -   Hampton *et al.* (2017): **training approaches and needed skills**
@@ -33,8 +33,7 @@ Open data science in general
 -   National Center for Ecological Analysis & Synthesis (2020):
     **resources** for learning, collaborating and inspiring others
 
-In relation to statistics teaching
-----------------------------------
+## In relation to statistics teaching
 
 -   Kaplan (2017): ten organizing blocks for **introductory statistics
     teaching** in the present data science context
@@ -42,8 +41,7 @@ In relation to statistics teaching
     toolkit choices** to allow for the necessary pedagogical innovations
     in statistics education
 
-Bibliography
-------------
+## Bibliography
 
 Cetinkaya-Rundel M. & Rundel C.W. (2017). Infrastructure and tools for
 teaching computing throughout the statistical curriculum. PeerJ
@@ -61,7 +59,7 @@ e3205v1. <https://doi.org/10.7287/peerj.preprints.3205v1>.
 Lowndes J.S.S., Best B.D., Scarborough C., Afflerbach J.C., Frazier
 M.R., O’Hara C.C., Jiang N. & Halpern B.S. (2017). Our path to better
 science in less time using open data science tools. Nature Ecology &
-Evolution 1 (6): s41559–017–0160–017.
+Evolution 1 (6): s41559-017-0160-017.
 <https://doi.org/10.1038/s41559-017-0160>.
 
 National Center for Ecological Analysis & Synthesis (2020). Openscapes

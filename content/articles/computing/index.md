@@ -6,9 +6,9 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This page lists **selected** literature and online resources. Some are
@@ -21,19 +21,19 @@ by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 
 ## Overviews
 
-  - Wilson *et al.* (2017): set of **good computing practices** that
+-   Wilson *et al.* (2017): set of **good computing practices** that
     every researcher can adopt
-  - British Ecological Society (2014): planning the **data life cycle**;
+-   British Ecological Society (2014): planning the **data life cycle**;
     creating, processing, documenting, preserving, sharing & reusing
     data
-  - Goudeseune *et al.* (2019): **open data management**, data
+-   Goudeseune *et al.* (2019): **open data management**, data
     management plan, repositories, standards and licenses
-  - Cooper & Hsing (2017): file organisation, workflow documentation,
+-   Cooper & Hsing (2017): file organisation, workflow documentation,
     **code** reproducibility and readability, writing reproducible
     reports, version control and code archiving
-  - Marwick *et al.* (2018): the **research compendium** as a solution
+-   Marwick *et al.* (2018): the **research compendium** as a solution
     to share research in a reproducible way
-  - Ibanez *et al.* (2014): vision on reproducible science, routine
+-   Ibanez *et al.* (2014): vision on reproducible science, routine
     **practices**, collaboration, literate computing
 
 See also some resources related to [learning and education](../skills)
@@ -41,14 +41,14 @@ and the [discipline of open and reproducible science](../open_science).
 
 ## Specific tools
 
-  - Ross *et al.* (2017): about **tidyverse** workflow and tools
-  - <https://www.tidyverse.org>: website of the tidyverse **packages**
+-   Ross *et al.* (2017): about **tidyverse** workflow and tools
+-   <https://www.tidyverse.org>: website of the tidyverse **packages**
 
 ## Focus on version control workflows
 
-  - Bryan (2017): rationale, workflows and tools regarding version
+-   Bryan (2017): rationale, workflows and tools regarding version
     control for project organization
-  - Bryan *et al.* (2019): getting started with git and github workflows
+-   Bryan *et al.* (2019): getting started with git and github workflows
     in RStudio
 
 ## Bibliography

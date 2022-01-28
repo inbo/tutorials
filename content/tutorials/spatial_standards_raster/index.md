@@ -6,10 +6,9 @@ date: 2020-09-15
 categories: ["r", "gis"]
 tags: ["gis", "r"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
-    html_document: default
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 _General note: the way the `raster` package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ >= 6 versions._

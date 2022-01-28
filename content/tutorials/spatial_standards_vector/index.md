@@ -6,10 +6,9 @@ date: 2020-02-03
 categories: ["r", "gis"]
 tags: ["gis", "r"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
-    html_document: default
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This tutorial uses a few basic functions from the

@@ -10,9 +10,9 @@ link-citations: true
 reference-section-title: References
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm+definition_lists
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes+definition_lists
 editor_options:
   markdown:
     wrap: sentence
@@ -35,7 +35,7 @@ More general tutorials can be found at the following web pages:
 The latter webpage is part of the documentation about the Visual
 Markdown Editing (**VME**) mode that is available since RStudio 1.4+ as
 an alternative to writing R Markdown documents in source mode. VME is a
-what-you-see-is-what-you-get[1] interface for interacting with R
+what-you-see-is-what-you-get[^1] interface for interacting with R
 Markdown. This interface is similar to writing documents in word
 processing software (google docs, MS Word, …). Moreover, the VME mode
 has more functionalities for citations than the source mode. To switch
@@ -65,13 +65,13 @@ CSL-YAML, BibTex and EndNote.
 
 We strongly recommend however to [use CSL-JSON or
 CSL-YAML](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html),
-since CSL is the native format for Pandoc.[2] All other bibliographic
+since CSL is the native format for Pandoc.[^2] All other bibliographic
 formats are internally converted to CSL-JSON, but with the exception of
 CSL-YAML this can in general not be perfect. Compared to CSL-JSON,
 Pandoc’s CSL-YAML has identical contents while having the most
 human-friendly syntax.
 [CSL-JSON](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html)
-is the formal standard supported by all CSL processors[3] .
+is the formal standard supported by all CSL processors[^3] .
 
 Some example specifications:
 
@@ -379,3 +379,23 @@ which is implemented e.g. in Zotero and Mendeley; the citeproc-js
 project has also formulated the CSL-JSON standard. Pandoc, the document
 conversion software used by R Markdown, uses its own
 [citeproc](https://hackage.haskell.org/package/citeproc) CSL processor.
+[^1]: Commonly abbreviated as
+    [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG), in contrast to
+    [WYSIWYM](https://en.wikipedia.org/wiki/WYSIWYM), of which plain
+    Markdown (in RStudio source mode) is an example.
+
+[^2]: [Pandoc](https://pandoc.org/) is the workhorse for converting
+    markdown to a desired output (such as html).
+
+[^3]: A CSL processor is a piece of software to parse CSL styles, locale
+    files, item metadata and citing details, and generate citations and
+    bibliographies in the correct format.
+    [Multiple](https://citationstyles.org/developers/#/csl-processors)
+    CSL processors are available for use in software. The reference
+    implementation is the
+    [citeproc-js](https://citeproc-js.readthedocs.io/en/latest/)
+    processor, which is implemented e.g. in Zotero and Mendeley; the
+    citeproc-js project has also formulated the CSL-JSON standard.
+    Pandoc, the document conversion software used by R Markdown, uses
+    its own [citeproc](https://hackage.haskell.org/package/citeproc) CSL
+    processor.

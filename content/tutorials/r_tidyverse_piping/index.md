@@ -6,17 +6,16 @@ date: 2018-06-14
 categories: ["r"]
 tags: ["tidyverse", "r"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: markdown_github
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 ``` r
 library(dplyr)
 ```
 
-How to use piping in R
-======================
+# How to use piping in R
 
 Normally, you would do this:
 
@@ -81,8 +80,7 @@ What did we do:
 
 <img src="images/chiphooray.png" width="250" />
 
-Now what?
----------
+## Now what?
 
 We have created a new column, but this column is not part of our dataframe yet!
 We could do this:

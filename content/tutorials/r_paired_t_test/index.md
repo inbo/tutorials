@@ -6,9 +6,9 @@ date: "2020-07-01"
 categories: ["r", "statistics"]
 tags: ["r", "analysis", "mixed model"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 ## What you will learn

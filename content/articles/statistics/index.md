@@ -6,15 +6,16 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 -   McElreath (2015): Statistical Rethinking is an introduction to
     applied Bayesian data analysis, aimed at PhD students and
     researchers in the natural and social sciences. This audience has
     had some calculus and linear algebra, and one or two joyless
-    undergraduate courses in statistics. I've been teaching applied
+    undergraduate courses in statistics. I’ve been teaching applied
     statistics to this audience for about a decade now, and this book
     has evolved from that experience. The book teaches generalized
     linear multilevel modeling (GLMMs) from a Bayesian perspective,
@@ -28,7 +29,7 @@ output:
     Theory is explained through simulation exercises, using R code. And
     modeling examples are fully worked, with R code displayed within the
     main text. Mathematical depth is given in optional
-    {"}overthinking{"} boxes throughout.
+    {“}overthinking{”} boxes throughout.
 
 -   Kass *et al.* (2016): The authors propose a set of 10 simple rules
     for effective statistical practice
@@ -82,7 +83,7 @@ output:
     interpretation of experimental data through the use of statistical
     methods. This unique textbook aims to demystify statistical formulae
     for the average biology student. Written in a lively and engaging
-    style, Statistics for Terrified Biologists draws on the author's 30
+    style, Statistics for Terrified Biologists draws on the author’s 30
     years of lecturing experience. One of the foremost entomologists of
     his generation, van Emden has an extensive track record for
     successfully teaching statistical methods to even the most guarded
@@ -113,7 +114,7 @@ output:
 
 -   van Belle (2008): This book contains chapters titled:
 
-    -   Begin with a Basic Formula for Sample Size–Lehr's Equation
+    -   Begin with a Basic Formula for Sample Size–Lehr’s Equation
     -   Calculating Sample Size Using the Coefficient of Variation
     -   Ignore the Finite Population Correction in Calculating Sample
         Size for a Survey
@@ -125,7 +126,7 @@ output:
     -   Sample Size Calculation for Poisson Distribution with Background
         Rate
     -   Sample Size Calculation for the Binomial Distribution
-    -   When Unequal Sample Sizes Matter; When They Don't \* Determining
+    -   When Unequal Sample Sizes Matter; When They Don’t \* Determining
         Sample Size when there are Different Costs Associated with the
         Two Samples
     -   Use the Rule of Threes for 95% Upper Bounds when there Have Been
@@ -133,17 +134,17 @@ output:
     -   Sample Size Calculations Should be Based on the Way the Data
         will be Analyzed
 
--   Grolemund & Wickham (2016): This is the website for {"}R for Data
-    Science{"}. This book will teach you how to do data science with R:
-    You'll learn how to get your data into R, get it into the most
+-   Grolemund & Wickham (2016): This is the website for {“}R for Data
+    Science{”}. This book will teach you how to do data science with R:
+    You’ll learn how to get your data into R, get it into the most
     useful structure, transform it, visualise it and model it. In this
     book, you will find a practicum of skills for data science. Just as
-    a chemist learns how to clean test tubes and stock a lab, you'll
+    a chemist learns how to clean test tubes and stock a lab, you’ll
     learn how to clean data and draw plots—and many other things
     besides. These are the skills that allow data science to happen, and
     here you will find the best practices for doing each of these things
-    with R. You'll learn how to use the grammar of graphics, literate
-    programming, and reproducible research to save time. You'll also
+    with R. You’ll learn how to use the grammar of graphics, literate
+    programming, and reproducible research to save time. You’ll also
     learn how to manage cognitive resources to facilitate discoveries
     when wrangling, visualising, and exploring data.
 
@@ -164,7 +165,7 @@ output:
     non-parametric estimation of intensity, correlation, and spacing
     properties. The third part discusses model-fitting and statistical
     inference for point patterns. The final part describes point
-    patterns with additional {"}structure,{"} such as complicated marks,
+    patterns with additional {“}structure,{”} such as complicated marks,
     space-time observations, three- and higher-dimensional spaces,
     replicated observations, and point patterns constrained to a network
     of lines. Easily Analyze Your Own Data Throughout the book, the
@@ -172,7 +173,7 @@ output:
     written in the R language. This package provides a wide range of
     capabilities for spatial point pattern data, from basic data
     handling to advanced analytic tools. The book focuses on practical
-    needs from the user's perspective, offering answers to the most
+    needs from the user’s perspective, offering answers to the most
     frequently asked questions in each chapter.
 
 -   Hobbs & Hooten (2015): Bayesian modeling has become an indispensable
@@ -257,7 +258,7 @@ output:
     address this issue within the context of visualizing environmental
     data, we list ten guidelines for effective data visualization in
     scientific publications. These guidelines support the primary
-    objective of data visualization, i.e. to effectively convey
+    objective of data visualization, i.e. to effectively convey
     information. We believe that this small set of guidelines based on a
     review of key visualization literature can help researchers improve
     the communication of their results using effective visualization.
@@ -265,7 +266,7 @@ output:
     research presentation and communication within and across
     disciplines.
 
--   Lohr (2010): Sharon L. Lohr's SAMPLING: DESIGN AND ANALYSIS, 2ND
+-   Lohr (2010): Sharon L. Lohr’s SAMPLING: DESIGN AND ANALYSIS, 2ND
     EDITION, provides a modern introduction to the field of survey
     sampling intended for a wide audience of statistics students.
     Practical and authoritative, the book is listed as a standard
@@ -337,7 +338,7 @@ output:
     a wide variety of models, whilst at the same time instructing the
     reader in how to fit these models using available software packages.
     The book illustrates the concepts by working through scores of real
-    data examples that have arisen from the authors' own applied
+    data examples that have arisen from the authors’ own applied
     research, with programming codes provided for each one. Topics
     covered include causal inference, including regression,
     poststratification, matching, regression discontinuity, and
@@ -353,7 +354,7 @@ output:
     programs. Short and to the point, it illustrates key aspects with
     case studies and examples. It is based on the collective experience
     of running long-term research and monitoring programs of the two
-    authors -- experience which spans more than 70 years. The book first
+    authors – experience which spans more than 70 years. The book first
     outlines why long-term monitoring is important, then discusses why
     long-term monitoring programs often fail. The authors then highlight
     what makes good and effective monitoring. These good and bad aspects
@@ -374,7 +375,7 @@ output:
     confidence limits, and interpret the results. The book also covers
     statistical frameworks, the philosophy of statistical modeling, and
     critical mathematical functions and probability distributions. It
-    requires no programming background--only basic calculus and
+    requires no programming background–only basic calculus and
     statistics.
 
     -   Practical, beginner-friendly introduction to modern statistical
@@ -382,13 +383,12 @@ output:
     -   Step-by-step instructions for fitting models to messy,
         real-world data
     -   Balanced view of different statistical approaches
-    -   Wide coverage of techniques -- from simple (distribution
-        fitting) to complex (state-space modeling)
+    -   Wide coverage of techniques – from simple (distribution fitting)
+        to complex (state-space modeling)
     -   Techniques for data manipulation and graphical display
     -   Companion Web site with data and R code for all examples
 
-Bibliography
-------------
+## Bibliography
 
 Agresti A. (2002). Categorical Data Analysis (Second Edition). John
 Wiley & Sons, Inc.

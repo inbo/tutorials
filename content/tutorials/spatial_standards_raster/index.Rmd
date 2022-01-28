@@ -8,7 +8,7 @@ tags: ["gis", "r"]
 output: 
   md_document:
     preserve_yaml: true
-    variant: gfm
+    variant: gfm+footnotes
 ---
 
 _General note: the way the `raster` package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ >= 6 versions._

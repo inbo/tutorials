@@ -6,8 +6,9 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This page lists **selected** literature and online resources. Some are
@@ -18,8 +19,7 @@ Several of the resources were added based on an inspiring
 [talk](https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing)
 by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 
-Sharing data
-------------
+## Sharing data
 
 -   Ellis & Leek (2017): guidelines for **providing data** to a
     scientist / statistician: provide raw data, format consistently,
@@ -30,14 +30,12 @@ Sharing data
     and considerations to be made
 -   Perkel (2016): **data repository sites** like github and others
 
-Communicating
--------------
+## Communicating
 
 -   Smith *et al.* (2016): recommendations of the FORCE11 Software
     Citation Working Group
 
-Bibliography
-------------
+## Bibliography
 
 Culina A., Baglioni M., Crowther T.W., Visser M.E., Woutersen-Windhouwer
 S. & Manghi P. (2018). Navigating the unfolding open data landscape in

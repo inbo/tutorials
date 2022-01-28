@@ -6,9 +6,9 @@ date: "2020-11-20"
 categories: ["styleguide"]
 tags: ["bibliography", "csl", "INBOmd", "open science", "zotero", "mendeley", "endnote"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 # The INBO citation style

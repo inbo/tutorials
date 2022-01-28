@@ -9,7 +9,7 @@ bibliography: "../../articles/reproducible_research.bib"
 output: 
   md_document:
     preserve_yaml: true
-    variant: gfm
+    variant: gfm+footnotes
 ---
 
 ```{r include = FALSE}

@@ -6,20 +6,15 @@ date: "2020-07-01"
 categories: ["r"]
 tags: ["r", "ggplot2"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 # Original figure
 
 ``` r
 library(ggplot2)
-```
-
-    ## Warning: package 'ggplot2' was built under R version 4.0.2
-
-``` r
 ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
   geom_boxplot()
 ```
