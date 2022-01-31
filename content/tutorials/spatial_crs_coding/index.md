@@ -59,7 +59,7 @@ Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code `4326`,
 and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
 `31370`.
 
-In R, you can also search for CRSs and EPSG codes since they are
+In R, you can also search for CRSs and EPSG codes since these are
 included in the PROJ database, used by R packages like `sf`. An example
 for Belgian CRSs:
 
