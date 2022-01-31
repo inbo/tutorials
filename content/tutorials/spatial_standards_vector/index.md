@@ -34,11 +34,10 @@ publication, interoperability & durability and to open science in
 general.
 
 The below table compares a few vector formats that are currently used a
-lot. This tutorial focuses on the open
-formats.
+lot. This tutorial focuses on the open formats.
 
 | Property                                              |    GeoPackage     |       GeoJSON RFC7946        |     Shapefile     |          ESRI geodatabase          |
-| :---------------------------------------------------- | :---------------: | :--------------------------: | :---------------: | :--------------------------------: |
+|:------------------------------------------------------|:-----------------:|:----------------------------:|:-----------------:|:----------------------------------:|
 | Open standard?                                        |        yes        |             yes              |        no         |                 no                 |
 | Write support by GDAL (OGR)                           |        yes        |             yes              |        yes        |                 no                 |
 | Supported OS                                          |  cross-platform   |        cross-platform        |  cross-platform   |              Windows               |
@@ -55,7 +54,7 @@ formats.
 ### Making a GeoPackage from a geospatial `sf` object in R
 
 As an example, we download a geospatial layer of Special Areas of
-Conservation in Flanders (version *sac\_2013-01-18*) from Zenodo:
+Conservation in Flanders (version *sac_2013-01-18*) from Zenodo:
 
 ``` r
 # meeting a great function from the 'inborutils' package:
@@ -63,7 +62,7 @@ download_zenodo(doi = "10.5281/zenodo.3386815")
 ```
 
 *Did you know this: you can visit a website of this dataset by just
-prefixing the DOI \[1\] with `doi.org/`\!*
+prefixing the DOI [^1] with `doi.org/`!*
 
 The data source is a shapefile, in this case consisting of 6 different
 files. Read the geospatial data into R as an `sf` object, and let’s just
@@ -85,12 +84,11 @@ sac
 ```
 
     ## Simple feature collection with 616 features and 4 fields
-    ## geometry type:  POLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
-    ## epsg (SRID):    NA
-    ## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
-    ## # A tibble: 616 x 5
+    ## Geometry type: POLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
+    ## Projected CRS: BD72 / Belgian Lambert 72
+    ## # A tibble: 616 × 5
     ##    sac_code  sac_name       subsac_code polygon_id                      geometry
     ##    <chr>     <chr>          <chr>            <int>                 <POLYGON [m]>
     ##  1 BE2100020 Heesbossen, V… BE2100020-4          1 ((180272.3 243198.7, 180275.…
@@ -114,7 +112,7 @@ sac %>%
   st_write("sac.gpkg")
 ```
 
-    ## Updating layer `sac' to data source `sac.gpkg' using driver `GPKG'
+    ## Writing layer `sac' to data source `sac.gpkg' using driver `GPKG'
     ## Writing 616 features with 4 fields and geometry type Polygon.
 
 Is that all?  
@@ -137,7 +135,8 @@ sac %>%
 ```
 
     ## Deleting source `sac.gpkg' using driver `GPKG'
-    ## Updating layer `special_areas_conservation' to data source `sac.gpkg' using driver `GPKG'
+    ## Writing layer `special_areas_conservation' to data source 
+    ##   `sac.gpkg' using driver `GPKG'
     ## Writing 616 features with 4 fields and geometry type Polygon.
 
 Note, `delete_dsn` was set as `TRUE` to replace the whole GeoPackage.
@@ -155,7 +154,7 @@ sac %>%
            layer = "turnhout")
 ```
 
-    ## Updating layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
+    ## Writing layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
     ## Writing 16 features with 4 fields and geometry type Polygon.
 
 So yes, adding layers to a GeoPackage is done simply by `st_write()`
@@ -165,14 +164,14 @@ and defining the new layer’s name.
 So, which layers are available in the GeoPackage?
 
 ``` r
-gdalUtils::ogrinfo("sac.gpkg") %>% 
-  cat(sep = "\n")
+st_layers("sac.gpkg")
 ```
 
-    ## INFO: Open of `sac.gpkg'
-    ##       using driver `GPKG' successful.
-    ## 1: special_areas_conservation (Polygon)
-    ## 2: turnhout (Polygon)
+    ## Driver: GPKG 
+    ## Available layers:
+    ##                   layer_name geometry_type features fields
+    ## 1 special_areas_conservation       Polygon      616      4
+    ## 2                   turnhout       Polygon       16      4
 
 ***You see?***
 
@@ -186,21 +185,22 @@ sac_test <- st_read("sac.gpkg",
                     layer = "special_areas_conservation")
 ```
 
-    ## Reading layer `special_areas_conservation' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' using driver `GPKG'
+    ## Reading layer `special_areas_conservation' from data source 
+    ##   `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' 
+    ##   using driver `GPKG'
     ## Simple feature collection with 616 features and 4 fields
-    ## geometry type:  POLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
-    ## epsg (SRID):    NA
-    ## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
+    ## Geometry type: POLYGON
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
+    ## Projected CRS: BD72 / Belgian Lambert 72
 
-Ready\!
+Ready!
 
 `st_read()` is a function of the great `sf` package – hence the result
 is an `sf` object again.
 
 Also other geospatial software will (or should) be able to open the
-GeoPackage format. It is an open standard, after all\!
+GeoPackage format. It is an open standard, after all!
 
 ## How to make and use GeoJSON files (`*.geojson`)
 
@@ -214,7 +214,7 @@ download_zenodo(doi = "10.5281/zenodo.3386246")
 ```
 
 *Again: you can visit a website of this dataset by just prefixing the
-DOI with `doi.org/`\!*
+DOI with `doi.org/`!*
 
 The data source is a shapefile again, in this case consisting of 4
 different files. Similar as above, we read the geospatial data into R as
@@ -232,24 +232,23 @@ habitatstreams
 ```
 
     ## Simple feature collection with 560 features and 2 fields
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
-    ## epsg (SRID):    NA
-    ## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
-    ## # A tibble: 560 x 3
-    ##    river_name    source                                                 geometry
-    ##    <chr>         <chr>                                          <LINESTRING [m]>
-    ##  1 WOLFPUTBEEK   VMM     (127857.1 167681.2, 127854.9 167684.5, 127844 167688.9…
-    ##  2 OUDE KALE     VMM     (95737.01 196912.9, 95732.82 196912.4, 95710.38 196907…
-    ##  3 VENLOOP       EcoInv  (169352.7 209314.9, 169358.8 209290.5, 169326.2 209283…
-    ##  4 VENLOOP       EcoInv  (169633.6 209293.5, 169625 209289.2, 169594.4 209321, …
-    ##  5 KLEINE NETE   EcoInv  (181087.1 208607.2, 181088.6 208608.1, 181089 208608.4…
-    ##  6 KLEINE NETE   EcoInv  (180037.4 208360.4, 180038.3 208377.5, 180038.3 208378…
-    ##  7 KLEINE NETE   EcoInv  (180520 208595.7, 180540.5 208607.4, 180541.2 208607.7…
-    ##  8 KLEINE NETE   EcoInv  (187379.9 209998.8, 187381.3 209998.5, 187381.6 209998…
-    ##  9 RAAMDONKSEBE… extrap… (183545.5 192409, 183541.9 192406.7, 183541.9 192403, …
-    ## 10 KLEINE NETE   EcoInv  (183516.4 208261.7, 183567.3 208279.2, 183567.3 208279…
+    ## Geometry type: LINESTRING
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
+    ## Projected CRS: BD72 / Belgian Lambert 72
+    ## # A tibble: 560 × 3
+    ##    river_name     source                                                geometry
+    ##    <chr>          <chr>                                         <LINESTRING [m]>
+    ##  1 WOLFPUTBEEK    VMM      (127857.1 167681.2, 127854.9 167684.5, 127844 167688…
+    ##  2 OUDE KALE      VMM      (95737.01 196912.9, 95732.82 196912.4, 95710.38 1969…
+    ##  3 VENLOOP        EcoInv   (169352.7 209314.9, 169358.8 209290.5, 169326.2 2092…
+    ##  4 VENLOOP        EcoInv   (169633.6 209293.5, 169625 209289.2, 169594.4 209321…
+    ##  5 KLEINE NETE    EcoInv   (181087.1 208607.2, 181088.6 208608.1, 181089 208608…
+    ##  6 KLEINE NETE    EcoInv   (180037.4 208360.4, 180038.3 208377.5, 180038.3 2083…
+    ##  7 KLEINE NETE    EcoInv   (180520 208595.7, 180540.5 208607.4, 180541.2 208607…
+    ##  8 KLEINE NETE    EcoInv   (187379.9 209998.8, 187381.3 209998.5, 187381.6 2099…
+    ##  9 RAAMDONKSEBEEK extrapol (183545.5 192409, 183541.9 192406.7, 183541.9 192403…
+    ## 10 KLEINE NETE    EcoInv   (183516.4 208261.7, 183567.3 208279.2, 183567.3 2082…
     ## # … with 550 more rows
 
 Nowadays, it is recommended to use the more recent and strict
@@ -260,7 +259,7 @@ for a bit more background).
 
 The RFC7946 standard is well supported by GDAL’s GeoJSON driver, however
 GDAL must be given the explicit option `RFC7946=YES` in order to use it
-already \[2\].
+already [^2].
 
 Write the GeoJSON file as follows:
 
@@ -270,11 +269,12 @@ habitatstreams %>%
            layer_options = "RFC7946=YES")
 ```
 
-    ## Writing layer `habitatstreams' to data source `habitatstreams.geojson' using driver `GeoJSON'
+    ## Writing layer `habitatstreams' to data source 
+    ##   `habitatstreams.geojson' using driver `GeoJSON'
     ## options:        RFC7946=YES 
     ## Writing 560 features with 2 fields and geometry type Line String.
 
-Done creating\!
+Done creating!
 
 ### Do I look good?
 
@@ -293,16 +293,16 @@ Let’s just look at the top 7 lines of the file:
     "type": "FeatureCollection",
     "name": "habitatstreams",
     "features": [
-    { "type": "Feature", "properties": { "river_name": "WOLFPUTBEEK", "source": "VMM" }, "geometry": { "type": "LineString", "coordinates": [ [ 4.0532635, 50.8196905 ], [ 4.0532327, 50.8197202 ], [ 4.0530778, 50.8197594 ], [ 4.0528708, 50.8199422 ], [ 4.052834, 50.8201498 ], [ 4.0528767, 50.8204559 ] ] } },
-    { "type": "Feature", "properties": { "river_name": "OUDE KALE", "source": "VMM" }, "geometry": { "type": "LineString", "coordinates": [ [ 3.5931564, 51.0803318 ], [ 3.5930966, 51.0803266 ], [ 3.5927771, 51.0802782 ], [ 3.5926209, 51.080259 ], [ 3.5925707, 51.0802465 ], [ 3.5925106, 51.0802316 ], [ 3.592303, 51.0801396 ], [ 3.5921047, 51.0800302 ], [ 3.5920091, 51.0799694 ], [ 3.5919755, 51.0799432 ], [ 3.5919328, 51.07991 ], [ 3.5919165, 51.0798833 ] ] } },
-    { "type": "Feature", "properties": { "river_name": "VENLOOP", "source": "EcoInv" }, "geometry": { "type": "LineString", "coordinates": [ [ 4.6443172, 51.1940245 ], [ 4.644403, 51.1938051 ], [ 4.6439364, 51.1937415 ], [ 4.6438717, 51.1936806 ], [ 4.6439146, 51.1934056 ] ] } },
+    { "type": "Feature", "properties": { "river_name": "WOLFPUTBEEK", "source": "VMM" }, "geometry": { "type": "LineString", "coordinates": [ [ 4.05452, 50.8191468 ], [ 4.0544892, 50.8191765 ], [ 4.0543343, 50.8192157 ], [ 4.0541273, 50.8193985 ], [ 4.0540904, 50.8196061 ], [ 4.0541332, 50.8199122 ] ] } },
+    { "type": "Feature", "properties": { "river_name": "OUDE KALE", "source": "VMM" }, "geometry": { "type": "LineString", "coordinates": [ [ 3.5944035, 51.0797983 ], [ 3.5943438, 51.0797931 ], [ 3.5940242, 51.0797446 ], [ 3.593868, 51.0797255 ], [ 3.5938178, 51.079713 ], [ 3.5937577, 51.0796981 ], [ 3.5935501, 51.0796061 ], [ 3.5933518, 51.0794966 ], [ 3.5932562, 51.0794359 ], [ 3.5932225, 51.0794097 ], [ 3.5931799, 51.0793764 ], [ 3.5931636, 51.0793498 ] ] } },
+    { "type": "Feature", "properties": { "river_name": "VENLOOP", "source": "EcoInv" }, "geometry": { "type": "LineString", "coordinates": [ [ 4.6455959, 51.1934881 ], [ 4.6456818, 51.1932687 ], [ 4.6452152, 51.1932051 ], [ 4.6451504, 51.1931441 ], [ 4.6451933, 51.1928692 ] ] } },
 
 You can see it basically lists the feature attributes and the
 coordinates of the lines’ vertices, with each feature starting on a new
 line.
 
 Compare the coordinates with those of the `sf` object `habitatstreams`
-above: the data have automatically been transformed to WGS84\!
+above: the data have automatically been transformed to WGS84!
 
 Note: in order to be still manageable (text file size, usage in
 versioning systems) it seems wise to use GeoJSON for more simple cases –
@@ -311,28 +311,28 @@ GeoPackage format for larger (more complex) cases.
 
 ### Reading a GeoJSON file
 
-Just do
-    this:
+Just do this:
 
 ``` r
 habitatstreams_test <- st_read("habitatstreams.geojson")
 ```
 
-    ## Reading layer `habitatstreams' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/habitatstreams.geojson' using driver `GeoJSON'
+    ## Reading layer `habitatstreams' from data source 
+    ##   `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/habitatstreams.geojson' 
+    ##   using driver `GeoJSON'
     ## Simple feature collection with 560 features and 2 fields
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: 2.69742 ymin: 50.72875 xmax: 5.85425 ymax: 51.50032
-    ## epsg (SRID):    4326
-    ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+    ## Geometry type: LINESTRING
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 2.698642 ymin: 50.7282 xmax: 5.855562 ymax: 51.49979
+    ## Geodetic CRS:  WGS 84
 
 Same story as for the GeoPackage: other geospatial software will (or
 should) be able to open the GeoJSON format as well, as it’s an open and
 well established standard.
 
-From the message of `st_read()` you can see the CRS is WGS84
-([EPSG-code 4326](https://epsg.io/4326)) - this is always expected when
-reading a GeoJSON file.
+From the message of `st_read()` you can see the CRS is WGS84 ([EPSG-code
+4326](https://epsg.io/4326)) - this is always expected when reading a
+GeoJSON file.
 
 If you want to transform the data to another CRS, e.g. Belgian Lambert
 72 ([EPSG-code 31370](https://epsg.io/31370)), use `sf::st_transform()`:
@@ -343,27 +343,26 @@ habitatstreams_test %>%
 ```
 
     ## Simple feature collection with 560 features and 2 fields
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: 33013.71 ymin: 157590.5 xmax: 253945.9 ymax: 243502.9
-    ## epsg (SRID):    31370
-    ## proj4string:    +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
+    ## Geometry type: LINESTRING
+    ## Dimension:     XY
+    ## Bounding box:  xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
+    ## Projected CRS: BD72 / Belgian Lambert 72
     ## First 10 features:
     ##        river_name   source                       geometry
-    ## 1     WOLFPUTBEEK      VMM LINESTRING (127768.8 167742...
-    ## 2       OUDE KALE      VMM LINESTRING (95650.24 196973...
-    ## 3         VENLOOP   EcoInv LINESTRING (169263.1 209374...
-    ## 4         VENLOOP   EcoInv LINESTRING (169544 209352.8...
-    ## 5     KLEINE NETE   EcoInv LINESTRING (180997 208666.5...
-    ## 6     KLEINE NETE   EcoInv LINESTRING (179947.3 208419...
-    ## 7     KLEINE NETE   EcoInv LINESTRING (180429.9 208655...
-    ## 8     KLEINE NETE   EcoInv LINESTRING (187289.6 210058...
-    ## 9  RAAMDONKSEBEEK extrapol LINESTRING (183455.2 192468...
-    ## 10    KLEINE NETE   EcoInv LINESTRING (183426.2 208321...
+    ## 1     WOLFPUTBEEK      VMM LINESTRING (127857.1 167681...
+    ## 2       OUDE KALE      VMM LINESTRING (95737.01 196912...
+    ## 3         VENLOOP   EcoInv LINESTRING (169352.7 209314...
+    ## 4         VENLOOP   EcoInv LINESTRING (169633.6 209293...
+    ## 5     KLEINE NETE   EcoInv LINESTRING (181087.1 208607...
+    ## 6     KLEINE NETE   EcoInv LINESTRING (180037.4 208360...
+    ## 7     KLEINE NETE   EcoInv LINESTRING (180519.9 208595...
+    ## 8     KLEINE NETE   EcoInv LINESTRING (187379.9 209998...
+    ## 9  RAAMDONKSEBEEK extrapol LINESTRING (183545.6 192409...
+    ## 10    KLEINE NETE   EcoInv LINESTRING (183516.4 208261...
 
-1.  DOI = Digital Object Identifier. See <https://www.doi.org>.
+[^1]: DOI = Digital Object Identifier. See <https://www.doi.org>.
 
-2.   Though GeoJSON 2008 is
+[^2]:  Though GeoJSON 2008 is
     [obsoleted](http://geojson.org/geojson-spec.html), the now
     recommended [RFC7946](https://tools.ietf.org/html/rfc7946) standard
     is still officially in a *proposal* stage. That is probably the
