@@ -121,8 +121,7 @@ So yes, adding layers to a GeoPackage is done simply by `st_write()` again to th
 So, which layers are available in the GeoPackage?
 
 ```{r}
-gdalUtils::ogrinfo("sac.gpkg") %>% 
-  cat(sep = "\n")
+st_layers("sac.gpkg")
 ```
 
 _**You see?**_
