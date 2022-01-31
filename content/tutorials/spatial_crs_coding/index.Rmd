@@ -342,11 +342,10 @@ coordinates(cities2) <-  ~ X + Y
 Now, we can add a CRS:
 
 ```{r}
-proj4string(cities2) <- crs_wgs84
+slot(cities2, "proj4string") <- crs_wgs84
 ```
 
-Note the name of the `proj4string<-` replacement function in `sp`: it still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
-Maybe we'll get another function in the future that cuts the link with the 'proj4string' name.
+Note the name of the `proj4string` slot in `cities2`: it still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
 
 
 #### Get the CRS of a `Spatial*` object in `sp`
