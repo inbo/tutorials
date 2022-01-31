@@ -19,7 +19,6 @@ _For more information, see the [CRS tutorial](../spatial_crs_coding/)._
 ```{r include = FALSE}
 library(knitr)
 library(googlesheets4)
-source("token_option.R")
 opts_chunk$set(
   echo = TRUE
 )
