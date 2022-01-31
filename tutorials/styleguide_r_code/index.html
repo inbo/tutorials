@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Thu Jan 27 17:18:10 UTC 2022</small></p>
+  <p><small>Built on: Mon Jan 31 08:11:13 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -377,22 +377,37 @@ Improve this page</a>
   
 
   <div class='container entry-content'><h2 id="scope">Scope<a href="#scope" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO. Therefore this style guide should be applied within reason.</p>
+<p>This style guide is a recommendation for all R code written for the
+Research Institute for Nature and Forest (INBO). The goal of this style
+guide is twofold. First of all applying the guidelines will result in
+readable code. Secondly, it is much easier to work together on code when
+everyone is using the same guidelines. It is likely that applying these
+guidelines will have consequences on the current style used by many R
+users at INBO. Therefore this style guide should be applied within
+reason.</p>
 <ol>
-<li>Don&rsquo;t apply the style guide to existing code.</li>
+<li>Don’t apply the style guide to existing code.</li>
 <li>R users are free to apply the style guide to new personal R code.</li>
-<li>Using the style guide is highly recommended for new or revised R code intended to be distributed and used by other R users.</li>
-<li>The style guide is mandatory for new or revised R packages distributed by INBO.</li>
+<li>Using the style guide is highly recommended for new or revised R
+code intended to be distributed and used by other R users.</li>
+<li>The style guide is mandatory for new or revised R packages
+distributed by INBO.</li>
 </ol>
-<p>Please note that the RStudio editor has some handy features that automatically highlights errors against the code style in a non intrusive way. <strong>RStudio hints</strong> in this document are the instructions to activate these diagnostics in RStudio.</p>
+<p>Please note that the RStudio editor has some handy features that
+automatically highlights errors against the code style in a non
+intrusive way. <strong>RStudio hints</strong> in this document are the instructions
+to activate these diagnostics in RStudio.</p>
 <h2 id="syntax">Syntax<a href="#syntax" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Diagnostics</em>: Check everything</p>
+<p><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt;
+Diagnostics</em>: Check everything</p>
 <h3 id="general">General<a href="#general" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
 <li>lines should not exceed 80 characters
 <ul>
-<li>split the command over multiple lines if the command is longer than 80 characters</li>
-<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Display</em>: Check <em>Show margin</em> and set <em>Margin column</em> to 80</li>
+<li>split the command over multiple lines if the command is longer
+than 80 characters</li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt;
+Display</em>: Check <em>Show margin</em> and set <em>Margin column</em> to 80</li>
 </ul>
 </li>
 <li>object names should be meaningful</li>
@@ -403,8 +418,9 @@ Improve this page</a>
 <li>function names with a single dot are allowed</li>
 </ul>
 </li>
-<li>use double quotes (<code>&quot;</code>) around characters and not single quotes (<code>'</code>)</li>
-<li>don&rsquo;t add commented code
+<li>use double quotes (<code>&quot;</code>) around characters and not single quotes
+(<code>'</code>)</li>
+<li>don’t add commented code
 <ul>
 <li>use version control if you want to keep old versions of code</li>
 </ul>
@@ -421,23 +437,29 @@ some.really.long.dot.separated.name &lt;- <span style="color:#0a0">MyCoolFunctio
 </code></pre></div><h3 id="whitespace">Whitespace<a href="#whitespace" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <pre><code>naturallanguagesusewhitespaceandpunctuationtomaketextsmorereadableprogramminglanguagesarenoexceptiontothisrule
 </code></pre>
-<p>Natural languages use whitespace and punctuation to make texts more readable. Programming languages are no exception to this rule.</p>
+<p>Natural languages use whitespace and punctuation to make texts more
+readable. Programming languages are no exception to this rule.</p>
 <ul>
-<li>don&rsquo;t use tabs, use two spaces instead
+<li>don’t use tabs, use two spaces instead
 <ul>
-<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Editing</em>: Check <em>Insert spaces for tab</em> and set <em>Tab width</em> to 2</li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt;
+Editing</em>: Check <em>Insert spaces for tab</em> and set <em>Tab width</em> to 2</li>
 </ul>
 </li>
 <li>no space before a comma, one space after a comma</li>
-<li>one space before and after an infix operator (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>, <code>&amp;</code>, <code>|</code>, <code>%%</code>, <code>%/%</code>, <code>%*%</code>, <code>%in%</code>, &hellip;)</li>
+<li>one space before and after an infix operator (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>,
+<code>^</code>, <code>&amp;</code>, <code>|</code>, <code>%%</code>, <code>%/%</code>, <code>%*%</code>, <code>%in%</code>, …)</li>
 <li>no spaces a the end of a line
 <ul>
-<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Saving</em>: Check <em>Strip trailing horizontal whitespace when saving</em></li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt;
+Saving</em>: Check <em>Strip trailing horizontal whitespace when
+saving</em></li>
 </ul>
 </li>
 <li>end the script file with a single blank line
 <ul>
-<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt; Saving</em>: Check <em>Ensure that source files end with newline</em></li>
+<li><strong>RStudio hint</strong>: <em>Tools &gt; Global options &gt; Code &gt;
+Saving</em>: Check <em>Ensure that source files end with newline</em></li>
 </ul>
 </li>
 </ul>
@@ -467,22 +489,26 @@ ab  &lt;-  <span style="color:#099">10</span>
 abc &lt;-   <span style="color:#099">7</span>
 d   &lt;- <span style="color:#099">245</span>
 </code></pre></div><h3 id="brackets">Brackets<a href="#brackets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>R uses three types of brackets: round <code>(...)</code>, square <code>[...]</code> and curly <code>{...}</code>.</p>
+<p>R uses three types of brackets: round <code>(...)</code>, square <code>[...]</code> and curly
+<code>{...}</code>.</p>
 <ul>
 <li>no spaces after opening a bracket</li>
 <li>no spaces before closing a bracket</li>
 <li>no spaces before opening a bracket except:
 <ul>
-<li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
+<li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>,
+<code>while</code>)</li>
 </ul>
 </li>
 <li>no spaces after closing a bracket except:
 <ul>
-<li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
+<li>one space with control flow functions (<code>if</code>, <code>else</code>, <code>for</code>,
+<code>while</code>)</li>
 </ul>
 </li>
 <li><code>{</code> should not start on a newline and is always the end of a line</li>
-<li>apply indentation when splitting long text inside brackets over multiple lines</li>
+<li>apply indentation when splitting long text inside brackets over
+multiple lines</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Good</span>
 y &lt;- <span style="color:#0a0">seq</span>(<span style="color:#099">0</span>, <span style="color:#099">2</span>)
@@ -514,12 +540,14 @@ y &lt;- <span style="color:#0a0">seq </span>(<span style="color:#099">0</span>, 
 <li>no space before a bracket</li>
 </ol>
 </li>
-<li>solution in case of a short command: add <code># nolint</code> after the command
+<li>solution in case of a short command: add <code># nolint</code> after the
+command
 <ul>
 <li><code>df[selection, ] # nolint</code></li>
 </ul>
 </li>
-<li>solution in case of a long command: split the command over several lines</li>
+<li>solution in case of a long command: split the command over
+several lines</li>
 </ul>
 </li>
 </ul>
@@ -536,7 +564,8 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </code></pre></div><ul>
 <li>a really long text
 <ul>
-<li>text shorter than 80 characters but passed the 80 character limit due to the indentitation
+<li>text shorter than 80 characters but passed the 80 character
+limit due to the indentitation
 <ul>
 <li>solution: remove all indentation</li>
 </ul>
@@ -548,14 +577,17 @@ relevant_subset &lt;- original_dataframe[original_dataframe$x &gt; some_value | 
 </li>
 </ul>
 </li>
-<li>functions from other packages with names that don&rsquo;t comply with this style guide
+<li>functions from other packages with names that don’t comply with this
+style guide
 <ul>
 <li>solution: add <code># nolint</code> at the end of the line</li>
 </ul>
 </li>
 </ul>
 <p><strong>Important notice</strong></p>
-<p>Adding <code># nolint</code> at the end of a line excludes that line from the automatic checks for coding styles. Therefore use it only when you have no other options.</p>
+<p>Adding <code># nolint</code> at the end of a line excludes that line from the
+automatic checks for coding styles. Therefore use it only when you have
+no other options.</p>
 <h3 id="functions">Functions<a href="#functions" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
 <li>always explicitly mention <code>return</code> in functions</li>
@@ -574,12 +606,31 @@ sum &lt;- <span style="color:#0a0">function</span>(x, y) {
   x + y
 }
 </code></pre></div><h3 id="validating-syntax">Validating syntax<a href="#validating-syntax" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>The code below validate the syntax for an R file, an RMarkdown file or an R package.</p>
-<p><strong>RStudio hint</strong>: Running this code within RStudio will open a <em>Markers</em> pane, indicating the filename, line number and the kind of syntax error that occurs. Double clicking on the error will open the file at the correct location, making it easy to rectify the problem.</p>
-<p>Extra hint: start correcting for the last lines and work your way forward. This leaves the line numbers of the errors intact until you solve them.</p>
-<p>An example to clarify this. Suppose you have an error at line 10 and an error at line 100. Both errors are <code>lines should not be more than 80 characters</code>, so to solve them we have to split the lines over multiple lines.</p>
-<p>Let say that we start with solving line 10 by splitting it over four lines. So the old line 10 becomes the new lines 10 to 13. Hence the old line 11 becomes the new line 14, and the old line 100 becomes the new line 103. When we now click on the marker for line 100, RStudio will go the current line 100 which is the old line 97. So you end up looking for an error at the wrong position.</p>
-<p>Starting at the back solved this issue. In the same example we would start by solving line 100. Let&rsquo;s assume we split this over two lines. So old line 100 because new line 100 and 101. Old line 101 becomes new line 102 but more importantly <strong>all line numbers before 100 are unchanged</strong>. So clicking on the marker for line 10 will take you the current line 10 which is the old line 10.</p>
+<p>The code below validate the syntax for an R file, an RMarkdown file or
+an R package.</p>
+<p><strong>RStudio hint</strong>: Running this code within RStudio will open a <em>Markers</em>
+pane, indicating the filename, line number and the kind of syntax error
+that occurs. Double clicking on the error will open the file at the
+correct location, making it easy to rectify the problem.</p>
+<p>Extra hint: start correcting for the last lines and work your way
+forward. This leaves the line numbers of the errors intact until you
+solve them.</p>
+<p>An example to clarify this. Suppose you have an error at line 10 and an
+error at line 100. Both errors are
+<code>lines should not be more than 80 characters</code>, so to solve them we have
+to split the lines over multiple lines.</p>
+<p>Let say that we start with solving line 10 by splitting it over four
+lines. So the old line 10 becomes the new lines 10 to 13. Hence the old
+line 11 becomes the new line 14, and the old line 100 becomes the new
+line 103. When we now click on the marker for line 100, RStudio will go
+the current line 100 which is the old line 97. So you end up looking for
+an error at the wrong position.</p>
+<p>Starting at the back solved this issue. In the same example we would
+start by solving line 100. Let’s assume we split this over two lines. So
+old line 100 because new line 100 and 101. Old line 101 becomes new line
+102 but more importantly <strong>all line numbers before 100 are unchanged</strong>.
+So clicking on the marker for line 10 will take you the current line 10
+which is the old line 10.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># validate a single file</span>
 lintr::<span style="color:#0a0">lint</span>(filename = <span style="color:#a50">&#34;file.R&#34;</span>)
 lintr::<span style="color:#0a0">lint</span>(filename = <span style="color:#a50">&#34;file.Rmd&#34;</span>)
@@ -606,11 +657,15 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <span style="color:#aaa;font-style:italic">#&#39; @inheritParams inherit the definition of parameters from another function</span>
 <span style="color:#aaa;font-style:italic">#&#39; @examples a working example of the function</span>
 <span style="color:#aaa;font-style:italic">#&#39; @return a description of the output from the function</span>
-</code></pre></div><p>See <a href="http://r-pkgs.had.co.nz/man.html#roxygen-comments">http://r-pkgs.had.co.nz/man.html#roxygen-comments</a> for more information on Roxygen</p>
+</code></pre></div><p>See <a href="http://r-pkgs.had.co.nz/man.html#roxygen-comments">http://r-pkgs.had.co.nz/man.html#roxygen-comments</a> for more
+information on Roxygen</p>
 <h4 id="inbo-extra-requirements-for-package-description">INBO extra requirements for package DESCRIPTION<a href="#inbo-extra-requirements-for-package-description" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <ul>
-<li>license: MIT or GPL-3? In case of MIT a LICENSE file should be added and <code>License: MIT</code> to the DESCRIPTION. In case of GPL-3 it is sufficient to add <code>License: GPL-3</code> to the DESCRIPTION</li>
-<li>list of authors in <code>Authors@R</code> format</li>
+<li>license: MIT or GPL-3? In case of MIT a LICENSE file should be added
+and <code>License: MIT</code> to the DESCRIPTION. In case of GPL-3 it is
+sufficient to add <code>License: GPL-3</code> to the DESCRIPTION</li>
+<li>list of authors in <code>Authors@R</code> format
+<ul>
 <li>INBO is listed as copyright holder</li>
 <li>one or more roles are atributed to each person
 <ul>
@@ -621,10 +676,17 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 </ul>
 </li>
 </ul>
-<p><a href="mailto:Authors@R">Authors@R</a>: c(person(&ldquo;Els&rdquo;, &ldquo;Lommelen&rdquo;, email = &ldquo;<a href="mailto:els.lommelen@inbo.be">els.lommelen@inbo.be</a>&rdquo;, role = c(&ldquo;aut&rdquo;, &ldquo;cre&rdquo;)), person(&ldquo;Thierry&rdquo;, &ldquo;Onkelinx&rdquo;, email = &ldquo;<a href="mailto:thierry.onkelinx@inbo.be">thierry.onkelinx@inbo.be</a>&rdquo;, role = &ldquo;aut&rdquo;), person(&ldquo;Anja&rdquo;, &ldquo;Leyman&rdquo;, email = &ldquo;<a href="mailto:anja.leyman@inbo.be">anja.leyman@inbo.be</a>&rdquo;, role = &ldquo;ctb&rdquo;), person(family = &ldquo;Research Institute for Nature and Forest (INBO)&rdquo;, email = &ldquo;<a href="mailto:info@inbo.be">info@inbo.be</a>&rdquo;, role = &ldquo;cph&rdquo;))</p>
-<h3 id="how-tos">How-to&rsquo;s<a href="#how-tos" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+</li>
+</ul>
+<p><a href="mailto:Authors@R">Authors@R</a>: c(person(“Els”, “Lommelen”, email =
+“<a href="mailto:els.lommelen@inbo.be">els.lommelen@inbo.be</a>”, role = c(“aut”, “cre”)), person(“Thierry”,
+“Onkelinx”, email = “<a href="mailto:thierry.onkelinx@inbo.be">thierry.onkelinx@inbo.be</a>”, role = “aut”),
+person(“Anja”, “Leyman”, email = “<a href="mailto:anja.leyman@inbo.be">anja.leyman@inbo.be</a>”, role = “ctb”),
+person(family = “Research Institute for Nature and Forest (INBO)”, email
+= “<a href="mailto:info@inbo.be">info@inbo.be</a>”, role = “cph”))</p>
+<h3 id="how-tos">How-to’s<a href="#how-tos" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
-<li>Add one or more how-to&rsquo;s to a package</li>
+<li>Add one or more how-to’s to a package</li>
 <li>Add them as RMarkdown vignettes</li>
 </ul>
 <h2 id="file-structure">File structure<a href="#file-structure" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -634,16 +696,21 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <li>all generic R functions should be distributed as an R package</li>
 <li>use <code>devtools::create()</code> to start a new pacakge
 <ul>
-<li><strong>RStudio hint</strong>: <em>File &gt; New project &gt; New directory &gt; R Package</em>: Type the name in <em>Package name</em></li>
+<li><strong>RStudio hint</strong>: <em>File &gt; New project &gt; New directory &gt;
+R Package</em>: Type the name in <em>Package name</em></li>
 </ul>
 </li>
 <li>keep source files compact
 <ul>
-<li>create a separate file for each function, with the file name equal to the function name. This makes it easy to find the correct source file.</li>
-<li>exception: very short auxilary functions with related functionality
+<li>create a separate file for each function, with the file name
+equal to the function name. This makes it easy to find the
+correct source file.</li>
+<li>exception: very short auxilary functions with related
+functionality
 <ul>
 <li>related functions can be bundled into one R script</li>
-<li>file name is either equal to the most important function or describes the related functionality</li>
+<li>file name is either equal to the most important function or
+describes the related functionality</li>
 </ul>
 </li>
 </ul>
@@ -654,9 +721,12 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <ul>
 <li>place scripts in the <code>inst</code> folder
 <ul>
-<li>the scripts will be available for the user after installing the package</li>
-<li>the location of the scripts can be found with <code>system.file(&quot;script-name.R&quot;, package = &quot;yourpackage&quot;)</code></li>
-<li>use a relevant folder structure when adding lots of files to <code>inst</code></li>
+<li>the scripts will be available for the user after installing the
+package</li>
+<li>the location of the scripts can be found with
+<code>system.file(&quot;script-name.R&quot;, package = &quot;yourpackage&quot;)</code></li>
+<li>use a relevant folder structure when adding lots of files to
+<code>inst</code></li>
 </ul>
 </li>
 </ul>
@@ -670,23 +740,32 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <li>all unit tests are stored in <code>tests/testthat</code></li>
 <li>all files should have either a <code>test_</code> or <code>helper_</code> prefix
 <ul>
-<li>files with <code>helper_</code> prefix contain auxiliary function for the tests but no tests</li>
+<li>files with <code>helper_</code> prefix contain auxiliary function for the
+tests but no tests</li>
 </ul>
 </li>
 <li>the test files will be run in alphabetical order
 <ul>
-<li>setting the order of the files is easy by adding 3 letters to the prefix (eg. <code>test_aaa_</code>, <code>test_baa</code>, <code>test_zzz_</code>)</li>
-<li>3 letters offers quite some flexibility to insert new files at the correct location without having to rename at lot of files. If the first file is <code>test_aaa_</code> and the second <code>test_baa</code>, they you can 675 files between the two.</li>
+<li>setting the order of the files is easy by adding 3 letters to
+the prefix (eg. <code>test_aaa_</code>, <code>test_baa</code>, <code>test_zzz_</code>)</li>
+<li>3 letters offers quite some flexibility to insert new files at
+the correct location without having to rename at lot of files.
+If the first file is <code>test_aaa_</code> and the second <code>test_baa</code>, they
+you can 675 files between the two.</li>
 </ul>
 </li>
 <li>unit test files can be larger than source files</li>
-<li>a unit test file can contain tests for several functions in case the functions are strongly related (e.g. subfunctions) and reuse test cases</li>
-<li>each package should contain the unit for coding style as listed below
+<li>a unit test file can contain tests for several functions in case the
+functions are strongly related (e.g. subfunctions) and reuse test
+cases</li>
+<li>each package should contain the unit for coding style as listed
+below
 <ul>
 <li>store this in a file <code>tests/testthat/test_zzz_coding_style.R</code></li>
 <li>add this file to <code>.gitignore</code>
 <ul>
-<li>the coding style will be tested separately when using continuous integration</li>
+<li>the coding style will be tested separately when using
+continuous integration</li>
 </ul>
 </li>
 </ul>
@@ -699,9 +778,10 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
   })
 }
 </code></pre></div><h4 id="data">Data<a href="#data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-<p>To make data available for users, they can be stored in a package in 3 different file types:</p>
+<p>To make data available for users, they can be stored in a package in 3
+different file types:</p>
 <ul>
-<li>plain text file (<code>.txt</code>, <code>.csv</code>,&hellip;): use if
+<li>plain text file (<code>.txt</code>, <code>.csv</code>,…): use if
 <ul>
 <li>your package is under version control and the data often change</li>
 <li>you want to keep track on the changes using version control</li>
@@ -710,46 +790,67 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 </li>
 <li>binary file (<code>.Rdata</code> or <code>.rda</code>): use if
 <ul>
-<li>your dataset is large and data do not change between different versions</li>
+<li>your dataset is large and data do not change between different
+versions</li>
 <li>you are not interested in keeping track on the exact changes</li>
-<li>you want to keep the exact format of the data (e.g. factors with levels) (possible in plain text with <a href="https://inbo.github.io/git2rdata">git2rdata</a>)</li>
+<li>you want to keep the exact format of the data (e.g. factors with
+levels) (possible in plain text with
+<a href="https://inbo.github.io/git2rdata">git2rdata</a>)</li>
 </ul>
 </li>
-<li>code (<code>.r</code>) generating a table: use if the data can easily be generated with code</li>
+<li>code (<code>.r</code>) generating a table: use if the data can easily be
+generated with code</li>
 </ul>
 <p>Data can be stored in 3 places:</p>
 <ul>
-<li>to make data available for loading and parsing examples, store them in the folder <code>inst/extdata</code>. Access this data with <code>system.file(&quot;xyz&quot;, package = &quot;abc&quot;)</code>. Possible for all data types.</li>
-<li>to make data available to package users, store them in the <code>data</code> folder. Access this data with <code>data(xyz)</code>. Possible only for data formats that can be handled by <code>data()</code>. Binary <code>.rda</code>-files can be stored by using <code>usethis::use_data(xyz)</code>.</li>
-<li>to keep data internal for use by your functions, store them in the file <code>R/Sysdata.rda</code> by using <code>usethis::use_data(xyz, internal = TRUE)</code>. Access this data with <code>abc::xyz</code>.</li>
+<li>to make data available for loading and parsing examples, store them
+in the folder <code>inst/extdata</code>. Access this data with
+<code>system.file(&quot;xyz&quot;, package = &quot;abc&quot;)</code>. Possible for all data types.</li>
+<li>to make data available to package users, store them in the <code>data</code>
+folder. Access this data with <code>data(xyz)</code>. Possible only for data
+formats that can be handled by <code>data()</code>. Binary <code>.rda</code>-files can be
+stored by using <code>usethis::use_data(xyz)</code>.</li>
+<li>to keep data internal for use by your functions, store them in the
+file <code>R/Sysdata.rda</code> by using
+<code>usethis::use_data(xyz, internal = TRUE)</code>. Access this data with
+<code>abc::xyz</code>.</li>
 </ul>
-<p>(In the above examples, <code>xyz</code> are data and <code>abc</code> is the package in which they are stored.)</p>
-<p>Add scripts for generating these data in the folder <code>data-raw</code> and create this folder by using <code>usethis::use_data_raw()</code> (ignores folder during build).</p>
+<p>(In the above examples, <code>xyz</code> are data and <code>abc</code> is the package in which
+they are stored.)</p>
+<p>Add scripts for generating these data in the folder <code>data-raw</code> and
+create this folder by using <code>usethis::use_data_raw()</code> (ignores folder
+during build).</p>
 <h3 id="r-script">R script<a href="#r-script" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
-<li>group a long set of commands with similar functionality into a dedicated function
+<li>group a long set of commands with similar functionality into a
+dedicated function
 <ul>
-<li>e.g. <code>prepare_data()</code>, <code>do_analysis()</code>, <code>create_figure()</code>, &hellip;</li>
+<li>e.g. <code>prepare_data()</code>, <code>do_analysis()</code>, <code>create_figure()</code>, …</li>
 </ul>
 </li>
-<li>place the user defined functions in a separate file which you <code>source()</code> into the main script
+<li>place the user defined functions in a separate file which you
+<code>source()</code> into the main script
 <ul>
 <li>it is better to use the same file structure as an R package</li>
-<li>consider writing a simple package in case you have a lot of functions</li>
+<li>consider writing a simple package in case you have a lot of
+functions</li>
 </ul>
 </li>
 </ul>
 <h3 id="rmarkdown">RMarkdown<a href="#rmarkdown" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ul>
-<li>each chunk has only one output (figure, table, summary, &hellip;)</li>
-<li>don&rsquo;t mix (heavy) calculations and output in the same chunk: this is more interesting for caching the results</li>
-<li>give chunks a relevant name: this make debugging easier and file name of figures and Bookdown label will be based on the chunk name</li>
+<li>each chunk has only one output (figure, table, summary, …)</li>
+<li>don’t mix (heavy) calculations and output in the same chunk: this is
+more interesting for caching the results</li>
+<li>give chunks a relevant name: this make debugging easier and file
+name of figures and Bookdown label will be based on the chunk name</li>
 <li>avoid writing code that generates Markdown
 <ul>
 <li>use (parametrised) child documents instead</li>
 </ul>
 </li>
-<li>use the bookdown version for long reports: this makes it easy to split a long report into several child documents</li>
+<li>use the bookdown version for long reports: this makes it easy to
+split a long report into several child documents</li>
 </ul>
 <h2 id="recommended-packages">Recommended packages<a href="#recommended-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="data-import">Data import<a href="#data-import" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
@@ -757,7 +858,7 @@ lintr::<span style="color:#0a0">lint_package</span>(path = <span style="color:#a
 <li><code>readr</code>: import text files</li>
 <li><code>readxl</code>: import Excel files</li>
 <li><code>googlesheets</code>: import Google Sheets</li>
-<li><code>DBI</code>: connect to databases PostgreSQL, SQLite, MySQL, Oracle, &hellip;</li>
+<li><code>DBI</code>: connect to databases PostgreSQL, SQLite, MySQL, Oracle, …</li>
 <li><code>RODBC</code>: connect to databases SQL Server, Access</li>
 </ul>
 <h3 id="data-manipulation--transformation">Data manipulation &amp; transformation<a href="#data-manipulation--transformation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>

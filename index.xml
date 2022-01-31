@@ -358,8 +358,9 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/r_zoom_in_ggplot/</guid>
-      <description>Original figure library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() “Zoom in” with scales Data points outside the limits are considered to be NA. Note that this will alter all calculated geoms.
-ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + scale_y_continuous(limits = c(20, 25)) ## Warning: Removed 24 rows containing non-finite values (stat_boxplot).  “Zoom in” with coord This doesn’t affect the values:</description>
+      <description>Original figure library(ggplot2) ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() “Zoom in” with scales Data points outside the limits are considered to be NA. Note that this will alter all calculated geoms.
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + scale_y_continuous(limits = c(20, 25)) ## Warning: Removed 24 rows containing non-finite values (stat_boxplot).  “Zoom in” with coord This doesn’t affect the values:
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + coord_cartesian(ylim = c(20, 25)) Note that you can use only one coord.</description>
     </item>
     
     <item>
@@ -728,7 +729,7 @@ The Wercker test environment can only be set up if the file wercker.yml is commi
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
-      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I&amp;rsquo;ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
+      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I’ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
     </item>
     
     <item>

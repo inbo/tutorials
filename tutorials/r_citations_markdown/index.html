@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Thu Jan 27 17:18:10 UTC 2022</small></p>
+  <p><small>Built on: Mon Jan 31 08:11:13 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -340,7 +340,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-8 mins read
+9 mins read
 </span>
 
 
@@ -390,7 +390,7 @@ to the Research Institute for Nature and Forest.</p>
 <p>The latter webpage is part of the documentation about the Visual
 Markdown Editing (<strong>VME</strong>) mode that is available since RStudio 1.4+ as
 an alternative to writing R Markdown documents in source mode. VME is a
-what-you-see-is-what-you-get[1] interface for interacting with R
+what-you-see-is-what-you-get<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> interface for interacting with R
 Markdown. This interface is similar to writing documents in word
 processing software (google docs, MS Word, …). Moreover, the VME mode
 has more functionalities for citations than the source mode. To switch
@@ -412,13 +412,13 @@ formats at the Research Institute for Nature and Forest: CSL-JSON,
 CSL-YAML, BibTex and EndNote.</p>
 <p>We strongly recommend however to <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">use CSL-JSON or
 CSL-YAML</a>,
-since CSL is the native format for Pandoc.[2] All other bibliographic
+since CSL is the native format for Pandoc.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> All other bibliographic
 formats are internally converted to CSL-JSON, but with the exception of
 CSL-YAML this can in general not be perfect. Compared to CSL-JSON,
 Pandoc’s CSL-YAML has identical contents while having the most
 human-friendly syntax.
 <a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL-JSON</a>
-is the formal standard supported by all CSL processors[3] .</p>
+is the formal standard supported by all CSL processors<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> .</p>
 <p>Some example specifications:</p>
 <pre><code>---
 author: Research Institute for Nature and Forest
@@ -702,6 +702,35 @@ which is implemented e.g. in Zotero and Mendeley; the citeproc-js
 project has also formulated the CSL-JSON standard. Pandoc, the document
 conversion software used by R Markdown, uses its own
 <a href="https://hackage.haskell.org/package/citeproc">citeproc</a> CSL processor.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Commonly abbreviated as
+<a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>, in contrast to
+<a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a>, of which plain
+Markdown (in RStudio source mode) is an example.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://pandoc.org/">Pandoc</a> is the workhorse for converting
+markdown to a desired output (such as html).&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>A CSL processor is a piece of software to parse CSL styles, locale
+files, item metadata and citing details, and generate citations and
+bibliographies in the correct format.
+<a href="https://citationstyles.org/developers/#/csl-processors">Multiple</a>
+CSL processors are available for use in software. The reference
+implementation is the
+<a href="https://citeproc-js.readthedocs.io/en/latest/">citeproc-js</a>
+processor, which is implemented e.g. in Zotero and Mendeley; the
+citeproc-js project has also formulated the CSL-JSON standard.
+Pandoc, the document conversion software used by R Markdown, uses
+its own <a href="https://hackage.haskell.org/package/citeproc">citeproc</a> CSL
+processor.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 </div>
 
   

@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Thu Jan 27 17:18:10 UTC 2022</small></p>
+  <p><small>Built on: Mon Jan 31 08:11:12 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -426,14 +426,14 @@ applications</a>
 <li>It is a standardized implementation of an SQLite database for
 geospatial data. Hence, a GeoPackage is a <strong>binary</strong> file
 (<code>filename.gpkg</code>). It shares this property with shapefiles, which
-however pose multiple limitations,[1] so the GeoPackage is a more
+however pose multiple limitations,<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> so the GeoPackage is a more
 than suitable replacement.</li>
 <li>The GeoPackage can store one or <em>multiple</em> <strong>vector</strong> layers
 (points, lines, polygons and related feature types). Besides vector
 data, it can also store <strong>raster</strong> data or extra standalone
 <strong>tables</strong>. These properties make it somehow comparable to the
 ‘personal geodatabase’ of ArcGIS – ESRI’s closed, Windows-only
-format.[2]</li>
+format.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
 <li>The GeoPackage standard is
 <a href="https://www.opengeospatial.org/standards/geopackage">maintained</a> by
 the <a href="https://www.opengeospatial.org/">Open Geospatial Consortium</a>
@@ -482,7 +482,7 @@ in the documentation of GDAL’s GeoJSON driver gives a summary of
 the differences between both GeoJSON versions.</li>
 </ul>
 </li>
-<li>While GDAL by default still follows the GeoJSON 2008 format,[3]
+<li>While GDAL by default still follows the GeoJSON 2008 format,<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>
 RFC7946 is supported by the option <code>RFC7946=YES</code>. Here, reprojection
 to WGS84 will happen automatically. It applies 7 decimal places for
 coordinates, i.e. approximately 1 cm. Given the advantages, <em><strong>we
@@ -491,7 +491,7 @@ the user to provide options that are passed to GDAL, so we can ask
 to deliver RFC7946 (see the
 <a href="../../tutorials/spatial_standards_vector/">tutorial</a>).</li>
 <li>In order to keep it manageable (text file size, usage in versioning
-systems[4] ) it can be wise to use GeoJSON for more simple cases
+systems<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> ) it can be wise to use GeoJSON for more simple cases
 (points and rather simple lines and polygons), and use the binary
 GeoPackage format for larger (more complex) cases.</li>
 </ul>
@@ -526,31 +526,34 @@ geospatial standards.</li>
 <a href="https://www.r-spatial.org/book">https://www.r-spatial.org/book</a>.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li>
-<p>Some problems with shapefiles are: they’re not an open format, they
-consist of multiple files and they have restrictions regarding file
-size, column name length, number of columns and the feature types
-that can be accommodated.</p>
+<li id="fn:1" role="doc-endnote">
+<p>Some problems with shapefiles are: they’re not an open format,
+they consist of multiple files and they have restrictions regarding
+file size, column name length, number of columns and the feature
+types that can be accommodated.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li>
-<p>Note that personal geodatabases have their size limited to 250-500
-MB; a GeoPackage can have a size of about 140 TB if the filesystem
-can handle it.</p>
+<li id="fn:2" role="doc-endnote">
+<p>Note that personal geodatabases have their size limited to
+250-500 MB; a GeoPackage can have a size of about 140 TB if the
+filesystem can handle it.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li>
+<li id="fn:3" role="doc-endnote">
 <p>Though GeoJSON 2008 is obsoleted, the now recommended RFC7946
 standard is still officially in a <em>proposal</em> stage. That is probably
 the reason why GDAL does not yet default to RFC7946. A somehow
-confusing stage, it seems.</p>
+confusing stage, it seems.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li>
+<li id="fn:4" role="doc-endnote">
 <p>When versioning GeoJSON files, mind the order of your data when
 rewriting them: reordering could produce large diffs. Interested in
 combining GeoJSON and GitHub? <a href="https://github.com/lyzidiamond/learn-geojson">Surprise
-yourself</a>!</p>
+yourself</a>!&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
+</section>
 </div>
 
   
