@@ -20,9 +20,6 @@ Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisati
 
 Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops. Deze opleiding is bedoeld voor mensen die nog nooit met R gewerkt hebben. In de workshops wordt het materiaal in de handleidingen al doende uitgelegd, en afgewisseld met oefeningen. Na elke workshop wordt er altijd een huistaak aangeboden, die op vrijwillige basis ingediend kan worden, en van feedback voorzien.
 
-
-
-
 ## R en RStudio
 
 Introductie tot R en Rstudio
@@ -33,28 +30,22 @@ Introductie tot R en Rstudio
 - Coding basics in R
 - Vectoren en dataframes
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/R_en_RStudio.pdf)  
-[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/R_en_RStudio_code.R)  
+[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/R_en_RStudio.pdf)
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/R_en_RStudio_code.R)
 [Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/R_en_RStudio_huistaak.pdf)
-
-
-
 
 ## Inlezen van gegevens
 
 Introductie tot het inlezen van externe databestanden
 
-- `readr` 
+- `readr`
 - `readxl`
 - `googlesheets4`
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen.pdf)   
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)  
-[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/data_inlezen_code.R)  
-[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen_oefening.pdf)  
-
-
-
+[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen.pdf)
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/data_inlezen_code.R)
+[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen_oefening.pdf)
 
 ## ggplot2
 
@@ -67,14 +58,11 @@ Introductie tot het maken van grafieken met ggplot2
 - Titels
 - Plot bewaren
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/ggplot.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)  
-[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/ggplot_code.R)  
-[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/src/ggplot_oefening.pdf)  
-[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen_ggplot_huistaak.pdf)  
-
-
-
+[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/ggplot.pdf)
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/ggplot_code.R)
+[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/src/ggplot_oefening.pdf)
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/data_inlezen_ggplot_huistaak.pdf)
 
 ## dplyr
 
@@ -85,14 +73,11 @@ Introductie tot data manipulatie met dplyr
 - group_by, summarise
 - Tidy data: gather, spread
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/dplyr.pdf)  
-[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)  
-[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/dplyr_code.R)  
-[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/src/dplyr_oefening.pdf)  
-[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/dplyr_huistaak.pdf)  
-
-
-
+[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/dplyr.pdf)
+[Data](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners/data)
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/dplyr_code.R)
+[Oefening](https://inbo.github.io/tutorials/tutorials/r_beginners/src/dplyr_oefening.pdf)
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/dplyr_huistaak.pdf)
 
 ## Rmarkdown
 
@@ -104,8 +89,8 @@ Introductie tot het maken van een reproduceerbaar document met Rmarkdown
 - YAML header
 - Tabellen
 
-[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/Rmarkdown.pdf)  
-[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/Rmarkdown_oefening.txt)  
-[Oefening](../../html/Rmarkdown_oefening_resultaat.html)  
-[Figuur voor oefening](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Figuren/iris-machinelearning.png)  
-[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/Rmarkdown_huistaak.pdf)  
+[Handleiding](https://inbo.github.io/tutorials/tutorials/r_beginners/src/Rmarkdown.pdf)
+[Code](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/src/Rmarkdown_oefening.txt)
+[Oefening](../../html/Rmarkdown_oefening_resultaat.html)
+[Figuur voor oefening](https://github.com/inbo/tutorials/blob/master/content/tutorials/r_beginners/Figuren/iris-machinelearning.png)
+[Huistaak](https://inbo.github.io/tutorials/tutorials/r_beginners/src/Rmarkdown_huistaak.pdf)

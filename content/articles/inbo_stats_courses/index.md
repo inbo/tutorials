@@ -5,10 +5,6 @@ authors: [hansvancalster]
 date: 2021-02-24
 categories: ["r", "statistics"]
 tags: ["r", "INLA", "mixed model", "uncertainty", "explorative data analysis", "analysis of variance", "generalized linear regression", "multivariate statistics"]
-output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
 ---
 
 During the course of the years, we have taught many statistics courses at the Research Institute for Nature and Forest (INBO), both for scientists and technicians.

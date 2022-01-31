@@ -6,9 +6,9 @@ bibliography: ../reproducible_research.bib
 categories: ["literature"]
 tags: ["literature", "open science"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 This page lists **selected** literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site's users.

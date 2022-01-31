@@ -10,9 +10,9 @@ link-citations: true
 reference-section-title: References
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm+definition_lists
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes+definition_lists
 editor_options:
   markdown:
     wrap: sentence
@@ -191,7 +191,6 @@ The defaults are OK.
 ![](global-options.png)
 
 # Citing documents {#citing-documents}
-
 ## Syntax
 
 The following Markdown syntax is used to refer to documents.
@@ -238,7 +237,7 @@ For instance:
 knitr::write_bib(c("base", "bookdown", "rmarkdown"), "packages.bib")
 ```
 
-... allows us to cite @R-base, @R-bookdown and @R-rmarkdown if we add `packages.bib` to the bibliography YAML field.
+... allows us to cite \@R-base, \@R-bookdown and \@R-rmarkdown if we add `packages.bib` to the bibliography YAML field.
 
 # Bibliography placement
 

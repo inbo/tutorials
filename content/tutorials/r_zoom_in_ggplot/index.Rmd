@@ -6,9 +6,9 @@ date: "`r Sys.Date()`"
 categories: ["r"]
 tags: ["r", "ggplot2"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 ```{r setup, include=FALSE}

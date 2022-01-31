@@ -6,9 +6,9 @@ authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 ## Windows
@@ -42,7 +42,7 @@ voor versie `R-4.0.0` is `x` = 0 en `y` = 0.
     `De omgevingsvariabelen van het systeem bewerken`. Selecteer het
     tabblad `Geavanceerd` en klik op de knop `Omgevingsvariabelen`. Ga
     na of er een systeemvariabele `R_LIBS_USER` met waarde
-    `C:/R/library` bestaat[1]. Indien niet, maak deze aan met de knop
+    `C:/R/library` bestaat[^1]. Indien niet, maak deze aan met de knop
     `Nieuw`. Sluit al deze schermen via de `OK` knop.
 12. Kopieer het bestand [`Rprofile.site`](Rprofile.site) naar `etc` in
     de doelmap waar je R geïnstalleerd hebt (`C:\R\R-4.x.y`). Hierbij
@@ -161,4 +161,4 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
     sudo apt-get update
     sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
 
-[1] Het moeten forward slashes zijn.
+[^1]: Het moeten forward slashes zijn.

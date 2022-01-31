@@ -3,10 +3,6 @@ title: "Software by INBO: packages for environmentalists and ecologists!"
 date: 2020-12-03
 categories: ["development", "r", "statistics", "databases"]
 tags: ["open science", "packages", "r", "python"]
-output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
 ---
 
 At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists **R and Python packages** which INBO developed or made a significant contribution to. Several of these packages continue being developed.

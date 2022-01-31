@@ -6,9 +6,9 @@ date: 2017-02-03
 categories: ["r"]
 tags: ["database", "r", "data"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: markdown_github
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 ```{r setup, include=FALSE}

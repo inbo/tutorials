@@ -8,7 +8,7 @@ tags: ["gis", "r", "maps"]
 output:
   md_document:
     preserve_yaml: true
-    variant: gfm
+    variant: gfm+footnotes
 ---
 
 *General note: migration to the more actively developed `sf` package is

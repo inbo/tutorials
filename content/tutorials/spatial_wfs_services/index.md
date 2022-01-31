@@ -7,9 +7,9 @@ categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 # What is WFS?

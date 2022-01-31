@@ -6,9 +6,9 @@ date: 2020-11-12
 categories: ["r"]
 tags: ["data", "coding club", "r"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 Before each coding club you will usually have to download some datasets
@@ -34,10 +34,10 @@ library(inborutils)
 
 The function takes four arguments with the following default settings:
 
-  - `session_date` which is set to the present day
-  - `root_dir` which is set to the current/project directory `"."`
-  - `src_rel_path` which is set to the subdirectory `src`
-  - `data_rel_path` which is set to the subdirectory `data`
+-   `session_date` which is set to the present day
+-   `root_dir` which is set to the current/project directory `"."`
+-   `src_rel_path` which is set to the subdirectory `src`
+-   `data_rel_path` which is set to the subdirectory `data`
 
 So when we just run the function like this:
 
@@ -132,7 +132,7 @@ or via R console:
 
 Doesn’t `setup_codingclub_session()` work as expected? Do you think
 there is a bug? Or do you have some ideas to improve the function? Raise
-your hand\! Write an [issue](https://github.com/inbo/inborutils/issues)
+your hand! Write an [issue](https://github.com/inbo/inborutils/issues)
 or contact one of the [INBO coding club
 organizers](https://inbo.github.io/coding-club/). We will be happy to
 help you.

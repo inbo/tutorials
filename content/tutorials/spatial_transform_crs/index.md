@@ -6,9 +6,9 @@ date: 2020-09-14
 categories: ["r"]
 tags: ["gis", "r", "maps"]
 output: 
-    md_document:
-        preserve_yaml: true
-        variant: gfm
+  md_document:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 *General note: migration to the more actively developed `sf` package is
