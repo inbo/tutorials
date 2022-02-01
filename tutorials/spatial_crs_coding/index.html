@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Mon Jan 31 08:11:13 UTC 2022</small></p>
+  <p><small>Built on: Tue Feb 1 10:50:37 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -340,7 +340,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-15 mins read
+17 mins read
 </span>
 
 
@@ -411,9 +411,40 @@ of that lesson).</p>
 famous one being the <a href="https://www.epsg.org">EPSG dataset</a>, where each
 CRS has a unique <em>EPSG code</em>. You can consult these CRSs interactively
 at <a href="https://epsg.org">https://epsg.org</a> (official source) and through third-party websites
-such as <a href="http://epsg.io">http://epsg.io</a>. For example, the ‘World Geodetic System 1984’
-(WGS84) is a geodetic CRS with EPSG code <code>4326</code>, and ‘Belge 1972 /
-Belgian Lambert 72’ is a projected CRS with EPSG code <code>31370</code>.</p>
+such as <a href="http://epsg.io">http://epsg.io</a> and
+<a href="https://jjimenezshaw.github.io/crs-explorer">https://jjimenezshaw.github.io/crs-explorer</a>. For example, the ‘World
+Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code <code>4326</code>,
+and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
+<code>31370</code>.</p>
+<p>In R, you can also search for CRSs and EPSG codes since these are
+included in the PROJ database, used by R packages like <code>sf</code>. An example
+for Belgian CRSs:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">proj_db &lt;- <span style="color:#0a0">system.file</span>(<span style="color:#a50">&#34;proj/proj.db&#34;</span>, package = <span style="color:#a50">&#34;sf&#34;</span>)
+  <span style="color:#aaa;font-style:italic"># For dynamically linked PROJ, provide the path to proj.db yourself:</span>
+  <span style="color:#0a0">if </span>(proj_db == <span style="color:#a50">&#34;&#34;</span>) proj_db &lt;- proj_db_path
+crs_table &lt;- sf::<span style="color:#0a0">read_sf</span>(proj_db, <span style="color:#a50">&#34;crs_view&#34;</span>) <span style="color:#aaa;font-style:italic"># extracts the &#34;crs_view&#34; table</span>
+<span style="color:#0a0">subset</span>(crs_table, <span style="color:#0a0">grepl</span>(<span style="color:#a50">&#34;Belg|Ostend&#34;</span>, name) &amp; auth_name == <span style="color:#a50">&#34;EPSG&#34;</span>)[2:<span style="color:#099">5</span>]
+</code></pre></div><pre><code># A tibble: 8 × 4
+  auth_name code  name                                          type     
+  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;                                         &lt;chr&gt;    
+1 EPSG      3447  ETRS89 / Belgian Lambert 2005                 projected
+2 EPSG      3812  ETRS89 / Belgian Lambert 2008                 projected
+3 EPSG      21500 BD50 (Brussels) / Belge Lambert 50            projected
+4 EPSG      31300 BD72 / Belge Lambert 72                       projected
+5 EPSG      31370 BD72 / Belgian Lambert 72                     projected
+6 EPSG      5710  Ostend height                                 vertical 
+7 EPSG      6190  BD72 / Belgian Lambert 72 + Ostend height     compound 
+8 EPSG      8370  ETRS89 / Belgian Lambert 2008 + Ostend height compound 
+</code></pre>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <h3 id="how-did-we-represent-a-crs-in-r-evolutions-in-proj-and-gdal">How <em>did</em> we represent a CRS in R? Evolutions in PROJ and GDAL.<a href="#how-did-we-represent-a-crs-in-r-evolutions-in-proj-and-gdal" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>It is good to know this, but you <em>can</em> skip this section if you like.</p>
 <p>The reason for writing this tutorial are the recent (and ongoing)
@@ -477,9 +508,25 @@ simply the recent version of WKT, approved in 2019, so you can also
 refer to it as WKT.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
 <p>For example, this is the WKT2 string for WGS84:</p>
 <pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
+    ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+        MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;,
+            ID[&quot;EPSG&quot;,1166]],
+        MEMBER[&quot;World Geodetic System 1984 (G730)&quot;,
+            ID[&quot;EPSG&quot;,1152]],
+        MEMBER[&quot;World Geodetic System 1984 (G873)&quot;,
+            ID[&quot;EPSG&quot;,1153]],
+        MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;,
+            ID[&quot;EPSG&quot;,1154]],
+        MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;,
+            ID[&quot;EPSG&quot;,1155]],
+        MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;,
+            ID[&quot;EPSG&quot;,1156]],
+        MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;,
+            ID[&quot;EPSG&quot;,1309]],
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]],
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,7030]],
+        ENSEMBLEACCURACY[2.0],
         ID[&quot;EPSG&quot;,6326]],
     PRIMEM[&quot;Greenwich&quot;,0,
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
@@ -492,7 +539,12 @@ refer to it as WKT.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="
         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-                ID[&quot;EPSG&quot;,9122]]]]
+                ID[&quot;EPSG&quot;,9122]]],
+    USAGE[
+        SCOPE[&quot;Horizontal component of 3D system.&quot;],
+        AREA[&quot;World.&quot;],
+        BBOX[-90,-180,90,180]],
+    REMARK[&quot;Axis order reversed compared to EPSG:4326&quot;]]
 </code></pre>
 <p>An alternative representation of the WKT2 string - not yet official at
 the time of writing - is
@@ -593,7 +645,9 @@ below approach.</p>
 (for Windows: comes with) the minimal PROJ/GDAL versions that we want!</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sf::<span style="color:#0a0">sf_extSoftVersion</span>()
 </code></pre></div><pre><code>          GEOS           GDAL         proj.4 GDAL_with_GEOS     USE_PROJ_H 
-       &quot;3.9.0&quot;        &quot;3.2.1&quot;        &quot;7.2.1&quot;         &quot;true&quot;         &quot;true&quot; 
+      &quot;3.10.1&quot;        &quot;3.4.0&quot;        &quot;8.2.0&quot;         &quot;true&quot;         &quot;true&quot; 
+          PROJ 
+       &quot;8.2.0&quot; 
 </code></pre>
 <p>Good to go!</p>
 <h4 id="defining-a-crs-with-sf">Defining a CRS with <code>sf</code><a href="#defining-a-crs-with-sf" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
@@ -607,9 +661,17 @@ below approach.</p>
 <p>You can directly acces the <code>wkt</code> element of the <code>crs</code> object:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">cat</span>(crs_wgs84$wkt)
 </code></pre></div><pre><code>GEOGCRS[&quot;WGS 84&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
+    ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+        MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]]],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        ENSEMBLEACCURACY[2.0]],
     PRIMEM[&quot;Greenwich&quot;,0,
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     CS[ellipsoidal,2],
@@ -635,9 +697,17 @@ generally: the user’s CRS specification) and the WKT2 string:</li>
   User input: EPSG:4326 
   wkt:
 GEOGCRS[&quot;WGS 84&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
+    ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+        MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]]],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        ENSEMBLEACCURACY[2.0]],
     PRIMEM[&quot;Greenwich&quot;,0,
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     CS[ellipsoidal,2],
@@ -696,9 +766,17 @@ First 10 features:
   User input: EPSG:4326 
   wkt:
 GEOGCRS[&quot;WGS 84&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
+    ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+        MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G730)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G873)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;],
+        MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;],
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]]],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        ENSEMBLEACCURACY[2.0]],
     PRIMEM[&quot;Greenwich&quot;,0,
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
     CS[ellipsoidal,2],
@@ -729,8 +807,8 @@ further developed as much.</p>
 GDAL and PROJ, so let’s check whether <code>rgdal</code> uses (for Windows: comes
 with) the minimal PROJ/GDAL versions that we want.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rgdal::<span style="color:#0a0">rgdal_extSoftVersion</span>()
-</code></pre></div><pre><code>          GDAL GDAL_with_GEOS           PROJ             sp 
-       &quot;3.2.1&quot;         &quot;TRUE&quot;        &quot;7.2.1&quot;        &quot;1.4-5&quot; 
+</code></pre></div><pre><code>          GDAL GDAL_with_GEOS           PROJ             sp           EPSG 
+       &quot;3.4.0&quot;         &quot;TRUE&quot;        &quot;8.2.0&quot;        &quot;1.4-6&quot;      &quot;v10.038&quot; 
 </code></pre>
 <p>Okido.</p>
 <h4 id="defining-a-crs-with-sp">Defining a CRS with <code>sp</code><a href="#defining-a-crs-with-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
@@ -745,9 +823,25 @@ attr(,&quot;package&quot;)
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wkt_wgs84 &lt;- <span style="color:#0a0">wkt</span>(crs_wgs84)
 <span style="color:#0a0">cat</span>(wkt_wgs84)
 </code></pre></div><pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
+    ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+        MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;,
+            ID[&quot;EPSG&quot;,1166]],
+        MEMBER[&quot;World Geodetic System 1984 (G730)&quot;,
+            ID[&quot;EPSG&quot;,1152]],
+        MEMBER[&quot;World Geodetic System 1984 (G873)&quot;,
+            ID[&quot;EPSG&quot;,1153]],
+        MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;,
+            ID[&quot;EPSG&quot;,1154]],
+        MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;,
+            ID[&quot;EPSG&quot;,1155]],
+        MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;,
+            ID[&quot;EPSG&quot;,1156]],
+        MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;,
+            ID[&quot;EPSG&quot;,1309]],
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]],
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,7030]],
+        ENSEMBLEACCURACY[2.0],
         ID[&quot;EPSG&quot;,6326]],
     PRIMEM[&quot;Greenwich&quot;,0,
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
@@ -760,7 +854,12 @@ attr(,&quot;package&quot;)
         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-                ID[&quot;EPSG&quot;,9122]]]]
+                ID[&quot;EPSG&quot;,9122]]],
+    USAGE[
+        SCOPE[&quot;Horizontal component of 3D system.&quot;],
+        AREA[&quot;World.&quot;],
+        BBOX[-90,-180,90,180]],
+    REMARK[&quot;Axis order reversed compared to EPSG:4326&quot;]]
 </code></pre>
 <p>Also note that, when <em>printing</em> a <code>CRS</code> object of <code>sp</code> (e.g. by running
 <code>crs_wgs84</code>), you still just get a PROJ string! We won’t print it here!
@@ -772,18 +871,32 @@ without a CRS:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cities2 &lt;- cities
 <span style="color:#0a0">coordinates</span>(cities2) &lt;-  ~ X + Y
 </code></pre></div><p>Now, we can add a CRS:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">proj4string</span>(cities2) &lt;- crs_wgs84
-</code></pre></div><p>Note the name of the <code>proj4string&lt;-</code> replacement function in <code>sp</code>: it
-still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
-Maybe we’ll get another function in the future that cuts the link with
-the ‘proj4string’ name.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">slot</span>(cities2, <span style="color:#a50">&#34;proj4string&#34;</span>) &lt;- crs_wgs84
+</code></pre></div><p>Note the name of the <code>proj4string</code> slot in <code>cities2</code>: it still reminds
+of old days, but the result is GDAL3/PROJ≥6 compliant!</p>
 <h4 id="get-the-crs-of-a-spatial-object-in-sp">Get the CRS of a <code>Spatial*</code> object in <code>sp</code><a href="#get-the-crs-of-a-spatial-object-in-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>Again, use <code>wkt()</code>: it works on both <code>CRS</code> and <code>Spatial*</code> objects!</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">cat</span>(<span style="color:#0a0">wkt</span>(cities2))
 </code></pre></div><pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
-    DATUM[&quot;World Geodetic System 1984&quot;,
+    ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+        MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;,
+            ID[&quot;EPSG&quot;,1166]],
+        MEMBER[&quot;World Geodetic System 1984 (G730)&quot;,
+            ID[&quot;EPSG&quot;,1152]],
+        MEMBER[&quot;World Geodetic System 1984 (G873)&quot;,
+            ID[&quot;EPSG&quot;,1153]],
+        MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;,
+            ID[&quot;EPSG&quot;,1154]],
+        MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;,
+            ID[&quot;EPSG&quot;,1155]],
+        MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;,
+            ID[&quot;EPSG&quot;,1156]],
+        MEMBER[&quot;World Geodetic System 1984 (G2139)&quot;,
+            ID[&quot;EPSG&quot;,1309]],
         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
-            LENGTHUNIT[&quot;metre&quot;,1]],
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,7030]],
+        ENSEMBLEACCURACY[2.0],
         ID[&quot;EPSG&quot;,6326]],
     PRIMEM[&quot;Greenwich&quot;,0,
         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
@@ -796,7 +909,12 @@ the ‘proj4string’ name.</p>
         AXIS[&quot;geodetic latitude (Lat)&quot;,north,
             ORDER[2],
             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
-                ID[&quot;EPSG&quot;,9122]]]]
+                ID[&quot;EPSG&quot;,9122]]],
+    USAGE[
+        SCOPE[&quot;Horizontal component of 3D system.&quot;],
+        AREA[&quot;World.&quot;],
+        BBOX[-90,-180,90,180]],
+    REMARK[&quot;Axis order reversed compared to EPSG:4326&quot;]]
 </code></pre>
 <p>Et voilà!</p>
 <h3 id="raster-package"><code>raster</code> package<a href="#raster-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
@@ -851,8 +969,8 @@ formats.</p>
 <h4 id="get-the-crs-of-a-raster-object-in-raster">Get the CRS of a <code>Raster*</code> object in <code>raster</code><a href="#get-the-crs-of-a-raster-object-in-raster" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>It goes the same as in <code>sp</code>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">cat</span>(<span style="color:#0a0">wkt</span>(within_belgium1))
-</code></pre></div><pre><code>PROJCRS[&quot;Belge 1972 / Belgian Lambert 72&quot;,
-    BASEGEOGCRS[&quot;Belge 1972&quot;,
+</code></pre></div><pre><code>PROJCRS[&quot;BD72 / Belgian Lambert 72&quot;,
+    BASEGEOGCRS[&quot;BD72&quot;,
         DATUM[&quot;Reseau National Belge 1972&quot;,
             ELLIPSOID[&quot;International 1924&quot;,6378388,297,
                 LENGTHUNIT[&quot;metre&quot;,1]]],

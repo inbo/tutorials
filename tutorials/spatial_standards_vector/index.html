@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Mon Jan 31 08:11:13 UTC 2022</small></p>
+  <p><small>Built on: Tue Feb 1 10:50:37 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -340,7 +340,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-10 mins read
+9 mins read
 </span>
 
 
@@ -393,8 +393,7 @@ post</a> on this website.</p>
 publication, interoperability &amp; durability and to open science in
 general.</p>
 <p>The below table compares a few vector formats that are currently used a
-lot. This tutorial focuses on the open
-formats.</p>
+lot. This tutorial focuses on the open formats.</p>
 <table>
 <thead>
 <tr>
@@ -485,7 +484,7 @@ Conservation in Flanders (version <em>sac_2013-01-18</em>) from Zenodo:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># meeting a great function from the &#39;inborutils&#39; package:</span>
 <span style="color:#0a0">download_zenodo</span>(doi = <span style="color:#a50">&#34;10.5281/zenodo.3386815&#34;</span>)
 </code></pre></div><p><em>Did you know this: you can visit a website of this dataset by just
-prefixing the DOI [1] with <code>doi.org/</code>!</em></p>
+prefixing the DOI <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> with <code>doi.org/</code>!</em></p>
 <p>The data source is a shapefile, in this case consisting of 6 different
 files. Read the geospatial data into R as an <code>sf</code> object, and let’s just
 keep the essentials (though it doesn’t matter for the GeoPackage):</p>
@@ -498,12 +497,11 @@ keep the essentials (though it doesn’t matter for the GeoPackage):</p>
 </code></pre></div><p>Have a look at its contents by printing the object:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac
 </code></pre></div><pre><code>## Simple feature collection with 616 features and 4 fields
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
-## epsg (SRID):    NA
-## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
-## # A tibble: 616 x 5
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
+## Projected CRS: BD72 / Belgian Lambert 72
+## # A tibble: 616 × 5
 ##    sac_code  sac_name       subsac_code polygon_id                      geometry
 ##    &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;            &lt;int&gt;                 &lt;POLYGON [m]&gt;
 ##  1 BE2100020 Heesbossen, V… BE2100020-4          1 ((180272.3 243198.7, 180275.…
@@ -523,7 +521,7 @@ keep the essentials (though it doesn’t matter for the GeoPackage):</p>
 formats), which can be elegantly accessed through <code>sf::st_write()</code>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sac %&gt;% 
   <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>)
-</code></pre></div><pre><code>## Updating layer `sac' to data source `sac.gpkg' using driver `GPKG'
+</code></pre></div><pre><code>## Writing layer `sac' to data source `sac.gpkg' using driver `GPKG'
 ## Writing 616 features with 4 fields and geometry type Polygon.
 </code></pre>
 <p>Is that all?<br>
@@ -539,7 +537,8 @@ automatically called ‘sac’). For example:</p>
            layer = <span style="color:#a50">&#34;special_areas_conservation&#34;</span>,
            delete_dsn = <span style="color:#00a">TRUE</span>)
 </code></pre></div><pre><code>## Deleting source `sac.gpkg' using driver `GPKG'
-## Updating layer `special_areas_conservation' to data source `sac.gpkg' using driver `GPKG'
+## Writing layer `special_areas_conservation' to data source 
+##   `sac.gpkg' using driver `GPKG'
 ## Writing 616 features with 4 fields and geometry type Polygon.
 </code></pre>
 <p>Note, <code>delete_dsn</code> was set as <code>TRUE</code> to replace the whole GeoPackage.
@@ -552,19 +551,19 @@ the GeoPackage file:</p>
   <span style="color:#0a0">filter</span>(<span style="color:#0a0">str_detect</span>(sac_name, <span style="color:#a50">&#34;Turnhout&#34;</span>)) %&gt;% <span style="color:#aaa;font-style:italic"># only polygons having &#39;Turnhout&#39; in their name field</span>
   <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>,
            layer = <span style="color:#a50">&#34;turnhout&#34;</span>)
-</code></pre></div><pre><code>## Updating layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
+</code></pre></div><pre><code>## Writing layer `turnhout' to data source `sac.gpkg' using driver `GPKG'
 ## Writing 16 features with 4 fields and geometry type Polygon.
 </code></pre>
 <p>So yes, adding layers to a GeoPackage is done simply by <code>st_write()</code>
 again to the same GeoPackage file (by default, <code>delete_dsn</code> is <code>FALSE</code>),
 and defining the new layer’s name.</p>
 <p>So, which layers are available in the GeoPackage?</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gdalUtils::<span style="color:#0a0">ogrinfo</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>) %&gt;% 
-  <span style="color:#0a0">cat</span>(sep = <span style="color:#a50">&#34;\n&#34;</span>)
-</code></pre></div><pre><code>## INFO: Open of `sac.gpkg'
-##       using driver `GPKG' successful.
-## 1: special_areas_conservation (Polygon)
-## 2: turnhout (Polygon)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_layers</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>)
+</code></pre></div><pre><code>## Driver: GPKG 
+## Available layers:
+##                   layer_name geometry_type features fields
+## 1 special_areas_conservation       Polygon      616      4
+## 2                   turnhout       Polygon       16      4
 </code></pre>
 <p><em><strong>You see?</strong></em></p>
 <h3 id="reading-a-geopackage-file">Reading a GeoPackage file<a href="#reading-a-geopackage-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
@@ -572,13 +571,14 @@ and defining the new layer’s name.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># (note: the &#39;layer&#39; argument is unneeded if there&#39;s just one layer)</span>
 sac_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;sac.gpkg&#34;</span>,
                     layer = <span style="color:#a50">&#34;special_areas_conservation&#34;</span>)
-</code></pre></div><pre><code>## Reading layer `special_areas_conservation' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' using driver `GPKG'
+</code></pre></div><pre><code>## Reading layer `special_areas_conservation' from data source 
+##   `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/sac.gpkg' 
+##   using driver `GPKG'
 ## Simple feature collection with 616 features and 4 fields
-## geometry type:  POLYGON
-## dimension:      XY
-## bbox:           xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
-## epsg (SRID):    NA
-## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 22084.25 ymin: 153207.4 xmax: 258865 ymax: 243333
+## Projected CRS: BD72 / Belgian Lambert 72
 </code></pre>
 <p>Ready!</p>
 <p><code>st_read()</code> is a function of the great <code>sf</code> package – hence the result
@@ -601,24 +601,23 @@ an <code>sf</code> object and select a few attributes to work with:</p>
          source = BRON)
 </code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams
 </code></pre></div><pre><code>## Simple feature collection with 560 features and 2 fields
-## geometry type:  LINESTRING
-## dimension:      XY
-## bbox:           xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
-## epsg (SRID):    NA
-## proj4string:    +proj=lcc +lat_1=49.8333339 +lat_2=51.16666723333333 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.01256 +y_0=5400088.4378 +ellps=intl +units=m +no_defs
-## # A tibble: 560 x 3
-##    river_name    source                                                 geometry
-##    &lt;chr&gt;         &lt;chr&gt;                                          &lt;LINESTRING [m]&gt;
-##  1 WOLFPUTBEEK   VMM     (127857.1 167681.2, 127854.9 167684.5, 127844 167688.9…
-##  2 OUDE KALE     VMM     (95737.01 196912.9, 95732.82 196912.4, 95710.38 196907…
-##  3 VENLOOP       EcoInv  (169352.7 209314.9, 169358.8 209290.5, 169326.2 209283…
-##  4 VENLOOP       EcoInv  (169633.6 209293.5, 169625 209289.2, 169594.4 209321, …
-##  5 KLEINE NETE   EcoInv  (181087.1 208607.2, 181088.6 208608.1, 181089 208608.4…
-##  6 KLEINE NETE   EcoInv  (180037.4 208360.4, 180038.3 208377.5, 180038.3 208378…
-##  7 KLEINE NETE   EcoInv  (180520 208595.7, 180540.5 208607.4, 180541.2 208607.7…
-##  8 KLEINE NETE   EcoInv  (187379.9 209998.8, 187381.3 209998.5, 187381.6 209998…
-##  9 RAAMDONKSEBE… extrap… (183545.5 192409, 183541.9 192406.7, 183541.9 192403, …
-## 10 KLEINE NETE   EcoInv  (183516.4 208261.7, 183567.3 208279.2, 183567.3 208279…
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
+## Projected CRS: BD72 / Belgian Lambert 72
+## # A tibble: 560 × 3
+##    river_name     source                                                geometry
+##    &lt;chr&gt;          &lt;chr&gt;                                         &lt;LINESTRING [m]&gt;
+##  1 WOLFPUTBEEK    VMM      (127857.1 167681.2, 127854.9 167684.5, 127844 167688…
+##  2 OUDE KALE      VMM      (95737.01 196912.9, 95732.82 196912.4, 95710.38 1969…
+##  3 VENLOOP        EcoInv   (169352.7 209314.9, 169358.8 209290.5, 169326.2 2092…
+##  4 VENLOOP        EcoInv   (169633.6 209293.5, 169625 209289.2, 169594.4 209321…
+##  5 KLEINE NETE    EcoInv   (181087.1 208607.2, 181088.6 208608.1, 181089 208608…
+##  6 KLEINE NETE    EcoInv   (180037.4 208360.4, 180038.3 208377.5, 180038.3 2083…
+##  7 KLEINE NETE    EcoInv   (180520 208595.7, 180540.5 208607.4, 180541.2 208607…
+##  8 KLEINE NETE    EcoInv   (187379.9 209998.8, 187381.3 209998.5, 187381.6 2099…
+##  9 RAAMDONKSEBEEK extrapol (183545.5 192409, 183541.9 192406.7, 183541.9 192403…
+## 10 KLEINE NETE    EcoInv   (183516.4 208261.7, 183567.3 208279.2, 183567.3 2082…
 ## # … with 550 more rows
 </code></pre>
 <p>Nowadays, it is recommended to use the more recent and strict
@@ -628,12 +627,13 @@ post</a> on this tutorials website
 for a bit more background).</p>
 <p>The RFC7946 standard is well supported by GDAL’s GeoJSON driver, however
 GDAL must be given the explicit option <code>RFC7946=YES</code> in order to use it
-already [2].</p>
+already <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
 <p>Write the GeoJSON file as follows:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams %&gt;% 
   <span style="color:#0a0">st_write</span>(<span style="color:#a50">&#34;habitatstreams.geojson&#34;</span>,
            layer_options = <span style="color:#a50">&#34;RFC7946=YES&#34;</span>)
-</code></pre></div><pre><code>## Writing layer `habitatstreams' to data source `habitatstreams.geojson' using driver `GeoJSON'
+</code></pre></div><pre><code>## Writing layer `habitatstreams' to data source 
+##   `habitatstreams.geojson' using driver `GeoJSON'
 ## options:        RFC7946=YES 
 ## Writing 560 features with 2 fields and geometry type Line String.
 </code></pre>
@@ -650,9 +650,9 @@ already [2].</p>
 &quot;type&quot;: &quot;FeatureCollection&quot;,
 &quot;name&quot;: &quot;habitatstreams&quot;,
 &quot;features&quot;: [
-{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;WOLFPUTBEEK&quot;, &quot;source&quot;: &quot;VMM&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 4.0532635, 50.8196905 ], [ 4.0532327, 50.8197202 ], [ 4.0530778, 50.8197594 ], [ 4.0528708, 50.8199422 ], [ 4.052834, 50.8201498 ], [ 4.0528767, 50.8204559 ] ] } },
-{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;OUDE KALE&quot;, &quot;source&quot;: &quot;VMM&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 3.5931564, 51.0803318 ], [ 3.5930966, 51.0803266 ], [ 3.5927771, 51.0802782 ], [ 3.5926209, 51.080259 ], [ 3.5925707, 51.0802465 ], [ 3.5925106, 51.0802316 ], [ 3.592303, 51.0801396 ], [ 3.5921047, 51.0800302 ], [ 3.5920091, 51.0799694 ], [ 3.5919755, 51.0799432 ], [ 3.5919328, 51.07991 ], [ 3.5919165, 51.0798833 ] ] } },
-{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;VENLOOP&quot;, &quot;source&quot;: &quot;EcoInv&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 4.6443172, 51.1940245 ], [ 4.644403, 51.1938051 ], [ 4.6439364, 51.1937415 ], [ 4.6438717, 51.1936806 ], [ 4.6439146, 51.1934056 ] ] } },
+{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;WOLFPUTBEEK&quot;, &quot;source&quot;: &quot;VMM&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 4.05452, 50.8191468 ], [ 4.0544892, 50.8191765 ], [ 4.0543343, 50.8192157 ], [ 4.0541273, 50.8193985 ], [ 4.0540904, 50.8196061 ], [ 4.0541332, 50.8199122 ] ] } },
+{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;OUDE KALE&quot;, &quot;source&quot;: &quot;VMM&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 3.5944035, 51.0797983 ], [ 3.5943438, 51.0797931 ], [ 3.5940242, 51.0797446 ], [ 3.593868, 51.0797255 ], [ 3.5938178, 51.079713 ], [ 3.5937577, 51.0796981 ], [ 3.5935501, 51.0796061 ], [ 3.5933518, 51.0794966 ], [ 3.5932562, 51.0794359 ], [ 3.5932225, 51.0794097 ], [ 3.5931799, 51.0793764 ], [ 3.5931636, 51.0793498 ] ] } },
+{ &quot;type&quot;: &quot;Feature&quot;, &quot;properties&quot;: { &quot;river_name&quot;: &quot;VENLOOP&quot;, &quot;source&quot;: &quot;EcoInv&quot; }, &quot;geometry&quot;: { &quot;type&quot;: &quot;LineString&quot;, &quot;coordinates&quot;: [ [ 4.6455959, 51.1934881 ], [ 4.6456818, 51.1932687 ], [ 4.6452152, 51.1932051 ], [ 4.6451504, 51.1931441 ], [ 4.6451933, 51.1928692 ] ] } },
 </code></pre>
 <p>You can see it basically lists the feature attributes and the
 coordinates of the lines’ vertices, with each feature starting on a new
@@ -664,59 +664,61 @@ versioning systems) it seems wise to use GeoJSON for more simple cases –
 <strong>points and rather simple lines and polygons</strong> – and use the binary
 GeoPackage format for larger (more complex) cases.</p>
 <h3 id="reading-a-geojson-file">Reading a GeoJSON file<a href="#reading-a-geojson-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>Just do
-this:</p>
+<p>Just do this:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;habitatstreams.geojson&#34;</span>)
-</code></pre></div><pre><code>## Reading layer `habitatstreams' from data source `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/habitatstreams.geojson' using driver `GeoJSON'
+</code></pre></div><pre><code>## Reading layer `habitatstreams' from data source 
+##   `/media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_vector/habitatstreams.geojson' 
+##   using driver `GeoJSON'
 ## Simple feature collection with 560 features and 2 fields
-## geometry type:  LINESTRING
-## dimension:      XY
-## bbox:           xmin: 2.69742 ymin: 50.72875 xmax: 5.85425 ymax: 51.50032
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 2.698642 ymin: 50.7282 xmax: 5.855562 ymax: 51.49979
+## Geodetic CRS:  WGS 84
 </code></pre>
 <p>Same story as for the GeoPackage: other geospatial software will (or
 should) be able to open the GeoJSON format as well, as it’s an open and
 well established standard.</p>
-<p>From the message of <code>st_read()</code> you can see the CRS is WGS84
-(<a href="https://epsg.io/4326">EPSG-code 4326</a>) - this is always expected when
-reading a GeoJSON file.</p>
+<p>From the message of <code>st_read()</code> you can see the CRS is WGS84 (<a href="https://epsg.io/4326">EPSG-code
+4326</a>) - this is always expected when reading a
+GeoJSON file.</p>
 <p>If you want to transform the data to another CRS, e.g. Belgian Lambert
 72 (<a href="https://epsg.io/31370">EPSG-code 31370</a>), use <code>sf::st_transform()</code>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">habitatstreams_test %&gt;% 
   <span style="color:#0a0">st_transform</span>(<span style="color:#099">31370</span>)
 </code></pre></div><pre><code>## Simple feature collection with 560 features and 2 fields
-## geometry type:  LINESTRING
-## dimension:      XY
-## bbox:           xmin: 33013.71 ymin: 157590.5 xmax: 253945.9 ymax: 243502.9
-## epsg (SRID):    31370
-## proj4string:    +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
+## Geometry type: LINESTRING
+## Dimension:     XY
+## Bounding box:  xmin: 33097.92 ymin: 157529.6 xmax: 254039 ymax: 243444.6
+## Projected CRS: BD72 / Belgian Lambert 72
 ## First 10 features:
 ##        river_name   source                       geometry
-## 1     WOLFPUTBEEK      VMM LINESTRING (127768.8 167742...
-## 2       OUDE KALE      VMM LINESTRING (95650.24 196973...
-## 3         VENLOOP   EcoInv LINESTRING (169263.1 209374...
-## 4         VENLOOP   EcoInv LINESTRING (169544 209352.8...
-## 5     KLEINE NETE   EcoInv LINESTRING (180997 208666.5...
-## 6     KLEINE NETE   EcoInv LINESTRING (179947.3 208419...
-## 7     KLEINE NETE   EcoInv LINESTRING (180429.9 208655...
-## 8     KLEINE NETE   EcoInv LINESTRING (187289.6 210058...
-## 9  RAAMDONKSEBEEK extrapol LINESTRING (183455.2 192468...
-## 10    KLEINE NETE   EcoInv LINESTRING (183426.2 208321...
+## 1     WOLFPUTBEEK      VMM LINESTRING (127857.1 167681...
+## 2       OUDE KALE      VMM LINESTRING (95737.01 196912...
+## 3         VENLOOP   EcoInv LINESTRING (169352.7 209314...
+## 4         VENLOOP   EcoInv LINESTRING (169633.6 209293...
+## 5     KLEINE NETE   EcoInv LINESTRING (181087.1 208607...
+## 6     KLEINE NETE   EcoInv LINESTRING (180037.4 208360...
+## 7     KLEINE NETE   EcoInv LINESTRING (180519.9 208595...
+## 8     KLEINE NETE   EcoInv LINESTRING (187379.9 209998...
+## 9  RAAMDONKSEBEEK extrapol LINESTRING (183545.6 192409...
+## 10    KLEINE NETE   EcoInv LINESTRING (183516.4 208261...
 </code></pre>
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li>
-<p>DOI = Digital Object Identifier. See <a href="https://www.doi.org">https://www.doi.org</a>.</p>
+<li id="fn:1" role="doc-endnote">
+<p>DOI = Digital Object Identifier. See <a href="https://www.doi.org">https://www.doi.org</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li>
+<li id="fn:2" role="doc-endnote">
 <p>Though GeoJSON 2008 is
 <a href="http://geojson.org/geojson-spec.html">obsoleted</a>, the now
 recommended <a href="https://tools.ietf.org/html/rfc7946">RFC7946</a> standard
 is still officially in a <em>proposal</em> stage. That is probably the
 reason why GDAL does not yet default to RFC7946. A somehow confusing
-stage, it seems.</p>
+stage, it seems.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
+</section>
 </div>
 
   
