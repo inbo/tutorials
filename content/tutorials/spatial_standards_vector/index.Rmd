@@ -14,7 +14,6 @@ output:
 ```{r include = FALSE}
 library(knitr)
 library(googlesheets4)
-source("token_option.R")
 opts_chunk$set(
   echo = TRUE
 )
@@ -40,7 +39,8 @@ The below table compares a few vector formats that are currently used a lot.
 This tutorial focuses on the open formats.
 
 ```{r message=FALSE, echo=FALSE, warning=FALSE}
-sheets_read("15KVm87QvVis--vyCHa8EQBcXAeQ23M1oaCL_dENempk", 
+gs4_deauth()
+read_sheet("15KVm87QvVis--vyCHa8EQBcXAeQ23M1oaCL_dENempk", 
             sheet = "Vector",
             col_types = "c") %>% 
   kable(align = "lcccc")
@@ -121,8 +121,7 @@ So yes, adding layers to a GeoPackage is done simply by `st_write()` again to th
 So, which layers are available in the GeoPackage?
 
 ```{r}
-gdalUtils::ogrinfo("sac.gpkg") %>% 
-  cat(sep = "\n")
+st_layers("sac.gpkg")
 ```
 
 _**You see?**_

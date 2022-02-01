@@ -46,8 +46,42 @@ However it is highly recommended to read further about this, in order to better 
 A good contemporary resource in an R context is the section '_Coordinate reference systems: background_' in @bivand_ecs530_2019 (there is also an accompanying [video](https://www.youtube.com/watch?v=Rgn4Ns2UgAg&list=PLXUoTpMa_9s10NVk4dBQljNOaOXAOhcE0&index=4&t=0s) of that lesson).
 
 There are a few coordinated lists of CRSs around the globe, the most famous one being the [EPSG dataset](https://www.epsg.org), where each CRS has a unique _EPSG code_.
-You can consult these CRSs interactively at <https://epsg.org> (official source) and through third-party websites such as <http://epsg.io>.
+You can consult these CRSs interactively at <https://epsg.org> (official source) and through third-party websites such as <http://epsg.io> and <https://jjimenezshaw.github.io/crs-explorer>.
 For example, the 'World Geodetic System 1984' (WGS84) is a geodetic CRS with EPSG code `4326`, and 'Belge 1972 / Belgian Lambert 72' is a projected CRS with EPSG code `31370`.
+
+In R, you can also search for CRSs and EPSG codes since these are included in the PROJ database, used by R packages like `sf`.
+An example for Belgian CRSs:
+
+```{r include=FALSE, message=FALSE, warning=FALSE}
+proj_db_path <- 
+    file.path(
+      tail(try(system("projinfo --searchpaths", intern = TRUE),
+               silent = TRUE), 
+           1), 
+      "proj.db")
+```
+
+```{r}
+proj_db <- system.file("proj/proj.db", package = "sf")
+  # For dynamically linked PROJ, provide the path to proj.db yourself:
+  if (proj_db == "") proj_db <- proj_db_path
+crs_table <- sf::read_sf(proj_db, "crs_view") # extracts the "crs_view" table
+subset(crs_table, grepl("Belg|Ostend", name) & auth_name == "EPSG")[2:5]
+```
+
+
+<!-- ```{r} -->
+<!-- # showing relevant tables of proj.db: -->
+<!-- grep("crs", sf::st_layers(proj_db)$name, value = TRUE) -->
+<!-- ``` -->
+
+<!-- You can do this with the help of the `rgdal` package: -->
+
+<!-- ```{r} -->
+<!-- epsg_crs_table <- rgdal::make_EPSG()[, 1:2] -->
+<!-- subset(epsg_crs_table, grepl("Belg", note)) -->
+<!-- ``` -->
+
 
 ### How _did_ we represent a CRS in R? Evolutions in PROJ and GDAL.
 
@@ -308,11 +342,10 @@ coordinates(cities2) <-  ~ X + Y
 Now, we can add a CRS:
 
 ```{r}
-proj4string(cities2) <- crs_wgs84
+slot(cities2, "proj4string") <- crs_wgs84
 ```
 
-Note the name of the `proj4string<-` replacement function in `sp`: it still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
-Maybe we'll get another function in the future that cuts the link with the 'proj4string' name.
+Note the name of the `proj4string` slot in `cities2`: it still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
 
 
 #### Get the CRS of a `Spatial*` object in `sp`

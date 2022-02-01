@@ -53,9 +53,45 @@ There are a few coordinated lists of CRSs around the globe, the most
 famous one being the [EPSG dataset](https://www.epsg.org), where each
 CRS has a unique *EPSG code*. You can consult these CRSs interactively
 at <https://epsg.org> (official source) and through third-party websites
-such as <http://epsg.io>. For example, the ‘World Geodetic System 1984’
-(WGS84) is a geodetic CRS with EPSG code `4326`, and ‘Belge 1972 /
-Belgian Lambert 72’ is a projected CRS with EPSG code `31370`.
+such as <http://epsg.io> and
+<https://jjimenezshaw.github.io/crs-explorer>. For example, the ‘World
+Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code `4326`,
+and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
+`31370`.
+
+In R, you can also search for CRSs and EPSG codes since these are
+included in the PROJ database, used by R packages like `sf`. An example
+for Belgian CRSs:
+
+``` r
+proj_db <- system.file("proj/proj.db", package = "sf")
+  # For dynamically linked PROJ, provide the path to proj.db yourself:
+  if (proj_db == "") proj_db <- proj_db_path
+crs_table <- sf::read_sf(proj_db, "crs_view") # extracts the "crs_view" table
+subset(crs_table, grepl("Belg|Ostend", name) & auth_name == "EPSG")[2:5]
+```
+
+    # A tibble: 8 × 4
+      auth_name code  name                                          type     
+      <chr>     <chr> <chr>                                         <chr>    
+    1 EPSG      3447  ETRS89 / Belgian Lambert 2005                 projected
+    2 EPSG      3812  ETRS89 / Belgian Lambert 2008                 projected
+    3 EPSG      21500 BD50 (Brussels) / Belge Lambert 50            projected
+    4 EPSG      31300 BD72 / Belge Lambert 72                       projected
+    5 EPSG      31370 BD72 / Belgian Lambert 72                     projected
+    6 EPSG      5710  Ostend height                                 vertical 
+    7 EPSG      6190  BD72 / Belgian Lambert 72 + Ostend height     compound 
+    8 EPSG      8370  ETRS89 / Belgian Lambert 2008 + Ostend height compound 
+
+<!-- ```{r} -->
+<!-- # showing relevant tables of proj.db: -->
+<!-- grep("crs", sf::st_layers(proj_db)$name, value = TRUE) -->
+<!-- ``` -->
+<!-- You can do this with the help of the `rgdal` package: -->
+<!-- ```{r} -->
+<!-- epsg_crs_table <- rgdal::make_EPSG()[, 1:2] -->
+<!-- subset(epsg_crs_table, grepl("Belg", note)) -->
+<!-- ``` -->
 
 ### How *did* we represent a CRS in R? Evolutions in PROJ and GDAL.
 
@@ -130,9 +166,25 @@ refer to it as WKT.[^5]
 For example, this is the WKT2 string for WGS84:
 
     GEOGCRS["WGS 84 (with axis order normalized for visualization)",
-        DATUM["World Geodetic System 1984",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)",
+                ID["EPSG",1166]],
+            MEMBER["World Geodetic System 1984 (G730)",
+                ID["EPSG",1152]],
+            MEMBER["World Geodetic System 1984 (G873)",
+                ID["EPSG",1153]],
+            MEMBER["World Geodetic System 1984 (G1150)",
+                ID["EPSG",1154]],
+            MEMBER["World Geodetic System 1984 (G1674)",
+                ID["EPSG",1155]],
+            MEMBER["World Geodetic System 1984 (G1762)",
+                ID["EPSG",1156]],
+            MEMBER["World Geodetic System 1984 (G2139)",
+                ID["EPSG",1309]],
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]],
+                LENGTHUNIT["metre",1],
+                ID["EPSG",7030]],
+            ENSEMBLEACCURACY[2.0],
             ID["EPSG",6326]],
         PRIMEM["Greenwich",0,
             ANGLEUNIT["degree",0.0174532925199433],
@@ -145,7 +197,12 @@ For example, this is the WKT2 string for WGS84:
             AXIS["geodetic latitude (Lat)",north,
                 ORDER[2],
                 ANGLEUNIT["degree",0.0174532925199433,
-                    ID["EPSG",9122]]]]
+                    ID["EPSG",9122]]],
+        USAGE[
+            SCOPE["Horizontal component of 3D system."],
+            AREA["World."],
+            BBOX[-90,-180,90,180]],
+        REMARK["Axis order reversed compared to EPSG:4326"]]
 
 An alternative representation of the WKT2 string - not yet official at
 the time of writing - is
@@ -270,7 +327,9 @@ sf::sf_extSoftVersion()
 ```
 
               GEOS           GDAL         proj.4 GDAL_with_GEOS     USE_PROJ_H 
-           "3.9.0"        "3.2.1"        "7.2.1"         "true"         "true" 
+          "3.10.1"        "3.4.0"        "8.2.0"         "true"         "true" 
+              PROJ 
+           "8.2.0" 
 
 Good to go!
 
@@ -299,9 +358,17 @@ cat(crs_wgs84$wkt)
 ```
 
     GEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)"],
+            MEMBER["World Geodetic System 1984 (G730)"],
+            MEMBER["World Geodetic System 1984 (G873)"],
+            MEMBER["World Geodetic System 1984 (G1150)"],
+            MEMBER["World Geodetic System 1984 (G1674)"],
+            MEMBER["World Geodetic System 1984 (G1762)"],
+            MEMBER["World Geodetic System 1984 (G2139)"],
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
+                LENGTHUNIT["metre",1]],
+            ENSEMBLEACCURACY[2.0]],
         PRIMEM["Greenwich",0,
             ANGLEUNIT["degree",0.0174532925199433]],
         CS[ellipsoidal,2],
@@ -330,9 +397,17 @@ crs_wgs84
       User input: EPSG:4326 
       wkt:
     GEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)"],
+            MEMBER["World Geodetic System 1984 (G730)"],
+            MEMBER["World Geodetic System 1984 (G873)"],
+            MEMBER["World Geodetic System 1984 (G1150)"],
+            MEMBER["World Geodetic System 1984 (G1674)"],
+            MEMBER["World Geodetic System 1984 (G1762)"],
+            MEMBER["World Geodetic System 1984 (G2139)"],
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
+                LENGTHUNIT["metre",1]],
+            ENSEMBLEACCURACY[2.0]],
         PRIMEM["Greenwich",0,
             ANGLEUNIT["degree",0.0174532925199433]],
         CS[ellipsoidal,2],
@@ -410,9 +485,17 @@ st_crs(cities2)
       User input: EPSG:4326 
       wkt:
     GEOGCRS["WGS 84",
-        DATUM["World Geodetic System 1984",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)"],
+            MEMBER["World Geodetic System 1984 (G730)"],
+            MEMBER["World Geodetic System 1984 (G873)"],
+            MEMBER["World Geodetic System 1984 (G1150)"],
+            MEMBER["World Geodetic System 1984 (G1674)"],
+            MEMBER["World Geodetic System 1984 (G1762)"],
+            MEMBER["World Geodetic System 1984 (G2139)"],
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]]],
+                LENGTHUNIT["metre",1]],
+            ENSEMBLEACCURACY[2.0]],
         PRIMEM["Greenwich",0,
             ANGLEUNIT["degree",0.0174532925199433]],
         CS[ellipsoidal,2],
@@ -451,8 +534,8 @@ with) the minimal PROJ/GDAL versions that we want.
 rgdal::rgdal_extSoftVersion()
 ```
 
-              GDAL GDAL_with_GEOS           PROJ             sp 
-           "3.2.1"         "TRUE"        "7.2.1"        "1.4-5" 
+              GDAL GDAL_with_GEOS           PROJ             sp           EPSG 
+           "3.4.0"         "TRUE"        "8.2.0"        "1.4-6"      "v10.038" 
 
 Okido.
 
@@ -480,9 +563,25 @@ cat(wkt_wgs84)
 ```
 
     GEOGCRS["WGS 84 (with axis order normalized for visualization)",
-        DATUM["World Geodetic System 1984",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)",
+                ID["EPSG",1166]],
+            MEMBER["World Geodetic System 1984 (G730)",
+                ID["EPSG",1152]],
+            MEMBER["World Geodetic System 1984 (G873)",
+                ID["EPSG",1153]],
+            MEMBER["World Geodetic System 1984 (G1150)",
+                ID["EPSG",1154]],
+            MEMBER["World Geodetic System 1984 (G1674)",
+                ID["EPSG",1155]],
+            MEMBER["World Geodetic System 1984 (G1762)",
+                ID["EPSG",1156]],
+            MEMBER["World Geodetic System 1984 (G2139)",
+                ID["EPSG",1309]],
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]],
+                LENGTHUNIT["metre",1],
+                ID["EPSG",7030]],
+            ENSEMBLEACCURACY[2.0],
             ID["EPSG",6326]],
         PRIMEM["Greenwich",0,
             ANGLEUNIT["degree",0.0174532925199433],
@@ -495,7 +594,12 @@ cat(wkt_wgs84)
             AXIS["geodetic latitude (Lat)",north,
                 ORDER[2],
                 ANGLEUNIT["degree",0.0174532925199433,
-                    ID["EPSG",9122]]]]
+                    ID["EPSG",9122]]],
+        USAGE[
+            SCOPE["Horizontal component of 3D system."],
+            AREA["World."],
+            BBOX[-90,-180,90,180]],
+        REMARK["Axis order reversed compared to EPSG:4326"]]
 
 Also note that, when *printing* a `CRS` object of `sp` (e.g. by running
 `crs_wgs84`), you still just get a PROJ string! We won’t print it here!
@@ -515,13 +619,11 @@ coordinates(cities2) <-  ~ X + Y
 Now, we can add a CRS:
 
 ``` r
-proj4string(cities2) <- crs_wgs84
+slot(cities2, "proj4string") <- crs_wgs84
 ```
 
-Note the name of the `proj4string<-` replacement function in `sp`: it
-still reminds of old days, but the result is GDAL3/PROJ≥6 compliant!
-Maybe we’ll get another function in the future that cuts the link with
-the ‘proj4string’ name.
+Note the name of the `proj4string` slot in `cities2`: it still reminds
+of old days, but the result is GDAL3/PROJ≥6 compliant!
 
 #### Get the CRS of a `Spatial*` object in `sp`
 
@@ -532,9 +634,25 @@ cat(wkt(cities2))
 ```
 
     GEOGCRS["WGS 84 (with axis order normalized for visualization)",
-        DATUM["World Geodetic System 1984",
+        ENSEMBLE["World Geodetic System 1984 ensemble",
+            MEMBER["World Geodetic System 1984 (Transit)",
+                ID["EPSG",1166]],
+            MEMBER["World Geodetic System 1984 (G730)",
+                ID["EPSG",1152]],
+            MEMBER["World Geodetic System 1984 (G873)",
+                ID["EPSG",1153]],
+            MEMBER["World Geodetic System 1984 (G1150)",
+                ID["EPSG",1154]],
+            MEMBER["World Geodetic System 1984 (G1674)",
+                ID["EPSG",1155]],
+            MEMBER["World Geodetic System 1984 (G1762)",
+                ID["EPSG",1156]],
+            MEMBER["World Geodetic System 1984 (G2139)",
+                ID["EPSG",1309]],
             ELLIPSOID["WGS 84",6378137,298.257223563,
-                LENGTHUNIT["metre",1]],
+                LENGTHUNIT["metre",1],
+                ID["EPSG",7030]],
+            ENSEMBLEACCURACY[2.0],
             ID["EPSG",6326]],
         PRIMEM["Greenwich",0,
             ANGLEUNIT["degree",0.0174532925199433],
@@ -547,7 +665,12 @@ cat(wkt(cities2))
             AXIS["geodetic latitude (Lat)",north,
                 ORDER[2],
                 ANGLEUNIT["degree",0.0174532925199433,
-                    ID["EPSG",9122]]]]
+                    ID["EPSG",9122]]],
+        USAGE[
+            SCOPE["Horizontal component of 3D system."],
+            AREA["World."],
+            BBOX[-90,-180,90,180]],
+        REMARK["Axis order reversed compared to EPSG:4326"]]
 
 Et voilà!
 
@@ -628,8 +751,8 @@ It goes the same as in `sp`:
 cat(wkt(within_belgium1))
 ```
 
-    PROJCRS["Belge 1972 / Belgian Lambert 72",
-        BASEGEOGCRS["Belge 1972",
+    PROJCRS["BD72 / Belgian Lambert 72",
+        BASEGEOGCRS["BD72",
             DATUM["Reseau National Belge 1972",
                 ELLIPSOID["International 1924",6378388,297,
                     LENGTHUNIT["metre",1]]],
