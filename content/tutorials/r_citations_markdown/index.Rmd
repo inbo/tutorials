@@ -149,6 +149,7 @@ The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.htm
 :   Locale to use in formatting citations.
     If this is not set, the locale is taken from the default-locale attribute of the CSL file.
     `en-US` is used if a locale is not specified in either the metadata or the CSL file.
+    The CSL style file of the Research Institute for Nature and Forest has been specifically checked and tailored for three different languages: `lang: en`, `lang: nl` and `lang: fr`.
 
 `reference-section-title`
 
