@@ -564,7 +564,7 @@ Essentially we are dealing with a different projected CRS than
 `EPSG:31370`. `EPSG:28992` uses the ‘Amersfoort’ geodetic datum, defined
 using the ‘Bessel 1841’ ellipsoid, while `EPSG:31370` has the ‘Reseau
 National Belge 1972’ datum, defined using the ‘International 1924’
-ellipsoid.[1]
+ellipsoid.[^1]
 
 We will transform `points` (back) to `EPSG:31370` since the data are
 outside the intended area of usage. Note that this dataset has been made
@@ -755,7 +755,7 @@ union of the source and target CRS’s bounding box, appears to be just
 one pipeline with so-called [ballpark
 accuracy](https://proj.org/glossary.html#term-Ballpark-transformation).
 It’s obtained by dropping the `--spatial-test intersects` option (or
-replacing `intersects` by `contains`, which is default)[2], and so it
+replacing `intersects` by `contains`, which is default)[^2], and so it
 matches the pipeline where `accuracy` equals `NA` in our `pipelines`
 dataframe:
 
@@ -958,18 +958,18 @@ Software 84 (1): 1–39. <https://doi.org/10.18637/jss.v084.i06>.
 
 </div>
 
-[1] Note that several European countries, including Belgium, now provide
-national projected CRSs that use the common ETRS89 datum (European
-Terrestrial Reference System 1989). An example is the Belgian CRS
-`EPSG:3812` (ETRS89 / Belgian Lambert 2008).
+[^1]: Note that several European countries, including Belgium, now
+    provide national projected CRSs that use the common ETRS89 datum
+    (European Terrestrial Reference System 1989). An example is the
+    Belgian CRS `EPSG:3812` (ETRS89 / Belgian Lambert 2008).
 
-[2] In the documentation of `projinfo`, we can read about the
-`--spatial-test` option: ‘*Specify how the area of use of coordinate
-operations found in the database are compared to the area of use
-specified explicitly with `--area` or `--bbox`, or derived implicitly
-from the area of use of the source and target CRS. By default, projinfo
-will only keep coordinate operations whose are of use is strictly within
-the area of interest (**contains** strategy). If using the
-**intersects** strategy, the spatial test is relaxed, and any coordinate
-operation whose area of use at least partly intersects the area of
-interest is listed.*’
+[^2]: In the documentation of `projinfo`, we can read about the
+    `--spatial-test` option: ‘*Specify how the area of use of coordinate
+    operations found in the database are compared to the area of use
+    specified explicitly with `--area` or `--bbox`, or derived
+    implicitly from the area of use of the source and target CRS. By
+    default, projinfo will only keep coordinate operations whose area of
+    use is strictly within the area of interest (**contains** strategy).
+    If using the **intersects** strategy, the spatial test is relaxed,
+    and any coordinate operation whose area of use at least partly
+    intersects the area of interest is listed.*’
