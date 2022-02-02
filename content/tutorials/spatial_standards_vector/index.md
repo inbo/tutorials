@@ -207,7 +207,7 @@ GeoPackage format. It is an open standard, after all!
 ### Making a GeoJSON file from a geospatial `sf` object in R
 
 As another example, let’s download a shapefile of stream habitat 3260 in
-Flanders (version *2018*):
+Flanders (version 1.6):
 
 ``` r
 download_zenodo(doi = "10.5281/zenodo.3386246")
