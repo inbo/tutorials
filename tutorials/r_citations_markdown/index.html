@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Wed Feb 2 07:40:54 UTC 2022</small></p>
+  <p><small>Built on: Wed Feb 2 08:13:10 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -340,7 +340,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-9 mins read
+8 mins read
 </span>
 
 
@@ -377,48 +377,34 @@ Improve this page</a>
   
 
   <div class='container entry-content'><h1 id="enter-vme-mode">Enter VME mode<a href="#enter-vme-mode" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<p>With the advent of RStudio version 1.4+, working with bibliographies and
-citing documents in R Markdown has much improved. In this tutorial we
-focus on best practices to further ease the citation experience when
-working with R Markdown documents. We also give some guidelines specific
-to the Research Institute for Nature and Forest.</p>
+<p>With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.
+In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.
+We also give some guidelines specific to the Research Institute for Nature and Forest.</p>
 <p>More general tutorials can be found at the following web pages:</p>
 <ul>
-<li><a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html</a></li>
-<li><a href="https://rstudio.github.io/visual-markdown-editing/#/citations">https://rstudio.github.io/visual-markdown-editing/#/citations</a></li>
+<li><a href="https://pandoc.org/MANUAL.html#citations">https://pandoc.org/MANUAL.html#citations</a></li>
+<li><a href="https://rstudio.github.io/visual-markdown-editing/citations.html">https://rstudio.github.io/visual-markdown-editing/citations.html</a></li>
 </ul>
-<p>The latter webpage is part of the documentation about the Visual
-Markdown Editing (<strong>VME</strong>) mode that is available since RStudio 1.4+ as
-an alternative to writing R Markdown documents in source mode. VME is a
-what-you-see-is-what-you-get<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> interface for interacting with R
-Markdown. This interface is similar to writing documents in word
-processing software (google docs, MS Word, …). Moreover, the VME mode
-has more functionalities for citations than the source mode. To switch
-between source mode and VME, press the <img src="visual-mode-2x.png" alt=""> button :</p>
+<p>The latter webpage is part of the documentation about the Visual Markdown Editing (<strong>VME</strong>) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.
+VME is a what-you-see-is-what-you-get<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> interface for interacting with R Markdown.
+This interface is similar to writing documents in word processing software (google docs, MS Word, &hellip;).
+Moreover, the VME mode has more functionalities for citations than the source mode.
+To switch between source mode and VME, press the <img src="visual-mode-2x.png" alt=""> button
+:</p>
 <p><img src="button-position.png" alt=""></p>
-<p>In this tutorial, we assume you are familiar with the basics of <a href="https://bookdown.org/yihui/rmarkdown/">R
-Markdown</a> or
-<a href="https://bookdown.org/yihui/bookdown/">Bookdown</a>.</p>
+<p>In this tutorial, we assume you are familiar with the basics of <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown</a> or <a href="https://bookdown.org/yihui/bookdown/">Bookdown</a>.</p>
 <h1 id="preparing-your-r-markdown-document-to-work-with-citations">Preparing your R Markdown document to work with citations<a href="#preparing-your-r-markdown-document-to-work-with-citations" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<p>There are various places where you can specify things that impact
-working with citations. The most important are specifications you can
-provide in the YAML header of your R Markdown document. Next to that,
-the RStudio global and project options provide some additional settings.</p>
+<p>There are various places where you can specify things that impact working with citations.
+The most important are specifications you can provide in the YAML header of your R Markdown document.
+Next to that, the RStudio global and project options provide some additional settings.</p>
 <h2 id="document-level-specifications-yaml-header-specifications">Document level specifications (YAML header specifications)<a href="#document-level-specifications-yaml-header-specifications" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="specifying-a-bibliography">Specifying a bibliography<a href="#specifying-a-bibliography" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>You can specify one or more bibliography files with the <code>bibliography</code>
-argument in a number of formats, including the most commonly used
-formats at the Research Institute for Nature and Forest: CSL-JSON,
-CSL-YAML, BibTex and EndNote.</p>
-<p>We strongly recommend however to <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">use CSL-JSON or
-CSL-YAML</a>,
-since CSL is the native format for Pandoc.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> All other bibliographic
-formats are internally converted to CSL-JSON, but with the exception of
-CSL-YAML this can in general not be perfect. Compared to CSL-JSON,
-Pandoc’s CSL-YAML has identical contents while having the most
-human-friendly syntax.
-<a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL-JSON</a>
-is the formal standard supported by all CSL processors<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> .</p>
+<p>You can specify one or more bibliography files with the <code>bibliography</code> argument in a number of formats, including the most commonly used formats at the Research Institute for Nature and Forest: CSL-JSON, CSL-YAML, BibTex and EndNote.</p>
+<p>We strongly recommend however to <a href="https://pandoc.org/MANUAL.html#citations">use CSL-JSON or CSL-YAML</a>, since CSL is the native format for Pandoc.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
+All other bibliographic formats are internally converted to CSL-JSON, but with the exception of CSL-YAML this can in general not be perfect.
+Compared to CSL-JSON, Pandoc&rsquo;s CSL-YAML has identical contents while having the most human-friendly syntax.
+<a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL-JSON</a> is the formal standard supported by all CSL processors<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>
+.</p>
 <p>Some example specifications:</p>
 <pre><code>---
 author: Research Institute for Nature and Forest
@@ -426,24 +412,17 @@ date: '`r format(Sys.Date())`'
 bibliography: references.yaml
 ---
 </code></pre>
-<p>Note that it is not even necessary at this stage that the bibliography
-file exists. It is possible to just give it a name and <a href="#citing-documents">start adding
-citations in VME mode</a>. When the first citation is
-inserted, for instance from a linked Zotero database, the file will be
-automatically created and the reference will be added to the file.</p>
-<p>For users of Endnote, we recommend to export selected references to
-BibTeX format (as far as we know, it is not possible to export to
-CSL-JSON format). To do this:</p>
+<p>Note that it is not even necessary at this stage that the bibliography file exists.
+It is possible to just give it a name and <a href="#citing-documents">start adding citations in VME mode</a>.
+When the first citation is inserted, for instance from a linked Zotero database, the file will be automatically created and the reference will be added to the file.</p>
+<p>For users of Endnote, we recommend to export selected references to BibTeX format (as far as we know, it is not possible to export to CSL-JSON format).
+To do this:</p>
 <ul>
-<li>Edit -&gt; Output Styles -&gt; Open style manager and check the
-BibTex Export entry</li>
-<li>make sure that BibTex Export is checked in the Edit -&gt; Output
-styles menu as well</li>
-<li>File -&gt; Export, select Text file from the file type dropdown menu
-and save the file as <code>&lt;filename&gt;.bibtex</code></li>
+<li>Edit -&gt; Output Styles -&gt; Open style manager and check the BibTex Export entry</li>
+<li>make sure that BibTex Export is checked in the Edit -&gt; Output styles menu as well</li>
+<li>File -&gt; Export, select Text file from the file type dropdown menu and save the file as <code>&lt;filename&gt;.bibtex</code></li>
 </ul>
-<p>We recommend to only include references in the bibliography file that
-are cited in the document.</p>
+<p>We recommend to only include references in the bibliography file that are cited in the document.</p>
 <pre><code>---
 author: Research Institute for Nature and Forest
 date: '`r format(Sys.Date())`'
@@ -454,12 +433,10 @@ bibliography:
 </code></pre>
 <h3 id="specifying-a-citation-style">Specifying a citation style<a href="#specifying-a-citation-style" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>The Research Institute for Nature and Forest has its own citation style.
-There is a separate <a href="../style_inbo_bibliography/">tutorial</a> that shows
-how to use this style in various reference manager software.</p>
-<p>Specifying a citation style is done in the YAML header using the <code>csl</code>
-argument. The <code>csl</code> argument should be a path or URL to a CSL style
-file. To specify the style file for the Research Institute for Nature
-and Forest it is best to use the URL of the most up to date version:</p>
+There is a separate <a href="../style_inbo_bibliography/">tutorial</a> that shows how to use this style in various reference manager software.</p>
+<p>Specifying a citation style is done in the YAML header using the <code>csl</code> argument.
+The <code>csl</code> argument should be a path or URL to a CSL style file.
+To specify the style file for the Research Institute for Nature and Forest it is best to use the URL of the most up to date version:</p>
 <pre><code>---
 author: Research Institute for Nature and Forest
 date: '`r format(Sys.Date())`'
@@ -468,62 +445,52 @@ csl: https://raw.githubusercontent.com/citation-style-language/styles/master/res
 ---
 </code></pre>
 <h3 id="other-yaml-citation-arguments">Other YAML citation arguments<a href="#other-yaml-citation-arguments" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>The <a href="https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1">ymlthis field
-guide</a>,
-<a href="https://pandoc.org/MANUAL.html#other-relevant-metadata-fields">Pandoc</a>
-&amp; associated
-<a href="https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md">citeproc</a>
-documentation and <a href="https://rstudio.github.io/visual-markdown-editing/#/citations">RStudio VME citations
-section</a>
-mention the following useful arguments:</p>
+<p>The <a href="https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1">ymlthis field guide</a>, <a href="https://pandoc.org/MANUAL.html#other-relevant-metadata-fields">Pandoc</a> &amp; associated <a href="https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md">citeproc</a> documentation and <a href="https://rstudio.github.io/visual-markdown-editing/citations.html">RStudio VME citations section</a> mention the following useful arguments:</p>
 <dl>
 <dt><code>citation-abbreviations</code></dt>
 <dd>
-<p>Path to a CSL abbreviations JSON file, which can be used to
-translate from full journal titles to abbreviated journal titles.
-Examples of such files can be found
-<a href="https://github.com/citation-style-language/abbreviations">here</a>.</p>
+<p>Path to a CSL abbreviations JSON file, which can be used to translate from full journal titles to abbreviated journal titles.
+Examples of such files can be found <a href="https://github.com/citation-style-language/abbreviations">here</a>.</p>
 </dd>
 <dt><code>link-citations</code></dt>
 <dd>
-<p>Logical. Add citations hyperlinks to the corresponding bibliography
-entries? Default is <code>false</code>.</p>
+<p>Logical.
+Add citations hyperlinks to the corresponding bibliography entries?
+Default is <code>false</code>.</p>
 </dd>
 <dt><code>nocite</code></dt>
 <dd>
-<p>Citation IDs (<code>@item1</code>) to include in the bibliography even if they
-are not cited in the document. Including the wildcard pattern <code>@*</code>
-will include all citations in the bibliography regardless of whether
-they are cited in the document.</p>
+<p>Citation IDs (<code>@item1</code>) to include in the bibliography even if they are not cited in the document.
+Including the wildcard pattern <code>@*</code> will include all citations in the bibliography regardless of whether they are cited in the document.</p>
 </dd>
 <dt><code>suppress-bibliography</code></dt>
 <dd>
-<p>Logical. Suppress bibliography? Default is <code>false</code>.</p>
+<p>Logical.
+Suppress bibliography?
+Default is <code>false</code>.</p>
 </dd>
 <dt><code>lang</code></dt>
 <dd>
-<p>Locale to use in formatting citations. If this is not set, the
-locale is taken from the default-locale attribute of the CSL file.
-<code>en-US</code> is used if a locale is not specified in either the metadata
-or the CSL file.</p>
+<p>Locale to use in formatting citations.
+If this is not set, the locale is taken from the default-locale attribute of the CSL file.
+<code>en-US</code> is used if a locale is not specified in either the metadata or the CSL file.
+The CSL style file of the Research Institute for Nature and Forest has been specifically checked and tailored for three different languages: <code>lang: en</code>, <code>lang: nl</code> and <code>lang: fr</code>.</p>
 </dd>
 <dt><code>reference-section-title</code></dt>
 <dd>
-<p>If this has a value, a section header with this title will be added
-before the bibliography. If <code>reference-section-title</code> is not
-specified and the document ends with a section header, this final
-header will be treated as the bibliography header.</p>
+<p>If this has a value, a section header with this title will be added before the bibliography.
+If <code>reference-section-title</code> is not specified and the document ends with a section header, this final header will be treated as the bibliography header.</p>
 </dd>
 <dt><code>zotero</code></dt>
 <dd>
-<p>Specify one or more Zotero libraries. Or <code>false</code> to turn of Zotero
-library entirely.</p>
+<p>Specify one or more Zotero libraries.
+Or <code>false</code> to turn of Zotero library entirely.</p>
 </dd>
 </dl>
 <p>Here is an example of a valid YAML with all citation arguments:</p>
 <pre><code>---
 author: Research Institute for Nature and Forest
-date: '2021-07-08'
+date: '2022-02-02'
 bibliography: ref.json
 csl: https://raw.githubusercontent.com/citation-style-language/styles/master/research-institute-for-nature-and-forest.csl
 citation-abbreviations: abbreviations.json
@@ -537,20 +504,17 @@ zotero: true
 ---
 </code></pre>
 <h2 id="rstudio-project-and-global-options">Rstudio project and global options<a href="#rstudio-project-and-global-options" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>The project options allow you to select a Zotero reference manager
-library or libraries for the RStudio project you are working in. The
-default will detect your local Zotero library. It is also possible to
-point to other libraries, which can include a <a href="https://rstudio.github.io/visual-markdown-editing/#/citations?id=group-libraries">group
-library</a>
-that is shared among co-workers.</p>
+<p>The project options allow you to select a Zotero reference manager library or libraries for the RStudio project you are working in.
+The default will detect your local Zotero library.
+It is also possible to point to other libraries, which can include a <a href="https://rstudio.github.io/visual-markdown-editing/#/citations?id=group-libraries">group library</a> that is shared among co-workers.</p>
 <p><img src="project-options.png" alt=""></p>
-<p>The global options are more or less the same as the project options but
-will apply to all your RStudio projects. The defaults are OK.</p>
+<p>The global options are more or less the same as the project options but will apply to all your RStudio projects.
+The defaults are OK.</p>
 <p><img src="global-options.png" alt=""></p>
 <h1 id="citing-documents">Citing documents<a href="#citing-documents" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <h2 id="syntax">Syntax<a href="#syntax" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>The following Markdown syntax is used to refer to documents. It is based
-on citation keys and the basic building block is <code>@citationkey</code>.</p>
+<p>The following Markdown syntax is used to refer to documents.
+It is based on citation keys and the basic building block is <code>@citationkey</code>.</p>
 <table>
 <thead>
 <tr>
@@ -560,20 +524,20 @@ on citation keys and the basic building block is <code>@citationkey</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>@adams1975</code> concludes that …</td>
-<td><a href="#ref-adams1975">Adams</a> (<a href="#ref-adams1975">1975</a>) concludes that …</td>
+<td><code>@adams1975</code> concludes that &hellip;</td>
+<td><a href="#ref-adams1975">Adams</a> (<a href="#ref-adams1975">1975</a>) concludes that &hellip;</td>
 </tr>
 <tr>
-<td><code>@adams1975[p.33]</code> concludes that …</td>
-<td><a href="#ref-adams1975">Adams</a> (<a href="#ref-adams1975">1975, p. 33</a>) concludes that …</td>
+<td><code>@adams1975[p.33]</code> concludes that &hellip;</td>
+<td><a href="#ref-adams1975">Adams</a> (<a href="#ref-adams1975">1975, p. 33</a>) concludes that &hellip;</td>
 </tr>
 <tr>
-<td>… end of sentence <code>[@adams1975]</code>.</td>
-<td>… end of sentence (<a href="#ref-adams1975">Adams, 1975</a>).</td>
+<td>&hellip; end of sentence <code>[@adams1975]</code>.</td>
+<td>&hellip; end of sentence (<a href="#ref-adams1975">Adams, 1975</a>).</td>
 </tr>
 <tr>
-<td>… end of sentence <code>[see @adams1975,p.33]</code>.</td>
-<td>… end of sentence (see <a href="#ref-adams1975">Adams, 1975, p. 33</a>).</td>
+<td>&hellip; end of sentence <code>[see @adams1975,p.33]</code>.</td>
+<td>&hellip; end of sentence (see <a href="#ref-adams1975">Adams, 1975, p. 33</a>).</td>
 </tr>
 <tr>
 <td>delineate multiple authors with colon: <code>[@adams1975; @aberdeen1958]</code></td>
@@ -582,20 +546,16 @@ on citation keys and the basic building block is <code>@citationkey</code>.</p>
 </tbody>
 </table>
 <h2 id="insert-a-citation">Insert a citation<a href="#insert-a-citation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>You can either type the syntax in source mode, or use the insert
-citation button in VME mode. Using the VME mode has multiple benefits:</p>
+<p>You can either type the syntax in source mode, or use the insert citation button in VME mode.
+Using the VME mode has multiple benefits:</p>
 <ul>
 <li>
-<p>autocompletion: typing <code>@</code> will automatically show a list of
-available references</p>
+<p>autocompletion: typing <code>@</code> will automatically show a list of available references</p>
 </li>
 <li>
-<p>searching and inserting references using one of the following
-methods (from the menu: Insert -&gt; Citation; or shortcut
-CTRL+SHIFT+F8)</p>
+<p>searching and inserting references using one of the following methods (from the menu: Insert -&gt; Citation; or shortcut CTRL+SHIFT+F8)</p>
 <ul>
-<li>From the bibliography or bibliographies referred to in the YAML
-header’s <code>bibliography</code> field</li>
+<li>From the bibliography or bibliographies referred to in the YAML header&rsquo;s <code>bibliography</code> field</li>
 <li>From a Zotero library</li>
 <li>From DOI</li>
 <li>Crossref</li>
@@ -604,50 +564,33 @@ header’s <code>bibliography</code> field</li>
 </ul>
 </li>
 </ul>
-<p>This means that the Zotero reference manager is highly recommended when
-you want to work smoothly with citations in R Markdown. This reference
-manager also integrates nicely with other word processing software such
-as MS Word and Googledocs.</p>
+<p>This means that the Zotero reference manager is highly recommended when you want to work smoothly with citations in R Markdown.
+This reference manager also integrates nicely with other word processing software such as MS Word and Googledocs.</p>
 <p><img src="insert-citation.png" alt=""></p>
 <h2 id="citing-r-and-r-packages">Citing R and R packages<a href="#citing-r-and-r-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>The <code>knitr::write_bib()</code> function comes in handy if you need to cite R
-packages. The first argument accepts a character vector of R package
-names and the second argument can be used to specify a <code>packages.bib</code>
-file to which the BibTex entries will be written.</p>
+<p>The <code>knitr::write_bib()</code> function comes in handy if you need to cite R packages.
+The first argument accepts a character vector of R package names and the second argument can be used to specify a <code>packages.bib</code> file to which the BibTex entries will be written.</p>
 <p>For instance:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># to cite specific packages</span>
 knitr::<span style="color:#0a0">write_bib</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#34;base&#34;</span>, <span style="color:#a50">&#34;bookdown&#34;</span>, <span style="color:#a50">&#34;rmarkdown&#34;</span>), <span style="color:#a50">&#34;packages.bib&#34;</span>)
-</code></pre></div><p>… allows us to cite <a href="#ref-R-base">R Core Team</a> (<a href="#ref-R-base">2021</a>),
-<a href="#ref-R-bookdown">Xie</a> (<a href="#ref-R-bookdown">2021</a>) and <a href="#ref-R-rmarkdown">Allaire <em>et
-al.</em></a> (<a href="#ref-R-rmarkdown">2021</a>) if we add
-<code>packages.bib</code> to the bibliography YAML field.</p>
+</code></pre></div><p>&hellip; allows us to cite @R-base, @R-bookdown and @R-rmarkdown if we add <code>packages.bib</code> to the bibliography YAML field.</p>
 <h1 id="bibliography-placement">Bibliography placement<a href="#bibliography-placement" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <p>By default, the bibliography will be placed at the end of the document.
-So, you will want a final header titled <code># References</code> or
-<code># Bibliography</code> at the end your document. See also the
-<code>reference-section-title</code> field that we discussed in <a href="#other-yaml-citation-arguments">Other YAML
-citation arguments</a>.</p>
-<p>If you want to place the bibliography somewhere else, for instance
-before the appendices, you can insert a <code>div</code> html tag in source mode:</p>
+So, you will want a final header titled <code># References</code> or <code># Bibliography</code> at the end your document.
+See also the <code>reference-section-title</code> field that we discussed in <a href="#other-yaml-citation-arguments">Other YAML citation arguments</a>.</p>
+<p>If you want to place the bibliography somewhere else, for instance before the appendices, you can insert a <code>div</code> html tag in source mode:</p>
 <pre><code># References
 
 &lt;div id=&quot;refs&quot;&gt;&lt;/div&gt;
 
 # Appendix
 </code></pre>
-<p>If you use <a href="https://bookdown.org/yihui/bookdown/html.html#gitbook-style">the <code>bookdown::gitbook</code> output
-format</a>,
-further tweaks are possible. This format allows you to write a html
-report or book that consists of multiple html pages. You can for
-instance choose to split each chapter of a report into separate html
-pages. In that case, by default, the bibliography is split and all
-citation items that are cited on a given html page are put at the end of
-that page, so that readers do not have to navigate to a different
-bibliography page to see the details of citations. This feature can be
-disabled by setting the <code>split_bib</code> YAML field to FALSE, in which case
-all citations cited in the entire report or book are put on a separate
-bibliography page. To do this, you can add specific keys in the YAML
-header:</p>
+<p>If you use <a href="https://bookdown.org/yihui/bookdown/html.html#gitbook-style">the <code>bookdown::gitbook</code> output format</a>, further tweaks are possible.
+This format allows you to write a html report or book that consists of multiple html pages.
+You can for instance choose to split each chapter of a report into separate html pages.
+In that case, by default, the bibliography is split and all citation items that are cited on a given html page are put at the end of that page, so that readers do not have to navigate to a different bibliography page to see the details of citations.
+This feature can be disabled by setting the <code>split_bib</code> YAML field to FALSE, in which case all citations cited in the entire report or book are put on a separate bibliography page.
+To do this, you can add specific keys in the YAML header:</p>
 <pre><code>---
 author: Research Institute for Nature and Forest
 date: '`r format(Sys.Date())`'
@@ -671,63 +614,20 @@ Journal of Botany 6 (1): 47–58.
 Journal of Applied Ecology 12: 143&ndash;152.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<p>Allaire J., Xie Y., McPherson J., Luraschi J., Ushey K., Atkins A.,
-Wickham H., Cheng J., Chang W. &amp; Iannone R. (2021). Rmarkdown: Dynamic
-documents for r. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>R Core Team (2021). R: A language and environment for statistical
-computing. R Foundation for Statistical Computing, Vienna, Austria.
-<a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Xie Y. (2021). Bookdown: Authoring books and technical documents with r
-markdown. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>[1] Commonly abbreviated as
-<a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>, in contrast to
-<a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a>, of which plain
-Markdown (in RStudio source mode) is an example.</p>
-<p>[2] <a href="https://pandoc.org/">Pandoc</a> is the workhorse for converting
-markdown to a desired output (such as html).</p>
-<p>[3] A CSL processor is a piece of software to parse CSL styles, locale
-files, item metadata and citing details, and generate citations and
-bibliographies in the correct format.
-<a href="https://citationstyles.org/developers/#/csl-processors">Multiple</a> CSL
-processors are available for use in software. The reference
-implementation is the
-<a href="https://citeproc-js.readthedocs.io/en/latest/">citeproc-js</a> processor,
-which is implemented e.g. in Zotero and Mendeley; the citeproc-js
-project has also formulated the CSL-JSON standard. Pandoc, the document
-conversion software used by R Markdown, uses its own
-<a href="https://hackage.haskell.org/package/citeproc">citeproc</a> CSL processor.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Commonly abbreviated as
-<a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>, in contrast to
-<a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a>, of which plain
-Markdown (in RStudio source mode) is an example.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Commonly abbreviated as <a href="https://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a>, in contrast to <a href="https://en.wikipedia.org/wiki/WYSIWYM">WYSIWYM</a>, of which plain Markdown (in RStudio source mode) is an example.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p><a href="https://pandoc.org/">Pandoc</a> is the workhorse for converting
-markdown to a desired output (such as html).&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><a href="https://pandoc.org/">Pandoc</a> is the workhorse used by R Markdown for converting markdown to a desired output (such as html).&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>A CSL processor is a piece of software to parse CSL styles, locale
-files, item metadata and citing details, and generate citations and
-bibliographies in the correct format.
-<a href="https://citationstyles.org/developers/#/csl-processors">Multiple</a>
-CSL processors are available for use in software. The reference
-implementation is the
-<a href="https://citeproc-js.readthedocs.io/en/latest/">citeproc-js</a>
-processor, which is implemented e.g. in Zotero and Mendeley; the
-citeproc-js project has also formulated the CSL-JSON standard.
-Pandoc, the document conversion software used by R Markdown, uses
-its own <a href="https://hackage.haskell.org/package/citeproc">citeproc</a> CSL
-processor.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>A CSL processor is a piece of software to parse CSL styles, locale files, item metadata and citing details, and generate citations and bibliographies in the correct format.
+<a href="https://citationstyles.org/developers/#/csl-processors">Multiple</a> CSL processors are available for use in software.
+The reference implementation is the <a href="https://citeproc-js.readthedocs.io/en/latest/">citeproc-js</a> processor, which is implemented e.g. in Zotero and Mendeley; the citeproc-js project has also formulated the CSL-JSON standard.
+Pandoc, the document conversion software used by R Markdown, uses its own <a href="https://hackage.haskell.org/package/citeproc">citeproc</a> CSL processor.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
