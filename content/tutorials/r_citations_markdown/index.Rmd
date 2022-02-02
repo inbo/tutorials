@@ -70,7 +70,7 @@ Compared to CSL-JSON, Pandoc's CSL-YAML has identical contents while having the 
 [CSL-JSON](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html) is the formal standard supported by all CSL processors [^3]
 .
 
-[^2]: [Pandoc](https://pandoc.org/) is the workhorse for converting markdown to a desired output (such as html).
+[^2]: [Pandoc](https://pandoc.org/) is the workhorse used by R Markdown for converting markdown to a desired output (such as html).
 
 [^3]: A CSL processor is a piece of software to parse CSL styles, locale files, item metadata and citing details, and generate citations and bibliographies in the correct format.
     [Multiple](https://citationstyles.org/developers/#/csl-processors) CSL processors are available for use in software.
