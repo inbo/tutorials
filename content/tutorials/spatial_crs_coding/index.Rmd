@@ -360,15 +360,11 @@ Et voilà!
 
 ### `raster` package
 
-At the time of writing, you still needed the development version of `raster` for the below code to run.
-You can install the development version with: `remotes::install_github("rspatial/raster")`.
-If below code does not run with the CRAN version (usually obtained with `install.packages()`), use the development version.
-Further, be aware that a [`terra`](https://rspatial.org/terra/pkg/) package is in development as a successor to `raster`.
+Be aware that a [`terra`](https://rspatial.org/terra/pkg/) package has been recently created as a successor to `raster`.
 It is aimed at faster processing and it is _only_ compatible with GDAL3/PROJ≥6.
 
 As you will see, **[`raster`](https://rspatial.org/raster/pkg/)** more or less aligns with `sp`, although it has a few extras.
-For example: `raster` does not require the use of the `proj4string<-` replacement function to set the CRS.
-`raster` provides `crs<-`.
+For example: `raster` provides a `crs<-` replacement function to set the CRS.
 
 Let's make a dummy raster first, without CRS:
 
