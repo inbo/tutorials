@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Tue Feb 1 10:50:37 UTC 2022</small></p>
+  <p><small>Built on: Wed Feb 2 07:40:54 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -464,14 +464,14 @@ the Internet Society.</li>
 <strong><a href="https://tools.ietf.org/html/rfc7946">RFC7946</a></strong> is establishing.
 <ul>
 <li>This version is strict about the coordinate reference system
-(CRS) – it is always <a href="https://epsg.io/4326">WGS84</a> – and it also
-differs on a few other aspects (such as the recommendation for
-applications <a href="https://tools.ietf.org/html/rfc7946#section-11.2">not to
+(CRS) – it is always <a href="https://epsg.io/4326">WGS 84</a> – and it
+also differs on a few other aspects (such as the recommendation
+for applications <a href="https://tools.ietf.org/html/rfc7946#section-11.2">not to
 inflate</a>
 decimal coordinate precision).</li>
 <li>RFC7946 solves the problem that quite a few libraries –
-including GDAL – simply assumed WGS84 in GeoJSON 2008 (without
-checking or transforming), even though WGS84 was not a
+including GDAL – simply assumed WGS 84 in GeoJSON 2008 (without
+checking or transforming), even though WGS 84 was not a
 requirement of GeoJSON 2008 (it did support an explicit <em>crs</em>
 declaration). This resulted in inconveniences (cf. <a href="https://github.com/r-spatial/sf/issues/344#issue-229118527">this
 post</a>
@@ -484,7 +484,7 @@ the differences between both GeoJSON versions.</li>
 </li>
 <li>While GDAL by default still follows the GeoJSON 2008 format,<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>
 RFC7946 is supported by the option <code>RFC7946=YES</code>. Here, reprojection
-to WGS84 will happen automatically. It applies 7 decimal places for
+to WGS 84 will happen automatically. It applies 7 decimal places for
 coordinates, i.e. approximately 1 cm. Given the advantages, <em><strong>we
 advise to explicitly use RFC7946</strong></em>. Several functions in R allow
 the user to provide options that are passed to GDAL, so we can ask

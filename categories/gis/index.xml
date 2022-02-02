@@ -25,7 +25,7 @@ The tutorial assumes you have some pre-existing knowledge:
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
-      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system exist: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
+      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
     </item>
     
     <item>
@@ -34,7 +34,8 @@ The tutorial assumes you have some pre-existing knowledge:
       <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_standards_raster/</guid>
-      <description>General note: the way the raster package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ &amp;gt;= 6 versions. At the time of writing, it was necessary to use the current development version of raster (link). During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them.</description>
+      <description>During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code, but you can safely ignore them. For more information, see the CRS tutorial.
+This tutorial uses a few basic functions from the dplyr and raster packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.</description>
     </item>
     
     <item>

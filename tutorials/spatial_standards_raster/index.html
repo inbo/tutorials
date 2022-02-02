@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Tue Feb 1 10:50:37 UTC 2022</small></p>
+  <p><small>Built on: Wed Feb 2 07:40:54 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -376,10 +376,10 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'><p><em>General note: the way the <code>raster</code> package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ &gt;= 6 versions.</em>
-<em>At the time of writing, it was necessary to use the current development version of <code>raster</code> (<a href="https://github.com/rspatial/raster">link</a>).</em>
-<em>During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them.</em>
-<em>For more information, see the <a href="../spatial_crs_coding/">CRS tutorial</a>.</em></p>
+  <div class='container entry-content'><p><em>During the current transition period of supporting both old and new
+PROJ/GDAL, you may get a decent portion of proj4string-related warnings
+when running the below code, but you can safely ignore them.</em> <em>For more
+information, see the <a href="../spatial_crs_coding/">CRS tutorial</a>.</em></p>
 <p>This tutorial uses a few basic functions from the
 <a href="https://dplyr.tidyverse.org">dplyr</a> and
 <a href="https://rspatial.org/raster/pkg">raster</a> packages. While only a few
@@ -397,8 +397,7 @@ post</a> on this website.</p>
 publication, interoperability &amp; durability and to open science in
 general.</p>
 <p>The below table compares a few raster formats that are currently used a
-lot. This tutorial focuses on the open
-formats.</p>
+lot. This tutorial focuses on the open formats.</p>
 <table>
 <thead>
 <tr>
@@ -474,8 +473,8 @@ formats.</p>
 <h2 id="how-to-make-and-use-geotiff-files-tif">How to make and use GeoTIFF files (<code>*.tif</code>)<a href="#how-to-make-and-use-geotiff-files-tif" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="making-a-mono-layered-geotiff-file-from-a-rasterlayer-r-object">Making a mono-layered GeoTIFF file from a <code>RasterLayer</code> R object<a href="#making-a-mono-layered-geotiff-file-from-a-rasterlayer-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>Let’s create a small dummy <code>RasterLayer</code> object from scratch, for some
-area in Belgium (using the CRS [1] Belgian Lambert 72, i.e.
-<a href="https://epsg.io/31370">EPSG-code 31370</a>):</p>
+area in Belgium (using the CRS <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> Belgian Lambert 72, i.e. <a href="https://epsg.io/31370">EPSG-code
+31370</a>):</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">artwork &lt;- 
   <span style="color:#0a0">raster</span>(<span style="color:#0a0">extent</span>(<span style="color:#099">188500</span>, <span style="color:#099">190350</span>, <span style="color:#099">227550</span>, <span style="color:#099">229550</span>), <span style="color:#aaa;font-style:italic"># xmin, xmax, ymin, ymax</span>
          res = <span style="color:#099">50</span>, <span style="color:#aaa;font-style:italic"># resolution of 50 meters</span>
@@ -487,7 +486,7 @@ area in Belgium (using the CRS [1] Belgian Lambert 72, i.e.
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
 ## source     : memory
 ## names      : layer 
 ## values     : 0.0001557397, 0.9997439  (min, max)
@@ -503,8 +502,7 @@ driver of the powerful <a href="https://gdal.org">GDAL</a> library.</p>
 </code></pre></div><p>And now?<br>
 <em><strong>Say HURRAY!!</strong></em></p>
 <h3 id="making-a-multi-layered-geotiff-file-from-a-rasterbrick-r-object">Making a multi-layered GeoTIFF file from a <code>RasterBrick</code> R object<a href="#making-a-multi-layered-geotiff-file-from-a-rasterbrick-r-object" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>Let’s create a <code>RasterBrick</code> object of three
-layers:</p>
+<p>Let’s create a <code>RasterBrick</code> object of three layers:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">arts &lt;- <span style="color:#0a0">brick</span>(artwork) <span style="color:#aaa;font-style:italic"># RasterBrick with one layer (the RasterLayer from above)</span>
 arts[[2]] &lt;- artwork + <span style="color:#099">10</span> <span style="color:#aaa;font-style:italic"># Add second layer, e.g. based on first one</span>
 arts[[3]] &lt;- <span style="color:#0a0">calc</span>(arts[[2]], <span style="color:#0a0">function</span>(x) {<span style="color:#099">20</span> ^ x}) <span style="color:#aaa;font-style:italic"># Making third layer from second</span>
@@ -518,7 +516,7 @@ more efficient than simple algebraic expressions such as for layer2 (see
 ## dimensions : 40, 37, 1480, 3  (nrow, ncol, ncell, nlayers)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
 ## source     : memory
 ## names      :       layer1,       layer2,       layer3 
 ## min values : 1.557397e-04, 1.000016e+01, 1.024478e+13 
@@ -580,8 +578,8 @@ mynames &lt;- <span style="color:#0a0">names</span>(arts)
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/artwork.tif 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+## source     : artwork.tif 
 ## names      : artwork 
 ## values     : 0.0001557397, 0.9997439  (min, max)
 </code></pre>
@@ -603,8 +601,8 @@ arts_test
 ## dimensions : 40, 37, 1480, 23  (nrow, ncol, ncell, nlayers)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/arts.tif 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+## source     : arts.tif 
 ## names      :        layer1,        layer2,        layer3,    neg_layer1,    neg_layer2,    neg_layer3,    neg_layer4,    neg_layer5,    neg_layer6,    neg_layer7,    neg_layer8,    neg_layer9,   neg_layer10,   neg_layer11,   neg_layer12, ... 
 ## min values :  1.557397e-04,  1.000016e+01,  1.024478e+13, -9.997439e-01, -1.999488e+00, -2.999232e+00, -3.998976e+00, -4.998719e+00, -5.998463e+00, -6.998207e+00, -7.997951e+00, -8.997695e+00, -9.997439e+00, -1.099718e+01, -1.199693e+01, ... 
 ## max values :  9.997439e-01,  1.099974e+01,  2.046429e+14, -1.557397e-04, -3.114794e-04, -4.672192e-04, -6.229589e-04, -7.786986e-04, -9.344383e-04, -1.090178e-03, -1.245918e-03, -1.401657e-03, -1.557397e-03, -1.713137e-03, -1.868877e-03, ...
@@ -623,8 +621,8 @@ rasters:</p>
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/arts.tif 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+## source     : arts.tif 
 ## names      : neg_layer20 
 ## values     : -19.99488, -0.003114794  (min, max)
 </code></pre>
@@ -644,7 +642,7 @@ drivers for GeoTIFF or GPKG-vector (note that one GPKG file can
 accommodate both layer types). For example, only the <em>Byte, Int16,
 UInt16</em> and <em>Float32</em> datatypes can be written by GDAL, while for
 GeoTIFFs these are <em>Byte UInt16, Int16, UInt32, Int32, Float32, Float64,
-CInt16, CInt32, CFloat32</em> and <em>CFloat64</em> [2].</p>
+CInt16, CInt32, CFloat32</em> and <em>CFloat64</em> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
 <p>From my experience, raster GeoPackage files are smaller than GeoTIFF
 files in the case of larger rasters. This, and the capability to combine
 raster and vector layers, certainly make it worthwile to consider the
@@ -673,10 +671,10 @@ artwork_gpkg
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/artwork.gpkg 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+## source     : artwork.gpkg 
 ## names      : artwork 
-## values     : -3.4e+38, 0.9997439  (min, max)
+## values     : 0.0001557397, 0.9997439  (min, max)
 </code></pre>
 <p>Let’s make sure: are the data we’ve read from the GeoTIFF identical to
 those from the GeoPackage?</p>
@@ -694,7 +692,7 @@ Edzer Pebesma – the creator of <code>sf</code> – has also made the amazing p
 
 ## Loading required package: sf
 
-## Linking to GEOS 3.5.1, GDAL 2.2.2, PROJ 4.9.2
+## Linking to GEOS 3.10.1, GDAL 3.4.0, PROJ 8.2.0; sf_use_s2() is TRUE
 </code></pre>
 <p>We could as well have written <code>artwork</code> to a GeoPackage with <code>stars</code>, so
 let’s just see what we get by converting the <code>RasterLayer</code> object to a
@@ -713,7 +711,7 @@ artwork_gpkg_stars
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
 ## source     : memory
 ## names      : layer 
 ## values     : 0.0001557397, 0.9997439  (min, max)
@@ -736,7 +734,7 @@ raster layers (or vector + raster layers).</p>
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
 ## source     : memory
 ## names      : layer2 
 ## values     : 10.00016, 10.99974  (min, max)
@@ -765,8 +763,8 @@ GPKG-raster driver, and they’re documented <a href="https://gdal.org/drivers/r
 GDAL</a>.</p>
 <p>Over there we read:</p>
 <blockquote>
-<p>RASTER_TABLE=string. Name of tile user table. By default, based on
-the filename (i.e. if filename is foo.gpkg, the table will be called
+<p>RASTER_TABLE=string. Name of tile user table. By default, based on the
+filename (i.e. if filename is foo.gpkg, the table will be called
 “foo”).</p>
 <p>APPEND_SUBDATASET=YES/NO: If set to YES, an existing GeoPackage will
 not be priorly destroyed, such as to be able to add new content to it.
@@ -781,7 +779,6 @@ Thrilling!</p>
 </code></pre></div><pre><code>## Driver: GPKG/GeoPackage
 ## Files: artwork.gpkg
 ## Size is 512, 512
-## Coordinate System is `'
 ## Subdatasets:
 ##   SUBDATASET_1_NAME=GPKG:artwork.gpkg:artwork
 ##   SUBDATASET_1_DESC=artwork - artwork
@@ -809,26 +806,54 @@ extent are layer-specific:</p>
 ## Files: none associated
 ## Size is 37, 40
 ## Coordinate System is:
-## PROJCS[&quot;unnamed&quot;,
-##     GEOGCS[&quot;International 1909 (Hayford)&quot;,
-##         DATUM[&quot;unknown&quot;,
-##             SPHEROID[&quot;intl&quot;,6378388,297],
-##             TOWGS84[-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747]],
-##         PRIMEM[&quot;Greenwich&quot;,0],
-##         UNIT[&quot;degree&quot;,0.0174532925199433]],
-##     PROJECTION[&quot;Lambert_Conformal_Conic_2SP&quot;],
-##     PARAMETER[&quot;standard_parallel_1&quot;,51.16666723333333],
-##     PARAMETER[&quot;standard_parallel_2&quot;,49.8333339],
-##     PARAMETER[&quot;latitude_of_origin&quot;,90],
-##     PARAMETER[&quot;central_meridian&quot;,4.367486666666666],
-##     PARAMETER[&quot;false_easting&quot;,150000.013],
-##     PARAMETER[&quot;false_northing&quot;,5400088.438],
-##     UNIT[&quot;Meter&quot;,1]]
+## PROJCRS[&quot;BD72 / Belgian Lambert 72&quot;,
+##     BASEGEOGCRS[&quot;BD72&quot;,
+##         DATUM[&quot;Reseau National Belge 1972&quot;,
+##             ELLIPSOID[&quot;International 1924&quot;,6378388,297,
+##                 LENGTHUNIT[&quot;metre&quot;,1]]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##         ID[&quot;EPSG&quot;,4313]],
+##     CONVERSION[&quot;Belgian Lambert 72&quot;,
+##         METHOD[&quot;Lambert Conic Conformal (2SP)&quot;,
+##             ID[&quot;EPSG&quot;,9802]],
+##         PARAMETER[&quot;Latitude of false origin&quot;,90,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8821]],
+##         PARAMETER[&quot;Longitude of false origin&quot;,4.36748666666667,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8822]],
+##         PARAMETER[&quot;Latitude of 1st standard parallel&quot;,51.1666672333333,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8823]],
+##         PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,49.8333339,
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8824]],
+##         PARAMETER[&quot;Easting at false origin&quot;,150000.013,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8826]],
+##         PARAMETER[&quot;Northing at false origin&quot;,5400088.438,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8827]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;easting (X)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##         AXIS[&quot;northing (Y)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1]],
+##     USAGE[
+##         SCOPE[&quot;Engineering survey, topographic mapping.&quot;],
+##         AREA[&quot;Belgium - onshore.&quot;],
+##         BBOX[49.5,2.5,51.51,6.4]],
+##     ID[&quot;EPSG&quot;,31370]]
+## Data axis to CRS axis mapping: 1,2
 ## PROJ.4 string is:
-## '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs '
+## '+proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs'
 ## Origin = (188500.000000000000000,229550.000000000000000)
 ## Pixel Size = (50.000000000000000,-50.000000000000000)
 ## Metadata:
+##   AREA_OR_POINT=Point
 ##   IDENTIFIER=artwork
 ##   ZOOM_LEVEL=0
 ## Image Structure Metadata:
@@ -840,6 +865,7 @@ extent are layer-specific:</p>
 ## Lower Right (  190350.000,  227550.000) (  4d56'48.12&quot;E, 51d21'24.59&quot;N)
 ## Center      (  189425.000,  228550.000) (  4d56' 0.71&quot;E, 51d21'57.17&quot;N)
 ## Band 1 Block=256x256 Type=Float32, ColorInterp=Undefined
+##   Description = Height
 ##     Computed Min/Max=0.000,1.000
 ##   Minimum=0.000, Maximum=1.000, Mean=0.502, StdDev=0.289
 ##   Metadata:
@@ -847,6 +873,7 @@ extent are layer-specific:</p>
 ##     STATISTICS_MEAN=0.50228321918167
 ##     STATISTICS_MINIMUM=0.00015573971904814
 ##     STATISTICS_STDDEV=0.28903126880165
+##     STATISTICS_VALID_PERCENT=100
 </code></pre>
 <p><code>raster</code> will not help us for reading the layers. But <code>read_stars()</code> is
 there to assist us!!</p>
@@ -860,7 +887,7 @@ artwork_gpkg2
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
 ## source     : memory
 ## names      : layer 
 ## values     : 0.0001557397, 0.9997439  (min, max)
@@ -877,7 +904,7 @@ artwork_gpkg2
 ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
 ## resolution : 50, 50  (x, y)
 ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
 ## source     : memory
 ## names      : layer 
 ## values     : 10.00016, 10.99974  (min, max)
@@ -888,17 +915,13 @@ information similar to a <code>RasterBrick</code>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;artwork.gpkg&#34;</span>, quiet = <span style="color:#00a">TRUE</span>)
 </code></pre></div><pre><code>## stars object with 2 dimensions and 2 attributes
 ## attribute(s):
-##     artwork             layer2      
-##  Min.   :0.0001557   Min.   :10.00  
-##  1st Qu.:0.2475555   1st Qu.:10.25  
-##  Median :0.5052805   Median :10.51  
-##  Mean   :0.5022832   Mean   :10.50  
-##  3rd Qu.:0.7533531   3rd Qu.:10.75  
-##  Max.   :0.9997439   Max.   :11.00  
+##                  Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
+## artwork  1.557397e-04  0.2475555  0.5052805  0.5022832  0.7533531  0.9997439
+## layer2   1.000016e+01 10.2475555 10.5052805 10.5022832 10.7533531 10.9997435
 ## dimension(s):
-##   from to offset delta                       refsys point values    
-## x    1 37 188500    50 +proj=lcc +lat_1=51.16666...    NA   NULL [x]
-## y    1 40 229550   -50 +proj=lcc +lat_1=51.16666...    NA   NULL [y]
+##   from to offset delta                    refsys point values x/y
+## x    1 37 188500    50 BD72 / Belgian Lambert 72  TRUE   NULL [x]
+## y    1 40 229550   -50 BD72 / Belgian Lambert 72  TRUE   NULL [y]
 </code></pre>
 <h2 id="homework-further-explore-the-amazing-stars-package">Homework: further explore the amazing <code>stars</code> package<a href="#homework-further-explore-the-amazing-stars-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Enter deep hyperspace and explore the <code>stars</code> package, which stores
@@ -914,62 +937,58 @@ transform a <code>Raster*</code> object into a <code>stars</code> object:</p>
 interstellar
 </code></pre></div><pre><code>## stars object with 3 dimensions and 1 attribute
 ## attribute(s):
-##     layer1           
-##  Min.   :-2.000e+00  
-##  1st Qu.:-1.000e+00  
-##  Median : 1.000e+00  
-##  Mean   : 1.306e+13  
-##  3rd Qu.: 1.100e+01  
-##  Max.   : 2.046e+14  
+##              Min.    1st Qu.    Median         Mean  3rd Qu.         Max.
+## layer1  -1.999488 -0.5021041 0.5052805 1.305765e+13 10.75335 2.046429e+14
 ## dimension(s):
-##      from to offset delta                       refsys point
-## x       1 37 188500    50 +init=epsg:31370 +proj=lc...    NA
-## y       1 40 229550   -50 +init=epsg:31370 +proj=lc...    NA
-## band    1  5     NA    NA                           NA    NA
-##                     values    
-## x                     NULL [x]
-## y                     NULL [y]
-## band layer1,...,neg_layer2
+##      from to offset delta                    refsys point                values
+## x       1 37 188500    50 BD72 / Belgian Lambert 72    NA                  NULL
+## y       1 40 229550   -50 BD72 / Belgian Lambert 72    NA                  NULL
+## band    1  5     NA    NA                        NA    NA layer1,...,neg_layer2
+##      x/y
+## x    [x]
+## y    [y]
+## band
 </code></pre>
 <p>It does make sense, right?</p>
 <p>What about:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">interstellar %&gt;% <span style="color:#0a0">split</span>(<span style="color:#a50">&#34;band&#34;</span>)
 </code></pre></div><pre><code>## stars object with 2 dimensions and 5 attributes
 ## attribute(s):
-##     layer1              layer2          layer3            neg_layer1         
-##  Min.   :0.0001557   Min.   :10.00   Min.   :1.024e+13   Min.   :-0.9997439  
-##  1st Qu.:0.2475555   1st Qu.:10.25   1st Qu.:2.150e+13   1st Qu.:-0.7533531  
-##  Median :0.5052805   Median :10.51   Median :4.652e+13   Median :-0.5052805  
-##  Mean   :0.5022832   Mean   :10.50   Mean   :6.529e+13   Mean   :-0.5022832  
-##  3rd Qu.:0.7533531   3rd Qu.:10.75   3rd Qu.:9.782e+13   3rd Qu.:-0.2475555  
-##  Max.   :0.9997439   Max.   :11.00   Max.   :2.046e+14   Max.   :-0.0001557  
-##   neg_layer2         
-##  Min.   :-1.9994878  
-##  1st Qu.:-1.5067062  
-##  Median :-1.0105610  
-##  Mean   :-1.0045664  
-##  3rd Qu.:-0.4951110  
-##  Max.   :-0.0003115  
+##                      Min.       1st Qu.        Median          Mean
+## layer1       1.557397e-04  2.475555e-01  5.052805e-01  5.022832e-01
+## layer2       1.000016e+01  1.024756e+01  1.050528e+01  1.050228e+01
+## layer3       1.024478e+13  2.149703e+13  4.652487e+13  6.528827e+13
+## neg_layer1  -9.997439e-01 -7.533531e-01 -5.052805e-01 -5.022832e-01
+## neg_layer2  -1.999488e+00 -1.506706e+00 -1.010561e+00 -1.004566e+00
+##                   3rd Qu.          Max.
+## layer1       7.533531e-01  9.997439e-01
+## layer2       1.075335e+01  1.099974e+01
+## layer3       9.782164e+13  2.046429e+14
+## neg_layer1  -2.475555e-01 -1.557397e-04
+## neg_layer2  -4.951110e-01 -3.114794e-04
 ## dimension(s):
-##   from to offset delta                       refsys point values    
-## x    1 37 188500    50 +init=epsg:31370 +proj=lc...    NA   NULL [x]
-## y    1 40 229550   -50 +init=epsg:31370 +proj=lc...    NA   NULL [y]
+##   from to offset delta                    refsys point values x/y
+## x    1 37 188500    50 BD72 / Belgian Lambert 72    NA   NULL [x]
+## y    1 40 229550   -50 BD72 / Belgian Lambert 72    NA   NULL [y]
 </code></pre>
 <p>The <code>stars</code> package has a number of efficient geospatial algorithms that
 make it worth using, even for simple raster layers!</p>
 <p>And sure, as seen above, you can read from files with <code>read_stars()</code>,
 write to files with <code>write_stars()</code>, convert to Raster* objects with
 <code>as(&quot;Raster&quot;)</code> and backconvert with <code>st_as_stars()</code>!</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li>
-<p>CRS = coordinate reference system</p>
+<li id="fn:1" role="doc-endnote">
+<p>CRS = coordinate reference system&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li>
+<li id="fn:2" role="doc-endnote">
 <p>See the GDAL <a href="https://gdal.org/api/raster_c_api.html#_CPPv412GDALDataType">datatype
 definitions</a>
-– note that <code>raster</code> uses its own abbreviations: <code>?raster::dataType</code></p>
+– note that <code>raster</code> uses its own abbreviations: <code>?raster::dataType</code>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
+</section>
 </div>
 
   

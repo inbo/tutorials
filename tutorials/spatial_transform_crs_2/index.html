@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Tue Feb 1 10:50:37 UTC 2022</small></p>
+  <p><small>Built on: Wed Feb 2 07:40:54 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -584,7 +584,7 @@ geographical CRS.</p>
 <p>Fortunately, this doesn’t work: <code>st_join()</code> requires its inputs to
 belong to the same CRS.</p>
 <p>Well, we know that <code>watercourses</code> is in the projected CRS <code>EPSG:31370</code>
-(Belge 1972 / Belgian Lambert 72), so we can just update it:</p>
+(BD72 / Belgian Lambert 72), so we can just update it:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">st_crs</span>(watercourses) &lt;- <span style="color:#a50">&#34;EPSG:31370&#34;</span>
 </code></pre></div><p>Since the CRSs are still different, this should <em>not</em> be sufficient for
 the join.</p>
@@ -601,7 +601,7 @@ the join.</p>
 Geometry type: POLYGON
 Dimension:     XY
 Bounding box:  xmin: 138050.5 ymin: 201644.5 xmax: 162761.3 ymax: 230509
-Projected CRS: Belge 1972 / Belgian Lambert 72
+Projected CRS: BD72 / Belgian Lambert 72
 # A tibble: 7,502 × 5
    polygon_id vhag_code watercourse                        geometry municipality
  *      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                         &lt;POLYGON [m]&gt; &lt;chr&gt;       
@@ -773,7 +773,7 @@ for more background about this CRS.</p>
 <code>EPSG:31370</code>. <code>EPSG:28992</code> uses the ‘Amersfoort’ geodetic datum, defined
 using the ‘Bessel 1841’ ellipsoid, while <code>EPSG:31370</code> has the ‘Reseau
 National Belge 1972’ datum, defined using the ‘International 1924’
-ellipsoid.[1]</p>
+ellipsoid.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <p>We will transform <code>points</code> (back) to <code>EPSG:31370</code> since the data are
 outside the intended area of usage. Note that this dataset has been made
 for mere demonstrative purposes: since at least a part of the points
@@ -805,7 +805,7 @@ availability of specific transformation grids.</p>
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
 <span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1</span>
-<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Belge 1972 / Belgian Lambert 72</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: BD72 / Belgian Lambert 72</span>
 <span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (35483.62 205530.5)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (35090.55 205866.5)</span>
@@ -917,7 +917,7 @@ union of the source and target CRS’s bounding box, appears to be just
 one pipeline with so-called <a href="https://proj.org/glossary.html#term-Ballpark-transformation">ballpark
 accuracy</a>.
 It’s obtained by dropping the <code>--spatial-test intersects</code> option (or
-replacing <code>intersects</code> by <code>contains</code>, which is default)[2], and so it
+replacing <code>intersects</code> by <code>contains</code>, which is default)<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, and so it
 matches the pipeline where <code>accuracy</code> equals <code>NA</code> in our <code>pipelines</code>
 dataframe:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pipelines[13,]
@@ -928,7 +928,7 @@ Source:  EPSG:28992
 Target:  EPSG:31370 
 Best instantiable operation has only ballpark accuracy 
 Description: Inverse of RD New + Ballpark geographic offset from Amersfoort
-             to Belge 1972 + Belgian Lambert 72
+             to BD72 + Belgian Lambert 72
 Definition:  +proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605555556
              +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000
              +y_0=463000 +ellps=bessel +step +proj=lcc
@@ -963,7 +963,7 @@ points_31370_strict &lt;-
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
 <span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1</span>
-<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Belge 1972 / Belgian Lambert 72</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: BD72 / Belgian Lambert 72</span>
 <span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (35483.62 205530.5)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (35090.55 205866.5)</span>
@@ -975,7 +975,7 @@ points_31370_strict &lt;-
 <span style="color:#aaa;font-style:italic">#&gt; Geometry type: POINT</span>
 <span style="color:#aaa;font-style:italic">#&gt; Dimension:     XY</span>
 <span style="color:#aaa;font-style:italic">#&gt; Bounding box:  xmin: 18976.03 ymin: 152963.3 xmax: 260391 ymax: 244024</span>
-<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: Belge 1972 / Belgian Lambert 72</span>
+<span style="color:#aaa;font-style:italic">#&gt; Projected CRS: BD72 / Belgian Lambert 72</span>
 <span style="color:#aaa;font-style:italic">#&gt; First 5 geometries:</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (35393.39 205495.3)</span>
 <span style="color:#aaa;font-style:italic">#&gt; POINT (35000.39 205831.3)</span>
@@ -1060,20 +1060,29 @@ Spatial Vector Data. The R Journal 10 (1): 439–446.
 Software 84 (1): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<p>[1] Note that several European countries, including Belgium, now provide
-national projected CRSs that use the common ETRS89 datum (European
-Terrestrial Reference System 1989). An example is the Belgian CRS
-<code>EPSG:3812</code> (ETRS89 / Belgian Lambert 2008).</p>
-<p>[2] In the documentation of <code>projinfo</code>, we can read about the
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Note that several European countries, including Belgium, now
+provide national projected CRSs that use the common ETRS89 datum
+(European Terrestrial Reference System 1989). An example is the
+Belgian CRS <code>EPSG:3812</code> (ETRS89 / Belgian Lambert 2008).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>In the documentation of <code>projinfo</code>, we can read about the
 <code>--spatial-test</code> option: ‘<em>Specify how the area of use of coordinate
 operations found in the database are compared to the area of use
-specified explicitly with <code>--area</code> or <code>--bbox</code>, or derived implicitly
-from the area of use of the source and target CRS. By default, projinfo
-will only keep coordinate operations whose are of use is strictly within
-the area of interest (<strong>contains</strong> strategy). If using the
-<strong>intersects</strong> strategy, the spatial test is relaxed, and any coordinate
-operation whose area of use at least partly intersects the area of
-interest is listed.</em>’</p>
+specified explicitly with <code>--area</code> or <code>--bbox</code>, or derived
+implicitly from the area of use of the source and target CRS. By
+default, projinfo will only keep coordinate operations whose area of
+use is strictly within the area of interest (<strong>contains</strong> strategy).
+If using the <strong>intersects</strong> strategy, the spatial test is relaxed,
+and any coordinate operation whose area of use at least partly
+intersects the area of interest is listed.</em>’&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 </div>
 
   

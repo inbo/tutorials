@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Tue Feb 1 10:50:37 UTC 2022</small></p>
+  <p><small>Built on: Wed Feb 2 07:40:54 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -381,13 +381,13 @@ Improve this page</a>
 <p>A coordinate reference system (<strong>CRS</strong>) – also called spatial reference
 system (SRS) – is what you need if you want to interpret numeric
 coordinates as actual point locations with reference to the Earth. Two
-types of coordinate reference system exist: <em>geodetic</em> and <em>projected</em>
-CRSs. The former serve only to locate coordinates relative to a 3D model
-of the Earth surface, while the latter add a projection to generate
-coordinates on a 2D map. Coordinate operations convert or transform
-coordinates from one CRS to another, and you often need them because the
-CRS may differ between dataset 1, dataset 2 or a specific mapping
-technology (such as <code>leaflet</code>).</p>
+types of coordinate reference system are much used in spatial science:
+<em>geodetic</em> and <em>projected</em> CRSs. The former serve only to locate
+coordinates relative to a 3D model of the Earth surface, while the
+latter add a projection to generate coordinates on a 2D map. Coordinate
+operations convert or transform coordinates from one CRS to another, and
+you often need them because the CRS may differ between dataset 1,
+dataset 2 or a specific mapping technology (such as <code>leaflet</code>).</p>
 <p>As you can expect, a CRS is defined by several elements. Essentially, a
 CRS exists of:</p>
 <ul>
@@ -411,11 +411,10 @@ of that lesson).</p>
 famous one being the <a href="https://www.epsg.org">EPSG dataset</a>, where each
 CRS has a unique <em>EPSG code</em>. You can consult these CRSs interactively
 at <a href="https://epsg.org">https://epsg.org</a> (official source) and through third-party websites
-such as <a href="http://epsg.io">http://epsg.io</a> and
-<a href="https://jjimenezshaw.github.io/crs-explorer">https://jjimenezshaw.github.io/crs-explorer</a>. For example, the ‘World
-Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code <code>4326</code>,
-and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
-<code>31370</code>.</p>
+such as <a href="https://jjimenezshaw.github.io/crs-explorer">https://jjimenezshaw.github.io/crs-explorer</a> and
+<a href="http://epsg.io">http://epsg.io</a>. For example, the ‘World Geodetic System 1984’ (WGS 84)
+is a geodetic CRS with EPSG code <code>4326</code>, and ‘BD72 / Belgian Lambert 72’
+is a projected CRS with EPSG code <code>31370</code>.</p>
 <p>In R, you can also search for CRSs and EPSG codes since these are
 included in the PROJ database, used by R packages like <code>sf</code>. An example
 for Belgian CRSs:</p>
@@ -466,7 +465,7 @@ proj4string for EPSG:31370, the Belgian Lambert 72 CRS:<sup id="fnref:2"><a href
 <pre><code>+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 </code></pre>
 <p>Several reasons have led to recent changes in GDAL and PROJ, such as the
-former use of the WGS84 CRS as an intermediate ‘hub’ in coordinate
+former use of the WGS 84 CRS as an intermediate ‘hub’ in coordinate
 transformation or in defining a CRS’s datum (introducing unneeded
 errors), higher accuracy requirements in transformations and the
 availability of better CRS specification standards than PROJ strings.
@@ -478,7 +477,7 @@ and discouraged. It <em>can</em> still be done, preferrably adding the
 strings. The latter represent a coordinate operation, not a CRS.
 Currently, support for most geodetic datums is already lacking in PROJ
 strings<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> (unless one defines it indirectly, but likely less
-accurately, with the now deprecated <code>+towgs84</code> key). The WGS84 ensemble
+accurately, with the now deprecated <code>+towgs84</code> key). The WGS 84 ensemble
 datum<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
 (<a href="https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html">datum:EPSG::6326</a>)
 is now by default assumed for a CRS declared with a PROJ string.</p>
@@ -506,7 +505,7 @@ string</strong>, a recent and much better standard, maintained by the Open
 Geospatial Consortium. WKT stands for ‘Well-known text.’ ‘WKT2’ is
 simply the recent version of WKT, approved in 2019, so you can also
 refer to it as WKT.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
-<p>For example, this is the WKT2 string for WGS84:</p>
+<p>For example, this is the WKT2 string for WGS 84:</p>
 <pre><code>GEOGCRS[&quot;WGS 84 (with axis order normalized for visualization)&quot;,
     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;,
@@ -652,7 +651,7 @@ below approach.</p>
 <p>Good to go!</p>
 <h4 id="defining-a-crs-with-sf">Defining a CRS with <code>sf</code><a href="#defining-a-crs-with-sf" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>You can simply provide the EPSG code using <code>st_crs()</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">st_crs</span>(<span style="color:#099">4326</span>) <span style="color:#aaa;font-style:italic"># WGS84 has EPSG code 4326</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">st_crs</span>(<span style="color:#099">4326</span>) <span style="color:#aaa;font-style:italic"># WGS 84 has EPSG code 4326</span>
 </code></pre></div><p>It is a so-called <code>crs</code> object:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">class</span>(crs_wgs84)
 </code></pre></div><pre><code>[1] &quot;crs&quot;
@@ -812,7 +811,7 @@ with) the minimal PROJ/GDAL versions that we want.</p>
 </code></pre>
 <p>Okido.</p>
 <h4 id="defining-a-crs-with-sp">Defining a CRS with <code>sp</code><a href="#defining-a-crs-with-sp" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;EPSG:4326&#34;</span>) <span style="color:#aaa;font-style:italic"># WGS84 has EPSG code 4326</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">crs_wgs84 &lt;- <span style="color:#0a0">CRS</span>(SRS_string = <span style="color:#a50">&#34;EPSG:4326&#34;</span>) <span style="color:#aaa;font-style:italic"># WGS 84 has EPSG code 4326</span>
 </code></pre></div><p>It is a so-called <code>CRS</code> object:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">class</span>(crs_wgs84)
 </code></pre></div><pre><code>[1] &quot;CRS&quot;
@@ -918,18 +917,12 @@ of old days, but the result is GDAL3/PROJ≥6 compliant!</p>
 </code></pre>
 <p>Et voilà!</p>
 <h3 id="raster-package"><code>raster</code> package<a href="#raster-package" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
-<p>At the time of writing, you still needed the development version of
-<code>raster</code> for the below code to run. You can install the development
-version with: <code>remotes::install_github(&quot;rspatial/raster&quot;)</code>. If below
-code does not run with the CRAN version (usually obtained with
-<code>install.packages()</code>), use the development version. Further, be aware
-that a <a href="https://rspatial.org/terra/pkg/"><code>terra</code></a> package is in
-development as a successor to <code>raster</code>. It is aimed at faster processing
-and it is <em>only</em> compatible with GDAL3/PROJ≥6.</p>
+<p>Be aware that a <a href="https://rspatial.org/terra/pkg/"><code>terra</code></a> package has
+been recently created as a successor to <code>raster</code>. It is aimed at faster
+processing and it is <em>only</em> compatible with GDAL3/PROJ≥6.</p>
 <p>As you will see, <strong><a href="https://rspatial.org/raster/pkg/"><code>raster</code></a></strong> more
 or less aligns with <code>sp</code>, although it has a few extras. For example:
-<code>raster</code> does not require the use of the <code>proj4string&lt;-</code> replacement
-function to set the CRS. <code>raster</code> provides <code>crs&lt;-</code>.</p>
+<code>raster</code> provides a <code>crs&lt;-</code> replacement function to set the CRS.</p>
 <p>Let’s make a dummy raster first, without CRS:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">within_belgium &lt;- 
   <span style="color:#0a0">raster</span>(<span style="color:#0a0">extent</span>(<span style="color:#099">188500</span>, <span style="color:#099">190350</span>, <span style="color:#099">227550</span>, <span style="color:#099">229550</span>),
@@ -1070,7 +1063,7 @@ software.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&
 <p>Note that the <em>currently returned</em> PROJ string for EPSG:31370, if
 requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum
 reference which, in PROJ.4, was defined indirectly by <code>+towgs84</code>
-with the 7-parameter (Helmert) transformation to the WGS84 datum.
+with the 7-parameter (Helmert) transformation to the WGS 84 datum.
 Hence the current PROJ string is a deficient representation of
 EPSG:31370.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
@@ -1078,7 +1071,7 @@ EPSG:31370.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink"
 <p>Formerly, more geodetic datums could be specified in a PROJ string
 with the <code>+datum</code> key. Currently only <code>WGS84</code>, <code>NAD27</code> and <code>NAD83</code>
 are still supported this way. Further, if an ellipsoid is specified
-with <code>+ellps</code> (and that includes the WGS84 ellipsoid), the datum of
+with <code>+ellps</code> (and that includes the WGS 84 ellipsoid), the datum of
 the resulting CRS is considered as ‘unknown.’ The usage of PROJ
 strings to define CRSs, including the <code>+datum</code> and <code>+towgs84</code>
 elements, will remain supported for mere backward compatibility (to

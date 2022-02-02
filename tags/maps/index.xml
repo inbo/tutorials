@@ -25,7 +25,7 @@ The tutorial assumes you have some pre-existing knowledge:
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
-      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system exist: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
+      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
     </item>
     
     <item>
