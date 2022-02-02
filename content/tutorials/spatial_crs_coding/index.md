@@ -55,8 +55,8 @@ CRS has a unique *EPSG code*. You can consult these CRSs interactively
 at <https://epsg.org> (official source) and through third-party websites
 such as <https://jjimenezshaw.github.io/crs-explorer> and
 <http://epsg.io>. For example, the ‘World Geodetic System 1984’ (WGS 84)
-is a geodetic CRS with EPSG code `4326`, and ‘Belge 1972 / Belgian
-Lambert 72’ is a projected CRS with EPSG code `31370`.
+is a geodetic CRS with EPSG code `4326`, and ‘BD72 / Belgian Lambert 72’
+is a projected CRS with EPSG code `31370`.
 
 In R, you can also search for CRSs and EPSG codes since these are
 included in the PROJ database, used by R packages like `sf`. An example

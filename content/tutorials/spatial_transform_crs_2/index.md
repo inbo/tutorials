@@ -286,7 +286,7 @@ Fortunately, this doesn’t work: `st_join()` requires its inputs to
 belong to the same CRS.
 
 Well, we know that `watercourses` is in the projected CRS `EPSG:31370`
-(Belge 1972 / Belgian Lambert 72), so we can just update it:
+(BD72 / Belgian Lambert 72), so we can just update it:
 
 ``` r
 st_crs(watercourses) <- "EPSG:31370"
@@ -320,7 +320,7 @@ And now…
     Geometry type: POLYGON
     Dimension:     XY
     Bounding box:  xmin: 138050.5 ymin: 201644.5 xmax: 162761.3 ymax: 230509
-    Projected CRS: Belge 1972 / Belgian Lambert 72
+    Projected CRS: BD72 / Belgian Lambert 72
     # A tibble: 7,502 × 5
        polygon_id vhag_code watercourse                        geometry municipality
      *      <dbl>     <dbl> <chr>                         <POLYGON [m]> <chr>       
@@ -608,7 +608,7 @@ st_geometry(points_31370)
 #> Geometry type: POINT
 #> Dimension:     XY
 #> Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1
-#> Projected CRS: Belge 1972 / Belgian Lambert 72
+#> Projected CRS: BD72 / Belgian Lambert 72
 #> First 5 geometries:
 #> POINT (35483.62 205530.5)
 #> POINT (35090.55 205866.5)
@@ -770,7 +770,7 @@ pipelines[13,]
     Target:  EPSG:31370 
     Best instantiable operation has only ballpark accuracy 
     Description: Inverse of RD New + Ballpark geographic offset from Amersfoort
-                 to Belge 1972 + Belgian Lambert 72
+                 to BD72 + Belgian Lambert 72
     Definition:  +proj=pipeline +step +inv +proj=sterea +lat_0=52.1561605555556
                  +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000
                  +y_0=463000 +ellps=bessel +step +proj=lcc
@@ -813,7 +813,7 @@ st_geometry(points_31370)
 #> Geometry type: POINT
 #> Dimension:     XY
 #> Bounding box:  xmin: 3174.827 ymin: 152992.4 xmax: 260391 ymax: 278347.1
-#> Projected CRS: Belge 1972 / Belgian Lambert 72
+#> Projected CRS: BD72 / Belgian Lambert 72
 #> First 5 geometries:
 #> POINT (35483.62 205530.5)
 #> POINT (35090.55 205866.5)
@@ -828,7 +828,7 @@ st_geometry(points_31370_strict)
 #> Geometry type: POINT
 #> Dimension:     XY
 #> Bounding box:  xmin: 18976.03 ymin: 152963.3 xmax: 260391 ymax: 244024
-#> Projected CRS: Belge 1972 / Belgian Lambert 72
+#> Projected CRS: BD72 / Belgian Lambert 72
 #> First 5 geometries:
 #> POINT (35393.39 205495.3)
 #> POINT (35000.39 205831.3)
