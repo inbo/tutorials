@@ -418,7 +418,7 @@ It's obtained by dropping the `--spatial-test intersects` option (or replacing `
 pipelines[13,]
 ```
 
-[^projinfo]: In the documentation of `projinfo`, we can read about the `--spatial-test` option: '_Specify  how the area of use of coordinate operations found in the database are compared to the area of use specified explicitly with `--area` or `--bbox`, or derived implicitly from the area of use of the source and target CRS.  By default, projinfo will only keep coordinate operations whose are of use is strictly within the area of interest (**contains** strategy).  If using the **intersects** strategy, the spatial test is relaxed, and any coordinate operation whose area of use at least partly intersects the area of interest is listed._'
+[^projinfo]: In the documentation of `projinfo`, we can read about the `--spatial-test` option: '_Specify  how the area of use of coordinate operations found in the database are compared to the area of use specified explicitly with `--area` or `--bbox`, or derived implicitly from the area of use of the source and target CRS.  By default, projinfo will only keep coordinate operations whose area of use is strictly within the area of interest (**contains** strategy).  If using the **intersects** strategy, the spatial test is relaxed, and any coordinate operation whose area of use at least partly intersects the area of interest is listed._'
 
 The low accuracy of a ballpark transformation is because datum differences between source and target CRSs are neglected:
 

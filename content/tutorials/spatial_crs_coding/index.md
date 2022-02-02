@@ -21,13 +21,13 @@ output:
 A coordinate reference system (**CRS**) – also called spatial reference
 system (SRS) – is what you need if you want to interpret numeric
 coordinates as actual point locations with reference to the Earth. Two
-types of coordinate reference system exist: *geodetic* and *projected*
-CRSs. The former serve only to locate coordinates relative to a 3D model
-of the Earth surface, while the latter add a projection to generate
-coordinates on a 2D map. Coordinate operations convert or transform
-coordinates from one CRS to another, and you often need them because the
-CRS may differ between dataset 1, dataset 2 or a specific mapping
-technology (such as `leaflet`).
+types of coordinate reference system are much used in spatial science:
+*geodetic* and *projected* CRSs. The former serve only to locate
+coordinates relative to a 3D model of the Earth surface, while the
+latter add a projection to generate coordinates on a 2D map. Coordinate
+operations convert or transform coordinates from one CRS to another, and
+you often need them because the CRS may differ between dataset 1,
+dataset 2 or a specific mapping technology (such as `leaflet`).
 
 As you can expect, a CRS is defined by several elements. Essentially, a
 CRS exists of:
@@ -53,11 +53,10 @@ There are a few coordinated lists of CRSs around the globe, the most
 famous one being the [EPSG dataset](https://www.epsg.org), where each
 CRS has a unique *EPSG code*. You can consult these CRSs interactively
 at <https://epsg.org> (official source) and through third-party websites
-such as <http://epsg.io> and
-<https://jjimenezshaw.github.io/crs-explorer>. For example, the ‘World
-Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code `4326`,
-and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
-`31370`.
+such as <https://jjimenezshaw.github.io/crs-explorer> and
+<http://epsg.io>. For example, the ‘World Geodetic System 1984’ (WGS 84)
+is a geodetic CRS with EPSG code `4326`, and ‘BD72 / Belgian Lambert 72’
+is a projected CRS with EPSG code `31370`.
 
 In R, you can also search for CRSs and EPSG codes since these are
 included in the PROJ database, used by R packages like `sf`. An example
@@ -119,7 +118,7 @@ proj4string for EPSG:31370, the Belgian Lambert 72 CRS:[^2]
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
 Several reasons have led to recent changes in GDAL and PROJ, such as the
-former use of the WGS84 CRS as an intermediate ‘hub’ in coordinate
+former use of the WGS 84 CRS as an intermediate ‘hub’ in coordinate
 transformation or in defining a CRS’s datum (introducing unneeded
 errors), higher accuracy requirements in transformations and the
 availability of better CRS specification standards than PROJ strings.
@@ -132,7 +131,7 @@ and discouraged. It *can* still be done, preferrably adding the
 strings. The latter represent a coordinate operation, not a CRS.
 Currently, support for most geodetic datums is already lacking in PROJ
 strings[^3] (unless one defines it indirectly, but likely less
-accurately, with the now deprecated `+towgs84` key). The WGS84 ensemble
+accurately, with the now deprecated `+towgs84` key). The WGS 84 ensemble
 datum[^4]
 ([datum:EPSG::6326](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html))
 is now by default assumed for a CRS declared with a PROJ string.
@@ -163,7 +162,7 @@ Geospatial Consortium. WKT stands for ‘Well-known text.’ ‘WKT2’ is
 simply the recent version of WKT, approved in 2019, so you can also
 refer to it as WKT.[^5]
 
-For example, this is the WKT2 string for WGS84:
+For example, this is the WKT2 string for WGS 84:
 
     GEOGCRS["WGS 84 (with axis order normalized for visualization)",
         ENSEMBLE["World Geodetic System 1984 ensemble",
@@ -338,7 +337,7 @@ Good to go!
 You can simply provide the EPSG code using `st_crs()`:
 
 ``` r
-crs_wgs84 <- st_crs(4326) # WGS84 has EPSG code 4326
+crs_wgs84 <- st_crs(4326) # WGS 84 has EPSG code 4326
 ```
 
 It is a so-called `crs` object:
@@ -542,7 +541,7 @@ Okido.
 #### Defining a CRS with `sp`
 
 ``` r
-crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS84 has EPSG code 4326
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS 84 has EPSG code 4326
 ```
 
 It is a so-called `CRS` object:
@@ -676,19 +675,13 @@ Et voilà!
 
 ### `raster` package
 
-At the time of writing, you still needed the development version of
-`raster` for the below code to run. You can install the development
-version with: `remotes::install_github("rspatial/raster")`. If below
-code does not run with the CRAN version (usually obtained with
-`install.packages()`), use the development version. Further, be aware
-that a [`terra`](https://rspatial.org/terra/pkg/) package is in
-development as a successor to `raster`. It is aimed at faster processing
-and it is *only* compatible with GDAL3/PROJ≥6.
+Be aware that a [`terra`](https://rspatial.org/terra/pkg/) package has
+been recently created as a successor to `raster`. It is aimed at faster
+processing and it is *only* compatible with GDAL3/PROJ≥6.
 
 As you will see, **[`raster`](https://rspatial.org/raster/pkg/)** more
 or less aligns with `sp`, although it has a few extras. For example:
-`raster` does not require the use of the `proj4string<-` replacement
-function to set the CRS. `raster` provides `crs<-`.
+`raster` provides a `crs<-` replacement function to set the CRS.
 
 Let’s make a dummy raster first, without CRS:
 
@@ -879,14 +872,14 @@ September 21, 2020).
 [^2]: Note that the *currently returned* PROJ string for EPSG:31370, if
     requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum
     reference which, in PROJ.4, was defined indirectly by `+towgs84`
-    with the 7-parameter (Helmert) transformation to the WGS84 datum.
+    with the 7-parameter (Helmert) transformation to the WGS 84 datum.
     Hence the current PROJ string is a deficient representation of
     EPSG:31370.
 
 [^3]: Formerly, more geodetic datums could be specified in a PROJ string
     with the `+datum` key. Currently only `WGS84`, `NAD27` and `NAD83`
     are still supported this way. Further, if an ellipsoid is specified
-    with `+ellps` (and that includes the WGS84 ellipsoid), the datum of
+    with `+ellps` (and that includes the WGS 84 ellipsoid), the datum of
     the resulting CRS is considered as ‘unknown.’ The usage of PROJ
     strings to define CRSs, including the `+datum` and `+towgs84`
     elements, will remain supported for mere backward compatibility (to

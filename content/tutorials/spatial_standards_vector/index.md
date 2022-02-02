@@ -207,7 +207,7 @@ GeoPackage format. It is an open standard, after all!
 ### Making a GeoJSON file from a geospatial `sf` object in R
 
 As another example, let’s download a shapefile of stream habitat 3260 in
-Flanders (version *2018*):
+Flanders (version 1.6):
 
 ``` r
 download_zenodo(doi = "10.5281/zenodo.3386246")
@@ -302,7 +302,7 @@ coordinates of the lines’ vertices, with each feature starting on a new
 line.
 
 Compare the coordinates with those of the `sf` object `habitatstreams`
-above: the data have automatically been transformed to WGS84!
+above: the data have automatically been transformed to WGS 84!
 
 Note: in order to be still manageable (text file size, usage in
 versioning systems) it seems wise to use GeoJSON for more simple cases –
@@ -330,7 +330,7 @@ Same story as for the GeoPackage: other geospatial software will (or
 should) be able to open the GeoJSON format as well, as it’s an open and
 well established standard.
 
-From the message of `st_read()` you can see the CRS is WGS84 ([EPSG-code
+From the message of `st_read()` you can see the CRS is WGS 84 ([EPSG-code
 4326](https://epsg.io/4326)) - this is always expected when reading a
 GeoJSON file.
 

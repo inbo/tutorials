@@ -103,14 +103,14 @@ So, in R we use packages that use GDAL in the background, such as
     [obsoleted](http://geojson.org/geojson-spec.html) and a new version
     **[RFC7946](https://tools.ietf.org/html/rfc7946)** is establishing.
     -   This version is strict about the coordinate reference system
-        (CRS) – it is always [WGS84](https://epsg.io/4326) – and it also
-        differs on a few other aspects (such as the recommendation for
-        applications [not to
+        (CRS) – it is always [WGS 84](https://epsg.io/4326) – and it
+        also differs on a few other aspects (such as the recommendation
+        for applications [not to
         inflate](https://tools.ietf.org/html/rfc7946#section-11.2)
         decimal coordinate precision).
     -   RFC7946 solves the problem that quite a few libraries –
-        including GDAL – simply assumed WGS84 in GeoJSON 2008 (without
-        checking or transforming), even though WGS84 was not a
+        including GDAL – simply assumed WGS 84 in GeoJSON 2008 (without
+        checking or transforming), even though WGS 84 was not a
         requirement of GeoJSON 2008 (it did support an explicit *crs*
         declaration). This resulted in inconveniences (cf. [this
         post](https://github.com/r-spatial/sf/issues/344#issue-229118527)
@@ -121,7 +121,7 @@ So, in R we use packages that use GDAL in the background, such as
         the differences between both GeoJSON versions.
 -   While GDAL by default still follows the GeoJSON 2008 format,[^3]
     RFC7946 is supported by the option `RFC7946=YES`. Here, reprojection
-    to WGS84 will happen automatically. It applies 7 decimal places for
+    to WGS 84 will happen automatically. It applies 7 decimal places for
     coordinates, i.e. approximately 1 cm. Given the advantages, ***we
     advise to explicitly use RFC7946***. Several functions in R allow
     the user to provide options that are passed to GDAL, so we can ask
@@ -151,22 +151,22 @@ So, in R we use packages that use GDAL in the background, such as
 
 ## Literature
 
-<div id="refs" class="references">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-heijmans_spatial_2019">
+<div id="ref-heijmans_spatial_2019" class="csl-entry">
 
 Hijmans R. (2019). Spatial Data Science with R. <https://rspatial.org/>.
 
 </div>
 
-<div id="ref-lovelace_geocomputation_2020">
+<div id="ref-lovelace_geocomputation_2020" class="csl-entry">
 
 Lovelace R., Nowosad J. & Muenchow J. (2020). Geocomputation with R.
 <https://geocompr.robinlovelace.net>.
 
 </div>
 
-<div id="ref-pebesma_edzer_spatial_2019">
+<div id="ref-pebesma_edzer_spatial_2019" class="csl-entry">
 
 Pebesma E. & Bivand R. (2019). Spatial Data Science.
 <https://www.r-spatial.org/book>.

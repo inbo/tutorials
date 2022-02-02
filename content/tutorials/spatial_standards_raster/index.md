@@ -11,10 +11,10 @@ output:
     variant: gfm+footnotes
 ---
 
-_General note: the way the `raster` package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ >= 6 versions._
-_At the time of writing, it was necessary to use the current development version of `raster` ([link](https://github.com/rspatial/raster))._
-_During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them._
-_For more information, see the [CRS tutorial](../spatial_crs_coding/)._
+*During the current transition period of supporting both old and new
+PROJ/GDAL, you may get a decent portion of proj4string-related warnings
+when running the below code, but you can safely ignore them.* *For more
+information, see the [CRS tutorial](../spatial_crs_coding/).*
 
 This tutorial uses a few basic functions from the
 [dplyr](https://dplyr.tidyverse.org) and
@@ -39,11 +39,10 @@ publication, interoperability & durability and to open science in
 general.
 
 The below table compares a few raster formats that are currently used a
-lot. This tutorial focuses on the open
-formats.
+lot. This tutorial focuses on the open formats.
 
 | Property                                              |      GeoTIFF      |    GeoPackage     |          ESRI geodatabase          |
-| :---------------------------------------------------- | :---------------: | :---------------: | :--------------------------------: |
+|:------------------------------------------------------|:-----------------:|:-----------------:|:----------------------------------:|
 | Open standard?                                        |        yes        |        yes        |                 no                 |
 | Write support by GDAL                                 |        yes        |        yes        |                 no                 |
 | Supported OS                                          |  cross-platform   |  cross-platform   |              Windows               |
@@ -60,8 +59,8 @@ formats.
 ### Making a mono-layered GeoTIFF file from a `RasterLayer` R object
 
 Let’s create a small dummy `RasterLayer` object from scratch, for some
-area in Belgium (using the CRS \[1\] Belgian Lambert 72, i.e.
-[EPSG-code 31370](https://epsg.io/31370)):
+area in Belgium (using the CRS [^1] Belgian Lambert 72, i.e. [EPSG-code
+31370](https://epsg.io/31370)):
 
 ``` r
 artwork <- 
@@ -81,7 +80,7 @@ artwork
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
     ## source     : memory
     ## names      : layer 
     ## values     : 0.0001557397, 0.9997439  (min, max)
@@ -104,12 +103,11 @@ artwork %>%
 ```
 
 And now?  
-***Say HURRAY\!\!***
+***Say HURRAY!!***
 
 ### Making a multi-layered GeoTIFF file from a `RasterBrick` R object
 
-Let’s create a `RasterBrick` object of three
-layers:
+Let’s create a `RasterBrick` object of three layers:
 
 ``` r
 arts <- brick(artwork) # RasterBrick with one layer (the RasterLayer from above)
@@ -132,7 +130,7 @@ arts
     ## dimensions : 40, 37, 1480, 3  (nrow, ncol, ncell, nlayers)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
     ## source     : memory
     ## names      :       layer1,       layer2,       layer3 
     ## min values : 1.557397e-04, 1.000016e+01, 1.024478e+13 
@@ -159,14 +157,14 @@ arts %>%
 ![](index_files/figure-gfm/arts-3.png)<!-- -->
 
 So now what?  
-***Let’s write it\!***
+***Let’s write it!***
 
 ``` r
 arts %>% 
   writeRaster("arts.tif")
 ```
 
-But, I want to add 20 extra layers\!  
+But, I want to add 20 extra layers!  
 ***(…*😣😮*…)***
 
 ``` r
@@ -207,7 +205,7 @@ arts %>%
               overwrite = TRUE)
 ```
 
-That’s about it\!
+That’s about it!
 
 ### Reading a GeoTIFF file
 
@@ -228,8 +226,8 @@ artwork_test
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-    ## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/artwork.tif 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+    ## source     : artwork.tif 
     ## names      : artwork 
     ## values     : 0.0001557397, 0.9997439  (min, max)
 
@@ -263,13 +261,13 @@ arts_test
     ## dimensions : 40, 37, 1480, 23  (nrow, ncol, ncell, nlayers)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-    ## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/arts.tif 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+    ## source     : arts.tif 
     ## names      :        layer1,        layer2,        layer3,    neg_layer1,    neg_layer2,    neg_layer3,    neg_layer4,    neg_layer5,    neg_layer6,    neg_layer7,    neg_layer8,    neg_layer9,   neg_layer10,   neg_layer11,   neg_layer12, ... 
     ## min values :  1.557397e-04,  1.000016e+01,  1.024478e+13, -9.997439e-01, -1.999488e+00, -2.999232e+00, -3.998976e+00, -4.998719e+00, -5.998463e+00, -6.998207e+00, -7.997951e+00, -8.997695e+00, -9.997439e+00, -1.099718e+01, -1.199693e+01, ... 
     ## max values :  9.997439e-01,  1.099974e+01,  2.046429e+14, -1.557397e-04, -3.114794e-04, -4.672192e-04, -6.229589e-04, -7.786986e-04, -9.344383e-04, -1.090178e-03, -1.245918e-03, -1.401657e-03, -1.557397e-03, -1.713137e-03, -1.868877e-03, ...
 
-That’s what we wanted\!
+That’s what we wanted!
 
 The actual data are not loaded into memory, but read in chunks when
 performing operations. This makes it convenient when using larger
@@ -292,8 +290,8 @@ arts_test$neg_layer20
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-    ## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/arts.tif 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+    ## source     : arts.tif 
     ## names      : neg_layer20 
     ## values     : -19.99488, -0.003114794  (min, max)
 
@@ -316,7 +314,7 @@ drivers for GeoTIFF or GPKG-vector (note that one GPKG file can
 accommodate both layer types). For example, only the *Byte, Int16,
 UInt16* and *Float32* datatypes can be written by GDAL, while for
 GeoTIFFs these are *Byte UInt16, Int16, UInt32, Int32, Float32, Float64,
-CInt16, CInt32, CFloat32* and *CFloat64* \[2\].
+CInt16, CInt32, CFloat32* and *CFloat64* [^2].
 
 From my experience, raster GeoPackage files are smaller than GeoTIFF
 files in the case of larger rasters. This, and the capability to combine
@@ -340,7 +338,7 @@ A bit more information on the ‘missing value’ warning can be found in
 GDAL’s documentation of [GeoPackage
 raster](https://gdal.org/drivers/raster/gpkg.html#nodata-value). You
 should know that the `raster` package does not yet officially support
-the GeoPackage\! (see `?writeFormats()`)
+the GeoPackage! (see `?writeFormats()`)
 
 However, the `stars` package (see [further)](#homework)) fully supports
 GDAL’s capabilities, and therefore *is* able to write multiple raster
@@ -358,10 +356,10 @@ artwork_gpkg
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
-    ## source     : /media/floris/DATA/git_repositories/tutorials/content/tutorials/spatial_standards_raster/artwork.gpkg 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
+    ## source     : artwork.gpkg 
     ## names      : artwork 
-    ## values     : -3.4e+38, 0.9997439  (min, max)
+    ## values     : 0.0001557397, 0.9997439  (min, max)
 
 Let’s make sure: are the data we’ve read from the GeoTIFF identical to
 those from the GeoPackage?
@@ -372,11 +370,11 @@ all.equal(artwork_test[], artwork_gpkg[])
 
     ## [1] TRUE
 
-Yeah\!
+Yeah!
 
 Given that the GPKG-support of `raster` is limited, we’re lucky that
 Edzer Pebesma – the creator of `sf` – has also made the amazing package
-`stars`\!\!
+`stars`!!
 
 ``` r
 unlink("artwork.gpkg") # delete gpkg; we're going to create it here again
@@ -388,7 +386,7 @@ library(stars)
 
     ## Loading required package: sf
 
-    ## Linking to GEOS 3.5.1, GDAL 2.2.2, PROJ 4.9.2
+    ## Linking to GEOS 3.10.1, GDAL 3.4.0, PROJ 8.2.0; sf_use_s2() is TRUE
 
 We could as well have written `artwork` to a GeoPackage with `stars`, so
 let’s just see what we get by converting the `RasterLayer` object to a
@@ -415,7 +413,7 @@ artwork_gpkg_stars
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
     ## source     : memory
     ## names      : layer 
     ## values     : 0.0001557397, 0.9997439  (min, max)
@@ -429,10 +427,10 @@ all.equal(artwork_test[], artwork_gpkg_stars[])
 
     ## [1] TRUE
 
-That’s it\!
+That’s it!
 
 Knowing how to write and read with `stars` will help us for the
-multi-layer case\!
+multi-layer case!
 
 ### Making a multi-raster GeoPackage
 
@@ -450,7 +448,7 @@ arts$layer2
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +init=epsg:31370 +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
     ## source     : memory
     ## names      : layer2 
     ## values     : 10.00016, 10.99974  (min, max)
@@ -471,7 +469,7 @@ try(
     ## Error in .getGDALtransient(x, filename = filename, options = options,  : 
     ##   filename exists; use overwrite=TRUE
 
-So let’s proceed with `stars`\!
+So let’s proceed with `stars`!
 
 ``` r
 arts$layer2 %>% 
@@ -488,18 +486,18 @@ GDAL](https://gdal.org/drivers/raster/gpkg.html#creation-options).
 
 Over there we read:
 
-> RASTER\_TABLE=string. Name of tile user table. By default, based on
-> the filename (i.e. if filename is foo.gpkg, the table will be called
+> RASTER_TABLE=string. Name of tile user table. By default, based on the
+> filename (i.e. if filename is foo.gpkg, the table will be called
 > “foo”).
-> 
-> APPEND\_SUBDATASET=YES/NO: If set to YES, an existing GeoPackage will
+>
+> APPEND_SUBDATASET=YES/NO: If set to YES, an existing GeoPackage will
 > not be priorly destroyed, such as to be able to add new content to it.
 > Defaults to NO.
 
-Ahaa\!
+Ahaa!
 
 We got no errors above, but no feedback either…  
-Thrilling\!
+Thrilling!
 
 Let’s peek:
 
@@ -511,7 +509,6 @@ gdalUtils::gdalinfo("artwork.gpkg") %>%
     ## Driver: GPKG/GeoPackage
     ## Files: artwork.gpkg
     ## Size is 512, 512
-    ## Coordinate System is `'
     ## Subdatasets:
     ##   SUBDATASET_1_NAME=GPKG:artwork.gpkg:artwork
     ##   SUBDATASET_1_DESC=artwork - artwork
@@ -524,7 +521,7 @@ gdalUtils::gdalinfo("artwork.gpkg") %>%
     ## Lower Right (  512.0,  512.0)
     ## Center      (  256.0,  256.0)
 
-Yay\!  
+Yay!  
 It’s interesting to see how the info at this level disregards CRS and
 extent.
 
@@ -544,26 +541,54 @@ gdalUtils::gdalinfo("artwork.gpkg",
     ## Files: none associated
     ## Size is 37, 40
     ## Coordinate System is:
-    ## PROJCS["unnamed",
-    ##     GEOGCS["International 1909 (Hayford)",
-    ##         DATUM["unknown",
-    ##             SPHEROID["intl",6378388,297],
-    ##             TOWGS84[-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747]],
-    ##         PRIMEM["Greenwich",0],
-    ##         UNIT["degree",0.0174532925199433]],
-    ##     PROJECTION["Lambert_Conformal_Conic_2SP"],
-    ##     PARAMETER["standard_parallel_1",51.16666723333333],
-    ##     PARAMETER["standard_parallel_2",49.8333339],
-    ##     PARAMETER["latitude_of_origin",90],
-    ##     PARAMETER["central_meridian",4.367486666666666],
-    ##     PARAMETER["false_easting",150000.013],
-    ##     PARAMETER["false_northing",5400088.438],
-    ##     UNIT["Meter",1]]
+    ## PROJCRS["BD72 / Belgian Lambert 72",
+    ##     BASEGEOGCRS["BD72",
+    ##         DATUM["Reseau National Belge 1972",
+    ##             ELLIPSOID["International 1924",6378388,297,
+    ##                 LENGTHUNIT["metre",1]]],
+    ##         PRIMEM["Greenwich",0,
+    ##             ANGLEUNIT["degree",0.0174532925199433]],
+    ##         ID["EPSG",4313]],
+    ##     CONVERSION["Belgian Lambert 72",
+    ##         METHOD["Lambert Conic Conformal (2SP)",
+    ##             ID["EPSG",9802]],
+    ##         PARAMETER["Latitude of false origin",90,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8821]],
+    ##         PARAMETER["Longitude of false origin",4.36748666666667,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8822]],
+    ##         PARAMETER["Latitude of 1st standard parallel",51.1666672333333,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8823]],
+    ##         PARAMETER["Latitude of 2nd standard parallel",49.8333339,
+    ##             ANGLEUNIT["degree",0.0174532925199433],
+    ##             ID["EPSG",8824]],
+    ##         PARAMETER["Easting at false origin",150000.013,
+    ##             LENGTHUNIT["metre",1],
+    ##             ID["EPSG",8826]],
+    ##         PARAMETER["Northing at false origin",5400088.438,
+    ##             LENGTHUNIT["metre",1],
+    ##             ID["EPSG",8827]]],
+    ##     CS[Cartesian,2],
+    ##         AXIS["easting (X)",east,
+    ##             ORDER[1],
+    ##             LENGTHUNIT["metre",1]],
+    ##         AXIS["northing (Y)",north,
+    ##             ORDER[2],
+    ##             LENGTHUNIT["metre",1]],
+    ##     USAGE[
+    ##         SCOPE["Engineering survey, topographic mapping."],
+    ##         AREA["Belgium - onshore."],
+    ##         BBOX[49.5,2.5,51.51,6.4]],
+    ##     ID["EPSG",31370]]
+    ## Data axis to CRS axis mapping: 1,2
     ## PROJ.4 string is:
-    ## '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs '
+    ## '+proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs'
     ## Origin = (188500.000000000000000,229550.000000000000000)
     ## Pixel Size = (50.000000000000000,-50.000000000000000)
     ## Metadata:
+    ##   AREA_OR_POINT=Point
     ##   IDENTIFIER=artwork
     ##   ZOOM_LEVEL=0
     ## Image Structure Metadata:
@@ -575,6 +600,7 @@ gdalUtils::gdalinfo("artwork.gpkg",
     ## Lower Right (  190350.000,  227550.000) (  4d56'48.12"E, 51d21'24.59"N)
     ## Center      (  189425.000,  228550.000) (  4d56' 0.71"E, 51d21'57.17"N)
     ## Band 1 Block=256x256 Type=Float32, ColorInterp=Undefined
+    ##   Description = Height
     ##     Computed Min/Max=0.000,1.000
     ##   Minimum=0.000, Maximum=1.000, Mean=0.502, StdDev=0.289
     ##   Metadata:
@@ -582,9 +608,10 @@ gdalUtils::gdalinfo("artwork.gpkg",
     ##     STATISTICS_MEAN=0.50228321918167
     ##     STATISTICS_MINIMUM=0.00015573971904814
     ##     STATISTICS_STDDEV=0.28903126880165
+    ##     STATISTICS_VALID_PERCENT=100
 
 `raster` will not help us for reading the layers. But `read_stars()` is
-there to assist us\!\!
+there to assist us!!
 
 ``` r
 # brick("artwork.gpkg") ## this won't work...
@@ -599,12 +626,12 @@ artwork_gpkg2
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
     ## source     : memory
     ## names      : layer 
     ## values     : 0.0001557397, 0.9997439  (min, max)
 
-Wow\!
+Wow!
 
 Checking data again with GeoTIFF result:
 
@@ -625,7 +652,7 @@ read_stars("artwork.gpkg", sub = "layer2", quiet = TRUE) %>%
     ## dimensions : 40, 37, 1480  (nrow, ncol, ncell)
     ## resolution : 50, 50  (x, y)
     ## extent     : 188500, 190350, 227550, 229550  (xmin, xmax, ymin, ymax)
-    ## crs        : +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs 
+    ## crs        : +proj=lcc +lat_0=90 +lon_0=4.36748666666667 +lat_1=51.1666672333333 +lat_2=49.8333339 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +units=m +no_defs 
     ## source     : memory
     ## names      : layer 
     ## values     : 10.00016, 10.99974  (min, max)
@@ -641,24 +668,20 @@ read_stars("artwork.gpkg", quiet = TRUE)
 
     ## stars object with 2 dimensions and 2 attributes
     ## attribute(s):
-    ##     artwork             layer2      
-    ##  Min.   :0.0001557   Min.   :10.00  
-    ##  1st Qu.:0.2475555   1st Qu.:10.25  
-    ##  Median :0.5052805   Median :10.51  
-    ##  Mean   :0.5022832   Mean   :10.50  
-    ##  3rd Qu.:0.7533531   3rd Qu.:10.75  
-    ##  Max.   :0.9997439   Max.   :11.00  
+    ##                  Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
+    ## artwork  1.557397e-04  0.2475555  0.5052805  0.5022832  0.7533531  0.9997439
+    ## layer2   1.000016e+01 10.2475555 10.5052805 10.5022832 10.7533531 10.9997435
     ## dimension(s):
-    ##   from to offset delta                       refsys point values    
-    ## x    1 37 188500    50 +proj=lcc +lat_1=51.16666...    NA   NULL [x]
-    ## y    1 40 229550   -50 +proj=lcc +lat_1=51.16666...    NA   NULL [y]
+    ##   from to offset delta                    refsys point values x/y
+    ## x    1 37 188500    50 BD72 / Belgian Lambert 72  TRUE   NULL [x]
+    ## y    1 40 229550   -50 BD72 / Belgian Lambert 72  TRUE   NULL [y]
 
 ## Homework: further explore the amazing `stars` package
 
 Enter deep hyperspace and explore the `stars` package, which stores
 multidimensional hypercubes… Really, visit its
 [website](https://r-spatial.github.io/stars/) and never look (or turn?)
-back\!
+back!
 
 ``` r
 library(stars)
@@ -676,22 +699,17 @@ interstellar
 
     ## stars object with 3 dimensions and 1 attribute
     ## attribute(s):
-    ##     layer1           
-    ##  Min.   :-2.000e+00  
-    ##  1st Qu.:-1.000e+00  
-    ##  Median : 1.000e+00  
-    ##  Mean   : 1.306e+13  
-    ##  3rd Qu.: 1.100e+01  
-    ##  Max.   : 2.046e+14  
+    ##              Min.    1st Qu.    Median         Mean  3rd Qu.         Max.
+    ## layer1  -1.999488 -0.5021041 0.5052805 1.305765e+13 10.75335 2.046429e+14
     ## dimension(s):
-    ##      from to offset delta                       refsys point
-    ## x       1 37 188500    50 +init=epsg:31370 +proj=lc...    NA
-    ## y       1 40 229550   -50 +init=epsg:31370 +proj=lc...    NA
-    ## band    1  5     NA    NA                           NA    NA
-    ##                     values    
-    ## x                     NULL [x]
-    ## y                     NULL [y]
-    ## band layer1,...,neg_layer2
+    ##      from to offset delta                    refsys point                values
+    ## x       1 37 188500    50 BD72 / Belgian Lambert 72    NA                  NULL
+    ## y       1 40 229550   -50 BD72 / Belgian Lambert 72    NA                  NULL
+    ## band    1  5     NA    NA                        NA    NA layer1,...,neg_layer2
+    ##      x/y
+    ## x    [x]
+    ## y    [y]
+    ## band
 
 It does make sense, right?
 
@@ -703,34 +721,32 @@ interstellar %>% split("band")
 
     ## stars object with 2 dimensions and 5 attributes
     ## attribute(s):
-    ##     layer1              layer2          layer3            neg_layer1         
-    ##  Min.   :0.0001557   Min.   :10.00   Min.   :1.024e+13   Min.   :-0.9997439  
-    ##  1st Qu.:0.2475555   1st Qu.:10.25   1st Qu.:2.150e+13   1st Qu.:-0.7533531  
-    ##  Median :0.5052805   Median :10.51   Median :4.652e+13   Median :-0.5052805  
-    ##  Mean   :0.5022832   Mean   :10.50   Mean   :6.529e+13   Mean   :-0.5022832  
-    ##  3rd Qu.:0.7533531   3rd Qu.:10.75   3rd Qu.:9.782e+13   3rd Qu.:-0.2475555  
-    ##  Max.   :0.9997439   Max.   :11.00   Max.   :2.046e+14   Max.   :-0.0001557  
-    ##   neg_layer2         
-    ##  Min.   :-1.9994878  
-    ##  1st Qu.:-1.5067062  
-    ##  Median :-1.0105610  
-    ##  Mean   :-1.0045664  
-    ##  3rd Qu.:-0.4951110  
-    ##  Max.   :-0.0003115  
+    ##                      Min.       1st Qu.        Median          Mean
+    ## layer1       1.557397e-04  2.475555e-01  5.052805e-01  5.022832e-01
+    ## layer2       1.000016e+01  1.024756e+01  1.050528e+01  1.050228e+01
+    ## layer3       1.024478e+13  2.149703e+13  4.652487e+13  6.528827e+13
+    ## neg_layer1  -9.997439e-01 -7.533531e-01 -5.052805e-01 -5.022832e-01
+    ## neg_layer2  -1.999488e+00 -1.506706e+00 -1.010561e+00 -1.004566e+00
+    ##                   3rd Qu.          Max.
+    ## layer1       7.533531e-01  9.997439e-01
+    ## layer2       1.075335e+01  1.099974e+01
+    ## layer3       9.782164e+13  2.046429e+14
+    ## neg_layer1  -2.475555e-01 -1.557397e-04
+    ## neg_layer2  -4.951110e-01 -3.114794e-04
     ## dimension(s):
-    ##   from to offset delta                       refsys point values    
-    ## x    1 37 188500    50 +init=epsg:31370 +proj=lc...    NA   NULL [x]
-    ## y    1 40 229550   -50 +init=epsg:31370 +proj=lc...    NA   NULL [y]
+    ##   from to offset delta                    refsys point values x/y
+    ## x    1 37 188500    50 BD72 / Belgian Lambert 72    NA   NULL [x]
+    ## y    1 40 229550   -50 BD72 / Belgian Lambert 72    NA   NULL [y]
 
 The `stars` package has a number of efficient geospatial algorithms that
-make it worth using, even for simple raster layers\!
+make it worth using, even for simple raster layers!
 
 And sure, as seen above, you can read from files with `read_stars()`,
 write to files with `write_stars()`, convert to Raster\* objects with
-`as("Raster")` and backconvert with `st_as_stars()`\!
+`as("Raster")` and backconvert with `st_as_stars()`!
 
-1.  CRS = coordinate reference system
+[^1]: CRS = coordinate reference system
 
-2.   See the GDAL [datatype
+[^2]:  See the GDAL [datatype
     definitions](https://gdal.org/api/raster_c_api.html#_CPPv412GDALDataType)
     – note that `raster` uses its own abbreviations: `?raster::dataType`
