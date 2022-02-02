@@ -11,9 +11,7 @@ output:
     variant: gfm+footnotes
 ---
 
-_General note: the way the `raster` package handles coordinate reference systems has just recently (at the time of writing) become compliant with recent GDAL 3 and PROJ >= 6 versions._
-_At the time of writing, it was necessary to use the current development version of `raster` ([link](https://github.com/rspatial/raster))._
-_During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code (as seen below), but you can safely ignore them._
+_During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code, but you can safely ignore them._
 _For more information, see the [CRS tutorial](../spatial_crs_coding/)._
 
 ```{r include = FALSE}
