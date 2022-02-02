@@ -36,8 +36,8 @@ We also give some guidelines specific to the Research Institute for Nature and F
 
 More general tutorials can be found at the following web pages:
 
--   <https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html>
--   <https://rstudio.github.io/visual-markdown-editing/#/citations>
+-   <https://pandoc.org/MANUAL.html#citations>
+-   <https://rstudio.github.io/visual-markdown-editing/citations.html>
 
 The latter webpage is part of the documentation about the Visual Markdown Editing (**VME**) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.
 VME is a what-you-see-is-what-you-get [^1] interface for interacting with R Markdown.
@@ -64,7 +64,7 @@ Next to that, the RStudio global and project options provide some additional set
 
 You can specify one or more bibliography files with the `bibliography` argument in a number of formats, including the most commonly used formats at the Research Institute for Nature and Forest: CSL-JSON, CSL-YAML, BibTex and EndNote.
 
-We strongly recommend however to [use CSL-JSON or CSL-YAML](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), since CSL is the native format for Pandoc [^2].
+We strongly recommend however to [use CSL-JSON or CSL-YAML](https://pandoc.org/MANUAL.html#citations), since CSL is the native format for Pandoc [^2].
 All other bibliographic formats are internally converted to CSL-JSON, but with the exception of CSL-YAML this can in general not be perfect.
 Compared to CSL-JSON, Pandoc's CSL-YAML has identical contents while having the most human-friendly syntax.
 [CSL-JSON](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html) is the formal standard supported by all CSL processors [^3]
@@ -120,7 +120,7 @@ To specify the style file for the Research Institute for Nature and Forest it is
 
 ### Other YAML citation arguments {#other-yaml-citation-arguments}
 
-The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1), [Pandoc](https://pandoc.org/MANUAL.html#other-relevant-metadata-fields) & associated [citeproc](https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md) documentation and [RStudio VME citations section](https://rstudio.github.io/visual-markdown-editing/#/citations) mention the following useful arguments:
+The [ymlthis field guide](https://ymlthis.r-lib.org/articles/yaml-fieldguide.html#citations-1), [Pandoc](https://pandoc.org/MANUAL.html#other-relevant-metadata-fields) & associated [citeproc](https://github.com/jgm/citeproc/blob/master/man/citeproc.1.md) documentation and [RStudio VME citations section](https://rstudio.github.io/visual-markdown-editing/citations.html) mention the following useful arguments:
 
 `citation-abbreviations`
 
