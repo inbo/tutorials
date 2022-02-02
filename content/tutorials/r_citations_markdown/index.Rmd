@@ -233,7 +233,7 @@ The first argument accepts a character vector of R package names and the second 
 
 For instance:
 
-```{r echo=TRUE}
+```{r echo=TRUE, warning=FALSE}
 # to cite specific packages
 knitr::write_bib(c("base", "bookdown", "rmarkdown"), "packages.bib")
 ```
