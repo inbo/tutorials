@@ -119,7 +119,7 @@ proj4string for EPSG:31370, the Belgian Lambert 72 CRS:[^2]
     +proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.8686,52.2978,-103.7239,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs
 
 Several reasons have led to recent changes in GDAL and PROJ, such as the
-former use of the WGS84 CRS as an intermediate ‘hub’ in coordinate
+former use of the WGS 84 CRS as an intermediate ‘hub’ in coordinate
 transformation or in defining a CRS’s datum (introducing unneeded
 errors), higher accuracy requirements in transformations and the
 availability of better CRS specification standards than PROJ strings.
@@ -132,7 +132,7 @@ and discouraged. It *can* still be done, preferrably adding the
 strings. The latter represent a coordinate operation, not a CRS.
 Currently, support for most geodetic datums is already lacking in PROJ
 strings[^3] (unless one defines it indirectly, but likely less
-accurately, with the now deprecated `+towgs84` key). The WGS84 ensemble
+accurately, with the now deprecated `+towgs84` key). The WGS 84 ensemble
 datum[^4]
 ([datum:EPSG::6326](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html))
 is now by default assumed for a CRS declared with a PROJ string.
@@ -163,7 +163,7 @@ Geospatial Consortium. WKT stands for ‘Well-known text.’ ‘WKT2’ is
 simply the recent version of WKT, approved in 2019, so you can also
 refer to it as WKT.[^5]
 
-For example, this is the WKT2 string for WGS84:
+For example, this is the WKT2 string for WGS 84:
 
     GEOGCRS["WGS 84 (with axis order normalized for visualization)",
         ENSEMBLE["World Geodetic System 1984 ensemble",
@@ -338,7 +338,7 @@ Good to go!
 You can simply provide the EPSG code using `st_crs()`:
 
 ``` r
-crs_wgs84 <- st_crs(4326) # WGS84 has EPSG code 4326
+crs_wgs84 <- st_crs(4326) # WGS 84 has EPSG code 4326
 ```
 
 It is a so-called `crs` object:
@@ -542,7 +542,7 @@ Okido.
 #### Defining a CRS with `sp`
 
 ``` r
-crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS84 has EPSG code 4326
+crs_wgs84 <- CRS(SRS_string = "EPSG:4326") # WGS 84 has EPSG code 4326
 ```
 
 It is a so-called `CRS` object:
@@ -879,14 +879,14 @@ September 21, 2020).
 [^2]: Note that the *currently returned* PROJ string for EPSG:31370, if
     requested from PROJ ≥ 6 or GDAL 3 (not shown), lacks the datum
     reference which, in PROJ.4, was defined indirectly by `+towgs84`
-    with the 7-parameter (Helmert) transformation to the WGS84 datum.
+    with the 7-parameter (Helmert) transformation to the WGS 84 datum.
     Hence the current PROJ string is a deficient representation of
     EPSG:31370.
 
 [^3]: Formerly, more geodetic datums could be specified in a PROJ string
     with the `+datum` key. Currently only `WGS84`, `NAD27` and `NAD83`
     are still supported this way. Further, if an ellipsoid is specified
-    with `+ellps` (and that includes the WGS84 ellipsoid), the datum of
+    with `+ellps` (and that includes the WGS 84 ellipsoid), the datum of
     the resulting CRS is considered as ‘unknown.’ The usage of PROJ
     strings to define CRSs, including the `+datum` and `+towgs84`
     elements, will remain supported for mere backward compatibility (to

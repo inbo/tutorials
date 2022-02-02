@@ -211,7 +211,7 @@ readLines("habitatstreams.geojson", n = 7) %>%
 
 You can see it basically lists the feature attributes and the coordinates of the lines' vertices, with each feature starting on a new line.
 
-Compare the coordinates with those of the `sf` object `habitatstreams` above: the data have automatically been transformed to WGS84!
+Compare the coordinates with those of the `sf` object `habitatstreams` above: the data have automatically been transformed to WGS 84!
 
 Note: in order to be still manageable (text file size, usage in versioning systems) it seems wise to use GeoJSON for more simple cases -- **points and rather simple lines and polygons** -- and use the binary GeoPackage format for larger (more complex) cases.
 
@@ -225,7 +225,7 @@ habitatstreams_test <- st_read("habitatstreams.geojson")
 
 Same story as for the GeoPackage: other geospatial software will (or should) be able to open the GeoJSON format as well, as it's an open and well established standard.
 
-From the message of `st_read()` you can see the CRS is WGS84 ([EPSG-code 4326](https://epsg.io/4326)) - this is always expected when reading a GeoJSON file.
+From the message of `st_read()` you can see the CRS is WGS 84 ([EPSG-code 4326](https://epsg.io/4326)) - this is always expected when reading a GeoJSON file.
 
 If you want to transform the data to another CRS, e.g. Belgian Lambert 72 ([EPSG-code 31370](https://epsg.io/31370)), use `sf::st_transform()`:
 
