@@ -21,13 +21,13 @@ output:
 A coordinate reference system (**CRS**) – also called spatial reference
 system (SRS) – is what you need if you want to interpret numeric
 coordinates as actual point locations with reference to the Earth. Two
-types of coordinate reference system exist: *geodetic* and *projected*
-CRSs. The former serve only to locate coordinates relative to a 3D model
-of the Earth surface, while the latter add a projection to generate
-coordinates on a 2D map. Coordinate operations convert or transform
-coordinates from one CRS to another, and you often need them because the
-CRS may differ between dataset 1, dataset 2 or a specific mapping
-technology (such as `leaflet`).
+types of coordinate reference system are much used in spatial science:
+*geodetic* and *projected* CRSs. The former serve only to locate
+coordinates relative to a 3D model of the Earth surface, while the
+latter add a projection to generate coordinates on a 2D map. Coordinate
+operations convert or transform coordinates from one CRS to another, and
+you often need them because the CRS may differ between dataset 1,
+dataset 2 or a specific mapping technology (such as `leaflet`).
 
 As you can expect, a CRS is defined by several elements. Essentially, a
 CRS exists of:
@@ -53,11 +53,10 @@ There are a few coordinated lists of CRSs around the globe, the most
 famous one being the [EPSG dataset](https://www.epsg.org), where each
 CRS has a unique *EPSG code*. You can consult these CRSs interactively
 at <https://epsg.org> (official source) and through third-party websites
-such as <http://epsg.io> and
-<https://jjimenezshaw.github.io/crs-explorer>. For example, the ‘World
-Geodetic System 1984’ (WGS84) is a geodetic CRS with EPSG code `4326`,
-and ‘Belge 1972 / Belgian Lambert 72’ is a projected CRS with EPSG code
-`31370`.
+such as <https://jjimenezshaw.github.io/crs-explorer> and
+<http://epsg.io>. For example, the ‘World Geodetic System 1984’ (WGS 84)
+is a geodetic CRS with EPSG code `4326`, and ‘Belge 1972 / Belgian
+Lambert 72’ is a projected CRS with EPSG code `31370`.
 
 In R, you can also search for CRSs and EPSG codes since these are
 included in the PROJ database, used by R packages like `sf`. An example
