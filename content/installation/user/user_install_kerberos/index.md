@@ -1,7 +1,7 @@
 ---
 title: "Using Kerberos authentication for database connection"
-description: "Kerberos authentication on Linux"
-authors: [joloos, florisvdh, stijnvanhoey]
+description: "Kerberos authentication on Linux and macOS"
+authors: [joloos, florisvdh, stijnvanhoey, aaikedewever, peterdesmet]
 date: 2020-09-07
 categories: ["installation"]
 tags: ["database", "data", "installation"]
