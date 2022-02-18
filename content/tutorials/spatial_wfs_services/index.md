@@ -62,7 +62,7 @@ blogpost](https://friesewoudloper.wordpress.com/2015/05/17/het-bevragen-van-een-
 
 # Useful overviews of web feature services
 
-WFS services for Belgium and regions in Belgium:
+WFS (and WM(T)S) services for Belgium and regions in Belgium:
 
 -   [overview of WFS services for Flanders
     region](https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten)
@@ -71,6 +71,11 @@ WFS services for Belgium and regions in Belgium:
     gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
 -   [overview maintained by DOV
     Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
+-   [Geoportal of the Belgian federal institutions, notably NGI](https://www.geo.be/home?l=en):
+    several of these services can be viewed interactively at the 
+    [NGI TopoMapViewer](https://topomapviewer.ngi.be), including the 
+    [CartoWeb.be](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/)
+    WMS/WMTS service
 
 European portals:
 
