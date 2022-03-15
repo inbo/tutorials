@@ -518,7 +518,7 @@ This can look a bit overwhelming at the start, but is a matter of looking for so
 * `outputFormat`: The supported output formats are enlisted in `<ows:Parameter name="outputFormat">`. As the service provides CSV as output, this is a straightforward option. `json` is another popular one.
 * `propertyname`: A list of the attribute table fields (cfr. supra). A full list of the Flanders soil map is provided [here](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType).
 * We also define the `CRS`, using the [EPSG code](http://spatialreference.org/).
-* `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS` of the WFS `geom` and our `POINT` coordinate. The operators are enlisted in the `<ogc:SpatialOperators>` field.
+* `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS` of the WFS `geom` and our `POINT` coordinate. The operators are enlisted in the `<ogc:SpatialOperators>` field. Note that `geom` is the name of the geometry field (in this example `geom` but other web services may use a different name such as `SHAPE`, `geometry` or `the_geom`).
 
 Formatting all this information in a query and executing the request (`GET`) towards the service:
 
