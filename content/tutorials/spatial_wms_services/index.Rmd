@@ -92,19 +92,17 @@ leaflet() %>%
   )
 ```
 
-Since the CartoWeb service uses WMS version 1.3.0, we need to override the default version 1.1.1 of `WMSTileOptions()`.
-
 ```{r fig.cap = "Leaflet map of the topographic CartoWeb layer. At zoom level 15."}
 leaflet() %>% 
   setView(lng = 4.287638, lat = 50.703039, zoom = 15) %>% 
   addWMSTiles(
     wms_cartoweb_be,
     layers = "topo",
-    options = WMSTileOptions(format = "image/png", version = "1.3.0")
+    options = WMSTileOptions(format = "image/png")
   )
 ```
 
-Another zoom level triggers the display of another topographic map.
+Setting another zoom level of the CartoWeb service triggers the display of another topographic map.
 Of course you can do that interactively with the above map (not supported on this web site though).
 
 ```{r fig.cap = "Leaflet map of the topographic CartoWeb layer. At zoom level 12."}
