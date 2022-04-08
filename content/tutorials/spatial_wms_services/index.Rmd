@@ -174,7 +174,6 @@ leaflet() %>%
   ) %>%
   addLayersControl(
     baseGroups = "Orthophoto BE",
-    overlayGroups = "Topo BE",
-    options = layersControlOptions(collapsed = FALSE)
+    overlayGroups = "Topo BE"
   )
 ```
