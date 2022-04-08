@@ -20,27 +20,47 @@ opts_chunk$set(
 
 WMS stands for [Web Map Service](https://en.wikipedia.org/wiki/Web_Map_Service). The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps. 
 
-`wms_grb` links to the WMS of the [GRB-basiskaart](http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151), the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
-
-`wms_ortho` contains a mosaic of recent [orthophotos](http://www.geopunt.be/catalogus/webservicefolder/418e8e4a-12c1-80a8-8306-fcf4-799c-581d-c4e38594) made during the winter. The layer `Ortho` contains the images, the layer `Vliegdagcontour` detail on the time when the pictures were taken.
-
-`wms_inbo` is a WMS providing [several layers]()
-
-`wms_hunting` displays [hunting grounds](http://www.geopunt.be/catalogus/webservicefolder/525f1e17-c7d8-3bf3-550c-82c4-7fb3-e97c-a9bc3a6b) in Flanders
+We will use the `leaflet` package to make interactive maps.
 
 ```{r}
+library(leaflet)
+```
+
+First, we define some WMS URLs for Flanders and Belgium to play with:
+
+```{r}
+# Flanders:
 wms_grb <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms"
 wms_ortho <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms"
 wms_inbo <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms"
 wms_hunting <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms"
+# Belgium:
+wms_cartoweb_be <- "https://cartoweb.wms.ngi.be/service"
+wms_ortho_be <- "https://wms.ngi.be/inspire/ortho/service"
 ```
 
-# As background of interactive maps
+- `wms_grb` links to the WMS of the [GRB-basiskaart](http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151), the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
+
+- `wms_ortho` contains a mosaic of recent [orthophotos](http://www.geopunt.be/catalogus/webservicefolder/418e8e4a-12c1-80a8-8306-fcf4-799c-581d-c4e38594) made during the winter. The layer `Ortho` contains the images, the layer `Vliegdagcontour` detail on the time when the pictures were taken.
+
+- `wms_inbo` is a WMS providing [several layers]().
+
+- `wms_hunting` displays [hunting grounds](http://www.geopunt.be/catalogus/webservicefolder/525f1e17-c7d8-3bf3-550c-82c4-7fb3-e97c-a9bc3a6b) in Flanders.
+
+- `wms_cartoweb_be` provides several [cartographic layers from the National Geographic Institute](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/) (NGI).
+
+- `wms_ortho_be` provides recent [orthophotos for the whole Belgian territory](https://www.geo.be/catalog/details/29238f19-ac79-4a4a-a797-5490226381ec?l=en), compiled by NGI.
+
+In the WFS tutorial, we present a handy [**overview** of websites]((../spatial_wfs_services/#useful-overviews-of-web-feature-services)) with WMS (and WFS) services.
+
+
+# Simple maps
 
 WMS layers can be added to a `leaflet` map using the `addWMSTiles()` function.
 
+Note that it is required to define the map view with `setView()`, by providing a map center (as longitude and latitude coordinates) and a zoom level.
+
 ```{r fig.cap = "Leaflet map with the GRB-basiskaart as background"}
-library(leaflet)
 leaflet() %>% 
   setView(lng = 4.287638, lat = 50.703039, zoom = 15) %>% 
   addWMSTiles(
@@ -82,6 +102,8 @@ leaflet() %>%
     options = WMSTileOptions(format = "image/png", transparent = TRUE)
   )
 ```
+
+By adding `addWMSTiles()` multiple times, several WMSs can be placed on top of each other.
 
 ```{r fig.cap = "Leaflet map with the GRB-basiskaart, hunting ground and the OpenStreetMap (OSM) as background"}
 leaflet() %>% 
