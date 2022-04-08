@@ -160,7 +160,7 @@ leaflet() %>%
 The `overlay` layer of the NGI CartoWeb service is aimed at higher zoom levels and is useful to put on top of a map.
 Here we take the NGI orthophoto service as a background map.
 
-```{r fig.cap = "Leaflet map with the orthophoto mosaic as background and a topographic overlay on top"}
+```{r fig.cap = "Leaflet map with the Belgian orthophoto mosaic as background and a topographic overlay on top"}
 leaflet() %>% 
   setView(lng = 4.287638, lat = 50.703039, zoom = 16) %>% 
   addWMSTiles(
