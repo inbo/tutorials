@@ -18,7 +18,7 @@ opts_chunk$set(
 )
 ```
 
-WMS stands for [Web Map Service](https://en.wikipedia.org/wiki/Web_Map_Service). The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps. 
+WMS stands for [Web Map Service](https://en.wikipedia.org/wiki/Web_Map_Service). The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 
 We will use the `leaflet` package to make interactive maps.
 
@@ -62,7 +62,7 @@ Note that it is required to define the map view with `setView()`, by providing a
 
 ```{r fig.cap = "Leaflet map with the GRB-basiskaart as background"}
 leaflet() %>% 
-  setView(lng = 4.287638, lat = 50.703039, zoom = 15) %>% 
+  setView(lng = 4.287638, lat = 50.703039, zoom = 15) %>%
   addWMSTiles(
     wms_grb,
     layers = "GRB_BSK",
