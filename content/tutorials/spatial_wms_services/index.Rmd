@@ -58,7 +58,7 @@ In the WFS tutorial, we present a handy [**overview** of websites](../spatial_wf
 
 WMS layers can be added to a `leaflet` map using the `addWMSTiles()` function.
 
-Note that it is required to define the map view with `setView()`, by providing a map center (as longitude and latitude coordinates) and a zoom level.
+It is required to define the map view with `setView()`, by providing a map center (as longitude and latitude coordinates) and a zoom level.
 
 ```{r fig.cap = "Leaflet map with the GRB-basiskaart as background"}
 leaflet() %>% 
@@ -130,7 +130,7 @@ leaflet() %>%
   )
 ```
 
-By adding `addWMSTiles()` multiple times, several WMSs can be placed on top of each other.
+By adding `addWMSTiles()` multiple times, several WMSs can be displayed on top of each other.
 
 ```{r fig.cap = "Leaflet map with the GRB-basiskaart, hunting ground and the OpenStreetMap (OSM) as background"}
 leaflet() %>% 
@@ -157,6 +157,7 @@ leaflet() %>%
 
 The `overlay` layer of the NGI CartoWeb service is aimed at higher zoom levels and is useful to put on top of a map.
 Here we take the NGI orthophoto service as a background map.
+We must set the `overlay` layer transparent in order to see the layers below -- the default option being `transparent = FALSE`.
 
 ```{r fig.cap = "Leaflet map with the Belgian orthophoto mosaic as background and a topographic overlay on top"}
 leaflet() %>% 
