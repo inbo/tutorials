@@ -6,7 +6,19 @@
     <description>Recent content in thierryo on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using WMS services in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
+      <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
+      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
+We will use the leaflet package to make interactive maps.
+library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
+# Flanders: wms_grb &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
+    </item>
+    
     <item>
       <title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
       <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</link>
@@ -28,7 +40,7 @@ Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands 
     </item>
     
     <item>
-      <title>Using WFS service in R</title>
+      <title>Using WFS services in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
       
@@ -207,17 +219,6 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
       <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
 The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
-    </item>
-    
-    <item>
-      <title>Using WMS service in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
-      <pubDate>Mon, 19 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
-      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
-wms_grb links to the WMS of the GRB-basiskaart, the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
-wms_ortho contains a mosaic of recent orthophotos made during the winter. The layer Ortho contains the images, the layer Vliegdagcontour detail on the time when the pictures were taken.</description>
     </item>
     
     <item>

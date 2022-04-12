@@ -5,15 +5,15 @@
 <meta name='description' content='How to use WMS (raster) GIS services within R scripts'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Using WMS service in R • Thierry Onkelinx'>
+<meta property='og:title' content='Using WMS services in R • Thierry Onkelinx'>
 <meta property='og:description' content='How to use WMS (raster) GIS services within R scripts'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/spatial_wms_services/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2018-02-19T00:00:00Z'/><meta property='article:modified_time' content='2018-02-19T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='gis'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='maps'><meta property='article:published_time' content='2022-04-08T00:00:00Z'/><meta property='article:modified_time' content='2022-04-08T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.88.1" />
 
-  <title>Using WMS service in R • Thierry Onkelinx</title>
+  <title>Using WMS services in R • Thierry Onkelinx</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/spatial_wms_services/'>
   
   
@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Feb 18 16:43:16 UTC 2022</small></p>
+  <p><small>Built on: Tue Apr 12 11:56:28 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -287,7 +287,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Using WMS service in R</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Using WMS services in R</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -306,7 +306,7 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Using WMS service in R</h1>
+      <h1 class='title'>Using WMS services in R</h1>
       
 <p class='desc'>How to use WMS (raster) GIS services within R scripts</p>
 
@@ -322,7 +322,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2018-02-19T00:00:00Z'>2018, Feb 19</time>
+  <time class='entry-date' datetime='2022-04-08T00:00:00Z'>2022, Apr 08</time>
 </span>
 
   <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -331,7 +331,7 @@
   <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
   
 </svg>
-<span class='screen-reader-text'> by </span><a href='/tutorials/authors/thierryo'>Thierry Onkelinx</a></span>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/thierryo'>Thierry Onkelinx</a>, <a href='/tutorials/authors/florisvdh'>Floris Vanderhaeghe</a></span>
   <br/>
   
 <span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -340,7 +340,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-2 mins read
+3 mins read
 </span>
 
 
@@ -380,34 +380,67 @@ Improve this page</a>
 Service</a>. The service
 provides prerendered tiles at different scales. This makes it useful to
 include them as background images in maps.</p>
+<p>We will use the <code>leaflet</code> package to make interactive maps.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(leaflet)
+</code></pre></div><p>First, we define some WMS URLs for Flanders and Belgium to play with:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># Flanders:</span>
+wms_grb &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms&#34;</span>
+wms_ortho &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms&#34;</span>
+wms_inbo &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms&#34;</span>
+wms_hunting &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms&#34;</span>
+<span style="color:#aaa;font-style:italic"># Belgium:</span>
+wms_cartoweb_be &lt;- <span style="color:#a50">&#34;https://cartoweb.wms.ngi.be/service&#34;</span>
+wms_ortho_be &lt;- <span style="color:#a50">&#34;https://wms.ngi.be/inspire/ortho/service&#34;</span>
+</code></pre></div><ul>
+<li>
 <p><code>wms_grb</code> links to the WMS of the
 <a href="http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151">GRB-basiskaart</a>,
 the Flemish cadastral map. It depicts land parcels, buildings,
 watercourses, roads and railroads.</p>
+</li>
+<li>
 <p><code>wms_ortho</code> contains a mosaic of recent
 <a href="http://www.geopunt.be/catalogus/webservicefolder/418e8e4a-12c1-80a8-8306-fcf4-799c-581d-c4e38594">orthophotos</a>
-made during the winter. The layer <code>Ortho</code> contains the images, the layer
-<code>Vliegdagcontour</code> detail on the time when the pictures were taken.</p>
-<p><code>wms_inbo</code> is a WMS providing <a href="">several layers</a></p>
+made during the winter. The layer <code>Ortho</code> contains the images, the
+layer <code>Vliegdagcontour</code> detail on the time when the pictures were
+taken.</p>
+</li>
+<li>
+<p><code>wms_inbo</code> is a WMS providing <a href="">several layers</a>.</p>
+</li>
+<li>
 <p><code>wms_hunting</code> displays <a href="http://www.geopunt.be/catalogus/webservicefolder/525f1e17-c7d8-3bf3-550c-82c4-7fb3-e97c-a9bc3a6b">hunting
 grounds</a>
-in Flanders</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">wms_grb &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms&#34;</span>
-wms_ortho &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms&#34;</span>
-wms_inbo &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms&#34;</span>
-wms_hunting &lt;- <span style="color:#a50">&#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms&#34;</span>
-</code></pre></div><h1 id="as-background-of-interactive-maps">As background of interactive maps<a href="#as-background-of-interactive-maps" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+in Flanders.</p>
+</li>
+<li>
+<p><code>wms_cartoweb_be</code> provides several <a href="https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/">cartographic layers from the
+National Geographic
+Institute</a>
+(NGI).</p>
+</li>
+<li>
+<p><code>wms_ortho_be</code> provides recent <a href="https://www.geo.be/catalog/details/29238f19-ac79-4a4a-a797-5490226381ec?l=en">orthophotos for the whole Belgian
+territory</a>,
+compiled by NGI.</p>
+</li>
+</ul>
+<p>In the WFS tutorial, we present a handy <a href="../spatial_wfs_services/#useful-overviews-of-web-feature-services"><strong>overview</strong> of
+websites</a>
+with WMS (and WFS) services.</p>
+<h1 id="simple-maps">Simple maps<a href="#simple-maps" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <p>WMS layers can be added to a <code>leaflet</code> map using the <code>addWMSTiles()</code>
 function.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(leaflet)
-<span style="color:#0a0">leaflet</span>() %&gt;% 
-  <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">15</span>) %&gt;% 
+<p>It is required to define the map view with <code>setView()</code>, by providing a
+map center (as longitude and latitude coordinates) and a zoom level.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
+  <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">15</span>) %&gt;%
   <span style="color:#0a0">addWMSTiles</span>(
     wms_grb,
     layers = <span style="color:#a50">&#34;GRB_BSK&#34;</span>,
     options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>, transparent = <span style="color:#00a">TRUE</span>)
   )
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-3-1.png" alt="Leaflet map with the GRB-basiskaart asbackground"></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt="Leaflet map with the GRB-basiskaart asbackground"></p>
 <p><em>Note: run the code to see this and the following interactive maps.</em></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
   <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">15</span>) %&gt;% 
@@ -416,7 +449,7 @@ function.</p>
     layers = <span style="color:#a50">&#34;Ortho&#34;</span>,
     options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>, transparent = <span style="color:#00a">TRUE</span>)
   )
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt="Leaflet map with the orthophoto mosaic asbackground"></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-5-1.png" alt="Leaflet map with the orthophoto mosaic asbackground"></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
   <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">15</span>) %&gt;% 
   <span style="color:#0a0">addWMSTiles</span>(
@@ -424,7 +457,28 @@ function.</p>
     layers = <span style="color:#a50">&#34;PNVeg&#34;</span>,
     options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>, transparent = <span style="color:#00a">TRUE</span>)
   )
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-5-1.png" alt="Leaflet map with the potential naturalvegetation"></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt="Leaflet map with the potential naturalvegetation"></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
+  <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">15</span>) %&gt;% 
+  <span style="color:#0a0">addWMSTiles</span>(
+    wms_cartoweb_be,
+    layers = <span style="color:#a50">&#34;topo&#34;</span>,
+    options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>)
+  )
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-7-1.png" alt="Leaflet map of the topographic CartoWeb layer. At zoom level15."></p>
+<p>Setting another zoom level of the CartoWeb service triggers the display
+of another topographic map. Of course you can do that interactively with
+the above map (not supported on this web site though).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
+  <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">12</span>) %&gt;% 
+  <span style="color:#0a0">addWMSTiles</span>(
+    wms_cartoweb_be,
+    layers = <span style="color:#a50">&#34;topo&#34;</span>,
+    options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>)
+  )
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-8-1.png" alt="Leaflet map of the topographic CartoWeb layer. At zoom level12."></p>
+<h1 id="combining-multiple-layers">Combining multiple layers<a href="#combining-multiple-layers" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Below, we also add OpenStreetMap in the background.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
   <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">14</span>) %&gt;% 
   <span style="color:#0a0">addTiles</span>(group = <span style="color:#a50">&#34;OSM&#34;</span>) %&gt;%
@@ -433,7 +487,9 @@ function.</p>
     layers = <span style="color:#a50">&#34;Jachtterr&#34;</span>,
     options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>, transparent = <span style="color:#00a">TRUE</span>)
   )
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt="Leaflet map of hunting grounds with the OpenStreetMap in thebackground"></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-9-1.png" alt="Leaflet map of hunting grounds with the OpenStreetMap in thebackground"></p>
+<p>By adding <code>addWMSTiles()</code> multiple times, several WMSs can be displayed
+on top of each other.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
   <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">14</span>) %&gt;% 
   <span style="color:#0a0">addTiles</span>(group = <span style="color:#a50">&#34;OSM&#34;</span>) %&gt;%
@@ -454,7 +510,29 @@ function.</p>
     overlayGroups = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;GRB&#34;</span>, <span style="color:#a50">&#34;hunting&lt;br&gt;grounds&#34;</span>),
     options = <span style="color:#0a0">layersControlOptions</span>(collapsed = <span style="color:#00a">FALSE</span>)
   )
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-7-1.png" alt="Leaflet map with the GRB-basiskaart, hunting ground and theOpenStreetMap (OSM) asbackground"></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-10-1.png" alt="Leaflet map with the GRB-basiskaart, hunting ground and theOpenStreetMap (OSM) asbackground"></p>
+<p>The <code>overlay</code> layer of the NGI CartoWeb service is aimed at higher zoom
+levels and is useful to put on top of a map. Here we take the NGI
+orthophoto service as a background map. We must set the <code>overlay</code> layer
+transparent in order to see the layers below – the default option being
+<code>transparent = FALSE</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">leaflet</span>() %&gt;% 
+  <span style="color:#0a0">setView</span>(lng = <span style="color:#099">4.287638</span>, lat = <span style="color:#099">50.703039</span>, zoom = <span style="color:#099">16</span>) %&gt;% 
+  <span style="color:#0a0">addWMSTiles</span>(
+    wms_ortho_be,
+    layers = <span style="color:#a50">&#34;orthoimage_coverage&#34;</span>,
+    group = <span style="color:#a50">&#34;Orthophoto BE&#34;</span>) %&gt;%
+  <span style="color:#0a0">addWMSTiles</span>(
+    wms_cartoweb_be,
+    layers = <span style="color:#a50">&#34;overlay&#34;</span>,
+    options = <span style="color:#0a0">WMSTileOptions</span>(format = <span style="color:#a50">&#34;image/png&#34;</span>, transparent = <span style="color:#00a">TRUE</span>),
+    group = <span style="color:#a50">&#34;Topo BE&#34;</span>
+  ) %&gt;%
+  <span style="color:#0a0">addLayersControl</span>(
+    baseGroups = <span style="color:#a50">&#34;Orthophoto BE&#34;</span>,
+    overlayGroups = <span style="color:#a50">&#34;Topo BE&#34;</span>
+  )
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-11-1.png" alt="Leaflet map with the Belgian orthophoto mosaic as background and atopographic overlay ontop"></p>
 </div>
 
   
@@ -481,7 +559,7 @@ function.</p>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/tutorials/tutorials/r_tidyverse_info/'>
+      <a href='/tutorials/tutorials/vignette_checklist_zenodo/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -489,17 +567,7 @@ function.</p>
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Data wrangling with tidyverse</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/development_wercker/'>
-        <span class='screen-reader-text'>Next post: </span>Wercker<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>checklist: Setting up the integration between GitHub, Zenodo and ORCID</a>
     </div></div>
 </nav>
 

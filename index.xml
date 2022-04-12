@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create tutorial</title>
       <link>https://inbo.github.io/tutorials/create_tutorial/</link>
@@ -16,6 +16,18 @@
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>Using WMS services in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
+      <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
+      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
+We will use the leaflet package to make interactive maps.
+library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
+# Flanders: wms_grb &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
     </item>
     
     <item>
@@ -98,7 +110,7 @@ More general tutorials can be found at the following web pages:
     </item>
     
     <item>
-      <title>Using WFS service in R</title>
+      <title>Using WFS services in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
       
@@ -742,17 +754,6 @@ The Wercker test environment can only be set up if the file wercker.yml is commi
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
-    </item>
-    
-    <item>
-      <title>Using WMS service in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
-      <pubDate>Mon, 19 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
-      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
-wms_grb links to the WMS of the GRB-basiskaart, the Flemish cadastral map. It depicts land parcels, buildings, watercourses, roads and railroads.
-wms_ortho contains a mosaic of recent orthophotos made during the winter. The layer Ortho contains the images, the layer Vliegdagcontour detail on the time when the pictures were taken.</description>
     </item>
     
     <item>
