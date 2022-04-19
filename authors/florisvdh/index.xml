@@ -6,7 +6,17 @@
     <description>Recent content in florisvdh on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using WFS services in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
+    
     <item>
       <title>Using WMS services in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
@@ -49,16 +59,6 @@ More general tutorials can be found at the following web pages:
       
       <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
       <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
-    </item>
-    
-    <item>
-      <title>Using WFS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
-The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>

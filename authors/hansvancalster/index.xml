@@ -6,7 +6,17 @@
     <description>Recent content in hansvancalster on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/hansvancalster/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/hansvancalster/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using WFS services in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
+    
     <item>
       <title>Citations in R Markdown</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</link>
@@ -16,16 +26,6 @@
       <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
 More general tutorials can be found at the following web pages:
  https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
-    </item>
-    
-    <item>
-      <title>Using WFS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Thu, 24 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
-The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
