@@ -2,7 +2,7 @@
 title: "Using WFS services in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 authors: [thierryo, hansvancalster, florisvdh]
-date: "2022-03-15"
+date: "2022-04-19"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -479,11 +479,11 @@ In this example, we only want to extract specific regions. This can be
 done using either [standard OGC filter
 specification](https://www.ogc.org/standards/filter) or using a
 [Contextual Query Language (CQL)
-filter](https://www.loc.gov/standards/sru/cql/index.html), for which a
-didactical explanation can be found
-[here](https://gcs-docs.s3.amazonaws.com/EVWHS/Miscellaneous/DevGuides/WFS/WFS_Query.htm).[^1]
-The latter, however, only works for WFS services that are hosted on a
-GeoServer!
+filter](https://portal.ogc.org/files/96288). The latter is currently a
+draft proposal for an OGC standard and is subject to change. A
+didactical explanation of CQL can be found
+[here](http://zing.z3950.org/cql/intro.html).[^1] CQL currently only
+works for WFS services that are hosted on a GeoServer!
 
 In this example we also show how the previously used R code can be
 stitched together using the pipe (`%>%`) operator.
