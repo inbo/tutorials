@@ -15,6 +15,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
 ## Before we start
 
 This tutorial assumes you have a GitHub account, and have Git and RStudio installed on your system.
@@ -29,6 +30,32 @@ You determine what can and what cannot be done and this can be different for var
 Most of the material in this tutorial is explained in length in https://happygitwithr.com/connect-intro.html.
 The idea of this tutorial is to condense some of this material and make clear recommendations for use at INBO. 
 We will mainly follow [the advice given in the usethis package](https://usethis.r-lib.org/articles/articles/git-credentials.html).
+
+
+## TL;DR
+
+Use the following commands to configure some global git options (if you haven't done this already):
+
+```{r eval=FALSE}
+gert::git_config_global_set("user.name", "Your Name") # change Your Name
+gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
+gert::git_config_global_set("init.defaultBranch", "main")
+```
+
+Use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
+
+```{r eval=FALSE}
+usethis::git_vaccinate()
+usethis::create_github_token() #browser opens, follow instructions
+gitcreds::gitcreds_set() #paste PAT
+```
+
+Check if everything is OK:
+
+```{r eval=FALSE}
+usethis::git_sitrep()
+```
+
 
 ## Modes of authentication
 

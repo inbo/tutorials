@@ -35,6 +35,32 @@ recommendations for use at INBO. We will mainly follow [the advice given
 in the usethis
 package](https://usethis.r-lib.org/articles/articles/git-credentials.html).
 
+## TL;DR
+
+Use the following commands to configure some global git options (if you
+haven’t done this already):
+
+``` r
+gert::git_config_global_set("user.name", "Your Name") # change Your Name
+gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
+gert::git_config_global_set("init.defaultBranch", "main")
+```
+
+Use the following commands to create a Personal Access Token (PAT) and
+add it to the Git Credential Manager:
+
+``` r
+usethis::git_vaccinate()
+usethis::create_github_token() #browser opens, follow instructions
+gitcreds::gitcreds_set() #paste PAT
+```
+
+Check if everything is OK:
+
+``` r
+usethis::git_sitrep()
+```
+
 ## Modes of authentication
 
 There are various ways to authenticate and these modes depend on how you
