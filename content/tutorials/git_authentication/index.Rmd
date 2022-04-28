@@ -179,6 +179,8 @@ The same source may be consulted for other operating systems.
 
 1. Open RStudio: _Tools > Global Options…> Git/SVN > Create RSA Key..._ You can
 optionally use a passphrase for extra protection of the key.
+Without password, anyone who has a copy of your private key, can impersonate you when authenticating on GitHub.
+When the private key is password protected they need your password too.
 Click create and apply.
 
 2. In RStudio, open a Rproject with Git version control and navigate to the Git
