@@ -1,3 +1,7 @@
+if (!"checklist" %in% rownames(utils::installed.packages())) {
+  utils::install.packages("checklist")
+}
+
 options(
   papersize = "a4",
   tab.width = 2,
@@ -22,6 +26,7 @@ options(
     Encoding = "UTF-8",
     Roxygen = "list(markdown = TRUE)"
   ),
+  lintr.linter_file = system.file("lintr", package = "checklist"),
   repos = c(
     CRAN = "https://cloud.r-project.org/",
     INLA = "https://inla.r-inla-download.org/R/stable",
@@ -33,12 +38,12 @@ options(
 
 # display fortune when starting new interactive R session
 if (interactive()) {
-  if (length(find.package("fortunes", quiet = TRUE)) == 0) {
+  if (!"fortunes" %in% rownames(utils::installed.packages())) {
     utils::install.packages("fortunes")
   }
   tryCatch(
     print(fortunes::fortune()),
-    error = function(e){
+    error = function(e) {
       invisible(NULL)
     }
   )
