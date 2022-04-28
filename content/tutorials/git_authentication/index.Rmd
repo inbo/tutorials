@@ -1,5 +1,5 @@
 ---
-title: "Git Authentication"
+title: "Git Authentication on Windows"
 description: "How to safely identify yourself, or a third party on behalf of you, to Git or GitHub"
 authors: [hansvancalster]
 date: "`r Sys.Date()`"
@@ -55,7 +55,7 @@ Check if everything is OK:
 ```{r eval=FALSE}
 usethis::git_sitrep()
 ```
-
+**WARNING**:  handle your Personal Access Token (PAT) as as secret. Anyone who has your token, has access to your GitHub account.
 
 ## Modes of authentication
 
@@ -85,7 +85,7 @@ To enable two-factor authentication for your GitHub account, follow [these steps
 Another two-factor authentication app that is not mentioned on that website but easy to use is Google Authenticator.
 
 The second recommendation is to use the [HTTPS protocol](#https) to transport information (data) from your local Git repositories to their remote (online) counterparts.
-Alternatives include the HTTP (not secure) and SSH protocol.
+A good alternatives is the SSH protocol. Do not use the HTTP protocol as it is not secure.
 We have also included in this tutorial how to use the [SSH protocol](#ssh), but in our experience this is not necessary in most circumstances and more involved to implement.
 It is always possible to switch between HTTPS and SSH protocols and we explain in that section how to do that.
 
