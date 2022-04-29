@@ -18,9 +18,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Before we start
 
-This tutorial assumes you have a GitHub account, and have Git and RStudio installed on your system.
+This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system.
+The idea of this tutorial is make clear recommendations for useRs at INBO. 
+
 If you do not have a GitHub account, you can [sign up for a new GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account).
-To enable Git with RStudio, open RStudio and go to `Tools -> Global options -> Git/SVN`.
+The installation of Git, R and RStudio at INBO, is done by IT administrators who follow [these installation instructions for admins](https://inbo.github.io/tutorials/installation/administrator/).
+In addition, the useR is asked to do some extra steps after installation of [Git](https://inbo.github.io/tutorials/installation/user/user_install_git/), [R](https://inbo.github.io/tutorials/installation/user/user_install_r/) and [RStudio](https://inbo.github.io/tutorials/installation/user/user_install_rstudio/).
 
 To authenticate means passing information (= credentials) that proves that you are exactly who you declare to be.
 Authentication is about securely accessing your GitHub account's resources either directly by yourself or on behalf of you by a third party.
@@ -28,7 +31,6 @@ For instance, you can grant an R package the right to do stuff on your behalf (e
 You determine what can and what cannot be done and this can be different for various third parties.
 
 Most of the material in this tutorial is explained in length in https://happygitwithr.com/connect-intro.html.
-The idea of this tutorial is to condense some of this material and make clear recommendations for use at INBO. 
 We will mainly follow [the advice given in the usethis package](https://usethis.r-lib.org/articles/articles/git-credentials.html).
 
 
