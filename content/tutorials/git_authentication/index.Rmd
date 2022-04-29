@@ -67,7 +67,7 @@ usethis::git_sitrep()
 There are various ways to authenticate and these modes depend on how you access your resources in GitHub.
 Here are ways of authentication that we recommend for various ways of accessing your GitHub resources.
 
-- Access to [GitHub](https://github.com/) via the browser
+- Access to [GitHub](https://github.com/) via the browser (for instance to change settings of your repositories)
     - Username and password combined with two-factor authentication
 - Interact with [GitHub as a Git Server](https://github.com/) via RStudio _and_ Access to GitHub via the [GitHub REST API](https://docs.github.com/en/rest)
     - The HTTPS protocol combined with a Personal Access Token (PAT) as credential (preferably cached in the Git Credential Manager)
