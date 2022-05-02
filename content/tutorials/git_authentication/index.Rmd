@@ -44,7 +44,7 @@ Enable two-factor authentication for your GitHub account, follow [these steps](h
 Another two-factor authentication app that is not mentioned on that website but easy to use is Google Authenticator.
 You probably already use a two-factor authentication app, just use that.
 
-Next, install the `usethis` package (this will also install packages `gert` and `gitcreds` which we use below):
+Next, in R, install the `usethis` package (this will also install packages `gert` and `gitcreds` which we use below):
 
 ```{r}
 install.packages("usethis")
