@@ -165,7 +165,9 @@ The situation report should normally report that the default Git protocol is `ht
 
 ## <a name="https"></a>Using the HTTPS protocol
 
-The HTTPS protocol is the GitHub default URL transport protocol.
+The HTTPS protocol is the GitHub default URL transport protocol that uses the Transport Layer Security (TLP) encryption protocol to encrypt communications.
+To learn more about what https is, [read this explanation](https://www.cloudflare.com/learning/ssl/what-is-https/).
+
 The usual way to choose the protocol is when you clone a repository to your computer.
 You can do this in various ways:
 
@@ -189,9 +191,14 @@ In the password section you will need to provide your PAT (not your GitHub passw
 
 ## <a name="ssh"></a>Creating public-private SSH-key pairs
 
-Below we describe the steps you need to run in order to make SSH-keys.
+Below we describe the steps you need to run in order to make SSH-keys (Secure SHell).
 The SSH protocol is, next to the HTTPS-protocol, a way to safely interact with 
 GitHub.
+A general and easy to follow explanation about SSH can be read [here](https://dev.to/risafj/ssh-key-authentication-for-absolute-beginners-in-plain-english-2m3f).
+Both HTTPS and SSH are secure ways to communicate with a server (pass information between your computer and a server).
+For a discussion of technical differences and similarities on how both protocols handle security, [this resouce about SSH and TLS](https://www.ssl2buy.com/wiki/ssh-vs-ssl-tls) is useful.
+
+
 A private key, that is specific to your computer, and a matching public key that
 is stored on your GitHub account are needed.
 The provided instructions are for Windows and are taken from
