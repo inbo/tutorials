@@ -42,29 +42,49 @@ If you want to get some intuition about what you are doing, you will need to rea
 
 Enable two-factor authentication for your GitHub account, follow [these steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
 Another two-factor authentication app that is not mentioned on that website but easy to use is Google Authenticator.
+You probably already use a two-factor authentication app, just use that.
+
+Next, install the `usethis` package (this will also install packages `gert` and `gitcreds` which we use below):
+
+```{r}
+install.packages("usethis")
+```
 
 Use the following commands to configure some global git options (if you haven't done this already):
 
 ```{r eval=FALSE}
+?gert::git_config_global_set # read the help file
 gert::git_config_global_set("user.name", "Your Name") # change Your Name
 gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
 gert::git_config_global_set("init.defaultBranch", "main")
 ```
 
-Use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
+If you plan to use functions that create something on GitHub (a repo, an issue, a pull request, a branch, ...) and for all remote operations from the command line (git pull, git push, git clone, git fetch), you will need to use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
 
 ```{r eval=FALSE}
+?usethis::git_vaccinate() # read the help file
 usethis::git_vaccinate()
+?usethis::create_github_token() # read the help file
 usethis::create_github_token() #browser opens, follow instructions
+```
+
+Add the PAT to the Git Credential Manager:
+
+```{r eval=FALSE}
+?gitcreds::gitcreds_set() # read the help file
 gitcreds::gitcreds_set() #paste PAT
 ```
+
+**WARNING**:  handle your Personal Access Token (PAT) as as secret.
+Anyone who has your token, has access to your GitHub account.
 
 Check if everything is OK:
 
 ```{r eval=FALSE}
 usethis::git_sitrep()
 ```
-**WARNING**:  handle your Personal Access Token (PAT) as as secret. Anyone who has your token, has access to your GitHub account.
+
+The default Git protocol should be 'https' (recommended on Windows).
 
 ## Modes of authentication
 
