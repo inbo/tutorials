@@ -123,35 +123,9 @@ In earlier days, it was sometimes needed to store your PAT in a `.Renviron` text
 This is no longer needed and should be avoided because of the risk to expose the PAT when that file is accidentally put online.
 You can check if you have previously set a GITHUB_PAT in your `.Renviron` with the R command `usethis::edit_r_environ()`.
 
-## <a name="https"></a>Using the HTTPS protocol
-
-The HTTPS protocol is the GitHub default URL transport protocol.
-The usual way to choose the protocol is when you clone a repository to your computer.
-You can do this in various ways:
-
-- Manual way:
-    - Go to https://github.com/inbo/tutorials press clone button and copy the URL (default is HTTPS: https://github.com/inbo/tutorials.git)
-    - Open RStudio -> File -> New project -> Version control -> Git -> paste https://github.com/inbo/tutorials.git -> create project
-- Using git commands
-    - Open a terminal
-    - (Go to the folder where you want to clone the repository using `cd` command or open the terminal directly at that location)
-    - type `git clone https://github.com/inbo/tutorials.git`
-- Using R packages
-    - `usethis::create_from_github(repo_spec = "https://github.com/inbo/tutorials.git", destdir = "path/to/gitrepofolder")`
-    - `gert::git_clone(url = "https://github.com/inbo/tutorials.git", path = "path/to/gitrepofolder")`
-
-See also in [SSH protocol](#ssh) the paragraph about the use of the `git remote` command. 
-
-The first time you clone an HTTPS URL that requires authentication, Git will prompt you to log in using a browser window.
-If you enabled two-factor authentication (like you should have), you'll need to complete the 2FA challenge.
-
-Once you've authenticated successfully, your credentials are stored in the Git Credential Manager and will be used every time you clone an HTTPS URL.
-Git will not ask you for your credentials again unless you change your credentials.
-
-In the event that you are not asked for an authentication via the browser, but instead are asked for your username and password, you will need to fill in your GitHub username and a PAT (not your GitHub password, which is indeed confusing).
-The next section explains how you do this (and how you avoid having to copy-paste a PAT manually).
-
 ## Creating Personal Access Tokens (PAT)
+
+We move the steps about creating a PAT upfront, because this includes guidelines to store the PAT to the Git Credential Manager so they can be discovered automatically.
 
 Personal access tokens can only be used for HTTPS Git operations.
 When you create a PAT, you will be asked which scopes should be allowed (i.e. what rights do you give).
@@ -172,8 +146,7 @@ which will open a prompt where you can paste your PAT (or replace an old one).
 
 If you want to know more about PATs read [this section from happy git with R](https://happygitwithr.com/https-pat.html#get-a-pat) and [this section from the usethis package](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
 
-## Checking your authentication settings
-
+After you've done this, you can check your authentication settings.
 The `usethis` package has a function to get a situation report on your current Git/GitHub status, including information about authentication:
 
 ```{r eval=FALSE}
@@ -188,6 +161,31 @@ usethis::git_vaccinate()
 
 which adds a global `.gitignore` file that decreases the chance that you accidentally leak credentials.
 
+The situation report should normally report that the default Git protocol is `https`, which we will discuss next.
+
+## <a name="https"></a>Using the HTTPS protocol
+
+The HTTPS protocol is the GitHub default URL transport protocol.
+The usual way to choose the protocol is when you clone a repository to your computer.
+You can do this in various ways:
+
+- Manual way:
+    - Go to https://github.com/inbo/tutorials press clone button and copy the URL (default is HTTPS: https://github.com/inbo/tutorials.git)
+    - Open RStudio -> File -> New project -> Version control -> Git -> paste https://github.com/inbo/tutorials.git -> create project
+- Using git commands
+    - Open a terminal
+    - (Go to the folder where you want to clone the repository using `cd` command or open the terminal directly at that location)
+    - type `git clone https://github.com/inbo/tutorials.git`
+- Using R packages
+    - `usethis::create_from_github(repo_spec = "https://github.com/inbo/tutorials.git", destdir = "path/to/gitrepofolder")`
+    - `gert::git_clone(url = "https://github.com/inbo/tutorials.git", path = "path/to/gitrepofolder")`
+
+See also in [SSH protocol](#ssh) the paragraph about the use of the `git remote` command. 
+
+When you use these git commands or R functions, your PAT will be discovered from the Git Credential Manager and automatically authorize access (if you followed the steps in the previous section correctly) [^1].
+
+[^1]: In case you did not follow the guidelines correctly, Git will prompt you to log in using a browser window and asks for your username and password.
+In the password section you will need to provide your PAT (not your GitHub password, which is indeed confusing). If you enabled two-factor authentication (like you should have), you'll need to complete the 2FA challenge. Once you've authenticated successfully, your credentials are stored in the Git Credential Manager and will be used every time you clone an HTTPS URL. Git will not ask you for your credentials again unless you change your credentials.
 
 ## <a name="ssh"></a>Creating public-private SSH-key pairs
 
