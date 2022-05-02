@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Before we start
 
 This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system.
-The idea of this tutorial is make clear recommendations for useRs at INBO. 
+The idea of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. 
 
 If you do not have a GitHub account, you can [sign up for a new GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account).
 The installation of Git, R and RStudio at INBO, is done by IT administrators who follow [these installation instructions for admins](https://inbo.github.io/tutorials/installation/administrator/).
@@ -33,6 +33,10 @@ You determine what can and what cannot be done and this can be different for var
 Most of the material in this tutorial is explained in length in https://happygitwithr.com/connect-intro.html.
 We will mainly follow [the advice given in the usethis package](https://usethis.r-lib.org/articles/articles/git-credentials.html).
 
+Authentication is a quite confusing and technical topic.
+In the next [TL;DR section](#tl;dr) (Too Long; Didn't read) we just provide a summary of the recipe to follow without any explanation.
+Using this recipe will hopefully just work.
+If you want to get some intuition about what you are doing, you will need to read the remainder of the tutorial too (and also check out the weblinks included in this tutorial).
 
 ## TL;DR
 
