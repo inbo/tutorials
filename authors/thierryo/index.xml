@@ -6,7 +6,18 @@
     <description>Recent content in thierryo on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install R</title>
+      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
+      <pubDate>Thu, 28 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
+      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
+In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
+Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
+    </item>
+    
     <item>
       <title>Using WFS services in R</title>
       <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
@@ -36,17 +47,6 @@ library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play
       
       <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/zenodo.html</description>
-    </item>
-    
-    <item>
-      <title>Install R</title>
-      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
-      <pubDate>Fri, 27 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
-In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
-Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
     </item>
     
     <item>
