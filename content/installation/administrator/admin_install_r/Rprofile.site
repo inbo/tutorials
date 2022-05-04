@@ -1,3 +1,7 @@
+if (!"checklist" %in% rownames(utils::installed.packages())) {
+  utils::install.packages("checklist")
+}
+
 options(
   papersize = "a4",
   tab.width = 2,
@@ -7,27 +11,11 @@ options(
   xpinch = 300,
   ypinch = 300,
   yaml.eval.expr = TRUE,
-  usethis.full_name = "Research Institute for Nature and Forest",
-  usethis.description = list(
-    `Authors@R` = "c(
-  person(
-    \"Voornaam\", \"Achternaam\", role = c(\"aut\", \"cre\"),
-    email = \"voornaam.achternaam@inbo.be\",
-    comment = c(ORCID = \"9999-9999-9999-9999\")),
-  person(
-    \"Research Institute for Nature and Forest\",
-    role = c(\"cph\", \"fnd\"), email = \"info@inbo.be\"))",
-    License = "GPL-3",
-    Language = "en-GB",
-    Encoding = "UTF-8",
-    Roxygen = "list(markdown = TRUE)"
-  ),
+  lintr.linter_file = system.file("lintr", package = "checklist"),
   repos = c(
     CRAN = "https://cloud.r-project.org/",
-    INLA = "https://inla.r-inla-download.org/R/testing",
-    inbo = "https://inbo.r-universe.dev",
-    ropensci = 'https://ropensci.r-universe.dev',
-    thierryo = "https://thierryo.r-universe.dev"
+    INLA = "https://inla.r-inla-download.org/R/stable",
+    inbo = "https://inbo.r-universe.dev"
   ),
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never"
@@ -35,12 +23,12 @@ options(
 
 # display fortune when starting new interactive R session
 if (interactive()) {
-  if (length(find.package("fortunes", quiet = TRUE)) == 0) {
+  if (!"fortunes" %in% rownames(utils::installed.packages())) {
     utils::install.packages("fortunes")
   }
   tryCatch(
     print(fortunes::fortune()),
-    error = function(e){
+    error = function(e) {
       invisible(NULL)
     }
   )

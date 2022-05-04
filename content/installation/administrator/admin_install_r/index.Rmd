@@ -98,11 +98,5 @@ cat(readLines("Rprofile.site"), sep = "\n")
 
 ## Ubuntu
 
-```
-sudo sh -c 'echo "deb http://cloud.r-project.org/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list'
-sudo gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
-sudo gpg -a --export E084DAB9 | apt-key add -
-
-sudo apt-get update
-sudo apt-get install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libssh2-1-dev libxml2-dev
-```
+Instructies om R te installeren onder Ubuntu zijn beschikbaar op https://cran.r-project.org/bin/linux/ubuntu.
+Na de installatie kopier je [`Rprofile.site`](Rprofile.site) naar `/etc/R`.
