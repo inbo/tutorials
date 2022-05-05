@@ -248,8 +248,7 @@ Paste the public key in the field and provide an informative title
 (e.g. `<year>-<computername>`).
 Click _Add SSH Key_.
 
-5. By default communication with GitHub is via the HTTPS-protocol.
-To use the SSH protocol, you need to set the remote of your repository correctly.
+5. To use the SSH protocol (or HTTPS for that matter), you need to set the remote of your repository correctly.
 The following command is useful to find out which protocol your repository uses
 (_Git pane > More > Shell_) (open the Shell from within the RStudio project
 with Git version control which you want to switch to SSH):
