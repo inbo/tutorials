@@ -1,5 +1,5 @@
 ---
-title: "Git Authentication on Windows"
+title: "Git and GitHub Authentication on Windows"
 description: "How to safely identify yourself, or a third party on behalf of you, to Git or GitHub"
 authors: [hansvancalster]
 date: "2022-05-05"
@@ -144,8 +144,9 @@ for safe Git authentication on Windows, which cover multiple facets:
 
 This deserves some further explanation. The first recommendation
 essentially is an extra layer of security compared to a simple
-username-and-password authentication. To enable two-factor
-authentication for your GitHub account, follow [these
+username-and-password authentication on GitHub. It is unrelated to git
+operations. To enable two-factor authentication for your GitHub account,
+follow [these
 steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
 You need a time-based one-time password app for 2FA to work. We
 recommend a mobile app which you can download on your smartphone such as
@@ -156,7 +157,11 @@ minimal responsibility e.g. to take care of personal backups. Some open
 source desktop applications are available as well and are listed in
 <https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps>. Mostly
 these open source tools are geared towards offline storage and give
-users maximum control over their credentials.
+users maximum control over their credentials. 2FA is not that intrusive.
+It only kicks in when you login from a new device or when your last
+login on a device was a long time ago. If someone steals your username
+and password, they still can’t login using that combination from their
+device due to 2FA.
 
 The second recommendation is to use the [HTTPS
 protocol](#using-the-https-protocol) to transport information (data)
@@ -232,7 +237,8 @@ usethis::git_sitrep()
 ```
 
 The situation report should normally report that the default Git
-protocol is `https`, which we will discuss next.
+protocol is `https`, which we will discuss next. In case your PAT is
+stolen, you should deactivate it ASAP on GitHub.
 
 ## Using the HTTPS protocol
 
