@@ -53,7 +53,10 @@ install.packages("usethis")
 Use the following commands to configure some global git options (if you haven't done this already):
 
 ```{r}
+View(gert::git_config_global()) # check if values are already set or not
+
 ?gert::git_config_global_set # read the help file
+
 gert::git_config_global_set("user.name", "Your Name") # change Your Name
 gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
 gert::git_config_global_set("init.defaultBranch", "main")
