@@ -22,8 +22,8 @@ This tutorial assumes you have a GitHub account, and have Git, R and RStudio ins
 The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. 
 
 If you do not have a GitHub account, you can [sign up for a new GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account).
-The installation of Git, R and RStudio at INBO, is done by IT administrators who follow [these installation instructions for admins](https://inbo.github.io/tutorials/installation/administrator/).
-In addition, the useR is asked to do some extra steps after installation of [Git](https://inbo.github.io/tutorials/installation/user/user_install_git/), [R](https://inbo.github.io/tutorials/installation/user/user_install_r/) and [RStudio](https://inbo.github.io/tutorials/installation/user/user_install_rstudio/).
+The installation of Git, R and RStudio at INBO, is done by IT administrators who follow [these installation instructions for admins](../../installation/administrator/).
+In addition, the useR is asked to do some extra steps after installation of [Git](../../installation/user/user_install_git/), [R](../../installation/user/user_install_r/) and [RStudio](../../installation/user/user_install_rstudio/).
 
 To authenticate means passing information (= credentials) that proves that you are exactly who you declare to be.
 Authentication is about securely accessing your GitHub account's resources either directly by yourself or on behalf of you by a third party.
