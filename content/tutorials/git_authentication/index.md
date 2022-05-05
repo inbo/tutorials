@@ -77,13 +77,11 @@ gert::git_config_global_set("init.defaultBranch", "main")
 
 If you plan to use functions that create something on GitHub (a repo, an
 issue, a pull request, a branch, …) and for all remote operations from
-the command line (git pull, git push, git clone, git fetch), you will
-need to use the following commands to create a Personal Access Token
-(PAT) and add it to the Git Credential Manager:
+the command line (`git pull`, `git push`, `git clone`, `git fetch`), you
+can use the following commands to create a Personal Access Token (PAT)
+and add it to the Git Credential Manager:
 
 ``` r
-?usethis::git_vaccinate() # read the help file
-usethis::git_vaccinate()
 ?usethis::create_github_token() # read the help file
 usethis::create_github_token() #browser opens, follow instructions
 ```
@@ -144,15 +142,17 @@ source desktop applications are available as well and are listed in
 these open source tools are geared towards offline storage and give
 users maximum control over their credentials.
 
-The second recommendation is to use the [HTTPS protocol](#https) to
-transport information (data) from your local Git repositories to their
-remote (online) counterparts. A good alternative is the SSH protocol. We
-have also included in this tutorial how to use the [SSH protocol](#ssh),
-but in our experience this is not necessary in most circumstances and
-more involved to implement in Windows. Users of the Linux operating
-system, on the other hand, may prefer the SSH protocol. It is always
-possible to switch between HTTPS and SSH protocols and we explain in
-[the SSH section](#ssh) how to do that.
+The second recommendation is to use the [HTTPS
+protocol](#using-the-https-protocol) to transport information (data)
+from your local Git repositories to their remote (online) counterparts.
+A good alternative is the SSH protocol. We have also included in this
+tutorial how to use the [SSH
+protocol](#creating-public-private-ssh-key-pairs), but in our experience
+this is not necessary in most circumstances and more involved to
+implement in Windows. Users of the Linux operating system, on the other
+hand, may prefer the SSH protocol. It is always possible to switch
+between HTTPS and SSH protocols and we explain in [the SSH
+section](#creating-public-private-ssh-key-pairs) how to do that.
 
 The third recommendation is mandatory when you use the HTTPS protocol.
 GitHub no longer allows a simple password for Git remote operations. The
@@ -215,19 +215,10 @@ current Git/GitHub status, including information about authentication:
 usethis::git_sitrep()
 ```
 
-If you see warnings about git_vaccinated, it is recommended to execute
-
-``` r
-usethis::git_vaccinate()
-```
-
-which adds a global `.gitignore` file that decreases the chance that you
-accidentally leak credentials.
-
 The situation report should normally report that the default Git
 protocol is `https`, which we will discuss next.
 
-## <a id="https"></a>Using the HTTPS protocol
+## Using the HTTPS protocol
 
 The HTTPS protocol is the GitHub default URL transport protocol that
 uses the Transport Layer Security (TLP) encryption protocol to encrypt
@@ -241,8 +232,8 @@ your computer. You can do this in various ways:
     -   Go to <https://github.com/inbo/tutorials>, press the clone
         button and copy the URL (default is HTTPS:
         `https://github.com/inbo/tutorials.git`)
-    -   Open RStudio -> File -> New project -> Version control -> Git ->
-        paste `https://github.com/inbo/tutorials.git` -> create project
+    -   Open RStudio:
+        `File > New project > Version control > Git > paste https://github.com/inbo/tutorials.git > create project`
 -   Using git commands
     -   Open a terminal
     -   (Go to the folder where you want to clone the repository using
@@ -252,15 +243,15 @@ your computer. You can do this in various ways:
     -   `usethis::create_from_github(repo_spec = "https://github.com/inbo/tutorials.git", destdir = "path/to/gitrepofolder")`
     -   `gert::git_clone(url = "https://github.com/inbo/tutorials.git", path = "path/to/gitrepofolder")`
 
-See also in [SSH protocol](#ssh) the paragraph about the use of the
-`git remote` command.
+See also in [SSH protocol](#creating-public-private-ssh-key-pairs) the
+paragraph about the use of the `git remote` command.
 
 When you use these git commands or R functions, your PAT will be
 discovered from the Git Credential Manager and automatically authorize
 access (if you followed the steps in the previous section correctly)
 [^1].
 
-## <a id="ssh"></a>Creating public-private SSH-key pairs
+## Creating public-private SSH-key pairs
 
 Below we describe the steps you need to run in order to make SSH-keys
 (Secure SHell). The SSH protocol is, next to the HTTPS-protocol, a way
