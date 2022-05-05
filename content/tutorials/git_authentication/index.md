@@ -59,10 +59,12 @@ recommend a mobile app which you can download on your smartphone such as
 source, Android or iOS).
 
 Next, in R, install the `usethis` package (this will also install
-packages `gert` and `gitcreds` which we use below):
+packages `gert` and `gitcreds` which we use below) and the `checklist`
+package:
 
 ``` r
 install.packages("usethis")
+install.packages("checklist", repos = "https://inbo.r-universe.dev")
 ```
 
 Use the following commands to configure some global git options (if you
@@ -71,11 +73,20 @@ haven’t done this already):
 ``` r
 View(gert::git_config_global()) # check if values are already set or not
 
-?gert::git_config_global_set # read the help file
-
-gert::git_config_global_set("user.name", "Your Name") # change Your Name
-gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
-gert::git_config_global_set("init.defaultBranch", "main")
+if (checklist::yesno(
+  paste0("Are you sure you want to execute this code?\n",
+         "This action will overwrite Git global configuration settings.\n",
+         "Make sure you changed 'your name' and 'your@email.com' in the code,\n",
+         "if you didn't select negative answer."))) {
+  usethis::use_git_config(
+    scope = "user",
+    user.name = "Your Name",
+    user.email = "your@email.com",
+    init.defaultBranch = "main"
+  ) 
+} else {
+    message("Action aborted")
+}
 ```
 
 If you plan to use functions that create something on GitHub (a repo, an
