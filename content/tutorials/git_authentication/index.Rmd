@@ -59,7 +59,7 @@ gert::git_config_global_set("user.email", "your@email.com") # change your@email.
 gert::git_config_global_set("init.defaultBranch", "main")
 ```
 
-If you plan to use functions that create something on GitHub (a repo, an issue, a pull request, a branch, ...) and for all remote operations from the command line (git pull, git push, git clone, git fetch), you will need to use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
+If you plan to use functions that create something on GitHub (a repo, an issue, a pull request, a branch, ...) and for all remote operations from the command line (`git pull`, `git push`, `git clone`, `git fetch`), you can use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
 
 ```{r}
 ?usethis::git_vaccinate() # read the help file
@@ -177,7 +177,7 @@ You can do this in various ways:
 
 - Point-and-click approach:
     - Go to https://github.com/inbo/tutorials, press the clone button and copy the URL (default is HTTPS: `https://github.com/inbo/tutorials.git`)
-    - Open RStudio -> File -> New project -> Version control -> Git -> paste `https://github.com/inbo/tutorials.git` -> create project
+    - Open RStudio: `File > New project > Version control > Git > paste https://github.com/inbo/tutorials.git > create project`
 - Using git commands
     - Open a terminal
     - (Go to the folder where you want to clone the repository using `cd` command or open the terminal directly at that location)
