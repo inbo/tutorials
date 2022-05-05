@@ -227,6 +227,7 @@ If you want to know more about PATs read [this section from happy git
 with R](https://happygitwithr.com/https-pat.html#get-a-pat) and [this
 section from the usethis
 package](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
+In case your PAT is stolen, you should deactivate it ASAP on GitHub.
 
 After you’ve done this, you can check your authentication settings. The
 `usethis` package has a function to get a situation report on your
@@ -237,8 +238,7 @@ usethis::git_sitrep()
 ```
 
 The situation report should normally report that the default Git
-protocol is `https`, which we will discuss next. In case your PAT is
-stolen, you should deactivate it ASAP on GitHub.
+protocol is `https`, which we will discuss next.
 
 ## Using the HTTPS protocol
 
