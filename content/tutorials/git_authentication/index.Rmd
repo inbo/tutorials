@@ -40,9 +40,9 @@ If you want to get some intuition about what you are doing, you will need to rea
 
 ## TL;DR
 
-First, enable two-factor authentication for your GitHub account: follow [these steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
-Another two-factor authentication app that is not mentioned on that website but easy to use is Google Authenticator.
-You probably already use a two-factor authentication app, just use that.
+First, enable two-factor authentication (2FA) for your GitHub account: follow [these steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
+You need a time-based one-time password app for 2FA to work.
+We recommend a mobile app which you can download on your smartphone such as `andOTP` (open source, Android) or `Google Authenticator` (closed source, Android or iOS).
 
 Next, in R, install the `usethis` package (this will also install packages `gert` and `gitcreds` which we use below):
 
@@ -104,7 +104,11 @@ We will follow the [recommendations given in the `usethis` package](https://uset
 This deserves some further explanation.
 The first recommendation essentially is an extra layer of security compared to a simple username-and-password authentication.
 To enable two-factor authentication for your GitHub account, follow [these steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
-Another two-factor authentication app that is not mentioned on that website but easy to use is Google Authenticator.
+You need a time-based one-time password app for 2FA to work.
+We recommend a mobile app which you can download on your smartphone such as `andOTP` (open source, Android) or `Google Authenticator` (closed source, Android or iOS).
+The closed tools don't require users 'to read on' and make everything simple, while open tools will require some minimal responsibility e.g. to take care of personal backups.
+Some open source desktop applications are available as well and are listed in https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps.
+Mostly these open source tools are geared towards offline storage and give users maximum control over their credentials.
 
 The second recommendation is to use the [HTTPS protocol](#https) to transport information (data) from your local Git repositories to their remote (online) counterparts.
 A good alternative is the SSH protocol. Do not use the HTTP protocol as it is not secure.
