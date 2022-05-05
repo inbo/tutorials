@@ -69,7 +69,10 @@ Use the following commands to configure some global git options (if you
 haven’t done this already):
 
 ``` r
+View(gert::git_config_global()) # check if values are already set or not
+
 ?gert::git_config_global_set # read the help file
+
 gert::git_config_global_set("user.name", "Your Name") # change Your Name
 gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
 gert::git_config_global_set("init.defaultBranch", "main")
@@ -103,6 +106,19 @@ usethis::git_sitrep()
 ```
 
 The default Git protocol should be ‘https’ (recommended on Windows).
+
+The `usethis` package promotes the use of a global `.gitignore` file
+which prevents that some file types that could contain sensitive
+information (from your account / credentials) are tracked by the Git
+version control system. However, we prefer a [project-specific
+`.gitignore`
+file](https://github.com/inbo/checklist/blob/main/inst/generic_template/gitignore)
+for this purpose. This is one of the many things that the `checklist`
+package will take care off for you. It is therefore good practice to use
+the `checklist` package to set up your RStudio projects for either R
+packages or regular R code projects. We refer to the [`checklist`
+package documentation](https://inbo.github.io/checklist/) for further
+information.
 
 ## Modes of authentication
 
