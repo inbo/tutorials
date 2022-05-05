@@ -114,7 +114,7 @@ The second recommendation is to use the [HTTPS protocol](#https) to transport in
 A good alternative is the SSH protocol.
 We have also included in this tutorial how to use the [SSH protocol](#ssh), but in our experience this is not necessary in most circumstances and more involved to implement in Windows.
 Users of the Linux operating system, on the other hand, may prefer the SSH protocol.
-It is always possible to switch between HTTPS and SSH protocols and we explain in that section how to do that.
+It is always possible to switch between HTTPS and SSH protocols and we explain in [the SSH section](#ssh) how to do that.
 
 The third recommendation is mandatory when you use the HTTPS protocol.
 GitHub no longer allows a simple password for Git remote operations.
@@ -167,7 +167,7 @@ which adds a global `.gitignore` file that decreases the chance that you acciden
 
 The situation report should normally report that the default Git protocol is `https`, which we will discuss next.
 
-## <a name="https"></a>Using the HTTPS protocol
+## <a id="https"></a>Using the HTTPS protocol
 
 The HTTPS protocol is the GitHub default URL transport protocol that uses the Transport Layer Security (TLP) encryption protocol to encrypt communications.
 To learn more about what https is, [read this explanation](https://www.cloudflare.com/learning/ssl/what-is-https/).
@@ -193,7 +193,7 @@ When you use these git commands or R functions, your PAT will be discovered from
 [^1]: In case you did not follow the guidelines correctly, Git will prompt you to log in using a browser window and asks for your username and password.
 In the password section you will need to provide your PAT (not your GitHub password, which is indeed confusing). If you enabled two-factor authentication (like you should have), you'll need to complete the 2FA challenge. Once you've authenticated successfully, your credentials are stored in the Git Credential Manager and will be used every time you clone an HTTPS URL. Git will not ask you for your credentials again unless you change your credentials.
 
-## <a name="ssh"></a>Creating public-private SSH-key pairs
+## <a id="ssh"></a>Creating public-private SSH-key pairs
 
 Below we describe the steps you need to run in order to make SSH-keys (Secure SHell).
 The SSH protocol is, next to the HTTPS-protocol, a way to safely interact with 
