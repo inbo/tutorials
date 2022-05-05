@@ -52,7 +52,7 @@ install.packages("usethis")
 
 Use the following commands to configure some global git options (if you haven't done this already):
 
-```{r eval=FALSE}
+```{r}
 ?gert::git_config_global_set # read the help file
 gert::git_config_global_set("user.name", "Your Name") # change Your Name
 gert::git_config_global_set("user.email", "your@email.com") # change your@email.com
@@ -61,7 +61,7 @@ gert::git_config_global_set("init.defaultBranch", "main")
 
 If you plan to use functions that create something on GitHub (a repo, an issue, a pull request, a branch, ...) and for all remote operations from the command line (git pull, git push, git clone, git fetch), you will need to use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
 
-```{r eval=FALSE}
+```{r}
 ?usethis::git_vaccinate() # read the help file
 usethis::git_vaccinate()
 ?usethis::create_github_token() # read the help file
@@ -70,7 +70,7 @@ usethis::create_github_token() #browser opens, follow instructions
 
 Add the PAT to the Git Credential Manager:
 
-```{r eval=FALSE}
+```{r}
 ?gitcreds::gitcreds_set() # read the help file
 gitcreds::gitcreds_set() #paste PAT
 ```
@@ -80,7 +80,7 @@ Anyone who has your token, has access to your GitHub account.
 
 Check if everything is OK:
 
-```{r eval=FALSE}
+```{r}
 usethis::git_sitrep()
 ```
 
@@ -136,13 +136,13 @@ When you create a PAT, you will be asked which scopes should be allowed (i.e. wh
 We suggest that you stick with the scopes recommended by the `usethis` package.
 Executing the following command takes your browser to a pre-filled form with the recommended scopes (repo, user, workflow) where you can create your PAT.
 
-```{r eval=FALSE}
+```{r}
 usethis::create_github_token()
 ```
 
 After you have done this, you can store this PAT in the Git Credential Manager using this code:
 
-```{r eval=FALSE}
+```{r}
 gitcreds::gitcreds_set()
 ```
 
@@ -153,7 +153,7 @@ If you want to know more about PATs read [this section from happy git with R](ht
 After you've done this, you can check your authentication settings.
 The `usethis` package has a function to get a situation report on your current Git/GitHub status, including information about authentication:
 
-```{r eval=FALSE}
+```{r}
 usethis::git_sitrep()
 ```
 
