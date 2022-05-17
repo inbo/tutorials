@@ -1,7 +1,3 @@
-if (!"checklist" %in% rownames(utils::installed.packages())) {
-  utils::install.packages("checklist")
-}
-
 options(
   papersize = "a4",
   tab.width = 2,
@@ -19,6 +15,12 @@ options(
   ),
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never"
+)
+if (!"checklist" %in% rownames(utils::installed.packages())) {
+  utils::install.packages("checklist")
+}
+options(
+  lintr.linter_file = system.file("lintr", package = "checklist")
 )
 
 # display fortune when starting new interactive R session

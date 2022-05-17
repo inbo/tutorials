@@ -1,7 +1,7 @@
 ---
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
-date: "2022-04-28"
+date: "2022-05-17"
 authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
@@ -90,10 +90,6 @@ Start `R` als een gewone gebruiker om de configuratie te testen.
 
 
 ```
-if (!"checklist" %in% rownames(utils::installed.packages())) {
-  utils::install.packages("checklist")
-}
-
 options(
   papersize = "a4",
   tab.width = 2,
@@ -111,6 +107,12 @@ options(
   ),
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never"
+)
+if (!"checklist" %in% rownames(utils::installed.packages())) {
+  utils::install.packages("checklist")
+}
+options(
+  lintr.linter_file = system.file("lintr", package = "checklist")
 )
 
 # display fortune when starting new interactive R session
