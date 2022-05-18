@@ -116,22 +116,26 @@ if (
   if (Sys.getenv("RSTUDIO") == "1") {
     warning(
       "Missing packages. ",
-      "Please close RStudio and run R-",
+      "Please close RStudio and run R ",
       paste(R.Version()[c("major", "minor")], collapse = "."),
-      "-win.exe first to install them automatically."
+      " first to install them automatically."
     )
   } else {
-    # remove any existing LOCK file
-    file.remove(
-      list.files(
-        file.path(.libPaths(), "00LOCK"), recursive = TRUE,
-        full.names = TRUE
+    if (any(dir.exists(file.path(.libPaths(), "00LOCK")))) {
+      stop(
+        "Please remove the directories below and restart R\n",
+        paste(
+          file.path(.libPaths(), "00LOCK")[
+            dir.exists(file.path(.libPaths(), "00LOCK"))
+          ],
+          collapse = "\n"
+        )
       )
-    )
+    }
     if (!"remotes" %in% rownames(utils::installed.packages())) {
       message("Installing `remotes`, may take some time")
       utils::install.packages(
-        "remotes", repos = "https://cloud.r-project.org/", dependencies = TRUE
+        "remotes", dependencies = TRUE
       )
     }
     stopifnot(
@@ -141,15 +145,13 @@ if (
     if (!"checklist" %in% rownames(utils::installed.packages())) {
       message("Installing `checklist`, may take some time")
       remotes::install_cran(
-        "checklist", repos = "https://inbo.r-universe.dev", upgrade = "always",
-        dependencies = TRUE
+        "checklist", upgrade = "always", dependencies = TRUE
       )
     }
     if (!"fortunes" %in% rownames(utils::installed.packages())) {
       message("Installing `fortunes`, may take some time")
       remotes::install_cran(
-        "fortunes", repos = "https://cloud.r-project.org/", upgrade = "always",
-        dependencies = TRUE
+        "fortunes", upgrade = "always", dependencies = TRUE
       )
     }
   }
