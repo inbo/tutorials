@@ -24,9 +24,9 @@ if (
   if (Sys.getenv("RSTUDIO") == "1") {
     warning(
       "Missing packages. ",
-      "Please close RStudio and run R-",
+      "Please close RStudio and run R ",
       paste(R.Version()[c("major", "minor")], collapse = "."),
-      "-win.exe first to install them automatically."
+      " first to install them automatically."
     )
   } else {
     if (any(dir.exists(file.path(.libPaths(), "00LOCK")))) {
