@@ -12,58 +12,11 @@ options(
     INLA = "https://inla.r-inla-download.org/R/stable",
     inbo = "https://inbo.r-universe.dev"
   ),
+  pkgType = "binary",
   install.packages.check.source = "no",
-  install.packages.compile.from.source = "never"
+  install.packages.compile.from.source = "never",
+  inbo_required = c("checklist", "fortunes", "remotes", "INBOmd", "INBOtheme")
 )
-if (
-  !all(
-    c("checklist", "fortunes", "remotes") %in%
-    rownames(utils::installed.packages())
-  )
-) {
-  if (Sys.getenv("RSTUDIO") == "1") {
-    warning(
-      "Missing packages. ",
-      "Please close RStudio and run R ",
-      paste(R.Version()[c("major", "minor")], collapse = "."),
-      " first to install them automatically."
-    )
-  } else {
-    if (any(dir.exists(file.path(.libPaths(), "00LOCK")))) {
-      stop(
-        "Please remove the directories below and restart R\n",
-        paste(
-          file.path(.libPaths(), "00LOCK")[
-            dir.exists(file.path(.libPaths(), "00LOCK"))
-          ],
-          collapse = "\n"
-        )
-      )
-    }
-    if (!"remotes" %in% rownames(utils::installed.packages())) {
-      message("Installing `remotes`, may take some time")
-      utils::install.packages(
-        "remotes", dependencies = TRUE
-      )
-    }
-    stopifnot(
-      "Failed to install package `remotes`." =
-      "remotes" %in% rownames(utils::installed.packages())
-    )
-    if (!"checklist" %in% rownames(utils::installed.packages())) {
-      message("Installing `checklist`, may take some time")
-      remotes::install_cran(
-        "checklist", upgrade = "always", dependencies = TRUE
-      )
-    }
-    if (!"fortunes" %in% rownames(utils::installed.packages())) {
-      message("Installing `fortunes`, may take some time")
-      remotes::install_cran(
-        "fortunes", upgrade = "always", dependencies = TRUE
-      )
-    }
-  }
-}
 # display fortune when starting new interactive R session
 if (interactive() && "fortunes" %in% rownames(utils::installed.packages())) {
   tryCatch(
@@ -77,5 +30,28 @@ if (interactive() && "fortunes" %in% rownames(utils::installed.packages())) {
 if ("checklist" %in% rownames(utils::installed.packages())) {
   options(
     lintr.linter_file = system.file("lintr", package = "checklist")
+  )
+}
+
+if (
+  !all(getOption("inbo_required") %in% rownames(utils::installed.packages()))
+) {
+  stop(
+    c(
+      "\n",
+      rep("^", getOption("width")),
+      "\nThis R installation lacks some required INBO packages.",
+      "\nPlease install them using the code below:\n",
+      "\ninstall.packages(c(",
+      paste0(
+        "\"",
+        getOption("inbo_required")[
+          !getOption("inbo_required") %in% rownames(utils::installed.packages())
+        ],
+        "\"", collapse = ", "
+      ),
+      "))\n\n",
+      rep("^", getOption("width"))
+    )
   )
 }
