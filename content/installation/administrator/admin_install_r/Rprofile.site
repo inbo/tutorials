@@ -29,6 +29,13 @@ if (
       "-win.exe first to install them automatically."
     )
   } else {
+    # remove any existing LOCK file
+    file.remove(
+      list.files(
+        file.path(.libPaths(), "00LOCK"), recursive = TRUE,
+        full.names = TRUE
+      )
+    )
     if (!"remotes" %in% rownames(utils::installed.packages())) {
       message("Installing `remotes`, may take some time")
       utils::install.packages(
