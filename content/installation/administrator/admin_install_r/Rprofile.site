@@ -39,7 +39,7 @@ if (
     if (!"remotes" %in% rownames(utils::installed.packages())) {
       message("Installing `remotes`, may take some time")
       utils::install.packages(
-        "remotes", repos = "https://cloud.r-project.org/", dependencies = TRUE
+        "remotes", dependencies = TRUE
       )
     }
     stopifnot(
@@ -49,15 +49,13 @@ if (
     if (!"checklist" %in% rownames(utils::installed.packages())) {
       message("Installing `checklist`, may take some time")
       remotes::install_cran(
-        "checklist", repos = "https://inbo.r-universe.dev", upgrade = "always",
-        dependencies = TRUE
+        "checklist", upgrade = "always", dependencies = TRUE
       )
     }
     if (!"fortunes" %in% rownames(utils::installed.packages())) {
       message("Installing `fortunes`, may take some time")
       remotes::install_cran(
-        "fortunes", repos = "https://cloud.r-project.org/", upgrade = "always",
-        dependencies = TRUE
+        "fortunes", upgrade = "always", dependencies = TRUE
       )
     }
   }
