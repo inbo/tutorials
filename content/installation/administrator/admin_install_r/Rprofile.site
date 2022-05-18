@@ -7,7 +7,6 @@ options(
   xpinch = 300,
   ypinch = 300,
   yaml.eval.expr = TRUE,
-  lintr.linter_file = system.file("lintr", package = "checklist"),
   repos = c(
     CRAN = "https://cloud.r-project.org/",
     INLA = "https://inla.r-inla-download.org/R/stable",
@@ -16,17 +15,21 @@ options(
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never"
 )
-if (!"checklist" %in% rownames(utils::installed.packages())) {
-  utils::install.packages("checklist")
+if (!"remotes" %in% rownames(utils::installed.packages())) {
+  message("Installing remotes, may take some time")
+  utils::install.packages(
+    "remotes", repos = "https://cloud.r-project.org/", dependencies = TRUE
+  )
 }
-options(
-  lintr.linter_file = system.file("lintr", package = "checklist")
-)
 
 # display fortune when starting new interactive R session
 if (interactive()) {
   if (!"fortunes" %in% rownames(utils::installed.packages())) {
-    utils::install.packages("fortunes")
+    message("Installing fortunes, may take some time")
+    remotes::install_cran(
+      "fortunes", repos = "https://cloud.r-project.org/", upgrade = "always",
+      dependencies = TRUE
+    )
   }
   tryCatch(
     print(fortunes::fortune()),
@@ -35,3 +38,14 @@ if (interactive()) {
     }
   )
 }
+
+if (!"checklist" %in% rownames(utils::installed.packages())) {
+  message("Installing `checklist`, may take some time.")
+  remotes::install_cran(
+    "checklist", repos = "https://inbo.r-universe.dev", upgrade = "always",
+    dependencies = TRUE
+  )
+}
+options(
+  lintr.linter_file = system.file("lintr", package = "checklist")
+)
