@@ -1,7 +1,7 @@
 ---
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
-date: "2022-05-17"
+date: "2022-05-18"
 authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
@@ -99,7 +99,6 @@ options(
   xpinch = 300,
   ypinch = 300,
   yaml.eval.expr = TRUE,
-  lintr.linter_file = system.file("lintr", package = "checklist"),
   repos = c(
     CRAN = "https://cloud.r-project.org/",
     INLA = "https://inla.r-inla-download.org/R/stable",
@@ -108,23 +107,66 @@ options(
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never"
 )
-if (!"checklist" %in% rownames(utils::installed.packages())) {
-  utils::install.packages("checklist")
-}
-options(
-  lintr.linter_file = system.file("lintr", package = "checklist")
-)
-
-# display fortune when starting new interactive R session
-if (interactive()) {
-  if (!"fortunes" %in% rownames(utils::installed.packages())) {
-    utils::install.packages("fortunes")
+if (
+  !all(
+    c("checklist", "fortunes", "remotes") %in%
+    rownames(utils::installed.packages())
+  )
+) {
+  if (Sys.getenv("RSTUDIO") == "1") {
+    warning(
+      "Missing packages. ",
+      "Please close RStudio and run R-",
+      paste(R.Version()[c("major", "minor")], collapse = "."),
+      "-win.exe first to install them automatically."
+    )
+  } else {
+    # remove any existing LOCK file
+    file.remove(
+      list.files(
+        file.path(.libPaths(), "00LOCK"), recursive = TRUE,
+        full.names = TRUE
+      )
+    )
+    if (!"remotes" %in% rownames(utils::installed.packages())) {
+      message("Installing `remotes`, may take some time")
+      utils::install.packages(
+        "remotes", repos = "https://cloud.r-project.org/", dependencies = TRUE
+      )
+    }
+    stopifnot(
+      "Failed to install package `remotes`." =
+      "remotes" %in% rownames(utils::installed.packages())
+    )
+    if (!"checklist" %in% rownames(utils::installed.packages())) {
+      message("Installing `checklist`, may take some time")
+      remotes::install_cran(
+        "checklist", repos = "https://inbo.r-universe.dev", upgrade = "always",
+        dependencies = TRUE
+      )
+    }
+    if (!"fortunes" %in% rownames(utils::installed.packages())) {
+      message("Installing `fortunes`, may take some time")
+      remotes::install_cran(
+        "fortunes", repos = "https://cloud.r-project.org/", upgrade = "always",
+        dependencies = TRUE
+      )
+    }
   }
+}
+# display fortune when starting new interactive R session
+if (interactive() && "fortunes" %in% rownames(utils::installed.packages())) {
   tryCatch(
     print(fortunes::fortune()),
     error = function(e) {
       invisible(NULL)
     }
+  )
+}
+
+if ("checklist" %in% rownames(utils::installed.packages())) {
+  options(
+    lintr.linter_file = system.file("lintr", package = "checklist")
   )
 }
 ```
