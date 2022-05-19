@@ -1,7 +1,7 @@
 ---
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
-date: "2022-05-17"
+date: "2022-05-19"
 authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
@@ -99,32 +99,52 @@ options(
   xpinch = 300,
   ypinch = 300,
   yaml.eval.expr = TRUE,
-  lintr.linter_file = system.file("lintr", package = "checklist"),
   repos = c(
     CRAN = "https://cloud.r-project.org/",
     INLA = "https://inla.r-inla-download.org/R/stable",
     inbo = "https://inbo.r-universe.dev"
   ),
+  pkgType = "binary",
   install.packages.check.source = "no",
-  install.packages.compile.from.source = "never"
+  install.packages.compile.from.source = "never",
+  inbo_required = c("checklist", "fortunes", "remotes", "INBOmd", "INBOtheme")
 )
-if (!"checklist" %in% rownames(utils::installed.packages())) {
-  utils::install.packages("checklist")
-}
-options(
-  lintr.linter_file = system.file("lintr", package = "checklist")
-)
-
 # display fortune when starting new interactive R session
-if (interactive()) {
-  if (!"fortunes" %in% rownames(utils::installed.packages())) {
-    utils::install.packages("fortunes")
-  }
+if (interactive() && "fortunes" %in% rownames(utils::installed.packages())) {
   tryCatch(
     print(fortunes::fortune()),
     error = function(e) {
       invisible(NULL)
     }
+  )
+}
+
+if ("checklist" %in% rownames(utils::installed.packages())) {
+  options(
+    lintr.linter_file = system.file("lintr", package = "checklist")
+  )
+}
+
+if (
+  !all(getOption("inbo_required") %in% rownames(utils::installed.packages()))
+) {
+  stop(
+    c(
+      "\n",
+      rep("^", getOption("width")),
+      "\nThis R installation lacks some required INBO packages.",
+      "\nPlease install them using the code below:\n",
+      "\ninstall.packages(c(",
+      paste0(
+        "\"",
+        getOption("inbo_required")[
+          !getOption("inbo_required") %in% rownames(utils::installed.packages())
+        ],
+        "\"", collapse = ", "
+      ),
+      "))\n\n",
+      rep("^", getOption("width"))
+    )
   )
 }
 ```
