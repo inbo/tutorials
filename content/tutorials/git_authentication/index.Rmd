@@ -48,7 +48,11 @@ Next, in R, install the `usethis` package (this will also install packages `gert
 
 ```{r}
 install.packages("usethis")
-install.packages("checklist", repos = "https://inbo.r-universe.dev")
+install.packages("checklist",
+                 repos = c(
+                   inbo = "https://inbo.r-universe.dev",
+                   CRAN = "https://cloud.r-project.org/")
+                 )
 ```
 
 Use the following commands to configure some global git options (if you haven't done this already):
@@ -99,7 +103,7 @@ The default Git protocol should be 'https' (recommended on Windows).
 
 The `usethis` package promotes the use of a global `.gitignore` file which prevents that some file types that could contain sensitive information (from your account / credentials) are tracked by the Git version control system.
 However, we prefer a [project-specific `.gitignore` file](https://github.com/inbo/checklist/blob/main/inst/generic_template/gitignore) for this purpose.
-This is one of the many things that the `checklist` package will take care off for you.
+This is one of the many things that the `checklist` package will take care of for you.
 It is therefore good practice to use the `checklist` package to set up your RStudio projects for either R packages or regular R code projects.
 We refer to the [`checklist` package documentation](https://inbo.github.io/checklist/) for further information.
 
