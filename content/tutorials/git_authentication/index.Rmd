@@ -216,7 +216,7 @@ The SSH protocol is, next to the HTTPS-protocol, a way to safely interact with
 GitHub.
 A general and easy to follow explanation about SSH can be read [here](https://dev.to/risafj/ssh-key-authentication-for-absolute-beginners-in-plain-english-2m3f).
 Both HTTPS and SSH are secure ways to communicate with a server (pass information between your computer and a server).
-For a discussion of technical differences and similarities on how both protocols handle security, [this resouce about SSH and TLS](https://www.ssl2buy.com/wiki/ssh-vs-ssl-tls) is useful.
+For a discussion of technical differences and similarities on how both protocols handle security, [this resource about SSH and TLS](https://www.ssl2buy.com/wiki/ssh-vs-ssl-tls) is useful.
 
 
 A private key, that is specific to your computer, and a matching public key that
