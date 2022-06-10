@@ -34,9 +34,10 @@ if ("checklist" %in% rownames(utils::installed.packages())) {
 }
 
 if (
+  interactive() &&
   !all(getOption("inbo_required") %in% rownames(utils::installed.packages()))
 ) {
-  stop(
+  warning(
     c(
       "\n",
       rep("^", getOption("width")),
