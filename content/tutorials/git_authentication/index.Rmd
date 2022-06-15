@@ -69,7 +69,7 @@ if (checklist::yesno(
   usethis::use_git_config(
     scope = "user",
     user.name = "Your Name",
-    user.email = "your@email.com",
+    user.email = "your.name@inbo.be",
     init.defaultbranch = "main"
   )
 } else {
