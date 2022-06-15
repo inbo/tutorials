@@ -214,8 +214,7 @@ gitcreds::gitcreds_set()
 
 
 
-## Using the HTTPS prot
-ocol
+## Using the HTTPS protocol
 
 The HTTPS protocol is the GitHub default URL transport protocol that uses the Transport Layer Security (TLP) encryption protocol to encrypt communications.
 To learn more about what https is, [read this explanation](https://www.cloudflare.com/learning/ssl/what-is-https/).

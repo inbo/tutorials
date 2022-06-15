@@ -287,9 +287,7 @@ to the Git Credential Manager:
 gitcreds::gitcreds_set()
 ```
 
-## Using the HTTPS prot
-
-ocol
+## Using the HTTPS protocol
 
 The HTTPS protocol is the GitHub default URL transport protocol that
 uses the Transport Layer Security (TLP) encryption protocol to encrypt
