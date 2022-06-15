@@ -85,7 +85,7 @@ if (checklist::yesno(
 If you plan to use functions that create something on GitHub (a repo, an issue, a pull request, a branch, ...) and for all remote operations from the command line (`git pull`, `git push`, `git clone`, `git fetch`), you can use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
 
 ```{r}
-?usethis::create_github_token() # read the help file
+?usethis::create_github_token # read the help file
 usethis::create_github_token() #browser opens, follow instructions
 ```
 
