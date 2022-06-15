@@ -92,7 +92,7 @@ usethis::create_github_token() #browser opens, follow instructions
 Add the PAT to the Git Credential Manager:
 
 ```{r}
-?gitcreds::gitcreds_set() # read the help file
+?gitcreds::gitcreds_set # read the help file
 gitcreds::gitcreds_set() #paste PAT
 ```
 
