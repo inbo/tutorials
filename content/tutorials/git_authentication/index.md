@@ -88,7 +88,7 @@ if (checklist::yesno(
   usethis::use_git_config(
     scope = "user",
     user.name = "Your Name",
-    user.email = "your@email.com",
+    user.email = "your.name@inbo.be",
     init.defaultbranch = "main"
   )
 } else {
@@ -108,19 +108,21 @@ can use the following commands to create a Personal Access Token (PAT)
 and add it to the Git Credential Manager:
 
 ``` r
-?usethis::create_github_token() # read the help file
+?usethis::create_github_token # read the help file
 usethis::create_github_token() #browser opens, follow instructions
 ```
 
 Add the PAT to the Git Credential Manager:
 
 ``` r
-?gitcreds::gitcreds_set() # read the help file
+?gitcreds::gitcreds_set # read the help file
 gitcreds::gitcreds_set() #paste PAT
 ```
 
-**WARNING**: handle your Personal Access Token (PAT) as a secret. Anyone
-who has your token, has access to your GitHub account.
+After you have added the PAT to the Git Credential Manager, there is no
+need for you to store it elsewhere. **WARNING**: handle your Personal
+Access Token (PAT) as a secret. Anyone who has your token, has access to
+your GitHub account.
 
 Check if everything is OK:
 
@@ -222,6 +224,8 @@ previously set a `GITHUB_PAT` in your `.Renviron` with the R command
 
 ## Creating Personal Access Tokens (PAT)
 
+### Creating a new PAT
+
 We move the steps about creating a PAT upfront, because this includes
 guidelines to store the PAT with the Git Credential Manager so they can
 be discovered automatically.
@@ -265,7 +269,27 @@ usethis::git_sitrep()
 The situation report should normally report that the default Git
 protocol is `https`, which we will discuss next.
 
-## Using the HTTPS protocol
+### Regenerating an expired PAT
+
+The PAT generated in the previous section has an expiration date
+associated to it. This is an extra fail safe security layer. The default
+is 30 days and you can specify a maximum expiration date of 1 year since
+creation. This means that from time to time, you will need to regenerate
+your PAT.
+
+To do this, head over to the [Github settings tokens
+page](https://github.com/settings/tokens) and click on the expired PAT.
+Next, click regenerate token. After that is done, run the command
+explained in the previous section again to add the newly generated token
+to the Git Credential Manager:
+
+``` r
+gitcreds::gitcreds_set()
+```
+
+## Using the HTTPS prot
+
+ocol
 
 The HTTPS protocol is the GitHub default URL transport protocol that
 uses the Transport Layer Security (TLP) encryption protocol to encrypt

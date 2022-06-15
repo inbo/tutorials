@@ -96,6 +96,7 @@ Add the PAT to the Git Credential Manager:
 gitcreds::gitcreds_set() #paste PAT
 ```
 
+After you have added the PAT to the Git Credential Manager, there is no need for you to store it elsewhere.
 **WARNING**:  handle your Personal Access Token (PAT) as a secret.
 Anyone who has your token, has access to your GitHub account.
 
@@ -161,6 +162,8 @@ You can check if you have previously set a `GITHUB_PAT` in your `.Renviron` with
 
 ## Creating Personal Access Tokens (PAT)
 
+### Creating a new PAT
+
 We move the steps about creating a PAT upfront, because this includes guidelines to store the PAT with the Git Credential Manager so they can be discovered automatically.
 
 Personal access tokens can only be used for HTTPS Git operations.
@@ -193,7 +196,26 @@ usethis::git_sitrep()
 
 The situation report should normally report that the default Git protocol is `https`, which we will discuss next.
 
-## Using the HTTPS protocol
+### Regenerating an expired PAT
+
+The PAT generated in the previous section has an expiration date associated to it.
+This is an extra fail safe security layer.
+The default is 30 days and you can specify a maximum expiration date of 1 year since creation.
+This means that from time to time, you will need to regenerate your PAT.
+
+To do this, head over to the [Github settings tokens page](https://github.com/settings/tokens) and click on the expired PAT.
+Next, click regenerate token.
+After that is done, run the command explained in the previous section again to add the newly generated token to the Git Credential Manager:
+
+```{r}
+gitcreds::gitcreds_set()
+```
+
+
+
+
+## Using the HTTPS prot
+ocol
 
 The HTTPS protocol is the GitHub default URL transport protocol that uses the Transport Layer Security (TLP) encryption protocol to encrypt communications.
 To learn more about what https is, [read this explanation](https://www.cloudflare.com/learning/ssl/what-is-https/).
