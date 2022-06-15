@@ -23,7 +23,7 @@ The purpose of this tutorial is to make clear recommendations about authenticati
 
 If you do not have a GitHub account, you can [sign up for a new GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account).
 The installation of Git, R and RStudio at INBO, is done by IT administrators who follow [these installation instructions for admins](../../installation/administrator/).
-In addition, the useR is asked to do some extra steps after installation of [Git](../../installation/user/user_install_git/), [R](../../installation/user/user_install_r/) and [RStudio](../../installation/user/user_install_rstudio/).
+In addition, the user is asked to do some extra steps after installation of [Git](../../installation/user/user_install_git/), [R](../../installation/user/user_install_r/) and [RStudio](../../installation/user/user_install_rstudio/).
 
 To authenticate means passing information (= credentials) that proves that you are exactly who you declare to be.
 Authentication is about securely accessing your GitHub account's resources either directly by yourself or on behalf of you by a third party.
@@ -55,11 +55,12 @@ install.packages("checklist",
                  )
 ```
 
-Use the following commands to configure some global git options (if you haven't done this already):
+Use the following commands to configure some global git options (the scope, your user name and email, and the default branch name to initialize a repo).
+You need to adapt "Your Name" and "your@email.com" in the code.
+It's also possible you already configured this.
+You can check if this is the case with the command `View(gert::git_config_global())` which lists all your current global git configuration settings.
 
 ```{r}
-View(gert::git_config_global()) # check if values are already set or not
-
 if (checklist::yesno(
   paste0("Are you sure you want to execute this code?\n",
          "This action will overwrite Git global configuration settings.\n",
@@ -69,11 +70,16 @@ if (checklist::yesno(
     scope = "user",
     user.name = "Your Name",
     user.email = "your@email.com",
-    init.defaultBranch = "main"
-  ) 
+    init.defaultbranch = "main"
+  )
 } else {
     message("Action aborted")
 }
+
+# you can ignore this warning
+# Warning message:
+# In orig[nm] <- git_cfg_get(nm, "global") %||% list(NULL) :
+#   number of items to replace is not a multiple of replacement length
 ```
 
 If you plan to use functions that create something on GitHub (a repo, an issue, a pull request, a branch, ...) and for all remote operations from the command line (`git pull`, `git push`, `git clone`, `git fetch`), you can use the following commands to create a Personal Access Token (PAT) and add it to the Git Credential Manager: 
@@ -116,7 +122,7 @@ As another example, a function like `checklist::new_branch()` will create a new 
 In order to create a new branch, you will need a Personal Access Token with appropriate scopes if you use the HTTPS protocol.
 A token with no assigned scopes can only access public information.
 
-We will follow the [recommendations given in the `usethis` package](https://usethis.r-lib.org/articles/articles/git-credentials.html) for safe Git authentication on Windows, which cover multiple facets:
+We will follow the [recommendations given in the `usethis` package](https://usethis.r-lib.org/articles/articles/git-credentials.html) for safe Git and GitHub authentication on Windows, which cover multiple facets:
 
 1. Turn on two-factor authentication for your GitHub account.
 1. Adopt HTTPS as your Git transport protocol.
@@ -175,7 +181,7 @@ gitcreds::gitcreds_set()
 which will open a prompt where you can paste your PAT (or replace an old one).
 
 If you want to know more about PATs read [this section from happy git with R](https://happygitwithr.com/https-pat.html#get-a-pat) and [this section from the usethis package](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
-In case your PAT is stolen, you should deactivate it ASAP on GitHub.
+In case your PAT is compromised, you should [deactivate](https://github.com/settings/tokens) it ASAP on GitHub.
 
 After you've done this, you can check your authentication settings.
 The `usethis` package has a function to get a situation report on your current Git/GitHub status, including information about authentication:
