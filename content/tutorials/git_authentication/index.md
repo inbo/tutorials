@@ -2,7 +2,7 @@
 title: "Git and GitHub Authentication on Windows"
 description: "How to safely identify yourself, or a third party on behalf of you, to Git or GitHub"
 authors: [hansvancalster]
-date: "2022-05-05"
+date: "2022-06-15"
 categories: ["version control"]
 tags: ["git", "github", "rstudio"]
 output: 
@@ -22,7 +22,7 @@ If you do not have a GitHub account, you can [sign up for a new GitHub
 account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account).
 The installation of Git, R and RStudio at INBO, is done by IT
 administrators who follow [these installation instructions for
-admins](../../installation/administrator/). In addition, the useR is
+admins](../../installation/administrator/). In addition, the user is
 asked to do some extra steps after installation of
 [Git](../../installation/user/user_install_git/),
 [R](../../installation/user/user_install_r/) and
@@ -64,15 +64,22 @@ package:
 
 ``` r
 install.packages("usethis")
-install.packages("checklist", repos = "https://inbo.r-universe.dev")
+install.packages("checklist",
+                 repos = c(
+                   inbo = "https://inbo.r-universe.dev",
+                   CRAN = "https://cloud.r-project.org/")
+                 )
 ```
 
-Use the following commands to configure some global git options (if you
-haven’t done this already):
+Use the following commands to configure some global git options (the
+scope, your user name and email, and the default branch name to
+initialize a repo). You need to adapt “Your Name” and “<your@email.com>”
+in the code. It’s also possible you already configured this. You can
+check if this is the case with the command
+`View(gert::git_config_global())` which lists all your current global
+git configuration settings.
 
 ``` r
-View(gert::git_config_global()) # check if values are already set or not
-
 if (checklist::yesno(
   paste0("Are you sure you want to execute this code?\n",
          "This action will overwrite Git global configuration settings.\n",
@@ -82,11 +89,16 @@ if (checklist::yesno(
     scope = "user",
     user.name = "Your Name",
     user.email = "your@email.com",
-    init.defaultBranch = "main"
-  ) 
+    init.defaultbranch = "main"
+  )
 } else {
     message("Action aborted")
 }
+
+# you can ignore this warning
+# Warning message:
+# In orig[nm] <- git_cfg_get(nm, "global") %||% list(NULL) :
+#   number of items to replace is not a multiple of replacement length
 ```
 
 If you plan to use functions that create something on GitHub (a repo, an
@@ -125,7 +137,7 @@ version control system. However, we prefer a [project-specific
 `.gitignore`
 file](https://github.com/inbo/checklist/blob/main/inst/generic_template/gitignore)
 for this purpose. This is one of the many things that the `checklist`
-package will take care off for you. It is therefore good practice to use
+package will take care of for you. It is therefore good practice to use
 the `checklist` package to set up your RStudio projects for either R
 packages or regular R code projects. We refer to the [`checklist`
 package documentation](https://inbo.github.io/checklist/) for further
@@ -144,7 +156,8 @@ token with no assigned scopes can only access public information.
 
 We will follow the [recommendations given in the `usethis`
 package](https://usethis.r-lib.org/articles/articles/git-credentials.html)
-for safe Git authentication on Windows, which cover multiple facets:
+for safe Git and GitHub authentication on Windows, which cover multiple
+facets:
 
 1.  Turn on two-factor authentication for your GitHub account.
 2.  Adopt HTTPS as your Git transport protocol.
@@ -238,7 +251,8 @@ If you want to know more about PATs read [this section from happy git
 with R](https://happygitwithr.com/https-pat.html#get-a-pat) and [this
 section from the usethis
 package](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
-In case your PAT is stolen, you should deactivate it ASAP on GitHub.
+In case your PAT is compromised, you should
+[deactivate](https://github.com/settings/tokens) it ASAP on GitHub.
 
 After you’ve done this, you can check your authentication settings. The
 `usethis` package has a function to get a situation report on your
@@ -294,7 +308,7 @@ about SSH can be read
 Both HTTPS and SSH are secure ways to communicate with a server (pass
 information between your computer and a server). For a discussion of
 technical differences and similarities on how both protocols handle
-security, [this resouce about SSH and
+security, [this resource about SSH and
 TLS](https://www.ssl2buy.com/wiki/ssh-vs-ssl-tls) is useful.
 
 A private key, that is specific to your computer, and a matching public
@@ -303,18 +317,18 @@ instructions are for Windows and are taken from
 <https://happygitwithr.com/ssh-keys.html>. The same source may be
 consulted for other operating systems.
 
-1.  Open RStudio: *Tools > Global Options…> Git/SVN > Create RSA Key…*
-    You can optionally use a passphrase for extra protection of the key.
-    Without password, anyone who has a copy of your private key, can
-    impersonate you when authenticating on GitHub. When the private key
-    is password protected they need your password too. Click create and
-    apply.
+1.  Open RStudio: *Tools \> Global Options…\> Git/SVN \> Create RSA
+    Key…* You can optionally use a passphrase for extra protection of
+    the key. Without password, anyone who has a copy of your private
+    key, can impersonate you when authenticating on GitHub. When the
+    private key is password protected they need your password too. Click
+    create and apply.
 
 2.  In RStudio, open a Rproject with Git version control and navigate to
-    the Git pane. Open the Git Shell (*More > Shell*). First we check if
-    the SSH agent works with the following command (The first $ is the
-    prompt and you should not copy it. To paste in the shell click the
-    right mouse button.):
+    the Git pane. Open the Git Shell (*More \> Shell*). First we check
+    if the SSH agent works with the following command (The first $ is
+    the prompt and you should not copy it. To paste in the shell click
+    the right mouse button.):
 
         $ eval $(ssh-agent -s)
         # which should give something like this:
@@ -325,20 +339,20 @@ consulted for other operating systems.
 
         $ ssh-add ~/.ssh/id_rsa
 
-3.  Restart RStudio. Next *Tools > Global Options…> Git/SVN* and click
+3.  Restart RStudio. Next *Tools \> Global Options…\> Git/SVN* and click
     *View public key* in the SSH-RSA section. Copy to the clipboard.
 
 4.  Open your personal GitHub account
     *`https://github.com/<githubusername>`* (you may need to login).
-    Click your profile-icon in the upperright corner and go to
-    *Settings > SSH and GPG keys*. Click *New SSH key*. Paste the public
-    key in the field and provide an informative title
+    Click your profile-icon in the upperright corner and go to *Settings
+    \> SSH and GPG keys*. Click *New SSH key*. Paste the public key in
+    the field and provide an informative title
     (e.g. `<year>-<computername>`). Click *Add SSH Key*.
 
 5.  To use the SSH protocol (or HTTPS for that matter), you need to set
     the remote of your repository correctly. The following command is
-    useful to find out which protocol your repository uses (*Git pane >
-    More > Shell*) (open the Shell from within the RStudio project with
+    useful to find out which protocol your repository uses (*Git pane \>
+    More \> Shell*) (open the Shell from within the RStudio project with
     Git version control which you want to switch to SSH):
 
         $ git remote -v
