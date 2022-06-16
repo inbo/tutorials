@@ -2,7 +2,7 @@
 title: "Git and GitHub Authentication on Windows"
 description: "How to safely identify yourself, or a third party on behalf of you, to Git or GitHub"
 authors: [hansvancalster]
-date: "2022-06-15"
+date: "2022-06-16"
 categories: ["version control"]
 tags: ["git", "github", "rstudio"]
 output: 
@@ -16,7 +16,9 @@ output:
 This tutorial assumes you have a GitHub account, and have Git, R and
 RStudio installed on your system. The purpose of this tutorial is to
 make clear recommendations about authentication for employees at INBO
-who use Git version control in their workflows.
+who use Git version control in their workflows. The guidelines here are
+meant for people who use Git and GitHub in RStudio, but the general
+principles can be applied to other software too (e.g. GitHub Desktop).
 
 If you do not have a GitHub account, you can [sign up for a new GitHub
 account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account).
@@ -55,8 +57,11 @@ follow [these
 steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
 You need a time-based one-time password app for 2FA to work. We
 recommend a mobile app which you can download on your smartphone such as
-`andOTP` (open source, Android) or `Google Authenticator` (closed
-source, Android or iOS).
+[`andOTP`](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en&gl=US)
+(open source, Android) or `Google Authenticator` (closed source,
+[Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US)
+or
+[iOS](https://apps.apple.com/us/app/google-authenticator/id388497605)).
 
 Next, in R, install the `usethis` package (this will also install
 packages `gert` and `gitcreds` which we use below) and the `checklist`
@@ -73,9 +78,9 @@ install.packages("checklist",
 
 Use the following commands to configure some global git options (the
 scope, your user name and email, and the default branch name to
-initialize a repo). You need to adapt “Your Name” and “<your@email.com>”
-in the code. It’s also possible you already configured this. You can
-check if this is the case with the command
+initialize a repo). You need to adapt “Your Name” and
+“<your.name@inbo.be>” in the code. It’s also possible you already
+configured this. You can check if this is the case with the command
 `View(gert::git_config_global())` which lists all your current global
 git configuration settings.
 
@@ -176,11 +181,15 @@ follow [these
 steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
 You need a time-based one-time password app for 2FA to work. We
 recommend a mobile app which you can download on your smartphone such as
-`andOTP` (open source, Android) or `Google Authenticator` (closed
-source, Android or iOS). The closed tools don’t require users ‘to read
-on’ and make everything simple, while open tools will require some
-minimal responsibility e.g. to take care of personal backups. Some open
-source desktop applications are available as well and are listed in
+[`andOTP`](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en&gl=US)
+(open source, Android) or `Google Authenticator` (closed source,
+[Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US)
+or
+[iOS](https://apps.apple.com/us/app/google-authenticator/id388497605)).
+The closed tools don’t require users ‘to read on’ and make everything
+simple, while open tools will require some minimal responsibility
+e.g. to take care of personal backups. Some open source desktop
+applications are available as well and are listed in
 <https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps>. Mostly
 these open source tools are geared towards offline storage and give
 users maximum control over their credentials. 2FA is not that intrusive.
