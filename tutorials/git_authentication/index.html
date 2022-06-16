@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='How to safely identify yourself, or a third party on behalf of you, to Git or GitHub'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Git and GitHub Authentication on Windows • Hans Van Calster'>
+<meta property='og:description' content='How to safely identify yourself, or a third party on behalf of you, to Git or GitHub'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/git_authentication/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='git'><meta property='article:tag' content='github'><meta property='article:tag' content='rstudio'><meta property='article:published_time' content='2022-06-16T00:00:00Z'/><meta property='article:modified_time' content='2022-06-16T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>Git and GitHub Authentication on Windows • Hans Van Calster</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/git_authentication/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/tutorials/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.056338028169014em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/bibliography/' style='font-size:1.0140845070422535em'>bibliography</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1.0140845070422535em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/checklist/' style='font-size:1.028169014084507em'>checklist</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0140845070422535em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tutorials/tags/csl/' style='font-size:1.0140845070422535em'>csl</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.028169014084507em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.056338028169014em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0140845070422535em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1.028169014084507em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tutorials/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tutorials/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/generalized-linear-regression/' style='font-size:1em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1.0140845070422535em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.1267605633802817em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.1126760563380282em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1.0140845070422535em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.028169014084507em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0140845070422535em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/gwlogger/' style='font-size:1.0422535211267605em'>gwloggeR</a>
+      </li><li>
+        <a href='/tutorials/tags/inbodb/' style='font-size:1em'>inbodb</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1.0422535211267605em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inborutils/' style='font-size:1.0422535211267605em'>inborutils</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1.028169014084507em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/inlatools/' style='font-size:1.028169014084507em'>inlatools</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.1267605633802817em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.056338028169014em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.084507042253521em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.028169014084507em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.0704225352112675em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tutorials/tags/n2khab/' style='font-size:1.056338028169014em'>n2khab</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.0985915492957747em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.0422535211267605em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1.0140845070422535em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1.0140845070422535em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rgbif/' style='font-size:1.028169014084507em'>rgbif</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.028169014084507em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.056338028169014em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.0422535211267605em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.0422535211267605em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1.0140845070422535em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.084507042253521em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vignette/' style='font-size:1.4647887323943662em'>vignette</a>
+      </li><li>
+        <a href='/tutorials/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/waterinfo/' style='font-size:1.028169014084507em'>wateRinfo</a>
+      </li><li>
+        <a href='/tutorials/tags/watina/' style='font-size:1.028169014084507em'>watina</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.028169014084507em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tutorials/tags/zotero/' style='font-size:1.0140845070422535em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Thu Jun 16 10:18:43 UTC 2022</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Git and GitHub Authentication on Windows</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Git and GitHub Authentication on Windows</h1>
+      
+<p class='desc'>How to safely identify yourself, or a third party on behalf of you, to Git or GitHub</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2022-06-16T00:00:00Z'>2022, Jun 16</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/hansvancalster'>Hans Van Calster</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+12 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/git_authentication/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h2 id="before-we-start">Before we start<a href="#before-we-start" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>This tutorial assumes you have a GitHub account, and have Git, R and
+RStudio installed on your system. The purpose of this tutorial is to
+make clear recommendations about authentication for employees at INBO
+who use Git version control in their workflows. The guidelines here are
+meant for people who use Git and GitHub in RStudio, but the general
+principles can be applied to other software too (e.g. GitHub Desktop).</p>
+<p>If you do not have a GitHub account, you can <a href="https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">sign up for a new GitHub
+account</a>.
+The installation of Git, R and RStudio at INBO, is done by IT
+administrators who follow <a href="../../installation/administrator/">these installation instructions for
+admins</a>. In addition, the user is
+asked to do some extra steps after installation of
+<a href="../../installation/user/user_install_git/">Git</a>,
+<a href="../../installation/user/user_install_r/">R</a> and
+<a href="../../installation/user/user_install_rstudio/">RStudio</a>.</p>
+<p>To authenticate means passing information (= credentials) that proves
+that you are exactly who you declare to be. Authentication is about
+securely accessing your GitHub account’s resources either directly by
+yourself or on behalf of you by a third party. For instance, you can
+grant an R package the right to do stuff on your behalf (e.g. reading
+your e-mail address). You determine what can and what cannot be done and
+this can be different for various third parties.</p>
+<p>Most of the material in this tutorial is explained in length in
+<a href="https://happygitwithr.com/connect-intro.html">https://happygitwithr.com/connect-intro.html</a>. We will mainly follow
+<a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">the advice given in the usethis
+package</a>.</p>
+<p>Authentication is a quite confusing and technical topic. In the <a href="#tldr">TL;DR
+section</a> (Too Long; Didn’t read) we just provide a summary of the
+recipe to follow without any explanation. Using this recipe will
+hopefully just work. If you want to get some intuition about what you
+are doing, you will need to read the remainder of the tutorial too (and
+also check out the weblinks included in this tutorial).</p>
+<h2 id="tldr">TL;DR<a href="#tldr" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>First, enable two-factor authentication (2FA) for your GitHub account:
+follow <a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app">these
+steps</a>.
+You need a time-based one-time password app for 2FA to work. We
+recommend a mobile app which you can download on your smartphone such as
+<a href="https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&amp;hl=en&amp;gl=US"><code>andOTP</code></a>
+(open source, Android) or <code>Google Authenticator</code> (closed source,
+<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en&amp;gl=US">Android</a>
+or
+<a href="https://apps.apple.com/us/app/google-authenticator/id388497605">iOS</a>).</p>
+<p>Next, in R, install the <code>usethis</code> package (this will also install
+packages <code>gert</code> and <code>gitcreds</code> which we use below) and the <code>checklist</code>
+package:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;usethis&#34;</span>)
+<span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;checklist&#34;</span>,
+                 repos = <span style="color:#0a0">c</span>(
+                   inbo = <span style="color:#a50">&#34;https://inbo.r-universe.dev&#34;</span>,
+                   CRAN = <span style="color:#a50">&#34;https://cloud.r-project.org/&#34;</span>)
+                 )
+</code></pre></div><p>Use the following commands to configure some global git options (the
+scope, your user name and email, and the default branch name to
+initialize a repo). You need to adapt “Your Name” and
+“<a href="mailto:your.name@inbo.be">your.name@inbo.be</a>” in the code. It’s also possible you already
+configured this. You can check if this is the case with the command
+<code>View(gert::git_config_global())</code> which lists all your current global
+git configuration settings.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">if </span>(checklist::<span style="color:#0a0">yesno</span>(
+  <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;Are you sure you want to execute this code?\n&#34;</span>,
+         <span style="color:#a50">&#34;This action will overwrite Git global configuration settings.\n&#34;</span>,
+         <span style="color:#a50">&#34;Make sure you changed &#39;your name&#39; and &#39;your@email.com&#39; in the code,\n&#34;</span>,
+         <span style="color:#a50">&#34;if you didn&#39;t select negative answer.&#34;</span>))) {
+  usethis::<span style="color:#0a0">use_git_config</span>(
+    scope = <span style="color:#a50">&#34;user&#34;</span>,
+    user.name = <span style="color:#a50">&#34;Your Name&#34;</span>,
+    user.email = <span style="color:#a50">&#34;your.name@inbo.be&#34;</span>,
+    init.defaultbranch = <span style="color:#a50">&#34;main&#34;</span>
+  )
+} else {
+    <span style="color:#0a0">message</span>(<span style="color:#a50">&#34;Action aborted&#34;</span>)
+}
+
+<span style="color:#aaa;font-style:italic"># you can ignore this warning</span>
+<span style="color:#aaa;font-style:italic"># Warning message:</span>
+<span style="color:#aaa;font-style:italic"># In orig[nm] &lt;- git_cfg_get(nm, &#34;global&#34;) %||% list(NULL) :</span>
+<span style="color:#aaa;font-style:italic">#   number of items to replace is not a multiple of replacement length</span>
+</code></pre></div><p>If you plan to use functions that create something on GitHub (a repo, an
+issue, a pull request, a branch, …) and for all remote operations from
+the command line (<code>git pull</code>, <code>git push</code>, <code>git clone</code>, <code>git fetch</code>), you
+can use the following commands to create a Personal Access Token (PAT)
+and add it to the Git Credential Manager:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">?usethis::create_github_token <span style="color:#aaa;font-style:italic"># read the help file</span>
+usethis::<span style="color:#0a0">create_github_token</span>() <span style="color:#aaa;font-style:italic">#browser opens, follow instructions</span>
+</code></pre></div><p>Add the PAT to the Git Credential Manager:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">?gitcreds::gitcreds_set <span style="color:#aaa;font-style:italic"># read the help file</span>
+gitcreds::<span style="color:#0a0">gitcreds_set</span>() <span style="color:#aaa;font-style:italic">#paste PAT</span>
+</code></pre></div><p>After you have added the PAT to the Git Credential Manager, there is no
+need for you to store it elsewhere. <strong>WARNING</strong>: handle your Personal
+Access Token (PAT) as a secret. Anyone who has your token, has access to
+your GitHub account.</p>
+<p>Check if everything is OK:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">usethis::<span style="color:#0a0">git_sitrep</span>()
+</code></pre></div><p>The default Git protocol should be ‘https’ (recommended on Windows).</p>
+<p>The <code>usethis</code> package promotes the use of a global <code>.gitignore</code> file
+which prevents that some file types that could contain sensitive
+information (from your account / credentials) are tracked by the Git
+version control system. However, we prefer a <a href="https://github.com/inbo/checklist/blob/main/inst/generic_template/gitignore">project-specific
+<code>.gitignore</code>
+file</a>
+for this purpose. This is one of the many things that the <code>checklist</code>
+package will take care of for you. It is therefore good practice to use
+the <code>checklist</code> package to set up your RStudio projects for either R
+packages or regular R code projects. We refer to the <a href="https://inbo.github.io/checklist/"><code>checklist</code>
+package documentation</a> for further
+information.</p>
+<h2 id="modes-of-authentication">Modes of authentication<a href="#modes-of-authentication" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The way in which you need to authenticate depends on how you access your
+resources in GitHub. For instance, to manage your repositories online
+you can sign-in to GitHub using a username and password followed by
+two-factor authentication. As another example, a function like
+<code>checklist::new_branch()</code> will create a new branch on GitHub and
+locally. In order to create a new branch, you will need a Personal
+Access Token with appropriate scopes if you use the HTTPS protocol. A
+token with no assigned scopes can only access public information.</p>
+<p>We will follow the <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">recommendations given in the <code>usethis</code>
+package</a>
+for safe Git and GitHub authentication on Windows, which cover multiple
+facets:</p>
+<ol>
+<li>Turn on two-factor authentication for your GitHub account.</li>
+<li>Adopt HTTPS as your Git transport protocol.</li>
+<li>Use a personal access token (PAT) for all Git remote operations from
+the command line or from R.</li>
+<li>Allow tools to store and retrieve your credentials from the Git
+Credential Manager.</li>
+</ol>
+<p>This deserves some further explanation. The first recommendation
+essentially is an extra layer of security compared to a simple
+username-and-password authentication on GitHub. It is unrelated to git
+operations. To enable two-factor authentication for your GitHub account,
+follow <a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app">these
+steps</a>.
+You need a time-based one-time password app for 2FA to work. We
+recommend a mobile app which you can download on your smartphone such as
+<a href="https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&amp;hl=en&amp;gl=US"><code>andOTP</code></a>
+(open source, Android) or <code>Google Authenticator</code> (closed source,
+<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en&amp;gl=US">Android</a>
+or
+<a href="https://apps.apple.com/us/app/google-authenticator/id388497605">iOS</a>).
+The closed tools don’t require users ‘to read on’ and make everything
+simple, while open tools will require some minimal responsibility
+e.g. to take care of personal backups. Some open source desktop
+applications are available as well and are listed in
+<a href="https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps">https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps</a>. Mostly
+these open source tools are geared towards offline storage and give
+users maximum control over their credentials. 2FA is not that intrusive.
+It only kicks in when you login from a new device or when your last
+login on a device was a long time ago. If someone steals your username
+and password, they still can’t login using that combination from their
+device due to 2FA.</p>
+<p>The second recommendation is to use the <a href="#using-the-https-protocol">HTTPS
+protocol</a> to transport information (data)
+from your local Git repositories to their remote (online) counterparts.
+A good alternative is the SSH protocol. We have also included in this
+tutorial how to use the <a href="#creating-public-private-ssh-key-pairs">SSH
+protocol</a>, but in our experience
+this is not necessary in most circumstances and more involved to
+implement in Windows. Users of the Linux operating system, on the other
+hand, may prefer the SSH protocol. It is always possible to switch
+between HTTPS and SSH protocols and we explain in <a href="#creating-public-private-ssh-key-pairs">the SSH
+section</a> how to do that.</p>
+<p>The third recommendation is mandatory when you use the HTTPS protocol.
+GitHub no longer allows a simple password for Git remote operations. The
+remote is the place where you store your code on a Git Server, for
+instance <a href="https://github.com/inbo/tutorials">https://github.com/inbo/tutorials</a>. Git remote operations
+include, among others, <code>git clone</code>, <code>git fetch</code>, <code>git pull</code> and
+<code>git push</code>.</p>
+<p>The fourth recommendation is the easiest, because it just works out of
+the box with recent versions of Git (2.29 or higher). The installation
+of Git on Windows comes with a <a href="https://github.com/GitCredentialManager/git-credential-manager">Git Credential
+Manager</a>
+which allows that web apps like <a href="https://hackmd.io/login">hackmd</a> or R
+packages like <code>gert</code> and <code>gh</code> can ask for your credentials and get them
+from the credential store. In earlier days, it was sometimes needed to
+store your PAT in a <code>.Renviron</code> text file which you store only locally
+(the file will in that case contain a line <code>GITHUB_PAT=</code>…). This is no
+longer needed and should be avoided because of the risk to expose the
+PAT when that file is accidentally put online. You can check if you have
+previously set a <code>GITHUB_PAT</code> in your <code>.Renviron</code> with the R command
+<code>usethis::edit_r_environ()</code>.</p>
+<h2 id="creating-personal-access-tokens-pat">Creating Personal Access Tokens (PAT)<a href="#creating-personal-access-tokens-pat" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="creating-a-new-pat">Creating a new PAT<a href="#creating-a-new-pat" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>We move the steps about creating a PAT upfront, because this includes
+guidelines to store the PAT with the Git Credential Manager so they can
+be discovered automatically.</p>
+<p>Personal access tokens can only be used for HTTPS Git operations. When
+you create a PAT, you will be asked which scopes should be allowed
+(i.e. what rights do you give). We suggest that you stick with the
+scopes recommended by the <code>usethis</code> package. Executing the following
+command takes your browser to a pre-filled form with the recommended
+scopes (repo, user, workflow) where you can create your PAT.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">usethis::<span style="color:#0a0">create_github_token</span>()
+</code></pre></div><p>After you have done this, you can store this PAT in the Git Credential
+Manager using this code:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gitcreds::<span style="color:#0a0">gitcreds_set</span>()
+</code></pre></div><p>which will open a prompt where you can paste your PAT (or replace an old
+one).</p>
+<p>If you want to know more about PATs read <a href="https://happygitwithr.com/https-pat.html#get-a-pat">this section from happy git
+with R</a> and <a href="https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat">this
+section from the usethis
+package</a>.
+In case your PAT is compromised, you should
+<a href="https://github.com/settings/tokens">deactivate</a> it ASAP on GitHub.</p>
+<p>After you’ve done this, you can check your authentication settings. The
+<code>usethis</code> package has a function to get a situation report on your
+current Git/GitHub status, including information about authentication:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">usethis::<span style="color:#0a0">git_sitrep</span>()
+</code></pre></div><p>The situation report should normally report that the default Git
+protocol is <code>https</code>, which we will discuss next.</p>
+<h3 id="regenerating-an-expired-pat">Regenerating an expired PAT<a href="#regenerating-an-expired-pat" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>The PAT generated in the previous section has an expiration date
+associated to it. This is an extra fail safe security layer. The default
+is 30 days and you can specify a maximum expiration date of 1 year since
+creation. This means that from time to time, you will need to regenerate
+your PAT.</p>
+<p>To do this, head over to the <a href="https://github.com/settings/tokens">Github settings tokens
+page</a> and click on the expired PAT.
+Next, click regenerate token. After that is done, run the command
+explained in the previous section again to add the newly generated token
+to the Git Credential Manager:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gitcreds::<span style="color:#0a0">gitcreds_set</span>()
+</code></pre></div><h2 id="using-the-https-protocol">Using the HTTPS protocol<a href="#using-the-https-protocol" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The HTTPS protocol is the GitHub default URL transport protocol that
+uses the Transport Layer Security (TLP) encryption protocol to encrypt
+communications. To learn more about what https is, <a href="https://www.cloudflare.com/learning/ssl/what-is-https/">read this
+explanation</a>.</p>
+<p>The usual way to choose the protocol is when you clone a repository to
+your computer. You can do this in various ways:</p>
+<ul>
+<li>Point-and-click approach:
+<ul>
+<li>Go to <a href="https://github.com/inbo/tutorials">https://github.com/inbo/tutorials</a>, press the clone
+button and copy the URL (default is HTTPS:
+<code>https://github.com/inbo/tutorials.git</code>)</li>
+<li>Open RStudio:
+<code>File &gt; New project &gt; Version control &gt; Git &gt; paste https://github.com/inbo/tutorials.git &gt; create project</code></li>
+</ul>
+</li>
+<li>Using git commands
+<ul>
+<li>Open a terminal</li>
+<li>(Go to the folder where you want to clone the repository using
+<code>cd</code> command or open the terminal directly at that location)</li>
+<li>type <code>git clone https://github.com/inbo/tutorials.git</code></li>
+</ul>
+</li>
+<li>Using R packages: choose one:
+<ul>
+<li><code>usethis::create_from_github(repo_spec = &quot;https://github.com/inbo/tutorials.git&quot;, destdir = &quot;path/to/gitrepofolder&quot;)</code></li>
+<li><code>gert::git_clone(url = &quot;https://github.com/inbo/tutorials.git&quot;, path = &quot;path/to/gitrepofolder&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>See also in <a href="#creating-public-private-ssh-key-pairs">SSH protocol</a> the
+paragraph about the use of the <code>git remote</code> command.</p>
+<p>When you use these git commands or R functions, your PAT will be
+discovered from the Git Credential Manager and automatically authorize
+access (if you followed the steps in the previous section correctly)
+<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<h2 id="creating-public-private-ssh-key-pairs">Creating public-private SSH-key pairs<a href="#creating-public-private-ssh-key-pairs" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Below we describe the steps you need to run in order to make SSH-keys
+(Secure SHell). The SSH protocol is, next to the HTTPS-protocol, a way
+to safely interact with GitHub. A general and easy to follow explanation
+about SSH can be read
+<a href="https://dev.to/risafj/ssh-key-authentication-for-absolute-beginners-in-plain-english-2m3f">here</a>.
+Both HTTPS and SSH are secure ways to communicate with a server (pass
+information between your computer and a server). For a discussion of
+technical differences and similarities on how both protocols handle
+security, <a href="https://www.ssl2buy.com/wiki/ssh-vs-ssl-tls">this resource about SSH and
+TLS</a> is useful.</p>
+<p>A private key, that is specific to your computer, and a matching public
+key that is stored on your GitHub account are needed. The provided
+instructions are for Windows and are taken from
+<a href="https://happygitwithr.com/ssh-keys.html">https://happygitwithr.com/ssh-keys.html</a>. The same source may be
+consulted for other operating systems.</p>
+<ol>
+<li>
+<p>Open RStudio: <em>Tools &gt; Global Options…&gt; Git/SVN &gt; Create RSA
+Key…</em> You can optionally use a passphrase for extra protection of
+the key. Without password, anyone who has a copy of your private
+key, can impersonate you when authenticating on GitHub. When the
+private key is password protected they need your password too. Click
+create and apply.</p>
+</li>
+<li>
+<p>In RStudio, open a Rproject with Git version control and navigate to
+the Git pane. Open the Git Shell (<em>More &gt; Shell</em>). First we check
+if the SSH agent works with the following command (The first $ is
+the prompt and you should not copy it. To paste in the shell click
+the right mouse button.):</p>
+<pre><code>$ eval $(ssh-agent -s)
+# which should give something like this:
+Agent pid 59566
+</code></pre>
+<p>If that works, we need to add the SSH key (if you provided a
+passphrase, you will need it here.):</p>
+<pre><code>$ ssh-add ~/.ssh/id_rsa
+</code></pre>
+</li>
+<li>
+<p>Restart RStudio. Next <em>Tools &gt; Global Options…&gt; Git/SVN</em> and click
+<em>View public key</em> in the SSH-RSA section. Copy to the clipboard.</p>
+</li>
+<li>
+<p>Open your personal GitHub account
+<em><code>https://github.com/&lt;githubusername&gt;</code></em> (you may need to login).
+Click your profile-icon in the upperright corner and go to <em>Settings
+&gt; SSH and GPG keys</em>. Click <em>New SSH key</em>. Paste the public key in
+the field and provide an informative title
+(e.g. <code>&lt;year&gt;-&lt;computername&gt;</code>). Click <em>Add SSH Key</em>.</p>
+</li>
+<li>
+<p>To use the SSH protocol (or HTTPS for that matter), you need to set
+the remote of your repository correctly. The following command is
+useful to find out which protocol your repository uses (<em>Git pane &gt;
+More &gt; Shell</em>) (open the Shell from within the RStudio project with
+Git version control which you want to switch to SSH):</p>
+<pre><code>$ git remote -v
+</code></pre>
+<p>You will either see <code>https://github.com/&lt;OWNER&gt;/&lt;REPO&gt;.git</code> or
+<code>git@github.com:&lt;OWNER&gt;/&lt;REPO&gt;.git</code>. The first one is the
+HTTPS-protocol, the latter one the SSH-protocol. Switching between
+protocols is possible at any time. To switch from HTTPS-protocol to
+SSH-protocol, type:</p>
+<pre><code>$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+</code></pre>
+<p>Check if the remote is set correctly with <code>git remote -v</code>.</p>
+</li>
+</ol>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>In case you did not follow the guidelines correctly, Git will
+prompt you to log in using a browser window and asks for your
+username and password. In the password section you will need to
+provide your PAT (not your GitHub password, which is indeed
+confusing). If you enabled two-factor authentication (like you
+should have), you’ll need to complete the 2FA challenge. Once you’ve
+authenticated successfully, your credentials are stored in the Git
+Credential Manager and will be used every time you clone an HTTPS
+URL. Git will not ask you for your credentials again unless you
+change your credentials.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/version-control/'>version control</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/git/'>git</a>, <a class='tag' href='/tutorials/tags/github/'>github</a>, <a class='tag' href='/tutorials/tags/rstudio/'>rstudio</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/spatial_wfs_services/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Using WFS services in R</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
+
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+

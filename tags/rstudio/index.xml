@@ -6,7 +6,16 @@
     <description>Recent content in rstudio on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/rstudio/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/rstudio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git and GitHub Authentication on Windows</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_authentication/</link>
+      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_authentication/</guid>
+      <description>Before we start This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system. The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. The guidelines here are meant for people who use Git and GitHub in RStudio, but the general principles can be applied to other software too (e.</description>
+    </item>
+    
     <item>
       <title>Citations in R Markdown</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</link>
