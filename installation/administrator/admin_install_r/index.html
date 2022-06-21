@@ -9,7 +9,7 @@
 <meta property='og:description' content='Instruction for the installation of R (in Dutch)'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/installation/administrator/admin_install_r/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='r'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2022-05-19T00:00:00Z'/><meta property='article:modified_time' content='2022-05-19T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='installation'><meta property='article:tag' content='r'><meta property='article:tag' content='installation'><meta property='article:published_time' content='2022-06-21T00:00:00Z'/><meta property='article:modified_time' content='2022-06-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.88.1" />
 
@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Thu Jun 16 10:18:43 UTC 2022</small></p>
+  <p><small>Built on: Tue Jun 21 10:51:50 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -323,7 +323,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2022-05-19T00:00:00Z'>2022, May 19</time>
+  <time class='entry-date' datetime='2022-06-21T00:00:00Z'>2022, Jun 21</time>
 </span>
 
   <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -482,9 +482,10 @@ if (&quot;checklist&quot; %in% rownames(utils::installed.packages())) {
 }
 
 if (
+  interactive() &amp;&amp;
   !all(getOption(&quot;inbo_required&quot;) %in% rownames(utils::installed.packages()))
 ) {
-  stop(
+  warning(
     c(
       &quot;\n&quot;,
       rep(&quot;^&quot;, getOption(&quot;width&quot;)),
