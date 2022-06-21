@@ -1,7 +1,7 @@
 ---
 title: "Install R"
 description: "Instruction for the installation of R (in Dutch)"
-date: "2022-05-19"
+date: "2022-06-21"
 authors: [thierryo]
 categories: ["installation"]
 tags: ["r", "installation"]
@@ -126,9 +126,10 @@ if ("checklist" %in% rownames(utils::installed.packages())) {
 }
 
 if (
+  interactive() &&
   !all(getOption("inbo_required") %in% rownames(utils::installed.packages()))
 ) {
-  stop(
+  warning(
     c(
       "\n",
       rep("^", getOption("width")),
