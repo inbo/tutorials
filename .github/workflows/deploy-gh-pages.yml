@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout (tutorials)
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Checkout (theme)
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: MunifTanjim/minimo
           ref: v2.9.0
