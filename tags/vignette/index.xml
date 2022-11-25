@@ -6,7 +6,16 @@
     <description>Recent content in vignette on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/vignette/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/vignette/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rgbif: Multiple values</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_multiple_values/</link>
+      <pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_multiple_values/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/multiple_values.html</description>
+    </item>
+    
     <item>
       <title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
       <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</link>
@@ -26,6 +35,51 @@
     </item>
     
     <item>
+      <title>rgbif: Citing GBIF mediated data</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_cite_gbif_mediated_data/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_cite_gbif_mediated_data/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/gbif_citations.html</description>
+    </item>
+    
+    <item>
+      <title>rgbif: Downloading occurrence data from GBIF</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_occurrence_downloads/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_occurrence_downloads/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html</description>
+    </item>
+    
+    <item>
+      <title>rgbif: Downloading species lists from GBIF</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_species_downloads/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_species_downloads/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html</description>
+    </item>
+    
+    <item>
+      <title>rgbif: Set up your GBIF username and password</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_credentials_setup/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_credentials_setup/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/gbif_credentials.html</description>
+    </item>
+    
+    <item>
+      <title>rgbif: Working with taxonomic names</title>
+      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_taxonomic_names/</link>
+      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_taxonomic_names/</guid>
+      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/taxonomic_names.html</description>
+    </item>
+    
+    <item>
       <title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
       <link>https://inbo.github.io/tutorials/tutorials/vignette_waterinfo_waterinfo/</link>
       <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
@@ -41,33 +95,6 @@
       
       <guid>https://inbo.github.io/tutorials/tutorials/vignette_etn_acoustic_telemetry/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/etn/articles/acoustic_telemetry.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Cleaning data using GBIF issues</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_issues/</link>
-      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_issues/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/issues.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Downloading data from GBIF</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_downloads/</link>
-      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_downloads/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/downloads.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Taxonomic names</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_taxonomic_names/</link>
-      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_rgbif_taxonomic_names/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/taxonomic_names.html</description>
     </item>
     
     <item>
