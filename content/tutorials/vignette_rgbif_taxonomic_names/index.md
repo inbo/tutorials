@@ -1,8 +1,8 @@
 ---
-title: "rgbif: Taxonomic names"
+title: "rgbif: Working with taxonomic names"
 description: "📦 R package vignette."
-authors: [sckott]
-date: 2021-06-11
+authors: [jhnwllr]
+date: 2021-12-20
 categories: ["r"]
 tags: ["r", "vignette", "rgbif"]
 ---
