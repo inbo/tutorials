@@ -22,10 +22,6 @@ The R package [rgbif]() is a R wrapper to the [GBIF API](https://www.gbif.org/de
 
 So, why to write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read throughout all the documentation, which could be sometimes feeling overwhelming.
 
-```{r install_pkgs, eval=FALSE}
-remotes::install_github("inbo/inborutils")   # install inborutils
-```
-
 ```{r load_libraries, message=FALSE, warning=FALSE}
 library(tidyverse)    # To do datascience
 library(rgbif)        # To lookup names in the GBIF backbone taxonomy
@@ -84,7 +80,7 @@ kable(red_list$data[1:10,])
 But what do those keys stay for?
 
 - `key`, sometimes called `taxonKey`, is the identifier of the taxon within our checklist
-- `nubKey` is the identifier of the taxon within the [GBIF Backbone Taxonomy] dataset, or just _backbone_. The link from the taxon in the red list checklist dataset the taxon in the backbone is done by GBIF automatically behind the scenes while publishing the checklist. You can control the match before publication of course, by using the gbif match utility in rgbif (see the vignette [match and download a long species list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html)) or the GBIF [data validator](https://www.gbif.org/tools/data-validator) web tool.
+- `nubKey` is the identifier of the taxon within the [GBIF Backbone Taxonomy](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c) dataset, or simply _backbone_. The link from the taxon in the red list checklist dataset the taxon in the backbone is done by GBIF automatically behind the scenes while publishing the checklist. You can control the match before publication of course, by using the gbif match utility in rgbif (see the vignette [match and download a long species list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html)) or the GBIF [data validator](https://www.gbif.org/tools/data-validator) web tool.
 - `kingdomKey`,	`phylumKey`, `classKey`,	`orderKey`, `familyKey`, `genusKey`, `speciesKey`, `parentKey`: keys referring to the taxon classification as proposed in the checklist dataset. Notice that if the taxon is a species, `key` and `speciesKey` are the same. Keep in mind that the classication can be different than the classification in the backbone. Not all checklists are published with such detailed taxonomic classification. For example, the [LIFE RIPARIAS target species list](https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15) contains only the kingdom the taxa belong to. So, only `kingdomKey` and `speciesKey` are present.
 
 Notice also that all these taxonomic related keys point to specific web pages on the GBIF website. You need only to add the prefix `https://www.gbif.org/species/`. For example, the first taxon has key `152624576` and the corresponding webpage is `https://www.gbif.org/species/152624576`, while its nubkey, `2020551`, points to the webpage of the taxon as mentioned in the backbone: `https://www.gbif.org/species/2020551`.
@@ -118,7 +114,7 @@ nrow(red_list_taxa)
 
 A checklist dataset is not always only a list of taxa: it can be enriched by **extensions** containing information about e.g. the _distribution_, the _species profile_ or other less strict defined information described in the _description_ extension.
 
-How to get this information in R? Unfortunately, this information is linked to the taxon, not to the checklist dataset as a whole. This means this returns an error:
+How to get this information in R? Unfortunately, this information is linked to the taxon, not to the checklist dataset as a whole. In other words, you get an error if you try this:
 
 ```r
 distribution <- name_usage(datasetKey = datasetKey, data = "distribution")
@@ -149,6 +145,26 @@ This step is slower than retrieving the taxonomic information as we need 3036 ca
 Again, can you find this information on the GBIF website? Of course! All infos about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`):
 
 ![](gbif_webpage_extension.png)
+
+## Cite the checklist dataset
+
+If the (checklist) dataset you used is worth to be cited, you can retrieve the citation by running `gbif_citation()` function:
+
+```{r cite}
+gbif_citation(x = datasetKey)
+```
+
+## INBO datasets on GBIF
+
+INBO is an official GBIF publisher and a host for many other smaller publishers. Do you want to know which datasets have been published so far by INBO? 
+You can have a look via this link:
+
+https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
+
+you can finetuning the search by selecting the type of the datasets. For example, for checklist datasets:
+
+https://www.gbif.org/dataset/search?type=CHECKLIST&publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
+
 
 ## A nerdy touch: the GBIF API output
 
