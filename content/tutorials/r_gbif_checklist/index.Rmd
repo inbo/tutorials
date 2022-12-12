@@ -165,6 +165,24 @@ you can finetuning the search by selecting the type of the datasets. For example
 
 https://www.gbif.org/dataset/search?type=CHECKLIST&publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
 
+Can you do this in R? Of course. Use the rgbif function `dataset_search()` specifying the INBO's ID as publishing organization. Again, you get a list with two slots, `meta` and `data`. Guess where the datasets are :-)
+
+```{r get_datasets_INBO}
+INBO_datasets <- dataset_search(
+  publishingOrg = "1cd669d0-80ea-11de-a9d0-f1765f95f18b"
+)
+INBO_datasets$data
+```
+
+To finetune the search as we did online, use `type` argument:
+
+```{r inbo_checklists}
+INBO_checklists <- dataset_search(
+  publishingOrg = "1cd669d0-80ea-11de-a9d0-f1765f95f18b",
+  type = "checklist"
+)
+INBO_checklists$data 
+```
 
 ## A nerdy touch: the GBIF API output
 
