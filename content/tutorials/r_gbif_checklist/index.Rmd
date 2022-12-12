@@ -184,6 +184,30 @@ INBO_checklists <- dataset_search(
 INBO_checklists$data 
 ```
 
+## INBO as hosting organization
+
+INBO is not only a GBIF publisher. It hosts GBIF data for many other organisations. How to get all hosted datasets? By selecting INBO in the field "Host":
+
+Online: https://www.gbif.org/dataset/search?hosting_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
+
+In R, by using the argument `hostingOrg` within function `dataset_search()`:
+
+```{r}
+datasets_hosted_by_inbo <- dataset_search(
+  hostingOrg = "1cd669d0-80ea-11de-a9d0-f1765f95f18b",
+  limit = 1000)
+datasets_hosted_by_inbo$data
+```
+
+Notice again the `limit` argument with a sufficiently high number as value. Exercise: check the `meta` slot to check if we got all records.
+
+Which publishing organizations host GBIF data at INBO?
+
+```{r org_hosting_data}
+datasets_hosted_by_inbo$data %>%
+  distinct(publishingOrganization)
+```
+
 ## A nerdy touch: the GBIF API output
 
 We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Here below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`) as example:
