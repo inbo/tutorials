@@ -142,7 +142,7 @@ kable(distribution[1:10,])
 
 This step is slower than retrieving the taxonomic information as we need 3036 calls to the API, one per taxon, instead of one.
 
-Again, can you find this information on the GBIF website? Of course! All infos about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`):
+Can you find this information on the GBIF website? Of course! All information about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`):
 
 ![](gbif_webpage_extension.png)
 
