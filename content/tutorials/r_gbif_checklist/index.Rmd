@@ -2,7 +2,7 @@
 title: "Get species checklist data from GBIF via rgbif"
 description: "How to use rgbif function name_usage() to get checklist datasets from GBIF"
 authors: [damianooldoni]
-date: 2022-12-9
+date: 2022-12-09
 categories: ["r"]
 tags: ["api", "webservice", "r", "gbif", "biodiversity"]
 output: 
@@ -51,7 +51,7 @@ You get a list of two:
 names(red_list)
 ```
 
-the slot ´meta `contains metadata:
+The slot ´meta `contains metadata:
 
 ```{r}
 red_list$meta
@@ -142,7 +142,7 @@ kable(distribution[1:10,])
 
 This step is slower than retrieving the taxonomic information as we need 3036 calls to the API, one per taxon, instead of one.
 
-Can you find this information on the GBIF website? Of course! All information about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`):
+Can you find this information on the GBIF website? Of course! All information about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576) (`key`: `152624576`):
 
 ![](gbif_webpage_extension.png)
 
@@ -161,7 +161,7 @@ You can have a look via this link:
 
 https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
 
-you can finetuning the search by selecting the type of the datasets. For example, for checklist datasets:
+You can finetune the search by selecting the type of the datasets. For example, for checklist datasets:
 
 https://www.gbif.org/dataset/search?type=CHECKLIST&publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
 
@@ -210,7 +210,8 @@ datasets_hosted_by_inbo$data %>%
 
 ## A nerdy touch: the GBIF API output
 
-We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Here below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`) as example:
+We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`) as example:
+
 1. taxonomic information: https://api.gbif.org/v1/species/152624576
 2. distribution information: https://api.gbif.org/v1/species/152624576/distributions
 3. description information: https://api.gbif.org/v1/species/152624576/descriptions
