@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='How to use rgbif function name_usage() to get checklist datasets from GBIF'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Get species checklist data from GBIF via rgbif • Damiano Oldoni'>
+<meta property='og:description' content='How to use rgbif function name_usage() to get checklist datasets from GBIF'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='api'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='gbif'><meta property='article:tag' content='biodiversity'><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>Get species checklist data from GBIF via rgbif • Damiano Oldoni</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/tutorials/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.0533333333333332em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1.0133333333333334em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/bibliography/' style='font-size:1.0133333333333334em'>bibliography</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1.0133333333333334em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1.0133333333333334em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/checklist/' style='font-size:1.0266666666666666em'>checklist</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0133333333333334em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tutorials/tags/csl/' style='font-size:1.0133333333333334em'>csl</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0266666666666666em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.0533333333333332em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0133333333333334em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1.0266666666666666em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tutorials/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tutorials/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1.0133333333333334em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/generalized-linear-regression/' style='font-size:1em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1.0133333333333334em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.12em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.1066666666666667em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1.0133333333333334em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.0266666666666666em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0133333333333334em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/gwlogger/' style='font-size:1.04em'>gwloggeR</a>
+      </li><li>
+        <a href='/tutorials/tags/inbodb/' style='font-size:1em'>inbodb</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1.04em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inborutils/' style='font-size:1.04em'>inborutils</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1.0266666666666666em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/inlatools/' style='font-size:1.0266666666666666em'>inlatools</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.12em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.0533333333333332em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.08em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0266666666666666em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.0666666666666667em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tutorials/tags/n2khab/' style='font-size:1.0533333333333332em'>n2khab</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.0933333333333333em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.04em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1.0133333333333334em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1.0133333333333334em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rgbif/' style='font-size:1.0666666666666667em'>rgbif</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0266666666666666em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0533333333333332em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.04em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.04em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1.0133333333333334em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.08em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vignette/' style='font-size:1.48em'>vignette</a>
+      </li><li>
+        <a href='/tutorials/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/waterinfo/' style='font-size:1.0266666666666666em'>wateRinfo</a>
+      </li><li>
+        <a href='/tutorials/tags/watina/' style='font-size:1.0266666666666666em'>watina</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.04em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tutorials/tags/zotero/' style='font-size:1.0133333333333334em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Wed Dec 14 12:30:05 UTC 2022</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Get species checklist data from GBIF via rgbif</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Get species checklist data from GBIF via rgbif</h1>
+      
+<p class='desc'>How to use rgbif function name_usage() to get checklist datasets from GBIF</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='0001-01-01T00:00:00Z'>0001, Jan 01</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/damianooldoni'>Damiano Oldoni</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+12 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/r_gbif_checklist/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The R package <a href="https://docs.ropensci.org/rgbif/">rgbif</a> is a R wrapper
+to the <a href="https://www.gbif.org/developer/summary">GBIF API</a> which allows
+you to get data from GBIF directly in your R session. The package is
+very well documented. Please, look at the articles on how to:</p>
+<ol>
+<li><a href="https://docs.ropensci.org/rgbif/articles/gbif_credentials.html">setup your GBIF username and
+password</a></li>
+<li><a href="https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html">get occurrence
+data</a></li>
+<li><a href="https://docs.ropensci.org/rgbif/articles/taxonomic_names.html">work with taxonomy related
+functions</a></li>
+<li><a href="https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html">match and download a long species
+list</a></li>
+</ol>
+<p>So, why write another tutorial about rgbif? Because I think you can
+benefit from these short instructions to get a (species) checklist
+dataset from GBIF without having to read through all the documentation.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(tidyverse)    <span style="color:#aaa;font-style:italic"># To do datascience</span>
+<span style="color:#0a0">library</span>(rgbif)        <span style="color:#aaa;font-style:italic"># To lookup names in the GBIF backbone taxonomy</span>
+<span style="color:#0a0">library</span>(knitr)
+</code></pre></div><h2 id="retrieve-a-gbif-checklist-dataset-in-r">Retrieve a GBIF checklist dataset in R<a href="#retrieve-a-gbif-checklist-dataset-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>You want to load the <a href="https://www.gbif.org/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9">Validated red lists of Flanders,
+Belgium</a>
+checklist in your R session.</p>
+<p>The URL of this checklist contains important information: the
+<code>datasetKey</code>, which is the alphanumeric string following the prefix
+<code>https://www.gbif.org/dataset/</code>. In our case:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datasetKey &lt;- <span style="color:#a50">&#34;fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9&#34;</span>
+</code></pre></div><p>You need to run the <code>name_usage()</code> rgbif function using the argument
+<code>datasetKey</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list &lt;- <span style="color:#0a0">name_usage</span>(datasetKey = datasetKey)
+</code></pre></div><p>You get a list of two:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(red_list)
+</code></pre></div><pre><code>## [1] &quot;meta&quot; &quot;data&quot;
+</code></pre>
+<p>the slot ´meta `contains metadata:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list$meta
+</code></pre></div><pre><code>## # A tibble: 1 × 3
+##   offset limit endOfRecords
+##    &lt;int&gt; &lt;int&gt; &lt;lgl&gt;       
+## 1      0   100 FALSE
+</code></pre>
+<p>which are sometimes very important! In our case, for example, we can see
+that we didn’t download all the data as <code>endOfRecords</code> is <code>FALSE</code>. The
+reason is that <code>name_usage</code> has an argument called <code>limit</code> which is the
+number of records to return. The default value is 100.</p>
+<p>To get all the taxa we need to specify a sufficiently high number,
+e.g. 10000. The hard limit of the API is ten times bigger, 100k, which
+is an extremely high number for such kind of datasets:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list &lt;- <span style="color:#0a0">name_usage</span>(datasetKey = datasetKey, limit = <span style="color:#099">10000</span>)
+</code></pre></div><p>Now we should have all taxa:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list$meta$endOfRecords
+</code></pre></div><pre><code>## [1] TRUE
+</code></pre>
+<p>Let’s check the taxa in slot <code>data</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(red_list$data[1:<span style="color:#099">10</span>,])
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">key</th>
+<th style="text-align:right">nubKey</th>
+<th style="text-align:right">nameKey</th>
+<th style="text-align:left">taxonID</th>
+<th style="text-align:left">kingdom</th>
+<th style="text-align:left">phylum</th>
+<th style="text-align:left">order</th>
+<th style="text-align:left">family</th>
+<th style="text-align:left">genus</th>
+<th style="text-align:left">species</th>
+<th style="text-align:right">kingdomKey</th>
+<th style="text-align:right">phylumKey</th>
+<th style="text-align:right">classKey</th>
+<th style="text-align:right">orderKey</th>
+<th style="text-align:right">familyKey</th>
+<th style="text-align:right">genusKey</th>
+<th style="text-align:right">speciesKey</th>
+<th style="text-align:left">datasetKey</th>
+<th style="text-align:right">parentKey</th>
+<th style="text-align:left">parent</th>
+<th style="text-align:left">scientificName</th>
+<th style="text-align:left">canonicalName</th>
+<th style="text-align:left">authorship</th>
+<th style="text-align:left">nameType</th>
+<th style="text-align:left">rank</th>
+<th style="text-align:left">origin</th>
+<th style="text-align:left">taxonomicStatus</th>
+<th style="text-align:left">nomenclaturalStatus</th>
+<th style="text-align:right">numDescendants</th>
+<th style="text-align:left">lastCrawled</th>
+<th style="text-align:left">lastInterpreted</th>
+<th style="text-align:left">issues</th>
+<th style="text-align:left">synonym</th>
+<th style="text-align:left">class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">152624576</td>
+<td style="text-align:right">2020551</td>
+<td style="text-align:right">8883304</td>
+<td style="text-align:left">INBO_RL_WBU_2013_VAL_45</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Arthropoda</td>
+<td style="text-align:left">Hemiptera</td>
+<td style="text-align:left">Pleidae</td>
+<td style="text-align:left">Plea</td>
+<td style="text-align:left">Plea minutissima</td>
+<td style="text-align:right">196630267</td>
+<td style="text-align:right">196630270</td>
+<td style="text-align:right">196630271</td>
+<td style="text-align:right">196631222</td>
+<td style="text-align:right">196631224</td>
+<td style="text-align:right">196631225</td>
+<td style="text-align:right">152624576</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196631225</td>
+<td style="text-align:left">Plea</td>
+<td style="text-align:left">Plea minutissima</td>
+<td style="text-align:left">Plea minutissima</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:12.315+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Insecta</td>
+</tr>
+<tr>
+<td style="text-align:right">152624577</td>
+<td style="text-align:right">4926451</td>
+<td style="text-align:right">5755267</td>
+<td style="text-align:left">INBO_RL_PLA_2006_VAL_537</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Isoetales</td>
+<td style="text-align:left">Isoetaceae</td>
+<td style="text-align:left">Isoetes</td>
+<td style="text-align:left">Isoetes echinospora</td>
+<td style="text-align:right">196630540</td>
+<td style="text-align:right">196631273</td>
+<td style="text-align:right">196632770</td>
+<td style="text-align:right">196632772</td>
+<td style="text-align:right">196632774</td>
+<td style="text-align:right">196632775</td>
+<td style="text-align:right">152624577</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196632775</td>
+<td style="text-align:left">Isoetes</td>
+<td style="text-align:left">Isoetes echinospora Durieu</td>
+<td style="text-align:left">Isoetes echinospora</td>
+<td style="text-align:left">Durieu</td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:17.826+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Lycopsida</td>
+</tr>
+<tr>
+<td style="text-align:right">152624582</td>
+<td style="text-align:right">5152464</td>
+<td style="text-align:right">9652230</td>
+<td style="text-align:left">INBO_RL_WBU_2013_VAL_46</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Arthropoda</td>
+<td style="text-align:left">Hemiptera</td>
+<td style="text-align:left">Nepidae</td>
+<td style="text-align:left">Ranatra</td>
+<td style="text-align:left">Ranatra linearis</td>
+<td style="text-align:right">196630267</td>
+<td style="text-align:right">196630270</td>
+<td style="text-align:right">196630271</td>
+<td style="text-align:right">196631222</td>
+<td style="text-align:right">196631276</td>
+<td style="text-align:right">196631281</td>
+<td style="text-align:right">152624582</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196631281</td>
+<td style="text-align:left">Ranatra</td>
+<td style="text-align:left">Ranatra linearis</td>
+<td style="text-align:left">Ranatra linearis</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:12.567+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Insecta</td>
+</tr>
+<tr>
+<td style="text-align:right">152624585</td>
+<td style="text-align:right">2688345</td>
+<td style="text-align:right">6532778</td>
+<td style="text-align:left">INBO_RL_PLA_2006_VAL_628</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Lycopodiales</td>
+<td style="text-align:left">Lycopodiaceae</td>
+<td style="text-align:left">Lycopodiella</td>
+<td style="text-align:left">Lycopodiella inundata</td>
+<td style="text-align:right">196630540</td>
+<td style="text-align:right">196631273</td>
+<td style="text-align:right">196632770</td>
+<td style="text-align:right">196632777</td>
+<td style="text-align:right">196632778</td>
+<td style="text-align:right">196632782</td>
+<td style="text-align:right">152624585</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196632782</td>
+<td style="text-align:left">Lycopodiella</td>
+<td style="text-align:left">Lycopodiella inundata (L.) Holub</td>
+<td style="text-align:left">Lycopodiella inundata</td>
+<td style="text-align:left">(L.) Holub</td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:17.840+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Lycopsida</td>
+</tr>
+<tr>
+<td style="text-align:right">152624586</td>
+<td style="text-align:right">5152456</td>
+<td style="text-align:right">7481479</td>
+<td style="text-align:left">INBO_RL_WBU_2013_VAL_37</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Arthropoda</td>
+<td style="text-align:left">Hemiptera</td>
+<td style="text-align:left">Nepidae</td>
+<td style="text-align:left">Nepa</td>
+<td style="text-align:left">Nepa cinerea</td>
+<td style="text-align:right">196630267</td>
+<td style="text-align:right">196630270</td>
+<td style="text-align:right">196630271</td>
+<td style="text-align:right">196631222</td>
+<td style="text-align:right">196631276</td>
+<td style="text-align:right">196631278</td>
+<td style="text-align:right">152624586</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196631278</td>
+<td style="text-align:left">Nepa</td>
+<td style="text-align:left">Nepa cinerea</td>
+<td style="text-align:left">Nepa cinerea</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:12.561+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Insecta</td>
+</tr>
+<tr>
+<td style="text-align:right">152624589</td>
+<td style="text-align:right">2688393</td>
+<td style="text-align:right">6533650</td>
+<td style="text-align:left">INBO_RL_PLA_2006_VAL_630</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Lycopodiales</td>
+<td style="text-align:left">Lycopodiaceae</td>
+<td style="text-align:left">Lycopodium</td>
+<td style="text-align:left">Lycopodium clavatum</td>
+<td style="text-align:right">196630540</td>
+<td style="text-align:right">196631273</td>
+<td style="text-align:right">196632770</td>
+<td style="text-align:right">196632777</td>
+<td style="text-align:right">196632778</td>
+<td style="text-align:right">196632787</td>
+<td style="text-align:right">152624589</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196632787</td>
+<td style="text-align:left">Lycopodium</td>
+<td style="text-align:left">Lycopodium clavatum L.</td>
+<td style="text-align:left">Lycopodium clavatum</td>
+<td style="text-align:left">L.</td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:17.851+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Lycopsida</td>
+</tr>
+<tr>
+<td style="text-align:right">152624591</td>
+<td style="text-align:right">2688369</td>
+<td style="text-align:right">6532520</td>
+<td style="text-align:left">INBO_RL_PLA_2006_VAL_629</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Lycopodiales</td>
+<td style="text-align:left">Lycopodiaceae</td>
+<td style="text-align:left">Lycopodium</td>
+<td style="text-align:left">Lycopodium annotinum</td>
+<td style="text-align:right">196630540</td>
+<td style="text-align:right">196631273</td>
+<td style="text-align:right">196632770</td>
+<td style="text-align:right">196632777</td>
+<td style="text-align:right">196632778</td>
+<td style="text-align:right">196632787</td>
+<td style="text-align:right">152624591</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196632787</td>
+<td style="text-align:left">Lycopodium</td>
+<td style="text-align:left">Lycopodium annotinum L.</td>
+<td style="text-align:left">Lycopodium annotinum</td>
+<td style="text-align:left">L.</td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:17.849+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Lycopsida</td>
+</tr>
+<tr>
+<td style="text-align:right">152624592</td>
+<td style="text-align:right">4485490</td>
+<td style="text-align:right">7623379</td>
+<td style="text-align:left">INBO_RL_WBU_2013_VAL_43</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Arthropoda</td>
+<td style="text-align:left">Hemiptera</td>
+<td style="text-align:left">Notonectidae</td>
+<td style="text-align:left">Notonecta</td>
+<td style="text-align:left">Notonecta viridis</td>
+<td style="text-align:right">196630267</td>
+<td style="text-align:right">196630270</td>
+<td style="text-align:right">196630271</td>
+<td style="text-align:right">196631222</td>
+<td style="text-align:right">196631298</td>
+<td style="text-align:right">196631299</td>
+<td style="text-align:right">152624592</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196631299</td>
+<td style="text-align:left">Notonecta</td>
+<td style="text-align:left">Notonecta viridis</td>
+<td style="text-align:left">Notonecta viridis</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:12.626+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Insecta</td>
+</tr>
+<tr>
+<td style="text-align:right">152624594</td>
+<td style="text-align:right">2020518</td>
+<td style="text-align:right">7623100</td>
+<td style="text-align:left">INBO_RL_WBU_2013_VAL_40</td>
+<td style="text-align:left">Animalia</td>
+<td style="text-align:left">Arthropoda</td>
+<td style="text-align:left">Hemiptera</td>
+<td style="text-align:left">Notonectidae</td>
+<td style="text-align:left">Notonecta</td>
+<td style="text-align:left">Notonecta maculata</td>
+<td style="text-align:right">196630267</td>
+<td style="text-align:right">196630270</td>
+<td style="text-align:right">196630271</td>
+<td style="text-align:right">196631222</td>
+<td style="text-align:right">196631298</td>
+<td style="text-align:right">196631299</td>
+<td style="text-align:right">152624594</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196631299</td>
+<td style="text-align:left">Notonecta</td>
+<td style="text-align:left">Notonecta maculata</td>
+<td style="text-align:left">Notonecta maculata</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:12.615+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Insecta</td>
+</tr>
+<tr>
+<td style="text-align:right">152624595</td>
+<td style="text-align:right">2688495</td>
+<td style="text-align:right">19956112</td>
+<td style="text-align:left">INBO_RL_PLA_2006_VAL_515</td>
+<td style="text-align:left">Plantae</td>
+<td style="text-align:left">Tracheophyta</td>
+<td style="text-align:left">Lycopodiales</td>
+<td style="text-align:left">Lycopodiaceae</td>
+<td style="text-align:left">Huperzia</td>
+<td style="text-align:left">Huperzia selago</td>
+<td style="text-align:right">196630540</td>
+<td style="text-align:right">196631273</td>
+<td style="text-align:right">196632770</td>
+<td style="text-align:right">196632777</td>
+<td style="text-align:right">196632778</td>
+<td style="text-align:right">196632785</td>
+<td style="text-align:right">152624595</td>
+<td style="text-align:left">fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</td>
+<td style="text-align:right">196632785</td>
+<td style="text-align:left">Huperzia</td>
+<td style="text-align:left">Huperzia selago (L.) Bernh. ex Schrank et C.F.P. Mart.</td>
+<td style="text-align:left">Huperzia selago</td>
+<td style="text-align:left">(L.) Bernh. ex Schrank &amp; C.F.P.Mart.</td>
+<td style="text-align:left">SCIENTIFIC</td>
+<td style="text-align:left">SPECIES</td>
+<td style="text-align:left">SOURCE</td>
+<td style="text-align:left">ACCEPTED</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">0</td>
+<td style="text-align:left">2022-11-24T03:04:58.029+00:00</td>
+<td style="text-align:left">2022-07-09T09:43:17.844+00:00</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">Lycopsida</td>
+</tr>
+</tbody>
+</table>
+<p>But what do those keys stay for?</p>
+<ul>
+<li><code>key</code>, sometimes called <code>taxonKey</code>, is the identifier of the taxon
+within our checklist</li>
+<li><code>nubKey</code> is the identifier of the taxon within the <a href="https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c">GBIF Backbone
+Taxonomy</a>
+dataset, or simply <em>backbone</em>. The link from the taxon in the red list
+checklist dataset the taxon in the backbone is done by GBIF
+automatically behind the scenes while publishing the checklist. You
+can control the match before publication of course, by using the gbif
+match utility in rgbif (see the vignette <a href="https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html">match and download a long
+species
+list</a>)
+or the GBIF <a href="https://www.gbif.org/tools/data-validator">data
+validator</a> web tool.</li>
+<li><code>kingdomKey</code>, <code>phylumKey</code>, <code>classKey</code>, <code>orderKey</code>, <code>familyKey</code>,
+<code>genusKey</code>, <code>speciesKey</code>, <code>parentKey</code>: keys referring to the taxon
+classification as proposed in the checklist dataset. Notice that if
+the taxon is a species, <code>key</code> and <code>speciesKey</code> are the same. Keep in
+mind that the classication can be different than the classification in
+the backbone. Not all checklists are published with such detailed
+taxonomic classification. For example, the <a href="https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15">LIFE RIPARIAS target
+species
+list</a>
+contains only the kingdom the taxa belong to. So, only <code>kingdomKey</code>
+and <code>speciesKey</code> are present.</li>
+</ul>
+<p>Notice also that all these taxonomic related keys point to specific web
+pages on the GBIF website. You need only to add the prefix
+<code>https://www.gbif.org/species/</code>. For example, the first taxon has key
+<code>152624576</code> and the corresponding webpage is
+<code>https://www.gbif.org/species/152624576</code>, while its nubkey, <code>2020551</code>,
+points to the webpage of the taxon as mentioned in the backbone:
+<code>https://www.gbif.org/species/2020551</code>.</p>
+<p>Now, let’s check how many taxa you got:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">nrow</span>(red_list$data)
+</code></pre></div><pre><code>## [1] 4771
+</code></pre>
+<p>However, the webpage on GBIF says 3036 records</p>
+<p><img src="gbif_webpage_red_lists.png" alt=""></p>
+<p>Who lies?!? Nobody, actually. The reason is the taxonomic classification
+added to each taxon. How to get the 3036 records of the red list? And
+which taxa are actually part of the added classification? The column
+<code>origin</code> is what we need!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list$data %&gt;%
+  <span style="color:#0a0">count</span>(origin)
+</code></pre></div><pre><code>## # A tibble: 2 × 2
+##   origin                      n
+##   &lt;chr&gt;                   &lt;int&gt;
+## 1 DENORMED_CLASSIFICATION  1708
+## 2 SOURCE                   3063
+</code></pre>
+<p>You need then to <em>filter</em> on <code>origin</code> with value <code>&quot;SOURCE&quot;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list_taxa &lt;- red_list$data %&gt;% <span style="color:#0a0">filter</span>(origin == <span style="color:#a50">&#34;SOURCE&#34;</span>)
+<span style="color:#0a0">nrow</span>(red_list_taxa)
+</code></pre></div><pre><code>## [1] 3063
+</code></pre>
+<h2 id="retrieve-non-taxonomic-information-from-a-gbif-checklist-in-r">Retrieve non taxonomic information from a GBIF checklist in R<a href="#retrieve-non-taxonomic-information-from-a-gbif-checklist-in-r" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>A checklist dataset is not always only a list of taxa: it can be
+enriched by <strong>extensions</strong> containing information about e.g. the
+<em>distribution</em>, the <em>species profile</em> or other less strict defined
+information described in the <em>description</em> extension.</p>
+<p>How to get this information in R? Unfortunately, this information is
+linked to the taxon, not to the checklist dataset as a whole. In other
+words, you get an error if you try this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">distribution &lt;- <span style="color:#0a0">name_usage</span>(datasetKey = datasetKey, data = <span style="color:#a50">&#34;distribution&#34;</span>)
+Error in <span style="color:#0a0">exists</span>(z, private$crul_h_pool) : invalid first argument
+</code></pre></div><p>You need a loop over all the taxa (<code>key</code>):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">distribution &lt;- 
+  red_list_taxa %&gt;% 
+  <span style="color:#0a0">pull</span>(key) %&gt;%
+  <span style="color:#0a0">map_dfr</span>(., <span style="color:#0a0">function</span>(x) {
+    distribution_details &lt;-<span style="color:#0a0">name_usage</span>(x, data = <span style="color:#a50">&#34;distribution&#34;</span>)
+    <span style="color:#0a0">return</span>(distribution_details$data)
+    }
+  )
+</code></pre></div><p>Overview:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">kable</span>(distribution[1:<span style="color:#099">10</span>,])
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">taxonKey</th>
+<th style="text-align:left">locationId</th>
+<th style="text-align:left">locality</th>
+<th style="text-align:left">country</th>
+<th style="text-align:left">temporal</th>
+<th style="text-align:left">threatStatus</th>
+<th style="text-align:left">establishmentMeans</th>
+<th style="text-align:left">source</th>
+<th style="text-align:left">remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">152624576</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2013</td>
+<td style="text-align:left">LEAST_CONCERN</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Lock et al. (2013)</td>
+<td style="text-align:left">Momenteel niet in gevaar</td>
+</tr>
+<tr>
+<td style="text-align:right">152624577</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2006</td>
+<td style="text-align:left">CRITICALLY_ENDANGERED</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Van Landuyt et al. (2006)</td>
+<td style="text-align:left">Met verdwijning bedreigd</td>
+</tr>
+<tr>
+<td style="text-align:right">152624582</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2013</td>
+<td style="text-align:left">LEAST_CONCERN</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Lock et al. (2013)</td>
+<td style="text-align:left">Momenteel niet in gevaar</td>
+</tr>
+<tr>
+<td style="text-align:right">152624585</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2006</td>
+<td style="text-align:left">LEAST_CONCERN</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Van Landuyt et al. (2006)</td>
+<td style="text-align:left">Momenteel niet bedreigd</td>
+</tr>
+<tr>
+<td style="text-align:right">152624586</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2013</td>
+<td style="text-align:left">LEAST_CONCERN</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Lock et al. (2013)</td>
+<td style="text-align:left">Momenteel niet in gevaar</td>
+</tr>
+<tr>
+<td style="text-align:right">152624589</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2006</td>
+<td style="text-align:left">ENDANGERED</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Van Landuyt et al. (2006)</td>
+<td style="text-align:left">Bedreigd</td>
+</tr>
+<tr>
+<td style="text-align:right">152624591</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2006</td>
+<td style="text-align:left">REGIONALLY_EXTINCT</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Van Landuyt et al. (2006)</td>
+<td style="text-align:left">Verdwenen uit Vlaanderen en het Brussels Gewest</td>
+</tr>
+<tr>
+<td style="text-align:right">152624592</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2013</td>
+<td style="text-align:left">LEAST_CONCERN</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Lock et al. (2013)</td>
+<td style="text-align:left">Momenteel niet in gevaar</td>
+</tr>
+<tr>
+<td style="text-align:right">152624594</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2013</td>
+<td style="text-align:left">LEAST_CONCERN</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Lock et al. (2013)</td>
+<td style="text-align:left">Momenteel niet in gevaar</td>
+</tr>
+<tr>
+<td style="text-align:right">152624595</td>
+<td style="text-align:left">ISO_3166:BE-VLG</td>
+<td style="text-align:left">Flanders</td>
+<td style="text-align:left">BE</td>
+<td style="text-align:left">2006</td>
+<td style="text-align:left">CRITICALLY_ENDANGERED</td>
+<td style="text-align:left">NATIVE</td>
+<td style="text-align:left">Van Landuyt et al. (2006)</td>
+<td style="text-align:left">Met verdwijning bedreigd</td>
+</tr>
+</tbody>
+</table>
+<p>This step is slower than retrieving the taxonomic information as we need
+3036 calls to the API, one per taxon, instead of one.</p>
+<p>Can you find this information on the GBIF website? Of course! All
+information about the extensions is shown on the taxon page. Below a
+screenshot showing the section related to the distribution extension for
+<a href="https://www.gbif.org/species/152624576"><em>Plea minutissima</em></a>(<code>key</code>:
+<code>152624576</code>):</p>
+<p><img src="gbif_webpage_extension.png" alt=""></p>
+<h2 id="cite-the-checklist-dataset">Cite the checklist dataset<a href="#cite-the-checklist-dataset" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>If the (checklist) dataset you used is worth to be cited, you can
+retrieve the citation by running <code>gbif_citation()</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">gbif_citation</span>(x = datasetKey)
+</code></pre></div><pre><code>## &lt;&lt;rgbif citation&gt;&gt;
+##    Citation: Maes D, Brosens D, T’jollyn F, Desmet P, Piesschaert F, Van Hoey
+##         S, Adriaens T, Dekoninck W, Devos K, Lock K, Onkelinx T, Packet J,
+##         Speybroeck J, Thomaes A, Van Den Berge K, Van Landuyt W, Verreycken H
+##         (2020). Validated red lists of Flanders, Belgium. Version 1.7. Research
+##         Institute for Nature and Forest (INBO). Checklist dataset
+##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-14..
+##         Accessed from R via rgbif (https://github.com/ropensci/rgbif) on
+##         2022-12-14
+##    Rights: http://creativecommons.org/publicdomain/zero/1.0/legalcode
+</code></pre>
+<h2 id="inbo-datasets-on-gbif">INBO datasets on GBIF<a href="#inbo-datasets-on-gbif" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>INBO is an official GBIF publisher. Do you want to know which datasets
+have been published so far by INBO? You can have a look via this link:</p>
+<p><a href="https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b">https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b</a></p>
+<p>you can finetuning the search by selecting the type of the datasets. For
+example, for checklist datasets:</p>
+<p><a href="https://www.gbif.org/dataset/search?type=CHECKLIST&amp;publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b">https://www.gbif.org/dataset/search?type=CHECKLIST&amp;publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b</a></p>
+<p>Can you do this in R? Of course. Use the rgbif function
+<code>dataset_search()</code> specifying INBO’s ID as publishing organization.
+Again, you get a list with two slots, <code>meta</code> and <code>data</code>. Guess where the
+datasets are :-)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">INBO_datasets &lt;- <span style="color:#0a0">dataset_search</span>(
+  publishingOrg = <span style="color:#a50">&#34;1cd669d0-80ea-11de-a9d0-f1765f95f18b&#34;</span>
+)
+INBO_datasets$data
+</code></pre></div><pre><code>## # A tibble: 92 × 8
+##    datasetTitle            datas…¹ type  hosti…² hosti…³ publi…⁴ publi…⁵ publi…⁶
+##    &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+##  1 Florabank1 - A grid-ba… 271c44… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  2 LBBG_ZEEBRUGGE - Lesse… 355b8f… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  3 DAISIE - Inventory of … 39f36f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  4 HG_OOSTENDE - Herring … 6c860e… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  5 Watervogels - Winterin… 7f9eb6… SAMP… Resear… 1cd669… Resear… 1cd669… BE     
+##  6 RINSE - Registry of no… 3f5e93… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  7 O_VLIELAND - Eurasian … cd1590… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  8 Vlinderdatabank - Butt… 7888f6… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  9 VIS - Fishes in inland… 823dc5… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+## 10 Broedvogels - Atlas of… 81c5a0… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+## # … with 82 more rows, and abbreviated variable names ¹​datasetKey,
+## #   ²​hostingOrganization, ³​hostingOrganizationKey, ⁴​publishingOrganization,
+## #   ⁵​publishingOrganizationKey, ⁶​publishingCountry
+</code></pre>
+<p>To finetune the search as we did online, use <code>type</code> argument:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">INBO_checklists &lt;- <span style="color:#0a0">dataset_search</span>(
+  publishingOrg = <span style="color:#a50">&#34;1cd669d0-80ea-11de-a9d0-f1765f95f18b&#34;</span>,
+  type = <span style="color:#a50">&#34;checklist&#34;</span>
+)
+INBO_checklists$data 
+</code></pre></div><pre><code>## # A tibble: 15 × 8
+##    datasetTitle            datas…¹ type  hosti…² hosti…³ publi…⁴ publi…⁵ publi…⁶
+##    &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+##  1 DAISIE - Inventory of … 39f36f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  2 RINSE - Registry of no… 3f5e93… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  3 Validated red lists of… fc18b0… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  4 Non-validated red list… 2fc239… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  5 Ad hoc checklist of al… 1f3505… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  6 National checklists an… f9af6f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  7 Checklist of alien bir… e1c3be… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  8 RINSE - Pathways and v… 1738f2… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  9 Registry of introduced… e082b1… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## 10 Checklist of alien her… a12e2b… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## 11 Checklist of alien spe… 222119… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## 12 Red list of dragonflie… 72aa79… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## 13 RIPARIAS target specie… fd004d… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## 14 Checklist of non-nativ… 98940a… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## 15 Checklist of alien par… 2c0fb6… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+## # … with abbreviated variable names ¹​datasetKey, ²​hostingOrganization,
+## #   ³​hostingOrganizationKey, ⁴​publishingOrganization,
+## #   ⁵​publishingOrganizationKey, ⁶​publishingCountry
+</code></pre>
+<h2 id="inbo-as-hosting-organization">INBO as hosting organization<a href="#inbo-as-hosting-organization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>INBO is not only a GBIF publisher. It also hosts GBIF data for many
+other organisations. How to get all hosted datasets? By selecting INBO
+in the field “Host”:</p>
+<p>Online:
+<a href="https://www.gbif.org/dataset/search?hosting_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b">https://www.gbif.org/dataset/search?hosting_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b</a></p>
+<p>In R, by using the argument <code>hostingOrg</code> within function
+<code>dataset_search()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datasets_hosted_by_inbo &lt;- <span style="color:#0a0">dataset_search</span>(
+  hostingOrg = <span style="color:#a50">&#34;1cd669d0-80ea-11de-a9d0-f1765f95f18b&#34;</span>,
+  limit = <span style="color:#099">1000</span>)
+datasets_hosted_by_inbo$data
+</code></pre></div><pre><code>## # A tibble: 117 × 8
+##    datasetTitle            datas…¹ type  hosti…² hosti…³ publi…⁴ publi…⁵ publi…⁶
+##    &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+##  1 Waarnemingen.be - Bird… e7cbb0… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+##  2 Florabank1 - A grid-ba… 271c44… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  3 Waarnemingen.be - Plan… bfc6fe… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+##  4 LBBG_ZEEBRUGGE - Lesse… 355b8f… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  5 DAISIE - Inventory of … 39f36f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+##  6 Waarnemingen.be - Butt… 1f968e… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+##  7 Waarnemingen.be / obse… 2c38cf… CHEC… Resear… 1cd669… Natuur… 4d3cee… BE     
+##  8 HG_OOSTENDE - Herring … 6c860e… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+##  9 Waarnemingen.be - Non-… 9a0b66… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+## 10 Watervogels - Winterin… 7f9eb6… SAMP… Resear… 1cd669… Resear… 1cd669… BE     
+## # … with 107 more rows, and abbreviated variable names ¹​datasetKey,
+## #   ²​hostingOrganization, ³​hostingOrganizationKey, ⁴​publishingOrganization,
+## #   ⁵​publishingOrganizationKey, ⁶​publishingCountry
+</code></pre>
+<p>Notice again the <code>limit</code> argument with a sufficiently high number as
+value. Exercise: check the <code>meta</code> slot to check if we got all records.</p>
+<p>Which publishing organizations host GBIF data at INBO?</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datasets_hosted_by_inbo$data %&gt;%
+  <span style="color:#0a0">distinct</span>(publishingOrganization)
+</code></pre></div><pre><code>## # A tibble: 8 × 1
+##   publishingOrganization                            
+##   &lt;chr&gt;                                             
+## 1 Natuurpunt                                        
+## 2 Research Institute for Nature and Forest (INBO)   
+## 3 Invasive Species Specialist Group ISSG            
+## 4 Flanders Environment Agency (VMM)                 
+## 5 Province East Flanders                            
+## 6 Ghent University                                  
+## 7 RATO vzw                                          
+## 8 Agency for Nature and Forests (Flemish Government)
+</code></pre>
+<h2 id="a-nerdy-touch-the-gbif-api-output">A nerdy touch: the GBIF API output<a href="#a-nerdy-touch-the-gbif-api-output" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>We said at the beginning of this tutorial that the information you get
+via rgbif is harvested by using the GBIF API. So, the question is: can
+you see the API output on the web as well? Answer is YES! You need some
+prefixes and again the values in the field <code>key</code>. Here below we use the
+taxon <a href="https://www.gbif.org/species/152624576"><em>Plea
+minutissima</em></a>(<code>key</code>:
+<code>152624576</code>) as example: 1. taxonomic information:
+<a href="https://api.gbif.org/v1/species/152624576">https://api.gbif.org/v1/species/152624576</a> 2. distribution information:
+<a href="https://api.gbif.org/v1/species/152624576/distributions">https://api.gbif.org/v1/species/152624576/distributions</a> 3. description
+information: <a href="https://api.gbif.org/v1/species/152624576/descriptions">https://api.gbif.org/v1/species/152624576/descriptions</a></p>
+<p>And the checklist dataset? Here you go:
+<a href="https://api.gbif.org/v1/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9">https://api.gbif.org/v1/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</a>.
+Notice the word <code>dataset</code> instead of <code>species</code> in the prefix.</p>
+<p>Notice that all information exposed by the GBIF API is written using the
+<a href="https://en.wikipedia.org/wiki/JSON">JSON</a> format. To parse it in a
+humanly readable way, you can use the Google Chrome extension <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa">JSON
+Formatter</a>
+or another similar extension. The difference is impressive, isn’t?</p>
+<p>Raw: <img src="raw_json.png" alt=""></p>
+<p>Parsed: <img src="parsed_json.png" alt=""></p>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/r/'>r</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/api/'>api</a>, <a class='tag' href='/tutorials/tags/webservice/'>webservice</a>, <a class='tag' href='/tutorials/tags/r/'>r</a>, <a class='tag' href='/tutorials/tags/gbif/'>gbif</a>, <a class='tag' href='/tutorials/tags/biodiversity/'>biodiversity</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='next-entry sep-before'>
+      <a href='/tutorials/tutorials/r_database_access/'>
+        <span class='screen-reader-text'>Next post: </span>Read data from INBO databases (SQL Server) with R<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
+
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+
