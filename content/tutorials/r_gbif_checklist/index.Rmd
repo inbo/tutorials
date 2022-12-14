@@ -210,7 +210,7 @@ datasets_hosted_by_inbo$data %>%
 
 ## A nerdy touch: the GBIF API output
 
-We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`) as example:
+We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576) (`key`: `152624576`) as example:
 
 1. taxonomic information: https://api.gbif.org/v1/species/152624576
 2. distribution information: https://api.gbif.org/v1/species/152624576/distributions
