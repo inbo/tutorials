@@ -39,7 +39,7 @@ The URL of this checklist contains important information: the `datasetKey`, whic
 datasetKey <- "fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9"
 ```
 
-You need to run the `name_usage()` rgbif function using the argument ``
+You need to run the `name_usage()` rgbif function using the argument `datasetKey`
 
 ```{r name_usage}
 red_list <- name_usage(datasetKey = datasetKey)
