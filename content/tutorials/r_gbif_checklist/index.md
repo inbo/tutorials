@@ -13,10 +13,10 @@ output:
 
 ## Introduction
 
-The R package [rgbif]() is a R wrapper to the [GBIF
-API](https://www.gbif.org/developer/summary) which allows you to get
-data from GBIF directly in your R session. The package is very well
-documented. Please, give a look to the articles on how to:
+The R package [rgbif](https://docs.ropensci.org/rgbif/) is a R wrapper
+to the [GBIF API](https://www.gbif.org/developer/summary) which allows
+you to get data from GBIF directly in your R session. The package is
+very well documented. Please, look at the articles on how to:
 
 1.  [setup your GBIF username and
     password](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html)
@@ -27,10 +27,9 @@ documented. Please, give a look to the articles on how to:
 4.  [match and download a long species
     list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html)
 
-So, why to write another tutorial about rgbif? Because I think you can
+So, why write another tutorial about rgbif? Because I think you can
 benefit from these short instructions to get a (species) checklist
-dataset from GBIF without having to read throughout all the
-documentation, which could be sometimes feeling overwhelming.
+dataset from GBIF without having to read through all the documentation.
 
 ``` r
 library(tidyverse)    # To do datascience
@@ -44,7 +43,7 @@ You want to load the [Validated red lists of Flanders,
 Belgium](https://www.gbif.org/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9)
 checklist in your R session.
 
-The URL of this checklist contains an important information, the
+The URL of this checklist contains important information: the
 `datasetKey`, which is the alphanumeric string following the prefix
 `https://www.gbif.org/dataset/`. In our case:
 
@@ -53,7 +52,7 @@ datasetKey <- "fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9"
 ```
 
 You need to run the `name_usage()` rgbif function using the argument
-\`\`
+`datasetKey`
 
 ``` r
 red_list <- name_usage(datasetKey = datasetKey)
@@ -241,8 +240,8 @@ kable(distribution[1:10,])
 This step is slower than retrieving the taxonomic information as we need
 3036 calls to the API, one per taxon, instead of one.
 
-Again, can you find this information on the GBIF website? Of course! All
-infos about the extensions is shown on the taxon page. Below a
+Can you find this information on the GBIF website? Of course! All
+information about the extensions is shown on the taxon page. Below a
 screenshot showing the section related to the distribution extension for
 [*Plea minutissima*](https://www.gbif.org/species/152624576)(`key`:
 `152624576`):
@@ -264,16 +263,15 @@ gbif_citation(x = datasetKey)
     ##         Speybroeck J, Thomaes A, Van Den Berge K, Van Landuyt W, Verreycken H
     ##         (2020). Validated red lists of Flanders, Belgium. Version 1.7. Research
     ##         Institute for Nature and Forest (INBO). Checklist dataset
-    ##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-09..
+    ##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-14..
     ##         Accessed from R via rgbif (https://github.com/ropensci/rgbif) on
-    ##         2022-12-09
+    ##         2022-12-14
     ##    Rights: http://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 ## INBO datasets on GBIF
 
-INBO is an official GBIF publisher and a host for many other smaller
-publishers. Do you want to know which datasets have been published so
-far by INBO? You can have a look via this link:
+INBO is an official GBIF publisher. Do you want to know which datasets
+have been published so far by INBO? You can have a look via this link:
 
 <https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b>
 
@@ -281,6 +279,125 @@ you can finetuning the search by selecting the type of the datasets. For
 example, for checklist datasets:
 
 <https://www.gbif.org/dataset/search?type=CHECKLIST&publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b>
+
+Can you do this in R? Of course. Use the rgbif function
+`dataset_search()` specifying INBO’s ID as publishing organization.
+Again, you get a list with two slots, `meta` and `data`. Guess where the
+datasets are :-)
+
+``` r
+INBO_datasets <- dataset_search(
+  publishingOrg = "1cd669d0-80ea-11de-a9d0-f1765f95f18b"
+)
+INBO_datasets$data
+```
+
+    ## # A tibble: 92 × 8
+    ##    datasetTitle            datas…¹ type  hosti…² hosti…³ publi…⁴ publi…⁵ publi…⁶
+    ##    <chr>                   <chr>   <chr> <chr>   <chr>   <chr>   <chr>   <chr>  
+    ##  1 Florabank1 - A grid-ba… 271c44… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  2 LBBG_ZEEBRUGGE - Lesse… 355b8f… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  3 DAISIE - Inventory of … 39f36f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  4 HG_OOSTENDE - Herring … 6c860e… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  5 Watervogels - Winterin… 7f9eb6… SAMP… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  6 RINSE - Registry of no… 3f5e93… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  7 O_VLIELAND - Eurasian … cd1590… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  8 Vlinderdatabank - Butt… 7888f6… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  9 VIS - Fishes in inland… 823dc5… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 10 Broedvogels - Atlas of… 81c5a0… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ## # … with 82 more rows, and abbreviated variable names ¹​datasetKey,
+    ## #   ²​hostingOrganization, ³​hostingOrganizationKey, ⁴​publishingOrganization,
+    ## #   ⁵​publishingOrganizationKey, ⁶​publishingCountry
+
+To finetune the search as we did online, use `type` argument:
+
+``` r
+INBO_checklists <- dataset_search(
+  publishingOrg = "1cd669d0-80ea-11de-a9d0-f1765f95f18b",
+  type = "checklist"
+)
+INBO_checklists$data 
+```
+
+    ## # A tibble: 15 × 8
+    ##    datasetTitle            datas…¹ type  hosti…² hosti…³ publi…⁴ publi…⁵ publi…⁶
+    ##    <chr>                   <chr>   <chr> <chr>   <chr>   <chr>   <chr>   <chr>  
+    ##  1 DAISIE - Inventory of … 39f36f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  2 RINSE - Registry of no… 3f5e93… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  3 Validated red lists of… fc18b0… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  4 Non-validated red list… 2fc239… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  5 Ad hoc checklist of al… 1f3505… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  6 National checklists an… f9af6f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  7 Checklist of alien bir… e1c3be… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  8 RINSE - Pathways and v… 1738f2… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  9 Registry of introduced… e082b1… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 10 Checklist of alien her… a12e2b… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 11 Checklist of alien spe… 222119… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 12 Red list of dragonflie… 72aa79… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 13 RIPARIAS target specie… fd004d… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 14 Checklist of non-nativ… 98940a… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## 15 Checklist of alien par… 2c0fb6… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ## # … with abbreviated variable names ¹​datasetKey, ²​hostingOrganization,
+    ## #   ³​hostingOrganizationKey, ⁴​publishingOrganization,
+    ## #   ⁵​publishingOrganizationKey, ⁶​publishingCountry
+
+## INBO as hosting organization
+
+INBO is not only a GBIF publisher. It also hosts GBIF data for many
+other organisations. How to get all hosted datasets? By selecting INBO
+in the field “Host”:
+
+Online:
+<https://www.gbif.org/dataset/search?hosting_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b>
+
+In R, by using the argument `hostingOrg` within function
+`dataset_search()`:
+
+``` r
+datasets_hosted_by_inbo <- dataset_search(
+  hostingOrg = "1cd669d0-80ea-11de-a9d0-f1765f95f18b",
+  limit = 1000)
+datasets_hosted_by_inbo$data
+```
+
+    ## # A tibble: 117 × 8
+    ##    datasetTitle            datas…¹ type  hosti…² hosti…³ publi…⁴ publi…⁵ publi…⁶
+    ##    <chr>                   <chr>   <chr> <chr>   <chr>   <chr>   <chr>   <chr>  
+    ##  1 Waarnemingen.be - Bird… e7cbb0… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+    ##  2 Florabank1 - A grid-ba… 271c44… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  3 Waarnemingen.be - Plan… bfc6fe… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+    ##  4 LBBG_ZEEBRUGGE - Lesse… 355b8f… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  5 DAISIE - Inventory of … 39f36f… CHEC… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  6 Waarnemingen.be - Butt… 1f968e… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+    ##  7 Waarnemingen.be / obse… 2c38cf… CHEC… Resear… 1cd669… Natuur… 4d3cee… BE     
+    ##  8 HG_OOSTENDE - Herring … 6c860e… OCCU… Resear… 1cd669… Resear… 1cd669… BE     
+    ##  9 Waarnemingen.be - Non-… 9a0b66… OCCU… Resear… 1cd669… Natuur… 4d3cee… BE     
+    ## 10 Watervogels - Winterin… 7f9eb6… SAMP… Resear… 1cd669… Resear… 1cd669… BE     
+    ## # … with 107 more rows, and abbreviated variable names ¹​datasetKey,
+    ## #   ²​hostingOrganization, ³​hostingOrganizationKey, ⁴​publishingOrganization,
+    ## #   ⁵​publishingOrganizationKey, ⁶​publishingCountry
+
+Notice again the `limit` argument with a sufficiently high number as
+value. Exercise: check the `meta` slot to check if we got all records.
+
+Which publishing organizations host GBIF data at INBO?
+
+``` r
+datasets_hosted_by_inbo$data %>%
+  distinct(publishingOrganization)
+```
+
+    ## # A tibble: 8 × 1
+    ##   publishingOrganization                            
+    ##   <chr>                                             
+    ## 1 Natuurpunt                                        
+    ## 2 Research Institute for Nature and Forest (INBO)   
+    ## 3 Invasive Species Specialist Group ISSG            
+    ## 4 Flanders Environment Agency (VMM)                 
+    ## 5 Province East Flanders                            
+    ## 6 Ghent University                                  
+    ## 7 RATO vzw                                          
+    ## 8 Agency for Nature and Forests (Flemish Government)
 
 ## A nerdy touch: the GBIF API output
 
