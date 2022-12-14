@@ -13,7 +13,7 @@ output:
 
 ## Introduction
 
-The R package [rgbif]() is a R wrapper to the [GBIF API](https://www.gbif.org/developer/summary) which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, give a look to the articles on how to:
+The R package [rgbif](https://docs.ropensci.org/rgbif/) is a R wrapper to the [GBIF API](https://www.gbif.org/developer/summary) which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, give a look to the articles on how to:
 
 1. [setup your GBIF username and password](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html)
 2. [get occurrence data](https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html)
