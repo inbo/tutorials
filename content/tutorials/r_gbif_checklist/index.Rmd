@@ -20,7 +20,7 @@ The R package [rgbif](https://docs.ropensci.org/rgbif/) is a R wrapper to the [G
 3. [work with taxonomy related functions](https://docs.ropensci.org/rgbif/articles/taxonomic_names.html)
 4. [match and download a long species list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html)
 
-So, why to write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read throughout all the documentation, which could be sometimes feeling overwhelming.
+So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.
 
 ```{r load_libraries, message=FALSE, warning=FALSE}
 library(tidyverse)    # To do datascience
