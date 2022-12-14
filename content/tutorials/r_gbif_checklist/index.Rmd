@@ -32,7 +32,7 @@ library(knitr)
 
 You want to load the [Validated red lists of Flanders, Belgium](https://www.gbif.org/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9) checklist in your R session.
 
-The URL of this checklist contains an important information, the `datasetKey`, which is the alphanumeric string following the prefix  `https://www.gbif.org/dataset/`. In our case:
+The URL of this checklist contains important information: the `datasetKey`, which is the alphanumeric string following the prefix  `https://www.gbif.org/dataset/`. In our case:
 
 
 ```{r define_datasetKey}
