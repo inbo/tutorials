@@ -51,7 +51,7 @@ You get a list of two:
 names(red_list)
 ```
 
-The slot ´meta `contains metadata:
+The slot `meta` contains metadata:
 
 ```{r}
 red_list$meta
