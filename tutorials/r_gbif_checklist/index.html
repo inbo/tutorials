@@ -2,18 +2,18 @@
 <html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='How to use rgbif function name_usage() to get checklist datasets from GBIF'>
+<meta name='description' content='How to use rgbif function `name_usage()` to get species checklist data from GBIF as well as some other rgbif tips.'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Get species checklist data from GBIF via rgbif • Damiano Oldoni'>
-<meta property='og:description' content='How to use rgbif function name_usage() to get checklist datasets from GBIF'>
+<meta property='og:title' content='Get species checklist data from GBIF with rgbif • Damiano Oldoni'>
+<meta property='og:description' content='How to use rgbif function `name_usage()` to get species checklist data from GBIF as well as some other rgbif tips.'>
 <meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='api'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='gbif'><meta property='article:tag' content='biodiversity'><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='api'><meta property='article:tag' content='webservice'><meta property='article:tag' content='r'><meta property='article:tag' content='gbif'><meta property='article:tag' content='biodiversity'><meta property='article:published_time' content='2022-12-09T00:00:00Z'/><meta property='article:modified_time' content='2022-12-09T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.88.1" />
 
-  <title>Get species checklist data from GBIF via rgbif • Damiano Oldoni</title>
+  <title>Get species checklist data from GBIF with rgbif • Damiano Oldoni</title>
   <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/'>
   
   
@@ -258,7 +258,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Wed Dec 14 12:30:05 UTC 2022</small></p>
+  <p><small>Built on: Thu Dec 15 09:57:47 UTC 2022</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -287,7 +287,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Get species checklist data from GBIF via rgbif</span></li></ol>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Get species checklist data from GBIF with rgbif</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -306,9 +306,9 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Get species checklist data from GBIF via rgbif</h1>
+      <h1 class='title'>Get species checklist data from GBIF with rgbif</h1>
       
-<p class='desc'>How to use rgbif function name_usage() to get checklist datasets from GBIF</p>
+<p class='desc'>How to use rgbif function `name_usage()` to get species checklist data from GBIF as well as some other rgbif tips.</p>
 
 
     </div>
@@ -322,7 +322,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='0001-01-01T00:00:00Z'>0001, Jan 01</time>
+  <time class='entry-date' datetime='2022-12-09T00:00:00Z'>2022, Dec 09</time>
 </span>
 
   <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
@@ -412,7 +412,7 @@ checklist in your R session.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">names</span>(red_list)
 </code></pre></div><pre><code>## [1] &quot;meta&quot; &quot;data&quot;
 </code></pre>
-<p>the slot ´meta `contains metadata:</p>
+<p>The slot <code>meta</code> contains metadata:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">red_list$meta
 </code></pre></div><pre><code>## # A tibble: 1 × 3
 ##   offset limit endOfRecords
@@ -837,16 +837,19 @@ is an extremely high number for such kind of datasets:</p>
 </table>
 <p>But what do those keys stay for?</p>
 <ul>
-<li><code>key</code>, sometimes called <code>taxonKey</code>, is the identifier of the taxon
-within our checklist</li>
-<li><code>nubKey</code> is the identifier of the taxon within the <a href="https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c">GBIF Backbone
+<li><code>key</code> (sometimes called <code>taxonKey</code>) is the taxon identifier assigned
+by GBIF. The same taxon in different checklists will have a different
+<code>key</code>.</li>
+<li><code>taxonID</code> is the taxon identifier as provided by the authors. The
+authors should keep it stable between publications.</li>
+<li><code>nubKey</code> is the taxon identifier within the <a href="https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c">GBIF Backbone
 Taxonomy</a>
-dataset, or simply <em>backbone</em>. The link from the taxon in the red list
-checklist dataset the taxon in the backbone is done by GBIF
-automatically behind the scenes while publishing the checklist. You
-can control the match before publication of course, by using the gbif
-match utility in rgbif (see the vignette <a href="https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html">match and download a long
-species
+dataset, or simply <em>backbone</em>. The same taxon in different checklists
+will have the same <code>nubKey</code>. The link between the taxon in the
+checklist and the taxon in the backbone is automatically created by
+GBIF behind the scenes when publishing a checklist. You can control
+the match before publication of course, by using the gbif match
+utility in rgbif (see the vignette <a href="https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html">match and download a long species
 list</a>)
 or the GBIF <a href="https://www.gbif.org/tools/data-validator">data
 validator</a> web tool.</li>
@@ -1045,7 +1048,7 @@ Error in <span style="color:#0a0">exists</span>(z, private$crul_h_pool) : invali
 <p>Can you find this information on the GBIF website? Of course! All
 information about the extensions is shown on the taxon page. Below a
 screenshot showing the section related to the distribution extension for
-<a href="https://www.gbif.org/species/152624576"><em>Plea minutissima</em></a>(<code>key</code>:
+<a href="https://www.gbif.org/species/152624576"><em>Plea minutissima</em></a> (<code>key</code>:
 <code>152624576</code>):</p>
 <p><img src="gbif_webpage_extension.png" alt=""></p>
 <h2 id="cite-the-checklist-dataset">Cite the checklist dataset<a href="#cite-the-checklist-dataset" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -1058,16 +1061,16 @@ retrieve the citation by running <code>gbif_citation()</code> function:</p>
 ##         Speybroeck J, Thomaes A, Van Den Berge K, Van Landuyt W, Verreycken H
 ##         (2020). Validated red lists of Flanders, Belgium. Version 1.7. Research
 ##         Institute for Nature and Forest (INBO). Checklist dataset
-##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-14..
+##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-15..
 ##         Accessed from R via rgbif (https://github.com/ropensci/rgbif) on
-##         2022-12-14
+##         2022-12-15
 ##    Rights: http://creativecommons.org/publicdomain/zero/1.0/legalcode
 </code></pre>
 <h2 id="inbo-datasets-on-gbif">INBO datasets on GBIF<a href="#inbo-datasets-on-gbif" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>INBO is an official GBIF publisher. Do you want to know which datasets
 have been published so far by INBO? You can have a look via this link:</p>
 <p><a href="https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b">https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b</a></p>
-<p>you can finetuning the search by selecting the type of the datasets. For
+<p>You can finetune the search by selecting the type of the datasets. For
 example, for checklist datasets:</p>
 <p><a href="https://www.gbif.org/dataset/search?type=CHECKLIST&amp;publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b">https://www.gbif.org/dataset/search?type=CHECKLIST&amp;publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b</a></p>
 <p>Can you do this in R? Of course. Use the rgbif function
@@ -1173,13 +1176,16 @@ value. Exercise: check the <code>meta</code> slot to check if we got all records
 <p>We said at the beginning of this tutorial that the information you get
 via rgbif is harvested by using the GBIF API. So, the question is: can
 you see the API output on the web as well? Answer is YES! You need some
-prefixes and again the values in the field <code>key</code>. Here below we use the
-taxon <a href="https://www.gbif.org/species/152624576"><em>Plea
-minutissima</em></a>(<code>key</code>:
-<code>152624576</code>) as example: 1. taxonomic information:
-<a href="https://api.gbif.org/v1/species/152624576">https://api.gbif.org/v1/species/152624576</a> 2. distribution information:
-<a href="https://api.gbif.org/v1/species/152624576/distributions">https://api.gbif.org/v1/species/152624576/distributions</a> 3. description
-information: <a href="https://api.gbif.org/v1/species/152624576/descriptions">https://api.gbif.org/v1/species/152624576/descriptions</a></p>
+prefixes and again the values in the field <code>key</code>. Below we use the taxon
+<a href="https://www.gbif.org/species/152624576"><em>Plea minutissima</em></a> (<code>key</code>:
+<code>152624576</code>) as example:</p>
+<ol>
+<li>taxonomic information: <a href="https://api.gbif.org/v1/species/152624576">https://api.gbif.org/v1/species/152624576</a></li>
+<li>distribution information:
+<a href="https://api.gbif.org/v1/species/152624576/distributions">https://api.gbif.org/v1/species/152624576/distributions</a></li>
+<li>description information:
+<a href="https://api.gbif.org/v1/species/152624576/descriptions">https://api.gbif.org/v1/species/152624576/descriptions</a></li>
+</ol>
 <p>And the checklist dataset? Here you go:
 <a href="https://api.gbif.org/v1/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9">https://api.gbif.org/v1/dataset/fc18b0b1-8777-4c8a-8cb8-f9f15870d6a9</a>.
 Notice the word <code>dataset</code> instead of <code>species</code> in the prefix.</p>
@@ -1215,16 +1221,16 @@ or another similar extension. The difference is impressive, isn’t?</p>
 </article>
 
 <nav class='entry-nav'>
-  <div class='container'><div class='next-entry sep-before'>
-      <a href='/tutorials/tutorials/r_database_access/'>
-        <span class='screen-reader-text'>Next post: </span>Read data from INBO databases (SQL Server) with R<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/vignette_rgbif_multiple_values/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
   
 </svg>
-</span>
-      </a>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>rgbif: Multiple values</a>
     </div></div>
 </nav>
 

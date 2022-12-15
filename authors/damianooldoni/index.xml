@@ -6,7 +6,17 @@
     <description>Recent content in damianooldoni on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get species checklist data from GBIF with rgbif</title>
+      <link>https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/</link>
+      <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/</guid>
+      <description>Introduction The R package rgbif is a R wrapper to the GBIF API which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, look at the articles on how to:
+ setup your GBIF username and password get occurrence data work with taxonomy related functions match and download a long species list  So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.</description>
+    </item>
+    
     <item>
       <title>etn: Explore acoustic telemetry data</title>
       <link>https://inbo.github.io/tutorials/tutorials/vignette_etn_acoustic_telemetry/</link>
@@ -59,16 +69,6 @@ remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils 
       
       <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
-    </item>
-    
-    <item>
-      <title>Get species checklist data from GBIF via rgbif</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/</guid>
-      <description>Introduction The R package rgbif is a R wrapper to the GBIF API which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, look at the articles on how to:
- setup your GBIF username and password get occurrence data work with taxonomy related functions match and download a long species list  So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.</description>
     </item>
     
   </channel>
