@@ -1,8 +1,8 @@
 ---
-title: "Get species checklist data from GBIF via rgbif"
-description: "How to use rgbif function name_usage() to get checklist datasets from GBIF"
+title: "Get species checklist data from GBIF with rgbif"
+description: "How to use rgbif function `name_usage()` to get species checklist data from GBIF as well as some other rgbif tips."
 authors: [damianooldoni]
-date: 2022-12-9
+date: 2022-12-09
 categories: ["r"]
 tags: ["api", "webservice", "r", "gbif", "biodiversity"]
 output: 
@@ -51,7 +51,7 @@ You get a list of two:
 names(red_list)
 ```
 
-the slot ´meta `contains metadata:
+The slot `meta` contains metadata:
 
 ```{r}
 red_list$meta
@@ -79,8 +79,9 @@ kable(red_list$data[1:10,])
 
 But what do those keys stay for?
 
-- `key`, sometimes called `taxonKey`, is the identifier of the taxon within our checklist
-- `nubKey` is the identifier of the taxon within the [GBIF Backbone Taxonomy](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c) dataset, or simply _backbone_. The link from the taxon in the red list checklist dataset the taxon in the backbone is done by GBIF automatically behind the scenes while publishing the checklist. You can control the match before publication of course, by using the gbif match utility in rgbif (see the vignette [match and download a long species list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html)) or the GBIF [data validator](https://www.gbif.org/tools/data-validator) web tool.
+- `key` (sometimes called `taxonKey`) is the taxon identifier assigned by GBIF. The same taxon in different checklists will have a different `key`.
+- `taxonID` is the taxon identifier as provided by the authors. The authors should keep it stable between publications.
+- `nubKey` is the taxon identifier within the [GBIF Backbone Taxonomy](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c) dataset, or simply _backbone_. The same taxon in different checklists will have the same `nubKey`. The link between the taxon in the checklist and the taxon in the backbone is automatically created by GBIF behind the scenes when publishing a checklist. You can control the match before publication of course, by using the gbif match utility in rgbif (see the vignette [match and download a long species list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html)) or the GBIF [data validator](https://www.gbif.org/tools/data-validator) web tool.
 - `kingdomKey`,	`phylumKey`, `classKey`,	`orderKey`, `familyKey`, `genusKey`, `speciesKey`, `parentKey`: keys referring to the taxon classification as proposed in the checklist dataset. Notice that if the taxon is a species, `key` and `speciesKey` are the same. Keep in mind that the classication can be different than the classification in the backbone. Not all checklists are published with such detailed taxonomic classification. For example, the [LIFE RIPARIAS target species list](https://www.gbif.org/dataset/fd004d9a-2ea4-4244-bb60-0df508d20a15) contains only the kingdom the taxa belong to. So, only `kingdomKey` and `speciesKey` are present.
 
 Notice also that all these taxonomic related keys point to specific web pages on the GBIF website. You need only to add the prefix `https://www.gbif.org/species/`. For example, the first taxon has key `152624576` and the corresponding webpage is `https://www.gbif.org/species/152624576`, while its nubkey, `2020551`, points to the webpage of the taxon as mentioned in the backbone: `https://www.gbif.org/species/2020551`.
@@ -142,7 +143,7 @@ kable(distribution[1:10,])
 
 This step is slower than retrieving the taxonomic information as we need 3036 calls to the API, one per taxon, instead of one.
 
-Can you find this information on the GBIF website? Of course! All information about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`):
+Can you find this information on the GBIF website? Of course! All information about the extensions is shown on the taxon page. Below a screenshot showing the section related to the distribution extension for [_Plea minutissima_](https://www.gbif.org/species/152624576) (`key`: `152624576`):
 
 ![](gbif_webpage_extension.png)
 
@@ -161,7 +162,7 @@ You can have a look via this link:
 
 https://www.gbif.org/dataset/search?publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
 
-you can finetuning the search by selecting the type of the datasets. For example, for checklist datasets:
+You can finetune the search by selecting the type of the datasets. For example, for checklist datasets:
 
 https://www.gbif.org/dataset/search?type=CHECKLIST&publishing_org=1cd669d0-80ea-11de-a9d0-f1765f95f18b
 
@@ -210,7 +211,8 @@ datasets_hosted_by_inbo$data %>%
 
 ## A nerdy touch: the GBIF API output
 
-We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Here below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576)(`key`: `152624576`) as example:
+We said at the beginning of this tutorial that the information you get via rgbif is harvested by using the GBIF API. So, the question is: can you see the API output on the web as well? Answer is YES! You need some prefixes and again the values in the field `key`. Below we use the taxon [_Plea minutissima_](https://www.gbif.org/species/152624576) (`key`: `152624576`) as example:
+
 1. taxonomic information: https://api.gbif.org/v1/species/152624576
 2. distribution information: https://api.gbif.org/v1/species/152624576/distributions
 3. description information: https://api.gbif.org/v1/species/152624576/descriptions
