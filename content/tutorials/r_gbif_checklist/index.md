@@ -66,7 +66,7 @@ names(red_list)
 
     ## [1] "meta" "data"
 
-The slot ´meta \`contains metadata:
+The slot `meta` contains metadata:
 
 ``` r
 red_list$meta
@@ -119,18 +119,19 @@ kable(red_list$data[1:10,])
 
 But what do those keys stay for?
 
-- `key`, sometimes called `taxonKey`, is the GBIF key of the taxon. It
-  is unique among all taxa published on GBIF.
-- `taxonID` is the identifier of the taxon within the red list checklist
-  as provided by the authors
-- `nubKey` is the identifier of the taxon within the [GBIF Backbone
+- `key` (sometimes called `taxonKey`) is the taxon identifier assigned
+  by GBIF. The same taxon in different checklists will have a different
+  `key`.
+- `taxonID` is the taxon identifier as provided by the authors. The
+  authors should keep it stable between publications.
+- `nubKey` is the taxon identifier within the [GBIF Backbone
   Taxonomy](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
-  dataset, or simply *backbone*. The link from the taxon in the red list
-  checklist dataset to the taxon in the backbone is done by GBIF
-  automatically behind the scenes when publishing the checklist. You can
-  control the match before publication of course, by using the gbif
-  match utility in rgbif (see the vignette [match and download a long
-  species
+  dataset, or simply *backbone*. The same taxon in different checklists
+  will have the same `nubKey`. The link between the taxon in the
+  checklist and the taxon in the backbone is automatically created by
+  GBIF behind the scenes when publishing a checklist. You can control
+  the match before publication of course, by using the gbif match
+  utility in rgbif (see the vignette [match and download a long species
   list](https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html))
   or the GBIF [data
   validator](https://www.gbif.org/tools/data-validator) web tool.
@@ -265,9 +266,9 @@ gbif_citation(x = datasetKey)
     ##         Speybroeck J, Thomaes A, Van Den Berge K, Van Landuyt W, Verreycken H
     ##         (2020). Validated red lists of Flanders, Belgium. Version 1.7. Research
     ##         Institute for Nature and Forest (INBO). Checklist dataset
-    ##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-14..
+    ##         https://doi.org/10.15468/8tk3tk accessed via GBIF.org on 2022-12-15..
     ##         Accessed from R via rgbif (https://github.com/ropensci/rgbif) on
-    ##         2022-12-14
+    ##         2022-12-15
     ##    Rights: http://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 ## INBO datasets on GBIF
