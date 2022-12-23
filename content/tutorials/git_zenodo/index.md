@@ -38,7 +38,12 @@ Just having a public code repository at GitHub is not enough for long-term repro
 This is where Zenodo comes in!
 From within Zenodo, you can setup a webhook in the GitHub repository which is triggered when you make a new release at GitHub.
 Then, GitHub will send the entire repository snapshot to Zenodo where it will be published as a zip-file.
+
 Also, Zenodo will increment the version number or take that (and other metadata) from a `.zenodo.json` metadata file, if you provide such a file in the repository.
+Do know that you can still manually edit all _metatadata_ of an existing publication at the Zenodo website (authors, title, description, version number, etc.).
+See further to discover this 'Edit' button!
+You cannot change the uploaded data themselves however, since a Zenodo publication is fixed (stable in time).
+Changing data is what _versions_ are meant for.
 
 Let's suppose you already have a GitHub repository and you want to set up such integration.\
 Let's do it!
@@ -147,6 +152,9 @@ A simple example of the content of `.zenodo.json` is:
 
 But you can do more with `.zenodo.json`.
 As an example, see [this one](https://github.com/inbo/protocolhelper/blob/cea8c3735c5fd761556c48d17008c68bbe3e98c3/.zenodo.json) in the `protocolhelper` repository!
+
+For an existing publication, you can always change metadata manually if needed.
+This can be done directly in Zenodo, as is demonstrated next with relation to communities (= part of the metadata).
 
 ## Zenodo communities
 
