@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='How to configure Zenodo to publish each new release of a GitHub repository?'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Set up Zenodo - GitHub integration • Floris Vanderhaeghe'>
+<meta property='og:description' content='How to configure Zenodo to publish each new release of a GitHub repository?'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/tutorials/git_zenodo/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='version control'><meta property='article:tag' content='git'><meta property='article:tag' content='github'><meta property='article:tag' content='zenodo'><meta property='article:published_time' content='2022-12-22T00:00:00Z'/><meta property='article:modified_time' content='2022-12-22T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>Set up Zenodo - GitHub integration • Floris Vanderhaeghe</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/tutorials/git_zenodo/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/tutorials/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.0533333333333332em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1.0133333333333334em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/bibliography/' style='font-size:1.0133333333333334em'>bibliography</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1.0133333333333334em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1.0133333333333334em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/checklist/' style='font-size:1.0266666666666666em'>checklist</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0133333333333334em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tutorials/tags/csl/' style='font-size:1.0133333333333334em'>csl</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0266666666666666em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.0533333333333332em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0133333333333334em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1.0266666666666666em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tutorials/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tutorials/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1.0133333333333334em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/generalized-linear-regression/' style='font-size:1em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1.0133333333333334em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.12em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.12em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1.0133333333333334em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.04em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0133333333333334em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/gwlogger/' style='font-size:1.04em'>gwloggeR</a>
+      </li><li>
+        <a href='/tutorials/tags/inbodb/' style='font-size:1em'>inbodb</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1.04em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inborutils/' style='font-size:1.04em'>inborutils</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1.0266666666666666em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/inlatools/' style='font-size:1.0266666666666666em'>inlatools</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.12em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.0533333333333332em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.08em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0266666666666666em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.0666666666666667em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tutorials/tags/n2khab/' style='font-size:1.0533333333333332em'>n2khab</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.0933333333333333em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.04em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1.0133333333333334em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1.0133333333333334em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rgbif/' style='font-size:1.0666666666666667em'>rgbif</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0266666666666666em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0533333333333332em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.04em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.04em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1.0133333333333334em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.0933333333333333em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vignette/' style='font-size:1.48em'>vignette</a>
+      </li><li>
+        <a href='/tutorials/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/waterinfo/' style='font-size:1.0266666666666666em'>wateRinfo</a>
+      </li><li>
+        <a href='/tutorials/tags/watina/' style='font-size:1.0266666666666666em'>watina</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.04em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tutorials/tags/zenodo/' style='font-size:1em'>zenodo</a>
+      </li><li>
+        <a href='/tutorials/tags/zotero/' style='font-size:1.0133333333333334em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/tutorials/'>Tutorials</a></li><li><span>Set up Zenodo - GitHub integration</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Set up Zenodo - GitHub integration</h1>
+      
+<p class='desc'>How to configure Zenodo to publish each new release of a GitHub repository?</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2022-12-22T00:00:00Z'>2022, Dec 22</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/florisvdh'>Floris Vanderhaeghe</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+5 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/git_zenodo/index.md'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p><em>Note: there is also a <a href="https://packages.inbo.be/checklist/articles/zenodo.html">vignette</a> in the <code>checklist</code> package for R, that covers below topics and more, such as integration with ORCID.</em>
+<em>If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!</em></p>
+<h2 id="github-and-zenodo-background">GitHub and Zenodo: background<a href="#github-and-zenodo-background" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p><a href="https://github.com">GitHub</a> hosts a remote Git server that you can use for distributed version control with Git.
+For more information about Git and GitHub, see <a href="https://inbo.github.io/tutorials/categories/version-control/">other</a> tutorials on this website!
+In short, Git helps you with version control (maintaining snapshots) of a directory (file folder) – a repository – and GitHub helps you with distributing versions and with collaboration.</p>
+<p>On GitHub, one can designate specific snapshots (commits) as a release.
+Each release will typically have its version number.
+In this way, you can release a version 1.2.0, 1.3.0 etcetera of your source code – typically a software package, a report, a website, a note or whatever you wish to maintain and distribute.</p>
+<p><a href="https://zenodo.org">Zenodo</a> is a scientific repository funded by the European Commission and hosted at CERN.
+It allows researchers to deposit research papers, data sets, research software, reports, and any other research related digital artefacts (enumeration from Wikipedia).
+Zenodo is aimed at preserving the deposits for the long term, which is great for reproducibility purposes.
+Also, it keeps multiple versions of your stuff together under the same record.
+Moreover, it provides a stable DOI link for each version and for each record as whole!</p>
+<h2 id="integrating-github-and-zenodo">Integrating GitHub and Zenodo<a href="#integrating-github-and-zenodo" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Just having a public code repository at GitHub is not enough for long-term reproducibility.
+This is where Zenodo comes in!
+From within Zenodo, you can setup a webhook in the GitHub repository which is triggered when you make a new release at GitHub.
+Then, GitHub will send the entire repository snapshot to Zenodo where it will be published as a zip-file.</p>
+<p>Also, Zenodo will increment the version number or take that (and other metadata) from a <code>.zenodo.json</code> metadata file, if you provide such a file in the repository.
+Do know that you can still manually edit all <em>metatadata</em> of an existing publication at the Zenodo website (authors, title, description, version number, etc.).
+See further to discover this &lsquo;Edit&rsquo; button!
+You cannot change the uploaded data themselves however, since a Zenodo publication is fixed (stable in time).
+Changing data is what <em>versions</em> are meant for.</p>
+<p>Let&rsquo;s suppose you already have a GitHub repository and you want to set up such integration.<br>
+Let&rsquo;s do it!</p>
+<p>Oh, wait!<br>
+Did you know that you <em>cannot</em> just <em>undo</em> a publication at Zenodo?
+So make sure to get familiar first!</p>
+<p>If you are just taking your first steps and you want to do a safe exercise,
+then replace &lsquo;<a href="https://zenodo.org">https://zenodo.org</a>&rsquo; by &lsquo;<a href="https://sandbox.zenodo.org">https://sandbox.zenodo.org</a>&rsquo;!
+Consider the Zenodo Sandbox a playground for your exercise.</p>
+<p>The Zenodo Sandbox creates the publications at <a href="https://sandbox.zenodo.org">https://sandbox.zenodo.org</a>, e.g. <a href="https://sandbox.zenodo.org/record/1139470">https://sandbox.zenodo.org/record/1139470</a>, but those are not perpetual and the displayed DOI&rsquo;s will not work (since they aren&rsquo;t actually created).</p>
+<p>First of all, make an account at <a href="https://zenodo.org">https://zenodo.org</a> (or the Sandbox!) and log in.</p>
+<h4 id="step-1-in-zenodo-go-to-github-in-your-account-settings">Step 1: in Zenodo, go to &lsquo;GitHub&rsquo; in your account settings<a href="#step-1-in-zenodo-go-to-github-in-your-account-settings" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p><img src="images/settingsdropdown.png" alt=""><br>
+<em>Go to the GitHub settings in Zenodo.</em></p>
+<h4 id="step-2-find-your-repository-and-flip-the-toggle-to-on">Step 2: find your repository, and flip the toggle to &lsquo;on&rsquo;<a href="#step-2-find-your-repository-and-flip-the-toggle-to-on" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p><img src="images/repositories.png" alt=""><br>
+<em>Your list of repositories.</em></p>
+<p><img src="images/toggle.png" alt=""><br>
+<em>Flip the toggle!</em></p>
+<p>Now you are ready for your first release.</p>
+<h2 id="releasing-at-github-triggers-a-zenodo-publication">Releasing at GitHub triggers a Zenodo publication<a href="#releasing-at-github-triggers-a-zenodo-publication" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h4 id="step-1-draft-a-new-release">Step 1: draft a new release<a href="#step-1-draft-a-new-release" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p>In GitHub, go to the releases page, and click &lsquo;Draft new release&rsquo;.
+Alternatively, extend the repository URL with <code>/releases/new</code>.</p>
+<p><img src="images/draft.png" alt=""></p>
+<p>You get a page where you can:</p>
+<ul>
+<li>select or create a tag.
+This is required: releases always refer to a tag.
+A Git tag is a label that is fixed to a specific snapshot (commit).
+It will typically contain a version number that you decide yourself (e.g. <code>v2</code> or <code>v2023</code>).</li>
+<li>choose a title for your release.
+You will typically want to include the version number.</li>
+<li>add a description.
+This is not required, but most commonly you will enumerate the most important changes compared to a previous release.</li>
+</ul>
+<p><img src="images/makerelease1.png" alt=""></p>
+<h4 id="step-2-make-the-release">Step 2: make the release<a href="#step-2-make-the-release" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p>Just push &lsquo;publish release&rsquo;!</p>
+<p><img src="images/makerelease2.png" alt=""></p>
+<h4 id="step-3-inspect-the-result-at-zenodo">Step 3: inspect the result at Zenodo<a href="#step-3-inspect-the-result-at-zenodo" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p>In seconds, the record (or the new version) will be created at Zenodo.</p>
+<p><em>How do you know the URL?</em><br>
+In the GitHub settings at Zenodo, you can see a DOI badge for each enabled repository.
+Click on it to get the URL!<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p><img src="images/doibadge.png" alt=""></p>
+<p>Navigate to the URL:</p>
+<p><img src="images/zenodopub.png" alt=""></p>
+<h2 id="tune-your-repository-metadata-for-zenodo">Tune your repository metadata for Zenodo<a href="#tune-your-repository-metadata-for-zenodo" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>As referred above, you can include a <code>.zenodo.json</code> file in your repository to provide specific metadata for Zenodo.</p>
+<p>You can find more explanation and an example <a href="https://developers.zenodo.org/#add-metadata-to-your-github-repository-release">at the developer&rsquo;s site of Zenodo</a>.</p>
+<p>A simple example of the content of <code>.zenodo.json</code> is:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#1e90ff;font-weight:bold">&#34;title&#34;</span>: <span style="color:#a50">&#34;test title&#34;</span>,
+    <span style="color:#1e90ff;font-weight:bold">&#34;description&#34;</span>: <span style="color:#a50">&#34;test description&#34;</span>,
+    <span style="color:#1e90ff;font-weight:bold">&#34;license&#34;</span>: <span style="color:#a50">&#34;GPL-3.0&#34;</span>,
+    <span style="color:#1e90ff;font-weight:bold">&#34;upload_type&#34;</span>: <span style="color:#a50">&#34;software&#34;</span>,
+    <span style="color:#1e90ff;font-weight:bold">&#34;access_right&#34;</span>: <span style="color:#a50">&#34;open&#34;</span>,
+    <span style="color:#1e90ff;font-weight:bold">&#34;version&#34;</span>: <span style="color:#a50">&#34;0.14.0&#34;</span>,
+    <span style="color:#1e90ff;font-weight:bold">&#34;creators&#34;</span>: [
+        {
+            <span style="color:#1e90ff;font-weight:bold">&#34;name&#34;</span>: <span style="color:#a50">&#34;Vanderhaeghe, Floris&#34;</span>,
+            <span style="color:#1e90ff;font-weight:bold">&#34;affiliation&#34;</span>: <span style="color:#a50">&#34;Research Institute for Nature and Forest&#34;</span>,
+            <span style="color:#1e90ff;font-weight:bold">&#34;orcid&#34;</span>: <span style="color:#a50">&#34;0000-0002-6378-6229&#34;</span>
+        }
+    ],
+    <span style="color:#1e90ff;font-weight:bold">&#34;keywords&#34;</span>: [
+        <span style="color:#a50">&#34;T&#34;</span>,
+        <span style="color:#a50">&#34;my strange keyword&#34;</span>,
+        <span style="color:#a50">&#34;another&#34;</span>
+    ]
+}
+</code></pre></div><p>But you can do more with <code>.zenodo.json</code>.
+As an example, see <a href="https://github.com/inbo/protocolhelper/blob/cea8c3735c5fd761556c48d17008c68bbe3e98c3/.zenodo.json">this one</a> in the <code>protocolhelper</code> repository!</p>
+<p>R users can also use functionality of the <a href="https://packages.inbo.be/checklist">checklist</a> package to generate <code>.zenodo.json</code> from a <code>README.md</code> file.</p>
+<p>For an existing publication, you can always change metadata manually if needed.
+This can be done directly in Zenodo, as is demonstrated next with relation to communities (= part of the metadata).</p>
+<h2 id="zenodo-communities">Zenodo communities<a href="#zenodo-communities" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>A Zenodo community can be regarded as a collection of Zenodo records.
+A community has a name and a description, and one Zenodo record can belong to more than one community.</p>
+<p>An example is the <a href="https://zenodo.org/communities/inbo">INBO community</a> at Zenodo: all Zenodo content uploaded by INBO.</p>
+<p>In the <a href="https://github.com/inbo/protocolhelper/blob/cea8c3735c5fd761556c48d17008c68bbe3e98c3/.zenodo.json">above referred</a> example of <code>.zenodo.json</code>, you can also find how to add your record to a community via <code>.zenodo.json</code>, e.g. the INBO community in case of INBO staff.</p>
+<p>Alternatively, after a first version of your record has been created at Zenodo, you can do it manually in Zenodo:</p>
+<h3 id="step-1-push-the-edit-button">Step 1: push the &lsquo;Edit&rsquo; button<a href="#step-1-push-the-edit-button" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>You need to be logged in of course, and you must have administrator rights for the record at hand.</p>
+<p><img src="images/edit.png" alt=""></p>
+<h3 id="step-2-search-for-the-community-and-select-it">Step 2: search for the community and select it<a href="#step-2-search-for-the-community-and-select-it" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>For example, add the INBO community if you are INBO staff:</p>
+<p><img src="images/addinbo.png" alt=""></p>
+<h3 id="step-3-click-publish-at-the-top-or-bottom-of-the-page">Step 3: click &lsquo;Publish&rsquo; at the top or bottom of the page<a href="#step-3-click-publish-at-the-top-or-bottom-of-the-page" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p><img src="images/publish.png" alt=""></p>
+<p>That&rsquo;s all!<br>
+Have fun with GitHub and Zenodo!</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Alternatively, go to your list of uploads in Zenodo (click on &lsquo;Upload&rsquo; at the top or navigate to <a href="https://zenodo.org/deposit">https://zenodo.org/deposit</a>).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/version-control/'>version control</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/version-control/'>version control</a>, <a class='tag' href='/tutorials/tags/git/'>git</a>, <a class='tag' href='/tutorials/tags/github/'>github</a>, <a class='tag' href='/tutorials/tags/zenodo/'>zenodo</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/tutorials/r_gbif_checklist/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Get species checklist data from GBIF with rgbif</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
+
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+

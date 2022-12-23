@@ -6,7 +6,17 @@
     <description>Recent content in github on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Set up Zenodo - GitHub integration</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_zenodo/</link>
+      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_zenodo/</guid>
+      <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
+GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
+    </item>
+    
     <item>
       <title>Git and GitHub Authentication on Windows</title>
       <link>https://inbo.github.io/tutorials/tutorials/git_authentication/</link>
