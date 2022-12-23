@@ -110,13 +110,15 @@ In seconds, the record (or the new version) will be created at Zenodo.
 
 _How do you know the URL?_\
 In the GitHub settings at Zenodo, you can see a DOI badge for each enabled repository.
-Click on it to get the URL!
+Click on it to get the URL![^url]
 
 ![](images/doibadge.png)
 
 Navigate to the URL:
 
 ![](images/zenodopub.png)
+
+[^url]: Alternatively, go to your list of uploads in Zenodo (click on 'Upload' at the top or navigate to <https://zenodo.org/deposit>).
 
 
 ## Tune your repository metadata for Zenodo
