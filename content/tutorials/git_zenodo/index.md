@@ -1,5 +1,5 @@
 ---
-title: "Set up the Zenodo - GitHub webhook"
+title: "Set up Zenodo - GitHub integration"
 description: "How to configure Zenodo to publish each new release of a GitHub repository?"
 authors: [florisvdh]
 date: 2022-12-22
