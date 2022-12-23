@@ -89,7 +89,7 @@ You get a page where you can:
 - select or create a tag.
 This is required: releases always refer to a tag.
 A Git tag is a label that is fixed to a specific snapshot (commit).
-It will typically contain a version number that you decide yourself.
+It will typically contain a version number that you decide yourself (e.g. `v2` or `v2023`).
 - choose a title for your release.
 You will typically want to include the version number.
 - add a description.
