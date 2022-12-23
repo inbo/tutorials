@@ -148,6 +148,34 @@ A simple example of the content of `.zenodo.json` is:
 But you can do more with `.zenodo.json`.
 As an example, see [this one](https://github.com/inbo/protocolhelper/blob/cea8c3735c5fd761556c48d17008c68bbe3e98c3/.zenodo.json) in the `protocolhelper` repository!
 
+## Zenodo communities
+
+A Zenodo community can be regarded as a collection of Zenodo records.
+A community has a name and a description, and one Zenodo record can belong to more than one community.
+
+An example is the [INBO community](https://zenodo.org/communities/inbo) at Zenodo: all Zenodo content uploaded by INBO.
+
+In the [above referred](https://github.com/inbo/protocolhelper/blob/cea8c3735c5fd761556c48d17008c68bbe3e98c3/.zenodo.json) example of `.zenodo.json`, you can also find how to add your record to a community via `.zenodo.json`, e.g. the INBO community in case of INBO staff.
+
+Alternatively, after a first version of your record has been created at Zenodo, you can do it manually in Zenodo:
+
+### Step 1: push the 'Edit' button
+
+You need to be logged in of course, and you must have administrator rights for the record at hand.
+
+![](images/edit.png)
+
+### Step 2: search for the community and select it
+
+For example, add the INBO community if you are INBO staff:
+
+![](images/addinbo.png)
+
+### Step 3: click 'Publish' at the top or bottom of the page
+
+![](images/publish.png)
+
+That's all!\
 Have fun with GitHub and Zenodo!
 
 
