@@ -155,6 +155,8 @@ A simple example of the content of `.zenodo.json` is:
 But you can do more with `.zenodo.json`.
 As an example, see [this one](https://github.com/inbo/protocolhelper/blob/cea8c3735c5fd761556c48d17008c68bbe3e98c3/.zenodo.json) in the `protocolhelper` repository!
 
+R users can also use functionality of the [checklist](https://packages.inbo.be/checklist) package to generate `.zenodo.json` from a `README.md` file.
+
 For an existing publication, you can always change metadata manually if needed.
 This can be done directly in Zenodo, as is demonstrated next with relation to communities (= part of the metadata).
 
