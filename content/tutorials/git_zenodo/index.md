@@ -12,7 +12,7 @@ output:
 ---
 
 
-_Note: there is also a [vignette](https://inbo.github.io/checklist/articles/zenodo.html) in the `checklist` package for R, that covers below topics and more, such as integration with ORCID._
+_Note: there is also a [vignette](https://packages.inbo.be/checklist/articles/zenodo.html) in the `checklist` package for R, that covers below topics and more, such as integration with ORCID._
 _If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!_
 
 
