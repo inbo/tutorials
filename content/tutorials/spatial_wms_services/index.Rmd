@@ -30,10 +30,10 @@ First, we define some WMS URLs for Flanders and Belgium to play with:
 
 ```{r}
 # Flanders:
-wms_grb <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms"
-wms_ortho <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms"
-wms_inbo <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms"
-wms_hunting <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms"
+wms_grb <- "https://geo.api.vlaanderen.be/GRB-basiskaart/wms"
+wms_ortho <- "https://geo.api.vlaanderen.be/OMWRGBMRVL/wms"
+wms_inbo <- "https://geo.api.vlaanderen.be/INBO/wms"
+wms_hunting <- "https://geo.api.vlaanderen.be/Jacht/wms"
 # Belgium:
 wms_cartoweb_be <- "https://cartoweb.wms.ngi.be/service"
 wms_ortho_be <- "https://wms.ngi.be/inspire/ortho/service"
