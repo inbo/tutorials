@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -405,7 +405,7 @@ a1e8fb5 Make some important changes to hello.py
 <p><img src="./undo_commits_images/03.svg" alt=""></p>
 <p>Usage:</p>
 <pre tabindex="0"><code>git revert &lt;commit&gt;
-</code></pre><p>Generate a new commit that undoes all of the changes introduced in <!-- raw HTML omitted -->, then apply it to the current branch.</p>
+</code></pre><p>Generate a new commit that undoes all of the changes introduced in <commit>, then apply it to the current branch.</p>
 <p>Reverting should be used when you want to remove an entire commit from your project history. This can be useful, for example, if you’re tracking down a bug and find that it was introduced by a single commit. Instead of manually going in, fixing it, and committing a new snapshot, you can use git revert to automatically do all of this for you.</p>
 <p>It&rsquo;s important to understand that git revert undoes a single commit—it does not “revert” back to the previous state of a project by removing all subsequent commits. In Git, this is actually called a reset, not a revert.</p>
 <p><img src="./undo_commits_images/04.svg" alt=""></p>
@@ -434,19 +434,19 @@ git revert HEAD
 <pre tabindex="0"><code>git reset --hard
 </code></pre><p>Reset the staging area and the working directory to match the most recent commit. In addition to unstaging changes, the &ndash;hard flag tells Git to overwrite all changes in the working directory, too. Put another way: this obliterates all uncommitted changes, so make sure you really want to throw away your local developments before using it.</p>
 <pre tabindex="0"><code>git reset &lt;commit&gt;
-</code></pre><p>Move the current branch tip backward to <!-- raw HTML omitted -->, reset the staging area to match, but leave the working directory alone. All changes made since <!-- raw HTML omitted --> will reside in the working directory, which lets you re-commit the project history using cleaner, more atomic snapshots.</p>
+</code></pre><p>Move the current branch tip backward to <commit>, reset the staging area to match, but leave the working directory alone. All changes made since <commit> will reside in the working directory, which lets you re-commit the project history using cleaner, more atomic snapshots.</p>
 <pre tabindex="0"><code>git reset --hard &lt;commit&gt;
-</code></pre><p>Move the current branch tip backward to <!-- raw HTML omitted --> and reset both the staging area and the working directory to match. This obliterates not only the uncommitted changes, but all commits after <!-- raw HTML omitted -->, as well.</p>
+</code></pre><p>Move the current branch tip backward to <commit> and reset both the staging area and the working directory to match. This obliterates not only the uncommitted changes, but all commits after <commit>, as well.</p>
 <p>Discussion</p>
 <p>All of the above invocations are used to remove changes from a repository. Without the &ndash;hard flag, git reset is a way to clean up a repository by unstaging changes or uncommitting a series of snapshots and re-building them from scratch. The &ndash;hard flag comes in handy when an experiment has gone horribly wrong and you need a clean slate to work with.</p>
 <p>Whereas reverting is designed to safely undo a public commit, git reset is designed to undo local changes. Because of their distinct goals, the two commands are implemented differently: resetting completely removes a changeset, whereas reverting maintains the original changeset and uses a new commit to apply the undo.</p>
 <p><img src="undo_commits_images/06.svg" alt=""></p>
 <p>Don’t Reset Public History</p>
-<p>You should never use git reset <!-- raw HTML omitted --> when any snapshots after <!-- raw HTML omitted --> have been pushed to a public repository. After publishing a commit, you have to assume that other developers are reliant upon it.</p>
+<p>You should never use git reset <commit> when any snapshots after <commit> have been pushed to a public repository. After publishing a commit, you have to assume that other developers are reliant upon it.</p>
 <p>Removing a commit that other team members have continued developing poses serious problems for collaboration. When they try to sync up with your repository, it will look like a chunk of the project history abruptly disappeared. The sequence below demonstrates what happens when you try to reset a public commit. The origin/master branch is the central repository’s version of your local master branch.</p>
 <p><img src="undo_commits_images/07.svg" alt=""></p>
 <p>As soon as you add new commits after the reset, Git will think that your local history has diverged from origin/master, and the merge commit required to synchronize your repositories is likely to confuse and frustrate your team.</p>
-<p>The point is, make sure that you’re using git reset <!-- raw HTML omitted --> on a local experiment that went wrong—not on published changes. If you need to fix a public commit, the git revert command was designed specifically for this purpose.</p>
+<p>The point is, make sure that you’re using git reset <commit> on a local experiment that went wrong—not on published changes. If you need to fix a public commit, the git revert command was designed specifically for this purpose.</p>
 <h2 id="examples">Examples:<a href="#examples" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <h3 id="unstaging-a-file"><em>unstaging a file</em><a href="#unstaging-a-file" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>The git reset command is frequently encountered while preparing the staged snapshot. The next example assumes you have two files called <code>hello.py</code> and <code>main.py</code> that you’ve already added to the repository.</p>
@@ -541,7 +541,7 @@ git reset --hard HEAD~2
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

@@ -45,7 +45,7 @@ The standard output format for reading or downloading data from a WFS is the XML
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 We will use the leaflet package to make interactive maps.
 library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
-# Flanders: wms_grb &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
+# Flanders: wms_grb &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
     </item>
     
     <item>

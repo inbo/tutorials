@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -662,7 +662,7 @@ try yourself):</p>
 </code></pre>
 <p>So it renders faster.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_4326-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_4326-1.png" alt=""><!-- --></p>
 <p>However, mind that the simplification may be OK for mapping at an
 appropriate scale, but beware that information has been lost, so shapes
 have changed and gaps + overlaps will appear between polygons. Hence
@@ -672,12 +672,12 @@ detailed mapping.</p>
 plotted object, but the graticule is latitude-longitude by default.</p>
 <p>We can plot the graticule of another CRS with <code>coord_sf()</code>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_31370-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_31370-1.png" alt=""><!-- --></p>
 <p>The above is the most obvious choice here, since it’s the CRS of the
 object, but we could as well plot the graticule of e.g. <code>EPSG:3035</code>
 (ETRS89-extended / LAEA Europe):</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(data = comm_simpl_31370) + <span style="color:#0a0">geom_sf</span>() + <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;EPSG:3035&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_3035-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_graticule_3035-1.png" alt=""><!-- --></p>
 <p>Next to the <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> package, which
 we used above, interactive maps can be made with the
 <a href="https://r-spatial.github.io/mapview/"><code>mapview</code></a> package.</p>
@@ -685,7 +685,7 @@ we used above, interactive maps can be made with the
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(municipalities_31370, legend = <span style="color:#00a">FALSE</span>)
 </code></pre></div><p>and:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(comm_simpl_31370, legend = <span style="color:#00a">FALSE</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_multicolour-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_multicolour-1.png" alt=""><!-- --></p>
 <p><em>Note: run the code to see this and the following interactive maps.</em></p>
 <p>In this case, <code>mapview</code> is using the <code>leaflet</code> package with some nice
 defaults, but in the above examples it makes a color map by default
@@ -696,7 +696,7 @@ further adjustments:</p>
         alpha.regions = <span style="color:#099">0.3</span>, 
         legend = <span style="color:#00a">FALSE</span>,
         map.types = <span style="color:#a50">&#34;OpenStreetMap&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_pink-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_pink-1.png" alt=""><!-- --></p>
 <p>Note that a separate tutorial about <code>leaflet</code> is
 <a href="../spatial_create_leaflet_map/">available</a> on this website!</p>
 <p>Beware that <code>mapview</code> and <code>leaflet</code> produce maps in the ‘WGS 84 /
@@ -716,7 +716,7 @@ in the equatorial region).</p>
         color = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;grey&#34;</span>, <span style="color:#00a">NA</span>), 
         legend = <span style="color:#00a">FALSE</span>,
         map.types = <span style="color:#a50">&#34;OpenStreetMap&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_water-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_munic_water-1.png" alt=""><!-- --></p>
 <h2 id="different-transformation-pipelines">Different transformation pipelines<a href="#different-transformation-pipelines" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>We consider a layer of points that correspond to locations where
 characteristics were determined of Flemish surfacewater bodies:</p>
@@ -820,7 +820,7 @@ availability of specific transformation grids.</p>
   <span style="color:#0a0">geom_sf</span>(data = points_31370, fill = <span style="color:#a50">&#34;red&#34;</span>, shape = <span style="color:#099">21</span>) +
   <span style="color:#0a0">lims</span>(x = <span style="color:#0a0">c</span>(<span style="color:#099">154e3</span>, <span style="color:#099">155e3</span>), y = <span style="color:#0a0">c</span>(<span style="color:#099">218e3</span>, <span style="color:#099">219e3</span>)) +
   <span style="color:#0a0">coord_sf</span>(datum = <span style="color:#a50">&#34;EPSG:31370&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/ggplot_water_points-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_water_points-1.png" alt=""><!-- --></p>
 <h3 id="enforcing-a-specific-pipeline">Enforcing a specific pipeline<a href="#enforcing-a-specific-pipeline" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>We can request available transformation pipelines with
 <code>sf_proj_pipelines()</code>:</p>
@@ -991,13 +991,13 @@ points_31370_strict &lt;-
   <span style="color:#0a0">geom_sf</span>(data = points_31370, colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">geom_sf</span>(data = points_31370_strict, colour = <span style="color:#a50">&#34;green&#34;</span>) 
 p
-</code></pre></div><p><img src="index_files/figure-gfm/ggplot_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/ggplot_pipelines-1.png" alt=""><!-- --></p>
 <p>It appears that points too far at sea are considered invalid when
 applying this pipeline, and their geometry was cleared (although the
 corresponding row was not dropped).</p>
 <p>If we make a zoomable plot, there’s more to discover.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plotly::<span style="color:#0a0">ggplotly</span>(p)
-</code></pre></div><p><img src="index_files/figure-gfm/ggplotly_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/ggplotly_pipelines-1.png" alt=""><!-- --></p>
 <p>Most points on the map are on the exact same location between both
 approaches. We can see that points west and south of the <em>geographic
 bounding box</em> for usage of the Dutch CRS have a different position
@@ -1006,7 +1006,7 @@ depending on the applied approach.</p>
 further reprojection to <code>EPSG:3857</code>):</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">mapview</span>(<span style="color:#0a0">list</span>(points_31370, points_31370_strict),
         col.regions = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;red&#34;</span>, <span style="color:#a50">&#34;green&#34;</span>))
-</code></pre></div><p><img src="index_files/figure-gfm/mapview_pipelines-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/mapview_pipelines-1.png" alt=""><!-- --></p>
 <p>Here it appears that the western and southern points of <code>points_31370</code>
 were transformed with the ballpark-accuracy pipeline: they are way off
 the surfacewater bodies!</p>
@@ -1038,30 +1038,30 @@ al.</em></a>
 renders spatial objects in Google Earth (<a href="#ref-hengl_plotkml:_2015">Hengl <em>et al.</em>,
 2015</a>)!</p>
 <h2 id="bibliography">Bibliography<a href="#bibliography" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hengl_plotkml:_2015" class="csl-entry">
 <p>Hengl T., Roudier P., Beaudette D. &amp; Pebesma E. (2015). plotKML:
 Scientific Visualization of Spatio-Temporal Data. Journal of Statistical
 Software 63. <a href="http://www.geostat-course.org/system/files/jss1079.pdf">http://www.geostat-course.org/system/files/jss1079.pdf</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-lovelace_geocomputation_2019" class="csl-entry">
 <p>Lovelace R., Nowosad J. &amp; Muenchow J. (2019). Geocomputation with R.
 <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-pebesma_simple_2018" class="csl-entry">
 <p>Pebesma E. (2018). Simple Features for R: Standardized Support for
 Spatial Vector Data. The R Journal 10 (1): 439–446.
 <a href="https://journal.r-project.org/archive/2018/RJ-2018-009/index.html">https://journal.r-project.org/archive/2018/RJ-2018-009/index.html</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-pebesma_spatial_2021" class="csl-entry">
 <p>Pebesma E. &amp; Bivand R. (2021). Spatial Data Science.
 <a href="https://r-spatial.org/book">https://r-spatial.org/book</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-tennekes_tmap_2018" class="csl-entry">
 <p>Tennekes M. (2018). tmap: Thematic Maps in R. Journal of Statistical
 Software 84 (1): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+</div>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -1140,7 +1140,7 @@ intersects the area of interest is listed.</em>’&#160;<a href="#fnref:2" class
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

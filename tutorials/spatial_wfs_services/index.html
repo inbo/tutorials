@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -694,8 +694,9 @@ want and we can extract it with a combination of <code>purrr::map()</code> and
 ## [13] &quot;text/xml; subtype=gml/2.1.2&quot;         
 ## [14] &quot;text/xml; subtype=gml/3.1.1&quot;
 </code></pre>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!--
+Another interesting piece of metadata we might be interested in is which spatial operations the WFS service is able to do. 
+-->
 <p>Some more examples follow. Let’s extract the bounding boxes for all
 layers.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bwk_client$
@@ -751,7 +752,7 @@ request &lt;- <span style="color:#0a0">build_url</span>(url)
 bel_regions &lt;- <span style="color:#0a0">read_sf</span>(request) <span style="color:#aaa;font-style:italic">#Lambert2008</span>
 </code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(bel_regions) +
   <span style="color:#0a0">geom_sf</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-17-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-17-1.png" alt=""><!-- --></p>
 <h2 id="example-2-filter-by-attributes">Example 2: filter by attributes<a href="#example-2-filter-by-attributes" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>In this example, we only want to extract specific regions. This can be
 done using either <a href="https://www.ogc.org/standards/filter">standard OGC filter
@@ -778,7 +779,7 @@ stitched together using the pipe (<code>%&gt;%</code>) operator.</p>
   <span style="color:#0a0">read_sf</span>() %&gt;%
   <span style="color:#0a0">ggplot</span>() +
   <span style="color:#0a0">geom_sf</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-18-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-18-1.png" alt=""><!-- --></p>
 <p><strong>CQL filter</strong></p>
 <p>We use a different WFS service for which CQL works. First we need to
 know the names of the fields by which we can filter.</p>
@@ -862,7 +863,7 @@ sf_prov %&gt;%
   <span style="color:#0a0">ggplot</span>() + 
   <span style="color:#0a0">geom_sf</span>(data = sf_prov_buffer) +
   <span style="color:#0a0">geom_sf</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-21-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-21-1.png" alt=""><!-- --></p>
 <p>If you need to further convert to geometry type <code>POLYGON</code>, then use
 <code>st_collection_extract()</code> to extract the Polygon from the
 GeometryCollection:</p>
@@ -956,7 +957,7 @@ features outside of the bounding box. Those are features which have only
 some part within the bounding box.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(bwk_hallerbos) + 
   <span style="color:#0a0">geom_sf</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-27-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-27-1.png" alt=""><!-- --></p>
 <p>You can use <code>sf::st_write()</code> to save this layer in any format that is
 listed by <code>sf::st_drivers()</code>.</p>
 <h2 id="example-4-downloading-data-to-disk">Example 4: downloading data to disk<a href="#example-4-downloading-data-to-disk" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -1334,12 +1335,12 @@ restrict the request to what we need.</p>
 request many, many features from a WFS service, it may also be more
 advised to use a download service instead of a WFS (search) service.</p>
 <h1 id="references">References<a href="#references" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-lovelace_geocomputation_2020" class="csl-entry">
 <p>Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2020.
 <em>Geocomputation with R</em>. <a href="https://geocompr.robinlovelace.net">https://geocompr.robinlovelace.net</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+</div>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -1403,7 +1404,7 @@ advised to use a download service instead of a WFS (search) service.</p>
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

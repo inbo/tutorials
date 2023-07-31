@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -450,7 +450,7 @@ prop.zeroinfl &lt;- <span style="color:#099">0.1</span>
   )
 </code></pre></div><pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre>
-<p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">table</span>(dataset$Poisson)
 </code></pre></div><pre><code>## 
 ##    0    1    2 
@@ -478,7 +478,7 @@ prop.zeroinfl &lt;- <span style="color:#099">0.1</span>
     mapping = <span style="color:#0a0">aes</span>(x = ZeroInflatedPoisson),
     boundary = <span style="color:#099">0</span>
   )
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-7-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-7-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">table</span>(dataset$ZeroInflatedPoisson == <span style="color:#099">0</span>)
 </code></pre></div><pre><code>## 
 ## FALSE  TRUE 
@@ -514,7 +514,7 @@ dataset$ZeroInflatedPoisson &lt;- <span style="color:#0a0">rbinom</span>(<span s
   )
 </code></pre></div><pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre>
-<p><img src="index_files/figure-gfm/unnamed-chunk-10-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><img src="index_files/figure-gfm/unnamed-chunk-10-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>() +
   <span style="color:#0a0">geom_linerange</span>(
     data = dataset %&gt;%
@@ -534,7 +534,7 @@ dataset$ZeroInflatedPoisson &lt;- <span style="color:#0a0">rbinom</span>(<span s
   )
 </code></pre></div><pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 </code></pre>
-<p><img src="index_files/figure-gfm/unnamed-chunk-11-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><img src="index_files/figure-gfm/unnamed-chunk-11-1.png" alt=""><!-- --></p>
 <p>For this example we generate a new dataset with two levels of Mean:
 0.05, 10000.00. We generate both a Poisson and a zero-inflated Poisson
 variable. The latter has 10, % excess zero’s. The proportion of zero’s
@@ -611,12 +611,12 @@ with this distribution.</p>
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.01</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$Poisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-14-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-14-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(simulated, <span style="color:#0a0">aes</span>(x = ZeroInflatedSimple)) +
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.01</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$Poisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-15-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-15-1.png" alt=""><!-- --></p>
 <p>In both cases none of the simulated values contains zero’s. The red line
 indicates the observed proportion of zero’s with is clearly greater.
 This indicates that we have either a poor model fit or zero-inflation.</p>
@@ -690,12 +690,12 @@ simulated$ZeroInflatedComplex &lt;- <span style="color:#0a0">apply</span>(
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.0005</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$Poisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-18-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-18-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(simulated, <span style="color:#0a0">aes</span>(x = ZeroInflatedComplex)) +
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.0005</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-19-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-19-1.png" alt=""><!-- --></p>
 <p>In case of the Poisson variable, 45.1% of the simulated dataset from the
 complex model has more zero’s than the observed dataset. So this model
 can captures the zero’s and there is not zero-inflation. In case of the
@@ -746,7 +746,7 @@ simulated$ZeroInflatedZI &lt;- <span style="color:#0a0">replicate</span>(n.sim, 
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.0005</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-20-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-20-1.png" alt=""><!-- --></p>
 <p>When we fit a proper zero-inflated model to the zero-inflated Poisson
 variable, then 45.5% of the simulated datasets have more zero’s than the
 observed dataset. So the zero-inflation is properly handled.</p>
@@ -828,7 +828,7 @@ m.zero.olre &lt;- <span style="color:#0a0">glmer</span>(
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.0005</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-23-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-23-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">simulated$ZeroInflatedOLRE &lt;- <span style="color:#0a0">apply</span>(
   <span style="color:#0a0">simulate</span>(m.zero.olre, nsim = n.sim) == <span style="color:#099">0</span>,
   <span style="color:#099">2</span>,
@@ -838,7 +838,7 @@ m.zero.olre &lt;- <span style="color:#0a0">glmer</span>(
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.0005</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-24-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-24-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mean.2 &lt;- <span style="color:#099">5</span>
 dataset2 &lt;- <span style="color:#0a0">expand.grid</span>(
   Mean = mean.2,
@@ -849,7 +849,7 @@ dataset2$ZeroInflatedPoisson &lt;-
     <span style="color:#0a0">rpois</span>(<span style="color:#0a0">nrow</span>(dataset2), lambda = dataset2$Mean)
 </code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset2, <span style="color:#0a0">aes</span>(x = ZeroInflatedPoisson)) +
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">1</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-26-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-26-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m.zero2 &lt;- <span style="color:#0a0">glm</span>(ZeroInflatedPoisson ~ <span style="color:#099">1</span>, data = dataset2, family = poisson)
 <span style="color:#0a0">summary</span>(m.zero2)
 </code></pre></div><pre><code>## 
@@ -883,7 +883,7 @@ dataset2$ZeroInflatedPoisson &lt;-
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.01</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset2$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-27-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-27-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m.zero.nb2 &lt;- <span style="color:#0a0">glm.nb</span>(ZeroInflatedPoisson ~ <span style="color:#099">1</span>, data = dataset2)
 <span style="color:#0a0">summary</span>(m.zero.nb2)
 </code></pre></div><pre><code>## 
@@ -924,7 +924,7 @@ dataset2$ZeroInflatedPoisson &lt;-
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.01</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset2$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-28-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-28-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dataset2$ID &lt;- <span style="color:#0a0">seq_along</span>(dataset2$Mean)
 m.zero.olre2 &lt;- <span style="color:#0a0">glmer</span>(
   ZeroInflatedPoisson ~ (<span style="color:#099">1</span> | ID),
@@ -940,7 +940,7 @@ m.zero.olre2 &lt;- <span style="color:#0a0">glmer</span>(
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.01</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset2$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-30-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-30-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">m.zero.zi2 &lt;- <span style="color:#0a0">zeroinfl</span>(
   ZeroInflatedPoisson ~ <span style="color:#099">1</span>,
   data = dataset2,
@@ -973,7 +973,7 @@ m.zero.olre2 &lt;- <span style="color:#0a0">glmer</span>(
   <span style="color:#0a0">geom_histogram</span>(binwidth = <span style="color:#099">0.01</span>) +
   <span style="color:#0a0">geom_vline</span>(xintercept = <span style="color:#0a0">mean</span>(dataset2$ZeroInflatedPoisson == <span style="color:#099">0</span>), colour = <span style="color:#a50">&#34;red&#34;</span>) +
   <span style="color:#0a0">scale_x_continuous</span>(label = percent)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-32-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-32-1.png" alt=""><!-- --></p>
 <p>A negative binomial distribution can capture some of the zero-inflation
 by overdispersion. Especially in cases with low mean and few data. When
 the mean is low, a reasonable portion of the zero origination comes from
@@ -1026,7 +1026,7 @@ long &lt;- <span style="color:#0a0">gather</span>(distribution, key = <span styl
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">long$Truth &lt;- long$Model == <span style="color:#a50">&#34;Truth&#34;</span>
 </code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(long, <span style="color:#0a0">aes</span>(x = Count, y = Density, colour = Model, linetype = Truth)) +
   <span style="color:#0a0">geom_line</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-34-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-34-1.png" alt=""><!-- --></p>
 </div>
 
   
@@ -1082,7 +1082,7 @@ long &lt;- <span style="color:#0a0">gather</span>(distribution, key = <span styl
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

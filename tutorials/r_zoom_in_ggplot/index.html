@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -382,7 +382,7 @@ Improve this page</a>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(ggplot2)
 <span style="color:#0a0">ggplot</span>(mtcars, <span style="color:#0a0">aes</span>(x = <span style="color:#0a0">factor</span>(cyl), y = mpg)) + 
   <span style="color:#0a0">geom_boxplot</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-1-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-1-1.png" alt=""><!-- --></p>
 <h1 id="zoom-in-with-scales">“Zoom in” with scales<a href="#zoom-in-with-scales" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <p>Data points outside the limits are considered to be <code>NA</code>. Note that this
 will alter all calculated geoms.</p>
@@ -391,13 +391,13 @@ will alter all calculated geoms.</p>
   <span style="color:#0a0">scale_y_continuous</span>(limits = <span style="color:#0a0">c</span>(<span style="color:#099">20</span>, <span style="color:#099">25</span>))
 </code></pre></div><pre><code>## Warning: Removed 24 rows containing non-finite values (stat_boxplot).
 </code></pre>
-<p><img src="index_files/figure-gfm/unnamed-chunk-2-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><img src="index_files/figure-gfm/unnamed-chunk-2-1.png" alt=""><!-- --></p>
 <h1 id="zoom-in-with-coord">“Zoom in” with coord<a href="#zoom-in-with-coord" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <p>This doesn’t affect the values:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(mtcars, <span style="color:#0a0">aes</span>(x = <span style="color:#0a0">factor</span>(cyl), y = mpg)) + 
   <span style="color:#0a0">geom_boxplot</span>() + 
   <span style="color:#0a0">coord_cartesian</span>(ylim = <span style="color:#0a0">c</span>(<span style="color:#099">20</span>, <span style="color:#099">25</span>))
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-3-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-3-1.png" alt=""><!-- --></p>
 <p>Note that you can use only one <code>coord</code>. Only the last one will have an
 effect on the plot.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(mtcars, <span style="color:#0a0">aes</span>(x = <span style="color:#0a0">factor</span>(cyl), y = mpg)) + 
@@ -406,19 +406,19 @@ effect on the plot.</p>
   <span style="color:#0a0">coord_flip</span>()
 </code></pre></div><pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.
 </code></pre>
-<p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(mtcars, <span style="color:#0a0">aes</span>(x = <span style="color:#0a0">factor</span>(cyl), y = mpg)) + 
   <span style="color:#0a0">geom_boxplot</span>() + 
   <span style="color:#0a0">coord_flip</span>() + 
   <span style="color:#0a0">coord_cartesian</span>(ylim = <span style="color:#0a0">c</span>(<span style="color:#099">20</span>, <span style="color:#099">25</span>))
 </code></pre></div><pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.
 </code></pre>
-<p><img src="index_files/figure-gfm/unnamed-chunk-5-1.png" alt=""><!-- raw HTML omitted --></p>
+<p><img src="index_files/figure-gfm/unnamed-chunk-5-1.png" alt=""><!-- --></p>
 <p>Set the limits in <code>coord_flip</code> to get the effects of both.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(mtcars, <span style="color:#0a0">aes</span>(x = <span style="color:#0a0">factor</span>(cyl), y = mpg)) + 
   <span style="color:#0a0">geom_boxplot</span>() + 
   <span style="color:#0a0">coord_flip</span>(ylim = <span style="color:#0a0">c</span>(<span style="color:#099">20</span>, <span style="color:#099">25</span>))
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- --></p>
 </div>
 
   
@@ -474,7 +474,7 @@ effect on the plot.</p>
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

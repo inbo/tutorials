@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -437,15 +437,15 @@ crs_table &lt;- sf::<span style="color:#0a0">read_sf</span>(proj_db, <span style
 7 EPSG      6190  BD72 / Belgian Lambert 72 + Ostend height     compound 
 8 EPSG      8370  ETRS89 / Belgian Lambert 2008 + Ostend height compound 
 </code></pre>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!-- ```{r} -->
+<!-- # showing relevant tables of proj.db: -->
+<!-- grep("crs", sf::st_layers(proj_db)$name, value = TRUE) -->
+<!-- ``` -->
+<!-- You can do this with the help of the `rgdal` package: -->
+<!-- ```{r} -->
+<!-- epsg_crs_table <- rgdal::make_EPSG()[, 1:2] -->
+<!-- subset(epsg_crs_table, grepl("Belg", note)) -->
+<!-- ``` -->
 <h3 id="how-did-we-represent-a-crs-in-r-evolutions-in-proj-and-gdal">How <em>did</em> we represent a CRS in R? Evolutions in PROJ and GDAL.<a href="#how-did-we-represent-a-crs-in-r-evolutions-in-proj-and-gdal" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>It is good to know this, but you <em>can</em> skip this section if you like.</p>
 <p>The reason for writing this tutorial are the recent (and ongoing)
@@ -1018,40 +1018,40 @@ formats.</p>
 </code></pre>
 <p>YES!</p>
 <h2 id="literature">Literature<a href="#literature" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bivand_ecs530_2019" class="csl-entry">
 <p>Bivand R. (2019). ECS530: (III) Coordinate reference systems. Tuesday 3
 December 2019, 09:15-11.00, aud. C.
 <a href="https://rsbivand.github.io/ECS530_h19/ECS530_III.html#coordinate_reference_systems:_background">https://rsbivand.github.io/ECS530_h19/ECS530_III.html#coordinate_reference_systems:_background</a>
 (accessed September 16, 2020).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-bivand_migration_2020" class="csl-entry">
 <p>Bivand R. (2020a). Migration to PROJ6/GDAL3.
 <a href="http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html">http://rgdal.r-forge.r-project.org/articles/PROJ6_GDAL3.html</a> (accessed
 September 21, 2020).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-bivand_how_2020_1" class="csl-entry">
 <p>Bivand R. (2020c). How R Helped Provide Tools for Spatial Data Analysis.
 <a href="https://github.com/rsbivand/celebRation20_files/raw/master/bivand_200229.pdf">https://github.com/rsbivand/celebRation20_files/raw/master/bivand_200229.pdf</a>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-bivand_upstream_2020" class="csl-entry">
 <p>Bivand R. (2020b). Upstream software dependencies of the R-spatial
 ecosystem (video recording). In: How R Helped Provide Tools for Spatial
 Data Analysis @ CelebRation 2020. <a href="https://youtu.be/D4-roPsMz48?t=2166">https://youtu.be/D4-roPsMz48?t=2166</a>
 (accessed September 21, 2020).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-nowosad_recent_2020" class="csl-entry">
 <p>Nowosad J. &amp; Lovelace R. (2020). Recent changes in R spatial and how to
 be ready for them.
 <a href="https://geocompr.github.io/post/2020/whyr_webinar004/">https://geocompr.github.io/post/2020/whyr_webinar004/</a> (accessed
 September 21, 2020).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+<div id="ref-pebesma_r_2020" class="csl-entry">
 <p>Pebesma E. &amp; Bivand R. (2020). R spatial follows GDAL and PROJ
 development. <a href="https://www.r-spatial.org/r/2020/03/17/wkt.html">https://www.r-spatial.org/r/2020/03/17/wkt.html</a> (accessed
 September 21, 2020).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+</div>
+</div>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -1163,7 +1163,7 @@ compliant!&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

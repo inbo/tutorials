@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -403,9 +403,9 @@ dataset$Linear &lt;- <span style="color:#099">1</span> + <span style="color:#099
 dataset$Quadratic &lt;- <span style="color:#099">1</span> + <span style="color:#099">20</span> * dataset$Year - <span style="color:#099">0.5</span> * dataset$Year ^ <span style="color:#099">2</span> + 
   dataset$Noise
 </code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Linear)) + <span style="color:#0a0">geom_point</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/linear-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/linear-1.png" alt=""><!-- --></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(dataset, <span style="color:#0a0">aes</span>(x = Year, y = Quadratic)) + <span style="color:#0a0">geom_point</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/quadratic-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/quadratic-1.png" alt=""><!-- --></p>
 <h2 id="quadratic-trend-but-fit-as-a-linear-trend">Quadratic trend but fit as a linear trend<a href="#quadratic-trend-but-fit-as-a-linear-trend" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Assume that we assume that the trend is linear but in reality it is
 quadratic. In this case the random intercept of year will pickup the
@@ -444,7 +444,7 @@ dataset$QuadraticFixed &lt;- <span style="color:#0a0">predict</span>(model.quadr
   <span style="color:#0a0">geom_point</span>() + 
   <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticFixed), colour = <span style="color:#a50">&#34;red&#34;</span>) + 
   <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = QuadraticPredict), colour = <span style="color:#a50">&#34;blue&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-4-1.png" alt=""><!-- --></p>
 <p>The random effects will have a strong pattern. Indicating that a second
 order polynomial makes more sense than a linear trend.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf &lt;- <span style="color:#0a0">data.frame</span>(
@@ -453,7 +453,7 @@ order polynomial makes more sense than a linear trend.</p>
 )
 </code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">ggplot</span>(rf, <span style="color:#0a0">aes</span>(x = Year, y = RandomIntercept)) + 
   <span style="color:#0a0">geom_point</span>()
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-6-1.png" alt=""><!-- --></p>
 <h2 id="what-if-the-trend-is-perfectly-linear">What if the trend is perfectly linear?<a href="#what-if-the-trend-is-perfectly-linear" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Both the fixed effect and the random effect can perfectly model the
 pattern in the data. So the model seems to be unidentifiable. However
@@ -502,7 +502,7 @@ dataset$LinearFixed &lt;- <span style="color:#0a0">predict</span>(model.linear, 
   <span style="color:#0a0">geom_point</span>() + 
   <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearFixed), colour = <span style="color:#a50">&#34;red&#34;</span>) + 
   <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(y = LinearPredict), colour = <span style="color:#a50">&#34;blue&#34;</span>)
-</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-8-1.png" alt=""><!-- raw HTML omitted --></p>
+</code></pre></div><p><img src="index_files/figure-gfm/unnamed-chunk-8-1.png" alt=""><!-- --></p>
 <h2 id="what-about-fitting-year-as-a-factor-in-the-fixed-effects">What about fitting year as a factor in the fixed effects<a href="#what-about-fitting-year-as-a-factor-in-the-fixed-effects" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Combining the same variables as a factor in the fixed effects and as a
 random intercept doesn’t make sense. They allow exactly the same model
@@ -562,7 +562,7 @@ fit and thus the random intercept will always shrink to zero.</p>
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>

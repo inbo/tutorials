@@ -260,7 +260,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Dec 23 15:41:59 UTC 2022</small></p>
+  <p><small>Built on: Mon Jul 31 15:51:10 UTC 2023</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -386,15 +386,15 @@ Improve this page</a>
 <h2 id="how-insync-solves-this-problem">How Insync solves this problem<a href="#how-insync-solves-this-problem" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Insync is also constantly monitoring all files in the synchronised directories. Unlike GoogleDrive, Insync has an option to ignore directories or files when synchronising. When Insync is set to ignore <code>.Rproj.user</code>, the files within <code>.Rproj.user</code> are no longer synchronised and thus never locked, causing no problem with the RStudio auto save function.</p>
 <p><em>Wait a minute, so these files will be no longer be available through the GoogleDrive website? Isn&rsquo;t that a problem?</em> Indeed, they will not be available. And no, that is not a problem. Only your <strong>temporary</strong> changes are no longer synchronised. When you <strong>save</strong> your script file in RStudio, you are saving a file to a location which is <strong>not</strong> on the ignore list and will thus be synchronised. <em>But after saving, this file will be locked during sync?</em> Yes, but the time between two consecutive <strong>manual</strong> saves of a script is a lot larger that the time required to sync the script. So the file will be unlocked by the next time you save the file.</p>
-<!-- raw HTML omitted -->
+<!-- Maybe it could be helpful to also mention the disadvantages of Insync, e.g. the fact that all shared documents are scanned, taking a long time for an initial scan in our INBO network? -->
 <h2 id="how-to-set-the-ignore-list-in-insync">How to set the ignore list in Insync<a href="#how-to-set-the-ignore-list-in-insync" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>First of all, it is important to do this <strong>prior</strong> to syncing files to your computer. Once a file or directory has been synced between the computer and the cloud, Insync will keep syncing it. Even when a file or directory is afterward added to the ignore list.</p>
 <h3 id="set-up">Set up<a href="#set-up" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <ol>
 <li>Open the Insync app</li>
 <li>Click on your avatar</li>
-<li>Choose <code>ignore list</code><!-- raw HTML omitted --></li>
-<li>Add the search pattern for the files/folders to ignore into the form field<!-- raw HTML omitted --> and click on the circled &lsquo;+&rsquo;</li>
+<li>Choose <code>ignore list</code><!-- I don't see 'setting' after clicking on my avatar --></li>
+<li>Add the search pattern for the files/folders to ignore into the form field<!-- What do you mean with 'form field'? --> and click on the circled &lsquo;+&rsquo;</li>
 </ol>
 <p>The default action is to exclude all matching files and directories (including their files and subdirectories) from syncing (&ldquo;do not upload or download&rdquo;). Local files will remain only local and files in the cloud will remain only in the cloud. You can change this behaviour via the drop down menu of the pattern. Other options are &ldquo;do not upload&rdquo;, &ldquo;do not download&rdquo; or &ldquo;remove from this list&rdquo;.</p>
 <p>We recommend to add following patterns:</p>
@@ -406,7 +406,7 @@ Improve this page</a>
 <li>*_files</li>
 <li>_site</li>
 </ul>
-<!-- raw HTML omitted -->
+<!-- Would it be useful to also add information on the installation or settings of insync, or will this be the subject of another tutorial?  Some subjects could be covered easily by refering to pages on https://forums.insynchq.com/c/how-to -->
 <h2 id="faq">FAQ<a href="#faq" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <ol>
 <li>Can I use the same local folder when switching from GoogleDrive to Insync
@@ -475,7 +475,7 @@ Improve this page</a>
 
       <footer id='footer' class='footer'>
         <div class='container sep-before'><div class='copyright'>
-  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2022 Research Institute for Nature and Forest (INBO) </p>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
 </div>
 
         </div>
