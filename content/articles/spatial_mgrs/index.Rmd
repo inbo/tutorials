@@ -129,15 +129,18 @@ GeographicLib also provides utilities that can be run in a shell environment, su
 These utilities also have an [online](https://geographiclib.sourceforge.io/doc/library.html#online-utilities) implementation.
 - by the [GEOTRANS](https://earth-info.nga.mil) executables and C libraries of the NGA Office of Geomatics.
 They provide various coordinate conversions and transformations.
-- by the Python `mgrs` package ([PyPi](https://pypi.org/project/mgrs/) / [conda-forge](https://anaconda.org/conda-forge/mgrs)) which uses the GEOTRANS C library.
+- by a silent (undocumented) implementation as C code inside the [GDAL driver for NITF](https://gdal.org/drivers/raster/nitf.html), an imagery format of the NGA Geospatial-Intelligence Standards Working Group (GWG).
+- by the R package [mgrs](https://github.com/hrbrmstr/mgrs) which uses GDAL's implementation in the NITF-driver.
+- by the Python package `mgrs` ([PyPi](https://pypi.org/project/mgrs/) / [conda-forge](https://anaconda.org/conda-forge/mgrs)) which uses the GEOTRANS C library.
 - in the QGIS plugin [Lat Lon Tools](https://plugins.qgis.org/plugins/latlontools/) by the US National Security Agency ([code repo](https://github.com/NationalSecurityAgency/qgis-latlontools-plugin)).
-Apart from some geoprocessing algorithms, the plugin also provides a GUI for easy coordinate conversion based on interaction with the map.
+It provides several geoprocessing algorithms, which can also be accessed outside the QGIS GUI, e.g. from R [^qgisprocess].
+The plugin also provides a GUI for easy coordinate conversion based on interaction with the map.
 
-Note that some of these implementations don't require a geodetic datum (hence CRS), but of course (converted) coordinates still need a geodetic datum to refer to an actual position on the Earth surface and to use them in maps.
+[^qgisprocess]: Beside R's `mgrs` package, another possibility to translate to/from MGRS grid references in R is by accessing the 'Lat Lon Tools' QGIS plugin using the [qgisprocess](https://r-spatial.github.io/qgisprocess) package, e.g. by calling the algorithm `latlontools:point2mgrs`.
+
+Note that some of these implementations don't require a geodetic datum (hence CRS), but of course (converted) coordinates still need a geodetic datum to refer to an actual position on the Earth surface and to use them with other geospatial data.
 
 Since it has not been implemented in PROJ, regular geospatial R packages cannot convert to or from MGRS grid references.
-
-One easy possibility to derive MGRS grid references in **R** is by calling the QGIS plugin 'Lat Lon Tools' with the [qgisprocess](https://github.com/r-spatial/qgisprocess) package, e.g. calling its algorithm `latlontools:point2mgrs`.
 
 Various online web applications allow to interactively determine MGRS coordinates, or display the MGRS grid.
 One example is [map.army](https://www.map.army/doc/en/map/coordinategrid/).
