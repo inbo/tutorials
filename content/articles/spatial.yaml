@@ -1,0 +1,281 @@
+---
+references:
+- id: buchroithner_geodetic_2017
+  accessed:
+    - year: 2023
+      month: 8
+      day: 23
+  author:
+    - family: Buchroithner
+      given: Manfred F.
+    - family: Pfahlbusch
+      given: René
+  citation-key: buchroithner_geodetic_2017
+  container-title: Cartography and Geographic Information Science
+  container-title-short: CartogrGeogrInfSc
+  DOI: 10.1080/15230406.2015.1128851
+  ISSN: 1523-0406
+  issue: '3'
+  issued:
+    - year: 2017
+      month: 5
+      day: 4
+  page: 186-200
+  publisher: Taylor & Francis
+  source: Taylor and Francis+NEJM
+  title: >-
+    Geodetic grids in authoritative maps – new findings about the origin of the
+    UTM Grid
+  type: article-journal
+  URL: https://doi.org/10.1080/15230406.2015.1128851
+  volume: '44'
+
+- id: defense_mapping_agency_datums_1986
+  author:
+    - literal: Defense Mapping Agency
+  citation-key: defense_mapping_agency_datums_1986
+  collection-number: '8358.1'
+  collection-title: DMA Technical Manual
+  event-place: Washington, DC
+  issued:
+    - year: 1986
+  number-of-pages: '86'
+  publisher-place: Washington, DC
+  title: Datums, Ellipsoids, Grids, and Grid Reference Systems
+  type: book
+
+- id: department_of_the_army_map_1956
+  author:
+    - literal: Department of the Army
+  citation-key: department_of_the_army_map_1956
+  collection-number: 21-26
+  collection-title: Field Manual
+  event-place: Washington, DC
+  issued:
+    - year: 1956
+  number-of-pages: '256'
+  publisher-place: Washington, DC
+  title: Map reading
+  type: book
+  URL: https://ciehub.info/ref/FM/21-26.html
+
+- id: department_of_the_army_map_2001
+  author:
+    - literal: Department of the Army
+  citation-key: department_of_the_army_map_2001
+  collection-number: 3-25.26
+  collection-title: Field Manual
+  event-place: Washington, DC
+  issued:
+    - year: 2001
+  number-of-pages: '209'
+  publisher-place: Washington, DC
+  title: Map reading and land navigation
+  type: book
+  URL: https://ciehub.info/ref/FM/3-25x26.html
+
+- id: lampinen_utm_2013
+  accessed:
+    - year: 2023
+      month: 8
+      day: 24
+  author:
+    - family: Lampinen
+      given: Raino
+  citation-key: lampinen_utm_2013
+  issued:
+    - year: 2013
+      month: 11
+      day: 20
+  title: UTM & MGRS -- Atlas Florae Europaeae | LUOMUS
+  type: webpage
+  URL: https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae
+
+- id: van_nieukerken_utm_1991
+  accessed:
+    - year: 2023
+      month: 8
+      day: 24
+  author:
+    - family: Nieukerken
+      given: E. J.
+      non-dropping-particle: van
+  citation-key: van_nieukerken_utm_1991
+  container-title: Nieuwsbrief EIS Kenniscentrum Insecten en andere ongewervelden
+  container-title-short: EISnieuws
+  ISSN: 0169 - 2402
+  issued:
+    - year: 1991
+      month: 1
+      day: 1
+  language: en
+  page: 9-14
+  source: natuurtijdschriften.nl
+  title: 'UTM grid: een voorschot op de toekomst'
+  title-short: UTM grid
+  type: article-journal
+  URL: https://natuurtijdschriften.nl/pub/1000930
+  volume: '20'
+
+- id: iliffe_datums_2008
+  author:
+    - family: Iliffe
+      given: Jonathan
+    - family: Lott
+      given: Roger
+  citation-key: iliffe_datums_2008
+  edition: '2'
+  event-place: Caithness, UK
+  issued:
+    - year: 2008
+  number-of-pages: '208'
+  publisher: Whittles Publishing
+  publisher-place: Caithness, UK
+  title: Datums and Map Projections. For Remote Sensing, GIS and Surveying
+  type: book
+
+- id: van_veen_eis-nieuws_2000
+  accessed:
+    - year: 2023
+      month: 8
+      day: 24
+  author:
+    - family: Veen
+      given: M.
+      non-dropping-particle: van
+  citation-key: van_veen_eis-nieuws_2000
+  container-title: Nieuwsbrief EIS Kenniscentrum Insecten en andere ongewervelden
+  container-title-short: EISnieuws
+  ISSN: 0169 - 2402
+  issued:
+    - year: 2000
+      month: 1
+      day: 1
+  language: en
+  page: 11-12
+  source: natuurtijdschriften.nl
+  title: 'EIS-nieuws: Software'
+  type: article-journal
+  URL: https://natuurtijdschriften.nl/pub/1001490
+  volume: '30'
+
+- id: palombo_military_2021
+  accessed:
+    - year: 2023
+      month: 8
+      day: 24
+  author:
+    - family: Palombo
+      given: Sophia
+  citation-key: palombo_military_2021
+  container-title: ArcGIS StoryMaps
+  issued:
+    - year: 2021
+      month: 5
+      day: 3
+  language: nl
+  title: Military Grid Reference System (MGRS)
+  type: webpage
+  URL: https://storymaps.arcgis.com/stories/842edf2b4381438b9a4edefed124775b
+
+- id: uf_geoplan_center_mgrs_2009
+  author:
+    - literal: UF GeoPlan Center
+  citation-key: uf_geoplan_center_mgrs_2009
+  issued:
+    - year: 2009
+  number-of-pages: '4'
+  title: MGRS
+  type: book
+  URL: http://mgrs-data.org/data/documents/nga_mgrs_doc.pdf
+
+- id: national_geospatial-intelligence_agency_military_nodate
+  author:
+    - literal: National Geospatial-Intelligence Agency
+  citation-key: national_geospatial-intelligence_agency_military_nodate
+  number-of-pages: '10'
+  title: Military Map Reading 201
+  type: book
+  URL: >-
+    https://web.archive.org/web/20210224185834/earth-info.nga.mil/GandG/coordsys/mmr201.pdf
+
+- id: national_geospatial-intelligence_agency_universal_2014
+  author:
+    - literal: National Geospatial-Intelligence Agency
+  citation-key: national_geospatial-intelligence_agency_universal_2014
+  collection-number: NGA.SIG.0012_2.0.0_UTMUPS
+  collection-title: NGA Standardization Document - Implementation Practice
+  event-place: Washington, DC
+  issued:
+    - year: 2014
+      month: 3
+      day: 25
+  number-of-pages: '86'
+  publisher-place: Washington, DC
+  title: >-
+    The Universal Grids and the Transverse Mercator and Polar Stereographic Map
+    Projections
+  type: book
+  URL: https://nsgreg.nga.mil/doc/view?i=4056
+
+- id: national_geospatial-intelligence_agency_universal_2014-1
+  author:
+    - literal: National Geospatial-Intelligence Agency
+  citation-key: national_geospatial-intelligence_agency_universal_2014-1
+  collection-number: NGA.STND.0037_2.0.0_GRIDS
+  collection-title: NGA Standardization Document
+  event-place: Washington, DC
+  issued:
+    - year: 2014
+      month: 2
+      day: 28
+  number-of-pages: '101'
+  publisher-place: Washington, DC
+  title: Universal grids and reference systems
+  type: book
+  URL: https://nsgreg.nga.mil/doc/view?i=4057
+
+- id: wikipedia_contributors_military_2023
+  accessed:
+    - year: 2023
+      month: 8
+      day: 25
+  author:
+    - literal: Wikipedia contributors
+  citation-key: wikipedia_contributors_military_2023
+  container-title: Wikipedia, The Free Encyclopedia
+  issued:
+    - year: 2023
+      month: 2
+      day: 20
+  language: en
+  license: Creative Commons Attribution-ShareAlike License
+  note: 'Page Version ID: 1140475364'
+  title: Military Grid Reference System
+  type: webpage
+  URL: >-
+    https://en.wikipedia.org/w/index.php?title=Military_Grid_Reference_System&oldid=1140475364
+
+- id: stott_utm_1977
+  accessed:
+    - year: 2023
+      month: 5
+      day: 11
+  author:
+    - family: Stott
+      given: Peter H.
+  citation-key: stott_utm_1977
+  container-title: Journal of the Society for Industrial Archeology
+  container-title-short: JSocIndArcheol
+  ISSN: 0160-1040
+  issue: '1'
+  issued:
+    - year: 1977
+  page: 1-14
+  publisher: Society for Industrial Archeology
+  source: JSTOR
+  title: The UTM Grid Reference System
+  type: article-journal
+  URL: https://www.jstor.org/stable/40967933
+  volume: '3'
+...
