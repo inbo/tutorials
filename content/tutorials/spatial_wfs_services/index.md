@@ -2,7 +2,7 @@
 title: "Using WFS services in R"
 description: "How to use WFS (vectors/features) GIS services within R scripts"
 authors: [thierryo, hansvancalster, florisvdh]
-date: "2022-04-19"
+date: "2023-08-31"
 categories: ["r"]
 tags: ["gis", "webservice", "r", "maps"]
 bibliography: "../../articles/reproducible_research.bib"
@@ -64,31 +64,32 @@ blogpost](https://friesewoudloper.wordpress.com/2015/05/17/het-bevragen-van-een-
 
 WFS (and WM(T)S) services for Belgium and regions in Belgium:
 
--   [overview of WFS services for Flanders
-    region](https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten)
--   [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
-    which is [also available on
-    gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
--   [overview maintained by DOV
-    Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
--   [Geoportal of the Belgian federal institutions, notably
-    NGI](https://www.geo.be/home?l=en): several of these services can be
-    viewed interactively at the [NGI
-    TopoMapViewer](https://topomapviewer.ngi.be), including the
-    [CartoWeb.be](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/)
-    WMS/WMTS service
+- [overview of WFS services for Flanders
+  region](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/geografische-webdiensten/ons-gis-aanbod/overdrachtdiensten)
+- [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/),
+  which is [also available on
+  gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
+- [overview maintained by DOV
+  Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
+- [Geoportal of the Belgian federal institutions, notably
+  NGI](https://www.geo.be/home?l=en): several of these services can be
+  viewed interactively at the [NGI
+  TopoMapViewer](https://topomapviewer.ngi.be), including the
+  [CartoWeb.be](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/)
+  WMS/WMTS service
+- [KMI meteo data](https://opendata.meteo.be/)
 
 European portals:
 
--   [inspire geoportal](https://inspire-geoportal.ec.europa.eu/):
-    European portal for spatial data - some of which have a WFS service
--   [environmental data for
-    Europe](https://discomap.eea.europa.eu/Index/): many of the products
-    listed have either a WMS or a WFS service
+- [inspire geoportal](https://inspire-geoportal.ec.europa.eu/): European
+  portal for spatial data - some of which have a WFS service
+- [environmental data for
+  Europe](https://discomap.eea.europa.eu/Index/): many of the products
+  listed have either a WMS or a WFS service
 
 Worldwide coverage:
 
--   [spatineo directory](https://directory.spatineo.com/)
+- [spatineo directory](https://directory.spatineo.com/)
 
 # Used packages
 
@@ -99,12 +100,20 @@ library(tidyverse) # a suite of packages for data wrangling, transformation, plo
 library(ows4R) # interface for OGC webservices
 ```
 
+In this tutorial, we take a coding approach to show how to get data from
+a web feature service. You may also be interested in the `inbospatial`
+package, which wraps some of the material presented here in more
+user-friendly functions. The `inbospatial` package has a [separate
+tutorial](https://inbo.github.io/inbospatial/articles/wfs_wcs.html)
+which explains how to get data from web feature and (some) web coverage
+services using these functions.
+
 # Get to know what the service can do with `GetCapabilities`
 
 First of all we need the URL of the service.
 
 ``` r
-wfs_bwk <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
+wfs_bwk <- "https://geo.api.vlaanderen.be/BWK/wfs"
 ```
 
 Next, we append information to the URL address with the aid of
@@ -130,13 +139,13 @@ request <- build_url(url)
 request
 ```
 
-    ## [1] "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=wfs&request=GetCapabilities"
+    ## [1] "https://geo.api.vlaanderen.be/BWK/wfs?service=wfs&request=GetCapabilities"
 
 With `GetCapabilities`, we obtain a complete overview of all metadata
 for the web service.
 
 To see all capabilities, you can visit [the request in the
-webbrowser](https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=wfs&request=GetCapabilities).
+webbrowser](https://geo.api.vlaanderen.be/BWK/wfs?service=wfs&request=GetCapabilities).
 For instance opening the page in the webbrowser and searching for
 “Filter_Capabilities” allows you to see all possible ways to filter the
 data from a WFS layer (e.g. restrict the downloaded data to a specified
@@ -175,8 +184,10 @@ bwk_client
     ##     encode: function (addNS = TRUE, geometa_validate = TRUE, geometa_inspire = FALSE, 
     ##     ERROR: function (text) 
     ##     getCapabilities: function () 
+    ##     getCASUrl: function () 
     ##     getClass: function () 
     ##     getClassName: function () 
+    ##     getConfig: function () 
     ##     getFeatures: function (typeName, ...) 
     ##     getFeatureTypes: function (pretty = FALSE) 
     ##     getHeaders: function () 
@@ -193,13 +204,15 @@ bwk_client
     ##     loggerType: NULL
     ##     namespace: OWSNamespace, R6
     ##     reloadCapabilities: function () 
-    ##     url: https://geoservices.informatievlaanderen.be/overdrachtdi ...
+    ##     url: https://geo.api.vlaanderen.be/BWK/wfs
     ##     verbose.debug: FALSE
     ##     verbose.info: FALSE
     ##     version: 2.0.0
     ##     WARN: function (text) 
     ##     wrap: FALSE
     ##   Private:
+    ##     cas_url: NULL
+    ##     config: request
     ##     fromComplexTypes: function (value) 
     ##     headers: NULL
     ##     pwd: NULL
@@ -301,7 +314,7 @@ bwk_client$getCapabilities()
     ##     serviceProvider: OWSServiceProvider, R6
     ##     serviceVersion: 2.0.0
     ##     system_fields: verbose.info verbose.debug loggerType wrap element names ...
-    ##     url: https://geoservices.informatievlaanderen.be/overdrachtdi ...
+    ##     url: https://geo.api.vlaanderen.be/BWK/wfs
     ##     xmlElement: Capabilities
     ##     xmlExtraNamespaces: NULL
     ##     xmlNamespacePrefix: WFS_1_1
@@ -344,7 +357,7 @@ bwk_client$
     ## [26] "PHAB4"      "HAB5"       "PHAB5"      "HERKHAB"    "HERKPHAB"  
     ## [31] "HABLEGENDE" "SHAPE"
 
-This lists all available fields for the layer “BWK:Bwkhab.”
+This lists all available fields for the layer “BWK:Bwkhab”.
 
 Here is how to get a character vector naming all available operations of
 the WFS:
@@ -515,7 +528,7 @@ We use a different WFS service for which CQL works. First we need to
 know the names of the fields by which we can filter.
 
 ``` r
-wfs_vrbg <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs"
+wfs_vrbg <- "https://geo.api.vlaanderen.be/VRBG/wfs"
 
 vrbg_client <- WFSClient$new(wfs_vrbg, 
                             serviceVersion = "1.1.0")
@@ -541,11 +554,11 @@ wfs_vrbg %>%
   GET()
 ```
 
-    ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs?service=wfs&request=DescribeFeatureType&typeName=VRBG%3ARefprv]
-    ##   Date: 2022-03-15 08:06
+    ## Response [https://geo.api.vlaanderen.be/VRBG/wfs?service=wfs&request=DescribeFeatureType&typeName=VRBG%3ARefprv]
+    ##   Date: 2023-08-31 06:04
     ##   Status: 200
     ##   Content-Type: text/xml; subtype=gml/3.2
-    ##   Size: 1.55 kB
+    ##   Size: 1.53 kB
     ## <?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.or...
     ##   <xsd:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http...
     ##   <xsd:complexType name="RefprvType">
@@ -578,12 +591,12 @@ sf_prov
     ## Simple feature collection with 1 feature and 7 fields
     ## Geometry type: MULTISURFACE
     ## Dimension:     XY
-    ## Bounding box:  xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
-    ## Projected CRS: Belge 1972 / Belgian Lambert 72
-    ## # A tibble: 1 x 8
+    ## Bounding box:  xmin: 21991.63 ymin: 155928.6 xmax: 90410.78 ymax: 229724.6
+    ## Projected CRS: BD72 / Belgian Lambert 72
+    ## # A tibble: 1 × 8
     ##   gml_id    UIDN  OIDN TERRID NAAM       NISCODE NUTS2                     SHAPE
     ## * <chr>    <dbl> <dbl>  <dbl> <chr>      <chr>   <chr>        <MULTISURFACE [m]>
-    ## 1 Refprv.3    14     3    351 West-Vlaa~ 30000   BE25  (POLYGON ((80190.82 2292~
+    ## 1 Refprv.3    20     3    351 West-Vlaa… 30000   BE25  (POLYGON ((80681.53 2276…
 
 Also check out [example
 5](#example-5-extract-feature-data-at-particular-points) for a more
@@ -599,7 +612,9 @@ sf_prov %>%
   st_buffer(dist = 100) # errors
 ```
 
-    ## Error in CPL_geos_op("buffer", x, dist, nQ, numeric(0), logical(0)): Evaluation error: ParseException: Unknown WKB type 12.
+    ## Error in scan(text = lst[[length(lst)]], quiet = TRUE): scan() expected 'a real', got 'ParseException:'
+
+    ## Error in (function (msg) : ParseException: Unknown WKB type 12
 
 ``` r
 sf_prov_buffer <- sf_prov %>% 
@@ -627,12 +642,12 @@ sf_prov %>%
     ## Simple feature collection with 1 feature and 7 fields
     ## Geometry type: POLYGON
     ## Dimension:     XY
-    ## Bounding box:  xmin: 21991.38 ymin: 155928.6 xmax: 90416.92 ymax: 229719.6
-    ## Projected CRS: Belge 1972 / Belgian Lambert 72
-    ## # A tibble: 1 x 8
+    ## Bounding box:  xmin: 21991.63 ymin: 155928.6 xmax: 90410.78 ymax: 229724.6
+    ## Projected CRS: BD72 / Belgian Lambert 72
+    ## # A tibble: 1 × 8
     ##   gml_id    UIDN  OIDN TERRID NAAM       NISCODE NUTS2                     SHAPE
     ##   <chr>    <dbl> <dbl>  <dbl> <chr>      <chr>   <chr>             <POLYGON [m]>
-    ## 1 Refprv.3    14     3    351 West-Vlaa~ 30000   BE25  ((80190.82 229279.7, 801~
+    ## 1 Refprv.3    20     3    351 West-Vlaa… 30000   BE25  ((80681.53 227626.5, 807…
 
 More generally however, if a row of the `MULTISURFACE` object
 corresponds to either a `MULTIPOLYGON` (collection of polygons) or a
@@ -667,16 +682,16 @@ sf_prov_all %>%  # 5 MULTISURFACE features
     ## Simple feature collection with 5 features and 7 fields
     ## Geometry type: MULTIPOLYGON
     ## Dimension:     XY
-    ## Bounding box:  xmin: 21991.38 ymin: 153058.3 xmax: 258871.8 ymax: 244027.2
-    ## Projected CRS: Belge 1972 / Belgian Lambert 72
-    ## # A tibble: 5 x 8
+    ## Bounding box:  xmin: 21991.63 ymin: 153058.3 xmax: 258871.8 ymax: 244027.2
+    ## Projected CRS: BD72 / Belgian Lambert 72
+    ## # A tibble: 5 × 8
     ##   gml_id    UIDN  OIDN TERRID NAAM       NISCODE NUTS2                  geometry
     ##   <chr>    <dbl> <dbl>  <dbl> <chr>      <chr>   <chr>        <MULTIPOLYGON [m]>
-    ## 1 Refprv.1    12     2    357 Antwerpen  10000   BE21  (((178131.2 244010.4, 17~
-    ## 2 Refprv.2    13     4    359 Vlaams Br~ 20001   BE24  (((200484.9 193541, 2004~
-    ## 3 Refprv.3    14     3    351 West-Vlaa~ 30000   BE25  (((80190.82 229279.7, 80~
-    ## 4 Refprv.4    16     1    355 Limburg    70000   BE22  (((231494.3 219142.5, 23~
-    ## 5 Refprv.5    17     5    356 Oost-Vlaa~ 40000   BE23  (((145735.2 220358.3, 14~
+    ## 1 Refprv.1    18     2    357 Antwerpen  10000   BE21  (((178136.3 244009.2, 17…
+    ## 2 Refprv.2    19     4    359 Vlaams Br… 20001   BE24  (((200484.9 193541, 2004…
+    ## 3 Refprv.3    20     3    351 West-Vlaa… 30000   BE25  (((80681.53 227626.5, 80…
+    ## 4 Refprv.4    21     1    355 Limburg    70000   BE22  (((231494.3 219142.5, 23…
+    ## 5 Refprv.5    22     5    356 Oost-Vlaa… 40000   BE23  (((145735.2 220358.3, 14…
 
 ## Example 3: restrict to a bounding box
 
@@ -715,8 +730,8 @@ st_layers(request)
 
     ## Driver: GML 
     ## Available layers:
-    ##   layer_name geometry_type features fields
-    ## 1     Bwkhab Curve Polygon      670     32
+    ##   layer_name geometry_type features fields                  crs_name
+    ## 1     Bwkhab Curve Polygon      670     32 BD72 / Belgian Lambert 72
 
 ``` r
 bwk_hallerbos <- read_sf(request)
@@ -764,12 +779,12 @@ GET(url = request,
     write_disk(file))
 ```
 
-    ## Response [https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs?service=WFS&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
-    ##   Date: 2022-03-15 08:07
+    ## Response [https://geo.api.vlaanderen.be/BWK/wfs?service=WFS&request=GetFeature&typename=BWK%3ABwkhab&bbox=142600%2C153800%2C146000%2C156900&outputFormat=application%2Fjson]
+    ##   Date: 2023-08-31 06:04
     ##   Status: 200
     ##   Content-Type: application/json;charset=UTF-8
-    ##   Size: 821 kB
-    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpiCPe1e\file1ea4763942e4.geojson
+    ##   Size: 859 kB
+    ## <ON DISK>  C:\Users\HANS_V~1\AppData\Local\Temp\RtmpIVvgfZ\filebd827562159.geojson
 
 At this point, all features are downloaded and can be used in R as we
 would with any other local file. So we need to load the file with
@@ -811,10 +826,10 @@ y_lam <- 212093.44
 From this point we know the data, so we can verify the result (in
 Dutch):
 
--   Bodemtype: s-Pgp3(v)
--   Bodemserie: Pgp
--   Textuurklasse: licht zandleem
--   Drainageklasse: uiterst nat, gereduceerd
+- Bodemtype: s-Pgp3(v)
+- Bodemserie: Pgp
+- Textuurklasse: licht zandleem
+- Drainageklasse: uiterst nat, gereduceerd
 
 Hence, we now want to extract these soil properties from the WFS, for
 the coordinates defined above.
@@ -838,26 +853,26 @@ the service is defined in the
 description. This can look a bit overwhelming at the start, but is a
 matter of looking for some specific elements of the (XML) document:
 
--   `service` (WFS) and `request` (GetFeature) are mandatory fields (see
-    below); `version` (1.1.0) is optional
--   `typeName`: Look at the different `<FeatureType...` enlisted and
-    pick the `<Name>` of the one you’re interested in. In this
-    particular case `bodemkaart:bodemtypes` is the only one available.
--   `outputFormat`: The supported output formats are enlisted in
-    `<ows:Parameter name="outputFormat">`. As the service provides CSV
-    as output, this is a straightforward option. `json` is another
-    popular one.
--   `propertyname`: A list of the attribute table fields (cfr. supra). A
-    full list of the Flanders soil map is provided
-    [here](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType).
--   We also define the `CRS`, using the [EPSG
-    code](http://spatialreference.org/).
--   `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS`
-    of the WFS `geom` and our `POINT` coordinate. The operators are
-    enlisted in the `<ogc:SpatialOperators>` field. Note that `geom` is
-    the name of the geometry field (in this example `geom` but other web
-    services may use a different name such as `SHAPE`, `geometry` or
-    `the_geom`).
+- `service` (WFS) and `request` (GetFeature) are mandatory fields (see
+  below); `version` (1.1.0) is optional
+- `typeName`: Look at the different `<FeatureType...` enlisted and pick
+  the `<Name>` of the one you’re interested in. In this particular case
+  `bodemkaart:bodemtypes` is the only one available.
+- `outputFormat`: The supported output formats are enlisted in
+  `<ows:Parameter name="outputFormat">`. As the service provides CSV as
+  output, this is a straightforward option. `json` is another popular
+  one.
+- `propertyname`: A list of the attribute table fields (cfr. supra). A
+  full list of the Flanders soil map is provided
+  [here](https://www.dov.vlaanderen.be/geoserver/bodemkaart/bodemtypes/wfs?request=DescribeFeatureType).
+- We also define the `CRS`, using the [EPSG
+  code](http://spatialreference.org/).
+- `CQL_FILTER`: Define the spatial operator, in this case `INTERSECTS`
+  of the WFS `geom` and our `POINT` coordinate. The operators are
+  enlisted in the `<ogc:SpatialOperators>` field. Note that `geom` is
+  the name of the geometry field (in this example `geom` but other web
+  services may use a different name such as `SHAPE`, `geometry` or
+  `the_geom`).
 
 Formatting all this information in a query and executing the request
 (`GET`) towards the service:
@@ -979,7 +994,7 @@ In this example we show how to deal with this situation. A technique
 called ‘pagination’ can be used to obtain all features one is interested
 in by sending multiple requests to the server. The service is available
 from version ‘2.0.0’ onwards. Servers running older versions may or may
-not have support for ‘pagination.’
+not have support for ‘pagination’.
 
 We will use the ‘Watervlakken’ WFS service for this example.
 

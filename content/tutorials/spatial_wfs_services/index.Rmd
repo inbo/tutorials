@@ -45,10 +45,11 @@ Some of the material presented in this tutorial benefitted from a tutorial prese
 
 WFS (and WM(T)S) services for Belgium and regions in Belgium:
 
-- [overview of WFS services for Flanders region](https://overheid.vlaanderen.be/Webdiensten-Overdrachtdiensten)
+- [overview of WFS services for Flanders region](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/geografische-webdiensten/ons-gis-aanbod/overdrachtdiensten)
 - [overview compiled by Michel Stuyts](https://wfs.michelstuyts.be/), which is [also available on gitlab](https://gitlab.com/GIS-projects/Belgium-WFS/)
 - [overview maintained by DOV Vlaanderen](https://dov.vlaanderen.be/page/interessante-webservices)
 - [Geoportal of the Belgian federal institutions, notably NGI](https://www.geo.be/home?l=en): several of these services can be viewed interactively at the [NGI TopoMapViewer](https://topomapviewer.ngi.be), including the [CartoWeb.be](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/) WMS/WMTS service
+- [KMI meteo data](https://opendata.meteo.be/)
 
 European portals:
 
@@ -67,15 +68,18 @@ library(sf) # simple features packages for handling vector GIS data
 library(httr) # generic webservice package
 library(tidyverse) # a suite of packages for data wrangling, transformation, plotting, ...
 library(ows4R) # interface for OGC webservices
-
 ```
+
+In this tutorial, we take a coding approach to show how to get data from a web feature service.
+You may also be interested in the `inbospatial` package, which wraps some of the material presented here in more user-friendly functions.
+The `inbospatial` package has a [separate tutorial](https://inbo.github.io/inbospatial/articles/wfs_wcs.html) which explains how to get data from web feature and (some) web coverage services using these functions.
 
 # Get to know what the service can do with `GetCapabilities`
 
 First of all we need the URL of the service. 
 
 ```{r}
-wfs_bwk <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/BWK/wfs"
+wfs_bwk <- "https://geo.api.vlaanderen.be/BWK/wfs"
 ```
 
 Next, we append information to the URL address with the aid of `httr::parse_url` and `httr::build_url`.
@@ -293,7 +297,7 @@ First we need to know the names of the fields by which we can filter.
 
 
 ```{r}
-wfs_vrbg <- "https://geoservices.informatievlaanderen.be/overdrachtdiensten/VRBG/wfs"
+wfs_vrbg <- "https://geo.api.vlaanderen.be/VRBG/wfs"
 
 vrbg_client <- WFSClient$new(wfs_vrbg, 
                             serviceVersion = "1.1.0")
