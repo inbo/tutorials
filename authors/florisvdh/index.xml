@@ -6,7 +6,17 @@
     <description>Recent content in florisvdh on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using WFS services in R</title>
+      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
+The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
+    </item>
+    
     <item>
       <title>Set up Zenodo - GitHub integration</title>
       <link>https://inbo.github.io/tutorials/tutorials/git_zenodo/</link>
@@ -15,16 +25,6 @@
       <guid>https://inbo.github.io/tutorials/tutorials/git_zenodo/</guid>
       <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
 GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
-    </item>
-    
-    <item>
-      <title>Using WFS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
-      <pubDate>Tue, 19 Apr 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
-The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
