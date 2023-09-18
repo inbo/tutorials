@@ -1,12 +1,13 @@
 ---
-title: "The Military Grid Reference System (MGRS) and the UTM grid: not quite the same"
+title: "The UTM grid and the MGRS grid: not quite the same"
 description: ""
 authors: [florisvdh]
-date: 2023-08-25
+date: 2023-09-18
 categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
-csl: '/tmp/Rtmpv67dk7/research-institute-for-nature-and-forest.csl'
+link-citations: true
+csl: '/tmp/RtmpKG9BfJ/research-institute-for-nature-and-forest.csl'
 output: 
   md_document:
     preserve_yaml: true
@@ -15,33 +16,34 @@ output:
 
 #### Summary
 
-Grids are widely used in biodiversity monitoring, either in data
-collection or in data processing and mapping. Authorative definitions of
-widely used grids and grid reference systems are not globally
-coordinated though, contrary to the case of the EPSG-dataset for
-coordinate reference systems. Here I explain differences between the UTM
-and MGRS grids, provide references to their full definition and refer to
-some software implementations for MGRS. The actual definitions are not
-given here since the primary aim is to draw attention to important
-properties and differences. For the same reason, the UPS portion of MGRS
-is not further explained here.
+Grids are widely used in biodiversity monitoring to define the basic
+spatial units for data collection, data processing or mapping.
+Authorative definitions of widely used grids and grid reference systems
+are not globally coordinated though, contrary to the case of the
+EPSG-dataset for coordinate reference systems. Here I explain
+differences between the UTM and MGRS grids, provide references to their
+full definition and refer to some software implementations for MGRS. The
+full definitions are not given here since the primary aim is to draw
+attention to important properties and differences. For the same reason,
+the UPS portion of MGRS is not further explained here.
 
-This post results from a limited literature study on these topics.
+This post results from a limited literature study on these topics (see
+[Bibliography](#bibliography)).
 
 In short:
 
-- The UTM grid and the MGRS grid outside the North and South Pole both
-  are grids derived from the UTM (Universal Transverse Mercator) map
-  projection system. Both grids have a world-wide coverage, with
-  exception of the polar regions in the case of the UTM grid. In the
-  polar regions, the MGRS derives its grid from the UPS (Universal Polar
-  Stereographic) map projection.
+- The UTM grid and the MGRS grid outside the polar regions are both
+  derived from the UTM (Universal Transverse Mercator) map projection
+  system. Both grids have a world-wide coverage, with exception of the
+  polar regions in the case of the UTM grid. In the polar regions, the
+  MGRS derives its grid from the UPS (Universal Polar Stereographic) map
+  projection.
 - UTM grid references consist solely of digits (Arabic numerals), while
   MGRS grid references are alphanumeric (combination of digits & Latin
   characters).
 - When decreasing the precision of a position, coordinates are to be
   rounded while in (UTM and MGRS) grid references the numeric parts
-  representing Easting and Northing are to be truncated.
+  representing easting and northing are to be truncated.
 - Projected coordinate reference systems (CRSs) specify a geodetic datum
   so that coordinates can be linked to a physical location on the Earth
   surface. Likewise, you need to specify (and be aware of) the geodetic
@@ -50,12 +52,16 @@ In short:
 #### Terminological notes
 
 The NGA (National Geospatial-Intelligence Agency) Office of Geomatics
-(<https://earth-info.nga.mil>), within the US Department of Defense,
+(<https://earth-info.nga.mil>), part of the US Department of Defense,
 maintains definitions of the UTM map projection system and the MGRS grid
-(National Geospatial-Intelligence Agency, 2014a), as did its predecessor
-organisations since the inception of these systems in the 1940s
-(Department of the Army, 1956, 2001; Palombo, 2021; Stott, 1977). Their
-usage of the term ‘UTM grid’ is not distinguished from the UTM map
+([National Geospatial-Intelligence Agency,
+2014a](#ref-national_geospatial-intelligence_agency_universal_2014)), as
+did its predecessor organisations since the inception of these systems
+in the 1940s ([Department of the Army,
+1956](#ref-department_of_the_army_map_1956),
+[2001](#ref-department_of_the_army_map_2001); [Palombo,
+2021](#ref-palombo_military_2021); [Stott, 1977](#ref-stott_utm_1977)).
+Their usage of the term ‘UTM grid’ is not distinguished from the UTM map
 projection system, hence comes down to using numeric CRS coordinates in
 metres.
 
@@ -68,53 +74,56 @@ grid’ is sometimes erroneously used to refer to the ‘MGRS grid’, to
 which it is related.
 
 Confusion between UTM and MGRS is further compounded by the fact that
-some (civil) sources that distinguish both, erroneously describe the
-division of UTM zones with 8° wide latitude bands as being part of the
-UTM map projection system, while this belongs solely to the MGRS.
+some (civil) sources that distinguish these grids, erroneously describe
+the division of UTM zones with 8° wide latitude bands as being part of
+the UTM map projection system, while this belongs solely to the MGRS.
 
 ## Introduction
 
 In biodiversity monitoring the Military Grid Reference System (MGRS) is
 used a lot, although sometimes it is confusingly referred as ‘the UTM
 grid’. Example projects that use this spatial reference system are the
-Atlas Florae Europaea (Lampinen, 2013) and the European Invertebrate
-Survey (van Nieukerken, 1991; van Veen, 2000). In Belgium various
-faunistic inventories use this grid.
+Atlas Florae Europaea ([Lampinen, 2013](#ref-lampinen_utm_2013)) and the
+European Invertebrate Survey ([van Nieukerken,
+1991](#ref-van_nieukerken_utm_1991); [van Veen,
+2000](#ref-van_veen_eis-nieuws_2000)). In Belgium various faunistic
+inventories use this grid.
 
 Coordinate reference systems
 ([CRSs](../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background))
 that are widely used, e.g. on regional, national or global level, have
 obtained standardized definitions in a coordinated manner (e.g. in the
-[EPSG dataset](https://www.epsg.org/)). However, grid reference
+[EPSG dataset](https://epsg.org/)). However, grid reference
 systems—associated with a projected CRS, a map projection [^1], or sets
 of these—seem not as well globally coordinated.
 
 A ‘grid’ in the context of maps refers to the horizontal and vertical
 *lines* chosen in the cartesian coordinate system of a projected CRS,
 usually in a regular manner (equal distance between all lines). It may
-also refer to the rectangular cells that emerge from these lines (Iliffe
-& Lott, 2008; Stott, 1977). The distance between the grid lines on a map
-depends on the used map scale.
+also refer to the rectangular cells that emerge from these lines
+([Iliffe & Lott, 2008](#ref-iliffe_datums_2008); [Stott,
+1977](#ref-stott_utm_1977)). The distance between the grid lines on a
+map depends on the used map scale.
 
 ## UTM projection, UTM grid and MGRS grid
 
-### UTM (Universal Transverse Mercator) projection
+### UTM projection
 
 UTM (Universal Transverse Mercator) was developed during World War II
-and subsequently refined by the US Army (Buchroithner & Pfahlbusch,
-2017).
+and subsequently refined by the US Army ([Buchroithner & Pfahlbusch,
+2017](#ref-buchroithner_geodetic_2017)).
 
 UTM is a map projection system for the Earth, composed of 120 single
 Transverse Mercator map projections (conformal, transverse cylindrical
 projection) for 60 ‘**UTM zones**’ (numbered 1 - 60), each 6 degrees of
 longitude wide and reaching from 80°S to 84°N (originally 80°N;
-Department of the Army (1956)). 120 map projections are defined since
-for each UTM zone a separate map projection is needed for the northern
-and the southern hemisphere, the only difference being the false
-northing value. For example, the largest part of Belgium (and the whole
-of Flanders) is situated in UTM zone 31, and there the map projection
-‘UTM zone 31N’ applies [^2], with ‘N’ referring to the northern
-hemisphere.
+Department of the Army ([1956](#ref-department_of_the_army_map_1956))).
+120 map projections are defined since for each UTM zone a separate map
+projection is needed for the northern and the southern hemisphere, the
+only difference being the false northing value. For example, the largest
+part of Belgium (and the whole of Flanders) is situated in UTM zone 31,
+and there the map projection ‘UTM zone 31N’ applies [^2], with ‘N’
+referring to the northern hemisphere.
 
 UTM projects geographical coordinates (degrees) to cartesian coordinates
 (**meters**), so the result is XY coordinates like in other map
@@ -123,8 +132,9 @@ covers the whole range of 0° to 80° or 84° latitude.
 
 In the case of a lower precision, coordinates are rounded (not
 truncated) following the usual rounding rules of science and engineering
-(National Geospatial-Intelligence Agency, 2014a), as would happen in
-other coordinate systems.
+([National Geospatial-Intelligence Agency,
+2014a](#ref-national_geospatial-intelligence_agency_universal_2014)), as
+would happen in other coordinate systems.
 
 As an example, we calculate the projected X and Y coordinates of a point
 in Belgium using the `sf` package in R. The CRS uses the geodetic datum
@@ -151,22 +161,24 @@ description of a ‘grid’ in the context of mapping (see
 The UTM grid lines are labelled with the corresponding coordinate
 values, often expressed as kilometers except in the SE corner of the map
 where full coordinates are given in meters, as explained by Stott
-(1977), and by National Geospatial-Intelligence Agency (2014b) in the
-context of the MGRS system. In the case of kilometer grid labels, the
-(anterior) digits *before* last two (principal) digits are printed in
-superscript as they generally don’t change within the map. This approach
-matches general rules of printing the various rectangular grids that
-emerged since World War I.
+([1977](#ref-stott_utm_1977)), and by National Geospatial-Intelligence
+Agency
+([2014b](#ref-national_geospatial-intelligence_agency_universal_2014-1))
+in the context of the MGRS system. In the case of kilometer grid labels,
+the (anterior) digits *before* last two (principal) digits are printed
+in superscript as they generally don’t change within the map. This
+approach matches general rules of printing the various rectangular grids
+that emerged since World War I.
 
 The UTM grid referencing system to identify *grid cells* at a specific
 resolution follows the following numerical syntax, as explained on civil
-maps that use it (Stott, 1977) [^4]:
+maps that use it ([Stott, 1977](#ref-stott_utm_1977)) [^4]:
 
     [UTM zone number] [Truncated integer X-coordinate] [Truncated integer Y-coordinate]
 
 The spaces can be omitted or kept, or replaced by a point or a slash.
 The integers can be truncated at the required precision, hence
-representing 10<sup>x</sup> meters. As the coordinates are always
+representing 10<sup>p</sup> meters. As the coordinates are always
 truncated (not rounded) to integers, this effectively means that a UTM
 grid reference represents a square cell with a size that reflects the
 chosen precision, potentially clipped by the UTM zone border. For cells
@@ -179,10 +191,10 @@ zone number and anterior digits, e.g. if the context is within the area
 of one map. When not dropping prefixes, the UTM grid reference is unique
 at the global level.
 
-The concepts of UTM grid portrayal on maps, and of the UTM grid
-referencing system with anterior and primary digits, match those of
-other rectangular grids that have also long been in use on civil maps,
-and these are all named ‘civil’ grids by Stott (1977).
+The concepts of UTM grid portrayal on maps and UTM grid referencing with
+anterior and principal digits match those of other rectangular grids
+that have also long been in use on civil maps, and these are all named
+‘civil’ grids by Stott ([1977](#ref-stott_utm_1977)).
 
 Note that the UTM grid defines *no* subdivisions of the cartesian
 coordinate system by means of latitude bands, nor does it describe an
@@ -195,10 +207,12 @@ specification.
 The Military Grid Reference System (MGRS) was designed by the end of the
 1940s by the US Army and is used by NATO militaries for locating
 positions worldwide up to 1 m precision. The MGRS specification is
-maintained by the NGA Office of Geomatics [^5] (National
-Geospatial-Intelligence Agency, 2014a). Best use the foregoing reference
-when referring to the MGRS. Other resources describe the MGRS too,
-including Wikipedia contributors (2023).
+maintained by the NGA Office of Geomatics [^5] ([National
+Geospatial-Intelligence Agency,
+2014a](#ref-national_geospatial-intelligence_agency_universal_2014)).
+Best use the foregoing reference when referring to the MGRS. Other
+resources describe the MGRS too, including Wikipedia contributors
+([2023](#ref-wikipedia_contributors_military_2023)).
 
 Biodiversity monitoring and perhaps other projects sometimes claim to
 use UTM grid references, while they actually use MGRS grid references.
@@ -217,8 +231,9 @@ using a different referencing (geocoding) system:
 
 - In MGRS the UTM grid cell pattern is *intersected* by latitude bands
   of generally 8° wide (starting at the equator). Intersecting [UTM
-  zones](#utm) with latitude bands results in large cells called ***MGRS
-  grid zones*** of generally 6° longitude by 8° latitude large.
+  zones](#utm-projection) with latitude bands results in large cells
+  called ***MGRS grid zones*** of generally 6° longitude by 8° latitude
+  large.
 - In MGRS, some of the MGRS grid zones are wider or narrower than 6
   longitudinal degrees. This has been done to avoid grid zone junctions
   in specific areas, e.g. Bergen and Oslo (Norway) belong to the same
@@ -242,11 +257,12 @@ to `31U ES 56 61` at 1 km precision.
 
 The spaces can be omitted or kept, but preferably omitted in a
 computational environment. The integer coordinates are truncated
-depending on the required precision, up to *zero* digits, with the
-*maximum* of 5 digits per coordinate corresponding to a precision of 1
-meter (i.e. the unit of the UTM coordinate system). Consequently, MGRS
-grid references need less digits per coordinate for 1 m precision than
-UTM grid references, and this is seen as an advantage of MGRS.
+depending on the required precision, up to *zero* digits (precision 100
+km), with the *maximum* of 5 digits per coordinate corresponding to a
+precision of 1 meter (i.e. the unit of the UTM coordinate system).
+Consequently, MGRS grid references need less digits per coordinate for 1
+m precision than UTM grid references, and this is seen as an advantage
+of MGRS.
 
 In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference
 is built as follows:
@@ -282,7 +298,7 @@ Projected CRSs combine a map projection (such as ‘UTM 31N’) with a
 geodetic datum that relates actual positions on the Earth surface to the
 (unprojected, ellipsoidal) geodetic coordinate system, which also
 implies defining the ellipsoid and prime meridian. The geodetic datum is
-a property of the geodetic CRS.
+a property of the geodetic CRS associated with the projected CRS.
 
 This also means that without a geodetic datum, you can’t determine the
 physical location on the Earth surface that corresponds to a pair of UTM
@@ -516,8 +532,9 @@ Wikipedia, The Free Encyclopedia.
 
 [^4]: This UTM grid reference notation is also followed in the 2001
     version of US Army’s Field Manual 3-25.26 (Map Reading and Land
-    Navigation) for the notation of UTM coordinates (Department of the
-    Army, 2001), of course without truncation.
+    Navigation) for the notation of UTM coordinates ([Department of the
+    Army, 2001](#ref-department_of_the_army_map_2001)), of course
+    without truncation.
 
 [^5]: URL: <https://earth-info.nga.mil>.
 
