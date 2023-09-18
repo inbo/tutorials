@@ -26,40 +26,40 @@ First, we define some WMS URLs for Flanders and Belgium to play with:
 
 ``` r
 # Flanders:
-wms_grb <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms"
-wms_ortho <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/OMWRGBMRVL/wms"
-wms_inbo <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/INBO/wms"
-wms_hunting <- "https://geoservices.informatievlaanderen.be/raadpleegdiensten/Jacht/wms"
+wms_grb <- "https://geo.api.vlaanderen.be/GRB-basiskaart/wms"
+wms_ortho <- "https://geo.api.vlaanderen.be/OMWRGBMRVL/wms"
+wms_inbo <- "https://geo.api.vlaanderen.be/INBO/wms"
+wms_hunting <- "https://geo.api.vlaanderen.be/Jacht/wms"
 # Belgium:
 wms_cartoweb_be <- "https://cartoweb.wms.ngi.be/service"
 wms_ortho_be <- "https://wms.ngi.be/inspire/ortho/service"
 ```
 
--   `wms_grb` links to the WMS of the
-    [GRB-basiskaart](http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151),
-    the Flemish cadastral map. It depicts land parcels, buildings,
-    watercourses, roads and railroads.
+- `wms_grb` links to the WMS of the
+  [GRB-basiskaart](http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151),
+  the Flemish cadastral map. It depicts land parcels, buildings,
+  watercourses, roads and railroads.
 
--   `wms_ortho` contains a mosaic of recent
-    [orthophotos](http://www.geopunt.be/catalogus/webservicefolder/418e8e4a-12c1-80a8-8306-fcf4-799c-581d-c4e38594)
-    made during the winter. The layer `Ortho` contains the images, the
-    layer `Vliegdagcontour` detail on the time when the pictures were
-    taken.
+- `wms_ortho` contains a mosaic of recent
+  [orthophotos](http://www.geopunt.be/catalogus/webservicefolder/418e8e4a-12c1-80a8-8306-fcf4-799c-581d-c4e38594)
+  made during the winter. The layer `Ortho` contains the images, the
+  layer `Vliegdagcontour` detail on the time when the pictures were
+  taken.
 
--   `wms_inbo` is a WMS providing [several layers]().
+- `wms_inbo` is a WMS providing [several layers]().
 
--   `wms_hunting` displays [hunting
-    grounds](http://www.geopunt.be/catalogus/webservicefolder/525f1e17-c7d8-3bf3-550c-82c4-7fb3-e97c-a9bc3a6b)
-    in Flanders.
+- `wms_hunting` displays [hunting
+  grounds](http://www.geopunt.be/catalogus/webservicefolder/525f1e17-c7d8-3bf3-550c-82c4-7fb3-e97c-a9bc3a6b)
+  in Flanders.
 
--   `wms_cartoweb_be` provides several [cartographic layers from the
-    National Geographic
-    Institute](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/)
-    (NGI).
+- `wms_cartoweb_be` provides several [cartographic layers from the
+  National Geographic
+  Institute](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/)
+  (NGI).
 
--   `wms_ortho_be` provides recent [orthophotos for the whole Belgian
-    territory](https://www.geo.be/catalog/details/29238f19-ac79-4a4a-a797-5490226381ec?l=en),
-    compiled by NGI.
+- `wms_ortho_be` provides recent [orthophotos for the whole Belgian
+  territory](https://www.geo.be/catalog/details/29238f19-ac79-4a4a-a797-5490226381ec?l=en),
+  compiled by NGI.
 
 In the WFS tutorial, we present a handy [**overview** of
 websites](../spatial_wfs_services/#useful-overviews-of-web-feature-services)
@@ -83,8 +83,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map with the GRB-basiskaart as
-background](index_files/figure-gfm/unnamed-chunk-4-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-4-1.png"
+alt="Leaflet map with the GRB-basiskaart as background" />
+<figcaption aria-hidden="true">Leaflet map with the GRB-basiskaart as
+background</figcaption>
+</figure>
 
 *Note: run the code to see this and the following interactive maps.*
 
@@ -98,8 +102,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map with the orthophoto mosaic as
-background](index_files/figure-gfm/unnamed-chunk-5-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-5-1.png"
+alt="Leaflet map with the orthophoto mosaic as background" />
+<figcaption aria-hidden="true">Leaflet map with the orthophoto mosaic as
+background</figcaption>
+</figure>
 
 ``` r
 leaflet() %>% 
@@ -111,8 +119,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map with the potential natural
-vegetation](index_files/figure-gfm/unnamed-chunk-6-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-6-1.png"
+alt="Leaflet map with the potential natural vegetation" />
+<figcaption aria-hidden="true">Leaflet map with the potential natural
+vegetation</figcaption>
+</figure>
 
 ``` r
 leaflet() %>% 
@@ -124,8 +136,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map of the topographic CartoWeb layer. At zoom level
-15.](index_files/figure-gfm/unnamed-chunk-7-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-7-1.png"
+alt="Leaflet map of the topographic CartoWeb layer. At zoom level 15." />
+<figcaption aria-hidden="true">Leaflet map of the topographic CartoWeb
+layer. At zoom level 15.</figcaption>
+</figure>
 
 Setting another zoom level of the CartoWeb service triggers the display
 of another topographic map. Of course you can do that interactively with
@@ -141,8 +157,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map of the topographic CartoWeb layer. At zoom level
-12.](index_files/figure-gfm/unnamed-chunk-8-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-8-1.png"
+alt="Leaflet map of the topographic CartoWeb layer. At zoom level 12." />
+<figcaption aria-hidden="true">Leaflet map of the topographic CartoWeb
+layer. At zoom level 12.</figcaption>
+</figure>
 
 # Combining multiple layers
 
@@ -159,8 +179,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map of hunting grounds with the OpenStreetMap in the
-background](index_files/figure-gfm/unnamed-chunk-9-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-9-1.png"
+alt="Leaflet map of hunting grounds with the OpenStreetMap in the background" />
+<figcaption aria-hidden="true">Leaflet map of hunting grounds with the
+OpenStreetMap in the background</figcaption>
+</figure>
 
 By adding `addWMSTiles()` multiple times, several WMSs can be displayed
 on top of each other.
@@ -188,9 +212,12 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map with the GRB-basiskaart, hunting ground and the
-OpenStreetMap (OSM) as
-background](index_files/figure-gfm/unnamed-chunk-10-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-10-1.png"
+alt="Leaflet map with the GRB-basiskaart, hunting ground and the OpenStreetMap (OSM) as background" />
+<figcaption aria-hidden="true">Leaflet map with the GRB-basiskaart,
+hunting ground and the OpenStreetMap (OSM) as background</figcaption>
+</figure>
 
 The `overlay` layer of the NGI CartoWeb service is aimed at higher zoom
 levels and is useful to put on top of a map. Here we take the NGI
@@ -217,6 +244,9 @@ leaflet() %>%
   )
 ```
 
-![Leaflet map with the Belgian orthophoto mosaic as background and a
-topographic overlay on
-top](index_files/figure-gfm/unnamed-chunk-11-1.png)
+<figure>
+<img src="index_files/figure-gfm/unnamed-chunk-11-1.png"
+alt="Leaflet map with the Belgian orthophoto mosaic as background and a topographic overlay on top" />
+<figcaption aria-hidden="true">Leaflet map with the Belgian orthophoto
+mosaic as background and a topographic overlay on top</figcaption>
+</figure>
