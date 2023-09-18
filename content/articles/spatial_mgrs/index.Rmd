@@ -14,6 +14,39 @@ output:
     variant: gfm+footnotes
 ---
 
+```{r setup, include=FALSE}
+library(sf)
+library(stars)
+library(ggplot2)
+library(dplyr)
+library(rnaturalearth)
+knitr::opts_chunk$set(echo = FALSE, fig.align="center")
+theme_set(theme_bw())
+theme_update(
+  panel.background = element_blank(),
+  panel.ontop = TRUE,
+  panel.grid = element_line(colour = "grey40"),
+  axis.title = element_blank()
+)
+countries <- ne_countries(scale = "medium", continent = "Europe", returnclass = "sf")
+countries <- st_transform(countries, "EPSG:3035")
+world <- ne_countries(returnclass = "sf")
+world <- st_transform(world, "ESRI:54032")
+```
+
+```{r eval=FALSE, include=FALSE}
+provinces <- httr::parse_url("https://geo.api.vlaanderen.be/VRBG/wfs") |>
+  purrr::list_merge(query = list(request = "GetFeature",
+                                 typeName = "VRBG:Refprv",
+                                 srsName = "EPSG:3812")) |>
+  httr::build_url() |>
+  read_sf(crs = 3812)
+st_write(provinces, "provinces.gpkg")
+```
+
+```{r include=FALSE}
+provinces <- read_sf("provinces.gpkg")
+```
 
 
 #### Summary
@@ -60,6 +93,27 @@ The distance between the grid lines on a map depends on the used map scale.
 
 [^map_projection]: A map projection defines the conversion from geodetic to projected coordinates (geodetic coordinate system (CS, not CRS) + the projection (conversion) method + numeric projection (conversion) parameters), but without specifying the geodetic datum.
 
+
+```{r grid, fig.cap="A map of Europe in the projected CRS 'EPSG:3035' (ETRS89-extended / LAEA Europe). The grid is from the same CRS."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") +
+  coord_sf(datum = "EPSG:3035", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
+```
+
+```{r grid2, fig.cap="The same map of Europe in the projected CRS 'EPSG:3035'. The grid however is from 'EPSG:3034' (ETRS89-extended / LCC Europe)."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") +
+  coord_sf(datum = "EPSG:3034", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
+```
+
+```{r graticule, fig.cap="'Grid lines' of geographic CRSs are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' (ETRS89)."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  coord_sf(datum = "EPSG:4258", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
+```
+
+
+
 ## UTM projection, UTM grid and MGRS grid
 
 ### UTM projection
@@ -73,6 +127,43 @@ For example, the largest part of Belgium (and the whole of Flanders) is situated
 [^31N]: OGC URN identifier of map projection [UTM zone 31N](https://epsg.org/conversion_16031/UTM-zone-31N.html): `urn:ogc:def:coordinateOperation:EPSG::16031`. Using [`projinfo`](https://proj.org/en/latest/apps/projinfo.html), you can compare with `urn:ogc:def:coordinateOperation:EPSG::16131` for map projection [UTM zone 31S](https://epsg.org/conversion_16131/UTM-zone-31S.html).
 More information about OGC URN identifiers can be found in the [OGC URN policy](https://www.ogc.org/about-ogc/policies/ogc-urn-policy/) and more extensively in the OGC Best Practice 'Definition identifier URNs in OGC namespace', the latest version of which can be found on the [OGC Best Practices](https://www.ogc.org/standards/bp/) webpage.
 
+
+```{r utm-zones-world, fig.cap="A map centered on Greenwich, showing how meridians define the borders of UTM zones.", fig.height=7}
+utm_zones <- 
+  tibble(x = seq(-57, 93, 6), y = 36, zone = 21:46) |> 
+  st_as_sf(coords = c("x", "y"), crs = 4258)
+ggplot(data = world) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  coord_sf(datum = "EPSG:4258", xlim = c(-3e6, 4e6), ylim = c(-4e6, 7e6)) +
+  geom_sf_label(
+    data = utm_zones, 
+    aes(label = zone), 
+    label.size = 0,
+    fill = NA
+  ) +
+  scale_x_continuous(breaks = seq(-60, 90, 6)) +
+  scale_y_continuous(breaks = -85)
+```
+
+```{r utm-zones-europe, fig.cap="UTM zones in the European area. The UTM zones are narrower in the north."}
+utm_zones <- 
+  tibble(x = seq(-57, 93, 6), y = 55, zone = 21:46) |> 
+  st_as_sf(coords = c("x", "y"), crs = 4258)
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  coord_sf(datum = "EPSG:4258", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6)) +
+  geom_sf_label(
+    data = utm_zones, 
+    aes(label = zone), 
+    label.size = 0,
+    size = 6,
+    fill = NA
+  ) +
+  scale_x_continuous(breaks = seq(-24, 48, 6)) +
+  scale_y_continuous(breaks = 0)
+```
+
+
 UTM projects geographical coordinates (degrees) to cartesian coordinates (**meters**), so the result is XY coordinates like in other map projections, often resulting in high numbers, especially for Y as it covers the whole range of 0° to 80° or 84° latitude.
 
 In the case of a lower precision, coordinates are rounded (not truncated) following the usual rounding rules of science and engineering [@national_geospatial-intelligence_agency_universal_2014], as would happen in other coordinate systems.
@@ -80,13 +171,30 @@ In the case of a lower precision, coordinates are rounded (not truncated) follow
 As an example, we calculate the projected X and Y coordinates of a point in Belgium using the `sf` package in R.
 The CRS uses the geodetic datum ETRS89 [^ETRS89] and the UTM zone 31N map projection.
 
-```{r message=FALSE}
+```{r message=FALSE, echo=TRUE}
 library(sf)
-point <- st_sfc(st_point(c(4, 51)), crs = "EPSG:4258")
+point <- st_sfc(st_point(c(4.1, 51.1)), crs = "EPSG:4258")
 st_transform(point, "EPSG:25831") |> st_coordinates()
 ```
 
 [^ETRS89]: OGC URN identifier of the [ETRS89 ensemble datum](https://epsg.org/datum_6258/European-Terrestrial-Reference-System-1989-ensemble.html): `urn:ogc:def:ensemble:EPSG::6258`.
+
+```{r flanders, fig.cap="A map in the Belgian CRS 'EPSG:3812' (ETRS89 / Belgian Lambert 2008), showing the provinces of Flanders. The point with geographical coordinates '51.1°N 4.1°E' is shown in red. It is situated in the province 'Oost-Vlaanderen'. The superposed UTM grid lines and UTM coordinates are from CRS 'EPSG:25831' (ETRS89 / UTM zone 31N), with lines every 5 km."}
+ggplot(provinces) +
+  geom_sf() +
+  geom_sf(
+    data = st_sfc(st_point(c(4.1, 51.1)), crs = "EPSG:4258"), 
+    colour = "red"
+  ) +
+  coord_sf(datum = "EPSG:25831", xlim = c(57e4, 67e4), ylim = c(66e4, 72e4)) +
+  scale_x_continuous(breaks = seq(5e5, 6.5e5, 5e3)) +
+  scale_y_continuous(breaks = seq(5.6e6, 6e6, 5e3)) +
+  theme(
+    axis.text.x = element_text(angle = 90),
+    panel.grid = element_line(colour = "orchid")
+  )
+```
+
 
 ### UTM grid
 
@@ -97,6 +205,53 @@ This concept complies with the general description of a 'grid' in the context of
 The UTM grid lines are labelled with the corresponding coordinate values, often expressed as kilometers except in the SE corner of the map where full coordinates are given in meters, as explained by @stott_utm_1977, and by @national_geospatial-intelligence_agency_universal_2014-1 in the context of the MGRS system.
 In the case of kilometer grid labels, the (anterior) digits _before_ last two (principal) digits are printed in superscript as they generally don't change within the map.
 This approach matches general rules of printing the various rectangular grids that emerged since World War I.
+
+```{r}
+pts <- expand.grid(
+  x = seq(50e3, 950e3, 100e3), 
+  y = 3e6 + seq(50e3, 4950e3, 100e3)
+)
+grids <- tibble(crs = 32626:32639,
+                colour = viridisLite::plasma(14),
+                star = rep(list(st_as_stars(pts)), 14)) |> 
+  mutate(
+    grid = purrr::map2(star, crs, function(x, crs) {
+      st_crs(x) <- st_crs(crs)
+      zone_from_30 <- crs - 32630
+      zone_bb <- st_bbox(
+        c(xmin = (zone_from_30 - 1) * 6, xmax = zone_from_30 * 6, 
+          ymin = -85, ymax = 85), 
+        crs = st_crs(4326)
+      )
+      st_as_sf(x) |> 
+        st_transform(4326) |> 
+        st_intersection(st_as_sfc(zone_bb))
+    }),
+    geom_3035 = purrr::map2(
+      grid, 
+      colour,
+      ~ geom_sf(data = st_transform(.x, 3035), colour = .y, fill = NA)
+      )
+  )
+```
+
+```{r utm-grid-europe, fig.cap="UTM grid in the European area, using cells of 100 km. As UTM zones each have their own CRS (in one hemisphere), an angle arises between grid lines in two different UTM zones."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  grids$geom_3035[1:14] +
+  coord_sf(datum = "EPSG:4326", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6)) +
+  scale_x_continuous(breaks = seq(-24, 48, 6)) +
+  scale_y_continuous(breaks = 0)
+```
+
+```{r utm-grid-belgium, fig.cap="UTM grid in the area around Belgium, using cells of 100 km."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  grids$geom_3035[5:8] +
+  coord_sf(datum = "EPSG:4326", xlim = c(3.5e6, 4.5e6), ylim = c(2.8e6, 3.5e6)) +
+  scale_x_continuous(breaks = seq(-24, 48, 6)) +
+  scale_y_continuous(breaks = 0)
+```
 
 The UTM grid referencing system to identify _grid cells_ at a specific resolution follows the following numerical syntax, as explained on civil maps that use it [@stott_utm_1977] [^usarmy_utm]:
 
@@ -139,6 +294,16 @@ Intersecting [UTM zones](#utm-projection) with latitude bands results in large c
 - In MGRS, some of the MGRS grid zones are wider or narrower than 6 longitudinal degrees.
 This has been done to avoid grid zone junctions in specific areas, e.g. Bergen and Oslo (Norway) belong to the same grid zone.
 
+```{r utm-grid-latbands-europe, fig.cap="The intersection of the UTM grid by latitude bands of 8° wide forms the basis of the MGRS. This map does not include the subsequent changes to some MGRS grid zones in the north, e.g. in Norway."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  grids$geom_3035[1:14] +
+  coord_sf(datum = "EPSG:4326", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6)) +
+  scale_x_continuous(breaks = seq(-24, 48, 6)) +
+  scale_y_continuous(breaks = seq(0, 80, 8)) +
+  theme(panel.grid = element_line(colour = "blue"))
+```
+
 Below the grid zone level it is still the UTM grid pattern that drives the further subdivision in MGRS between 80°S and 84°N, down to the required precision, just as in other grid systems.
 However an important difference at this level is that MGRS uses an _**alphanumeric grid reference**_ instead of a numeric one as in civil grids.
 In MGRS, Latin characters are used in referencing both the applicable grid zone and the first subdivision thereof, as follows.
@@ -154,6 +319,16 @@ An example is `31U ES 56914 61249` at the 1 m precision, which resolves to `31U 
 The spaces can be omitted or kept, but preferably omitted in a computational environment.
 The integer coordinates are truncated depending on the required precision, up to _zero_ digits (precision 100 km), with the _maximum_ of 5 digits per coordinate corresponding to a precision of 1 meter (i.e. the unit of the UTM coordinate system).
 Consequently, MGRS grid references need less digits per coordinate for 1 m precision than UTM grid references, and this is seen as an advantage of MGRS.
+
+```{r utm-grid-latbands-belgium, fig.cap="The 'U' latitude band goes from 48°N to 56°N. Two resulting MGRS grid zones are fully shown here: grid zones 31U (with most of Belgium) and 32U (with most of Germany)."}
+ggplot(data = countries) +
+  geom_sf(fill = "grey97", colour = "grey50") + 
+  grids$geom_3035[5:8] +
+  coord_sf(datum = "EPSG:4326", xlim = c(3.5e6, 4.5e6), ylim = c(2.7e6, 3.7e6)) +
+  scale_x_continuous(breaks = seq(-24, 48, 6)) +
+  scale_y_continuous(breaks = seq(0, 80, 8)) +
+  theme(panel.grid = element_line(colour = "blue"))
+```
 
 In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference is built as follows:
 
