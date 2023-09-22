@@ -203,7 +203,7 @@ These lines can for example be shown every 1, 2 or 10 km, depending on the map s
 This concept complies with the general description of a 'grid' in the context of mapping (see [Introduction](#introduction)).
 
 The UTM grid lines are labelled with the corresponding coordinate values, often expressed as kilometers except in the SE corner of the map where full coordinates are given in meters, as explained by @stott_utm_1977, and by @national_geospatial-intelligence_agency_universal_2014-1 in the context of the MGRS system.
-In the case of kilometer grid labels, the (anterior) digits _before_ last two (principal) digits are printed in superscript as they generally don't change within the map.
+In the case of kilometer grid labels, the (anterior) digits _before_ the last two (principal) digits are printed in superscript as they generally don't change within the map.
 This approach matches general rules of printing the various rectangular grids that emerged since World War I.
 
 ```{r}
