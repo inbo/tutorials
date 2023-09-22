@@ -2,12 +2,12 @@
 title: "The UTM grid and the MGRS grid: not quite the same"
 description: ""
 authors: [florisvdh]
-date: 2023-09-18
+date: 2023-09-22
 categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
-csl: '/tmp/RtmpKG9BfJ/research-institute-for-nature-and-forest.csl'
+csl: '../research-institute-for-nature-and-forest.csl'
 output: 
   md_document:
     preserve_yaml: true
@@ -105,6 +105,38 @@ also refer to the rectangular cells that emerge from these lines
 1977](#ref-stott_utm_1977)). The distance between the grid lines on a
 map depends on the used map scale.
 
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/grid-1.png" alt="A map of Europe in the projected CRS 'EPSG:3035' ('ETRS89-extended / LAEA Europe'). The grid is from the same CRS."  />
+<p class="caption">
+A map of Europe in the projected CRS ‘EPSG:3035’ (‘ETRS89-extended /
+LAEA Europe’). The grid is from the same CRS.
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/grid2-1.png" alt="The same map of Europe in the projected CRS 'EPSG:3035'. The grid however is from 'EPSG:3034' ('ETRS89-extended / LCC Europe'), reprojected in 'EPSG:3035'."  />
+<p class="caption">
+The same map of Europe in the projected CRS ‘EPSG:3035’. The grid
+however is from ‘EPSG:3034’ (‘ETRS89-extended / LCC Europe’),
+reprojected in ‘EPSG:3035’.
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/graticule-1.png" alt="'Grid lines' of geographic CRSs are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."  />
+<p class="caption">
+‘Grid lines’ of geographic CRSs are called the graticule. This map still
+uses the projected CRS ‘EPSG:3035’ but displays the graticule of
+geographic CRS ‘EPSG:4258’ (‘ETRS89’), projected in CRS ‘EPSG:3035’.
+</p>
+
+</div>
+
 ## UTM projection, UTM grid and MGRS grid
 
 ### UTM projection
@@ -125,6 +157,25 @@ part of Belgium (and the whole of Flanders) is situated in UTM zone 31,
 and there the map projection ‘UTM zone 31N’ applies [^2], with ‘N’
 referring to the northern hemisphere.
 
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/utm-zones-world-1.png" alt="A map centered on Greenwich, showing how meridians define the borders of UTM zones."  />
+<p class="caption">
+A map centered on Greenwich, showing how meridians define the borders of
+UTM zones.
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/utm-zones-europe-1.png" alt="UTM zones in the European area. The UTM zones are narrower in the north."  />
+<p class="caption">
+UTM zones in the European area. The UTM zones are narrower in the north.
+</p>
+
+</div>
+
 UTM projects geographical coordinates (degrees) to cartesian coordinates
 (**meters**), so the result is XY coordinates like in other map
 projections, often resulting in high numbers, especially for Y as it
@@ -137,17 +188,32 @@ truncated) following the usual rounding rules of science and engineering
 would happen in other coordinate systems.
 
 As an example, we calculate the projected X and Y coordinates of a point
-in Belgium using the `sf` package in R. The CRS uses the geodetic datum
-ETRS89 [^3] and the UTM zone 31N map projection.
+in Belgium using the `sf` package in R, at the millimeter resolution.
+The CRS uses the geodetic datum ETRS89 [^3] and the UTM zone 31N map
+projection (CRS ‘EPSG:25831’).
 
 ``` r
 library(sf)
-point <- st_sfc(st_point(c(4, 51)), crs = "EPSG:4258")
-st_transform(point, "EPSG:25831") |> st_coordinates()
+point <- st_sfc(st_point(c(4.1, 51.1)), crs = "EPSG:4258")
+st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3)
 ```
 
-    ##             X       Y
-    ## [1,] 570168.9 5650301
+    ##      X             Y            
+    ## [1,] " 577019.527" "5661520.775"
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/flanders-1.png" alt="A map in the Belgian CRS 'EPSG:3812' ('ETRS89 / Belgian Lambert 2008'), showing provinces of Flanders. The point with geographical coordinates '51.1°N 4.1°E', projected in 'EPSG:3812', is shown in red. It is situated in the province 'Oost-Vlaanderen'. The superposed UTM grid lines and UTM coordinates are from the UTM CRS 'EPSG:25831' ('ETRS89 / UTM zone 31N')—reprojected in 'EPSG:3812'—with lines every 5 km."  />
+<p class="caption">
+A map in the Belgian CRS ‘EPSG:3812’ (‘ETRS89 / Belgian Lambert 2008’),
+showing provinces of Flanders. The point with geographical coordinates
+‘51.1°N 4.1°E’, projected in ‘EPSG:3812’, is shown in red. It is
+situated in the province ‘Oost-Vlaanderen’. The superposed UTM grid
+lines and UTM coordinates are from the UTM CRS ‘EPSG:25831’ (‘ETRS89 /
+UTM zone 31N’)—reprojected in ‘EPSG:3812’—with lines every 5 km.
+</p>
+
+</div>
 
 ### UTM grid
 
@@ -165,10 +231,30 @@ where full coordinates are given in meters, as explained by Stott
 Agency
 ([2014b](#ref-national_geospatial-intelligence_agency_universal_2014-1))
 in the context of the MGRS system. In the case of kilometer grid labels,
-the (anterior) digits *before* last two (principal) digits are printed
-in superscript as they generally don’t change within the map. This
-approach matches general rules of printing the various rectangular grids
-that emerged since World War I.
+the (anterior) digits *before* the last two (principal) digits are
+printed in superscript as they generally don’t change within the map.
+This approach matches general rules of printing the various rectangular
+grids that emerged since World War I.
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/utm-grid-europe-1.png" alt="UTM grid in the European area, using cells of 100 km. As UTM zones (in one hemisphere) each have their own map projection, an angle arises between grid lines in two different UTM zones."  />
+<p class="caption">
+UTM grid in the European area, using cells of 100 km. As UTM zones (in
+one hemisphere) each have their own map projection, an angle arises
+between grid lines in two different UTM zones.
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/utm-grid-belgium-1.png" alt="UTM grid in the area around Belgium, using cells of 100 km."  />
+<p class="caption">
+UTM grid in the area around Belgium, using cells of 100 km.
+</p>
+
+</div>
 
 The UTM grid referencing system to identify *grid cells* at a specific
 resolution follows the following numerical syntax, as explained on civil
@@ -186,10 +272,15 @@ not clipped by the UTM zone border, this also means that their truncated
 coordinates match the UTM coordinates of their southwest corner; this
 holds for any precision.
 
+Hence for the Belgian point referred above with UTM coordinates
+<code>577019.527, 5661520.775</code>, the UTM grid reference at 10 meter
+precision is <code>31 57701 566152</code>.
+
 The above grid reference can be further shortened by dropping the UTM
 zone number and anterior digits, e.g. if the context is within the area
 of one map. When not dropping prefixes, the UTM grid reference is unique
-at the global level.
+at the global level *if* it is also clear which hemisphere—i.e. which of
+the two map projections per UTM zone—applies.[^5]
 
 The concepts of UTM grid portrayal on maps and UTM grid referencing with
 anterior and principal digits match those of other rectangular grids
@@ -207,7 +298,7 @@ specification.
 The Military Grid Reference System (MGRS) was designed by the end of the
 1940s by the US Army and is used by NATO militaries for locating
 positions worldwide up to 1 m precision. The MGRS specification is
-maintained by the NGA Office of Geomatics [^5] ([National
+maintained by the NGA Office of Geomatics [^6] ([National
 Geospatial-Intelligence Agency,
 2014a](#ref-national_geospatial-intelligence_agency_universal_2014)).
 Best use the foregoing reference when referring to the MGRS. Other
@@ -239,6 +330,17 @@ using a different referencing (geocoding) system:
   in specific areas, e.g. Bergen and Oslo (Norway) belong to the same
   grid zone.
 
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/utm-grid-latbands-europe-1.png" alt="The intersection of the UTM grid by latitude bands of 8° wide forms the basis of the MGRS. This map does not include the subsequent changes to some MGRS grid zones in the north, e.g. in Norway."  />
+<p class="caption">
+The intersection of the UTM grid by latitude bands of 8° wide forms the
+basis of the MGRS. This map does not include the subsequent changes to
+some MGRS grid zones in the north, e.g. in Norway.
+</p>
+
+</div>
+
 Below the grid zone level it is still the UTM grid pattern that drives
 the further subdivision in MGRS between 80°S and 84°N, down to the
 required precision, just as in other grid systems. However an important
@@ -263,6 +365,17 @@ precision of 1 meter (i.e. the unit of the UTM coordinate system).
 Consequently, MGRS grid references need less digits per coordinate for 1
 m precision than UTM grid references, and this is seen as an advantage
 of MGRS.
+
+<div class="figure" style="text-align: center">
+
+<img src="index_files/figure-gfm/utm-grid-latbands-belgium-1.png" alt="The 'U' latitude band goes from 48°N to 56°N. Two resulting MGRS grid zones are fully shown here: grid zones 31U (with most of Belgium) and 32U (with most of Germany)."  />
+<p class="caption">
+The ‘U’ latitude band goes from 48°N to 56°N. Two resulting MGRS grid
+zones are fully shown here: grid zones 31U (with most of Belgium) and
+32U (with most of Germany).
+</p>
+
+</div>
 
 In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference
 is built as follows:
@@ -302,7 +415,7 @@ a property of the geodetic CRS associated with the projected CRS.
 
 This also means that without a geodetic datum, you can’t determine the
 physical location on the Earth surface that corresponds to a pair of UTM
-coordinates or to a UTM or MGRS grid reference [^6]. See the [CRS
+coordinates or to a UTM or MGRS grid reference [^7]. See the [CRS
 tutorial](../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background)
 for more information.
 
@@ -379,7 +492,7 @@ list provides open-source implementations and may be incomplete:
   National Security Agency ([code
   repo](https://github.com/NationalSecurityAgency/qgis-latlontools-plugin)).
   It provides several geoprocessing algorithms, which can also be
-  accessed outside the QGIS GUI, e.g. from R [^7]. The plugin also
+  accessed outside the QGIS GUI, e.g. from R [^8]. The plugin also
   provides a GUI for easy coordinate conversion based on interaction
   with the map.
 
@@ -481,6 +594,13 @@ for Industrial Archeology 3 (1): 1–14.
 
 </div>
 
+<div id="ref-uf_geoplan_center_mgrs_2009" class="csl-entry">
+
+UF GeoPlan Center (2009). MGRS. 4 p.
+<http://mgrs-data.org/data/documents/nga_mgrs_doc.pdf>.
+
+</div>
+
 <div id="ref-van_nieukerken_utm_1991" class="csl-entry">
 
 van Nieukerken E.J. (1991). UTM grid: een voorschot op de toekomst.
@@ -536,9 +656,18 @@ Wikipedia, The Free Encyclopedia.
     Army, 2001](#ref-department_of_the_army_map_2001)), of course
     without truncation.
 
-[^5]: URL: <https://earth-info.nga.mil>.
+[^5]: Some sources (e.g. [UF GeoPlan Center,
+    2009](#ref-uf_geoplan_center_mgrs_2009)) therefore mention the
+    possibility to extend the UTM zone with ‘N’ or ‘S’ depending on the
+    hemisphere, resulting in e.g. <code>31N 57701 566152</code>. However
+    this approach is now officially obsoleted, and *full* (i.e. globally
+    unique) UTM coordinates should contain an MGRS grid zone prefix (see
+    MGRS section) instead ([National Geospatial-Intelligence Agency,
+    2014b](#ref-national_geospatial-intelligence_agency_universal_2014-1)).
 
-[^6]: Older series of Belgian maps distributed by the National
+[^6]: URL: <https://earth-info.nga.mil>.
+
+[^7]: Older series of Belgian maps distributed by the National
     Geographical Institute (<https://www.ngi.be>) applied the ED50
     geodetic datum (European Datum 1950), which affects the position of
     coordinates (hence MGRS grid) by about 90 m in E-W direction and
@@ -553,7 +682,7 @@ Wikipedia, The Free Encyclopedia.
     datum](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html):
     `urn:ogc:def:ensemble:EPSG::6326`.
 
-[^7]: Beside R’s `mgrs` package, another possibility to translate
+[^8]: Beside R’s `mgrs` package, another possibility to translate
     to/from MGRS grid references in R is by accessing the ‘Lat Lon
     Tools’ QGIS plugin using the
     [qgisprocess](https://r-spatial.github.io/qgisprocess) package,
