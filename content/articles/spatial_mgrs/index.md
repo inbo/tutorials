@@ -8,6 +8,8 @@ tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
 csl: '../research-institute-for-nature-and-forest.csl'
+urlcolor: blue
+linkcolor: blue
 output: 
   md_document:
     preserve_yaml: true
