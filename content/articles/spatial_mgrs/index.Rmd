@@ -28,7 +28,7 @@ theme_update(
   panel.grid = element_line(colour = "grey40"),
   axis.title = element_blank()
 )
-countries <- ne_countries(scale = "medium", continent = "Europe", returnclass = "sf")
+countries <- ne_countries(scale = "large", continent = "Europe", returnclass = "sf")
 countries <- st_transform(countries, "EPSG:3035")
 world <- ne_countries(returnclass = "sf")
 world <- st_transform(world, "ESRI:54032")
@@ -94,19 +94,19 @@ The distance between the grid lines on a map depends on the used map scale.
 [^map_projection]: A map projection defines the conversion from geodetic to projected coordinates (geodetic coordinate system (CS, not CRS) + the projection (conversion) method + numeric projection (conversion) parameters), but without specifying the geodetic datum.
 
 
-```{r grid, fig.cap="A map of Europe in the projected CRS 'EPSG:3035' (ETRS89-extended / LAEA Europe). The grid is from the same CRS."}
+```{r grid, fig.cap="A map of Europe in the projected CRS 'EPSG:3035' ('ETRS89-extended / LAEA Europe'). The grid is from the same CRS."}
 ggplot(data = countries) +
   geom_sf(fill = "grey97", colour = "grey50") +
   coord_sf(datum = "EPSG:3035", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
 ```
 
-```{r grid2, fig.cap="The same map of Europe in the projected CRS 'EPSG:3035'. The grid however is from 'EPSG:3034' (ETRS89-extended / LCC Europe)."}
+```{r grid2, fig.cap="The same map of Europe in the projected CRS 'EPSG:3035'. The grid however is from 'EPSG:3034' ('ETRS89-extended / LCC Europe'), reprojected in 'EPSG:3035'."}
 ggplot(data = countries) +
   geom_sf(fill = "grey97", colour = "grey50") +
   coord_sf(datum = "EPSG:3034", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
 ```
 
-```{r graticule, fig.cap="'Grid lines' of geographic CRSs are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' (ETRS89)."}
+```{r graticule, fig.cap="'Grid lines' of geographic CRSs are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."}
 ggplot(data = countries) +
   geom_sf(fill = "grey97", colour = "grey50") + 
   coord_sf(datum = "EPSG:4258", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
@@ -179,7 +179,7 @@ st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3)
 
 [^ETRS89]: OGC URN identifier of the [ETRS89 ensemble datum](https://epsg.org/datum_6258/European-Terrestrial-Reference-System-1989-ensemble.html): `urn:ogc:def:ensemble:EPSG::6258`.
 
-```{r flanders, fig.cap="A map in the Belgian CRS 'EPSG:3812' (ETRS89 / Belgian Lambert 2008), showing the provinces of Flanders. The point with geographical coordinates '51.1°N 4.1°E' is shown in red. It is situated in the province 'Oost-Vlaanderen'. The superposed UTM grid lines and UTM coordinates are from CRS 'EPSG:25831' (ETRS89 / UTM zone 31N), with lines every 5 km."}
+```{r flanders, fig.cap="A map in the Belgian CRS 'EPSG:3812' ('ETRS89 / Belgian Lambert 2008'), showing provinces of Flanders. The point with geographical coordinates '51.1°N 4.1°E', projected in 'EPSG:3812', is shown in red. It is situated in the province 'Oost-Vlaanderen'. The superposed UTM grid lines and UTM coordinates are from the UTM CRS 'EPSG:25831' ('ETRS89 / UTM zone 31N')—reprojected in 'EPSG:3812'—with lines every 5 km."}
 ggplot(provinces) +
   geom_sf() +
   geom_sf(
@@ -212,7 +212,7 @@ pts <- expand.grid(
   y = 3e6 + seq(50e3, 4950e3, 100e3)
 )
 grids <- tibble(crs = 32626:32639,
-                colour = viridisLite::plasma(14),
+                colour = rep(viridisLite::plasma(9)[c(5,6)], 7),
                 star = rep(list(st_as_stars(pts)), 14)) |> 
   mutate(
     grid = purrr::map2(star, crs, function(x, crs) {
@@ -235,7 +235,7 @@ grids <- tibble(crs = 32626:32639,
   )
 ```
 
-```{r utm-grid-europe, fig.cap="UTM grid in the European area, using cells of 100 km. As UTM zones each have their own CRS (in one hemisphere), an angle arises between grid lines in two different UTM zones."}
+```{r utm-grid-europe, fig.cap="UTM grid in the European area, using cells of 100 km. As UTM zones (in one hemisphere) each have their own map projection, an angle arises between grid lines in two different UTM zones."}
 ggplot(data = countries) +
   geom_sf(fill = "grey97", colour = "grey50") + 
   grids$geom_3035[1:14] +
