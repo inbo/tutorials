@@ -273,7 +273,7 @@ Hence for the Belgian point referred above with UTM coordinates <code>`r st_tran
 The above grid reference can be further shortened by dropping the UTM zone number and anterior digits, e.g. if the context is within the area of one map.
 When not dropping prefixes, the UTM grid reference is unique at the global level _if_ it is also clear which hemisphere—i.e. which of the two map projections per UTM zone—applies.[^hemisphere]
 
-[^hemisphere]: Some sources [e.g. @uf_geoplan_center_mgrs_2009] therefore mention the possibility to extend the UTM zone with 'N' or 'S' depending on the hemisphere, resulting in e.g. <code>`r paste("31N", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>. However this approach is now officially obsoleted, and _full_ (i.e. globally unique) UTM coordinates should contain an MGRS grid zone prefix (see MGRS section) instead [@national_geospatial-intelligence_agency_universal_2014-1].
+[^hemisphere]: Some sources [e.g. @uf_geoplan_center_mgrs_2009] therefore mention the possibility to extend the UTM zone with 'N' or 'S' depending on the hemisphere, resulting in e.g. <code>`r paste("31N", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>. However this approach is now officially obsoleted, and _full_ (i.e. globally unique) UTM coordinates should contain an MGRS grid zone prefix (see MGRS section) instead (@national_geospatial-intelligence_agency_universal_2014-1: appendix A).
 
 The concepts of UTM grid portrayal on maps and UTM grid referencing with anterior and principal digits match those of other rectangular grids that have also long been in use on civil maps, and these are all named 'civil' grids by @stott_utm_1977.
 
