@@ -7,7 +7,7 @@ categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
-csl: '../research-institute-for-nature-and-forest.csl'
+csl: '/tmp/RtmpwpL5Cn/research-institute-for-nature-and-forest.csl'
 urlcolor: blue
 linkcolor: blue
 output: 
@@ -20,8 +20,8 @@ output:
 
 Grids are widely used in biodiversity monitoring to define the basic
 spatial units for data collection, data processing or mapping.
-Authorative definitions of widely used grids and grid reference systems
-are not globally coordinated though, contrary to the case of the
+Authoritative definitions of widely used grids and grid reference
+systems are not globally coordinated though, contrary to the case of the
 EPSG-dataset for coordinate reference systems. Here I explain
 differences between the UTM and MGRS grids, provide references to their
 full definition and refer to some software implementations for MGRS. The
@@ -47,9 +47,10 @@ In short:
   rounded while in (UTM and MGRS) grid references the numeric parts
   representing easting and northing are to be truncated.
 - Projected coordinate reference systems (CRSs) specify a geodetic datum
-  so that coordinates can be linked to a physical location on the Earth
-  surface. Likewise, you need to specify (and be aware of) the geodetic
-  datum when using a (UTM or MGRS) grid reference for positioning.
+  so that coordinates can be linked to a physical location on the
+  Earth’s surface. Likewise, you need to specify (and be aware of) the
+  geodetic datum when using a (UTM or MGRS) grid reference for
+  positioning.
 
 #### Terminological notes
 
@@ -83,7 +84,7 @@ the UTM map projection system, while this belongs solely to the MGRS.
 ## Introduction
 
 In biodiversity monitoring the Military Grid Reference System (MGRS) is
-used a lot, although sometimes it is confusingly referred as ‘the UTM
+used a lot, although sometimes it is confusingly referred to as ‘the UTM
 grid’. Example projects that use this spatial reference system are the
 Atlas Florae Europaea ([Lampinen, 2013](#ref-lampinen_utm_2013)) and the
 European Invertebrate Survey ([van Nieukerken,
@@ -179,9 +180,10 @@ UTM zones in the European area. The UTM zones are narrower in the north.
 </div>
 
 UTM projects geographical coordinates (degrees) to cartesian coordinates
-(**meters**), so the result is XY coordinates like in other map
-projections, often resulting in high numbers, especially for Y as it
-covers the whole range of 0° to 80° or 84° latitude.
+(**meters**), so the result is XY coordinates (eastings and northings)
+like in other map projections, often resulting in high numbers,
+especially for Y as it covers the whole range of 0° to 80° or 84°
+latitude.
 
 In the case of a lower precision, coordinates are rounded (not
 truncated) following the usual rounding rules of science and engineering
@@ -189,19 +191,19 @@ truncated) following the usual rounding rules of science and engineering
 2014a](#ref-national_geospatial-intelligence_agency_universal_2014)), as
 would happen in other coordinate systems.
 
-As an example, we calculate the projected X and Y coordinates of a point
-in Belgium using the `sf` package in R, at the millimeter resolution.
-The CRS uses the geodetic datum ETRS89 [^3] and the UTM zone 31N map
-projection (CRS ‘EPSG:25831’).
+As an example, we calculate the projected easting (X) and northing (Y)
+of a point in Belgium using the `sf` package in R, at the millimeter
+resolution. The CRS uses the geodetic datum ‘ETRS89’ [^3] and the ‘UTM
+zone 31N’ map projection (CRS ‘EPSG:25831’).
 
 ``` r
 library(sf)
 point <- st_sfc(st_point(c(4.1, 51.1)), crs = "EPSG:4258")
-st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3)
+st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3, trim = TRUE)
 ```
 
-    ##      X             Y            
-    ## [1,] " 577019.527" "5661520.775"
+    ##      X            Y            
+    ## [1,] "577019.527" "5661520.775"
 
 <div class="figure" style="text-align: center">
 
@@ -234,7 +236,7 @@ Agency
 ([2014b](#ref-national_geospatial-intelligence_agency_universal_2014-1))
 in the context of the MGRS system. In the case of kilometer grid labels,
 the (anterior) digits *before* the last two (principal) digits are
-printed in superscript as they generally don’t change within the map.
+printed in superscript as they generally do not change within the map.
 This approach matches general rules of printing the various rectangular
 grids that emerged since World War I.
 
@@ -275,7 +277,7 @@ coordinates match the UTM coordinates of their southwest corner; this
 holds for any precision.
 
 Hence for the Belgian point referred above with UTM coordinates
-<code>577019.527, 5661520.775</code>, the UTM grid reference at 10 meter
+<code>577019.527, 5661520.775</code>, the UTM grid reference at 10-meter
 precision is <code>31 57701 566152</code>.
 
 The above grid reference can be further shortened by dropping the UTM
@@ -343,9 +345,9 @@ some MGRS grid zones in the north, e.g. in Norway.
 
 </div>
 
-Below the grid zone level it is still the UTM grid pattern that drives
+Below the grid zone level, it is still the UTM grid pattern that drives
 the further subdivision in MGRS between 80°S and 84°N, down to the
-required precision, just as in other grid systems. However an important
+required precision, just as in other grid systems. However, an important
 difference at this level is that MGRS uses an ***alphanumeric grid
 reference*** instead of a numeric one as in civil grids. In MGRS, Latin
 characters are used in referencing both the applicable grid zone and the
@@ -385,15 +387,23 @@ is built as follows:
 - The **Grid Zone Designation** (GZD), e.g. `31U`, combines the UTM
   zone (31) with a letter code (U) that corresponds to a latitude band
   of generally 8° wide; hence each intersection defines the ***MGRS grid
-  zone***.
+  zone***. The letter codes in the GZD represent the latitude bands and
+  run from ‘C’ in the south to ‘X’ in the north, dropping ‘I’ and ‘O’ in
+  order to not confuse with numeric digits.
 - Each grid zone is further subdivided into ***grid squares*** (cells)
   of size 100 km, using the *UTM coordinate system* to define the cell
-  border coordinates as multiples of 100 000 m. The **Grid Square ID**
-  is a code of 2 characters that is unique *within* the grid zone,
-  e.g. `ES`, with ‘E’ referring to a column and ‘S’ to a row. As grid
-  zones get wider towards the equator, more grid squares are present in
-  zones near the equator than in zones located much further north or
-  south.
+  border coordinates as multiples of 100 000 m. As grid zones get wider
+  towards the equator, more grid squares are present in zones near the
+  equator than in zones located much further north or south. The **Grid
+  Square ID** is a code of 2 characters that is unique *within* the grid
+  zone, e.g. `ES`, with ‘E’—the ‘easting letter’— referring to a column
+  and with ‘S’—the ‘northing letter’—referring to a row. These letters
+  follow the Latin alphabet (excluding ‘I’ and ‘O’) in eastern and
+  northern direction within a UTM zone, neglecting parallel grid zone
+  borders and repeating the sequence as needed in northern direction.
+  The starting letters at UTM coordinates `0, 0` determine both letter
+  sequences in a UTM zone, but depend on the UTM zone number as
+  specified in the rules of the lettering scheme [^7].
 - To specify locations ***with precision \< 100 km***, the **truncated
   integer coordinates** of the [UTM grid reference](#utm-grid) are
   added, thereby *dropping* the digits that represent the
@@ -410,14 +420,14 @@ interval \[**1**0, 20) km.
 ## What is the relation to coordinate reference systems (CRSs)?
 
 Projected CRSs combine a map projection (such as ‘UTM 31N’) with a
-geodetic datum that relates actual positions on the Earth surface to the
-(unprojected, ellipsoidal) geodetic coordinate system, which also
+geodetic datum that relates actual positions on the Earth’s surface to
+the (unprojected, ellipsoidal) geodetic coordinate system, which also
 implies defining the ellipsoid and prime meridian. The geodetic datum is
 a property of the geodetic CRS associated with the projected CRS.
 
-This also means that without a geodetic datum, you can’t determine the
-physical location on the Earth surface that corresponds to a pair of UTM
-coordinates or to a UTM or MGRS grid reference [^7]. See the [CRS
+This also means that without a geodetic datum, you cannot determine the
+physical location on the Earth’s surface that corresponds to a pair of
+UTM coordinates or to a UTM or MGRS grid reference [^8]. See the [CRS
 tutorial](../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background)
 for more information.
 
@@ -430,7 +440,7 @@ In Belgium, the most relevant UTM CRSs for UTM zone 31 are:
 - ETRS89 / UTM zone 31N (`EPSG:25831`)
 - WGS 84 / UTM zone 31N (`EPSG:32631`)
 - ED50 / UTM zone 31N (`EPSG:23031`) which was applied in older
-  topograpic maps
+  topographic maps
 
 Run `sf::st_crs("EPSG:25831")` in R to inspect the WKT string.
 
@@ -451,13 +461,13 @@ graticule can be easily verified post-hoc.
 
 ## Criticisms about the MGRS
 
-Criticisms about the MGRS can be found. This mainly has to do with the
-complexity of the system itself.
+Criticisms about the MGRS are mainly related to the complexity of the
+system itself.
 
 - The geocoding system is quite excentric compared to CRSs, especially
   in current times where computing power is available and handling long
   numeric coordinates is automated and mathematically simpler.
-- The complexity may be a source of mistakes. A reknowned geodesist has
+- The complexity may be a source of mistakes. A renowned geodesist has
   advocated on the PROJ mailing list to not use the MGRS outside of the
   United States.
 
@@ -494,13 +504,13 @@ list provides open-source implementations and may be incomplete:
   National Security Agency ([code
   repo](https://github.com/NationalSecurityAgency/qgis-latlontools-plugin)).
   It provides several geoprocessing algorithms, which can also be
-  accessed outside the QGIS GUI, e.g. from R [^8]. The plugin also
+  accessed outside the QGIS GUI, e.g. from R [^9]. The plugin also
   provides a GUI for easy coordinate conversion based on interaction
   with the map.
 
-Note that some of these implementations don’t require a geodetic datum
+Note that some of these implementations do not require a geodetic datum
 (hence CRS), but of course (converted) coordinates still need a geodetic
-datum to refer to an actual position on the Earth surface and to use
+datum to refer to an actual position on the Earth’s surface and to use
 them with other geospatial data.
 
 Since it has not been implemented in PROJ, regular geospatial R packages
@@ -669,7 +679,11 @@ Wikipedia, The Free Encyclopedia.
 
 [^6]: URL: <https://earth-info.nga.mil>.
 
-[^7]: Older series of Belgian maps distributed by the National
+[^7]: Moreover, two different lettering schemes are in use (called ‘AA’
+    and ‘AL’), and it is the ellipsoid used in the geodetic datum that
+    defines which one will be used!
+
+[^8]: Older series of Belgian maps distributed by the National
     Geographical Institute (<https://www.ngi.be>) applied the ED50
     geodetic datum (European Datum 1950), which affects the position of
     coordinates (hence MGRS grid) by about 90 m in E-W direction and
@@ -684,7 +698,7 @@ Wikipedia, The Free Encyclopedia.
     datum](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html):
     `urn:ogc:def:ensemble:EPSG::6326`.
 
-[^8]: Beside R’s `mgrs` package, another possibility to translate
+[^9]: Beside R’s `mgrs` package, another possibility to translate
     to/from MGRS grid references in R is by accessing the ‘Lat Lon
     Tools’ QGIS plugin using the
     [qgisprocess](https://r-spatial.github.io/qgisprocess) package,
