@@ -176,7 +176,7 @@ The CRS uses the geodetic datum ETRS89 [^ETRS89] and the UTM zone 31N map projec
 ```{r message=FALSE, echo=TRUE}
 library(sf)
 point <- st_sfc(st_point(c(4.1, 51.1)), crs = "EPSG:4258")
-st_transform(point, "EPSG:25831") |> st_coordinates() |> format(trim = TRUE, nsmall = 3)
+st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3, trim = TRUE)
 ```
 
 [^ETRS89]: OGC URN identifier of the [ETRS89 ensemble datum](https://epsg.org/datum_6258/European-Terrestrial-Reference-System-1989-ensemble.html): `urn:ogc:def:ensemble:EPSG::6258`.
