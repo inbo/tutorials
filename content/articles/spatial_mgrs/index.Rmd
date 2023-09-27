@@ -171,7 +171,7 @@ UTM projects geographical coordinates (degrees) to cartesian coordinates (**mete
 In the case of a lower precision, coordinates are rounded (not truncated) following the usual rounding rules of science and engineering [@national_geospatial-intelligence_agency_universal_2014], as would happen in other coordinate systems.
 
 As an example, we calculate the projected X and Y coordinates of a point in Belgium using the `sf` package in R, at the millimeter resolution.
-The CRS uses the geodetic datum ETRS89 [^ETRS89] and the UTM zone 31N map projection (CRS 'EPSG:25831').
+The CRS uses the geodetic datum 'ETRS89' [^ETRS89] and the 'UTM zone 31N' map projection (CRS 'EPSG:25831').
 
 ```{r message=FALSE, echo=TRUE}
 library(sf)
