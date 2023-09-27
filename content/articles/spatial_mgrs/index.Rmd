@@ -22,7 +22,7 @@ library(stars)
 library(ggplot2)
 library(dplyr)
 library(rnaturalearth)
-knitr::opts_chunk$set(echo = FALSE, fig.align="center")
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 theme_set(theme_bw())
 theme_update(
   panel.background = element_blank(),
