@@ -108,7 +108,7 @@ ggplot(data = countries) +
   coord_sf(datum = "EPSG:3034", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
 ```
 
-```{r graticule, fig.cap="'Grid lines' of geographic CRSs are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."}
+```{r graticule, fig.cap="'Grid lines' of geographic CRSs are called the graticule, which consists of parallels and meridians. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."}
 ggplot(data = countries) +
   geom_sf(fill = "grey97", colour = "grey50") + 
   coord_sf(datum = "EPSG:4258", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
