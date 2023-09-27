@@ -471,6 +471,19 @@ system itself.
   advocated on the PROJ mailing list to not use the MGRS outside of the
   United States.
 
+The National Geospatial-Intelligence Agency
+([2014a](#ref-national_geospatial-intelligence_agency_universal_2014))
+advises:
+
+> Because various characteristics of MGRS are unhelpful to analytical
+> work (see Subsection 11.8), this document suggests (but does not
+> mandate) the following division of labor between MGRS and UTM/UPS when
+> both are under consideration. UTM/UPS should be be used for
+> calculations, analytical work, and storage & retrieval of geographic
+> information; MGRS should be limited to notations on maps and charts,
+> displays on end-user devices and person-to-person or person-to-machine
+> communication.
+
 ## Software implementations
 
 MGRS and corresponding conversion methods have not been implemented in
