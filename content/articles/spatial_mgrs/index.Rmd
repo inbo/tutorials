@@ -339,11 +339,16 @@ ggplot(data = countries) +
 In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference is built as follows:
 
 - The **Grid Zone Designation** (GZD), e.g. `31U`, combines the UTM zone (31) with a letter code (U) that corresponds to a latitude band of generally 8° wide; hence each intersection defines the _**MGRS grid zone**_.
+The letter codes in the GZD represent the latitude bands and run from 'C' in the south to 'X' in the north, dropping 'I' and 'O' in order to not confuse with numeric digits.
 - Each grid zone is further subdivided into _**grid squares**_ (cells) of size 100 km, using the _UTM coordinate system_ to define the cell border coordinates as multiples of 100 000 m.
-The **Grid Square ID** is a code of 2 characters that is unique _within_ the grid zone, e.g. `ES`, with 'E'—the 'easting letter'— referring to a column and with 'S'—the 'northing letter'—referring to a row.
 As grid zones get wider towards the equator, more grid squares are present in zones near the equator than in zones located much further north or south.
+The **Grid Square ID** is a code of 2 characters that is unique _within_ the grid zone, e.g. `ES`, with 'E'—the 'easting letter'— referring to a column and with 'S'—the 'northing letter'—referring to a row.
+These letters follow the Latin alphabet (excluding 'I' and 'O') in eastern and northern direction within a UTM zone, neglecting parallel grid zone borders and repeating the sequence as needed in northern direction.
+The starting letters at UTM coordinates `0, 0` determine both letter sequences in a UTM zone, but depend on the UTM zone number as specified in the rules of the lettering scheme [^scheme].
 - To specify locations _**with precision < 100 km**_, the **truncated integer coordinates** of the [UTM grid reference](#utm-grid) are added, thereby _dropping_ the digits that represent the hundred-thousands and higher.
 At this level, a precision can be chosen of 1, 10, 100, 1000 or 10 000 meters.
+
+[^scheme]: Moreover, two different lettering schemes are in use (called 'AA' and 'AL'), and it is the ellipsoid used in the geodetic datum that defines which one will be used!
 
 Since coordinates are always truncated (not rounded), resulting in 0 to 5 integers per coordinate, this effectively means that an MGRS grid reference represents a square cell with its size reflecting the chosen precision, although potentially clipped by the UTM zone border or the latitude band.
 E.g. in `31U ES 1 4` X = 1 refers to the half-open interval [**1**0, 20) km.
