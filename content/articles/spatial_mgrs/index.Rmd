@@ -63,6 +63,9 @@ Main points:
 Both grids have a world-wide coverage, with exception of the polar regions in the case of the UTM grid.
 In the polar regions, the MGRS derives its grid from the UPS (Universal Polar Stereographic) map projection.
 - UTM grid references consist solely of digits (Arabic numerals), while MGRS grid references are alphanumeric (combination of digits & Latin characters).
+To illustrate this, following examples refer to the Belgian point location used in the text:
+  - An UTM grid reference looks like `31.577019.5661520` (meter precision) or `31.577.5661` (kilometer precision) and separators are needed (point, slash, space) if not applying localized simplifications.
+  - An MGRS grid reference looks like `31U ES 77019 61520` (meter precision) or `31U ES 77 61` (kilometer precision), and the spacing is optional.
 - When decreasing the precision of a position, coordinates are to be rounded while in (UTM and MGRS) grid references the numeric parts representing easting and northing are to be truncated.
 - Projected coordinate reference systems (CRSs) specify a geodetic datum so that coordinates can be linked to a physical location on the Earth's surface. Likewise, you need to specify (and be aware of) the geodetic datum when using a (UTM or MGRS) grid reference for positioning.
 
