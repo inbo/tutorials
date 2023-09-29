@@ -281,14 +281,16 @@ The UTM grid referencing system to identify _grid cells_ at a specific precision
 
 [^usarmy_utm]: This UTM grid reference notation is also followed in the 2001 version of US Army's Field Manual 3-25.26 (Map Reading and Land Navigation) for the notation of UTM coordinates [@department_of_the_army_map_2001], of course without truncation.
 
-The spaces can be omitted or kept, or replaced by a point or a slash.
+Separators like points, slashes or spaces are needed since the number of digits can differ between easting (X) and northing (Y).
 The integers can be truncated at the required precision, hence representing 10^p^ meters.
 As the coordinates are always truncated (not rounded) to integers, this effectively means that a UTM grid reference represents a square cell with a size that reflects the chosen precision, potentially clipped by the UTM zone border.
 For cells not clipped by the UTM zone border, this also means that their truncated coordinates match the UTM coordinates of their southwest corner; this holds for any precision.
 
 Hence for the Belgian point location referred above with UTM coordinates <code>`r st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3, trim = TRUE) |> paste(collapse = ", ")`</code>, the UTM grid reference at 10-meter precision is <code>`r paste("31", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>.
 
-The above grid reference can be further shortened by dropping the UTM zone number and anterior digits, e.g. if the context is within the area of one map.
+For localized usage, the above grid reference can be further shortened by dropping the UTM zone number and anterior digits, e.g. if the context is within the area of one map.
+In many areas such simplifications lead to eastings and northings of equal length, so that separators are sometimes dropped.
+
 When not dropping prefixes, the UTM grid reference is unique at the global level _if_ it is also clear which hemisphere—i.e. which of the two map projections per UTM zone—applies.[^hemisphere]
 
 [^hemisphere]: Some sources [e.g. @uf_geoplan_center_mgrs_2009] therefore mention the possibility to extend the UTM zone with 'N' or 'S' depending on the hemisphere, resulting in e.g. <code>`r paste("31N", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>. However this approach is now officially obsoleted, and _full_ (i.e. globally unique) UTM coordinates should contain an MGRS grid zone prefix (see MGRS section) instead (@national_geospatial-intelligence_agency_universal_2014-1: appendix A).
@@ -359,9 +361,10 @@ space_mgrs <- function(mgrsref) {
 
 Hence for the Belgian point location referred earlier this comes down to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2]) |> space_mgrs()`</code> at the 1 m precision, which resolves to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2], 2) |> space_mgrs()`</code> at 1 km precision.
 
-The spaces can be omitted or kept, but preferably omitted in a computational environment.
-The integer coordinates are truncated depending on the required precision, up to _zero_ digits (precision 100 km), with the _maximum_ of 5 digits per coordinate corresponding to a precision of 1 meter (i.e. the unit of the UTM coordinate system).
+The integer coordinates are truncated depending on the required precision, up to _zero_ digits (precision 100 km), with the _maximum_ of five digits per coordinate corresponding to a precision of 1 meter (i.e. the unit of the UTM coordinate system).
 Consequently, MGRS grid references need less digits per coordinate for 1 m precision than UTM grid references, and this is seen as an advantage of MGRS.
+Furthermore, the number of digits in both coordinates are _equal and fixed_ for each precision—leading zeros need to be added at low values.
+Because both coordinates have an equal number of digits, the spaces can also be dropped; this is advised in a computational environment.
 
 ```{r utm-grid-latbands-belgium, fig.cap="The 'U' latitude band goes from 48°N to 56°N. Two resulting MGRS grid zones are fully shown here: grid zones 31U (with most of Belgium) and 32U (with most of Germany)."}
 ggplot(data = countries) +
