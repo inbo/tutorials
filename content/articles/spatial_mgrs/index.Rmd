@@ -340,6 +340,7 @@ In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference is bui
 
 - The **Grid Zone Designation** (GZD), e.g. `31U`, combines the UTM zone (31) with a letter code (U) that corresponds to a latitude band of generally 8° wide; hence each intersection defines the _**MGRS grid zone**_.
 The letter codes in the GZD represent the latitude bands and run from 'C' in the south to 'X' in the north, dropping 'I' and 'O' in order to not confuse with numeric digits.
+The X band is 12° high while all other bands are 8° high.
 - Each grid zone is further subdivided into _**grid squares**_ (cells) of size 100 km, using the _UTM coordinate system_ to define the cell border coordinates as multiples of 100 000 m.
 As grid zones get wider towards the equator, more grid squares are present in zones near the equator than in zones located much further north or south.
 The **Grid Square ID** is a code of 2 characters that is unique _within_ the grid zone, e.g. `ES`, with 'E'—the 'easting letter'— referring to a column and with 'S'—the 'northing letter'—referring to a row.
