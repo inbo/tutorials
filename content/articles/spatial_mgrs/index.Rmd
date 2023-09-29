@@ -62,7 +62,7 @@ For the same reason, the UPS portion of MGRS is not further explained here.
 
 This post results from a limited literature study on these topics (see [Bibliography](#bibliography)).
 
-In short:
+Main points:
 
 - The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.
 Both grids have a world-wide coverage, with exception of the polar regions in the case of the UTM grid.
@@ -74,12 +74,12 @@ In the polar regions, the MGRS derives its grid from the UPS (Universal Polar St
 #### Terminological notes
 
 The NGA (National Geospatial-Intelligence Agency) Office of Geomatics (<https://earth-info.nga.mil>), part of the US Department of Defense, maintains definitions of the UTM map projection system and the MGRS grid [@national_geospatial-intelligence_agency_universal_2014], as did its predecessor organisations since the inception of these systems in the 1940s [@department_of_the_army_map_1956; @department_of_the_army_map_2001; @palombo_military_2021; @stott_utm_1977].
-Their usage of the term 'UTM grid' is not distinguished from the UTM map projection system, hence comes down to using numeric CRS coordinates in metres.
+Their usage of the term 'UTM grid' is not distinguished from the UTM map projection system, hence comes down to using numeric CRS coordinates in meters.
 
 At least in the past, a 'UTM grid' reference system was implemented on _civil_ maps, distinct from mere UTM CRS coordinates and with grid referencing rules to allow different levels of precision (see section [UTM grid](#utm-grid)).
 Hence I prefer to maintain the distinction between the terms 'UTM projection' and 'UTM grid', also because 'UTM grid' is sometimes erroneously used to refer to the 'MGRS grid', to which it is related.
 
-Confusion between UTM and MGRS is further compounded by the fact that some (civil) sources that distinguish these grids, erroneously describe the division of UTM zones with 8° wide latitude bands as being part of the UTM map projection system, while this belongs solely to the MGRS.
+Confusion between UTM and MGRS is further compounded by the fact that some (civil) sources that distinguish these grids, erroneously describe the division of UTM zones by 8° wide latitude bands as being part of the UTM map projection system, while this belongs solely to the MGRS.
 
 ## Introduction
 
@@ -109,7 +109,7 @@ ggplot(data = countries) +
   coord_sf(datum = "EPSG:3034", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
 ```
 
-```{r graticule, fig.cap="'Grid lines' of geographic CRSs are called the graticule, which consists of parallels and meridians. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."}
+```{r graticule, fig.cap="The lines that represent parallels and meridians of a geographic CRS are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."}
 ggplot(data = countries) +
   geom_sf(fill = "grey97", colour = "grey50") + 
   coord_sf(datum = "EPSG:4258", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6))
@@ -171,7 +171,7 @@ UTM projects geographical coordinates (degrees) to cartesian coordinates (**mete
 
 In the case of a lower precision, coordinates are rounded (not truncated) following the usual rounding rules of science and engineering [@national_geospatial-intelligence_agency_universal_2014], as would happen in other coordinate systems.
 
-As an example, we calculate the projected easting (X) and northing (Y) of a point in Belgium using the `sf` package in R, at the millimeter resolution.
+As an example, we calculate the projected easting (X) and northing (Y) of a point in Belgium using the `sf` package in R, at the millimeter precision.
 The CRS uses the geodetic datum 'ETRS89' [^ETRS89] and the 'UTM zone 31N' map projection (CRS 'EPSG:25831').
 
 ```{r message=FALSE, echo=TRUE}
@@ -256,7 +256,7 @@ ggplot(data = countries) +
   scale_y_continuous(breaks = 0)
 ```
 
-The UTM grid referencing system to identify _grid cells_ at a specific resolution follows the following numerical syntax, as explained on civil maps that use it [@stott_utm_1977] [^usarmy_utm]:
+The UTM grid referencing system to identify _grid cells_ at a specific precision follows the following numerical syntax, as explained on civil maps that use it [@stott_utm_1977] [^usarmy_utm]:
 
 ```
 [UTM zone number] [Truncated integer X-coordinate] [Truncated integer Y-coordinate]
@@ -269,7 +269,7 @@ The integers can be truncated at the required precision, hence representing 10^p
 As the coordinates are always truncated (not rounded) to integers, this effectively means that a UTM grid reference represents a square cell with a size that reflects the chosen precision, potentially clipped by the UTM zone border.
 For cells not clipped by the UTM zone border, this also means that their truncated coordinates match the UTM coordinates of their southwest corner; this holds for any precision.
 
-Hence for the Belgian point referred above with UTM coordinates <code>`r st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3, trim = TRUE) |> paste(collapse = ", ")`</code>, the UTM grid reference at 10-meter precision is <code>`r paste("31", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>.
+Hence for the Belgian point location referred above with UTM coordinates <code>`r st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3, trim = TRUE) |> paste(collapse = ", ")`</code>, the UTM grid reference at 10-meter precision is <code>`r paste("31", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>.
 
 The above grid reference can be further shortened by dropping the UTM zone number and anterior digits, e.g. if the context is within the area of one map.
 When not dropping prefixes, the UTM grid reference is unique at the global level _if_ it is also clear which hemisphere—i.e. which of the two map projections per UTM zone—applies.[^hemisphere]
