@@ -55,12 +55,7 @@ provinces <- read_sf("provinces.gpkg")
 #### Summary
 
 Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping.
-Authoritative definitions of widely used grids and grid reference systems are not globally coordinated though, contrary to the case of the EPSG-dataset for coordinate reference systems.
-Here I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
-The full definitions are not given here since the primary aim is to draw attention to important properties and differences.
-For the same reason, the UPS portion of MGRS is not further explained here.
-
-This post results from a limited literature study on these topics (see [Bibliography](#bibliography)).
+In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
 
 Main points:
 
@@ -86,6 +81,11 @@ Confusion between UTM and MGRS is further compounded by the fact that some (civi
 In biodiversity monitoring the Military Grid Reference System (MGRS) is used a lot, although sometimes it is confusingly referred to as 'the UTM grid'.
 Example projects that use this spatial reference system are the Atlas Florae Europaea [@lampinen_utm_2013] and the European Invertebrate Survey [@van_nieukerken_utm_1991; @van_veen_eis-nieuws_2000].
 In Belgium various faunistic inventories use this grid.
+
+In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
+The full definitions are not given here since the primary aim is to draw attention to important properties and differences.
+For the same reason, the UPS portion of MGRS is not further explained here.
+This post results from a limited literature study on these topics (see [Bibliography](#bibliography)).
 
 Coordinate reference systems ([CRSs](../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background)) that are widely used, e.g. on regional, national or global level, have obtained standardized definitions in a coordinated manner (e.g. in the [EPSG dataset](https://epsg.org/)).
 However, grid reference systems—associated with a projected CRS, a map projection [^map_projection], or sets of these—seem not as well globally coordinated.
