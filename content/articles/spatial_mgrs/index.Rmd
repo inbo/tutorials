@@ -22,6 +22,7 @@ library(stars)
 library(ggplot2)
 library(dplyr)
 library(rnaturalearth)
+library(stringr)
 knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 theme_set(theme_bw())
 theme_update(
@@ -320,7 +321,22 @@ An MGRS 'grid reference' (sometimes called MGRS coordinate) is defined as:
 [Grid Zone Designation] [Grid Square ID] [Truncated integer X-coordinate] [Truncated integer Y-coordinate]
 ```
 
-An example is `31U ES 56914 61249` at the 1 m precision, which resolves to `31U ES 56 61` at 1 km precision.
+```{r include=FALSE}
+utm_coords <- st_transform(point, "EPSG:25831") |> 
+  st_coordinates() |> 
+  as.vector()
+space_mgrs <- function(mgrsref) {
+  gzd <- str_sub(mgrsref, end = 3)
+  gsid <- str_sub(mgrsref, 4, 5)
+  coord <- str_sub(mgrsref, 6)
+  x <- str_sub(coord, end = nchar(coord) / 2)
+  y <- str_sub(coord, nchar(coord) / 2 + 1)
+  paste(gzd, gsid, x, y)
+}
+```
+
+
+Hence for the Belgian point location referred earlier this comes down to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2]) |> space_mgrs()`</code> at the 1 m precision, which resolves to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2], 2) |> space_mgrs()`</code> at 1 km precision.
 
 The spaces can be omitted or kept, but preferably omitted in a computational environment.
 The integer coordinates are truncated depending on the required precision, up to _zero_ digits (precision 100 km), with the _maximum_ of 5 digits per coordinate corresponding to a precision of 1 meter (i.e. the unit of the UTM coordinate system).
