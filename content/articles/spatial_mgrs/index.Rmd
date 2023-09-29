@@ -212,6 +212,15 @@ The UTM grid lines are labelled with the corresponding coordinate values, often 
 In the case of kilometer grid labels, the (anterior) digits _before_ the last two (principal) digits are printed in superscript as they generally do not change within the map.
 This approach matches general rules of printing the various rectangular grids that emerged since World War I.
 
+Since the UTM projection system is composed of multiple Transverse Mercator projections, this pattern returns in the UTM grid.
+First of all, UTM grid cells are clipped alongside UTM zone borders and along the parallels of 80°S, 0° and 84°N, which define the borders of individual Transverse Mercator projections.
+Various smaller 'grid cells' [^clipped] result from this, even though the majority of grid cells within a single Transverse Mercator projection are regularly ordered squares.
+Although each Transverse Mercator projection has a regular grid according to its cartesian coordinate system, any map projection that spans multiple UTM zones demonstrates that there is angle between the grids of different UTM zones, together constituting the UTM grid.
+
+Both the occurrence of clipped grid cells and the angles between the constituting single grids make the UTM grid a relatively complex grid to use for various analytical purposes, especially when including clipped cells and when crossing the borders of a single Transverse Mercator projection.
+
+[^clipped]: Perhaps these clipped grid cells are better called 'polygons' instead [@wikipedia_contributors_military_2023].
+
 ```{r}
 pts <- expand.grid(
   x = seq(50e3, 950e3, 100e3), 
@@ -297,10 +306,12 @@ Hence it is good to understand the difference; see also the [Terminological note
 The coordinate system obtained by **UTM** projection is used in the MGRS definition between 80°S and 84°N, and MGRS combines this with a **UPS** (Universal Polar Stereographic) projection to define its grid in the polar regions.
 In what follows, _only the UTM portion of MGRS_ is considered.
 
-The MGRS grid pattern between 80°S and 84°N has two important differences with the pattern of the [UTM grid](#utm-grid)—apart from using a different referencing (geocoding) system:
+Since the MGRS grid between 80°S and 84°N is based on the [UTM grid](#utm-grid), it inherits the complexities of the UTM grid already.
+The MGRS grid pattern between 80°S and 84°N has two important differences with the pattern of the UTM grid—apart from using a different referencing (geocoding) system:
 
-- In MGRS the UTM grid cell pattern is _intersected_ by latitude bands of generally 8° wide (starting at the equator).
+- In MGRS the UTM grid cell pattern is further _intersected_ by latitude bands of generally 8° wide.
 Intersecting [UTM zones](#utm-projection) with latitude bands results in large cells called _**MGRS grid zones**_ of generally 6° longitude by 8° latitude large.
+This intersection splits the UTM grid cells that overlap the dividing parallels, resulting in extra clipped cells compared to the UTM grid.
 - In MGRS, some of the MGRS grid zones are wider or narrower than 6 longitudinal degrees.
 This has been done to avoid grid zone junctions in specific areas, e.g. Bergen and Oslo (Norway) belong to the same grid zone.
 
