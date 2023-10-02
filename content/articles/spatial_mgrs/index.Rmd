@@ -65,13 +65,13 @@ In the polar regions, the MGRS derives its grid from the UPS (Universal Polar St
 - The major divisions of the UTM grid are the _UTM zones_, defined by meridians that are 6° apart.
 The UTM grid consists solely of grid lines tied to the UTM coordinate system.
 - The major divisions of the MGRS grid are the _grid zones_, which are a further division of UTM zones according to specific parallels, further amended by shifting the meridian borders of some grid zones.
-Grid zone borders generate extra cell splitting compared to the UTM grid.
-- Apart from deviations and extra splits as a consequence of the grid zones, the MGRS grid cell pattern matches the UTM grid.
+Grid zone borders generate extra cell clipping compared to the UTM grid.
+- Apart from deviations and extra clips as a consequence of the grid zones, the MGRS grid cell pattern matches that of the UTM grid.
 - UTM grid references consist solely of digits (Arabic numerals), while MGRS grid references are alphanumeric (combination of digits & Latin characters).
 To illustrate this, following examples refer to the Belgian point location used in the text:
   - An UTM grid reference looks like `31.577019.5661520` (meter precision) or `31.577.5661` (kilometer precision) and separators are needed (point, slash, space) if not applying localized simplifications.
   - An MGRS grid reference looks like `31U ES 77019 61520` (meter precision) or `31U ES 77 61` (kilometer precision), and the spacing is optional.
-- When decreasing the precision of a position, coordinates are to be _rounded_ while in (UTM and MGRS) grid references the numeric parts representing easting and northing are to be _truncated_.
+- When decreasing the precision of a position, _coordinates_ are to be _rounded_ while in (UTM and MGRS) _grid references_ the numeric parts representing easting and northing are to be _truncated_.
 - Projected coordinate reference systems (CRSs) specify a geodetic datum so that coordinates can be linked to a physical location on the Earth's surface. Likewise, you need to specify (and be aware of) the geodetic datum when using a (UTM or MGRS) grid reference for positioning.
 
 #### Terminological notes
@@ -384,8 +384,8 @@ The X band is 12° high while all other bands are 8° high.
 - Each grid zone is further subdivided into _**grid squares**_ (cells) of size 100 km, using the _UTM coordinate system_ to define the cell border coordinates as multiples of 100 000 m.
 As grid zones get wider towards the equator, more grid squares are present in zones near the equator than in zones located much further north or south.
 The **Grid Square ID** is a code of 2 characters that is unique _within_ the grid zone, e.g. `ES`, with 'E'—the 'easting letter'— referring to a column and with 'S'—the 'northing letter'—referring to a row.
-These letters follow the Latin alphabet (excluding 'I' and 'O') in eastern and northern direction within a UTM zone, neglecting parallel grid zone borders and repeating the sequence as needed in northern direction.
-The starting letters at UTM coordinates `0, 0` determine both letter sequences in a UTM zone, but depend on the UTM zone number as specified in the rules of the lettering scheme [^scheme].
+These letters follow the Latin alphabet (excluding 'I' and 'O') in eastern and northern direction within a UTM zone, neglecting grid zone latitude borders and repeating the sequence as needed in northern direction.
+The starting letters at UTM coordinates `0, 0` determine the easting and northing letter sequences in a UTM zone, but depend on the UTM zone number as specified in the rules of the lettering scheme [^scheme].
 - To specify locations _**with precision < 100 km**_, the **truncated integer coordinates** of the [UTM grid reference](#utm-grid) are added, thereby _dropping_ the digits that represent the hundred-thousands and higher.
 At this level, a precision can be chosen of 1, 10, 100, 1000 or 10 000 meters.
 
