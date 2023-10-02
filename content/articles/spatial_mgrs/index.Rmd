@@ -64,9 +64,9 @@ Both grids have a world-wide coverage, with exception of the polar regions in th
 In the polar regions, the MGRS derives its grid from the UPS (Universal Polar Stereographic) map projection.
 - The major divisions of the UTM grid are the _UTM zones_, defined by meridians that are 6° apart.
 The UTM grid consists solely of grid lines tied to the UTM coordinate system.
-- The major divisions of the MGRS grid are the _grid zones_, which are a further division of UTM zones according to specific parallels, further amended by shifting the meridian borders of some grid zones.
+- In the area where UTM applies, the major divisions of the MGRS grid are the _grid zones_, which are a further division of UTM zones according to specific parallels, further amended by shifting the meridian borders of some grid zones.
 Grid zone borders generate extra cell clipping compared to the UTM grid.
-- Apart from deviations and extra clips as a consequence of the grid zones, the MGRS grid cell pattern matches that of the UTM grid.
+- Apart from deviations and extra clips as a consequence of the grid zones, the MGRS grid cell pattern outside the polar regions matches that of the UTM grid.
 - UTM grid references consist solely of digits (Arabic numerals), while MGRS grid references are alphanumeric (combination of digits & Latin characters).
 To illustrate this, following examples refer to the Belgian point location used in the text:
   - An UTM grid reference looks like `31.577019.5661520` (meter precision) or `31.577.5661` (kilometer precision) and separators are needed (point, slash, space) if not applying localized simplifications.

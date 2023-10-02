@@ -7,7 +7,7 @@ categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
-csl: '/tmp/Rtmpef0o68/research-institute-for-nature-and-forest.csl'
+csl: '/tmp/Rtmp4qnA1e/research-institute-for-nature-and-forest.csl'
 urlcolor: blue
 linkcolor: blue
 output: 
@@ -35,12 +35,14 @@ Main points:
 - The major divisions of the UTM grid are the *UTM zones*, defined by
   meridians that are 6° apart. The UTM grid consists solely of grid
   lines tied to the UTM coordinate system.
-- The major divisions of the MGRS grid are the *grid zones*, which are a
-  further division of UTM zones according to specific parallels, further
-  amended by shifting the meridian borders of some grid zones. Grid zone
-  borders generate extra cell clipping compared to the UTM grid.
+- In the area where UTM applies, the major divisions of the MGRS grid
+  are the *grid zones*, which are a further division of UTM zones
+  according to specific parallels, further amended by shifting the
+  meridian borders of some grid zones. Grid zone borders generate extra
+  cell clipping compared to the UTM grid.
 - Apart from deviations and extra clips as a consequence of the grid
-  zones, the MGRS grid cell pattern matches that of the UTM grid.
+  zones, the MGRS grid cell pattern outside the polar regions matches
+  that of the UTM grid.
 - UTM grid references consist solely of digits (Arabic numerals), while
   MGRS grid references are alphanumeric (combination of digits & Latin
   characters). To illustrate this, following examples refer to the
