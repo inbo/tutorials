@@ -91,6 +91,22 @@ references:
   type: webpage
   URL: https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae
 
+- id: snyder_map_1987
+  author:
+    - family: Snyder
+      given: John Parr
+  citation-key: snyder_map_1987
+  collection-number: '1395'
+  collection-title: U.S. Geological Survey Professional Paper
+  event-place: Washington
+  issued:
+    - year: 1987
+  number-of-pages: '397'
+  publisher: United States Government Printing Office
+  publisher-place: Washington
+  title: Map Projections - A Working Manual
+  type: book
+
 - id: van_nieukerken_utm_1991
   accessed:
     - year: 2023

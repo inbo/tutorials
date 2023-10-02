@@ -76,7 +76,7 @@ To illustrate this, following examples refer to the Belgian point location used 
 
 #### Terminological notes
 
-The NGA (National Geospatial-Intelligence Agency) Office of Geomatics (<https://earth-info.nga.mil>), part of the US Department of Defense, maintains definitions of the UTM map projection system and the MGRS grid [@national_geospatial-intelligence_agency_universal_2014], as did its predecessor organisations since the inception of these systems in the 1940s [@department_of_the_army_map_1956; @department_of_the_army_map_2001; @palombo_military_2021; @stott_utm_1977].
+The NGA (National Geospatial-Intelligence Agency) Office of Geomatics (<https://earth-info.nga.mil>), part of the US Department of Defense, maintains definitions of the UTM map projection system and the MGRS grid [@national_geospatial-intelligence_agency_universal_2014], as did its predecessor organisations since the inception of these systems in the 1940s [@department_of_the_army_map_1956; @department_of_the_army_map_2001; @palombo_military_2021; @stott_utm_1977; @snyder_map_1987].
 Their usage of the term 'UTM grid' is not distinguished from the UTM map projection system, hence comes down to using numeric CRS coordinates in meters.
 
 At least in the past, a 'UTM grid' reference system was implemented on _civil_ maps, distinct from mere UTM CRS coordinates and with grid referencing rules to allow different levels of precision (see section [UTM grid](#utm-grid)).
@@ -295,7 +295,7 @@ When not dropping prefixes, the UTM grid reference is unique at the global level
 
 [^hemisphere]: Some sources [e.g. @uf_geoplan_center_mgrs_2009] therefore mention the possibility to extend the UTM zone with 'N' or 'S' depending on the hemisphere, resulting in e.g. <code>`r paste("31N", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>. However this approach is now officially obsoleted, and _full_ (i.e. globally unique) UTM coordinates should contain an MGRS grid zone prefix (see MGRS section) instead (@national_geospatial-intelligence_agency_universal_2014-1: appendix A).
 
-The concepts of UTM grid portrayal on maps and UTM grid referencing with anterior and principal digits match those of other rectangular grids that have also long been in use on civil maps, and these are all named 'civil' grids by @stott_utm_1977.
+The concepts of UTM grid portrayal on maps and UTM grid referencing with anterior and principal digits match those of other rectangular grids that have also long been in use on civil maps, and these are all named 'civil' grids by @stott_utm_1977 [see also @snyder_map_1987].
 
 Note that the UTM grid defines _no_ subdivisions of the cartesian coordinate system by means of latitude bands, nor does it describe an alphanumeric geocoding system to uniquely identify further subdivisions.
 These topics are part of the Military Grid Reference System (MGRS) specification.
