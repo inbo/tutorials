@@ -60,8 +60,8 @@ In this post I explain differences between the UTM and MGRS grids, provide refer
 Main points:
 
 - The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.
-Both grids have a world-wide coverage, with exception of the polar regions in the case of the UTM grid.
-In the polar regions, the MGRS derives its grid from the UPS (Universal Polar Stereographic) map projection.
+Both grids have a world-wide coverage, but the polar regions are only covered by the MGRS grid.
+In the polar regions, the MGRS grid is derived from the UPS (Universal Polar Stereographic) map projection.
 - The major divisions of the UTM grid are the _UTM zones_, defined by meridians that are 6° apart.
 The UTM grid consists solely of grid lines tied to the UTM coordinate system.
 - In the area where UTM applies, the major divisions of the MGRS grid are the _grid zones_, which are a further division of UTM zones according to specific parallels, further amended by shifting the meridian borders of some grid zones.
