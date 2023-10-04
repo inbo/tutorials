@@ -2,12 +2,12 @@
 title: "The UTM grid and the MGRS grid: not quite the same"
 description: ""
 authors: [florisvdh]
-date: 2023-09-22
+date: 2023-10-04
 categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
-csl: '/tmp/Rtmp4qnA1e/research-institute-for-nature-and-forest.csl'
+csl: '/tmp/RtmpMAKzBE/research-institute-for-nature-and-forest.csl'
 urlcolor: blue
 linkcolor: blue
 output: 
@@ -28,13 +28,14 @@ Main points:
 
 - The UTM grid and the MGRS grid outside the polar regions are both
   derived from the UTM (Universal Transverse Mercator) map projection
-  system. Both grids have a world-wide coverage, with exception of the
-  polar regions in the case of the UTM grid. In the polar regions, the
-  MGRS derives its grid from the UPS (Universal Polar Stereographic) map
+  system. Both grids have a world-wide coverage, but the polar regions
+  are only covered by the MGRS grid. In the polar regions, the MGRS grid
+  is derived from the UPS (Universal Polar Stereographic) map
   projection.
 - The major divisions of the UTM grid are the *UTM zones*, defined by
-  meridians that are 6° apart. The UTM grid consists solely of grid
-  lines tied to the UTM coordinate system.
+  meridians that are 6° apart. The understanding of the term ‘UTM grid’
+  in this post *only* involves grid lines tied to the UTM coordinate
+  system.
 - In the area where UTM applies, the major divisions of the MGRS grid
   are the *grid zones*, which are a further division of UTM zones
   according to specific parallels, further amended by shifting the
@@ -71,7 +72,8 @@ maintains definitions of the UTM map projection system and the MGRS grid
 ([National Geospatial-Intelligence Agency,
 2014a](#ref-national_geospatial-intelligence_agency_universal_2014)), as
 did its predecessor organisations since the inception of these systems
-in the 1940s ([Department of the Army,
+in the 1940s ([Buchroithner & Pfahlbusch,
+2017](#ref-buchroithner_geodetic_2017); [Department of the Army,
 1956](#ref-department_of_the_army_map_1956),
 [2001](#ref-department_of_the_army_map_2001); [Palombo,
 2021](#ref-palombo_military_2021); [Snyder, 1987](#ref-snyder_map_1987);
@@ -83,33 +85,48 @@ At least in the past, a ‘UTM grid’ reference system was implemented on
 *civil* maps, distinct from mere UTM CRS coordinates and with grid
 referencing rules to allow different levels of precision (see section
 [UTM grid](#utm-grid)). Hence I prefer to maintain the distinction
-between the terms ‘UTM projection’ and ‘UTM grid’, also because ‘UTM
-grid’ is sometimes erroneously used to refer to the ‘MGRS grid’, to
+between the terms ‘UTM projection’ and ‘UTM grid’, also because the term
+‘UTM grid’ is by some sources not distinguished from the ‘MGRS grid’, to
 which it is related.
 
-Confusion between UTM and MGRS is further compounded by the fact that
-some (civil) sources that distinguish these grids, erroneously describe
-the division of UTM zones by 8° wide latitude bands as being part of the
-UTM map projection system, while this belongs solely to the MGRS.
+Confusion between UTM and MGRS is compounded by the fact that some
+sources distinguish these grids but describe the division of UTM zones
+by 8° wide latitude bands as being part of the UTM map projection
+system, while others attribute the latitude bands to MGRS only. In this
+account I use the straightforward interpretation of the UTM grid –
+directly tied to the UTM map projection and a corresponding CRS – which
+has been implemented in civil maps ([Stott, 1977](#ref-stott_utm_1977))
+and which does not involve latitude bands nor alphanumeric grid
+references.
+
+The entwinement between UTM and MGRS is clear from the fact that MGRS
+was first called ‘UTMREF’ (UTM reference) in the early 1940s and this
+went hand in hand with the implementation of the UTM map projection by
+military forces (first German Army, then US Army; Buchroithner &
+Pfahlbusch ([2017](#ref-buchroithner_geodetic_2017))). To serve NATO
+purposes, a few years later the referencing system was extended to the
+polar regions, for which the UPS map projection was used. Later on, US
+Army sources make a clear distinction between UTM and MGRS (e.g.
+[Department of the Army, 1956](#ref-department_of_the_army_map_1956)).
 
 ## Introduction
 
 In biodiversity monitoring the Military Grid Reference System (MGRS) is
-used a lot, although sometimes it is confusingly referred to as ‘the UTM
-grid’. Example projects that use this spatial reference system are the
-Atlas Florae Europaea ([Lampinen, 2013](#ref-lampinen_utm_2013)) and the
-European Invertebrate Survey ([van Nieukerken,
-1991](#ref-van_nieukerken_utm_1991); [van Veen,
+used a lot, although sometimes it is referred to as ‘the UTM grid’ (see
+[Terminological notes](#terminological-notes)). Example projects that
+use this spatial reference system are the Atlas Florae Europaea
+([Lampinen, 2013](#ref-lampinen_utm_2013)) and the European Invertebrate
+Survey ([van Nieukerken, 1991](#ref-van_nieukerken_utm_1991); [van Veen,
 2000](#ref-van_veen_eis-nieuws_2000)). In Belgium various faunistic
 inventories use this grid.
 
-In this post I explain differences between the UTM and MGRS grids,
-provide references to their full definition and refer to some software
-implementations for MGRS. The full definitions are not given here since
-the primary aim is to draw attention to important properties and
-differences. For the same reason, the UPS portion of MGRS is not further
-explained here. This post results from a limited literature study on
-these topics (see [Bibliography](#bibliography)).
+In this post I explain differences between the UTM and MGRS grid concept
+as adopted here, provide references to their full definition and refer
+to some software implementations for MGRS. The full definitions are not
+given here since the primary aim is to draw attention to important
+properties and differences. For the same reason, the UPS portion of MGRS
+is not further explained here. This post results from a limited
+literature study on these topics (see [Bibliography](#bibliography)).
 
 Coordinate reference systems
 ([CRSs](../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background))
@@ -165,8 +182,7 @@ projected in CRS ‘EPSG:3035’.
 ### UTM projection
 
 UTM (Universal Transverse Mercator) was developed during World War II
-and subsequently refined by the US Army ([Buchroithner & Pfahlbusch,
-2017](#ref-buchroithner_geodetic_2017)).
+([Buchroithner & Pfahlbusch, 2017](#ref-buchroithner_geodetic_2017)).
 
 UTM is a map projection system for the Earth, composed of 120 single
 Transverse Mercator map projections (conformal, transverse cylindrical
@@ -335,27 +351,28 @@ that have also long been in use on civil maps, and these are all named
 ‘civil’ grids by Stott ([1977](#ref-stott_utm_1977); see also [Snyder,
 1987](#ref-snyder_map_1987)).
 
-Note that the UTM grid defines *no* subdivisions of the cartesian
-coordinate system by means of latitude bands, nor does it describe an
-alphanumeric geocoding system to uniquely identify further subdivisions.
-These topics are part of the Military Grid Reference System (MGRS)
-specification.
+Note that the UTM grid as explained here defines *no* subdivisions of
+the cartesian coordinate system by means of latitude bands, nor does it
+describe an alphanumeric geocoding system to uniquely identify further
+subdivisions. These topics are part of the Military Grid Reference
+System (MGRS) specification.
 
 ### MGRS grid (Military Grid Reference System)
 
-The Military Grid Reference System (MGRS) was designed by the end of the
-1940s by the US Army and is used by NATO militaries for locating
-positions worldwide up to 1 m precision. The MGRS specification is
-maintained by the NGA Office of Geomatics [^7] ([National
-Geospatial-Intelligence Agency,
+The Military Grid Reference System (MGRS) was designed during the 1940s
+in close association with the development of the UTM map projection
+system (see [Terminological notes](#terminological-notes)). It is used
+by NATO militaries for locating positions worldwide up to 1 m precision.
+The MGRS specification is maintained by the NGA Office of Geomatics [^7]
+([National Geospatial-Intelligence Agency,
 2014a](#ref-national_geospatial-intelligence_agency_universal_2014)).
 Best use the foregoing reference when referring to the MGRS. Other
 resources describe the MGRS too, including Wikipedia contributors
 ([2023](#ref-wikipedia_contributors_military_2023)).
 
 Biodiversity monitoring and perhaps other projects sometimes claim to
-use UTM grid references, while they actually use MGRS grid references.
-Hence it is good to understand the difference; see also the
+use UTM grid references, while it is more appropriate to speak about
+MGRS grid references. Reasons for this confusion are given in the
 [Terminological notes](#terminological-notes).
 
 The coordinate system obtained by **UTM** projection is used in the MGRS
