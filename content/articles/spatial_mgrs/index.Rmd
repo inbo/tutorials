@@ -84,7 +84,7 @@ At least in the past, a 'UTM grid' reference system was implemented on _civil_ m
 Hence I prefer to maintain the distinction between the terms 'UTM projection' and 'UTM grid', also because the term 'UTM grid' is by some sources not distinguished from the 'MGRS grid', to which it is related.
 
 Confusion between UTM and MGRS is compounded by the fact that some sources distinguish these grids but describe the division of UTM zones by 8° wide latitude bands as being part of the UTM map projection system, while others attribute the latitude bands to MGRS only.
-In this account I use the straightforward interpretation of the UTM grid – directly tied to the UTM map projection and a corresponding CRS – which has been implemented in civil maps [@stott_utm_1977] and which does not involve latitude bands nor alphanumeric grid references.
+In this account I use the straightforward interpretation of the UTM grid—directly tied to the UTM map projection and a corresponding CRS—which has been implemented in civil maps [@stott_utm_1977] and which does not involve latitude bands nor alphanumeric grid references.
 
 The entwinement between UTM and MGRS is clear from the fact that MGRS was first called 'UTMREF' (UTM reference) in the early 1940s and this went hand in hand with the implementation of the UTM map projection by military forces (first German Army, then US Army; @buchroithner_geodetic_2017).
 To serve NATO purposes, a few years later the referencing system was extended to the polar regions, for which the UPS map projection was used.
