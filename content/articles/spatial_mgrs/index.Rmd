@@ -7,7 +7,7 @@ categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
-csl: '`r cslfile <- file.path(tempdir(), "research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/inbocsl-0.2.0/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
+csl: '`r cslfile <- file.path(tempdir(), "research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/master/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
 urlcolor: blue
 linkcolor: blue
 output: 
