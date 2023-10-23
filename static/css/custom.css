@@ -40,6 +40,11 @@
   	  padding-bottom: 24px;
   	  }
 
+  	/* CSL entry */
+  	#content .csl-entry {
+  	  padding-bottom: 24px;
+  	  }
+
     /* Style descriptions (set in layouts/_default/li.html) */
     #content .item .description {
         font-size: 80%;
