@@ -340,7 +340,7 @@ ggplot(data = countries) +
   coord_sf(datum = "EPSG:4326", xlim = c(2.5e6, 6e6), ylim = c(1.5e6, 4.5e6)) +
   scale_x_continuous(breaks = seq(-24, 48, 6)) +
   scale_y_continuous(breaks = seq(0, 80, 8)) +
-  theme(panel.grid = element_line(colour = "blue"))
+  theme(panel.grid = element_line(colour = "royalblue3"))
 ```
 
 Below the grid zone level, it is still the UTM grid pattern that drives the further subdivision in MGRS between 80°S and 84°N, down to the required precision, just as in other grid systems.
@@ -408,7 +408,7 @@ ggplot(data = countries) +
   coord_sf(datum = "EPSG:4326", xlim = c(3.5e6, 4.5e6), ylim = c(2.7e6, 3.7e6)) +
   scale_x_continuous(breaks = seq(-24, 48, 6)) +
   scale_y_continuous(breaks = seq(0, 80, 8)) +
-  theme(panel.grid = element_line(colour = "blue"))
+  theme(panel.grid = element_line(colour = "royalblue3"))
 ```
 
 In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference is built as follows:
