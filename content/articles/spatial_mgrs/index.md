@@ -2,12 +2,12 @@
 title: "The UTM grid and the MGRS grid: not quite the same"
 description: ""
 authors: [florisvdh]
-date: 2023-10-04
+date: 2023-10-23
 categories: ["gis"]
 tags: ["gis", "utm", "mgrs", "grids"]
 bibliography: ../spatial.yaml
 link-citations: true
-csl: '/tmp/RtmpMAKzBE/research-institute-for-nature-and-forest.csl'
+csl: '/tmp/RtmpWcynXr/research-institute-for-nature-and-forest.csl'
 urlcolor: blue
 linkcolor: blue
 output: 
@@ -36,7 +36,7 @@ Main points:
   meridians that are 6° apart. The understanding of the term ‘UTM grid’
   in this post *only* involves grid lines tied to the UTM coordinate
   system.
-- In the area where UTM applies, the major divisions of the MGRS grid
+- In the area where UTM applies, the major partitions of the MGRS grid
   are the *grid zones*, which are a further division of UTM zones
   according to specific parallels, further amended by shifting the
   meridian borders of some grid zones. Grid zone borders generate extra
@@ -51,7 +51,7 @@ Main points:
   - An UTM grid reference looks like `31.577019.5661520` (meter
     precision) or `31.577.5661` (kilometer precision) and separators are
     needed (point, slash, space) if not applying localized
-    simplifications.
+    simplifications. Quite some variations exist.
   - An MGRS grid reference looks like `31U ES 77019 61520` (meter
     precision) or `31U ES 77 61` (kilometer precision), and the spacing
     is optional.
@@ -93,11 +93,11 @@ Confusion between UTM and MGRS is compounded by the fact that some
 sources distinguish these grids but describe the division of UTM zones
 by 8° wide latitude bands as being part of the UTM map projection
 system, while others attribute the latitude bands to MGRS only. In this
-account I use the straightforward interpretation of the UTM grid –
-directly tied to the UTM map projection and a corresponding CRS – which
-has been implemented in civil maps ([Stott, 1977](#ref-stott_utm_1977))
-and which does not involve latitude bands nor alphanumeric grid
-references.
+account I use the straightforward interpretation of the UTM
+grid—directly tied to the UTM map projection and a corresponding
+CRS—which has been implemented in civil maps ([Stott,
+1977](#ref-stott_utm_1977)) and which does not involve latitude bands
+nor alphanumeric grid references.
 
 The entwinement between UTM and MGRS is clear from the fact that MGRS
 was first called ‘UTMREF’ (UTM reference) in the early 1940s and this
@@ -339,7 +339,9 @@ For localized usage, the above grid reference can be further shortened
 by dropping the UTM zone number and anterior digits, e.g. if the context
 is within the area of one map. In many areas such simplifications lead
 to eastings and northings of equal length, so that separators are
-sometimes dropped.
+sometimes dropped (for the example at 10-meter precision you could have:
+<code>77016152</code>). Clearly, you can encounter variations of the UTM
+grid reference syntax.
 
 When not dropping prefixes, the UTM grid reference is unique at the
 global level *if* it is also clear which hemisphere—i.e. which of the
@@ -362,9 +364,9 @@ System (MGRS) specification.
 The Military Grid Reference System (MGRS) was designed during the 1940s
 in close association with the development of the UTM map projection
 system (see [Terminological notes](#terminological-notes)). It is used
-by NATO militaries for locating positions worldwide up to 1 m precision.
-The MGRS specification is maintained by the NGA Office of Geomatics [^7]
-([National Geospatial-Intelligence Agency,
+by NATO militaries for locating positions worldwide up to 1 m
+precision[^7]. The MGRS specification is maintained by the NGA Office of
+Geomatics [^8] ([National Geospatial-Intelligence Agency,
 2014a](#ref-national_geospatial-intelligence_agency_universal_2014)).
 Best use the foregoing reference when referring to the MGRS. Other
 resources describe the MGRS too, including Wikipedia contributors
@@ -425,20 +427,31 @@ as:
 
     [Grid Zone Designation] [Grid Square ID] [Truncated integer X-coordinate] [Truncated integer Y-coordinate]
 
-Hence for the Belgian point location referred earlier this comes down to
-<code>31U ES 77019 61520</code> at the 1 m precision, which resolves to
-<code>31U ES 77 61</code> at 1 km precision.
+As explained further, for the Belgian point location referred earlier
+this comes down to <code>31U ES 77019 61520</code> at the 1 m precision,
+which resolves to <code>31U ES 77 61</code> at 1 km precision.
 
 The integer coordinates are truncated depending on the required
-precision, up to *zero* digits (precision 100 km), with the *maximum* of
-five digits per coordinate corresponding to a precision of 1 meter
-(i.e. the unit of the UTM coordinate system). Consequently, MGRS grid
-references need less digits per coordinate for 1 m precision than UTM
-grid references, and this is seen as an advantage of MGRS. Furthermore,
-the number of digits in both coordinates are *equal and fixed* for each
-precision—leading zeros need to be added at low values. Because both
-coordinates have an equal number of digits, the spaces can also be
-dropped; this is advised in a computational environment.
+precision, up to *zero* digits (precision 100 km), with the
+*maximum*[^9] of five digits per coordinate corresponding to a precision
+of 1 meter (i.e. the unit of the UTM coordinate system). So we get:
+
+| precision (meter) | number of digits per coordinate | MGRS grid reference  |
+|:-----------------:|:-------------------------------:|:---------------------|
+|      100 000      |                0                | `31U ES`             |
+|      10 000       |                1                | `31U ES 7 6`         |
+|       1 000       |                2                | `31U ES 77 61`       |
+|        100        |                3                | `31U ES 770 615`     |
+|        10         |                4                | `31U ES 7701 6152`   |
+|         1         |                5                | `31U ES 77019 61520` |
+
+Consequently, MGRS grid references need less digits per coordinate for 1
+m precision than UTM grid references, and this is seen as an advantage
+of MGRS.[^10] Furthermore, the number of digits in both coordinates are
+*equal and fixed* for each precision—leading zeros need to be added at
+low values. Because both coordinates have an equal number of digits, the
+spaces can also be dropped; this is advised in a computational
+environment.
 
 <div class="figure" style="text-align: center">
 
@@ -474,7 +487,7 @@ is built as follows:
   borders and repeating the sequence as needed in northern direction.
   The starting letters at UTM coordinates `0, 0` determine the easting
   and northing letter sequences in a UTM zone, but depend on the UTM
-  zone number as specified in the rules of the lettering scheme [^8].
+  zone number as specified in the rules of the lettering scheme [^11].
 - To specify locations ***with precision \< 100 km***, the **truncated
   integer coordinates** of the [UTM grid reference](#utm-grid) are
   added, thereby *dropping* the digits that represent the
@@ -485,8 +498,8 @@ Since coordinates are always truncated (not rounded), resulting in 0 to
 5 integers per coordinate, this effectively means that an MGRS grid
 reference represents a square cell with its size reflecting the chosen
 precision, although potentially clipped by the UTM zone border or the
-latitude band. E.g. in `31U ES 1 4` X = 1 refers to the half-open
-interval \[**1**0, 20) km.
+latitude band. E.g. in `31U ES 7 6` X = 7 refers to the half-open
+interval \[**7**0, 80) km.
 
 ## What is the relation to coordinate reference systems (CRSs)?
 
@@ -498,7 +511,7 @@ a property of the geodetic CRS associated with the projected CRS.
 
 This also means that without a geodetic datum, you cannot determine the
 physical location on the Earth’s surface that corresponds to a pair of
-UTM coordinates or to a UTM or MGRS grid reference [^9]. See the [CRS
+UTM coordinates or to a UTM or MGRS grid reference [^12]. See the [CRS
 tutorial](../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background)
 for more information.
 
@@ -588,7 +601,7 @@ list provides open-source implementations and may be incomplete:
   National Security Agency ([code
   repo](https://github.com/NationalSecurityAgency/qgis-latlontools-plugin)).
   It provides several geoprocessing algorithms, which can also be
-  accessed outside the QGIS GUI, e.g. from R [^10]. The plugin also
+  accessed outside the QGIS GUI, e.g. from R [^13]. The plugin also
   provides a GUI for easy coordinate conversion based on interaction
   with the map.
 
@@ -606,7 +619,10 @@ coordinates, or display the MGRS grid. One example is
 
 ## Acknowledgements
 
-NGI / INBO
+I am grateful to Ward Langeraert, Amber Mertens, Hans Van Calster, Toon
+Westra (all from [INBO](https://www.inbo.be/en)), Jeffrey Verbeurgt and
+Robson Nascimento (from [NGI](https://www.ngi.be)—National Geographic
+Institute) for their useful comments on earlier versions of the text.
 
 ## Bibliography
 
@@ -774,13 +790,35 @@ Wikipedia, The Free Encyclopedia.
     ([2014b](#ref-national_geospatial-intelligence_agency_universal_2014-1)):
     appendix A).
 
-[^7]: URL: <https://earth-info.nga.mil>.
+[^7]: Some software
+    implementations—e.g. [`GeoConvert`](https://geographiclib.sourceforge.io/cgi-bin/GeoConvert)—go
+    beyond the 1 m precision by adding more digits to the MGRS grid
+    reference (Robson Nascimento, Jeffrey Verbeurgt, pers. comm.). Such
+    implementations extend the official MGRS specification ([National
+    Geospatial-Intelligence Agency,
+    2014a](#ref-national_geospatial-intelligence_agency_universal_2014)),
+    which stops at 1 m precision.
 
-[^8]: Moreover, two different lettering schemes are in use (called ‘AA’
+[^8]: URL: <https://earth-info.nga.mil>.
+
+[^9]: Some software
+    implementations—e.g. [`GeoConvert`](https://geographiclib.sourceforge.io/cgi-bin/GeoConvert)—go
+    beyond the 1 m precision by adding more digits to the MGRS grid
+    reference (Robson Nascimento, Jeffrey Verbeurgt, pers. comm.). Such
+    implementations extend the official MGRS specification ([National
+    Geospatial-Intelligence Agency,
+    2014a](#ref-national_geospatial-intelligence_agency_universal_2014)),
+    which stops at 1 m precision.
+
+[^10]: Moreover, the use of Latin characters (letters) in MGRS made
+    Morse code communication in former times less error-prone (Robson
+    Nascimento, pers. comm.).
+
+[^11]: Moreover, two different lettering schemes are in use (called ‘AA’
     and ‘AL’), and it is the ellipsoid used in the geodetic datum that
     defines which one will be used!
 
-[^9]: Older series of Belgian maps distributed by the National
+[^12]: Older series of Belgian maps distributed by the National
     Geographical Institute (<https://www.ngi.be>) applied the ED50
     geodetic datum (European Datum 1950), which affects the position of
     coordinates (hence MGRS grid) by about 90 m in E-W direction and
@@ -795,7 +833,7 @@ Wikipedia, The Free Encyclopedia.
     datum](https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html):
     `urn:ogc:def:ensemble:EPSG::6326`.
 
-[^10]: Beside R’s `mgrs` package, another possibility to translate
+[^13]: Beside R’s `mgrs` package, another possibility to translate
     to/from MGRS grid references in R is by accessing the ‘Lat Lon
     Tools’ QGIS plugin using the
     [qgisprocess](https://r-spatial.github.io/qgisprocess) package,
