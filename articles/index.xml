@@ -6,7 +6,18 @@
     <description>Recent content in Articles on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/articles/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/articles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The UTM grid and the MGRS grid: not quite the same</title>
+      <link>https://inbo.github.io/tutorials/articles/spatial_mgrs/</link>
+      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/spatial_mgrs/</guid>
+      <description>Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
+Main points:
+ The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.</description>
+    </item>
+    
     <item>
       <title>Statistics courses @ INBO!</title>
       <link>https://inbo.github.io/tutorials/articles/inbo_stats_courses/</link>

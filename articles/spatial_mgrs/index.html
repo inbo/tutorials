@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
+Main points:
+ The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='The UTM grid and the MGRS grid: not quite the same • Floris Vanderhaeghe'>
+<meta property='og:description' content='Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
+Main points:
+ The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.'>
+<meta property='og:url' content='https://inbo.github.io/tutorials/articles/spatial_mgrs/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='articles'><meta property='article:tag' content='gis'><meta property='article:tag' content='utm'><meta property='article:tag' content='mgrs'><meta property='article:tag' content='grids'><meta property='article:published_time' content='2023-10-23T00:00:00Z'/><meta property='article:modified_time' content='2023-10-23T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>The UTM grid and the MGRS grid: not quite the same • Floris Vanderhaeghe</title>
+  <link rel='canonical' href='https://inbo.github.io/tutorials/articles/spatial_mgrs/'>
+  
+  
+  <link rel='icon' href='/tutorials/favicon.ico'>
+<link rel='stylesheet' href='/tutorials/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/tutorials/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  
+
+</head>
+<body class='page type-articles has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/tutorials/'>
+        <img src='/tutorials/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/tutorials/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/tutorials/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/tutorials/'>Home</a></li><li class='item has-current'>
+  <a href='/tutorials/articles/'>Articles</a></li><li class='item'>
+  <a href='/tutorials/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/tutorials/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/tutorials/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/tutorials/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/tutorials/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/tutorials/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tutorials/tags/analysis/' style='font-size:1.0533333333333332em'>analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tutorials/tags/api/' style='font-size:1.0133333333333334em'>api</a>
+      </li><li>
+        <a href='/tutorials/tags/bibliography/' style='font-size:1.0133333333333334em'>bibliography</a>
+      </li><li>
+        <a href='/tutorials/tags/biodiversity/' style='font-size:1.0133333333333334em'>biodiversity</a>
+      </li><li>
+        <a href='/tutorials/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tutorials/tags/bookdown/' style='font-size:1.0133333333333334em'>bookdown</a>
+      </li><li>
+        <a href='/tutorials/tags/checklist/' style='font-size:1.0266666666666666em'>checklist</a>
+      </li><li>
+        <a href='/tutorials/tags/ci/' style='font-size:1.0133333333333334em'>ci</a>
+      </li><li>
+        <a href='/tutorials/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tutorials/tags/csl/' style='font-size:1.0133333333333334em'>csl</a>
+      </li><li>
+        <a href='/tutorials/tags/data/' style='font-size:1.0266666666666666em'>data</a>
+      </li><li>
+        <a href='/tutorials/tags/database/' style='font-size:1.0533333333333332em'>database</a>
+      </li><li>
+        <a href='/tutorials/tags/development/' style='font-size:1.0133333333333334em'>development</a>
+      </li><li>
+        <a href='/tutorials/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tutorials/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tutorials/tags/effectclass/' style='font-size:1.0266666666666666em'>effectclass</a>
+      </li><li>
+        <a href='/tutorials/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tutorials/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tutorials/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tutorials/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tutorials/tags/gbif/' style='font-size:1.0133333333333334em'>gbif</a>
+      </li><li>
+        <a href='/tutorials/tags/generalized-linear-regression/' style='font-size:1em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tutorials/tags/ggplot2/' style='font-size:1.0133333333333334em'>ggplot2</a>
+      </li><li>
+        <a href='/tutorials/tags/gis/' style='font-size:1.1333333333333333em'>gis</a>
+      </li><li>
+        <a href='/tutorials/tags/git/' style='font-size:1.12em'>git</a>
+      </li><li>
+        <a href='/tutorials/tags/gitbook/' style='font-size:1.0133333333333334em'>gitbook</a>
+      </li><li>
+        <a href='/tutorials/tags/github/' style='font-size:1.04em'>github</a>
+      </li><li>
+        <a href='/tutorials/tags/google/' style='font-size:1.0133333333333334em'>google</a>
+      </li><li>
+        <a href='/tutorials/tags/grids/' style='font-size:1em'>grids</a>
+      </li><li>
+        <a href='/tutorials/tags/gwlogger/' style='font-size:1.04em'>gwloggeR</a>
+      </li><li>
+        <a href='/tutorials/tags/inbodb/' style='font-size:1em'>inbodb</a>
+      </li><li>
+        <a href='/tutorials/tags/inbomd/' style='font-size:1.04em'>INBOmd</a>
+      </li><li>
+        <a href='/tutorials/tags/inborutils/' style='font-size:1.04em'>inborutils</a>
+      </li><li>
+        <a href='/tutorials/tags/inla/' style='font-size:1.0266666666666666em'>INLA</a>
+      </li><li>
+        <a href='/tutorials/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tutorials/tags/inlatools/' style='font-size:1.0266666666666666em'>inlatools</a>
+      </li><li>
+        <a href='/tutorials/tags/installation/' style='font-size:1.12em'>installation</a>
+      </li><li>
+        <a href='/tutorials/tags/literature/' style='font-size:1.0533333333333332em'>literature</a>
+      </li><li>
+        <a href='/tutorials/tags/maps/' style='font-size:1.08em'>maps</a>
+      </li><li>
+        <a href='/tutorials/tags/markdown/' style='font-size:1.0266666666666666em'>markdown</a>
+      </li><li>
+        <a href='/tutorials/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tutorials/tags/mgrs/' style='font-size:1em'>mgrs</a>
+      </li><li>
+        <a href='/tutorials/tags/mixed-model/' style='font-size:1.0666666666666667em'>mixed model</a>
+      </li><li>
+        <a href='/tutorials/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tutorials/tags/n2khab/' style='font-size:1.0533333333333332em'>n2khab</a>
+      </li><li>
+        <a href='/tutorials/tags/open-science/' style='font-size:1.0933333333333333em'>open science</a>
+      </li><li>
+        <a href='/tutorials/tags/packages/' style='font-size:1.04em'>packages</a>
+      </li><li>
+        <a href='/tutorials/tags/pandoc/' style='font-size:1.0133333333333334em'>pandoc</a>
+      </li><li>
+        <a href='/tutorials/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tutorials/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tutorials/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tutorials/tags/reports/' style='font-size:1.0133333333333334em'>reports</a>
+      </li><li>
+        <a href='/tutorials/tags/rgbif/' style='font-size:1.0666666666666667em'>rgbif</a>
+      </li><li>
+        <a href='/tutorials/tags/rmarkdown/' style='font-size:1.0266666666666666em'>rmarkdown</a>
+      </li><li>
+        <a href='/tutorials/tags/rstudio/' style='font-size:1.0533333333333332em'>rstudio</a>
+      </li><li>
+        <a href='/tutorials/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tutorials/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tutorials/tags/styleguide/' style='font-size:1.04em'>styleguide</a>
+      </li><li>
+        <a href='/tutorials/tags/tidyverse/' style='font-size:1.04em'>tidyverse</a>
+      </li><li>
+        <a href='/tutorials/tags/uncertainty/' style='font-size:1.0133333333333334em'>uncertainty</a>
+      </li><li>
+        <a href='/tutorials/tags/utm/' style='font-size:1em'>utm</a>
+      </li><li>
+        <a href='/tutorials/tags/version-control/' style='font-size:1.0933333333333333em'>version control</a>
+      </li><li>
+        <a href='/tutorials/tags/vignette/' style='font-size:1.48em'>vignette</a>
+      </li><li>
+        <a href='/tutorials/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tutorials/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tutorials/tags/waterinfo/' style='font-size:1.0266666666666666em'>wateRinfo</a>
+      </li><li>
+        <a href='/tutorials/tags/watina/' style='font-size:1.0266666666666666em'>watina</a>
+      </li><li>
+        <a href='/tutorials/tags/webservice/' style='font-size:1.04em'>webservice</a>
+      </li><li>
+        <a href='/tutorials/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tutorials/tags/zenodo/' style='font-size:1em'>zenodo</a>
+      </li><li>
+        <a href='/tutorials/tags/zotero/' style='font-size:1.0133333333333334em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Mon Oct 23 12:22:53 UTC 2023</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/tutorials/'>Home</a></li><li><a href='/tutorials/articles/'>Articles</a></li><li><span>The UTM grid and the MGRS grid: not quite the same</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>The UTM grid and the MGRS grid: not quite the same</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2023-10-23T00:00:00Z'>2023, Oct 23</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/tutorials/authors/florisvdh'>Floris Vanderhaeghe</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+23 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/articles/spatial_mgrs/index.Rmd'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h4 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p>Grids are widely used in biodiversity monitoring to define the basic
+spatial units for data collection, data processing or mapping. In this
+post I explain differences between the UTM and MGRS grids, provide
+references to their full definition and refer to some software
+implementations for MGRS.</p>
+<p>Main points:</p>
+<ul>
+<li>The UTM grid and the MGRS grid outside the polar regions are both
+derived from the UTM (Universal Transverse Mercator) map projection
+system. Both grids have a world-wide coverage, but the polar regions
+are only covered by the MGRS grid. In the polar regions, the MGRS grid
+is derived from the UPS (Universal Polar Stereographic) map
+projection.</li>
+<li>The major divisions of the UTM grid are the <em>UTM zones</em>, defined by
+meridians that are 6° apart. The understanding of the term ‘UTM grid’
+in this post <em>only</em> involves grid lines tied to the UTM coordinate
+system.</li>
+<li>In the area where UTM applies, the major partitions of the MGRS grid
+are the <em>grid zones</em>, which are a further division of UTM zones
+according to specific parallels, further amended by shifting the
+meridian borders of some grid zones. Grid zone borders generate extra
+cell clipping compared to the UTM grid.</li>
+<li>Apart from deviations and extra clips as a consequence of the grid
+zones, the MGRS grid cell pattern outside the polar regions matches
+that of the UTM grid.</li>
+<li>UTM grid references consist solely of digits (Arabic numerals), while
+MGRS grid references are alphanumeric (combination of digits &amp; Latin
+characters). To illustrate this, following examples refer to the
+Belgian point location used in the text:
+<ul>
+<li>An UTM grid reference looks like <code>31.577019.5661520</code> (meter
+precision) or <code>31.577.5661</code> (kilometer precision) and separators are
+needed (point, slash, space) if not applying localized
+simplifications. Quite some variations exist.</li>
+<li>An MGRS grid reference looks like <code>31U ES 77019 61520</code> (meter
+precision) or <code>31U ES 77 61</code> (kilometer precision), and the spacing
+is optional.</li>
+</ul>
+</li>
+<li>When decreasing the precision of a position, <em>coordinates</em> are to be
+<em>rounded</em> while in (UTM and MGRS) <em>grid references</em> the numeric parts
+representing easting and northing are to be <em>truncated</em>.</li>
+<li>Projected coordinate reference systems (CRSs) specify a geodetic datum
+so that coordinates can be linked to a physical location on the
+Earth’s surface. Likewise, you need to specify (and be aware of) the
+geodetic datum when using a (UTM or MGRS) grid reference for
+positioning.</li>
+</ul>
+<h4 id="terminological-notes">Terminological notes<a href="#terminological-notes" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p>The NGA (National Geospatial-Intelligence Agency) Office of Geomatics
+(<a href="https://earth-info.nga.mil">https://earth-info.nga.mil</a>), part of the US Department of Defense,
+maintains definitions of the UTM map projection system and the MGRS grid
+(<a href="#ref-national_geospatial-intelligence_agency_universal_2014">National Geospatial-Intelligence Agency,
+2014a</a>), as
+did its predecessor organisations since the inception of these systems
+in the 1940s (<a href="#ref-buchroithner_geodetic_2017">Buchroithner &amp; Pfahlbusch,
+2017</a>; <a href="#ref-department_of_the_army_map_1956">Department of the Army,
+1956</a>,
+<a href="#ref-department_of_the_army_map_2001">2001</a>; <a href="#ref-palombo_military_2021">Palombo,
+2021</a>; <a href="#ref-snyder_map_1987">Snyder, 1987</a>;
+<a href="#ref-stott_utm_1977">Stott, 1977</a>). Their usage of the term ‘UTM grid’
+is not distinguished from the UTM map projection system, hence comes
+down to using numeric CRS coordinates in meters.</p>
+<p>At least in the past, a ‘UTM grid’ reference system was implemented on
+<em>civil</em> maps, distinct from mere UTM CRS coordinates and with grid
+referencing rules to allow different levels of precision (see section
+<a href="#utm-grid">UTM grid</a>). Hence I prefer to maintain the distinction
+between the terms ‘UTM projection’ and ‘UTM grid’, also because the term
+‘UTM grid’ is by some sources not distinguished from the ‘MGRS grid’, to
+which it is related.</p>
+<p>Confusion between UTM and MGRS is compounded by the fact that some
+sources distinguish these grids but describe the division of UTM zones
+by 8° wide latitude bands as being part of the UTM map projection
+system, while others attribute the latitude bands to MGRS only. In this
+account I use the straightforward interpretation of the UTM
+grid—directly tied to the UTM map projection and a corresponding
+CRS—which has been implemented in civil maps (<a href="#ref-stott_utm_1977">Stott,
+1977</a>) and which does not involve latitude bands
+nor alphanumeric grid references.</p>
+<p>The entwinement between UTM and MGRS is clear from the fact that MGRS
+was first called ‘UTMREF’ (UTM reference) in the early 1940s and this
+went hand in hand with the implementation of the UTM map projection by
+military forces (first German Army, then US Army; Buchroithner &amp;
+Pfahlbusch (<a href="#ref-buchroithner_geodetic_2017">2017</a>)). To serve NATO
+purposes, a few years later the referencing system was extended to the
+polar regions, for which the UPS map projection was used. Later on, US
+Army sources make a clear distinction between UTM and MGRS (e.g.
+<a href="#ref-department_of_the_army_map_1956">Department of the Army, 1956</a>).</p>
+<h2 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>In biodiversity monitoring the Military Grid Reference System (MGRS) is
+used a lot, although sometimes it is referred to as ‘the UTM grid’ (see
+<a href="#terminological-notes">Terminological notes</a>). Example projects that
+use this spatial reference system are the Atlas Florae Europaea
+(<a href="#ref-lampinen_utm_2013">Lampinen, 2013</a>) and the European Invertebrate
+Survey (<a href="#ref-van_nieukerken_utm_1991">van Nieukerken, 1991</a>; <a href="#ref-van_veen_eis-nieuws_2000">van Veen,
+2000</a>). In Belgium various faunistic
+inventories use this grid.</p>
+<p>In this post I explain differences between the UTM and MGRS grid concept
+as adopted here, provide references to their full definition and refer
+to some software implementations for MGRS. The full definitions are not
+given here since the primary aim is to draw attention to important
+properties and differences. For the same reason, the UPS portion of MGRS
+is not further explained here. This post results from a limited
+literature study on these topics (see <a href="#bibliography">Bibliography</a>).</p>
+<p>Coordinate reference systems
+(<a href="../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background">CRSs</a>)
+that are widely used, e.g. on regional, national or global level, have
+obtained standardized definitions in a coordinated manner (e.g. in the
+<a href="https://epsg.org/">EPSG dataset</a>). However, grid reference
+systems—associated with a projected CRS, a map projection <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, or sets
+of these—seem not as well globally coordinated.</p>
+<p>A ‘grid’ in the context of maps refers to the horizontal and vertical
+<em>lines</em> chosen in the cartesian coordinate system of a projected CRS,
+usually in a regular manner (equal distance between all lines). It may
+also refer to the rectangular cells that emerge from these lines
+(<a href="#ref-iliffe_datums_2008">Iliffe &amp; Lott, 2008</a>; <a href="#ref-stott_utm_1977">Stott,
+1977</a>). The distance between the grid lines on a
+map depends on the used map scale.</p>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/grid-1.png" alt="A map of Europe in the projected CRS 'EPSG:3035' ('ETRS89-extended / LAEA Europe'). The grid is from the same CRS."  /></p>
+<p class="caption">
+A map of Europe in the projected CRS ‘EPSG:3035’ (‘ETRS89-extended /
+LAEA Europe’). The grid is from the same CRS.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/grid2-1.png" alt="The same map of Europe in the projected CRS 'EPSG:3035'. The grid however is from 'EPSG:3034' ('ETRS89-extended / LCC Europe'), reprojected in 'EPSG:3035'."  /></p>
+<p class="caption">
+The same map of Europe in the projected CRS ‘EPSG:3035’. The grid
+however is from ‘EPSG:3034’ (‘ETRS89-extended / LCC Europe’),
+reprojected in ‘EPSG:3035’.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/graticule-1.png" alt="The lines that represent parallels and meridians of a geographic CRS are called the graticule. This map still uses the projected CRS 'EPSG:3035' but displays the graticule of geographic CRS 'EPSG:4258' ('ETRS89'), projected in CRS 'EPSG:3035'."  /></p>
+<p class="caption">
+The lines that represent parallels and meridians of a geographic CRS are
+called the graticule. This map still uses the projected CRS ‘EPSG:3035’
+but displays the graticule of geographic CRS ‘EPSG:4258’ (‘ETRS89’),
+projected in CRS ‘EPSG:3035’.
+</p>
+</div>
+<h2 id="utm-projection-utm-grid-and-mgrs-grid">UTM projection, UTM grid and MGRS grid<a href="#utm-projection-utm-grid-and-mgrs-grid" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="utm-projection">UTM projection<a href="#utm-projection" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>UTM (Universal Transverse Mercator) was developed during World War II
+(<a href="#ref-buchroithner_geodetic_2017">Buchroithner &amp; Pfahlbusch, 2017</a>).</p>
+<p>UTM is a map projection system for the Earth, composed of 120 single
+Transverse Mercator map projections (conformal, transverse cylindrical
+projection) for 60 ‘<strong>UTM zones</strong>’ (numbered 1 - 60), each 6 degrees of
+longitude wide and reaching from 80°S to 84°N (originally 80°N;
+Department of the Army (<a href="#ref-department_of_the_army_map_1956">1956</a>)).
+120 map projections are defined since for each UTM zone a separate map
+projection is needed for the northern and the southern hemisphere, the
+only difference being the false northing value. For example, the largest
+part of Belgium (and the whole of Flanders) is situated in UTM zone 31,
+and there the map projection ‘UTM zone 31N’ applies <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, with ‘N’
+referring to the northern hemisphere.</p>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/utm-zones-world-1.png" alt="A map centered on Greenwich, showing how meridians define the borders of UTM zones."  /></p>
+<p class="caption">
+A map centered on Greenwich, showing how meridians define the borders of
+UTM zones.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/utm-zones-europe-1.png" alt="UTM zones in the European area. The UTM zones are narrower in the north."  /></p>
+<p class="caption">
+UTM zones in the European area. The UTM zones are narrower in the north.
+</p>
+</div>
+<p>UTM projects geographical coordinates (degrees) to cartesian coordinates
+(<strong>meters</strong>), so the result is XY coordinates (eastings and northings)
+like in other map projections, often resulting in high numbers,
+especially for Y as it covers the whole range of 0° to 80° or 84°
+latitude.</p>
+<p>In the case of a lower precision, coordinates are rounded (not
+truncated) following the usual rounding rules of science and engineering
+(<a href="#ref-national_geospatial-intelligence_agency_universal_2014">National Geospatial-Intelligence Agency,
+2014a</a>), as
+would happen in other coordinate systems.</p>
+<p>As an example, we calculate the projected easting (X) and northing (Y)
+of a point in Belgium using the <code>sf</code> package in R, at the millimeter
+precision. The CRS uses the geodetic datum ‘ETRS89’ <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> and the ‘UTM
+zone 31N’ map projection (CRS ‘EPSG:25831’).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(sf)
+point &lt;- <span style="color:#0a0">st_sfc</span>(<span style="color:#0a0">st_point</span>(<span style="color:#0a0">c</span>(<span style="color:#099">4.1</span>, <span style="color:#099">51.1</span>)), crs = <span style="color:#a50">&#34;EPSG:4258&#34;</span>)
+<span style="color:#0a0">st_transform</span>(point, <span style="color:#a50">&#34;EPSG:25831&#34;</span>) |&gt; <span style="color:#0a0">st_coordinates</span>() |&gt; <span style="color:#0a0">format</span>(nsmall = <span style="color:#099">3</span>, trim = <span style="color:#00a">TRUE</span>)
+</code></pre></div><pre><code>##      X            Y            
+## [1,] &quot;577019.527&quot; &quot;5661520.775&quot;
+</code></pre>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/flanders-1.png" alt="A map in the Belgian CRS 'EPSG:3812' ('ETRS89 / Belgian Lambert 2008'), showing provinces of Flanders. The point with geographical coordinates '51.1°N 4.1°E', projected in 'EPSG:3812', is shown in red. It is situated in the province 'Oost-Vlaanderen'. The superposed UTM grid lines and UTM coordinates are from the UTM CRS 'EPSG:25831' ('ETRS89 / UTM zone 31N')—reprojected in 'EPSG:3812'—with lines every 5 km."  /></p>
+<p class="caption">
+A map in the Belgian CRS ‘EPSG:3812’ (‘ETRS89 / Belgian Lambert 2008’),
+showing provinces of Flanders. The point with geographical coordinates
+‘51.1°N 4.1°E’, projected in ‘EPSG:3812’, is shown in red. It is
+situated in the province ‘Oost-Vlaanderen’. The superposed UTM grid
+lines and UTM coordinates are from the UTM CRS ‘EPSG:25831’ (‘ETRS89 /
+UTM zone 31N’)—reprojected in ‘EPSG:3812’—with lines every 5 km.
+</p>
+</div>
+<h3 id="utm-grid">UTM grid<a href="#utm-grid" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>A UTM grid refers to the grid lines and the resulting grid cells
+portrayed on a map, using the cartesian coordinate system(s) obtained by
+UTM projection. These lines can for example be shown every 1, 2 or 10
+km, depending on the map scale. This concept complies with the general
+description of a ‘grid’ in the context of mapping (see
+<a href="#introduction">Introduction</a>).</p>
+<p>The UTM grid lines are labelled with the corresponding coordinate
+values, often expressed as kilometers except in the SE corner of the map
+where full coordinates are given in meters, as explained by Stott
+(<a href="#ref-stott_utm_1977">1977</a>), and by National Geospatial-Intelligence
+Agency
+(<a href="#ref-national_geospatial-intelligence_agency_universal_2014-1">2014b</a>)
+in the context of the MGRS system. In the case of kilometer grid labels,
+the (anterior) digits <em>before</em> the last two (principal) digits are
+printed in superscript as they generally do not change within the map.
+This approach matches general rules of printing the various rectangular
+grids that emerged since World War I.</p>
+<p>Since the UTM projection system is composed of multiple Transverse
+Mercator projections, this pattern returns in the UTM grid. First of
+all, UTM grid cells are clipped alongside UTM zone borders and along the
+parallels of 80°S, 0° and 84°N, which define the borders of individual
+Transverse Mercator projections. Various smaller ‘grid cells’ <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>
+result from this, even though the majority of grid cells within a single
+Transverse Mercator projection are regularly ordered squares. Although
+each Transverse Mercator projection has a regular grid according to its
+cartesian coordinate system, any map projection that spans multiple UTM
+zones demonstrates that there is angle between the grids of different
+UTM zones, together constituting the UTM grid.</p>
+<p>Both the occurrence of clipped grid cells and the angles between the
+constituting single grids make the UTM grid a relatively complex grid to
+use for various analytical purposes, especially when including clipped
+cells and when crossing the borders of a single Transverse Mercator
+projection.</p>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/utm-grid-europe-1.png" alt="UTM grid in the European area, using cells of 100 km. As UTM zones (in one hemisphere) each have their own map projection, an angle arises between grid lines in two different UTM zones."  /></p>
+<p class="caption">
+UTM grid in the European area, using cells of 100 km. As UTM zones (in
+one hemisphere) each have their own map projection, an angle arises
+between grid lines in two different UTM zones.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/utm-grid-belgium-1.png" alt="UTM grid in the area around Belgium, using cells of 100 km."  /></p>
+<p class="caption">
+UTM grid in the area around Belgium, using cells of 100 km.
+</p>
+</div>
+<p>The UTM grid referencing system to identify <em>grid cells</em> at a specific
+precision follows the following numerical syntax, as explained on civil
+maps that use it (<a href="#ref-stott_utm_1977">Stott, 1977</a>) <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>:</p>
+<pre><code>[UTM zone number] [Truncated integer X-coordinate] [Truncated integer Y-coordinate]
+</code></pre>
+<p>Separators like points, slashes or spaces are needed since the number of
+digits can differ between easting (X) and northing (Y). The integers can
+be truncated at the required precision, hence representing
+10<sup>p</sup> meters. As the coordinates are always truncated (not
+rounded) to integers, this effectively means that a UTM grid reference
+represents a square cell with a size that reflects the chosen precision,
+potentially clipped by the UTM zone border. For cells not clipped by the
+UTM zone border, this also means that their truncated coordinates match
+the UTM coordinates of their southwest corner; this holds for any
+precision.</p>
+<p>Hence for the Belgian point location referred above with UTM coordinates
+<code>577019.527, 5661520.775</code>, the UTM grid reference at 10-meter
+precision is <code>31 57701 566152</code>.</p>
+<p>For localized usage, the above grid reference can be further shortened
+by dropping the UTM zone number and anterior digits, e.g. if the context
+is within the area of one map. In many areas such simplifications lead
+to eastings and northings of equal length, so that separators are
+sometimes dropped (for the example at 10-meter precision you could have:
+<code>77016152</code>). Clearly, you can encounter variations of the UTM
+grid reference syntax.</p>
+<p>When not dropping prefixes, the UTM grid reference is unique at the
+global level <em>if</em> it is also clear which hemisphere—i.e. which of the
+two map projections per UTM zone—applies.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></p>
+<p>The concepts of UTM grid portrayal on maps and UTM grid referencing with
+anterior and principal digits match those of other rectangular grids
+that have also long been in use on civil maps, and these are all named
+‘civil’ grids by Stott (<a href="#ref-stott_utm_1977">1977</a>; see also <a href="#ref-snyder_map_1987">Snyder,
+1987</a>).</p>
+<p>Note that the UTM grid as explained here defines <em>no</em> subdivisions of
+the cartesian coordinate system by means of latitude bands, nor does it
+describe an alphanumeric geocoding system to uniquely identify further
+subdivisions. These topics are part of the Military Grid Reference
+System (MGRS) specification.</p>
+<h3 id="mgrs-grid-military-grid-reference-system">MGRS grid (Military Grid Reference System)<a href="#mgrs-grid-military-grid-reference-system" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>The Military Grid Reference System (MGRS) was designed during the 1940s
+in close association with the development of the UTM map projection
+system (see <a href="#terminological-notes">Terminological notes</a>). It is used
+by NATO militaries for locating positions worldwide up to 1 m
+precision<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>. The MGRS specification is maintained by the NGA Office of
+Geomatics <sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup> (<a href="#ref-national_geospatial-intelligence_agency_universal_2014">National Geospatial-Intelligence Agency,
+2014a</a>).
+Best use the foregoing reference when referring to the MGRS. Other
+resources describe the MGRS too, including Wikipedia contributors
+(<a href="#ref-wikipedia_contributors_military_2023">2023</a>).</p>
+<p>Biodiversity monitoring and perhaps other projects sometimes claim to
+use UTM grid references, while it is more appropriate to speak about
+MGRS grid references. Reasons for this confusion are given in the
+<a href="#terminological-notes">Terminological notes</a>.</p>
+<p>The coordinate system obtained by <strong>UTM</strong> projection is used in the MGRS
+definition between 80°S and 84°N, and MGRS combines this with a <strong>UPS</strong>
+(Universal Polar Stereographic) projection to define its grid in the
+polar regions. In what follows, <em>only the UTM portion of MGRS</em> is
+considered.</p>
+<p>Since the MGRS grid between 80°S and 84°N is based on the <a href="#utm-grid">UTM
+grid</a>, it inherits the complexities of the UTM grid already.
+The MGRS grid pattern between 80°S and 84°N has two important
+differences with the pattern of the UTM grid—apart from using a
+different referencing (geocoding) system:</p>
+<ul>
+<li>In MGRS the UTM grid cell pattern is further <em>intersected</em> by latitude
+bands of generally 8° wide. Intersecting <a href="#utm-projection">UTM zones</a>
+with latitude bands results in large cells called <em><strong>MGRS grid
+zones</strong></em> of generally 6° longitude by 8° latitude large. This
+intersection splits the UTM grid cells that overlap the dividing
+parallels, resulting in extra clipped cells compared to the UTM grid.</li>
+<li>In MGRS, some of the MGRS grid zones are wider or narrower than 6
+longitudinal degrees. This has been done to avoid grid zone junctions
+in specific areas, e.g. Bergen and Oslo (Norway) belong to the same
+grid zone.</li>
+</ul>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/utm-grid-latbands-europe-1.png" alt="The intersection of the UTM grid by latitude bands of 8° wide forms the basis of the MGRS. This map does not include the subsequent changes to some MGRS grid zones in the north, e.g. in Norway."  /></p>
+<p class="caption">
+The intersection of the UTM grid by latitude bands of 8° wide forms the
+basis of the MGRS. This map does not include the subsequent changes to
+some MGRS grid zones in the north, e.g. in Norway.
+</p>
+</div>
+<p>Below the grid zone level, it is still the UTM grid pattern that drives
+the further subdivision in MGRS between 80°S and 84°N, down to the
+required precision, just as in other grid systems. Hence, with the
+exception of grid zones with shifted meridian borders, the MGRS grid
+still matches the UTM grid <em>within the borders of one grid zone</em>.</p>
+<p>An important difference with UTM grid referencing however is that MGRS
+uses an <em><strong>alphanumeric grid reference</strong></em> instead of a numeric one as in
+civil grids. In MGRS, Latin characters are used in referencing both the
+applicable grid zone and the first subdivision thereof, as follows.</p>
+<p>An MGRS ‘grid reference’ (sometimes called MGRS coordinate) is defined
+as:</p>
+<pre><code>[Grid Zone Designation] [Grid Square ID] [Truncated integer X-coordinate] [Truncated integer Y-coordinate]
+</code></pre>
+<p>As explained further, for the Belgian point location referred earlier
+this comes down to <code>31U ES 77019 61520</code> at the 1 m precision,
+which resolves to <code>31U ES 77 61</code> at 1 km precision.</p>
+<p>The integer coordinates are truncated depending on the required
+precision, up to <em>zero</em> digits (precision 100 km), with the
+<em>maximum</em><sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup> of five digits per coordinate corresponding to a precision
+of 1 meter (i.e. the unit of the UTM coordinate system). So we get:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">precision (meter)</th>
+<th style="text-align:center">number of digits per coordinate</th>
+<th style="text-align:left">MGRS grid reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">100 000</td>
+<td style="text-align:center">0</td>
+<td style="text-align:left"><code>31U ES</code></td>
+</tr>
+<tr>
+<td style="text-align:center">10 000</td>
+<td style="text-align:center">1</td>
+<td style="text-align:left"><code>31U ES 7 6</code></td>
+</tr>
+<tr>
+<td style="text-align:center">1 000</td>
+<td style="text-align:center">2</td>
+<td style="text-align:left"><code>31U ES 77 61</code></td>
+</tr>
+<tr>
+<td style="text-align:center">100</td>
+<td style="text-align:center">3</td>
+<td style="text-align:left"><code>31U ES 770 615</code></td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">4</td>
+<td style="text-align:left"><code>31U ES 7701 6152</code></td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">5</td>
+<td style="text-align:left"><code>31U ES 77019 61520</code></td>
+</tr>
+</tbody>
+</table>
+<p>Consequently, MGRS grid references need less digits per coordinate for 1
+m precision than UTM grid references, and this is seen as an advantage
+of MGRS.<sup id="fnref:10"><a href="#fn:10" class="footnote-ref" role="doc-noteref">10</a></sup> Furthermore, the number of digits in both coordinates are
+<em>equal and fixed</em> for each precision—leading zeros need to be added at
+low values. Because both coordinates have an equal number of digits, the
+spaces can also be dropped; this is advised in a computational
+environment.</p>
+<div class="figure" style="text-align: center">
+<p><img src="index_files/figure-gfm/utm-grid-latbands-belgium-1.png" alt="The 'U' latitude band goes from 48°N to 56°N. Two resulting MGRS grid zones are fully shown here: grid zones 31U (with most of Belgium) and 32U (with most of Germany)."  /></p>
+<p class="caption">
+The ‘U’ latitude band goes from 48°N to 56°N. Two resulting MGRS grid
+zones are fully shown here: grid zones 31U (with most of Belgium) and
+32U (with most of Germany).
+</p>
+</div>
+<p>In the UTM area of MGRS (between 80°S and 84°N), an MGRS grid reference
+is built as follows:</p>
+<ul>
+<li>The <strong>Grid Zone Designation</strong> (GZD), e.g. <code>31U</code>, combines the UTM
+zone (31) with a letter code (U) that corresponds to a latitude band
+of generally 8° wide; hence each intersection defines the <em><strong>MGRS grid
+zone</strong></em>. The letter codes in the GZD represent the latitude bands and
+run from ‘C’ in the south to ‘X’ in the north, dropping ‘I’ and ‘O’ in
+order to not confuse with numeric digits. The X band is 12° high while
+all other bands are 8° high.</li>
+<li>Each grid zone is further subdivided into <em><strong>grid squares</strong></em> (cells)
+of size 100 km, using the <em>UTM coordinate system</em> to define the cell
+border coordinates as multiples of 100 000 m. As grid zones get wider
+towards the equator, more grid squares are present in zones near the
+equator than in zones located much further north or south. The <strong>Grid
+Square ID</strong> is a code of 2 characters that is unique <em>within</em> the grid
+zone, e.g. <code>ES</code>, with ‘E’—the ‘easting letter’— referring to a column
+and with ‘S’—the ‘northing letter’—referring to a row. These letters
+follow the Latin alphabet (excluding ‘I’ and ‘O’) in eastern and
+northern direction within a UTM zone, neglecting grid zone latitude
+borders and repeating the sequence as needed in northern direction.
+The starting letters at UTM coordinates <code>0, 0</code> determine the easting
+and northing letter sequences in a UTM zone, but depend on the UTM
+zone number as specified in the rules of the lettering scheme <sup id="fnref:11"><a href="#fn:11" class="footnote-ref" role="doc-noteref">11</a></sup>.</li>
+<li>To specify locations <em><strong>with precision &lt; 100 km</strong></em>, the <strong>truncated
+integer coordinates</strong> of the <a href="#utm-grid">UTM grid reference</a> are
+added, thereby <em>dropping</em> the digits that represent the
+hundred-thousands and higher. At this level, a precision can be chosen
+of 1, 10, 100, 1000 or 10 000 meters.</li>
+</ul>
+<p>Since coordinates are always truncated (not rounded), resulting in 0 to
+5 integers per coordinate, this effectively means that an MGRS grid
+reference represents a square cell with its size reflecting the chosen
+precision, although potentially clipped by the UTM zone border or the
+latitude band. E.g. in <code>31U ES 7 6</code> X = 7 refers to the half-open
+interval [<strong>7</strong>0, 80) km.</p>
+<h2 id="what-is-the-relation-to-coordinate-reference-systems-crss">What is the relation to coordinate reference systems (CRSs)?<a href="#what-is-the-relation-to-coordinate-reference-systems-crss" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Projected CRSs combine a map projection (such as ‘UTM 31N’) with a
+geodetic datum that relates actual positions on the Earth’s surface to
+the (unprojected, ellipsoidal) geodetic coordinate system, which also
+implies defining the ellipsoid and prime meridian. The geodetic datum is
+a property of the geodetic CRS associated with the projected CRS.</p>
+<p>This also means that without a geodetic datum, you cannot determine the
+physical location on the Earth’s surface that corresponds to a pair of
+UTM coordinates or to a UTM or MGRS grid reference <sup id="fnref:12"><a href="#fn:12" class="footnote-ref" role="doc-noteref">12</a></sup>. See the <a href="../../tutorials/spatial_crs_coding/#coordinate-reference-systems-minimal-background">CRS
+tutorial</a>
+for more information.</p>
+<p>Although the aim of MGRS is positioning and although it needs a compound
+CRS for its implementation, MGRS is a geocoding standard, not a map
+projection or a CRS as it adds complexity on top of a compound CRS.</p>
+<p>In Belgium, the most relevant UTM CRSs for UTM zone 31 are:</p>
+<ul>
+<li>ETRS89 / UTM zone 31N (<code>EPSG:25831</code>)</li>
+<li>WGS 84 / UTM zone 31N (<code>EPSG:32631</code>)</li>
+<li>ED50 / UTM zone 31N (<code>EPSG:23031</code>) which was applied in older
+topographic maps</li>
+</ul>
+<p>Run <code>sf::st_crs(&quot;EPSG:25831&quot;)</code> in R to inspect the WKT string.</p>
+<h2 id="distribution-of-the-mgrs-grid">Distribution of the MGRS grid<a href="#distribution-of-the-mgrs-grid" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The NGA Office of Geomatics
+<a href="https://earth-info.nga.mil/index.php?dir=coordsys&amp;action=coordsys">distributes</a>
+worldwide WGS 84 vector layers of MGRS grid polygons <a href="https://earth-info.nga.mil/index.php?dir=coordsys&amp;action=mgrs-1km-polyline-dloads">up to 1
+km</a>
+precision.</p>
+<p>The UF Geoplan Center provides an <a href="http://mgrs-data.org">MGRS-data site</a>
+that serves as a library for MGRS data and information, including
+<a href="http://mgrs-data.org/data/">geospatial layers</a>.</p>
+<p>The match of these layers with any WGS 84 UTM CRS and with the WGS 84
+graticule can be easily verified post-hoc.</p>
+<h2 id="criticisms-about-the-mgrs">Criticisms about the MGRS<a href="#criticisms-about-the-mgrs" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Criticisms about the MGRS are mainly related to the complexity of the
+system itself.</p>
+<ul>
+<li>The geocoding system is quite excentric compared to CRSs, especially
+in current times where computing power is available and handling long
+numeric coordinates is automated and mathematically simpler.</li>
+<li>The complexity may be a source of mistakes. A renowned geodesist has
+advocated on the PROJ mailing list to not use the MGRS outside of the
+United States.</li>
+</ul>
+<p>The National Geospatial-Intelligence Agency
+(<a href="#ref-national_geospatial-intelligence_agency_universal_2014">2014a</a>)
+advises:</p>
+<blockquote>
+<p>Because various characteristics of MGRS are unhelpful to analytical
+work (see Subsection 11.8), this document suggests (but does not
+mandate) the following division of labor between MGRS and UTM/UPS when
+both are under consideration. UTM/UPS should be be used for
+calculations, analytical work, and storage &amp; retrieval of geographic
+information; MGRS should be limited to notations on maps and charts,
+displays on end-user devices and person-to-person or person-to-machine
+communication.</p>
+</blockquote>
+<h2 id="software-implementations">Software implementations<a href="#software-implementations" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>MGRS and corresponding conversion methods have not been implemented in
+PROJ because of the technical non-fit.</p>
+<p>They have been implemented in geospatial software though. The following
+list provides open-source implementations and may be incomplete:</p>
+<ul>
+<li>the <a href="https://earth-info.nga.mil">GEOTRANS</a> executables and C libraries
+of the NGA Office of Geomatics. They provide various coordinate
+conversions and transformations.</li>
+<li>the C++ library <a href="https://geographiclib.sourceforge.io">GeographicLib</a>.
+It grew from a desire to improve on the GEOTRANS package for
+transforming between geographic and MGRS coordinates. GeographicLib
+also provides utilities that can be run in a shell environment, such
+as <code>GeoConvert</code> for converting coordinates to or from MGRS. These
+utilities also have an
+<a href="https://geographiclib.sourceforge.io/doc/library.html#online-utilities">online</a>
+implementation.</li>
+<li>a silent (unexposed) implementation as C code inside the <a href="https://gdal.org/drivers/raster/nitf.html">GDAL driver
+for NITF</a>, an imagery
+format of the NGA Geospatial-Intelligence Standards Working Group
+(GWG).</li>
+<li>the R package <a href="https://github.com/hrbrmstr/mgrs">mgrs</a> which uses
+GDAL’s MGRS implementation in the NITF-driver.</li>
+<li>the Python package <code>mgrs</code> (<a href="https://pypi.org/project/mgrs/">PyPi</a> /
+<a href="https://anaconda.org/conda-forge/mgrs">conda-forge</a>) which uses the
+GEOTRANS C library.</li>
+<li>the QGIS plugin <a href="https://plugins.qgis.org/plugins/latlontools/">Lat Lon
+Tools</a> by the US
+National Security Agency (<a href="https://github.com/NationalSecurityAgency/qgis-latlontools-plugin">code
+repo</a>).
+It provides several geoprocessing algorithms, which can also be
+accessed outside the QGIS GUI, e.g. from R <sup id="fnref:13"><a href="#fn:13" class="footnote-ref" role="doc-noteref">13</a></sup>. The plugin also
+provides a GUI for easy coordinate conversion based on interaction
+with the map.</li>
+</ul>
+<p>Note that some of these implementations do not require a geodetic datum
+(hence CRS), but of course (converted) coordinates still need a geodetic
+datum to refer to an actual position on the Earth’s surface and to use
+them with other geospatial data.</p>
+<p>Since it has not been implemented in PROJ, regular geospatial R packages
+cannot convert to or from MGRS grid references.</p>
+<p>Various online web applications allow to interactively determine MGRS
+coordinates, or display the MGRS grid. One example is
+<a href="https://www.map.army/doc/en/map/coordinategrid/">map.army</a>.</p>
+<h2 id="acknowledgements">Acknowledgements<a href="#acknowledgements" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>I am grateful to Ward Langeraert, Amber Mertens, Hans Van Calster, Toon
+Westra (all from <a href="https://www.inbo.be/en">INBO</a>), Jeffrey Verbeurgt and
+Robson Nascimento (from <a href="https://www.ngi.be">NGI</a>—National Geographic
+Institute) for their useful comments on earlier versions of the text.</p>
+<h2 id="bibliography">Bibliography<a href="#bibliography" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-buchroithner_geodetic_2017" class="csl-entry">
+<p>Buchroithner M.F. &amp; Pfahlbusch R. (2017). Geodetic grids in
+authoritative maps – new findings about the origin of the UTM Grid.
+Cartography and Geographic Information Science 44 (3): 186–200.
+<a href="https://doi.org/10.1080/15230406.2015.1128851">https://doi.org/10.1080/15230406.2015.1128851</a>.</p>
+</div>
+<div id="ref-department_of_the_army_map_1956" class="csl-entry">
+<p>Department of the Army (1956). Map reading. Field Manual, No. 21–26.
+Washington, DC, 256 p. <a href="https://ciehub.info/ref/FM/21-26.html">https://ciehub.info/ref/FM/21-26.html</a>.</p>
+</div>
+<div id="ref-department_of_the_army_map_2001" class="csl-entry">
+<p>Department of the Army (2001). Map reading and land navigation. Field
+Manual, No. 3–25.26. Washington, DC, 209 p.
+<a href="https://ciehub.info/ref/FM/3-25x26.html">https://ciehub.info/ref/FM/3-25x26.html</a>.</p>
+</div>
+<div id="ref-iliffe_datums_2008" class="csl-entry">
+<p>Iliffe J. &amp; Lott R. (2008). Datums and Map Projections. For Remote
+Sensing, GIS and Surveying. 2nd edn. Whittles Publishing, Caithness, UK,
+208 p.</p>
+</div>
+<div id="ref-lampinen_utm_2013" class="csl-entry">
+<p>Lampinen R. (2013). UTM &amp; MGRS – Atlas Florae Europaeae | LUOMUS.
+<a href="https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae">https://www.luomus.fi/en/utm-mgrs-atlas-florae-europaeae</a> (accessed
+August 24, 2023).</p>
+</div>
+<div id="ref-national_geospatial-intelligence_agency_universal_2014"
+class="csl-entry">
+<p>National Geospatial-Intelligence Agency (2014a). The Universal Grids and
+the Transverse Mercator and Polar Stereographic Map Projections. NGA
+Standardization Document - Implementation Practice, No.
+NGA.SIG.0012_2.0.0_UTMUPS. Washington, DC, 86 p.
+<a href="https://nsgreg.nga.mil/doc/view?i=4056">https://nsgreg.nga.mil/doc/view?i=4056</a>.</p>
+</div>
+<div id="ref-national_geospatial-intelligence_agency_universal_2014-1"
+class="csl-entry">
+<p>National Geospatial-Intelligence Agency (2014b). Universal grids and
+reference systems. NGA Standardization Document, No.
+NGA.STND.0037_2.0.0_GRIDS. Washington, DC, 101 p.
+<a href="https://nsgreg.nga.mil/doc/view?i=4057">https://nsgreg.nga.mil/doc/view?i=4057</a>.</p>
+</div>
+<div id="ref-palombo_military_2021" class="csl-entry">
+<p>Palombo S. (2021). Military Grid Reference System (MGRS). In: ArcGIS
+StoryMaps.
+<a href="https://storymaps.arcgis.com/stories/842edf2b4381438b9a4edefed124775b">https://storymaps.arcgis.com/stories/842edf2b4381438b9a4edefed124775b</a>
+(accessed August 24, 2023).</p>
+</div>
+<div id="ref-snyder_map_1987" class="csl-entry">
+<p>Snyder J.P. (1987). Map Projections - A Working Manual. U.S. Geological
+Survey Professional Paper, No. 1395. United States Government Printing
+Office, Washington, 397 p.</p>
+</div>
+<div id="ref-stott_utm_1977" class="csl-entry">
+<p>Stott P.H. (1977). The UTM Grid Reference System. Journal of the Society
+for Industrial Archeology 3 (1): 1–14.
+<a href="https://www.jstor.org/stable/40967933">https://www.jstor.org/stable/40967933</a>.</p>
+</div>
+<div id="ref-uf_geoplan_center_mgrs_2009" class="csl-entry">
+<p>UF GeoPlan Center (2009). MGRS. 4 p.
+<a href="http://mgrs-data.org/data/documents/nga_mgrs_doc.pdf">http://mgrs-data.org/data/documents/nga_mgrs_doc.pdf</a>.</p>
+</div>
+<div id="ref-van_nieukerken_utm_1991" class="csl-entry">
+<p>van Nieukerken E.J. (1991). UTM grid: een voorschot op de toekomst.
+Nieuwsbrief EIS Kenniscentrum Insecten en andere ongewervelden 20: 9–14.
+<a href="https://natuurtijdschriften.nl/pub/1000930">https://natuurtijdschriften.nl/pub/1000930</a>.</p>
+</div>
+<div id="ref-van_veen_eis-nieuws_2000" class="csl-entry">
+<p>van Veen M. (2000). EIS-nieuws: Software. Nieuwsbrief EIS Kenniscentrum
+Insecten en andere ongewervelden 30: 11–12.
+<a href="https://natuurtijdschriften.nl/pub/1001490">https://natuurtijdschriften.nl/pub/1001490</a>.</p>
+</div>
+<div id="ref-wikipedia_contributors_military_2023" class="csl-entry">
+<p>Wikipedia contributors (2023). Military Grid Reference System. In:
+Wikipedia, The Free Encyclopedia.
+<a href="https://en.wikipedia.org/w/index.php?title=Military_Grid_Reference_System&amp;oldid=1140475364">https://en.wikipedia.org/w/index.php?title=Military_Grid_Reference_System&amp;oldid=1140475364</a>
+(accessed August 25, 2023).</p>
+</div>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>A map projection defines the conversion from geodetic to projected
+coordinates (geodetic coordinate system (CS, not CRS) + the
+projection (conversion) method + numeric projection (conversion)
+parameters), but without specifying the geodetic datum.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>OGC URN identifier of map projection <a href="https://epsg.org/conversion_16031/UTM-zone-31N.html">UTM zone
+31N</a>:
+<code>urn:ogc:def:coordinateOperation:EPSG::16031</code>. Using
+<a href="https://proj.org/en/latest/apps/projinfo.html"><code>projinfo</code></a>, you can
+compare with <code>urn:ogc:def:coordinateOperation:EPSG::16131</code> for map
+projection <a href="https://epsg.org/conversion_16131/UTM-zone-31S.html">UTM zone
+31S</a>. More
+information about OGC URN identifiers can be found in the <a href="https://www.ogc.org/about-ogc/policies/ogc-urn-policy/">OGC URN
+policy</a> and
+more extensively in the OGC Best Practice ‘Definition identifier
+URNs in OGC namespace’, the latest version of which can be found on
+the <a href="https://www.ogc.org/standards/bp/">OGC Best Practices</a> webpage.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>OGC URN identifier of the <a href="https://epsg.org/datum_6258/European-Terrestrial-Reference-System-1989-ensemble.html">ETRS89 ensemble
+datum</a>:
+<code>urn:ogc:def:ensemble:EPSG::6258</code>.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>Perhaps these clipped grid cells are better called ‘polygons’
+instead (<a href="#ref-wikipedia_contributors_military_2023">Wikipedia contributors,
+2023</a>).&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>This UTM grid reference notation is also followed in the 2001
+version of US Army’s Field Manual 3-25.26 (Map Reading and Land
+Navigation) for the notation of UTM coordinates (<a href="#ref-department_of_the_army_map_2001">Department of the
+Army, 2001</a>), of course
+without truncation.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>Some sources (e.g. <a href="#ref-uf_geoplan_center_mgrs_2009">UF GeoPlan Center,
+2009</a>) therefore mention the
+possibility to extend the UTM zone with ‘N’ or ‘S’ depending on the
+hemisphere, resulting in e.g. <code>31N 57701 566152</code>. However
+this approach is now officially obsoleted, and <em>full</em> (i.e. globally
+unique) UTM coordinates should contain an MGRS grid zone prefix (see
+MGRS section) instead (National Geospatial-Intelligence Agency
+(<a href="#ref-national_geospatial-intelligence_agency_universal_2014-1">2014b</a>):
+appendix A).&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>Some software
+implementations—e.g. <a href="https://geographiclib.sourceforge.io/cgi-bin/GeoConvert"><code>GeoConvert</code></a>—go
+beyond the 1 m precision by adding more digits to the MGRS grid
+reference (Robson Nascimento, Jeffrey Verbeurgt, pers. comm.). Such
+implementations extend the official MGRS specification (<a href="#ref-national_geospatial-intelligence_agency_universal_2014">National
+Geospatial-Intelligence Agency,
+2014a</a>),
+which stops at 1 m precision.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p>URL: <a href="https://earth-info.nga.mil">https://earth-info.nga.mil</a>.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9" role="doc-endnote">
+<p>Some software
+implementations—e.g. <a href="https://geographiclib.sourceforge.io/cgi-bin/GeoConvert"><code>GeoConvert</code></a>—go
+beyond the 1 m precision by adding more digits to the MGRS grid
+reference (Robson Nascimento, Jeffrey Verbeurgt, pers. comm.). Such
+implementations extend the official MGRS specification (<a href="#ref-national_geospatial-intelligence_agency_universal_2014">National
+Geospatial-Intelligence Agency,
+2014a</a>),
+which stops at 1 m precision.&#160;<a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:10" role="doc-endnote">
+<p>Moreover, the use of Latin characters (letters) in MGRS made
+Morse code communication in former times less error-prone (Robson
+Nascimento, pers. comm.).&#160;<a href="#fnref:10" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:11" role="doc-endnote">
+<p>Moreover, two different lettering schemes are in use (called ‘AA’
+and ‘AL’), and it is the ellipsoid used in the geodetic datum that
+defines which one will be used!&#160;<a href="#fnref:11" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:12" role="doc-endnote">
+<p>Older series of Belgian maps distributed by the National
+Geographical Institute (<a href="https://www.ngi.be">https://www.ngi.be</a>) applied the ED50
+geodetic datum (European Datum 1950), which affects the position of
+coordinates (hence MGRS grid) by about 90 m in E-W direction and
+about 200 m in N-S direction compared to the ETRS89 and WGS 84
+datums. OGC URN identifiers of these datums:<br>
+<a href="https://epsg.org/datum_6230/European-Datum-1950.html">ED50 datum</a>:
+<code>urn:ogc:def:datum:EPSG::6230</code><br>
+<a href="https://epsg.org/datum_6258/European-Terrestrial-Reference-System-1989-ensemble.html">ETRS89 ensemble
+datum</a>:
+<code>urn:ogc:def:ensemble:EPSG::6258</code><br>
+<a href="https://epsg.org/datum_6326/World-Geodetic-System-1984-ensemble.html">WGS 84 ensemble
+datum</a>:
+<code>urn:ogc:def:ensemble:EPSG::6326</code>.&#160;<a href="#fnref:12" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:13" role="doc-endnote">
+<p>Beside R’s <code>mgrs</code> package, another possibility to translate
+to/from MGRS grid references in R is by accessing the ‘Lat Lon
+Tools’ QGIS plugin using the
+<a href="https://r-spatial.github.io/qgisprocess">qgisprocess</a> package,
+e.g. by calling the algorithm <code>latlontools:point2mgrs</code>.&#160;<a href="#fnref:13" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/tutorials/categories/gis/'>gis</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tutorials/tags/gis/'>gis</a>, <a class='tag' href='/tutorials/tags/utm/'>utm</a>, <a class='tag' href='/tutorials/tags/mgrs/'>mgrs</a>, <a class='tag' href='/tutorials/tags/grids/'>grids</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/articles/inbo_stats_courses/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Statistics courses @ INBO!</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2023 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/tutorials/assets/js/"</script>
+
+<script src='/tutorials/assets/js/main.c3bcf2df.js'></script><script src='/tutorials/js/custom.js'></script>
+
+</body>
+
+</html>
+
