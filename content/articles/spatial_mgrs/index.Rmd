@@ -64,12 +64,13 @@ Both grids have a world-wide coverage, but the polar regions are only covered by
 In the polar regions, the MGRS grid is derived from the UPS (Universal Polar Stereographic) map projection.
 - The major divisions of the UTM grid are the _UTM zones_, defined by meridians that are 6° apart.
 The understanding of the term 'UTM grid' in this post _only_ involves grid lines tied to the UTM coordinate system.
-- In the area where UTM applies, the major divisions of the MGRS grid are the _grid zones_, which are a further division of UTM zones according to specific parallels, further amended by shifting the meridian borders of some grid zones.
+- In the area where UTM applies, the major partitions of the MGRS grid are the _grid zones_, which are a further division of UTM zones according to specific parallels, further amended by shifting the meridian borders of some grid zones.
 Grid zone borders generate extra cell clipping compared to the UTM grid.
 - Apart from deviations and extra clips as a consequence of the grid zones, the MGRS grid cell pattern outside the polar regions matches that of the UTM grid.
 - UTM grid references consist solely of digits (Arabic numerals), while MGRS grid references are alphanumeric (combination of digits & Latin characters).
 To illustrate this, following examples refer to the Belgian point location used in the text:
   - An UTM grid reference looks like `31.577019.5661520` (meter precision) or `31.577.5661` (kilometer precision) and separators are needed (point, slash, space) if not applying localized simplifications.
+  Quite some variations exist.
   - An MGRS grid reference looks like `31U ES 77019 61520` (meter precision) or `31U ES 77 61` (kilometer precision), and the spacing is optional.
 - When decreasing the precision of a position, _coordinates_ are to be _rounded_ while in (UTM and MGRS) _grid references_ the numeric parts representing easting and northing are to be _truncated_.
 - Projected coordinate reference systems (CRSs) specify a geodetic datum so that coordinates can be linked to a physical location on the Earth's surface. Likewise, you need to specify (and be aware of) the geodetic datum when using a (UTM or MGRS) grid reference for positioning.
@@ -294,7 +295,8 @@ For cells not clipped by the UTM zone border, this also means that their truncat
 Hence for the Belgian point location referred above with UTM coordinates <code>`r st_transform(point, "EPSG:25831") |> st_coordinates() |> format(nsmall = 3, trim = TRUE) |> paste(collapse = ", ")`</code>, the UTM grid reference at 10-meter precision is <code>`r paste("31", floor(st_transform(point, "EPSG:25831") |> st_coordinates() / 10) |> paste(collapse = " "))`</code>.
 
 For localized usage, the above grid reference can be further shortened by dropping the UTM zone number and anterior digits, e.g. if the context is within the area of one map.
-In many areas such simplifications lead to eastings and northings of equal length, so that separators are sometimes dropped.
+In many areas such simplifications lead to eastings and northings of equal length, so that separators are sometimes dropped (for the example at 10-meter precision you could have: <code>`r floor(st_transform(point, "EPSG:25831") |> st_coordinates() %% 1e5 / 10) |> paste(collapse = "")`</code>).
+Clearly, you can encounter variations of the UTM grid reference syntax.
 
 When not dropping prefixes, the UTM grid reference is unique at the global level _if_ it is also clear which hemisphere—i.e. which of the two map projections per UTM zone—applies.[^hemisphere]
 
@@ -367,10 +369,11 @@ space_mgrs <- function(mgrsref) {
 
 Hence for the Belgian point location referred earlier this comes down to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2]) |> space_mgrs()`</code> at the 1 m precision, which resolves to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2], 2) |> space_mgrs()`</code> at 1 km precision.
 
-The integer coordinates are truncated depending on the required precision, up to _zero_ digits (precision 100 km), with the _maximum_ of five digits per coordinate corresponding to a precision of 1 meter (i.e. the unit of the UTM coordinate system).
-Consequently, MGRS grid references need less digits per coordinate for 1 m precision than UTM grid references, and this is seen as an advantage of MGRS.
+Consequently, MGRS grid references need less digits per coordinate for 1 m precision than UTM grid references, and this is seen as an advantage of MGRS.[^advantage]
 Furthermore, the number of digits in both coordinates are _equal and fixed_ for each precision—leading zeros need to be added at low values.
 Because both coordinates have an equal number of digits, the spaces can also be dropped; this is advised in a computational environment.
+
+[^advantage]: Moreover, the use of Latin characters (letters) in MGRS made Morse code communication in former times less error-prone (Robson Nascimento, pers. comm.).
 
 ```{r utm-grid-latbands-belgium, fig.cap="The 'U' latitude band goes from 48°N to 56°N. Two resulting MGRS grid zones are fully shown here: grid zones 31U (with most of Belgium) and 32U (with most of Germany)."}
 ggplot(data = countries) +
