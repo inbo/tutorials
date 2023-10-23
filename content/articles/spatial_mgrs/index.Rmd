@@ -310,10 +310,13 @@ These topics are part of the Military Grid Reference System (MGRS) specification
 ### MGRS grid (Military Grid Reference System)
 
 The Military Grid Reference System (MGRS) was designed during the 1940s in close association with the development of the UTM map projection system (see [Terminological notes](#terminological-notes)).
-It is used by NATO militaries for locating positions worldwide up to 1 m precision.
+It is used by NATO militaries for locating positions worldwide up to 1 m precision[^precision].
 The MGRS specification is maintained by the NGA Office of Geomatics ^[URL: <https://earth-info.nga.mil>.] [@national_geospatial-intelligence_agency_universal_2014].
 Best use the foregoing reference when referring to the MGRS.
 Other resources describe the MGRS too, including @wikipedia_contributors_military_2023.
+
+[^precision]: Some software implementations—e.g. [`GeoConvert`](https://geographiclib.sourceforge.io/cgi-bin/GeoConvert)—go beyond the 1 m precision by adding more digits to the MGRS grid reference (Robson Nascimento, Jeffrey Verbeurgt, pers. comm.).
+Such implementations extend the official MGRS specification [@national_geospatial-intelligence_agency_universal_2014], which stops at 1 m precision.
 
 Biodiversity monitoring and perhaps other projects sometimes claim to use UTM grid references, while it is more appropriate to speak about MGRS grid references.
 Reasons for this confusion are given in the [Terminological notes](#terminological-notes).
@@ -362,12 +365,35 @@ space_mgrs <- function(mgrsref) {
   coord <- str_sub(mgrsref, 6)
   x <- str_sub(coord, end = nchar(coord) / 2)
   y <- str_sub(coord, nchar(coord) / 2 + 1)
-  paste(gzd, gsid, x, y)
+  ifelse(nchar(coord) > 0, paste(gzd, gsid, x, y), paste(gzd, gsid))
 }
 ```
 
 
-Hence for the Belgian point location referred earlier this comes down to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2]) |> space_mgrs()`</code> at the 1 m precision, which resolves to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2], 2) |> space_mgrs()`</code> at 1 km precision.
+As explained further, for the Belgian point location referred earlier this comes down to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2]) |> space_mgrs()`</code> at the 1 m precision, which resolves to <code>`r mgrs::utm_to_mgrs(31, "N", utm_coords[1], utm_coords[2], 2) |> space_mgrs()`</code> at 1 km precision.
+
+The integer coordinates are truncated depending on the required precision, up to _zero_ digits (precision 100 km), with the _maximum_[^precision] of five digits per coordinate corresponding to a precision of 1 meter (i.e. the unit of the UTM coordinate system).
+So we get:
+
+```{r results="asis"}
+withr::with_options(
+  list(scipen = 999),
+  tibble(
+    `precision (meter)` = c(1e5, 1e4, 1e3, 100, 10, 1) |> prettyNum(big.mark = " "),
+    nr_of_digits = 0:5
+  ) |> 
+    rowwise() |> 
+    mutate(
+      `MGRS grid reference` = mgrs::utm_to_mgrs(
+        31, "N", utm_coords[1], utm_coords[2], nr_of_digits
+      ) |> 
+        space_mgrs() %>%
+        paste0("`", ., "`")
+    ) |> 
+    rename(`number of digits per coordinate` = nr_of_digits) |> 
+    knitr::kable(align = "ccl")
+)
+```
 
 Consequently, MGRS grid references need less digits per coordinate for 1 m precision than UTM grid references, and this is seen as an advantage of MGRS.[^advantage]
 Furthermore, the number of digits in both coordinates are _equal and fixed_ for each precision—leading zeros need to be added at low values.
