@@ -39,6 +39,7 @@ The package links below refer to the package’s **documentation website**, if a
 [pydov]: https://pydov.readthedocs.io/
 [pyinaturalist]: https://pyinaturalist.readthedocs.io/
 [pywhip]: https://inbo.github.io/pywhip/
+[qgisprocess]: https://r-spatial.github.io/qgisprocess/
 [rgbif]: https://docs.ropensci.org/rgbif/
 [wateRinfo]: https://docs.ropensci.org/wateRinfo/
 [watina]: https://inbo.github.io/watina/
@@ -54,7 +55,7 @@ Retrieve data: biological | [bioRad][biorad], [camtrapdp][camtrapdp], [etn][etn]
 Store data | [frictionless][frictionless], [git2rdata][git2rdata]
 Validate data | [pywhip][pywhip]
 Analyze data: graphs | [inboggvegan][inboggvegan]
-Analyze data: models | [dhcurve][dhcurve], [effectclass][effectclass], [gwloggeR][gwloggeR], [inlatools][inlatools], [multimput][multimput], [niche_vlaanderen][niche_vlaanderen]
+Analyze data: models | [dhcurve][dhcurve], [effectclass][effectclass], [gwloggeR][gwloggeR], [inlatools][inlatools], [multimput][multimput], [niche_vlaanderen][niche_vlaanderen], [qgisprocess][qgisprocess]
 Analyze data: indices | [LSVI][LSVI]
 Publish | [INBOmd][INBOmd], [INBOtheme][INBOtheme], [checklist][checklist]
 Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist], [inbospatial][inbospatial]
@@ -113,6 +114,7 @@ Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist]
 - **R package [inlatools][inlatools]**: provides a set of functions which can be useful to diagnose [INLA models](http://www.r-inla.org/): calculating Pearson residuals, simulation based checks for over- or underdispersion, simulation based checks for the distribution, visualising the effect of the variance or precision on random effects (random intercept, first order random walk, second order random walk). The functions can be useful to choose sensible priors and diagnose the fitted model.
 - **R package [multimput][multimput]**: an R package that assists with analysing datasets with missing values using multiple imputation.
 - **Python package [niche_vlaanderen][niche_vlaanderen]**: Python package to run the NICHE Vlaanderen model. Based on calculated abiotic properties of the location, NICHE Vlaanderen determines whether certain vegetation types can develop. An additional flooding module allows the user to test whether the predicted vegetations are compatible with a particular flooding regime. The package is a redevelopment of an existing ArcGIS plugin in Python, without external non-open source dependencies.
+- **R package [qgisprocess][qgisprocess]**: R interface to the geoprocessing algorithms of [QGIS](https://qgis.org/en/site/) and other providers that can interface with QGIS (e.g. [GDAL](https://gdal.org/index.html), [grass](https://grass.osgeo.org/), [SAGA](https://saga-gis.sourceforge.io/en/index.html) and [whitebox tools](https://www.whiteboxgeo.com/geospatial-software/)).
 
 ### Calculate indices
 
