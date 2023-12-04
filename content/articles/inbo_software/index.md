@@ -54,11 +54,12 @@ Retrieve data: environmental | [pydov][pydov], [wateRinfo][wateRinfo], [watina][
 Retrieve data: biological | [bioRad][biorad], [camtrapdp][camtrapdp], [etn][etn], [forrescalc][forrescalc], [gulltracking][gulltracking],  [n2khab][n2khab], [pyinaturalist][pyinaturalist], [rgbif][rgbif]
 Store data | [frictionless][frictionless], [git2rdata][git2rdata]
 Validate data | [pywhip][pywhip]
+Analyze data: geoprocessing | [qgisprocess][qgisprocess], [inbospatial][inbospatial]
 Analyze data: graphs | [inboggvegan][inboggvegan]
-Analyze data: models | [dhcurve][dhcurve], [effectclass][effectclass], [gwloggeR][gwloggeR], [inlatools][inlatools], [multimput][multimput], [niche_vlaanderen][niche_vlaanderen], [qgisprocess][qgisprocess]
+Analyze data: models | [dhcurve][dhcurve], [effectclass][effectclass], [gwloggeR][gwloggeR], [inlatools][inlatools], [multimput][multimput], [niche_vlaanderen][niche_vlaanderen]
 Analyze data: indices | [LSVI][LSVI]
 Publish | [INBOmd][INBOmd], [INBOtheme][INBOtheme], [checklist][checklist]
-Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist], [inbospatial][inbospatial]
+Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist]
 
 ## Study design 
 
@@ -102,6 +103,11 @@ Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist]
 
 ## Analyze data
 
+### Geoprocessing
+
+- **R package [qgisprocess][qgisprocess]**: R interface to the geoprocessing algorithms of [QGIS](https://qgis.org/en/site/) and other providers that can interface with QGIS (e.g. [GDAL](https://gdal.org/index.html), [GRASS GIS](https://grass.osgeo.org/), [SAGA](https://saga-gis.sourceforge.io/en/index.html) and [WhiteboxTools](https://www.whiteboxgeo.com/geospatial-software/)).
+- **R package [inbospatial][inbospatial]**: provides a collection of useful R functions for spatial data retrieval and analysis
+
 ### Make graphs
 
 - **R package [inboggvegan][inboggvegan]**: provides R functions for multivariate plots. More specifically, extended biplot and screeplot functionality is offered for the `vegan` package.
@@ -114,7 +120,6 @@ Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist]
 - **R package [inlatools][inlatools]**: provides a set of functions which can be useful to diagnose [INLA models](http://www.r-inla.org/): calculating Pearson residuals, simulation based checks for over- or underdispersion, simulation based checks for the distribution, visualising the effect of the variance or precision on random effects (random intercept, first order random walk, second order random walk). The functions can be useful to choose sensible priors and diagnose the fitted model.
 - **R package [multimput][multimput]**: an R package that assists with analysing datasets with missing values using multiple imputation.
 - **Python package [niche_vlaanderen][niche_vlaanderen]**: Python package to run the NICHE Vlaanderen model. Based on calculated abiotic properties of the location, NICHE Vlaanderen determines whether certain vegetation types can develop. An additional flooding module allows the user to test whether the predicted vegetations are compatible with a particular flooding regime. The package is a redevelopment of an existing ArcGIS plugin in Python, without external non-open source dependencies.
-- **R package [qgisprocess][qgisprocess]**: R interface to the geoprocessing algorithms of [QGIS](https://qgis.org/en/site/) and other providers that can interface with QGIS (e.g. [GDAL](https://gdal.org/index.html), [GRASS GIS](https://grass.osgeo.org/), [SAGA](https://saga-gis.sourceforge.io/en/index.html) and [WhiteboxTools](https://www.whiteboxgeo.com/geospatial-software/)).
 
 ### Calculate indices
 
@@ -130,4 +135,3 @@ Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist]
 
 - **R package [inborutils][inborutils]**: provides a collection of useful R utilities and snippets that we consider recyclable for multiple projects. The functions are either out of scope or just not mature enough to include as extensions to existing packages.
 - **R package [checklist][checklist]**:  provides an elaborate and strict set of checks for R packages and R code.
-- **R package [inbospatial][inbospatial]**: provides a collection of useful R functions for spatial data retrieval and analysis
