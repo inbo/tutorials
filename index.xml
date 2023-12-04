@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create tutorial</title>
       <link>https://inbo.github.io/tutorials/create_tutorial/</link>
@@ -16,6 +16,16 @@
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>Software by INBO: packages for environmentalists and ecologists!</title>
+      <link>https://inbo.github.io/tutorials/articles/inbo_software/</link>
+      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
+      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
+Please, feel free to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
     </item>
     
     <item>
@@ -312,16 +322,6 @@ While we do plan to periodically repeat these courses for new employees and as a
       
       <guid>https://inbo.github.io/tutorials/tutorials/vignette_gwlogger_gwlogger/</guid>
       <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html</description>
-    </item>
-    
-    <item>
-      <title>Software by INBO: packages for environmentalists and ecologists!</title>
-      <link>https://inbo.github.io/tutorials/articles/inbo_software/</link>
-      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
-      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel free to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
     </item>
     
     <item>
