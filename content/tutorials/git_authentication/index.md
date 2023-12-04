@@ -57,7 +57,7 @@ follow [these
 steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
 You need a time-based one-time password app for 2FA to work. We
 recommend a mobile app which you can download on your smartphone such as
-[`andOTP`](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en&gl=US)
+[`Aegis`](https://play.google.com/store/apps/details?id=com.beemdevelopment.aegis)
 (open source, Android) or `Google Authenticator` (closed source,
 [Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US)
 or
@@ -181,7 +181,7 @@ follow [these
 steps](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-a-totp-mobile-app).
 You need a time-based one-time password app for 2FA to work. We
 recommend a mobile app which you can download on your smartphone such as
-[`andOTP`](https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp&hl=en&gl=US)
+[`Aegis`](https://play.google.com/store/apps/details?id=com.beemdevelopment.aegis)
 (open source, Android) or `Google Authenticator` (closed source,
 [Android](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US)
 or
@@ -190,7 +190,8 @@ The closed tools don’t require users ‘to read on’ and make everything
 simple, while open tools will require some minimal responsibility
 e.g. to take care of personal backups. Some open source desktop
 applications are available as well and are listed in
-<https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps>. Mostly
+<https://github.com/andOTP/andOTP/wiki/Open-Source-2FA-Apps> and
+<https://en.wikipedia.org/wiki/Comparison_of_OTP_applications>. Mostly
 these open source tools are geared towards offline storage and give
 users maximum control over their credentials. 2FA is not that intrusive.
 It only kicks in when you login from a new device or when your last
