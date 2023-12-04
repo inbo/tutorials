@@ -1,6 +1,6 @@
 ---
 title: "Software by INBO: packages for environmentalists and ecologists!"
-date: 2020-12-03
+date: 2023-12-01
 categories: ["development", "r", "statistics", "databases"]
 tags: ["open science", "packages", "r", "python"]
 ---
@@ -13,6 +13,7 @@ The package links below refer to the package’s **documentation website**, if a
 
 [bioRad]: https://adokter.github.io/bioRad/
 [camtrapdp]: https://inbo.github.io/camtrapdp/
+[checklist]: https://inbo.github.io/checklist/
 [dhcurve]: https://inbo.github.io/dhcurve/
 [effectclass]: https://effectclass.netlify.app/
 [etn]: https://inbo.github.io/etn/
@@ -24,8 +25,10 @@ The package links below refer to the package’s **documentation website**, if a
 [gwloggeR]: https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html
 [inbodb]: https://inbo.github.io/inbodb/
 [inboggvegan]: https://github.com/inbo/inboggvegan
+[inbolims]: https://github.com/inbo/inbolims
 [INBOmd]: https://inbomd.netlify.app/articles/introduction.html
 [inborutils]: https://inbo.github.io/inborutils/
+[inbospatial]: https://inbo.github.io/inbospatial/
 [INBOtheme]: https://inbo.github.io/INBOtheme/
 [inlatools]: https://inlatools.netlify.app/
 [LSVI]: https://inbo.github.io/LSVI/
@@ -36,6 +39,7 @@ The package links below refer to the package’s **documentation website**, if a
 [pydov]: https://pydov.readthedocs.io/
 [pyinaturalist]: https://pyinaturalist.readthedocs.io/
 [pywhip]: https://inbo.github.io/pywhip/
+[qgisprocess]: https://r-spatial.github.io/qgisprocess/
 [rgbif]: https://docs.ropensci.org/rgbif/
 [wateRinfo]: https://docs.ropensci.org/wateRinfo/
 [watina]: https://inbo.github.io/watina/
@@ -45,16 +49,17 @@ The following table gives a **quick overview**:
 Research stage | Related INBO packages
 --- | ---
 Study design | [grts][grts], [protocolhelper][protocolhelper]
-Retrieve data: general | [frictionless][frictionless], [inbodb][inbodb]
-Retrieve data: environmental | [pydov][pydov], [wateRinfo][wateRinfo], [watina][watina]
+Retrieve data: general | [frictionless][frictionless], [inbodb][inbodb], [inbospatial][inbospatial]
+Retrieve data: environmental | [pydov][pydov], [wateRinfo][wateRinfo], [watina][watina], [inbolims][inbolims]
 Retrieve data: biological | [bioRad][biorad], [camtrapdp][camtrapdp], [etn][etn], [forrescalc][forrescalc], [gulltracking][gulltracking],  [n2khab][n2khab], [pyinaturalist][pyinaturalist], [rgbif][rgbif]
 Store data | [frictionless][frictionless], [git2rdata][git2rdata]
 Validate data | [pywhip][pywhip]
+Analyze data: geoprocessing | [qgisprocess][qgisprocess], [inbospatial][inbospatial]
 Analyze data: graphs | [inboggvegan][inboggvegan]
 Analyze data: models | [dhcurve][dhcurve], [effectclass][effectclass], [gwloggeR][gwloggeR], [inlatools][inlatools], [multimput][multimput], [niche_vlaanderen][niche_vlaanderen]
 Analyze data: indices | [LSVI][LSVI]
-Publish | [INBOmd][INBOmd], [INBOtheme][INBOtheme]
-Miscellaneous (mixed content) | [inborutils][inborutils]
+Publish | [INBOmd][INBOmd], [INBOtheme][INBOtheme], [checklist][checklist]
+Miscellaneous (mixed content) | [inborutils][inborutils], [checklist][checklist]
 
 ## Study design 
 
@@ -67,12 +72,14 @@ Miscellaneous (mixed content) | [inborutils][inborutils]
 
 - **R package [frictionless][frictionless]**: read and write Frictionless Data Packages. A [Data Package](https://specs.frictionlessdata.io/data-package/) is a simple container format and standard to describe and package a collection of (tabular) data. It is typically used to publish FAIR and open datasets.
 - **R package [inbodb][inbodb]**: connect to and retrieve data from databases on the INBO server, with dedicated functions to query some of these databases.
+- **R package [inbospatial][inbospatial]**: provides functions to retrieve data from web feature, web mapping and web coverage services.
 
 ### Environmental data
 
 - **Python package [pydov][pydov]**: to query and download data from [Databank Ondergrond Vlaanderen (DOV)](https://www.dov.vlaanderen.be/). DOV aggregates data about soil, subsoil and groundwater of Flanders and makes them publicly available. Interactive and human-readable extraction and querying of the data is provided by a web application, whereas the focus of this package is to support machine-based extraction and conversion of the data.
 - **R package [wateRinfo][wateRinfo]**: facilitates access to [waterinfo.be](https://www.waterinfo.be/), a website managed by the [Flanders Environment Agency (VMM)](https://en.vmm.be/) and [Flanders Hydraulics Research](https://www.waterbouwkundiglaboratorium.be/). The website provides access to real-time water and weather related environmental variables for Flanders (Belgium), such as rainfall, air pressure, discharge, and water level. The package provides functions to search for stations and variables, and download time series.
 - **R package [watina][watina]**: provides functions to query and process data from the Watina database (mainly groundwater data).
+- **R package [inbolims][inbolims]**: provides functions to query and process data from the INBO Laboratory Information Management System (LIMS), e.g. soil physical and chemical analyses.
 
 ### Biological data
 
@@ -96,6 +103,11 @@ Miscellaneous (mixed content) | [inborutils][inborutils]
 
 ## Analyze data
 
+### Geoprocessing
+
+- **R package [qgisprocess][qgisprocess]**: R interface to the geoprocessing algorithms of [QGIS](https://qgis.org/en/site/) and other providers that can interface with QGIS (e.g. [GDAL](https://gdal.org/index.html), [GRASS GIS](https://grass.osgeo.org/), [SAGA](https://saga-gis.sourceforge.io/en/index.html) and [WhiteboxTools](https://www.whiteboxgeo.com/geospatial-software/)).
+- **R package [inbospatial][inbospatial]**: provides a collection of useful R functions for spatial data retrieval and analysis
+
 ### Make graphs
 
 - **R package [inboggvegan][inboggvegan]**: provides R functions for multivariate plots. More specifically, extended biplot and screeplot functionality is offered for the `vegan` package.
@@ -117,7 +129,9 @@ Miscellaneous (mixed content) | [inborutils][inborutils]
 
 - **R package [INBOmd][INBOmd]**: provides several styles for `rmarkdown` files and several templates to generate reports, presentations and posters. The styles are based on the corporate identity of INBO and the Flemish government. All templates are based on `bookdown`, which is an extension of `rmarkdown`. `bookdown` is taylored towards writing books and technical documentation.
 - **R package [INBOtheme][INBOtheme]**: contains `ggplot2` themes for INBO, the Flemish government and Elsevier journals. The documentation website includes a set of example figures for each available theme.
+- **R package [checklist][checklist]**:  provides an elaborate and strict set of checks for R packages and R code, which includes setting up GitHub actions to publish to [Zenodo](https://zenodo.org/).
 
 ## Last but *not least*: miscellaneous!
 
 - **R package [inborutils][inborutils]**: provides a collection of useful R utilities and snippets that we consider recyclable for multiple projects. The functions are either out of scope or just not mature enough to include as extensions to existing packages.
+- **R package [checklist][checklist]**:  provides an elaborate and strict set of checks for R packages and R code.
