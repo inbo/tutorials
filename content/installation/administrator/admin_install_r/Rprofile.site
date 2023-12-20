@@ -15,7 +15,8 @@ options(
   pkgType = "binary",
   install.packages.check.source = "no",
   install.packages.compile.from.source = "never",
-  inbo_required = c("checklist", "fortunes", "remotes", "INBOmd", "INBOtheme")
+  inbo_required = c("checklist", "fortunes", "remotes", "INBOmd", "INBOtheme"),
+  qgisprocess.detect_newer_qgis = TRUE
 )
 # display fortune when starting new interactive R session
 if (interactive() && "fortunes" %in% rownames(utils::installed.packages())) {
