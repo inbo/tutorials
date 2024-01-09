@@ -12,7 +12,7 @@ Bij een nieuwe `R` installatie hoeft de gebruiker geen bijkomende stappen te ond
 
 ## Na elke upgrade
 
-Voor onderstaande instructies uit telkens een nieuwe `R` versie geïnstalleerd werd. Je kan dit, indien gewenst, ook frequenter uitvoeren.
+Voer onderstaande instructies uit telkens een nieuwe `R` versie geïnstalleerd werd. Je kan dit, indien gewenst, ook frequenter uitvoeren.
 
 ### Windows
 
