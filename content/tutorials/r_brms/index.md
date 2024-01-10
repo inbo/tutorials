@@ -11,5 +11,5 @@ In the fall of 2023, a tutorial on Bayesian statistics with the **brms** package
 Before you start the tutorial, please follow the instructions in [this R script]() to install brms properly.
 All course material can be found in Dutch and English on the following pages:
 
-- The [English tutorial](../../html/workshop_1_mcmc_en_brms_eng.html) with all [course material](https://inbo.github.io/tutorials/tutorials/r_brms/brms_eng) to test the examples yourself.
-- The [Dutch tutorial](../../html/workshop_1_mcmc_en_brms.html) with all [course material](https://inbo.github.io/tutorials/tutorials/r_brms/brms_nl) to test the examples yourself.
+- The [English tutorial](../../html/workshop_1_mcmc_en_brms_eng.html) with all [course material](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_brms/brms_eng) to test the examples yourself.
+- The [Dutch tutorial](../../html/workshop_1_mcmc_en_brms.html) with all [course material](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_brms/brms_nl) to test the examples yourself.
