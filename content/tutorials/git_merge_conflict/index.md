@@ -30,7 +30,7 @@ Every merge conflict inserts three delimiters.
 Fix the merge conflict by changing the source.
 Often you can fix it by simply deleting the content of one to the branches within the conflict.
 Potentially you need to keep a mix of both.
-Should fixing the merge conflict is more complicated, then you probably better should fix them via the [command line](index.html).
+Should fixing the merge conflict is more complicated, then you probably better should fix them via the [command line](../git_conflict/index.html).
 In our example we solved the conflict by keeping the content of the issue branch.
 
 ![Solved merge conflict on GitHub.com](merge-conflict-3.png)
