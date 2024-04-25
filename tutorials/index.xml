@@ -6,7 +6,17 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Handle Git conflicts via GitHub.Com</title>
+      <link>https://inbo.github.io/tutorials/tutorials/git_merge_conflict/</link>
+      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://inbo.github.io/tutorials/tutorials/git_merge_conflict/</guid>
+      <description>Fix merge conflict with a pull request Sometimes a pull request warns about a merge conflict. A merge conflict occurs when one or more lines were altered in the base branch so that a merge conflict arises in the feature branch. The warning looks like the image below.
+You can fix most merge conflicts in the browser. First push the Resolve conflict button in the warning. The website sends you to a page with a list of all merge conflicts.</description>
+    </item>
+    
     <item>
       <title>Tutorial Bayesian statistics with brms</title>
       <link>https://inbo.github.io/tutorials/tutorials/r_brms/</link>
