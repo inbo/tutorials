@@ -1,7 +1,7 @@
 ---
 title: "inbodb: How to retrieve data from the Taxonlijsten database"
 description: "📦 R package vignette."
-authors: [frederic piesschaert, dirk maes, els lommelen]
+authors: [fredericpiesschaert, dirkmaes, elslommelen]
 date: 2024-09-30
 categories: ["r"]
 tags: ["r", "vignette", "inbodb"]
