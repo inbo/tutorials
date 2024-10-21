@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>webservice on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/tags/webservice/</link>
+    <link>/tags/webservice/</link>
     <description>Recent content in webservice on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/webservice/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/webservice/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using WFS services in R</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</link>
+      <link>/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</guid>
+      <guid>/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
 The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
       <title>Get species checklist data from GBIF with rgbif</title>
-      <link>http://tutorials.inbo.be/tutorials/r_gbif_checklist/</link>
+      <link>/tutorials/r_gbif_checklist/</link>
       <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_gbif_checklist/</guid>
+      <guid>/tutorials/r_gbif_checklist/</guid>
       <description>Introduction The R package rgbif is a R wrapper to the GBIF API which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, look at the articles on how to:
  setup your GBIF username and password get occurrence data work with taxonomy related functions match and download a long species list  So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.</description>
     </item>
     
     <item>
       <title>Using WMS services in R</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_wms_services/</link>
+      <link>/tutorials/spatial_wms_services/</link>
       <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_wms_services/</guid>
+      <guid>/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 We will use the leaflet package to make interactive maps.
 library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
@@ -41,10 +41,10 @@ library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play
     
     <item>
       <title>Match scientific names with the GBIF Backbone Taxonomy</title>
-      <link>http://tutorials.inbo.be/tutorials/r_gbif_name_matching/</link>
+      <link>/tutorials/r_gbif_name_matching/</link>
       <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_gbif_name_matching/</guid>
+      <guid>/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
 remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>

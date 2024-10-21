@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>bartaelterman on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/authors/bartaelterman/</link>
+    <link>/authors/bartaelterman/</link>
     <description>Recent content in bartaelterman on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/bartaelterman/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="/authors/bartaelterman/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Reading large data files in R</title>
-      <link>http://tutorials.inbo.be/tutorials/r_large_data_files_handling/</link>
+      <link>/tutorials/r_large_data_files_handling/</link>
       <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_large_data_files_handling/</guid>
+      <guid>/tutorials/r_large_data_files_handling/</guid>
       <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
 tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
     </item>

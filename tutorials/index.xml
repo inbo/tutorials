@@ -2,85 +2,85 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/tutorials/</link>
+    <link>/tutorials/</link>
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tutorials/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Handle Git conflicts via GitHub.Com</title>
-      <link>http://tutorials.inbo.be/tutorials/git_merge_conflict/</link>
+      <link>/tutorials/git_merge_conflict/</link>
       <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_merge_conflict/</guid>
+      <guid>/tutorials/git_merge_conflict/</guid>
       <description>Fix merge conflict with a pull request Sometimes a pull request warns about a merge conflict. A merge conflict occurs when one or more lines were altered in the base branch so that a merge conflict arises in the feature branch. The warning looks like the image below.
 You can fix most merge conflicts in the browser. First push the Resolve conflict button in the warning. The website sends you to a page with a list of all merge conflicts.</description>
     </item>
     
     <item>
       <title>Tutorial Bayesian statistics with brms</title>
-      <link>http://tutorials.inbo.be/tutorials/r_brms/</link>
+      <link>/tutorials/r_brms/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_brms/</guid>
+      <guid>/tutorials/r_brms/</guid>
       <description>In the fall of 2023, a tutorial on Bayesian statistics with the brms packages was organised at INBO. Before you start the tutorial, please follow the instructions in this R script to install brms properly. All course material can be found in Dutch and English on the following pages:
  The English tutorial with all course material to test the examples yourself. The Dutch tutorial with all course material to test the examples yourself.</description>
     </item>
     
     <item>
       <title>Using WFS services in R</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</link>
+      <link>/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</guid>
+      <guid>/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
 The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
       <title>Set up Zenodo - GitHub integration</title>
-      <link>http://tutorials.inbo.be/tutorials/git_zenodo/</link>
+      <link>/tutorials/git_zenodo/</link>
       <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_zenodo/</guid>
+      <guid>/tutorials/git_zenodo/</guid>
       <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
 GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
     </item>
     
     <item>
       <title>Get species checklist data from GBIF with rgbif</title>
-      <link>http://tutorials.inbo.be/tutorials/r_gbif_checklist/</link>
+      <link>/tutorials/r_gbif_checklist/</link>
       <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_gbif_checklist/</guid>
+      <guid>/tutorials/r_gbif_checklist/</guid>
       <description>Introduction The R package rgbif is a R wrapper to the GBIF API which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, look at the articles on how to:
  setup your GBIF username and password get occurrence data work with taxonomy related functions match and download a long species list  So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.</description>
     </item>
     
     <item>
       <title>rgbif: Multiple values</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_rgbif_multiple_values/</link>
+      <link>/tutorials/vignette_rgbif_multiple_values/</link>
       <pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_rgbif_multiple_values/</guid>
+      <guid>/tutorials/vignette_rgbif_multiple_values/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/multiple_values.html</description>
     </item>
     
     <item>
       <title>Git and GitHub Authentication on Windows</title>
-      <link>http://tutorials.inbo.be/tutorials/git_authentication/</link>
+      <link>/tutorials/git_authentication/</link>
       <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_authentication/</guid>
+      <guid>/tutorials/git_authentication/</guid>
       <description>Before we start This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system. The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. The guidelines here are meant for people who use Git and GitHub in RStudio, but the general principles can be applied to other software too (e.</description>
     </item>
     
     <item>
       <title>Using WMS services in R</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_wms_services/</link>
+      <link>/tutorials/spatial_wms_services/</link>
       <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_wms_services/</guid>
+      <guid>/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 We will use the leaflet package to make interactive maps.
 library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
@@ -89,91 +89,91 @@ library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play
     
     <item>
       <title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_checklist_zenodo/</link>
+      <link>/tutorials/vignette_checklist_zenodo/</link>
       <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_checklist_zenodo/</guid>
+      <guid>/tutorials/vignette_checklist_zenodo/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/zenodo.html</description>
     </item>
     
     <item>
       <title>frictionless: Introduction to frictionless</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_frictionless_frictionless/</link>
+      <link>/tutorials/vignette_frictionless_frictionless/</link>
       <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_frictionless_frictionless/</guid>
+      <guid>/tutorials/vignette_frictionless_frictionless/</guid>
       <description>See the vignette/tutorial at https://frictionlessdata.github.io/frictionless-r/articles/frictionless.html</description>
     </item>
     
     <item>
       <title>rgbif: Citing GBIF mediated data</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_rgbif_cite_gbif_mediated_data/</link>
+      <link>/tutorials/vignette_rgbif_cite_gbif_mediated_data/</link>
       <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_rgbif_cite_gbif_mediated_data/</guid>
+      <guid>/tutorials/vignette_rgbif_cite_gbif_mediated_data/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/gbif_citations.html</description>
     </item>
     
     <item>
       <title>rgbif: Downloading occurrence data from GBIF</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_rgbif_occurrence_downloads/</link>
+      <link>/tutorials/vignette_rgbif_occurrence_downloads/</link>
       <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_rgbif_occurrence_downloads/</guid>
+      <guid>/tutorials/vignette_rgbif_occurrence_downloads/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html</description>
     </item>
     
     <item>
       <title>rgbif: Downloading species lists from GBIF</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_rgbif_species_downloads/</link>
+      <link>/tutorials/vignette_rgbif_species_downloads/</link>
       <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_rgbif_species_downloads/</guid>
+      <guid>/tutorials/vignette_rgbif_species_downloads/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html</description>
     </item>
     
     <item>
       <title>rgbif: Set up your GBIF username and password</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_rgbif_credentials_setup/</link>
+      <link>/tutorials/vignette_rgbif_credentials_setup/</link>
       <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_rgbif_credentials_setup/</guid>
+      <guid>/tutorials/vignette_rgbif_credentials_setup/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/gbif_credentials.html</description>
     </item>
     
     <item>
       <title>rgbif: Working with taxonomic names</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_rgbif_taxonomic_names/</link>
+      <link>/tutorials/vignette_rgbif_taxonomic_names/</link>
       <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_rgbif_taxonomic_names/</guid>
+      <guid>/tutorials/vignette_rgbif_taxonomic_names/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/taxonomic_names.html</description>
     </item>
     
     <item>
       <title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_waterinfo_waterinfo/</link>
+      <link>/tutorials/vignette_waterinfo_waterinfo/</link>
       <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_waterinfo_waterinfo/</guid>
+      <guid>/tutorials/vignette_waterinfo_waterinfo/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html</description>
     </item>
     
     <item>
       <title>etn: Explore acoustic telemetry data</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_etn_acoustic_telemetry/</link>
+      <link>/tutorials/vignette_etn_acoustic_telemetry/</link>
       <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_etn_acoustic_telemetry/</guid>
+      <guid>/tutorials/vignette_etn_acoustic_telemetry/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/etn/articles/acoustic_telemetry.html</description>
     </item>
     
     <item>
       <title>Coordinate operations and maps in R</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_transform_crs_2/</link>
+      <link>/tutorials/spatial_transform_crs_2/</link>
       <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_transform_crs_2/</guid>
+      <guid>/tutorials/spatial_transform_crs_2/</guid>
       <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
 A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
 The tutorial assumes you have some pre-existing knowledge:
@@ -182,10 +182,10 @@ The tutorial assumes you have some pre-existing knowledge:
     
     <item>
       <title>Citations in R Markdown</title>
-      <link>http://tutorials.inbo.be/tutorials/r_citations_markdown/</link>
+      <link>/tutorials/r_citations_markdown/</link>
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_citations_markdown/</guid>
+      <guid>/tutorials/r_citations_markdown/</guid>
       <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
 More general tutorials can be found at the following web pages:
  https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
@@ -193,120 +193,120 @@ More general tutorials can be found at the following web pages:
     
     <item>
       <title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_crs_coding/</link>
+      <link>/tutorials/spatial_crs_coding/</link>
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_crs_coding/</guid>
+      <guid>/tutorials/spatial_crs_coding/</guid>
       <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
     </item>
     
     <item>
       <title>Updating the renv environment of an R project</title>
-      <link>http://tutorials.inbo.be/tutorials/r_renv_update/</link>
+      <link>/tutorials/r_renv_update/</link>
       <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_renv_update/</guid>
+      <guid>/tutorials/r_renv_update/</guid>
       <description>What is renv? renv is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system. Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
 Start using renv For general advice on renv setup and usage, see https://rstudio.</description>
     </item>
     
     <item>
       <title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
+      <link>/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
       <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
+      <guid>/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html</description>
     </item>
     
     <item>
       <title>checklist: Philosophy of the checklist package</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_checklist_philosophy/</link>
+      <link>/tutorials/vignette_checklist_philosophy/</link>
       <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_checklist_philosophy/</guid>
+      <guid>/tutorials/vignette_checklist_philosophy/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/philosophy.html</description>
     </item>
     
     <item>
       <title>checklist: Setting up checklist</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_checklist_getting_started/</link>
+      <link>/tutorials/vignette_checklist_getting_started/</link>
       <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_checklist_getting_started/</guid>
+      <guid>/tutorials/vignette_checklist_getting_started/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/getting_started.html</description>
     </item>
     
     <item>
       <title>(Down)load KNMI, KMI or MOW-HIC data using the inborutils package</title>
-      <link>http://tutorials.inbo.be/tutorials/inborutils_download_data/</link>
+      <link>/tutorials/inborutils_download_data/</link>
       <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/inborutils_download_data/</guid>
+      <guid>/tutorials/inborutils_download_data/</guid>
       <description>In this article of the inborutils package it is explained how to use the functions download_knmi_data_hour, read_knmi_data, read_mow_data and read_kmi_data.</description>
     </item>
     
     <item>
       <title>watina: Getting started with watina: connecting and selecting locations</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_watina_v010_getstarted/</link>
+      <link>/tutorials/vignette_watina_v010_getstarted/</link>
       <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_watina_v010_getstarted/</guid>
+      <guid>/tutorials/vignette_watina_v010_getstarted/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v010_getstarted.html</description>
     </item>
     
     <item>
       <title>gwloggeR: Air pressure</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_gwlogger_airpressure/</link>
+      <link>/tutorials/vignette_gwlogger_airpressure/</link>
       <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_gwlogger_airpressure/</guid>
+      <guid>/tutorials/vignette_gwlogger_airpressure/</guid>
       <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure.html</description>
     </item>
     
     <item>
       <title>gwloggeR: Air pressure: drift</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_gwlogger_airpressure_drift/</link>
+      <link>/tutorials/vignette_gwlogger_airpressure_drift/</link>
       <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_gwlogger_airpressure_drift/</guid>
+      <guid>/tutorials/vignette_gwlogger_airpressure_drift/</guid>
       <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure-Drift.html</description>
     </item>
     
     <item>
       <title>gwloggeR: Hydrostatic pressure</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_gwlogger_hydropressure/</link>
+      <link>/tutorials/vignette_gwlogger_hydropressure/</link>
       <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_gwlogger_hydropressure/</guid>
+      <guid>/tutorials/vignette_gwlogger_hydropressure/</guid>
       <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Hydropressure.html</description>
     </item>
     
     <item>
       <title>gwloggeR: Introduction to gwloggeR</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_gwlogger_gwlogger/</link>
+      <link>/tutorials/vignette_gwlogger_gwlogger/</link>
       <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_gwlogger_gwlogger/</guid>
+      <guid>/tutorials/vignette_gwlogger_gwlogger/</guid>
       <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html</description>
     </item>
     
     <item>
       <title>Use of INBO citation style with bibliography managers</title>
-      <link>http://tutorials.inbo.be/tutorials/style_inbo_bibliography/</link>
+      <link>/tutorials/style_inbo_bibliography/</link>
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/style_inbo_bibliography/</guid>
+      <guid>/tutorials/style_inbo_bibliography/</guid>
       <description>The INBO citation style Most journals, publishers and companies use a specified format for citations and bibliographies. The Research Institute for Nature and Forest (INBO) is no exception.
 All bibliography managers provide ways to automate the formatting of citations and bibliographies which greatly facilitates scientific publishing. Depending on the bibliographic manager software, the style formatting rules are stored in specific files. In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.</description>
     </item>
     
     <item>
       <title>Tutorial setup_codingclub_session()</title>
-      <link>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</link>
+      <link>/tutorials/r_setup_codingclub_session/</link>
       <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</guid>
+      <guid>/tutorials/r_setup_codingclub_session/</guid>
       <description>Before each coding club you will usually have to download some datasets and some scripts. This can be done manually from the corresponding GitHub webpages but it is much easier to use the setup_codingclub_session() function of the inborutils package.
 To begin, make sure that you have the latest version of inborutils installed by running the following code:
 if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
@@ -315,10 +315,10 @@ library(inborutils) The function takes four arguments with the following default
     
     <item>
       <title>Read data from Google sheets</title>
-      <link>http://tutorials.inbo.be/tutorials/r_google_sheets/</link>
+      <link>/tutorials/r_google_sheets/</link>
       <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_google_sheets/</guid>
+      <guid>/tutorials/r_google_sheets/</guid>
       <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
 This package is very well documented, so we just have to provide you with the right links:
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
@@ -328,39 +328,39 @@ googlesheets4 vs googlesheets The package googlesheets4 is the follower of googl
     
     <item>
       <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_standards_raster/</link>
+      <link>/tutorials/spatial_standards_raster/</link>
       <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_standards_raster/</guid>
+      <guid>/tutorials/spatial_standards_raster/</guid>
       <description>During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code, but you can safely ignore them. For more information, see the CRS tutorial.
 This tutorial uses a few basic functions from the dplyr and raster packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.</description>
     </item>
     
     <item>
       <title>Transforming spatial objects</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_transform_crs/</link>
+      <link>/tutorials/spatial_transform_crs/</link>
       <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_transform_crs/</guid>
+      <guid>/tutorials/spatial_transform_crs/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
     </item>
     
     <item>
       <title>inbodb: How to retrieve data from the INBOVEG database</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inbodb_get_data_inboveg/</link>
+      <link>/tutorials/vignette_inbodb_get_data_inboveg/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inbodb_get_data_inboveg/</guid>
+      <guid>/tutorials/vignette_inbodb_get_data_inboveg/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inbodb/articles/get_data_inboveg.html</description>
     </item>
     
     <item>
       <title>&#39;Zoom in&#39; on `ggplot2` figures</title>
-      <link>http://tutorials.inbo.be/tutorials/r_zoom_in_ggplot/</link>
+      <link>/tutorials/r_zoom_in_ggplot/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_zoom_in_ggplot/</guid>
+      <guid>/tutorials/r_zoom_in_ggplot/</guid>
       <description>Original figure library(ggplot2) ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() “Zoom in” with scales Data points outside the limits are considered to be NA. Note that this will alter all calculated geoms.
 ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + scale_y_continuous(limits = c(20, 25)) ## Warning: Removed 24 rows containing non-finite values (stat_boxplot).  “Zoom in” with coord This doesn’t affect the values:
 ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + coord_cartesian(ylim = c(20, 25)) Note that you can use only one coord.</description>
@@ -368,77 +368,77 @@ ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + coord_cartesian
     
     <item>
       <title>Mixed model formulation of a paired t-test</title>
-      <link>http://tutorials.inbo.be/tutorials/r_paired_t_test/</link>
+      <link>/tutorials/r_paired_t_test/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_paired_t_test/</guid>
+      <guid>/tutorials/r_paired_t_test/</guid>
       <description>What you will learn In this tutorial we explain the analogy between the paired t-test and the corresponding mixed model formulation.
 Used packages library(knitr) library(lme4) library(tidyr) library(broom) library(DHARMa) Data  plot: identifies paired measurements response: measurement values treatment: identifies two treatments (a and b)  set.seed(124) paired_data &amp;lt;- data.frame( plot = rep(1:10, 2), response = c(rnorm(10), rnorm(10, 3, 1.5)), treatment = rep(c(&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;), each = 10) ) paired_data$treatment &amp;lt;- as.factor(paired_data$treatment) paired_data$plot &amp;lt;- as.</description>
     </item>
     
     <item>
       <title>Same variable in fixed and random effects</title>
-      <link>http://tutorials.inbo.be/tutorials/r_fixed_random/</link>
+      <link>/tutorials/r_fixed_random/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_fixed_random/</guid>
+      <guid>/tutorials/r_fixed_random/</guid>
       <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(lme4) ## Loading required package: Matrix  Dummy data For the sake of this demontration we use a very simple dataset with a very high signal versus noise ratio. Let’s look at a simple timeseries with multiple observations per timepoint.
 set.seed(213354) n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;- 0.1 dataset &amp;lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.</description>
     </item>
     
     <item>
       <title>Spatially correlated random effects with INLA</title>
-      <link>http://tutorials.inbo.be/tutorials/r_spde/</link>
+      <link>/tutorials/r_spde/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_spde/</guid>
+      <guid>/tutorials/r_spde/</guid>
       <description>This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. It is based on the question and the data posted on the R-Sig-mixedmodels mailing list: https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html.
 library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(tidyr) library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.</description>
     </item>
     
     <item>
       <title>Zero-inflation</title>
-      <link>http://tutorials.inbo.be/tutorials/r_zero_inflation/</link>
+      <link>/tutorials/r_zero_inflation/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_zero_inflation/</guid>
+      <guid>/tutorials/r_zero_inflation/</guid>
       <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(scales) library(pscl) ## Warning: package &#39;pscl&#39; was built under R version 4.0.2 ## Classes and Methods for R developed in the ## Political Science Computational Laboratory ## Department of Political Science ## Stanford University ## Simon Jackman ## hurdle and zeroinfl functions by Achim Zeileis  library(MASS) library(tidyr) library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following object is masked from &#39;package:MASS&#39;: ## ## select ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(lme4) ## Loading required package: Matrix ## ## Attaching package: &#39;Matrix&#39; ## The following objects are masked from &#39;package:tidyr&#39;: ## ## expand, pack, unpack  Lots of zero’s doesn’t imply zero-inflation set.</description>
     </item>
     
     <item>
       <title>Styleguide SQL-scripts</title>
-      <link>http://tutorials.inbo.be/tutorials/sql_styleguide/</link>
+      <link>/tutorials/sql_styleguide/</link>
       <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/sql_styleguide/</guid>
+      <guid>/tutorials/sql_styleguide/</guid>
       <description>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.
 In short  --This is how a basic SQL-script should look like /** Description: Lijst met broedvogels per UTM1-hok sinds 2010 Created: 2015-08-12 Created by: Frederic Piesschaert **/ SELECT w.WRNG_JAR AS jaar , w.</description>
     </item>
     
     <item>
       <title>effectclass: Standardised classification of effects based on their uncertainty</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_effectclass_classification/</link>
+      <link>/tutorials/vignette_effectclass_classification/</link>
       <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_effectclass_classification/</guid>
+      <guid>/tutorials/vignette_effectclass_classification/</guid>
       <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/classification.html</description>
     </item>
     
     <item>
       <title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_n2khab_v022_example/</link>
+      <link>/tutorials/vignette_n2khab_v022_example/</link>
       <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_n2khab_v022_example/</guid>
+      <guid>/tutorials/vignette_n2khab_v022_example/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v022_example.html</description>
     </item>
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>http://tutorials.inbo.be/tutorials/styleguide_repos/</link>
+      <link>/tutorials/styleguide_repos/</link>
       <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/styleguide_repos/</guid>
+      <guid>/tutorials/styleguide_repos/</guid>
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
  https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
@@ -446,10 +446,10 @@ In short  --This is how a basic SQL-script should look like /** Description: Lij
     
     <item>
       <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_standards_vector/</link>
+      <link>/tutorials/spatial_standards_vector/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_standards_vector/</guid>
+      <guid>/tutorials/spatial_standards_vector/</guid>
       <description>This tutorial uses a few basic functions from the dplyr and sf packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
 options(stringsAsFactors = FALSE) library(tidyverse) library(sf) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
 In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
@@ -457,46 +457,46 @@ In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication
     
     <item>
       <title>Classification and visualisation of estimates and their uncertainty</title>
-      <link>http://tutorials.inbo.be/tutorials/r_effectclass/</link>
+      <link>/tutorials/r_effectclass/</link>
       <pubDate>Thu, 23 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_effectclass/</guid>
+      <guid>/tutorials/r_effectclass/</guid>
       <description>Here are the slides of a presentation about the effectclass package.</description>
     </item>
     
     <item>
       <title>effectclass: Visualising effects</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_effectclass_visualisation/</link>
+      <link>/tutorials/vignette_effectclass_visualisation/</link>
       <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_effectclass_visualisation/</guid>
+      <guid>/tutorials/vignette_effectclass_visualisation/</guid>
       <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/visualisation.html</description>
     </item>
     
     <item>
       <title>watina: Using hydrochemical data to characterize and select locations</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_watina_v210_chem/</link>
+      <link>/tutorials/vignette_watina_v210_chem/</link>
       <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_watina_v210_chem/</guid>
+      <guid>/tutorials/vignette_watina_v210_chem/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v210_chem.html</description>
     </item>
     
     <item>
       <title>watina: Using XG3 values to characterize and select locations</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_watina_v110_xg3/</link>
+      <link>/tutorials/vignette_watina_v110_xg3/</link>
       <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_watina_v110_xg3/</guid>
+      <guid>/tutorials/vignette_watina_v110_xg3/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v110_xg3.html</description>
     </item>
     
     <item>
       <title>Match scientific names with the GBIF Backbone Taxonomy</title>
-      <link>http://tutorials.inbo.be/tutorials/r_gbif_name_matching/</link>
+      <link>/tutorials/r_gbif_name_matching/</link>
       <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_gbif_name_matching/</guid>
+      <guid>/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
 remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
@@ -504,47 +504,47 @@ remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils 
     
     <item>
       <title>n2khab: Where to store the N2KHAB input data sources</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_n2khab_v020_datastorage/</link>
+      <link>/tutorials/vignette_n2khab_v020_datastorage/</link>
       <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_n2khab_v020_datastorage/</guid>
+      <guid>/tutorials/vignette_n2khab_v020_datastorage/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v020_datastorage.html</description>
     </item>
     
     <item>
       <title>inborutils: GBIF scientific name matching</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_gbif_name_match/</link>
+      <link>/tutorials/vignette_inborutils_gbif_name_match/</link>
       <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_gbif_name_match/</guid>
+      <guid>/tutorials/vignette_inborutils_gbif_name_match/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
     </item>
     
     <item>
       <title>Database conventions (MS SQL Server)</title>
-      <link>http://tutorials.inbo.be/tutorials/database_conventions/</link>
+      <link>/tutorials/database_conventions/</link>
       <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/database_conventions/</guid>
+      <guid>/tutorials/database_conventions/</guid>
       <description>General  All SQL objects are prefixed, except for databases, schemas, tables and columns and users/logins. The prefixes used depend on the type of object:     Prefix Object type     PK_ primary key constraint   FK_ foreign key constraint   CU_ unique key constraint   CC_ check constraint   CD_ default   IN_ index   VW_ view   TR_ trigger   SQ_ sequence   DR_ database role     choose English or Dutch for the naming of objects and be consistent  Database  The database is created by the DBA.</description>
     </item>
     
     <item>
       <title>How to make spatial joins (point in polygon)?</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_point_in_polygon/</link>
+      <link>/tutorials/spatial_point_in_polygon/</link>
       <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_point_in_polygon/</guid>
+      <guid>/tutorials/spatial_point_in_polygon/</guid>
       <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
 Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
     </item>
     
     <item>
       <title>Applying the INBO corporate identity to bookdown documents</title>
-      <link>http://tutorials.inbo.be/tutorials/r_inbomd/</link>
+      <link>/tutorials/r_inbomd/</link>
       <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_inbomd/</guid>
+      <guid>/tutorials/r_inbomd/</guid>
       <description>During this workshop you learn how to turn a regular Rmarkdown file into a bookdown document using the INBO corporate identity. A lot of tips and trics use plain bookdown. So you can use them with other bookdown output formats.
 The slides are available on the INBOmd examples website.
 The source code is avalaible in the INBOmd example GitHub repository.</description>
@@ -552,56 +552,56 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
     
     <item>
       <title>n2khab: Using the GRTS data sources</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_n2khab_v030_grtsmh/</link>
+      <link>/tutorials/vignette_n2khab_v030_grtsmh/</link>
       <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_n2khab_v030_grtsmh/</guid>
+      <guid>/tutorials/vignette_n2khab_v030_grtsmh/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v030_GRTSmh.html</description>
     </item>
     
     <item>
       <title>bioRad: Introduction to bioRad</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_biorad/</link>
+      <link>/tutorials/vignette_biorad/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_biorad/</guid>
+      <guid>/tutorials/vignette_biorad/</guid>
       <description>See the vignette/tutorial at https://adokter.github.io/bioRad/articles/bioRad.html</description>
     </item>
     
     <item>
       <title>n2khab: Reference lists and using them</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_n2khab_v010_reference_lists/</link>
+      <link>/tutorials/vignette_n2khab_v010_reference_lists/</link>
       <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_n2khab_v010_reference_lists/</guid>
+      <guid>/tutorials/vignette_n2khab_v010_reference_lists/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v010_reference_lists.html</description>
     </item>
     
     <item>
       <title>R voor beginners</title>
-      <link>http://tutorials.inbo.be/tutorials/r_beginners/</link>
+      <link>/tutorials/r_beginners/</link>
       <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_beginners/</guid>
+      <guid>/tutorials/r_beginners/</guid>
       <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
  Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
     </item>
     
     <item>
       <title>INLA workshops</title>
-      <link>http://tutorials.inbo.be/tutorials/r_inla/</link>
+      <link>/tutorials/r_inla/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_inla/</guid>
+      <guid>/tutorials/r_inla/</guid>
       <description>These workshops are a follow-up of the course on &amp;ldquo;Spatial, temporal and spatial-temporal models using R-INLA&amp;rdquo; by Alain Zuur and Elena Ieno (Highland Statistics Ltd.). The main goal is the get people using R-INLA with their own data in a workshop setting so they can tap into the knowledge of others. The workshops are not a copy of the Highstat course but elaborate certain topics. We also introduce the inlatools and inlabru.</description>
     </item>
     
     <item>
       <title>Git(hub) introduction</title>
-      <link>http://tutorials.inbo.be/tutorials/git_introduction/</link>
+      <link>/tutorials/git_introduction/</link>
       <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_introduction/</guid>
+      <guid>/tutorials/git_introduction/</guid>
       <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
 To introduce the concept of version control with Git and Github, a separate git course website is available here.
 The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>
@@ -609,65 +609,65 @@ The git course provides an introduction on main terminology of Git based on 5 im
     
     <item>
       <title>inlatools: Checking the distribution and dispersion of a model</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inlatools_distribution/</link>
+      <link>/tutorials/vignette_inlatools_distribution/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inlatools_distribution/</guid>
+      <guid>/tutorials/vignette_inlatools_distribution/</guid>
       <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/distribution.html</description>
     </item>
     
     <item>
       <title>inlatools: Getting a grasp on the random walk hyperparameter</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inlatools_rwprior/</link>
+      <link>/tutorials/vignette_inlatools_rwprior/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inlatools_rwprior/</guid>
+      <guid>/tutorials/vignette_inlatools_rwprior/</guid>
       <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/rwprior.html</description>
     </item>
     
     <item>
       <title>VMM surface waters - quality data</title>
-      <link>http://tutorials.inbo.be/tutorials/vmm_surface_waters_quality_data/</link>
+      <link>/tutorials/vmm_surface_waters_quality_data/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vmm_surface_waters_quality_data/</guid>
+      <guid>/tutorials/vmm_surface_waters_quality_data/</guid>
       <description>OPGELET: deze databank is alleen raadpleegbaar voor INBO-medewerkers, niet voor externen. Externen kunnen gebruik maken van het VMM-geoloket waterkwaliteit.
 Het INBO krijgt jaarlijks een (gedeeltelijke) kopie van de waterkwaliteitsdatabank van de Vlaamse Milieumaatschappij (VMM). De kopie omvat fysicochemische metingen en kwaliteitsindexen uit het VMM-meetnet oppervlaktewaters. Deze en andere waterkwaliteitsgevens zijn rechtstreeks opvraagbaar via het VMM-geoloket waterkwaliteit, maar de lokale kopie laat een veel vlottere raadpleging toe wanneer analyse van een groter aantal meetpunten gewenst is.</description>
     </item>
     
     <item>
       <title>inlatools: Setting a prior for the random intercept variance and fixed effects</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inlatools_prior/</link>
+      <link>/tutorials/vignette_inlatools_prior/</link>
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inlatools_prior/</guid>
+      <guid>/tutorials/vignette_inlatools_prior/</guid>
       <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/prior.html</description>
     </item>
     
     <item>
       <title>inborutils: (Down)load data from external partners</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_data_loaders_examples/</link>
+      <link>/tutorials/vignette_inborutils_data_loaders_examples/</link>
       <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_data_loaders_examples/</guid>
+      <guid>/tutorials/vignette_inborutils_data_loaders_examples/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/data_loaders_examples.html</description>
     </item>
     
     <item>
       <title>INBOmd: Introduction to INBOmd</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inbomd_introduction/</link>
+      <link>/tutorials/vignette_inbomd_introduction/</link>
       <pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inbomd_introduction/</guid>
+      <guid>/tutorials/vignette_inbomd_introduction/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/INBOmd/articles/introduction.html</description>
     </item>
     
     <item>
       <title>Headers and navigation in R code</title>
-      <link>http://tutorials.inbo.be/tutorials/r_script_sections/</link>
+      <link>/tutorials/r_script_sections/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_script_sections/</guid>
+      <guid>/tutorials/r_script_sections/</guid>
       <description>Introduction R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
 Creating sections manually To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.
 # 1. Header 1 #### # 2. Header 2 ---- # 3.</description>
@@ -675,10 +675,10 @@ Creating sections manually To create a header of a section, different methods ca
     
     <item>
       <title>Let&#39;s create an interactive map!</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_create_leaflet_map/</link>
+      <link>/tutorials/spatial_create_leaflet_map/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_create_leaflet_map/</guid>
+      <guid>/tutorials/spatial_create_leaflet_map/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Introduction The required packages are leaflet and sp.
 library(leaflet) library(sp) Dummy data Let’s create a dummy data.frame to play around, i.e. the three locations of INBO:
@@ -687,20 +687,20 @@ names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;, &amp;#34;Geraardsbergen&amp;#34;, &a
     
     <item>
       <title>Using `%&gt;%` pipes in R</title>
-      <link>http://tutorials.inbo.be/tutorials/r_tidyverse_piping/</link>
+      <link>/tutorials/r_tidyverse_piping/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_tidyverse_piping/</guid>
+      <guid>/tutorials/r_tidyverse_piping/</guid>
       <description>library(dplyr) How to use piping in R Normally, you would do this:
 head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
     </item>
     
     <item>
       <title>Wercker</title>
-      <link>http://tutorials.inbo.be/tutorials/development_wercker/</link>
+      <link>/tutorials/development_wercker/</link>
       <pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/development_wercker/</guid>
+      <guid>/tutorials/development_wercker/</guid>
       <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
  create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
 The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
@@ -708,55 +708,55 @@ The Wercker test environment can only be set up if the file wercker.yml is commi
     
     <item>
       <title>Data wrangling with tidyverse</title>
-      <link>http://tutorials.inbo.be/tutorials/r_tidyverse_info/</link>
+      <link>/tutorials/r_tidyverse_info/</link>
       <pubDate>Fri, 09 Feb 2018 14:14:49 +0100</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_tidyverse_info/</guid>
+      <guid>/tutorials/r_tidyverse_info/</guid>
       <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
     </item>
     
     <item>
       <title>inborutils: Check coordinate system</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_guess_projection/</link>
+      <link>/tutorials/vignette_inborutils_guess_projection/</link>
       <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_guess_projection/</guid>
+      <guid>/tutorials/vignette_inborutils_guess_projection/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/guess_projection.html</description>
     </item>
     
     <item>
       <title>wateRinfo: Define the date period to download</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_waterinfo_define_date_periods/</link>
+      <link>/tutorials/vignette_waterinfo_define_date_periods/</link>
       <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_waterinfo_define_date_periods/</guid>
+      <guid>/tutorials/vignette_waterinfo_define_date_periods/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html</description>
     </item>
     
     <item>
       <title>wateRinfo: Download time series from multiple stations/variables</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
+      <link>/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
       <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
+      <guid>/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
       <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html</description>
     </item>
     
     <item>
       <title>Styleguide R code</title>
-      <link>http://tutorials.inbo.be/tutorials/styleguide_r_code/</link>
+      <link>/tutorials/styleguide_r_code/</link>
       <pubDate>Wed, 18 Oct 2017 16:01:34 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/styleguide_r_code/</guid>
+      <guid>/tutorials/styleguide_r_code/</guid>
       <description>Scope This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO.</description>
     </item>
     
     <item>
       <title>Undo a git commit</title>
-      <link>http://tutorials.inbo.be/tutorials/git_undo_commit/</link>
+      <link>/tutorials/git_undo_commit/</link>
       <pubDate>Wed, 18 Oct 2017 15:31:53 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_undo_commit/</guid>
+      <guid>/tutorials/git_undo_commit/</guid>
       <description>Introduction You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
 First, check your history of commits to see which commits are the faulty ones.
 git log --oneline Example output
@@ -765,10 +765,10 @@ b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make som
     
     <item>
       <title>Git without internet</title>
-      <link>http://tutorials.inbo.be/tutorials/git_no_internet/</link>
+      <link>/tutorials/git_no_internet/</link>
       <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_no_internet/</guid>
+      <guid>/tutorials/git_no_internet/</guid>
       <description>When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.
 One can commit changes, branch off, revert and reset changes, the same as when there exists an internet connection.
 Example workflow: start offline mode
@@ -779,10 +779,10 @@ git fetch origin push changes to the server</description>
     
     <item>
       <title>Git workflow using the command line</title>
-      <link>http://tutorials.inbo.be/tutorials/git_workflow/</link>
+      <link>/tutorials/git_workflow/</link>
       <pubDate>Wed, 18 Oct 2017 14:42:43 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_workflow/</guid>
+      <guid>/tutorials/git_workflow/</guid>
       <description>BEFORE I START WORKING   STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
 git fetch origin git checkout master git merge --ff-only origin/master   STEP 2: Choose your option:
   OPTION 2A: I already have a branch I want to continue working on:
@@ -792,10 +792,10 @@ git checkout name_existing_branch git fetch origin git rebase origin/master   OP
     
     <item>
       <title>Handle conflicts</title>
-      <link>http://tutorials.inbo.be/tutorials/git_conflict/</link>
+      <link>/tutorials/git_conflict/</link>
       <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_conflict/</guid>
+      <guid>/tutorials/git_conflict/</guid>
       <description>Fix merge conflict with a pull request You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
 Locally on your computer:
 git fetch origin Rebase your feature branch with your master
@@ -804,29 +804,29 @@ git rebase origin/master Git will now state that there are merge conflicts. Thes
     
     <item>
       <title>Code coverage</title>
-      <link>http://tutorials.inbo.be/tutorials/development_codecov/</link>
+      <link>/tutorials/development_codecov/</link>
       <pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/development_codecov/</guid>
+      <guid>/tutorials/development_codecov/</guid>
       <description>R CMD check has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, R CMD check does run a set unit tests. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the testthat framework for writing unit tests.</description>
     </item>
     
     <item>
       <title>Reading large data files in R</title>
-      <link>http://tutorials.inbo.be/tutorials/r_large_data_files_handling/</link>
+      <link>/tutorials/r_large_data_files_handling/</link>
       <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_large_data_files_handling/</guid>
+      <guid>/tutorials/r_large_data_files_handling/</guid>
       <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
 tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
     </item>
     
     <item>
       <title>Read data from INBO databases (SQL Server) with R</title>
-      <link>http://tutorials.inbo.be/tutorials/r_database_access/</link>
+      <link>/tutorials/r_database_access/</link>
       <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_database_access/</guid>
+      <guid>/tutorials/r_database_access/</guid>
       <description>Connection to INBO database Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
 library(DBI) library(glue) library(tidyverse) To create a database connection, different approaches are available as explained in the next section:
  Use the dedicated connect_inbo_dbase function in the inbodb package Setup the required parameters yourself Reuse existing registered connections on your computer  Inbodb function To support the connection to INBO databases, a dedicated function is available in the inbodb package, called connect_inbo_dbase.</description>

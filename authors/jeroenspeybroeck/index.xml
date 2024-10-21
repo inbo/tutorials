@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>jeroenspeybroeck on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/authors/jeroenspeybroeck/</link>
+    <link>/authors/jeroenspeybroeck/</link>
     <description>Recent content in jeroenspeybroeck on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/jeroenspeybroeck/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="/authors/jeroenspeybroeck/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Let&#39;s create an interactive map!</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_create_leaflet_map/</link>
+      <link>/tutorials/spatial_create_leaflet_map/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_create_leaflet_map/</guid>
+      <guid>/tutorials/spatial_create_leaflet_map/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Introduction The required packages are leaflet and sp.
 library(leaflet) library(sp) Dummy data Let’s create a dummy data.frame to play around, i.e. the three locations of INBO:

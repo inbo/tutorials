@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>github on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/tags/github/</link>
+    <link>/tags/github/</link>
     <description>Recent content in github on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Set up Zenodo - GitHub integration</title>
-      <link>http://tutorials.inbo.be/tutorials/git_zenodo/</link>
+      <link>/tutorials/git_zenodo/</link>
       <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_zenodo/</guid>
+      <guid>/tutorials/git_zenodo/</guid>
       <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
 GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
     </item>
     
     <item>
       <title>Git and GitHub Authentication on Windows</title>
-      <link>http://tutorials.inbo.be/tutorials/git_authentication/</link>
+      <link>/tutorials/git_authentication/</link>
       <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_authentication/</guid>
+      <guid>/tutorials/git_authentication/</guid>
       <description>Before we start This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system. The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. The guidelines here are meant for people who use Git and GitHub in RStudio, but the general principles can be applied to other software too (e.</description>
     </item>
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>http://tutorials.inbo.be/tutorials/styleguide_repos/</link>
+      <link>/tutorials/styleguide_repos/</link>
       <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/styleguide_repos/</guid>
+      <guid>/tutorials/styleguide_repos/</guid>
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
  https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
@@ -39,10 +39,10 @@ GitHub and Zenodo: background GitHub hosts a remote Git server that you can use 
     
     <item>
       <title>Git(hub) introduction</title>
-      <link>http://tutorials.inbo.be/tutorials/git_introduction/</link>
+      <link>/tutorials/git_introduction/</link>
       <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/git_introduction/</guid>
+      <guid>/tutorials/git_introduction/</guid>
       <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
 To introduce the concept of version control with Git and Github, a separate git course website is available here.
 The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>

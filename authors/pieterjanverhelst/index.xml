@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>pieterjanverhelst on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/authors/pieterjanverhelst/</link>
+    <link>/authors/pieterjanverhelst/</link>
     <description>Recent content in pieterjanverhelst on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/pieterjanverhelst/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="/authors/pieterjanverhelst/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Headers and navigation in R code</title>
-      <link>http://tutorials.inbo.be/tutorials/r_script_sections/</link>
+      <link>/tutorials/r_script_sections/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_script_sections/</guid>
+      <guid>/tutorials/r_script_sections/</guid>
       <description>Introduction R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
 Creating sections manually To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.
 # 1. Header 1 #### # 2. Header 2 ---- # 3.</description>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>google on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/tags/google/</link>
+    <link>/tags/google/</link>
     <description>Recent content in google on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/google/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Read data from Google sheets</title>
-      <link>http://tutorials.inbo.be/tutorials/r_google_sheets/</link>
+      <link>/tutorials/r_google_sheets/</link>
       <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_google_sheets/</guid>
+      <guid>/tutorials/r_google_sheets/</guid>
       <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
 This package is very well documented, so we just have to provide you with the right links:
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
@@ -22,10 +22,10 @@ googlesheets4 vs googlesheets The package googlesheets4 is the follower of googl
     
     <item>
       <title>Insync installation</title>
-      <link>http://tutorials.inbo.be/installation/user/user_install_insync/</link>
+      <link>/installation/user/user_install_insync/</link>
       <pubDate>Thu, 19 Apr 2018 11:01:31 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/installation/user/user_install_insync/</guid>
+      <guid>/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
 The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>

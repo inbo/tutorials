@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>brms on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/tags/brms/</link>
+    <link>/tags/brms/</link>
     <description>Recent content in brms on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/brms/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/brms/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial Bayesian statistics with brms</title>
-      <link>http://tutorials.inbo.be/tutorials/r_brms/</link>
+      <link>/tutorials/r_brms/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/r_brms/</guid>
+      <guid>/tutorials/r_brms/</guid>
       <description>In the fall of 2023, a tutorial on Bayesian statistics with the brms packages was organised at INBO. Before you start the tutorial, please follow the instructions in this R script to install brms properly. All course material can be found in Dutch and English on the following pages:
  The English tutorial with all course material to test the examples yourself. The Dutch tutorial with all course material to test the examples yourself.</description>
     </item>

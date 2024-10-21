@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ambermertens on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/authors/ambermertens/</link>
+    <link>/authors/ambermertens/</link>
     <description>Recent content in ambermertens on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/ambermertens/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="/authors/ambermertens/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coordinate operations and maps in R</title>
-      <link>http://tutorials.inbo.be/tutorials/spatial_transform_crs_2/</link>
+      <link>/tutorials/spatial_transform_crs_2/</link>
       <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/spatial_transform_crs_2/</guid>
+      <guid>/tutorials/spatial_transform_crs_2/</guid>
       <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
 A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
 The tutorial assumes you have some pre-existing knowledge:

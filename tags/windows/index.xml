@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>windows on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/tags/windows/</link>
+    <link>/tags/windows/</link>
     <description>Recent content in windows on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Oct 2017 00:30:16 +0200</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Oct 2017 00:30:16 +0200</lastBuildDate><atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rtools installation</title>
-      <link>http://tutorials.inbo.be/installation/administrator/admin_install_rtools/</link>
+      <link>/installation/administrator/admin_install_rtools/</link>
       <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
       
-      <guid>http://tutorials.inbo.be/installation/administrator/admin_install_rtools/</guid>
+      <guid>/installation/administrator/admin_install_rtools/</guid>
       <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via cloud.r-project.org. Kies de 64-bit versie van de installer.
 Bij een upgrade dient eerst de vorige versie te worden verwijderd.
  Klik Ja. Kies C:\rtools40 (standaard) als installatiemap en klik Next. Laat alles aangevinkt en klik Next. Klik Install. Klik Finish. Wijzing PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;. Start R en controleer of Sys.which(&amp;quot;make&amp;quot;) verwijst naar &amp;quot;C:\\rtools40\\usr\\bin\\make.exe&amp;quot;.  Afwijkingen t.o.v. default installatie  Wijzig de systeemvariabele PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;  </description>

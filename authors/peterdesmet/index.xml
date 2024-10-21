@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>peterdesmet on INBO Tutorials</title>
-    <link>http://tutorials.inbo.be/authors/peterdesmet/</link>
+    <link>/authors/peterdesmet/</link>
     <description>Recent content in peterdesmet on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/peterdesmet/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/authors/peterdesmet/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>frictionless: Introduction to frictionless</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_frictionless_frictionless/</link>
+      <link>/tutorials/vignette_frictionless_frictionless/</link>
       <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_frictionless_frictionless/</guid>
+      <guid>/tutorials/vignette_frictionless_frictionless/</guid>
       <description>See the vignette/tutorial at https://frictionlessdata.github.io/frictionless-r/articles/frictionless.html</description>
     </item>
     
     <item>
       <title>Using Kerberos authentication for database connection</title>
-      <link>http://tutorials.inbo.be/installation/user/user_install_kerberos/</link>
+      <link>/installation/user/user_install_kerberos/</link>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/installation/user/user_install_kerberos/</guid>
+      <guid>/installation/user/user_install_kerberos/</guid>
       <description>Introduction (shamelessly taken from wikipedia)
 Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
 Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
@@ -29,10 +29,10 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
     
     <item>
       <title>bioRad: Introduction to bioRad</title>
-      <link>http://tutorials.inbo.be/tutorials/vignette_biorad/</link>
+      <link>/tutorials/vignette_biorad/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://tutorials.inbo.be/tutorials/vignette_biorad/</guid>
+      <guid>/tutorials/vignette_biorad/</guid>
       <description>See the vignette/tutorial at https://adokter.github.io/bioRad/articles/bioRad.html</description>
     </item>
     
