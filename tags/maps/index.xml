@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>maps on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/maps/</link>
+    <link>http://tutorials.inbo.be/tags/maps/</link>
     <description>Recent content in maps on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/maps/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/maps/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using WFS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
 The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
       <title>Using WMS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_wms_services/</link>
       <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 We will use the leaflet package to make interactive maps.
 library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
@@ -31,10 +31,10 @@ library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play
     
     <item>
       <title>Coordinate operations and maps in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_transform_crs_2/</link>
       <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs_2/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_transform_crs_2/</guid>
       <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
 A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
 The tutorial assumes you have some pre-existing knowledge:
@@ -43,39 +43,39 @@ The tutorial assumes you have some pre-existing knowledge:
     
     <item>
       <title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_crs_coding/</link>
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_crs_coding/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_crs_coding/</guid>
       <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
     </item>
     
     <item>
       <title>Transforming spatial objects</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_transform_crs/</link>
       <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_transform_crs/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
     </item>
     
     <item>
       <title>How to make spatial joins (point in polygon)?</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_point_in_polygon/</link>
       <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_point_in_polygon/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_point_in_polygon/</guid>
       <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
 Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
     </item>
     
     <item>
       <title>Let&#39;s create an interactive map!</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_create_leaflet_map/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_create_leaflet_map/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_create_leaflet_map/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Introduction The required packages are leaflet and sp.
 library(leaflet) library(sp) Dummy data Let’s create a dummy data.frame to play around, i.e. the three locations of INBO:

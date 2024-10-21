@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>damianooldoni on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/authors/damianooldoni/</link>
+    <link>http://tutorials.inbo.be/authors/damianooldoni/</link>
     <description>Recent content in damianooldoni on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get species checklist data from GBIF with rgbif</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_gbif_checklist/</link>
       <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_checklist/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_gbif_checklist/</guid>
       <description>Introduction The R package rgbif is a R wrapper to the GBIF API which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, look at the articles on how to:
  setup your GBIF username and password get occurrence data work with taxonomy related functions match and download a long species list  So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.</description>
     </item>
     
     <item>
       <title>etn: Explore acoustic telemetry data</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_etn_acoustic_telemetry/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_etn_acoustic_telemetry/</link>
       <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_etn_acoustic_telemetry/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_etn_acoustic_telemetry/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/etn/articles/acoustic_telemetry.html</description>
     </item>
     
     <item>
       <title>Tutorial setup_codingclub_session()</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</link>
       <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</guid>
       <description>Before each coding club you will usually have to download some datasets and some scripts. This can be done manually from the corresponding GitHub webpages but it is much easier to use the setup_codingclub_session() function of the inborutils package.
 To begin, make sure that you have the latest version of inborutils installed by running the following code:
 if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
@@ -40,10 +40,10 @@ library(inborutils) The function takes four arguments with the following default
     
     <item>
       <title>Read data from Google sheets</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_google_sheets/</link>
       <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_google_sheets/</guid>
       <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
 This package is very well documented, so we just have to provide you with the right links:
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
@@ -53,10 +53,10 @@ googlesheets4 vs googlesheets The package googlesheets4 is the follower of googl
     
     <item>
       <title>Match scientific names with the GBIF Backbone Taxonomy</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_gbif_name_matching/</link>
       <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_gbif_name_matching/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_gbif_name_matching/</guid>
       <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
 It is important that you have the most recent version of inborutils installed and available:
 remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
@@ -64,10 +64,10 @@ remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils 
     
     <item>
       <title>inborutils: GBIF scientific name matching</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_gbif_name_match/</link>
       <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_gbif_name_match/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
     </item>
     

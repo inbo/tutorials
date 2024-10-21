@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>inborutils on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/inborutils/</link>
+    <link>http://tutorials.inbo.be/tags/inborutils/</link>
     <description>Recent content in inborutils on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/inborutils/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/inborutils/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>(Down)load KNMI, KMI or MOW-HIC data using the inborutils package</title>
-      <link>https://inbo.github.io/tutorials/tutorials/inborutils_download_data/</link>
+      <link>http://tutorials.inbo.be/tutorials/inborutils_download_data/</link>
       <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/inborutils_download_data/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/inborutils_download_data/</guid>
       <description>In this article of the inborutils package it is explained how to use the functions download_knmi_data_hour, read_knmi_data, read_mow_data and read_kmi_data.</description>
     </item>
     
     <item>
       <title>inborutils: GBIF scientific name matching</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_gbif_name_match/</link>
       <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_gbif_name_match/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_gbif_name_match/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
     </item>
     
     <item>
       <title>inborutils: (Down)load data from external partners</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_data_loaders_examples/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_data_loaders_examples/</link>
       <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_data_loaders_examples/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_data_loaders_examples/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/data_loaders_examples.html</description>
     </item>
     
     <item>
       <title>inborutils: Check coordinate system</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_guess_projection/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inborutils_guess_projection/</link>
       <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inborutils_guess_projection/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inborutils_guess_projection/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/guess_projection.html</description>
     </item>
     

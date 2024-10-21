@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gertvanspaendonk on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/authors/gertvanspaendonk/</link>
+    <link>http://tutorials.inbo.be/authors/gertvanspaendonk/</link>
     <description>Recent content in gertvanspaendonk on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/gertvanspaendonk/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/gertvanspaendonk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Styleguide SQL-scripts</title>
-      <link>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</link>
+      <link>http://tutorials.inbo.be/tutorials/sql_styleguide/</link>
       <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/sql_styleguide/</guid>
       <description>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.
 In short  --This is how a basic SQL-script should look like /** Description: Lijst met broedvogels per UTM1-hok sinds 2010 Created: 2015-08-12 Created by: Frederic Piesschaert **/ SELECT w.WRNG_JAR AS jaar , w.</description>
     </item>
     
     <item>
       <title>Database conventions (MS SQL Server)</title>
-      <link>https://inbo.github.io/tutorials/tutorials/database_conventions/</link>
+      <link>http://tutorials.inbo.be/tutorials/database_conventions/</link>
       <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/database_conventions/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/database_conventions/</guid>
       <description>General  All SQL objects are prefixed, except for databases, schemas, tables and columns and users/logins. The prefixes used depend on the type of object:     Prefix Object type     PK_ primary key constraint   FK_ foreign key constraint   CU_ unique key constraint   CC_ check constraint   CD_ default   IN_ index   VW_ view   TR_ trigger   SQ_ sequence   DR_ database role     choose English or Dutch for the naming of objects and be consistent  Database  The database is created by the DBA.</description>
     </item>
     
     <item>
       <title>VMM surface waters - quality data</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vmm_surface_waters_quality_data/</link>
+      <link>http://tutorials.inbo.be/tutorials/vmm_surface_waters_quality_data/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vmm_surface_waters_quality_data/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vmm_surface_waters_quality_data/</guid>
       <description>OPGELET: deze databank is alleen raadpleegbaar voor INBO-medewerkers, niet voor externen. Externen kunnen gebruik maken van het VMM-geoloket waterkwaliteit.
 Het INBO krijgt jaarlijks een (gedeeltelijke) kopie van de waterkwaliteitsdatabank van de Vlaamse Milieumaatschappij (VMM). De kopie omvat fysicochemische metingen en kwaliteitsindexen uit het VMM-meetnet oppervlaktewaters. Deze en andere waterkwaliteitsgevens zijn rechtstreeks opvraagbaar via het VMM-geoloket waterkwaliteit, maar de lokale kopie laat een veel vlottere raadpleging toe wanneer analyse van een groter aantal meetpunten gewenst is.</description>
     </item>

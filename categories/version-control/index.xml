@@ -2,46 +2,46 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>version control on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/categories/version-control/</link>
+    <link>http://tutorials.inbo.be/categories/version-control/</link>
     <description>Recent content in version control on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/categories/version-control/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/categories/version-control/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Handle Git conflicts via GitHub.Com</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_merge_conflict/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_merge_conflict/</link>
       <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_merge_conflict/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_merge_conflict/</guid>
       <description>Fix merge conflict with a pull request Sometimes a pull request warns about a merge conflict. A merge conflict occurs when one or more lines were altered in the base branch so that a merge conflict arises in the feature branch. The warning looks like the image below.
 You can fix most merge conflicts in the browser. First push the Resolve conflict button in the warning. The website sends you to a page with a list of all merge conflicts.</description>
     </item>
     
     <item>
       <title>Set up Zenodo - GitHub integration</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_zenodo/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_zenodo/</link>
       <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_zenodo/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_zenodo/</guid>
       <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
 GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
     </item>
     
     <item>
       <title>Git and GitHub Authentication on Windows</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_authentication/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_authentication/</link>
       <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_authentication/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_authentication/</guid>
       <description>Before we start This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system. The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. The guidelines here are meant for people who use Git and GitHub in RStudio, but the general principles can be applied to other software too (e.</description>
     </item>
     
     <item>
       <title>Applying the INBO corporate identity to bookdown documents</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_inbomd/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_inbomd/</link>
       <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_inbomd/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_inbomd/</guid>
       <description>During this workshop you learn how to turn a regular Rmarkdown file into a bookdown document using the INBO corporate identity. A lot of tips and trics use plain bookdown. So you can use them with other bookdown output formats.
 The slides are available on the INBOmd examples website.
 The source code is avalaible in the INBOmd example GitHub repository.</description>
@@ -49,10 +49,10 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
     
     <item>
       <title>Git(hub) introduction</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_introduction/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_introduction/</link>
       <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_introduction/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_introduction/</guid>
       <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
 To introduce the concept of version control with Git and Github, a separate git course website is available here.
 The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>
@@ -60,10 +60,10 @@ The git course provides an introduction on main terminology of Git based on 5 im
     
     <item>
       <title>Undo a git commit</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_undo_commit/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_undo_commit/</link>
       <pubDate>Wed, 18 Oct 2017 15:31:53 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_undo_commit/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_undo_commit/</guid>
       <description>Introduction You notice you have done something wrong on your branch. No worries, erroneous commits can be undone or reverted.
 First, check your history of commits to see which commits are the faulty ones.
 git log --oneline Example output
@@ -72,10 +72,10 @@ b7119f2 Continue doing crazy things 872fa7e Try something crazy a1e8fb5 Make som
     
     <item>
       <title>Git without internet</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_no_internet/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_no_internet/</link>
       <pubDate>Wed, 18 Oct 2017 15:30:15 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_no_internet/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_no_internet/</guid>
       <description>When working off line, two Git tasks cannot be performed: fetching/pulling updates from the server, and pushing changes to the server. All other commands still work.
 One can commit changes, branch off, revert and reset changes, the same as when there exists an internet connection.
 Example workflow: start offline mode
@@ -86,10 +86,10 @@ git fetch origin push changes to the server</description>
     
     <item>
       <title>Git workflow using the command line</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_workflow/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_workflow/</link>
       <pubDate>Wed, 18 Oct 2017 14:42:43 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_workflow/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_workflow/</guid>
       <description>BEFORE I START WORKING   STEP 1: Update the master branch on my PC to make sure it is aligned with the remote master
 git fetch origin git checkout master git merge --ff-only origin/master   STEP 2: Choose your option:
   OPTION 2A: I already have a branch I want to continue working on:
@@ -99,10 +99,10 @@ git checkout name_existing_branch git fetch origin git rebase origin/master   OP
     
     <item>
       <title>Handle conflicts</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_conflict/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_conflict/</link>
       <pubDate>Wed, 18 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_conflict/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_conflict/</guid>
       <description>Fix merge conflict with a pull request You have made some changes to a feature branch. Make a pull request on the server. The standard case of automatic merge is not possible. Push your latest changes from the feature branch to the server.
 Locally on your computer:
 git fetch origin Rebase your feature branch with your master

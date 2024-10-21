@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>data on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/data/</link>
+    <link>http://tutorials.inbo.be/tags/data/</link>
     <description>Recent content in data on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/data/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/data/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial setup_codingclub_session()</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</link>
       <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</guid>
       <description>Before each coding club you will usually have to download some datasets and some scripts. This can be done manually from the corresponding GitHub webpages but it is much easier to use the setup_codingclub_session() function of the inborutils package.
 To begin, make sure that you have the latest version of inborutils installed by running the following code:
 if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
@@ -21,10 +21,10 @@ library(inborutils) The function takes four arguments with the following default
     
     <item>
       <title>Using Kerberos authentication for database connection</title>
-      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
+      <link>http://tutorials.inbo.be/installation/user/user_install_kerberos/</link>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
+      <guid>http://tutorials.inbo.be/installation/user/user_install_kerberos/</guid>
       <description>Introduction (shamelessly taken from wikipedia)
 Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
 Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
@@ -32,10 +32,10 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
     
     <item>
       <title>Read data from INBO databases (SQL Server) with R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_database_access/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_database_access/</link>
       <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_database_access/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_database_access/</guid>
       <description>Connection to INBO database Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
 library(DBI) library(glue) library(tidyverse) To create a database connection, different approaches are available as explained in the next section:
  Use the dedicated connect_inbo_dbase function in the inbodb package Setup the required parameters yourself Reuse existing registered connections on your computer  Inbodb function To support the connection to INBO databases, a dedicated function is available in the inbodb package, called connect_inbo_dbase.</description>

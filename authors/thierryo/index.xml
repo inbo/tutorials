@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>thierryo on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/authors/thierryo/</link>
+    <link>http://tutorials.inbo.be/authors/thierryo/</link>
     <description>Recent content in thierryo on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/thierryo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Install R</title>
-      <link>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</link>
+      <link>http://tutorials.inbo.be/installation/administrator/admin_install_r/</link>
       <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/installation/administrator/admin_install_r/</guid>
+      <guid>http://tutorials.inbo.be/installation/administrator/admin_install_r/</guid>
       <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
 In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
 Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
@@ -20,30 +20,30 @@ Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands 
     
     <item>
       <title>Handle Git conflicts via GitHub.Com</title>
-      <link>https://inbo.github.io/tutorials/tutorials/git_merge_conflict/</link>
+      <link>http://tutorials.inbo.be/tutorials/git_merge_conflict/</link>
       <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/git_merge_conflict/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/git_merge_conflict/</guid>
       <description>Fix merge conflict with a pull request Sometimes a pull request warns about a merge conflict. A merge conflict occurs when one or more lines were altered in the base branch so that a merge conflict arises in the feature branch. The warning looks like the image below.
 You can fix most merge conflicts in the browser. First push the Resolve conflict button in the warning. The website sends you to a page with a list of all merge conflicts.</description>
     </item>
     
     <item>
       <title>Using WFS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</link>
       <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wfs_services/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_wfs_services/</guid>
       <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
 The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
     </item>
     
     <item>
       <title>Using WMS services in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_wms_services/</link>
       <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_wms_services/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_wms_services/</guid>
       <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
 We will use the leaflet package to make interactive maps.
 library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
@@ -52,47 +52,47 @@ library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play
     
     <item>
       <title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_checklist_zenodo/</link>
       <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_zenodo/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_checklist_zenodo/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/zenodo.html</description>
     </item>
     
     <item>
       <title>checklist: Philosophy of the checklist package</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_philosophy/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_checklist_philosophy/</link>
       <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_philosophy/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_checklist_philosophy/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/philosophy.html</description>
     </item>
     
     <item>
       <title>checklist: Setting up checklist</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_checklist_getting_started/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_checklist_getting_started/</link>
       <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_checklist_getting_started/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_checklist_getting_started/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/getting_started.html</description>
     </item>
     
     <item>
       <title>Transforming spatial objects</title>
-      <link>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</link>
+      <link>http://tutorials.inbo.be/tutorials/spatial_transform_crs/</link>
       <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/spatial_transform_crs/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/spatial_transform_crs/</guid>
       <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
 Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
     </item>
     
     <item>
       <title>&#39;Zoom in&#39; on `ggplot2` figures</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_zoom_in_ggplot/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_zoom_in_ggplot/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_zoom_in_ggplot/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_zoom_in_ggplot/</guid>
       <description>Original figure library(ggplot2) ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() “Zoom in” with scales Data points outside the limits are considered to be NA. Note that this will alter all calculated geoms.
 ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + scale_y_continuous(limits = c(20, 25)) ## Warning: Removed 24 rows containing non-finite values (stat_boxplot).  “Zoom in” with coord This doesn’t affect the values:
 ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + coord_cartesian(ylim = c(20, 25)) Note that you can use only one coord.</description>
@@ -100,48 +100,48 @@ ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot() + coord_cartesian
     
     <item>
       <title>Same variable in fixed and random effects</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_fixed_random/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_fixed_random/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_fixed_random/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_fixed_random/</guid>
       <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(lme4) ## Loading required package: Matrix  Dummy data For the sake of this demontration we use a very simple dataset with a very high signal versus noise ratio. Let’s look at a simple timeseries with multiple observations per timepoint.
 set.seed(213354) n.year &amp;lt;- 30 n.replicate &amp;lt;- 10 sd.noise &amp;lt;- 0.1 dataset &amp;lt;- expand.grid( Replicate = seq_len(n.replicate), Year = seq_len(n.</description>
     </item>
     
     <item>
       <title>Spatially correlated random effects with INLA</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_spde/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_spde/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_spde/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_spde/</guid>
       <description>This document is a quick and dirty illustration of how spatially correlated random effect can be fit with INLA. It is based on the question and the data posted on the R-Sig-mixedmodels mailing list: https://stat.ethz.ch/pipermail/r-sig-mixed-models/2016q3/024938.html.
 library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(tidyr) library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.</description>
     </item>
     
     <item>
       <title>Zero-inflation</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_zero_inflation/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_zero_inflation/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_zero_inflation/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_zero_inflation/</guid>
       <description>Used packages library(ggplot2) ## Warning: package &#39;ggplot2&#39; was built under R version 4.0.2  library(scales) library(pscl) ## Warning: package &#39;pscl&#39; was built under R version 4.0.2 ## Classes and Methods for R developed in the ## Political Science Computational Laboratory ## Department of Political Science ## Stanford University ## Simon Jackman ## hurdle and zeroinfl functions by Achim Zeileis  library(MASS) library(tidyr) library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following object is masked from &#39;package:MASS&#39;: ## ## select ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union  library(lme4) ## Loading required package: Matrix ## ## Attaching package: &#39;Matrix&#39; ## The following objects are masked from &#39;package:tidyr&#39;: ## ## expand, pack, unpack  Lots of zero’s doesn’t imply zero-inflation set.</description>
     </item>
     
     <item>
       <title>effectclass: Standardised classification of effects based on their uncertainty</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_classification/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_effectclass_classification/</link>
       <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_classification/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_effectclass_classification/</guid>
       <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/classification.html</description>
     </item>
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</link>
+      <link>http://tutorials.inbo.be/tutorials/styleguide_repos/</link>
       <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/styleguide_repos/</guid>
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
  https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
@@ -149,28 +149,28 @@ library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects
     
     <item>
       <title>Classification and visualisation of estimates and their uncertainty</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_effectclass/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_effectclass/</link>
       <pubDate>Thu, 23 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_effectclass/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_effectclass/</guid>
       <description>Here are the slides of a presentation about the effectclass package.</description>
     </item>
     
     <item>
       <title>effectclass: Visualising effects</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_visualisation/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_effectclass_visualisation/</link>
       <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_effectclass_visualisation/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_effectclass_visualisation/</guid>
       <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/visualisation.html</description>
     </item>
     
     <item>
       <title>Applying the INBO corporate identity to bookdown documents</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_inbomd/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_inbomd/</link>
       <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_inbomd/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_inbomd/</guid>
       <description>During this workshop you learn how to turn a regular Rmarkdown file into a bookdown document using the INBO corporate identity. A lot of tips and trics use plain bookdown. So you can use them with other bookdown output formats.
 The slides are available on the INBOmd examples website.
 The source code is avalaible in the INBOmd example GitHub repository.</description>
@@ -178,74 +178,74 @@ The source code is avalaible in the INBOmd example GitHub repository.</descripti
     
     <item>
       <title>INLA workshops</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_inla/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_inla/</link>
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_inla/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_inla/</guid>
       <description>These workshops are a follow-up of the course on &amp;ldquo;Spatial, temporal and spatial-temporal models using R-INLA&amp;rdquo; by Alain Zuur and Elena Ieno (Highland Statistics Ltd.). The main goal is the get people using R-INLA with their own data in a workshop setting so they can tap into the knowledge of others. The workshops are not a copy of the Highstat course but elaborate certain topics. We also introduce the inlatools and inlabru.</description>
     </item>
     
     <item>
       <title>inlatools: Checking the distribution and dispersion of a model</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_distribution/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inlatools_distribution/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_distribution/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inlatools_distribution/</guid>
       <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/distribution.html</description>
     </item>
     
     <item>
       <title>inlatools: Getting a grasp on the random walk hyperparameter</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_rwprior/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inlatools_rwprior/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_rwprior/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inlatools_rwprior/</guid>
       <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/rwprior.html</description>
     </item>
     
     <item>
       <title>inlatools: Setting a prior for the random intercept variance and fixed effects</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_prior/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inlatools_prior/</link>
       <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inlatools_prior/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inlatools_prior/</guid>
       <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/prior.html</description>
     </item>
     
     <item>
       <title>INBOmd: Introduction to INBOmd</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vignette_inbomd_introduction/</link>
+      <link>http://tutorials.inbo.be/tutorials/vignette_inbomd_introduction/</link>
       <pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vignette_inbomd_introduction/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vignette_inbomd_introduction/</guid>
       <description>See the vignette/tutorial at https://inbo.github.io/INBOmd/articles/introduction.html</description>
     </item>
     
     <item>
       <title>Insync installation</title>
-      <link>https://inbo.github.io/tutorials/installation/user/user_install_insync/</link>
+      <link>http://tutorials.inbo.be/installation/user/user_install_insync/</link>
       <pubDate>Thu, 19 Apr 2018 11:01:31 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/installation/user/user_install_insync/</guid>
+      <guid>http://tutorials.inbo.be/installation/user/user_install_insync/</guid>
       <description>Insync is a thirth party tool that synchronises files with Google Drive. It has some nice features which are still not available in the sync tools provided by Google. For the remaining of this tutorial, &amp;ldquo;GoogleDrive&amp;rdquo; refers to the sync tools provided by Google.
 The problem with GoogleDrive GoogleDrive doesn&amp;rsquo;t work well in combination with RStudio projects or Git projects. We&amp;rsquo;ll illustrate the problem with RStudio. RStudio has a performant auto save functionality, which limits data loss after an unexpected crash.</description>
     </item>
     
     <item>
       <title>Data wrangling with tidyverse</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_tidyverse_info/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_tidyverse_info/</link>
       <pubDate>Fri, 09 Feb 2018 14:14:49 +0100</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_tidyverse_info/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_tidyverse_info/</guid>
       <description>Real life datasources seldom provide data in exactly the format you need for the analysis. Hence most of the time you need to manipulate the data after reading it into R. There are several ways to do this, each with their pros and cons. We highly recommend the tidyverse collection of packages. The command library(tidyverse) will actually load the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forecats.</description>
     </item>
     
     <item>
       <title>Styleguide R code</title>
-      <link>https://inbo.github.io/tutorials/tutorials/styleguide_r_code/</link>
+      <link>http://tutorials.inbo.be/tutorials/styleguide_r_code/</link>
       <pubDate>Wed, 18 Oct 2017 16:01:34 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_r_code/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/styleguide_r_code/</guid>
       <description>Scope This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO.</description>
     </item>
     

@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>styleguide on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/styleguide/</link>
+    <link>http://tutorials.inbo.be/tags/styleguide/</link>
     <description>Recent content in styleguide on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/styleguide/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/styleguide/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Styleguide SQL-scripts</title>
-      <link>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</link>
+      <link>http://tutorials.inbo.be/tutorials/sql_styleguide/</link>
       <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/sql_styleguide/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/sql_styleguide/</guid>
       <description>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.
 In short  --This is how a basic SQL-script should look like /** Description: Lijst met broedvogels per UTM1-hok sinds 2010 Created: 2015-08-12 Created by: Frederic Piesschaert **/ SELECT w.WRNG_JAR AS jaar , w.</description>
     </item>
     
     <item>
       <title>Styleguide new git repositories</title>
-      <link>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</link>
+      <link>http://tutorials.inbo.be/tutorials/styleguide_repos/</link>
       <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_repos/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/styleguide_repos/</guid>
       <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
  https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
@@ -30,19 +30,19 @@ In short  --This is how a basic SQL-script should look like /** Description: Lij
     
     <item>
       <title>Database conventions (MS SQL Server)</title>
-      <link>https://inbo.github.io/tutorials/tutorials/database_conventions/</link>
+      <link>http://tutorials.inbo.be/tutorials/database_conventions/</link>
       <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/database_conventions/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/database_conventions/</guid>
       <description>General  All SQL objects are prefixed, except for databases, schemas, tables and columns and users/logins. The prefixes used depend on the type of object:     Prefix Object type     PK_ primary key constraint   FK_ foreign key constraint   CU_ unique key constraint   CC_ check constraint   CD_ default   IN_ index   VW_ view   TR_ trigger   SQ_ sequence   DR_ database role     choose English or Dutch for the naming of objects and be consistent  Database  The database is created by the DBA.</description>
     </item>
     
     <item>
       <title>Styleguide R code</title>
-      <link>https://inbo.github.io/tutorials/tutorials/styleguide_r_code/</link>
+      <link>http://tutorials.inbo.be/tutorials/styleguide_r_code/</link>
       <pubDate>Wed, 18 Oct 2017 16:01:34 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/styleguide_r_code/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/styleguide_r_code/</guid>
       <description>Scope This style guide is a recommendation for all R code written for the Research Institute for Nature and Forest (INBO). The goal of this style guide is twofold. First of all applying the guidelines will result in readable code. Secondly, it is much easier to work together on code when everyone is using the same guidelines. It is likely that applying these guidelines will have consequences on the current style used by many R users at INBO.</description>
     </item>
     

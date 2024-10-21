@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>open science on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/open-science/</link>
+    <link>http://tutorials.inbo.be/tags/open-science/</link>
     <description>Recent content in open science on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/open-science/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/open-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Software by INBO: packages for environmentalists and ecologists!</title>
-      <link>https://inbo.github.io/tutorials/articles/inbo_software/</link>
+      <link>http://tutorials.inbo.be/articles/inbo_software/</link>
       <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/inbo_software/</guid>
+      <guid>http://tutorials.inbo.be/articles/inbo_software/</guid>
       <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
 Please, feel free to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
     </item>
     
     <item>
       <title>Use of INBO citation style with bibliography managers</title>
-      <link>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</link>
+      <link>http://tutorials.inbo.be/tutorials/style_inbo_bibliography/</link>
       <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/style_inbo_bibliography/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/style_inbo_bibliography/</guid>
       <description>The INBO citation style Most journals, publishers and companies use a specified format for citations and bibliographies. The Research Institute for Nature and Forest (INBO) is no exception.
 All bibliography managers provide ways to automate the formatting of citations and bibliographies which greatly facilitates scientific publishing. Depending on the bibliographic manager software, the style formatting rules are stored in specific files. In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.</description>
     </item>
     
     <item>
       <title>Acquiring the skills</title>
-      <link>https://inbo.github.io/tutorials/articles/skills/</link>
+      <link>http://tutorials.inbo.be/articles/skills/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/skills/</guid>
+      <guid>http://tutorials.inbo.be/articles/skills/</guid>
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
@@ -40,10 +40,10 @@ These resources focus on the learning and teaching aspect, while they often also
     
     <item>
       <title>Scientific computing and data handling workflows</title>
-      <link>https://inbo.github.io/tutorials/articles/computing/</link>
+      <link>http://tutorials.inbo.be/articles/computing/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/computing/</guid>
+      <guid>http://tutorials.inbo.be/articles/computing/</guid>
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Overviews  Wilson et al. (2017): set of good computing practices that every researcher can adopt British Ecological Society (2014): planning the data life cycle; creating, processing, documenting, preserving, sharing &amp;amp; reusing data Goudeseune et al.</description>
@@ -51,10 +51,10 @@ Overviews  Wilson et al. (2017): set of good computing practices that every rese
     
     <item>
       <title>The discipline of open science</title>
-      <link>https://inbo.github.io/tutorials/articles/open_science/</link>
+      <link>http://tutorials.inbo.be/articles/open_science/</link>
       <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/open_science/</guid>
+      <guid>http://tutorials.inbo.be/articles/open_science/</guid>
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
@@ -62,29 +62,29 @@ These resources focus on the discipline as a whole, its perception, principles, 
     
     <item>
       <title>Meet some popular open geospatial standards!</title>
-      <link>https://inbo.github.io/tutorials/articles/geospatial_standards/</link>
+      <link>http://tutorials.inbo.be/articles/geospatial_standards/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/geospatial_standards/</guid>
+      <guid>http://tutorials.inbo.be/articles/geospatial_standards/</guid>
       <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
 Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
     </item>
     
     <item>
       <title>Books and articles on statistics</title>
-      <link>https://inbo.github.io/tutorials/articles/statistics/</link>
+      <link>http://tutorials.inbo.be/articles/statistics/</link>
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/statistics/</guid>
+      <guid>http://tutorials.inbo.be/articles/statistics/</guid>
       <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I’ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
     </item>
     
     <item>
       <title>Sharing and communicating</title>
-      <link>https://inbo.github.io/tutorials/articles/communicating/</link>
+      <link>http://tutorials.inbo.be/articles/communicating/</link>
       <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/articles/communicating/</guid>
+      <guid>http://tutorials.inbo.be/articles/communicating/</guid>
       <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
 Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
 Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>emmacartuyvels on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/authors/emmacartuyvels/</link>
+    <link>http://tutorials.inbo.be/authors/emmacartuyvels/</link>
     <description>Recent content in emmacartuyvels on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/emmacartuyvels/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/emmacartuyvels/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tutorial setup_codingclub_session()</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</link>
       <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_setup_codingclub_session/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_setup_codingclub_session/</guid>
       <description>Before each coding club you will usually have to download some datasets and some scripts. This can be done manually from the corresponding GitHub webpages but it is much easier to use the setup_codingclub_session() function of the inborutils package.
 To begin, make sure that you have the latest version of inborutils installed by running the following code:
 if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:

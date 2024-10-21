@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>database on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/database/</link>
+    <link>http://tutorials.inbo.be/tags/database/</link>
     <description>Recent content in database on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Kerberos authentication for database connection</title>
-      <link>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</link>
+      <link>http://tutorials.inbo.be/installation/user/user_install_kerberos/</link>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/installation/user/user_install_kerberos/</guid>
+      <guid>http://tutorials.inbo.be/installation/user/user_install_kerberos/</guid>
       <description>Introduction (shamelessly taken from wikipedia)
 Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
 Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
@@ -20,39 +20,39 @@ Windows 2000 and later uses Kerberos as its default authentication method. Many 
     
     <item>
       <title>Database conventions (MS SQL Server)</title>
-      <link>https://inbo.github.io/tutorials/tutorials/database_conventions/</link>
+      <link>http://tutorials.inbo.be/tutorials/database_conventions/</link>
       <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/database_conventions/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/database_conventions/</guid>
       <description>General  All SQL objects are prefixed, except for databases, schemas, tables and columns and users/logins. The prefixes used depend on the type of object:     Prefix Object type     PK_ primary key constraint   FK_ foreign key constraint   CU_ unique key constraint   CC_ check constraint   CD_ default   IN_ index   VW_ view   TR_ trigger   SQ_ sequence   DR_ database role     choose English or Dutch for the naming of objects and be consistent  Database  The database is created by the DBA.</description>
     </item>
     
     <item>
       <title>VMM surface waters - quality data</title>
-      <link>https://inbo.github.io/tutorials/tutorials/vmm_surface_waters_quality_data/</link>
+      <link>http://tutorials.inbo.be/tutorials/vmm_surface_waters_quality_data/</link>
       <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/vmm_surface_waters_quality_data/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/vmm_surface_waters_quality_data/</guid>
       <description>OPGELET: deze databank is alleen raadpleegbaar voor INBO-medewerkers, niet voor externen. Externen kunnen gebruik maken van het VMM-geoloket waterkwaliteit.
 Het INBO krijgt jaarlijks een (gedeeltelijke) kopie van de waterkwaliteitsdatabank van de Vlaamse Milieumaatschappij (VMM). De kopie omvat fysicochemische metingen en kwaliteitsindexen uit het VMM-meetnet oppervlaktewaters. Deze en andere waterkwaliteitsgevens zijn rechtstreeks opvraagbaar via het VMM-geoloket waterkwaliteit, maar de lokale kopie laat een veel vlottere raadpleging toe wanneer analyse van een groter aantal meetpunten gewenst is.</description>
     </item>
     
     <item>
       <title>Reading large data files in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_large_data_files_handling/</link>
       <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_large_data_files_handling/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_large_data_files_handling/</guid>
       <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
 tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
     </item>
     
     <item>
       <title>Read data from INBO databases (SQL Server) with R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_database_access/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_database_access/</link>
       <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_database_access/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_database_access/</guid>
       <description>Connection to INBO database Here we provide the approach using the package DBI, which is also used by RStudio.[1]. This package enables the link between R and the (remote) database. After installation of the needed packages (install.packages(c(&amp;quot;DBI&amp;quot;, &amp;quot;glue&amp;quot;, &amp;quot;tidyverse&amp;quot;))), the packages can be loaded:
 library(DBI) library(glue) library(tidyverse) To create a database connection, different approaches are available as explained in the next section:
  Use the dedicated connect_inbo_dbase function in the inbodb package Setup the required parameters yourself Reuse existing registered connections on your computer  Inbodb function To support the connection to INBO databases, a dedicated function is available in the inbodb package, called connect_inbo_dbase.</description>

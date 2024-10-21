@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>spreadsheet on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/spreadsheet/</link>
+    <link>http://tutorials.inbo.be/tags/spreadsheet/</link>
     <description>Recent content in spreadsheet on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Read data from Google sheets</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_google_sheets/</link>
       <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_google_sheets/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_google_sheets/</guid>
       <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
 This package is very well documented, so we just have to provide you with the right links:
  read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gitbook on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/gitbook/</link>
+    <link>http://tutorials.inbo.be/tags/gitbook/</link>
     <description>Recent content in gitbook on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/gitbook/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/gitbook/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Citations in R Markdown</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_citations_markdown/</link>
       <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_citations_markdown/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_citations_markdown/</guid>
       <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
 More general tutorials can be found at the following web pages:
  https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
@@ -20,10 +20,10 @@ More general tutorials can be found at the following web pages:
     
     <item>
       <title>Applying the INBO corporate identity to bookdown documents</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_inbomd/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_inbomd/</link>
       <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_inbomd/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_inbomd/</guid>
       <description>During this workshop you learn how to turn a regular Rmarkdown file into a bookdown document using the INBO corporate identity. A lot of tips and trics use plain bookdown. So you can use them with other bookdown output formats.
 The slides are available on the INBOmd examples website.
 The source code is avalaible in the INBOmd example GitHub repository.</description>

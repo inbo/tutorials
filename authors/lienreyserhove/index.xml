@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>lienreyserhove on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/authors/lienreyserhove/</link>
+    <link>http://tutorials.inbo.be/authors/lienreyserhove/</link>
     <description>Recent content in lienreyserhove on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/authors/lienreyserhove/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="http://tutorials.inbo.be/authors/lienreyserhove/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using `%&gt;%` pipes in R</title>
-      <link>https://inbo.github.io/tutorials/tutorials/r_tidyverse_piping/</link>
+      <link>http://tutorials.inbo.be/tutorials/r_tidyverse_piping/</link>
       <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/r_tidyverse_piping/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/r_tidyverse_piping/</guid>
       <description>library(dplyr) How to use piping in R Normally, you would do this:
 head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
     </item>

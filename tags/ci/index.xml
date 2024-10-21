@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ci on INBO Tutorials</title>
-    <link>https://inbo.github.io/tutorials/tags/ci/</link>
+    <link>http://tutorials.inbo.be/tags/ci/</link>
     <description>Recent content in ci on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Mar 2018 11:23:07 +0100</lastBuildDate><atom:link href="https://inbo.github.io/tutorials/tags/ci/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Mar 2018 11:23:07 +0100</lastBuildDate><atom:link href="http://tutorials.inbo.be/tags/ci/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wercker</title>
-      <link>https://inbo.github.io/tutorials/tutorials/development_wercker/</link>
+      <link>http://tutorials.inbo.be/tutorials/development_wercker/</link>
       <pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/development_wercker/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/development_wercker/</guid>
       <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
  create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
 The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
@@ -20,10 +20,10 @@ The Wercker test environment can only be set up if the file wercker.yml is commi
     
     <item>
       <title>Code coverage</title>
-      <link>https://inbo.github.io/tutorials/tutorials/development_codecov/</link>
+      <link>http://tutorials.inbo.be/tutorials/development_codecov/</link>
       <pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
       
-      <guid>https://inbo.github.io/tutorials/tutorials/development_codecov/</guid>
+      <guid>http://tutorials.inbo.be/tutorials/development_codecov/</guid>
       <description>R CMD check has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, R CMD check does run a set unit tests. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the testthat framework for writing unit tests.</description>
     </item>
     
