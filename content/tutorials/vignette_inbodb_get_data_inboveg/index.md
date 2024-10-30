@@ -7,4 +7,10 @@ categories: ["r"]
 tags: ["r", "vignette", "inbodb"]
 ---
 
-See the vignette/tutorial at <https://inbo.github.io/inbodb/articles/get_data_inboveg.html>
+See the vignette/tutorial at: 
+
+* <https://inbo.github.io/inbodb/articles/get_data_inboveg.html>
+
+* <https://inbo.github.io/inbodb/articles/get_data_meetnetten.html>
+
+* <https://inbo.github.io/inbodb/articles/get_data_taxonlijsten.html>
