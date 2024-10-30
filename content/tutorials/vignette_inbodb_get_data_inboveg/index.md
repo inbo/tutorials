@@ -1,5 +1,5 @@
 ---
-title: "inbodb: How to retrieve data from the INBOVEG database"
+title: "inbodb: How to retrieve data from the INBO databases"
 description: "📦 R package vignette."
 authors: [elsdebie, hansvancalster, joloos]
 date: 2020-07-03
