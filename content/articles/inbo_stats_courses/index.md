@@ -14,7 +14,7 @@ Some (mostly advanced) courses were taught in-house by external teachers.
 While we do plan to periodically repeat these courses for new employees and as a refresher, the course material can always be consulted and used for self-teaching or as a reference.
 
 We chose to maintain the links to googledrive folders with the course material on our intranet and therefore limit ourselves here to just point you to that link.
-You can find the overview [here](https://sites.google.com/a/inbo.be/intranet/home/ondersteuning/onderzoek/bmk/lessenreeks-en-tutorials).
+You can find the overview [here](https://sites.google.com/inbo.be/intranet-sep2021/ondersteuning/bmk-en-veldprotocollen/biometrie-methodologie-en-kwaliteitszorg-bmk/lessenreeks-en-tutorials).
 This course material is only accessible for INBO employees.
 
 Do note, however, that more recently developed in-house statistics courses will most likely end up being part of the public tutorials website you are visiting.
