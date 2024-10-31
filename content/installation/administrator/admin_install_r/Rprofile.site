@@ -12,9 +12,8 @@ options(
     INLA = "https://inla.r-inla-download.org/R/stable",
     inbo = "https://inbo.r-universe.dev"
   ),
-  pkgType = "binary",
+  pkgType = "both",
   install.packages.check.source = "no",
-  install.packages.compile.from.source = "never",
   inbo_required = c("checklist", "fortunes", "remotes", "INBOmd", "INBOtheme"),
   qgisprocess.detect_newer_qgis = TRUE
 )
