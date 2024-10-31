@@ -1,7 +1,7 @@
 ---
 title: "inbodb: How to retrieve data from the Meetnetten database"
 description: "📦 R package vignette."
-authors: [ToonHub, fredericpiesschaert, ElsLommelen]
+authors: [toonwestra, fredericpiesschaert, elslommelen]
 date: 2024-09-30
 categories: ["r"]
 tags: ["r", "vignette", "inbodb"]
