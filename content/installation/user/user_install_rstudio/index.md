@@ -39,7 +39,7 @@ tags: ["r", "rstudio", "installation"]
 1. Kies in het menu `Tools -> Global Options`
 1. Indien niet de laatste versie vermeld staat bij R version: klik op _Change_ om het aan te passen.
 1. Klik op _OK_ als je een waarschuwing krijgt dat je `RStudio` moet herstarten.
-1. Wijzig de initial working directory in `C:/R/R-4.x.y` [^1]
+1. Wijzig de default working directory in `C:/R/R-4.x.y` [^1]
 1. Klik op _OK_
 1. Herstart `RStudio`
 
