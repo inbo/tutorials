@@ -293,7 +293,7 @@ confint(lm1, level = 0.9)
 We lezen enkele korte functies in om de (log) likelihood en de prior te berekenen en het MCMC metropolis algoritme uit te voeren.
 
 ```{r}
-source(file = "./source/mcmc_functions.R")
+source(file = "./mcmc_functions.R")
 ```
 
 Voor dit eenvoudig model met een kleine dataset kunnen we de posterior voor een groot aantal combinaties voor `beta_0` en `beta_1` uitrekenen en plotten.
@@ -340,7 +340,7 @@ ggplot(df, aes(x = beta_0, y = beta_1, z = post)) +
   theme(legend.position="none")
 ```
 
-De startwaarde ligt een eind van de maximale likelihood. Het duurt even voor de MCMC stabiliseert in de omgeving van de top van de berg. Daarom wordt het eerste deel van de MCMC nooit gebruikt. Dit is de 'burn-in' (of warmp-up in brms).
+De startwaarde ligt een eind van de maximale likelihood. Het duurt even voor de MCMC stabiliseert in de omgeving van de top van de berg. Daarom wordt het eerste deel van de MCMC nooit gebruikt. Dit is de 'warmup' (engels voor opwarmfase; ook 'burn-in' of 'tuning' in andere bibliotheken).
 
 We runnen nu hetzelde model, maar met een veel langere mcmc
 
@@ -387,7 +387,7 @@ Voor elke parameter kan de MCMC worden weergegeven in een 'trace plot'.
 ann_text <- tibble(param = c("beta_0", "beta_1"),
                    x = 210,
                    y = c(max(mcmc_l$beta_0), max(mcmc_l$beta_1)),
-                   lab = "burn-in")
+                   lab = "warmup")
 mcmc_l %>%
   dplyr::select(iter, beta_0, beta_1) %>%
   pivot_longer(cols = c("beta_0", "beta_1"), names_to = "param") %>%
@@ -509,9 +509,8 @@ Er bestaan ook enkele alternatieven:
 ![Overzicht van verschillende Stan software (bron: https://jtimonen.github.io/posts/post-01/)](software.png)
 
 
-# Een model fitten met brms
 
-## Dataset laden en data exploratie
+# Dataset laden en data exploratie
 
 We laden een dataset in over het aantal mierensoorten in New England (USA). Typ `?ants` in de console voor meer info.
 
@@ -583,6 +582,9 @@ ants_df %>%
 
 Als oefening zullen we een model maken om het aantal soorten te vergelijken tussen beide habitats. Uit de data exploratie zagen we al dat het aantal hoger lijkt te liggen in bossen en dat sites met een hoger aantal in moerassen vaak ook een hoger aantal in bossen hebben.
 
+
+# Een model fitten met `brms`
+
 ## Specificatie van een lineaire regressie
 
 ### Model specificatie
@@ -607,8 +609,8 @@ Eerst en vooral besluiten we welke MCMC parameters we zullen gebruiken. Typ `?br
 ```{r simpel-model-mcmc-par}
 # Instellen MCMC parameters
 nchains <- 3           # aantal chains
-niter <- 2000          # aantal iteraties (incl. burn-in, zie volgende)
-burnin <- niter / 4    # aantal initiële samples om te verwijderen (= burn-in)
+niter <- 2000          # aantal iteraties (incl. warmup, zie volgende)
+warmup <- niter / 4    # aantal initiële samples om te verwijderen (= warmup)
 nparallel <- nchains   # aantal cores voor parallel computing
 thinning <- 1          # verdunningsfactor (hier 1 = geen verdunning)
 ```
@@ -620,14 +622,14 @@ Het model wordt gefit a.d.h.v. de `brm()` functie. De syntax is zeer gelijkaardi
 -   `file` en `file_refit` om het model object op te slaan nadat het gefit is. Als je de code opnieuw runt en het model is al eens opgeslaan, dan zal `brm()` dit model gewoon inladen in plaats van het opnieuw te fitten.
 
 
-```{r simpel-model-fit-poisson}
+```{r simpel-model-fit-poisson, class.source = 'fold-show'}
 # Fit Normaal model
 fit_normal1 <- brm(
   formula = sp_rich ~ habitat, # beschrijving van het model
   family = gaussian(),         # we gebruiken de Normaal verdeling
   data = ants_df,              # ingeven data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -638,7 +640,7 @@ Voor we de resultaten bekijken, controleren we eerst of het model goed convergee
 
 ### MCMC convergentie
 
-Er zijn verschillende manieren om convergentie van het MCMC algoritme voor elke parameter te controleren. Hierbij worden de burn-in samples niet in rekening genomen. Eerst en vooral heb je *visuele controles*.
+Er zijn verschillende manieren om convergentie van het MCMC algoritme voor elke parameter te controleren. Hierbij worden de warmup samples niet in rekening genomen. Eerst en vooral heb je *visuele controles*.
 
 We kunnen de MCMC samples met de `as_draws()` functies verkrijgen ofwel ineens visualiseren via de [bayesplot](https://mc-stan.org/bayesplot/) package die compatibel is met brmsfit objecten.
 
@@ -825,14 +827,14 @@ $$
 
 We moeten dus twee parameters schatten: $\beta_0$ en $\beta_1$ We gebruiken dezelfde MCMC parameters als voordien. Het enige wat we moeten aanpassen is de keuze `family = poisson()`.
 
-```{r poisson-model-fit}
+```{r poisson-model-fit, class.source = 'fold-show'}
 # Fit Poisson model
 fit_poisson1 <- brm(
   formula = sp_rich ~ habitat, # beschrijving van het model
   family = poisson(),          # we gebruiken de Poisson verdeling
   data = ants_df,              # ingeven data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -888,14 +890,14 @@ $$
 b_0 \sim N(0, \sigma_b)
 $$
 
-```{r rand-intercept-model-fit}
+```{r rand-intercept-model-fit, class.source = 'fold-show'}
 # Fit Poisson model met random intercepten per site
 fit_poisson2 <- brm(
   formula = sp_rich ~ habitat + (1|site),
   family = poisson(),
   data = ants_df,
   chains = nchains,
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -929,11 +931,11 @@ Hoe kunnen we deze modellen nu objectief gaan vergelijken?
 
 
 
-# Vergelijken van modellen
+## Vergelijken van modellen
 
 Op basis van de PPCs kunnen we reeds zien welk model het best past bij de data. Verder zijn er nog enkele functies die **brms** voorziet om verschillende modellen te vergelijken. Met de functie `add_criterion()` kan je model fit criteria toevoegen aan model objecten. Typ `?add_criterion()` om te zien welke beschikbaar zijn. Zie ook <https://mc-stan.org/loo/articles/online-only/faq.html>
 
-## Leave-one-out cross-validation
+### Leave-one-out cross-validation
 
 Cross-validation (CV) is een familie van technieken die probeert in te schatten hoe goed een model onbekende data zou voorspellen via predicties van het model gefit op de bekende data. Hiervoor moet je niet per se nieuwe data gaan inzamelen. Je kan jouw eigen data opsplitsen in een test en training dataset. Je fit het model op de training dataset en je gebruikt dat model dan om te schatten hoe goed het de data in de test dataset kan voorspellen. Bij leave-one-out CV (LOOCV) ga je telkens één observatie weglaten en het model opnieuw fitten o.b.v. alle andere observaties.
 
@@ -969,7 +971,7 @@ comp_loo %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## K-fold cross-validation
+### K-fold cross-validation
 
 Bij K-fold cross-validation worden de data in $K$ groepen opgesplitst. Wij zullen hier $K = 10$ groepen (= folds) gebruiken. In plaats van dus telkens één enkele observatie weg te laten zoals bij leave-one-out CV gaan we hier $1/10$e van de data weglaten. Via de argumenten `folds = "stratified"` en `group = "habitat"` zorgen we ervoor dat voor elke groep de relatieve frequenties van habitat bewaard blijven. Deze techniek zal dus minder precies zijn dan de vorige, maar zal sneller zijn om te berekenen indien je met heel veel data werkt.
 
@@ -1014,7 +1016,7 @@ comp_kfold %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## WAIC
+### WAIC
 
 Het Widely Applicable Information Criterion (WAIC) maakt geen gebruik van cross-validation maar is een computationele manier om de ELPD te schatten. Hoe dit precies gebeurt valt buiten het doel van deze workshop. Het is nog een andere maat om model selectie toe te passen.
 
@@ -1046,9 +1048,10 @@ comp_waic %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## Conclusie
+### Conclusie
 
 Zowel o.b.v. de PPC als vergelijkingen met verschillende model selectie criteria, kunnen we besluiten dat het tweede Poisson model met random intercepts het best past bij de data. In principe konden we dit ook verwachten op basis van onze eigen intuïtie en het design van de studie, nl. het gebruik van de Poisson distributie om aantallen te modelleren en het gebruik van random intercepts om te controleren voor een hiërarchisch design (habitats genest in sites).
+
 
 # Resultaten finale model
 

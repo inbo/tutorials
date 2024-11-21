@@ -297,7 +297,7 @@ confint(lm1, level = 0.9)
 We source some short functions to calculate the (log) likelihood and the prior and to execute the MCMC metropolis algorithm.
 
 ```{r}
-source(file = "./source/mcmc_functions.R")
+source(file = "./mcmc_functions.R")
 ```
 
 For this simple model with a small data set, we can calculate and plot the posterior for a large number of combinations of 'beta_0' and 'beta_1'.
@@ -345,7 +345,7 @@ ggplot(df, aes(x = beta_0, y = beta_1, z = post)) +
 
 The starting value is quite far from the maximum likelihood.
 It takes a while for the MCMC to stabilize in the vicinity of the top of the mountain.
-Therefore, the first part of the MCMC is never used. This is called the 'burn-in' or 'warm-up'.
+Therefore, the first part of the MCMC is never used. This is called the 'warmup', 'burn-in' or 'tuning'.
 
 We now run the same model, but with a much longer MCMC (more iterations):
 
@@ -392,7 +392,7 @@ The MCMC for each parameter can be displayed in a so called 'trace plot' where w
 ann_text <- tibble(param = c("beta_0", "beta_1"),
                    x = 210,
                    y = c(max(mcmc_l$beta_0), max(mcmc_l$beta_1)),
-                   lab = "burn-in")
+                   lab = "warmup")
 mcmc_l %>%
   dplyr::select(iter, beta_0, beta_1) %>%
   pivot_longer(cols = c("beta_0", "beta_1"), names_to = "param") %>%
@@ -521,9 +521,8 @@ Some alternatives also exist:
 
 ![Overview of various Stan software (source: https://jtimonen.github.io/posts/post-01/)](software.png)
 
-# Fitting a model with brms
 
-## Loading the dataset and data exploration
+# Loading the dataset and data exploration
 
 We load a dataset on the number of ant species in New England (USA). Type `?ants` into the console for more info.
 
@@ -593,6 +592,9 @@ ants_df %>%
 As an exercise, we will create a model to compare the number of species between both habitats.
 From the data exploration, we already saw that the number of species seems to be higher in forests and that sites with a higher number in bogs often also have a higher number in forests.
 
+
+# Fitting a model with `brms`
+
 ## Specification of a linear regression
 
 ### Model specification
@@ -617,8 +619,8 @@ First of all we decide which MCMC parameters we will use. Type `?brm` to see wha
 ```{r simple-model-mcmc-par}
 # Set MCMC parameters
 nchains <- 3 # number of chains
-niter <- 2000 # number of iterations (incl. burn-in, see next)
-burnin <- niter / 4 # number of initial samples to remove (= burn-in)
+niter <- 2000 # number of iterations (incl. warmup, see next)
+warmup <- niter / 4 # number of initial samples to remove (= warmup)
 nparallel <- nchains # number of cores for parallel computing
 thinning <- 1 # thinning factor (here 1 = no thinning)
 ```
@@ -630,14 +632,14 @@ The model is fitted using the `brm()` function. The syntax is very similar to fu
 - `file` and `file_refit` to save the model object after it has been fitted. If you run the code again and the model has already been saved, `brm()` will simply load this model instead of refitting it.
 
 
-```{r simple-model-fit-poisson}
+```{r simple-model-fit-poisson, class.source = 'fold-show'}
 # Fit Normal model
 fit_normal1 <- brm(
   formula = sp_rich ~ habitat, # specify the model
   family = gaussian(),         # we use the Normal distribution
   data = ants_df,              # specify data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -649,7 +651,7 @@ Before we look at the results, we first check whether the model converges well.
 
 ### MCMC convergence
 
-There are several ways to check convergence of the MCMC algorithm for each parameter. The burn-in samples are not taken into account. First and foremost, you have *visual controls*.
+There are several ways to check convergence of the MCMC algorithm for each parameter. The warmup samples are not taken into account. First and foremost, you have *visual controls*.
 
 We can obtain the MCMC samples with the `as_draws()` functions or visualise them at once via the [**bayesplot**](https://mc-stan.org/bayesplot/) package that is compatible with brmsfit objects.
 
@@ -836,14 +838,14 @@ $$
 
 So we need to estimate two parameters: $\beta_0$ and $\beta_1$ We use the same MCMC parameters as before. The only thing we need to adjust is the choice `family = poisson()`.
 
-```{r poisson-model-fit}
+```{r poisson-model-fit, class.source = 'fold-show'}
 # Fit Poisson model
 fit_poisson1 <- brm(
   formula = sp_rich ~ habitat, # specify the model
   family = poisson(),          # we use the Poisson distribution
   data = ants_df,              # specify the data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -898,14 +900,14 @@ $$
 b_0 \sim N(0, \sigma_b)
 $$
 
-```{r rand-intercept-model-fit}
+```{r rand-intercept-model-fit, class.source = 'fold-show'}
 # Fit Poisson model with random intercept per site
 fit_poisson2 <- brm(
   formula = sp_rich ~ habitat + (1|site),
   family = poisson(),
   data = ants_df,
   chains = nchains,
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -937,11 +939,11 @@ pp_check(fit_poisson2, type = "dens_overlay_grouped", ndraws = 100,
 
 How can we objectively compare these models?
 
-# Compare models
+## Compare models
 
 Based on the PPCs we can already see which model fits the data best. Furthermore, there are some functions that **brms** provides to compare different models. With the function `add_criterion()` you can add model fit criteria to model objects. Type `?add_criterion()` to see which ones are available. See also <https://mc-stan.org/loo/articles/online-only/faq.html>
 
-## Leave-one-out cross validation
+### Leave-one-out cross validation
 
 Cross-validation (CV) is a family of techniques that attempts to estimate how well a model would predict unknown data through predictions of the model fitted to the known data. You do not necessarily have to collect new data for this. You can split your own data into a test and training dataset. You fit the model to the training dataset and then use that model to estimate how well it can predict the data in the test dataset. With leave-one-out CV (LOOCV) you leave out one observation each time as test dataset and refit the model based on all other observations (= training dataset).
 
@@ -977,7 +979,7 @@ comp_loo %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## K-fold cross-validation
+### K-fold cross-validation
 
 With K-fold cross-validation, the data is split into $K$ groups. We will use $K = 10$ groups (= folds) here. So instead of leaving out a single observation each time, as with leave-one-out CV, we will leave out one $10^{th}$ of the data here. Via the arguments `folds = "stratified"` and `group = "habitat"` we ensure that the relative frequencies of habitat are preserved for each group. This technique will therefore be less precise than the previous one, but will be faster to calculate if you work with a lot of data.
 
@@ -1023,7 +1025,7 @@ comp_kfold %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## WAIC
+### WAIC
 
 The Widely Applicable Information Criterion (WAIC) does not use cross-validation but is a computational way to estimate the ELPD. How this happens exactly is beyond the purpose of this tutorial. It is yet another measure to apply model selection.
 
@@ -1055,9 +1057,10 @@ comp_waic %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## Conclusion
+### Conclusion
 
 Both based on the PPC and the comparisons with different model selection criteria, we can conclude that the second Poisson model with random intercepts fits the data best. In principle, we could have expected this based on our own intuition and the design of the study, i.e. the use of the Poisson distribution to model numbers and the use of random intercepts to control for a hierarchical design (habitats nested within sites).
+
 
 # Final model results
 
