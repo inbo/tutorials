@@ -36,6 +36,7 @@ library(tidybayes) # wrangling and visualising Bayesian models
 # Conflicten tussen packages
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::lag)
+conflicted::conflicts_prefer(tidyr::extract)
 conflicted::conflicts_prefer(brms::ar)
 conflicted::conflicts_prefer(brms::dstudent_t)
 conflicted::conflicts_prefer(brms::pstudent_t)
@@ -716,7 +717,7 @@ as_draws_df(fit_normal1, variable = parameters) %>%
   pivot_longer(cols = starts_with(parameters), names_to = "name",
                values_to = "value") %>%
   # split columns names at the last underscore
-  extract(name, into = c("parameter", "statistic"), "(.*)_([^_]+)$") %>%
+  tidyr::extract(name, into = c("parameter", "statistic"), "(.*)_([^_]+)$") %>%
   ggplot(aes(y = value, x = .iteration, colour = factor(.chain))) +
     geom_line(aes(linetype = statistic), linewidth = 0.8) +
     facet_wrap(~parameter, nrow = 3, scales = "free")
@@ -1087,10 +1088,12 @@ conflicted::conflicts_prefer(brms::loo)
 
 ### Model Definition
 RMarkdown can handle `stan` code chunks, though more general model definition is outsourced to a separate "*.stan" file.
+Alternatively, you can define your model in a big text block, as shown below.
 The simple poisson model resembles [one of the `stan`-dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
 
 
-```{stan, output.var="stan_poisson_model", class.source='fold-show'}
+```{r stan_poisson_simple, eval=TRUE, output.var="", class.source='fold-show'}
+stan_poisson_model_code = '
 data {
   int<lower=1> N;                   // sample size
   vector[N] habitat_obs;            // habitat
@@ -1112,7 +1115,7 @@ model {
 
 }
 
-
+'
 ```
 
 
@@ -1123,9 +1126,10 @@ Yet note how even Stan is not without convenience functions: we can use the `poi
 
 When working outside RStudio/RMarkdown, you might prefer loading the model from a file:
 
-```{r stan_load_model, eval=FALSE, class.source='fold-show'}
+```{r stan_load_model, eval=TRUE, class.source='fold-show'}
 stan_poisson_model <- stan_model(
-  file = "./poisson_model.stan",
+  # file = "./poisson_model.stan",
+  model_code = stan_poisson_model_code, 
   model_name = "stan poisson model"
   )
 ```

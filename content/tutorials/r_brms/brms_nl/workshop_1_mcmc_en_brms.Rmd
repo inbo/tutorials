@@ -35,6 +35,7 @@ library(tidybayes) # nabewerking en visualisatie van Bayesiaanse modellen
 # Conflicten tussen packages
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::lag)
+conflicted::conflicts_prefer(tidyr::extract)
 conflicted::conflicts_prefer(brms::ar)
 conflicted::conflicts_prefer(brms::dstudent_t)
 conflicted::conflicts_prefer(brms::pstudent_t)
@@ -705,7 +706,7 @@ as_draws_df(fit_normal1, variable = parameters) %>%
   pivot_longer(cols = starts_with(parameters), names_to = "name",
                values_to = "value") %>%
   # splits naam kolom op bij laatste underscore
-  extract(name, into = c("parameter", "statistiek"), "(.*)_([^_]+)$") %>%
+  tidyr::extract(name, into = c("parameter", "statistiek"), "(.*)_([^_]+)$") %>%
   ggplot(aes(y = value, x = .iteration, colour = factor(.chain))) +
     geom_line(aes(linetype = statistiek), linewidth = 0.8) +
     facet_wrap(~parameter, nrow = 3, scales = "free")
@@ -1079,9 +1080,12 @@ conflicted::conflicts_prefer(brms::loo)
 The simple poisson model resembles [one of the `stan`dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
 
 RMarkdown kan `stan`-chunks verwerken, hoewel de algemenere modeldefinitie is uitbesteed aan een apart "*.stan"-bestand.
+Alternatief kan je je model ook als grote tekstblok definiëren, zoals hieronder te zien.
 Het eenvoudige poissonmodel lijkt op [een van de `stan`-daardvoorbeelden](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), waarnaar u terecht kunt voor verdere details en meer.
 
-```{stan, output.var="stan_poisson_model", class.source='fold-show'}
+
+```{r stan_poisson_simple, eval=TRUE, output.var="", class.source='fold-show'}
+stan_poisson_model_code = '
 data {
   int<lower=1> N;                   // sample size
   vector[N] habitat_obs;            // habitat
@@ -1103,8 +1107,9 @@ model {
 
 }
 
-
+'
 ```
+
 
 
 Zie dit als een "kijkje achter de schermen"!
@@ -1113,9 +1118,10 @@ Maar let op hoe zelfs Stan niet zonder handige functies is: we kunnen de `poisso
 
 Als je buiten RStudio/RMarkdown werkt, kun je het model het beste laden vanuit een bestand:
 
-```{r stan_load_model, eval=FALSE, class.source='fold-show'}
+```{r stan_load_model, eval=TRUE, class.source='fold-show'}
 stan_poisson_model <- stan_model(
-  file = "./poisson_model.stan",
+  # file = "./poisson_model.stan",
+  model_code = stan_poisson_model_code, 
   model_name = "stan poisson model"
   )
 ```
