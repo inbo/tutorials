@@ -1054,180 +1054,6 @@ comp_waic %>%
 Zowel o.b.v. de PPC als vergelijkingen met verschillende model selectie criteria, kunnen we besluiten dat het tweede Poisson model met random intercepts het best past bij de data. In principe konden we dit ook verwachten op basis van onze eigen intuïtie en het design van de studie, nl. het gebruik van de Poisson distributie om aantallen te modelleren en het gebruik van random intercepts om te controleren voor een hiërarchisch design (habitats genest in sites).
 
 
-## Deep Dive: `rstan`
-### Stan: Wat? Waarom?!
-De `brms` package is een gemaksverpakking van `rstan`, dat zelf de functionaliteit van `stan` naar R brengt.
-Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de benodigdheden voor probabilistische ("Bayesiaanse") modellen implementeerd.
-
-Meer info vind je [op het internet](https://mc-stan.org).
-
-Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box", met redelijke standaardwaarden en een syntaxis die lijkt op wat frequentisten gewend zijn.
-Het relatieve gebruiksgemak kan echter ten koste gaan van de flexibiliteit en in zekere mate van de leesbaarheid.
-
-Stan en `rstan` daarentegen leunen meer op de wiskundige formulering van modellen.
-Elk aspect van het model moet expliciet worden ingesteld, wat een voordeel kan zijn (bijvoorbeeld als u te maken hebt met niet-standaard usecases) of een nadeel (bijvoorbeeld als u modellen op niet-optionele manieren beveiligt).
-
-Om kort een indruk te geven, bouwen we dezelfde modellen als hierboven, met behulp van het Stan-framework.
-
-
-```{r}
-library("rstan")
-conflicted::conflicts_prefer(rstan::extract)
-conflicted::conflicts_prefer(brms::loo)
-```
-
-### Model Definition
-The simple poisson model resembles [one of the `stan`dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
-
-RMarkdown kan `stan`-chunks verwerken, hoewel de algemenere modeldefinitie is uitbesteed aan een apart "*.stan"-bestand.
-Alternatief kan je je model ook als een groot tekstblok definiëren, zoals hieronder te zien.
-Het eenvoudige poissonmodel lijkt op [een van de `stan`-daardvoorbeelden](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), waarnaar u terecht kunt voor verdere details en meer.
-
-
-```{r stan_poisson_simple, eval=TRUE, output.var="", class.source='fold-show'}
-stan_poisson_model_code = '
-data {
-  int<lower=1> N;                   // sample size
-  vector[N] habitat_obs;            // habitat
-  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
-}
-
-parameters {
-  real intercept_rich;              // intercept
-  real habitat_effect;              // slope
-}
-
-model {
-  // priors
-  intercept_rich ~ normal(0, 1);
-  habitat_effect ~ normal(0, 1);
-
-  // "posterior", "likelihood", ... give it a name!
-  sp_rich ~ poisson_log(intercept_rich + habitat_effect * habitat_obs);
-
-}
-
-'
-```
-
-
-
-Zie dit als een "kijkje achter de schermen"!
-Je moet expliciet de modelstructuur, priors en zelfs de gegevenstypen van invoervariabelen definiëren.
-Maar let op hoe zelfs Stan niet zonder handige functies is: we kunnen de `poisson_log` posterior gebruiken om de $log(\lambda )$ te modelleren.
-
-Als je buiten RStudio/RMarkdown werkt, kun je het model het beste laden vanuit een bestand:
-
-```{r stan_load_model, eval=TRUE, class.source='fold-show'}
-stan_poisson_model <- stan_model(
-  # file = "./poisson_model.stan",
-  model_code = stan_poisson_model_code, 
-  model_name = "stan poisson model"
-  )
-```
-
-
-### Sampling
-
-Sampling doet vrijwel hetzelfde als hierboven, want in de kern is `brms` gewoon `stan`.
-
-```{r stan_sampling}
-stan_poisson_fit <- sampling(
-  stan_poisson_model,
-  list(
-    N = nrow(ants_df),
-    habitat_obs = as.integer(ants_df$habitat)-1,
-    sp_rich = ants_df$sp_rich
-    ),
-  iter = niter,
-  chains = nchains,
-  cores = nparallel
-  )
-
-stan_poisson_fit
-```
-
-Een handige manier om modelfits snel te inspecteren is `shinystan`.
-Het opent een browser met glanzende plots.
-
-```{r eval=FALSE}
-library("shinystan")
-launch_shinystan(stan_poisson_fit)
-```
-
-
-En kijk: de modeluitkomst is precies zoals boven.
-In het huidige geval is het voordeel van het overstappen op `stan` zeer beperkt.
-In andere gevallen kan het lonen.
-
-Weet dat Stan er voor u is, aarzel niet om de uitgebreide documentatie te raadplegen en wees niet bang om het te proberen!
-
-
-### Huiswerk: Hierarchical Model
-Om je modelleringsvaardigheden nog verder te ontwikkelen, kun je het "random intercept"-model implementeren en sampelen.
-
-In "Bayesiaanse" termen is de[algemene terminologie een "hiërarchisch" model](https://mc-stan.org/docs/stan-users-guide/regression.html#hierarchical-regression).
-
-Hieronder staat de code die sitespecifieke intercepts overweegt.
-Het werkt iets anders dan de `+(1|site)`-benadering hierboven: de bovenste is een "offset"-parametrisering, terwijl we deze keer een hyperprior gebruiken.
-Dit zijn twee veelvoorkomende strategieën die vaak allebei de moeite waard zijn om te proberen, met marginale of substantiële effecten op de samplerprestaties.
-
-
-```{stan, eval=FALSE, output.var="stan_hierarchical_poisson"}
-data {
-  int<lower=1> N;                   // sample size
-  int<lower=1> L;                   // number of sites
-  vector[N] habitat_obs;            // habitat
-  array[N] int<lower=1, upper=L> site_obs; // site
-  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
-}
-
-parameters {
-  real intercept_rich;              // "global" intercept
-  vector[L] site_effect;            // the sr intercept at each site
-  real<lower=0> site_variation;     // variation on site level
-  real habitat_effect;              // habitat slope
-}
-
-model {
-  // priors
-  intercept_rich ~ normal(0, 1);
-  site_variation ~ cauchy(0, 1);
-  habitat_effect ~ normal(0, 1);
-
-  // site-wise intercept
-  for (i in 1:L) {
-    site_effect[i] ~ normal(intercept_rich, site_variation);
-  }
-
-  // "posterior", "likelihood", ... give it a name!
-  sp_rich ~ poisson_log(site_effect[site_obs] + habitat_effect * habitat_obs);
-
-}
-```
-
-
-```{r, eval=FALSE, stan_hierarchical_sampling}
-stan_poisson_fit <- sampling(
-  stan_poisson_model,
-  list(
-    N = nrow(ants_df),
-    L = length(levels(ants_df$site)),
-    habitat_obs = as.integer(ants_df$habitat)-1,
-    site_obs = as.integer(ants_df$site),
-    sp_rich = ants_df$sp_rich
-    ),
-  iter = niter,
-  chains = nchains,
-  cores = nparallel
-  )
-
-stan_poisson_fit
-```
-
-Met Stan zijn de mo(g)e(i)lijkheden bijna eindeloos. 
-Raak niet verstrikt in het bouwen van modellen!
-
 
 # Resultaten finale model
 
@@ -1351,6 +1177,183 @@ t_test_normal1
 ```
 
 We zien dat dit inderdaad bijna exact dezelfde resultaten oplevert. Ons Bayesiaans model schat dat er gemiddeld `r round(verschil_moeras1, 3)` meer mierensoorten in bossen voorkomen dan in moerassen (90 % credible interval: `r round(ll_verschil_moeras1, 3)` tot `r round(ul_verschil_moeras1, 3)`). De t-test schat dat er gemiddeld `r round(verschil_moeras2, 3)` meer mierensoorten in bossen voorkomen dan in moerassen (90 % confidence interval: `r round(ll_verschil_moeras2, 3)` tot `r round(ul_verschil_moeras2, 3)`).
+
+
+
+# Deep Dive: `rstan`
+## Stan: Wat? Waarom?!
+De `brms` package is een gemaksverpakking van `rstan`, dat zelf de functionaliteit van `stan` naar R brengt.
+Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de benodigdheden voor probabilistische ("Bayesiaanse") modellen implementeerd.
+
+Meer info vind je [op het internet](https://mc-stan.org).
+
+Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box", met redelijke standaardwaarden en een syntaxis die lijkt op wat frequentisten gewend zijn.
+Het relatieve gebruiksgemak kan echter ten koste gaan van de flexibiliteit en in zekere mate van de leesbaarheid.
+
+Stan en `rstan` daarentegen leunen meer op de wiskundige formulering van modellen.
+Elk aspect van het model moet expliciet worden ingesteld, wat een voordeel kan zijn (bijvoorbeeld als u te maken hebt met niet-standaard usecases) of een nadeel (bijvoorbeeld als u modellen op niet-optimale manieren specificeert).
+
+Om kort een indruk te geven, bouwen we dezelfde modellen als hierboven, met behulp van het Stan-framework.
+
+
+```{r}
+library("rstan")
+conflicted::conflicts_prefer(rstan::extract)
+conflicted::conflicts_prefer(brms::loo)
+```
+
+## Model Definition
+The simple poisson model resembles [one of the `stan`dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
+
+RMarkdown kan `stan`-chunks verwerken, hoewel de algemenere modeldefinitie is uitbesteed aan een apart "*.stan"-bestand.
+Alternatief kan je je model ook als een groot tekstblok definiëren, zoals hieronder te zien.
+Het eenvoudige poissonmodel lijkt op [een van de `stan`-daardvoorbeelden](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), waarnaar u terecht kunt voor verdere details en meer.
+
+
+```{r stan_poisson_simple, eval=TRUE, output.var="", class.source='fold-show'}
+stan_poisson_model_code = '
+data {
+  int<lower=1> N;                   // sample size
+  vector[N] habitat_obs;            // habitat
+  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
+}
+
+parameters {
+  real intercept_rich;              // intercept
+  real habitat_effect;              // slope
+}
+
+model {
+  // priors
+  intercept_rich ~ normal(0, 1);
+  habitat_effect ~ normal(0, 1);
+
+  // "posterior", "likelihood", ... give it a name!
+  sp_rich ~ poisson_log(intercept_rich + habitat_effect * habitat_obs);
+
+}
+
+'
+```
+
+
+
+Zie dit als een "kijkje achter de schermen"!
+Je moet expliciet de modelstructuur, priors en zelfs de gegevenstypen van invoervariabelen definiëren.
+Maar let op hoe zelfs Stan niet zonder handige functies is: we kunnen de `poisson_log` posterior gebruiken om de $log(\lambda )$ te modelleren.
+
+Als je buiten RStudio/RMarkdown werkt, kun je het model het beste laden vanuit een bestand:
+
+```{r stan_load_model, eval=TRUE, class.source='fold-show'}
+stan_poisson_model <- stan_model(
+  # file = "./poisson_model.stan",
+  model_code = stan_poisson_model_code, 
+  model_name = "stan poisson model"
+  )
+```
+
+
+## Sampling
+
+Sampling doet vrijwel hetzelfde als hierboven, want in de kern is `brms` gewoon `stan`.
+
+```{r stan_sampling}
+stan_poisson_fit <- sampling(
+  stan_poisson_model,
+  list(
+    N = nrow(ants_df),
+    habitat_obs = as.integer(ants_df$habitat)-1,
+    sp_rich = ants_df$sp_rich
+    ),
+  iter = niter,
+  chains = nchains,
+  cores = nparallel
+  )
+
+stan_poisson_fit
+```
+
+Een handige manier om modelfits snel te inspecteren is `shinystan`.
+Het opent een browser met glanzende plots.
+
+```{r eval=FALSE}
+library("shinystan")
+launch_shinystan(stan_poisson_fit)
+```
+
+
+En kijk: de modeluitkomst is precies zoals boven.
+In het huidige geval is het voordeel van het overstappen op `stan` zeer beperkt.
+In andere gevallen kan het lonen.
+
+Weet dat Stan er voor u is, aarzel niet om de uitgebreide documentatie te raadplegen en wees niet bang om het te proberen!
+
+
+## Huiswerk: Hierarchical Model
+Om je modelleringsvaardigheden nog verder te ontwikkelen, kun je het "random intercept"-model implementeren en sampelen.
+
+In "Bayesiaanse" termen is de[algemene terminologie een "hiërarchisch" model](https://mc-stan.org/docs/stan-users-guide/regression.html#hierarchical-regression).
+
+Hieronder staat de code die sitespecifieke intercepts overweegt.
+Het werkt iets anders dan de `+(1|site)`-benadering hierboven: de bovenste is een "offset"-parametrisering, terwijl we deze keer een hyperprior gebruiken.
+Dit zijn twee veelvoorkomende strategieën die vaak allebei de moeite waard zijn om te proberen, met marginale of substantiële effecten op de samplerprestaties.
+
+
+```{stan, eval=FALSE, output.var="stan_hierarchical_poisson"}
+data {
+  int<lower=1> N;                   // sample size
+  int<lower=1> L;                   // number of sites
+  vector[N] habitat_obs;            // habitat
+  array[N] int<lower=1, upper=L> site_obs; // site
+  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
+}
+
+parameters {
+  real intercept_rich;              // "global" intercept
+  vector[L] site_effect;            // the sr intercept at each site
+  real<lower=0> site_variation;     // variation on site level
+  real habitat_effect;              // habitat slope
+}
+
+model {
+  // priors
+  intercept_rich ~ normal(0, 1);
+  site_variation ~ cauchy(0, 1);
+  habitat_effect ~ normal(0, 1);
+
+  // site-wise intercept
+  for (i in 1:L) {
+    site_effect[i] ~ normal(intercept_rich, site_variation);
+  }
+
+  // "posterior", "likelihood", ... give it a name!
+  sp_rich ~ poisson_log(site_effect[site_obs] + habitat_effect * habitat_obs);
+
+}
+```
+
+
+```{r, eval=FALSE, stan_hierarchical_sampling}
+stan_poisson_fit <- sampling(
+  stan_poisson_model,
+  list(
+    N = nrow(ants_df),
+    L = length(levels(ants_df$site)),
+    habitat_obs = as.integer(ants_df$habitat)-1,
+    site_obs = as.integer(ants_df$site),
+    sp_rich = ants_df$sp_rich
+    ),
+  iter = niter,
+  chains = nchains,
+  cores = nparallel
+  )
+
+stan_poisson_fit
+```
+
+Met Stan zijn de mo(g)e(i)lijkheden bijna eindeloos. 
+Raak niet verstrikt in het bouwen van modellen!
+
 
 
 # Referenties {-}
