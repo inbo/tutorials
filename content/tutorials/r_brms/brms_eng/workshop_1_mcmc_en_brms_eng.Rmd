@@ -298,7 +298,7 @@ confint(lm1, level = 0.9)
 We source some short functions to calculate the (log) likelihood and the prior and to execute the MCMC metropolis algorithm.
 
 ```{r}
-source(file = "./mcmc_functions.R")
+source(file = here("code", "brms_modeling", "mcmc_functions.R"))
 ```
 
 For this simple model with a small data set, we can calculate and plot the posterior for a large number of combinations of 'beta_0' and 'beta_1'.
@@ -1219,7 +1219,7 @@ conflicted::conflicts_prefer(brms::loo)
 ```
 
 ## Model Definition
-RMarkdown can handle `stan` code chunks, though more general model definition is outsourced to a separate "*.stan" file.
+RMarkdown can handle `stan` code chunks, though more general model definition is outsourced to a separate "*.stan" file (e.g. [here](https://github.com/inbo/tutorials/tree/master/static/code/brms_modeling/poisson_model.stan)).
 Alternatively, you can define your model in a big text block, as shown below.
 The simple poisson model resembles [one of the `stan`-dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
 
@@ -1260,7 +1260,7 @@ When working outside RStudio/RMarkdown, you might prefer loading the model from 
 
 ```{r stan_load_model, eval=TRUE, class.source='fold-show'}
 stan_poisson_model <- stan_model(
-  # file = "./poisson_model.stan",
+  # file = here("code", "brms_modeling", "poisson_model.stan"),
   model_code = stan_poisson_model_code, 
   model_name = "stan poisson model"
   )
