@@ -42,6 +42,11 @@ conflicted::conflicts_prefer(brms::pstudent_t)
 conflicted::conflicts_prefer(brms::qstudent_t)
 conflicted::conflicts_prefer(brms::rstudent_t)
 conflicted::conflict_prefer("rhat", "brms")
+
+# html bestandsgrootte verminderen door grafiekparameters te specifiëren
+knitr::opts_chunk$set(dev = "jpeg", dpi = 56,
+                      fig.width = 4, fig.height = 3,
+                      out.width = "60%")
 ```
 
 # Theoretische achtergrond
@@ -235,7 +240,7 @@ Bij een stap bergop gaat de MCMC altijd door. Is de stap bergaf, dan gaat de MCM
 
 De absolute hoogte van de berg (posterior likelihood) doet er op zich niet toe. Enkel de relatieve verschillen.
 
-![Metropolis regels](../media/MCMC4b.png)
+![Metropolis regels](./mcmc4b.png)
 
 Een eenvoudig MCMC-algoritme is het Metropolis algoritme. Het wordt beschreven door deze formele regels:
 
@@ -295,7 +300,7 @@ We lezen enkele korte functies in om de (log) likelihood en de prior te berekene
 
 ```{r}
 
-source(file = here("code", "brms_modeling", "mcmc_functions.R"))
+source(file = here("static", "code", "brms_modeling", "mcmc_functions.R"))
 ```
 
 Voor dit eenvoudig model met een kleine dataset kunnen we de posterior voor een groot aantal combinaties voor `beta_0` en `beta_1` uitrekenen en plotten.
@@ -508,7 +513,7 @@ Er bestaan ook enkele alternatieven:
 - [RStan](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html) is de basis van `brms`. Je hebt `RStan`nodig om `brms`te kunnen gebruiken omdat het rechtstreeks met Stan communiceert. Een model definiëren in "Pure" Stan code is echter redelijk omslachtig.
 - [rstanarm](https://mc-stan.org/rstanarm/articles/index.html) is nog makkelijker dan `brms`qua syntax. Bovendien kan je met `rstanarm` gebruik maken van enkele vooral gecompileerde Stan modellen. Hierdoor duurt het fitten van je model minder lang. Een groot deel van de procestijd van `brms`gaat immers naar het compileren van het Stan programma.
 
-![Overzicht van verschillende Stan software (bron: https://jtimonen.github.io/posts/post-01/)](software.png)
+![Overzicht van verschillende Stan software (bron: https://jtimonen.github.io/posts/post-01/)](./stan_software.png)
 
 Hoewel het pakket **brms** afhankelijk is van **rstan** als standaard backend, is er nog een andere softwaretool die het vermelden waard is: **cmdstanr**.
 [Vergeleken met **rstan** profiteert **cmdstanr**]( https://mc-stan.org/cmdstanr/articles/cmdstanr.html#comparison-with-rstan) van frequentere updates en enkele performance-voordelen, maar vereist het [extra installatiestappen](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan).
@@ -944,7 +949,7 @@ Op basis van de PPCs kunnen we reeds zien welk model het best past bij de data. 
 
 Cross-validation (CV) is een familie van technieken die probeert in te schatten hoe goed een model onbekende data zou voorspellen via predicties van het model gefit op de bekende data. Hiervoor moet je niet per se nieuwe data gaan inzamelen. Je kan jouw eigen data opsplitsen in een test en training dataset. Je fit het model op de training dataset en je gebruikt dat model dan om te schatten hoe goed het de data in de test dataset kan voorspellen. Bij leave-one-out CV (LOOCV) ga je telkens één observatie weglaten en het model opnieuw fitten o.b.v. alle andere observaties.
 
-![Illustratie LOOCV.](loocv.png)
+![Illustratie LOOCV.](./loocv.png)
 
 ```{r vergelijken-loocv}
 # Voeg leave-one-out model fit criterium toe aan model objecten
@@ -980,7 +985,7 @@ comp_loo %>%
 
 Bij K-fold cross-validation worden de data in $K$ groepen opgesplitst. Wij zullen hier $K = 10$ groepen (= folds) gebruiken. In plaats van dus telkens één enkele observatie weg te laten zoals bij leave-one-out CV gaan we hier $1/10$e van de data weglaten. Via de argumenten `folds = "stratified"` en `group = "habitat"` zorgen we ervoor dat voor elke groep de relatieve frequenties van habitat bewaard blijven. Deze techniek zal dus minder precies zijn dan de vorige, maar zal sneller zijn om te berekenen indien je met heel veel data werkt.
 
-![Illustratie K-fold CV.](k-foldcv.png)
+![Illustratie K-fold CV.](./k-foldcv.png)
 
 ```{r vergelijken-K-fold}
 # Voeg K-fold model fit criterium toe aan model objecten

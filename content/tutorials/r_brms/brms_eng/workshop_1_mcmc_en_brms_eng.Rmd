@@ -43,6 +43,11 @@ conflicted::conflicts_prefer(brms::pstudent_t)
 conflicted::conflicts_prefer(brms::qstudent_t)
 conflicted::conflicts_prefer(brms::rstudent_t)
 conflicted::conflict_prefer("rhat", "brms")
+
+# reduce html export file size by specifying graphics size
+knitr::opts_chunk$set(dev = "jpeg", dpi = 56,
+                      fig.width = 4, fig.height = 3,
+                      out.width = "60%")
 ```
 
 # Theoretical background
@@ -240,7 +245,7 @@ When taking a step uphill, the MCMC always continues. If the step is downhill, t
 The absolute height of the mountain (posterior likelihood) in itself does not matter. Only the relative differences or shape of the mountain matters.
 This means that we do not need to calculate the denominator of Bayes' rule, which is the reason why the algorithm is frequently used in Bayesian statistics.
 
-![Metropolis rules](../media/MCMC4b.png)
+![Metropolis rules](./mcmc4b.png)
 
 A simple MCMC algorithm is the Metropolis algorithm. It is described by these formal rules:
 
@@ -298,7 +303,7 @@ confint(lm1, level = 0.9)
 We source some short functions to calculate the (log) likelihood and the prior and to execute the MCMC metropolis algorithm.
 
 ```{r}
-source(file = here("code", "brms_modeling", "mcmc_functions.R"))
+source(file = here("static", "code", "brms_modeling", "mcmc_functions.R"))
 ```
 
 For this simple model with a small data set, we can calculate and plot the posterior for a large number of combinations of 'beta_0' and 'beta_1'.
@@ -520,7 +525,7 @@ Some alternatives also exist:
 - [**rstan**](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html) is the basis of **brms**. You need **rstan** to use **brms** because it communicates directly with Stan. A model composed in "pure" Stan code can be fitted with the **rstan** package in R (so without using **brms**), but can be quite complex.
 - [**rstanarm**](https://mc-stan.org/rstanarm/articles/index.html) is similar to **brms** in terms of complexity of the syntax. Moreover, with the **rstanarm** package you can use some pre-compiled Stan models. This means that fitting your model takes less time. A large part of the process time of **brms** goes into compiling the Stan program.
 
-![Overview of various Stan software (source: https://jtimonen.github.io/posts/post-01/)](software.png)
+![Overview of various Stan software (source: https://jtimonen.github.io/posts/post-01/)](./stan_software.png)
 
 
 Although the package **brms** depends on **rstan** as a default backend, there is another software tool worth mentioning: **cmdstanr**. 
@@ -953,7 +958,7 @@ Based on the PPCs we can already see which model fits the data best. Furthermore
 
 Cross-validation (CV) is a family of techniques that attempts to estimate how well a model would predict unknown data through predictions of the model fitted to the known data. You do not necessarily have to collect new data for this. You can split your own data into a test and training dataset. You fit the model to the training dataset and then use that model to estimate how well it can predict the data in the test dataset. With leave-one-out CV (LOOCV) you leave out one observation each time as test dataset and refit the model based on all other observations (= training dataset).
 
-![Figure LOOCV.](loocv.png)
+![Figure LOOCV.](./loocv.png)
 
 ```{r compare-loocv}
 # Add leave-one-out model fit criterium to model objects
@@ -989,7 +994,7 @@ comp_loo %>%
 
 With K-fold cross-validation, the data is split into $K$ groups. We will use $K = 10$ groups (= folds) here. So instead of leaving out a single observation each time, as with leave-one-out CV, we will leave out one $10^{th}$ of the data here. Via the arguments `folds = "stratified"` and `group = "habitat"` we ensure that the relative frequencies of habitat are preserved for each group. This technique will therefore be less precise than the previous one, but will be faster to calculate if you work with a lot of data.
 
-![Figure K-fold CV.](k-foldcv.png)
+![Figure K-fold CV.](./k-foldcv.png)
 
 ```{r compare-K-fold}
 # Add K-fold model fit criterium to model objects
