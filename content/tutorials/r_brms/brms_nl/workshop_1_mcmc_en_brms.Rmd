@@ -1057,7 +1057,7 @@ Zowel o.b.v. de PPC als vergelijkingen met verschillende model selectie criteria
 ## Deep Dive: `rstan`
 ### Stan: Wat? Waarom?!
 De `brms` package is een gemaksverpakking van `rstan`, dat zelf de functionaliteit van `stan` naar R brengt.
-Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de benodigdheden probabilistische ("Bayesiaanse") modellen implementeerd.
+Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de benodigdheden voor probabilistische ("Bayesiaanse") modellen implementeerd.
 
 Meer info vind je [op het internet](https://mc-stan.org).
 
