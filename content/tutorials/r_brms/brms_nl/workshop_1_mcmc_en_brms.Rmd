@@ -1065,7 +1065,7 @@ Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box",
 Het relatieve gebruiksgemak kan echter ten koste gaan van de flexibiliteit en in zekere mate van de leesbaarheid.
 
 Stan en `rstan` daarentegen leunen meer op de wiskundige formulering van modellen.
-Elk aspect van het model moet expliciet worden ingesteld, wat een voordeel kan zijn (bijvoorbeeld als u te maken hebt met niet-standaard use cases) of een nadeel (bijvoorbeeld als u modellen op niet-optionele manieren beveiligt).
+Elk aspect van het model moet expliciet worden ingesteld, wat een voordeel kan zijn (bijvoorbeeld als u te maken hebt met niet-standaard usecases) of een nadeel (bijvoorbeeld als u modellen op niet-optionele manieren beveiligt).
 
 Om kort een indruk te geven, bouwen we dezelfde modellen als hierboven, met behulp van het Stan-framework.
 
