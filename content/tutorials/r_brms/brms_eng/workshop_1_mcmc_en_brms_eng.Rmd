@@ -1197,7 +1197,7 @@ Stan is a modeling framework written in the `C` programming language, which impl
 More info can be found on [the Stan website](https://mc-stan.org).
 
 
-The advantage of `brms` is usability: many functions work out-of-the-box, with reasonable default values, and a syntax that is similar to what frequentists are habituated to.
+The advantage of `brms` is usability: many functions work out-of-the-box, with reasonable default values, and a syntax that is similar to what many statisticians are habituated to.
 However, the relative ease-of-use comes at the cost of flexibility, and do some degree, readability.
 
 In contrast, Stan and `rstan` lean more to the mathematical formulation of models.
