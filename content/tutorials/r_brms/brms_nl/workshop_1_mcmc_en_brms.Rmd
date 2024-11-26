@@ -1187,7 +1187,7 @@ Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de be
 
 Meer info vind je [op het internet](https://mc-stan.org).
 
-Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box", met redelijke standaardwaarden en een syntaxis die lijkt op wat frequentisten gewend zijn.
+Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box", met redelijke standaardwaarden en een syntaxis die lijkt op wat veel statistici gewend zijn.
 Het relatieve gebruiksgemak kan echter ten koste gaan van de flexibiliteit en in zekere mate van de leesbaarheid.
 
 Stan en `rstan` daarentegen leunen meer op de wiskundige formulering van modellen.
@@ -1203,8 +1203,6 @@ conflicted::conflicts_prefer(brms::loo)
 ```
 
 ## Model Definition
-The simple poisson model resembles [one of the `stan`dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
-
 RMarkdown kan `stan`-chunks verwerken, hoewel de algemenere modeldefinitie is uitbesteed aan een apart "*.stan"-bestand.
 Alternatief kan je je model ook als een groot tekstblok definiëren, zoals hieronder te zien.
 Het eenvoudige poissonmodel lijkt op [een van de `stan`-daardvoorbeelden](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), waarnaar u terecht kunt voor verdere details en meer.
