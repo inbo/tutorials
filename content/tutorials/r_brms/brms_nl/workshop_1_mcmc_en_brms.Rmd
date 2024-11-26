@@ -1080,7 +1080,7 @@ conflicted::conflicts_prefer(brms::loo)
 The simple poisson model resembles [one of the `stan`dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
 
 RMarkdown kan `stan`-chunks verwerken, hoewel de algemenere modeldefinitie is uitbesteed aan een apart "*.stan"-bestand.
-Alternatief kan je je model ook als grote tekstblok definiëren, zoals hieronder te zien.
+Alternatief kan je je model ook als een groot tekstblok definiëren, zoals hieronder te zien.
 Het eenvoudige poissonmodel lijkt op [een van de `stan`-daardvoorbeelden](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), waarnaar u terecht kunt voor verdere details en meer.
 
 
