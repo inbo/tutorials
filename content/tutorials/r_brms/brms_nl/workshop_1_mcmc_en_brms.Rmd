@@ -1062,7 +1062,7 @@ Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de be
 Meer info vind je [op het internet](https://mc-stan.org).
 
 Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box", met redelijke standaardwaarden en een syntaxis die lijkt op wat frequentisten gewend zijn.
-Het relatieve gebruiksgemak gaat echter ten koste van de flexibiliteit en in zekere mate de leesbaarheid.
+Het relatieve gebruiksgemak kan echter ten koste gaan van de flexibiliteit en in zekere mate van de leesbaarheid.
 
 Stan en `rstan` daarentegen leunen meer op de wiskundige formulering van modellen.
 Elk aspect van het model moet expliciet worden ingesteld, wat een voordeel kan zijn (bijvoorbeeld als u te maken hebt met niet-standaard use cases) of een nadeel (bijvoorbeeld als u modellen op niet-optionele manieren beveiligt).
