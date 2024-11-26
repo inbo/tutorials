@@ -1166,7 +1166,7 @@ Weet dat Stan er voor u is, aarzel niet om de uitgebreide documentatie te raadpl
 ### Huiswerk: Hierarchical Model
 Om je modelleringsvaardigheden nog verder te ontwikkelen, kun je het "random intercept"-model implementeren en sampelen.
 
-In "Bayesiaanse" termen is het [algemene terminologie is "hiërarchisch" model](https://mc-stan.org/docs/stan-users-guide/regression.html#hierarchical-regression).
+In "Bayesiaanse" termen is de[algemene terminologie een "hiërarchisch" model](https://mc-stan.org/docs/stan-users-guide/regression.html#hierarchical-regression).
 
 Hieronder staat de code die sitespecifieke intercepts overweegt.
 Het werkt iets anders dan de `+(1|site)`-benadering hierboven: de bovenste is een "offset"-parametrisering, terwijl we deze keer een hyperprior gebruiken.
