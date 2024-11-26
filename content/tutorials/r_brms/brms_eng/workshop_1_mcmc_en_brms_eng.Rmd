@@ -523,6 +523,11 @@ Some alternatives also exist:
 ![Overview of various Stan software (source: https://jtimonen.github.io/posts/post-01/)](software.png)
 
 
+Although the package **brms** depends on **rstan** as a default backend, there is another software tool worth mentioning: **cmdstanr**. 
+[Compared to **rstan**, **cmdstanr**]( https://mc-stan.org/cmdstanr/articles/cmdstanr.html#comparison-with-rstan) benefits from more frequent updates and some performance advantages, yet it requires [extra installation steps](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan).
+In the `brm(...)` function introduced below, you can switch these two with the `backend = ...` keyword.
+
+
 # Loading the dataset and data exploration
 
 We load a dataset on the number of ant species in New England (USA). Type `?ants` into the console for more info.

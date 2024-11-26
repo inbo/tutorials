@@ -509,6 +509,9 @@ Er bestaan ook enkele alternatieven:
 
 ![Overzicht van verschillende Stan software (bron: https://jtimonen.github.io/posts/post-01/)](software.png)
 
+Hoewel het pakket **brms** afhankelijk is van **rstan** als standaard backend, is er nog een andere softwaretool die het vermelden waard is: **cmdstanr**.
+[Vergeleken met **rstan** profiteert **cmdstanr**]( https://mc-stan.org/cmdstanr/articles/cmdstanr.html#comparison-with-rstan) van frequentere updates en enkele performance-voordelen, maar vereist het [extra installatiestappen](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan).
+In de hieronder geïntroduceerde functie `brm(...)` kunt u deze twee omwisselen met het trefwoord `backend = ...`.
 
 
 # Dataset laden en data exploratie
