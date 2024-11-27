@@ -38,7 +38,7 @@ jobs:
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
       - name: Archive built site to an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pr-${{ env.PR_NUMBER }}-inbo-tutorials-website
           path: public
