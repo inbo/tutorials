@@ -71,17 +71,17 @@ inbodb), you can do so by providing the necessary parameters:
 ``` r
 my_connection <- DBI::dbConnect(odbc::odbc(),
       driver = "ODBC Driver 17 for SQL Server",
-      server = "inbo-sql07-prd.inbo.be", # or inbo-sql08-prd.inbo.be
+      server = "<server hostname or IP>",
       port = 1433,
       database = "D0021_00_userFlora", # or your database of interest
       trusted_connection = "Yes")
 ```
 
-The most important parameters are `server` and `database`, the others
-should normally be kept as such (except for maybe `driver`). For the
-first one, remember that database names starting with `M`, `S` or `W`
-can be accessed using the `inbo-sql08-prd.inbo.be` server and others
-(mostly with `D`) use the `inbo-sql07-prd.inbo.be` server. The database
+The most important parameters are `server` and `database`, the others should 
+normally be kept as such (except for maybe `driver`).
+For `server`, keep in mind that there is more than one server: database names 
+starting with `M`, `S` or `W` use another server than those starting with `D`.
+The database
 name is the name of the database (if you can’t remember the name,
 connect with a database you do know, e.g. *D0021\_00\_userFlora* and
 you’ll see an overview of the existing databases on that server after
