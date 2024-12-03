@@ -270,7 +270,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Wed Nov 27 10:06:26 UTC 2024</small></p>
+  <p><small>Built on: Tue Dec 3 20:58:18 UTC 2024</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -430,15 +430,15 @@ installation</a>.</p>
 inbodb), you can do so by providing the necessary parameters:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">my_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(odbc::<span style="color:#0a0">odbc</span>(),
       driver = <span style="color:#a50">&#34;ODBC Driver 17 for SQL Server&#34;</span>,
-      server = <span style="color:#a50">&#34;inbo-sql07-prd.inbo.be&#34;</span>, <span style="color:#aaa;font-style:italic"># or inbo-sql08-prd.inbo.be</span>
+      server = <span style="color:#a50">&#34;&lt;server hostname or IP&gt;&#34;</span>,
       port = <span style="color:#099">1433</span>,
       database = <span style="color:#a50">&#34;D0021_00_userFlora&#34;</span>, <span style="color:#aaa;font-style:italic"># or your database of interest</span>
       trusted_connection = <span style="color:#a50">&#34;Yes&#34;</span>)
-</code></pre></div><p>The most important parameters are <code>server</code> and <code>database</code>, the others
-should normally be kept as such (except for maybe <code>driver</code>). For the
-first one, remember that database names starting with <code>M</code>, <code>S</code> or <code>W</code>
-can be accessed using the <code>inbo-sql08-prd.inbo.be</code> server and others
-(mostly with <code>D</code>) use the <code>inbo-sql07-prd.inbo.be</code> server. The database
+</code></pre></div><p>The most important parameters are <code>server</code> and <code>database</code>, the others should
+normally be kept as such (except for maybe <code>driver</code>).
+For <code>server</code>, keep in mind that there is more than one server: database names
+starting with <code>M</code>, <code>S</code> or <code>W</code> use another server than those starting with <code>D</code>.
+The database
 name is the name of the database (if you can’t remember the name,
 connect with a database you do know, e.g. <em>D0021_00_userFlora</em> and
 you’ll see an overview of the existing databases on that server after
