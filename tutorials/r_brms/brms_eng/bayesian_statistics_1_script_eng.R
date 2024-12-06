@@ -48,7 +48,7 @@ confint(lm1, level = 0.9)
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------
-source(file = "./source/mcmc_functions.R")
+source(file = here("code", "brms_modeling", "mcmc_functions.R"))
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ fit_normal1 <- brm(
   family = gaussian(),         # we use the Normal distribution
   data = ants_df,              # specify data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = burnin,
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -335,7 +335,7 @@ mcmc_neff(ratios_fit_normal1) + yaxis_text(hjust = 1)
 
 ## ----simple-model-fit1----------------------------------------------------------------------------------------------------------------
 # Visualise model fit via bayesplot package
-pp_check(fit_normal1, type = "dens_overlay_grouped", ndraws = 100, 
+pp_check(fit_normal1, type = "dens_overlay_grouped", ndraws = 100,
          group = "habitat")
 
 
@@ -346,7 +346,7 @@ fit_poisson1 <- brm(
   family = poisson(),          # we use the Poisson distribution
   data = ants_df,              # specify the data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = burnin,
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -366,7 +366,7 @@ mcmc_rhat(rhats_fit_poisson1) + yaxis_text(hjust = 1)
 
 ## ----poisson-model-fit-vis------------------------------------------------------------------------------------------------------------
 # Visualise model fit via bayesplot package
-pp_check(fit_poisson1, type = "dens_overlay_grouped", ndraws = 100, 
+pp_check(fit_poisson1, type = "dens_overlay_grouped", ndraws = 100,
          group = "habitat")
 
 
@@ -377,7 +377,7 @@ fit_poisson2 <- brm(
   family = poisson(),
   data = ants_df,
   chains = nchains,
-  warmup = burnin, 
+  warmup = burnin,
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -399,7 +399,7 @@ mcmc_rhat(rhats_fit_poisson2) + yaxis_text(hjust = 1)
 ## ----rand-intercept-model-fit-vis-----------------------------------------------------------------------------------------------------
 # Visualise model fit of the Poisson model with random intercept via
 # bayesplot package
-pp_check(fit_poisson2, type = "dens_overlay_grouped", ndraws = 100, 
+pp_check(fit_poisson2, type = "dens_overlay_grouped", ndraws = 100,
          group = "habitat")
 
 
@@ -518,7 +518,7 @@ fit_poisson2 %>%
   # calculate average numbers and convert to long format for visualisation
   mutate(bog = exp(b_Intercept),
          forest = exp(b_Intercept + b_habitatForest)) %>%
-  pivot_longer(cols = c("bog", "forest"), names_to = "habitat", 
+  pivot_longer(cols = c("bog", "forest"), names_to = "habitat",
                values_to = "sp_rich") %>%
   # visualise via ggplot()
   ggplot(aes(y = sp_rich, x = habitat)) +

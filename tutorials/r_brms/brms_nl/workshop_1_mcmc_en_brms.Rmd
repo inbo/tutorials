@@ -35,12 +35,18 @@ library(tidybayes) # nabewerking en visualisatie van Bayesiaanse modellen
 # Conflicten tussen packages
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::lag)
+conflicted::conflicts_prefer(tidyr::extract)
 conflicted::conflicts_prefer(brms::ar)
 conflicted::conflicts_prefer(brms::dstudent_t)
 conflicted::conflicts_prefer(brms::pstudent_t)
 conflicted::conflicts_prefer(brms::qstudent_t)
 conflicted::conflicts_prefer(brms::rstudent_t)
 conflicted::conflict_prefer("rhat", "brms")
+
+# html bestandsgrootte verminderen door grafiekparameters te specifiëren
+knitr::opts_chunk$set(dev = "jpeg", dpi = 56,
+                      fig.width = 4, fig.height = 3,
+                      out.width = "60%")
 ```
 
 # Theoretische achtergrond
@@ -234,7 +240,7 @@ Bij een stap bergop gaat de MCMC altijd door. Is de stap bergaf, dan gaat de MCM
 
 De absolute hoogte van de berg (posterior likelihood) doet er op zich niet toe. Enkel de relatieve verschillen.
 
-![Metropolis regels](../media/MCMC4b.png)
+![Metropolis regels](./mcmc4b.png)
 
 Een eenvoudig MCMC-algoritme is het Metropolis algoritme. Het wordt beschreven door deze formele regels:
 
@@ -293,7 +299,8 @@ confint(lm1, level = 0.9)
 We lezen enkele korte functies in om de (log) likelihood en de prior te berekenen en het MCMC metropolis algoritme uit te voeren.
 
 ```{r}
-source(file = "./source/mcmc_functions.R")
+
+source(file = here("static", "code", "brms_modeling", "mcmc_functions.R"))
 ```
 
 Voor dit eenvoudig model met een kleine dataset kunnen we de posterior voor een groot aantal combinaties voor `beta_0` en `beta_1` uitrekenen en plotten.
@@ -340,7 +347,7 @@ ggplot(df, aes(x = beta_0, y = beta_1, z = post)) +
   theme(legend.position="none")
 ```
 
-De startwaarde ligt een eind van de maximale likelihood. Het duurt even voor de MCMC stabiliseert in de omgeving van de top van de berg. Daarom wordt het eerste deel van de MCMC nooit gebruikt. Dit is de 'burn-in' (of warmp-up in brms).
+De startwaarde ligt een eind van de maximale likelihood. Het duurt even voor de MCMC stabiliseert in de omgeving van de top van de berg. Daarom wordt het eerste deel van de MCMC nooit gebruikt. Dit is de 'warmup' (engels voor opwarmfase; ook 'burn-in' of 'tuning' in andere bibliotheken).
 
 We runnen nu hetzelde model, maar met een veel langere mcmc
 
@@ -387,7 +394,7 @@ Voor elke parameter kan de MCMC worden weergegeven in een 'trace plot'.
 ann_text <- tibble(param = c("beta_0", "beta_1"),
                    x = 210,
                    y = c(max(mcmc_l$beta_0), max(mcmc_l$beta_1)),
-                   lab = "burn-in")
+                   lab = "warmup")
 mcmc_l %>%
   dplyr::select(iter, beta_0, beta_1) %>%
   pivot_longer(cols = c("beta_0", "beta_1"), names_to = "param") %>%
@@ -506,12 +513,14 @@ Er bestaan ook enkele alternatieven:
 - [RStan](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html) is de basis van `brms`. Je hebt `RStan`nodig om `brms`te kunnen gebruiken omdat het rechtstreeks met Stan communiceert. Een model definiëren in "Pure" Stan code is echter redelijk omslachtig.
 - [rstanarm](https://mc-stan.org/rstanarm/articles/index.html) is nog makkelijker dan `brms`qua syntax. Bovendien kan je met `rstanarm` gebruik maken van enkele vooral gecompileerde Stan modellen. Hierdoor duurt het fitten van je model minder lang. Een groot deel van de procestijd van `brms`gaat immers naar het compileren van het Stan programma.
 
-![Overzicht van verschillende Stan software (bron: https://jtimonen.github.io/posts/post-01/)](software.png)
+![Overzicht van verschillende Stan software (bron: https://jtimonen.github.io/posts/post-01/)](./stan_software.png)
+
+Hoewel het pakket **brms** afhankelijk is van **rstan** als standaard backend, is er nog een andere softwaretool die het vermelden waard is: **cmdstanr**.
+[Vergeleken met **rstan** profiteert **cmdstanr**]( https://mc-stan.org/cmdstanr/articles/cmdstanr.html#comparison-with-rstan) van frequentere updates en enkele performance-voordelen, maar vereist het [extra installatiestappen](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan).
+In de hieronder geïntroduceerde functie `brm(...)` kunt u deze twee omwisselen met het trefwoord `backend = ...`.
 
 
-# Een model fitten met brms
-
-## Dataset laden en data exploratie
+# Dataset laden en data exploratie
 
 We laden een dataset in over het aantal mierensoorten in New England (USA). Typ `?ants` in de console voor meer info.
 
@@ -583,6 +592,9 @@ ants_df %>%
 
 Als oefening zullen we een model maken om het aantal soorten te vergelijken tussen beide habitats. Uit de data exploratie zagen we al dat het aantal hoger lijkt te liggen in bossen en dat sites met een hoger aantal in moerassen vaak ook een hoger aantal in bossen hebben.
 
+
+# Een model fitten met `brms`
+
 ## Specificatie van een lineaire regressie
 
 ### Model specificatie
@@ -607,8 +619,8 @@ Eerst en vooral besluiten we welke MCMC parameters we zullen gebruiken. Typ `?br
 ```{r simpel-model-mcmc-par}
 # Instellen MCMC parameters
 nchains <- 3           # aantal chains
-niter <- 2000          # aantal iteraties (incl. burn-in, zie volgende)
-burnin <- niter / 4    # aantal initiële samples om te verwijderen (= burn-in)
+niter <- 2000          # aantal iteraties (incl. warmup, zie volgende)
+warmup <- niter / 4    # aantal initiële samples om te verwijderen (= warmup)
 nparallel <- nchains   # aantal cores voor parallel computing
 thinning <- 1          # verdunningsfactor (hier 1 = geen verdunning)
 ```
@@ -620,14 +632,14 @@ Het model wordt gefit a.d.h.v. de `brm()` functie. De syntax is zeer gelijkaardi
 -   `file` en `file_refit` om het model object op te slaan nadat het gefit is. Als je de code opnieuw runt en het model is al eens opgeslaan, dan zal `brm()` dit model gewoon inladen in plaats van het opnieuw te fitten.
 
 
-```{r simpel-model-fit-poisson}
+```{r simpel-model-fit-poisson, class.source = 'fold-show'}
 # Fit Normaal model
 fit_normal1 <- brm(
   formula = sp_rich ~ habitat, # beschrijving van het model
   family = gaussian(),         # we gebruiken de Normaal verdeling
   data = ants_df,              # ingeven data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -638,7 +650,7 @@ Voor we de resultaten bekijken, controleren we eerst of het model goed convergee
 
 ### MCMC convergentie
 
-Er zijn verschillende manieren om convergentie van het MCMC algoritme voor elke parameter te controleren. Hierbij worden de burn-in samples niet in rekening genomen. Eerst en vooral heb je *visuele controles*.
+Er zijn verschillende manieren om convergentie van het MCMC algoritme voor elke parameter te controleren. Hierbij worden de warmup samples niet in rekening genomen. Eerst en vooral heb je *visuele controles*.
 
 We kunnen de MCMC samples met de `as_draws()` functies verkrijgen ofwel ineens visualiseren via de [bayesplot](https://mc-stan.org/bayesplot/) package die compatibel is met brmsfit objecten.
 
@@ -703,7 +715,7 @@ as_draws_df(fit_normal1, variable = parameters) %>%
   pivot_longer(cols = starts_with(parameters), names_to = "name",
                values_to = "value") %>%
   # splits naam kolom op bij laatste underscore
-  extract(name, into = c("parameter", "statistiek"), "(.*)_([^_]+)$") %>%
+  tidyr::extract(name, into = c("parameter", "statistiek"), "(.*)_([^_]+)$") %>%
   ggplot(aes(y = value, x = .iteration, colour = factor(.chain))) +
     geom_line(aes(linetype = statistiek), linewidth = 0.8) +
     facet_wrap(~parameter, nrow = 3, scales = "free")
@@ -825,14 +837,14 @@ $$
 
 We moeten dus twee parameters schatten: $\beta_0$ en $\beta_1$ We gebruiken dezelfde MCMC parameters als voordien. Het enige wat we moeten aanpassen is de keuze `family = poisson()`.
 
-```{r poisson-model-fit}
+```{r poisson-model-fit, class.source = 'fold-show'}
 # Fit Poisson model
 fit_poisson1 <- brm(
   formula = sp_rich ~ habitat, # beschrijving van het model
   family = poisson(),          # we gebruiken de Poisson verdeling
   data = ants_df,              # ingeven data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -888,14 +900,14 @@ $$
 b_0 \sim N(0, \sigma_b)
 $$
 
-```{r rand-intercept-model-fit}
+```{r rand-intercept-model-fit, class.source = 'fold-show'}
 # Fit Poisson model met random intercepten per site
 fit_poisson2 <- brm(
   formula = sp_rich ~ habitat + (1|site),
   family = poisson(),
   data = ants_df,
   chains = nchains,
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -929,15 +941,15 @@ Hoe kunnen we deze modellen nu objectief gaan vergelijken?
 
 
 
-# Vergelijken van modellen
+## Vergelijken van modellen
 
 Op basis van de PPCs kunnen we reeds zien welk model het best past bij de data. Verder zijn er nog enkele functies die **brms** voorziet om verschillende modellen te vergelijken. Met de functie `add_criterion()` kan je model fit criteria toevoegen aan model objecten. Typ `?add_criterion()` om te zien welke beschikbaar zijn. Zie ook <https://mc-stan.org/loo/articles/online-only/faq.html>
 
-## Leave-one-out cross-validation
+### Leave-one-out cross-validation
 
 Cross-validation (CV) is een familie van technieken die probeert in te schatten hoe goed een model onbekende data zou voorspellen via predicties van het model gefit op de bekende data. Hiervoor moet je niet per se nieuwe data gaan inzamelen. Je kan jouw eigen data opsplitsen in een test en training dataset. Je fit het model op de training dataset en je gebruikt dat model dan om te schatten hoe goed het de data in de test dataset kan voorspellen. Bij leave-one-out CV (LOOCV) ga je telkens één observatie weglaten en het model opnieuw fitten o.b.v. alle andere observaties.
 
-![Illustratie LOOCV.](loocv.png)
+![Illustratie LOOCV.](./loocv.png)
 
 ```{r vergelijken-loocv}
 # Voeg leave-one-out model fit criterium toe aan model objecten
@@ -969,11 +981,11 @@ comp_loo %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## K-fold cross-validation
+### K-fold cross-validation
 
 Bij K-fold cross-validation worden de data in $K$ groepen opgesplitst. Wij zullen hier $K = 10$ groepen (= folds) gebruiken. In plaats van dus telkens één enkele observatie weg te laten zoals bij leave-one-out CV gaan we hier $1/10$e van de data weglaten. Via de argumenten `folds = "stratified"` en `group = "habitat"` zorgen we ervoor dat voor elke groep de relatieve frequenties van habitat bewaard blijven. Deze techniek zal dus minder precies zijn dan de vorige, maar zal sneller zijn om te berekenen indien je met heel veel data werkt.
 
-![Illustratie K-fold CV.](k-foldcv.png)
+![Illustratie K-fold CV.](./k-foldcv.png)
 
 ```{r vergelijken-K-fold}
 # Voeg K-fold model fit criterium toe aan model objecten
@@ -1014,7 +1026,7 @@ comp_kfold %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## WAIC
+### WAIC
 
 Het Widely Applicable Information Criterion (WAIC) maakt geen gebruik van cross-validation maar is een computationele manier om de ELPD te schatten. Hoe dit precies gebeurt valt buiten het doel van deze workshop. Het is nog een andere maat om model selectie toe te passen.
 
@@ -1046,9 +1058,11 @@ comp_waic %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## Conclusie
+### Conclusie
 
 Zowel o.b.v. de PPC als vergelijkingen met verschillende model selectie criteria, kunnen we besluiten dat het tweede Poisson model met random intercepts het best past bij de data. In principe konden we dit ook verwachten op basis van onze eigen intuïtie en het design van de studie, nl. het gebruik van de Poisson distributie om aantallen te modelleren en het gebruik van random intercepts om te controleren voor een hiërarchisch design (habitats genest in sites).
+
+
 
 # Resultaten finale model
 
@@ -1172,6 +1186,181 @@ t_test_normal1
 ```
 
 We zien dat dit inderdaad bijna exact dezelfde resultaten oplevert. Ons Bayesiaans model schat dat er gemiddeld `r round(verschil_moeras1, 3)` meer mierensoorten in bossen voorkomen dan in moerassen (90 % credible interval: `r round(ll_verschil_moeras1, 3)` tot `r round(ul_verschil_moeras1, 3)`). De t-test schat dat er gemiddeld `r round(verschil_moeras2, 3)` meer mierensoorten in bossen voorkomen dan in moerassen (90 % confidence interval: `r round(ll_verschil_moeras2, 3)` tot `r round(ul_verschil_moeras2, 3)`).
+
+
+
+# Deep Dive: `rstan`
+## Stan: Wat? Waarom?!
+De `brms` package is een gemaksverpakking van `rstan`, dat zelf de functionaliteit van `stan` naar R brengt.
+Stan is een modeleringsomgeving, geschreven in de programmeertaal `C`, die de benodigdheden voor probabilistische ("Bayesiaanse") modellen implementeerd.
+
+Meer info vind je [op het internet](https://mc-stan.org).
+
+Het voordeel van `brms` is bruikbaarheid: veel functies werken "out-of-the-box", met redelijke standaardwaarden en een syntaxis die lijkt op wat veel statistici gewend zijn.
+Het relatieve gebruiksgemak kan echter ten koste gaan van de flexibiliteit en in zekere mate van de leesbaarheid.
+
+Stan en `rstan` daarentegen leunen meer op de wiskundige formulering van modellen.
+Elk aspect van het model moet expliciet worden ingesteld, wat een voordeel kan zijn (bijvoorbeeld als u te maken hebt met niet-standaard usecases) of een nadeel (bijvoorbeeld als u modellen op niet-optimale manieren specificeert).
+
+Om kort een indruk te geven, bouwen we dezelfde modellen als hierboven, met behulp van het Stan-framework.
+
+
+```{r}
+library("rstan")
+conflicted::conflicts_prefer(rstan::extract)
+conflicted::conflicts_prefer(brms::loo)
+```
+
+## Model Definition
+RMarkdown kan `stan`-chunks verwerken, hoewel de algemenere modeldefinitie is uitbesteed aan een apart "*.stan"-bestand (bv. [hier](https://github.com/inbo/tutorials/tree/master/static/code/brms_modeling/poisson_model.stan)).
+Alternatief kan je je model ook als een groot tekstblok definiëren, zoals hieronder te zien.
+Het eenvoudige poissonmodel lijkt op [een van de `stan`-daardvoorbeelden](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), waarnaar u terecht kunt voor verdere details en meer.
+
+
+```{r stan_poisson_simple, eval=TRUE, output.var="", class.source='fold-show'}
+stan_poisson_model_code = '
+data {
+  int<lower=1> N;                   // sample size
+  vector[N] habitat_obs;            // habitat
+  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
+}
+
+parameters {
+  real intercept_rich;              // intercept
+  real habitat_effect;              // slope
+}
+
+model {
+  // priors
+  intercept_rich ~ normal(0, 1);
+  habitat_effect ~ normal(0, 1);
+
+  // "posterior", "likelihood", ... give it a name!
+  sp_rich ~ poisson_log(intercept_rich + habitat_effect * habitat_obs);
+
+}
+
+'
+```
+
+
+
+Zie dit als een "kijkje achter de schermen"!
+Je moet expliciet de modelstructuur, priors en zelfs de gegevenstypen van invoervariabelen definiëren.
+Maar let op hoe zelfs Stan niet zonder handige functies is: we kunnen de `poisson_log` posterior gebruiken om de $log(\lambda )$ te modelleren.
+
+Als je buiten RStudio/RMarkdown werkt, kun je het model het beste laden vanuit een bestand:
+
+```{r stan_load_model, eval=TRUE, class.source='fold-show'}
+stan_poisson_model <- stan_model(
+  # file = here("code", "brms_modeling", "poisson_model.stan"),
+  model_code = stan_poisson_model_code, 
+  model_name = "stan poisson model"
+  )
+```
+
+
+## Sampling
+
+Sampling doet vrijwel hetzelfde als hierboven, want in de kern is `brms` gewoon `stan`.
+
+```{r stan_sampling}
+stan_poisson_fit <- sampling(
+  stan_poisson_model,
+  list(
+    N = nrow(ants_df),
+    habitat_obs = as.integer(ants_df$habitat)-1,
+    sp_rich = ants_df$sp_rich
+    ),
+  iter = niter,
+  chains = nchains,
+  cores = nparallel
+  )
+
+stan_poisson_fit
+```
+
+Een handige manier om modelfits snel te inspecteren is `shinystan`.
+Het opent een browser met glanzende plots.
+
+```{r eval=FALSE}
+library("shinystan")
+launch_shinystan(stan_poisson_fit)
+```
+
+
+En kijk: de modeluitkomst is precies zoals boven.
+In het huidige geval is het voordeel van het overstappen op `stan` zeer beperkt.
+In andere gevallen kan het lonen.
+
+Weet dat Stan er voor u is, aarzel niet om de uitgebreide documentatie te raadplegen en wees niet bang om het te proberen!
+
+
+## Huiswerk: Hierarchical Model
+Om je modelleringsvaardigheden nog verder te ontwikkelen, kun je het "random intercept"-model implementeren en sampelen.
+
+In "Bayesiaanse" termen is de[algemene terminologie een "hiërarchisch" model](https://mc-stan.org/docs/stan-users-guide/regression.html#hierarchical-regression).
+
+Hieronder staat de code die sitespecifieke intercepts overweegt.
+Het werkt iets anders dan de `+(1|site)`-benadering hierboven: de bovenste is een "offset"-parametrisering, terwijl we deze keer een hyperprior gebruiken.
+Dit zijn twee veelvoorkomende strategieën die vaak allebei de moeite waard zijn om te proberen, met marginale of substantiële effecten op de samplerprestaties.
+
+
+```{stan, eval=FALSE, output.var="stan_hierarchical_poisson"}
+data {
+  int<lower=1> N;                   // sample size
+  int<lower=1> L;                   // number of sites
+  vector[N] habitat_obs;            // habitat
+  array[N] int<lower=1, upper=L> site_obs; // site
+  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
+}
+
+parameters {
+  real intercept_rich;              // "global" intercept
+  vector[L] site_effect;            // the sr intercept at each site
+  real<lower=0> site_variation;     // variation on site level
+  real habitat_effect;              // habitat slope
+}
+
+model {
+  // priors
+  intercept_rich ~ normal(0, 1);
+  site_variation ~ cauchy(0, 1);
+  habitat_effect ~ normal(0, 1);
+
+  // site-wise intercept
+  for (i in 1:L) {
+    site_effect[i] ~ normal(intercept_rich, site_variation);
+  }
+
+  // "posterior", "likelihood", ... give it a name!
+  sp_rich ~ poisson_log(site_effect[site_obs] + habitat_effect * habitat_obs);
+
+}
+```
+
+
+```{r, eval=FALSE, stan_hierarchical_sampling}
+stan_poisson_fit <- sampling(
+  stan_poisson_model,
+  list(
+    N = nrow(ants_df),
+    L = length(levels(ants_df$site)),
+    habitat_obs = as.integer(ants_df$habitat)-1,
+    site_obs = as.integer(ants_df$site),
+    sp_rich = ants_df$sp_rich
+    ),
+  iter = niter,
+  chains = nchains,
+  cores = nparallel
+  )
+
+stan_poisson_fit
+```
+
+Met Stan zijn de mo(g)e(i)lijkheden bijna eindeloos. 
+Raak niet verstrikt in het bouwen van modellen!
+
 
 
 # Referenties {-}

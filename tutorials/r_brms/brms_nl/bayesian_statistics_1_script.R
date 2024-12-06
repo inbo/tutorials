@@ -48,7 +48,7 @@ confint(lm1, level = 0.9)
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------
-source(file = "./source/mcmc_functions.R")
+source(file = here::here("code", "brms_modeling", "mcmc_functions.R"))
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------
@@ -232,7 +232,7 @@ fit_normal1 <- brm(
   family = gaussian(),         # we gebruiken de Normaal verdeling
   data = ants_df,              # ingeven data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = burnin,
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -298,7 +298,7 @@ as_draws_df(fit_normal1, variable = parameters) %>%
 
 
 ## ----simpel-model-posterior-density2--------------------------------------------------------------------------------------------------
-# Visualisatie density plot van de posterior voor ieder van de chains apart in 
+# Visualisatie density plot van de posterior voor ieder van de chains apart in
 # overlay. via Bayesplot package
 mcmc_dens_overlay(fit_normal1, pars = parameters)
 
@@ -337,7 +337,7 @@ mcmc_neff(ratios_fit_normal1) + yaxis_text(hjust = 1)
 
 ## ----simpel-model-fit1----------------------------------------------------------------------------------------------------------------
 # Visualiseer model fit via Bayesplot package
-pp_check(fit_normal1, type = "dens_overlay_grouped", ndraws = 100, 
+pp_check(fit_normal1, type = "dens_overlay_grouped", ndraws = 100,
          group = "habitat")
 
 
@@ -348,7 +348,7 @@ fit_poisson1 <- brm(
   family = poisson(),          # we gebruiken de Poisson verdeling
   data = ants_df,              # ingeven data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = burnin,
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -368,7 +368,7 @@ mcmc_rhat(rhats_fit_poisson1) + yaxis_text(hjust = 1)
 
 ## ----poisson-model-fit-vis------------------------------------------------------------------------------------------------------------
 # Visualiseer model fit via Bayesplot package
-pp_check(fit_poisson1, type = "dens_overlay_grouped", ndraws = 100, 
+pp_check(fit_poisson1, type = "dens_overlay_grouped", ndraws = 100,
          group = "habitat")
 
 
@@ -379,7 +379,7 @@ fit_poisson2 <- brm(
   family = poisson(),
   data = ants_df,
   chains = nchains,
-  warmup = burnin, 
+  warmup = burnin,
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -401,7 +401,7 @@ mcmc_rhat(rhats_fit_poisson2) + yaxis_text(hjust = 1)
 ## ----rand-intercept-model-fit-vis-----------------------------------------------------------------------------------------------------
 # Visualiseer model fit van het Poisson model met random intercept via
 # Bayesplot package
-pp_check(fit_poisson2, type = "dens_overlay_grouped", ndraws = 100, 
+pp_check(fit_poisson2, type = "dens_overlay_grouped", ndraws = 100,
          group = "habitat")
 
 
@@ -520,7 +520,7 @@ fit_poisson2 %>%
   # bereken gemiddelde aantallen en zet om naar lang formaat voor visualisatie
   mutate(bog = exp(b_Intercept),
          forest = exp(b_Intercept + b_habitatForest)) %>%
-  pivot_longer(cols = c("bog", "forest"), names_to = "habitat", 
+  pivot_longer(cols = c("bog", "forest"), names_to = "habitat",
                values_to = "sp_rich") %>%
   # visualiseer via ggplot()
   ggplot(aes(y = sp_rich, x = habitat)) +

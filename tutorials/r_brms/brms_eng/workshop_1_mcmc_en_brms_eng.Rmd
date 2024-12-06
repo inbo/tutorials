@@ -36,12 +36,18 @@ library(tidybayes) # wrangling and visualising Bayesian models
 # Conflicten tussen packages
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::lag)
+conflicted::conflicts_prefer(tidyr::extract)
 conflicted::conflicts_prefer(brms::ar)
 conflicted::conflicts_prefer(brms::dstudent_t)
 conflicted::conflicts_prefer(brms::pstudent_t)
 conflicted::conflicts_prefer(brms::qstudent_t)
 conflicted::conflicts_prefer(brms::rstudent_t)
 conflicted::conflict_prefer("rhat", "brms")
+
+# reduce html export file size by specifying graphics size
+knitr::opts_chunk$set(dev = "jpeg", dpi = 56,
+                      fig.width = 4, fig.height = 3,
+                      out.width = "60%")
 ```
 
 # Theoretical background
@@ -239,7 +245,7 @@ When taking a step uphill, the MCMC always continues. If the step is downhill, t
 The absolute height of the mountain (posterior likelihood) in itself does not matter. Only the relative differences or shape of the mountain matters.
 This means that we do not need to calculate the denominator of Bayes' rule, which is the reason why the algorithm is frequently used in Bayesian statistics.
 
-![Metropolis rules](../media/MCMC4b.png)
+![Metropolis rules](./mcmc4b.png)
 
 A simple MCMC algorithm is the Metropolis algorithm. It is described by these formal rules:
 
@@ -297,7 +303,7 @@ confint(lm1, level = 0.9)
 We source some short functions to calculate the (log) likelihood and the prior and to execute the MCMC metropolis algorithm.
 
 ```{r}
-source(file = "./source/mcmc_functions.R")
+source(file = here("static", "code", "brms_modeling", "mcmc_functions.R"))
 ```
 
 For this simple model with a small data set, we can calculate and plot the posterior for a large number of combinations of 'beta_0' and 'beta_1'.
@@ -345,7 +351,7 @@ ggplot(df, aes(x = beta_0, y = beta_1, z = post)) +
 
 The starting value is quite far from the maximum likelihood.
 It takes a while for the MCMC to stabilize in the vicinity of the top of the mountain.
-Therefore, the first part of the MCMC is never used. This is called the 'burn-in' or 'warm-up'.
+Therefore, the first part of the MCMC is never used. This is called the 'warmup', 'burn-in' or 'tuning'.
 
 We now run the same model, but with a much longer MCMC (more iterations):
 
@@ -392,7 +398,7 @@ The MCMC for each parameter can be displayed in a so called 'trace plot' where w
 ann_text <- tibble(param = c("beta_0", "beta_1"),
                    x = 210,
                    y = c(max(mcmc_l$beta_0), max(mcmc_l$beta_1)),
-                   lab = "burn-in")
+                   lab = "warmup")
 mcmc_l %>%
   dplyr::select(iter, beta_0, beta_1) %>%
   pivot_longer(cols = c("beta_0", "beta_1"), names_to = "param") %>%
@@ -519,11 +525,15 @@ Some alternatives also exist:
 - [**rstan**](https://cran.r-project.org/web/packages/rstan/vignettes/rstan.html) is the basis of **brms**. You need **rstan** to use **brms** because it communicates directly with Stan. A model composed in "pure" Stan code can be fitted with the **rstan** package in R (so without using **brms**), but can be quite complex.
 - [**rstanarm**](https://mc-stan.org/rstanarm/articles/index.html) is similar to **brms** in terms of complexity of the syntax. Moreover, with the **rstanarm** package you can use some pre-compiled Stan models. This means that fitting your model takes less time. A large part of the process time of **brms** goes into compiling the Stan program.
 
-![Overview of various Stan software (source: https://jtimonen.github.io/posts/post-01/)](software.png)
+![Overview of various Stan software (source: https://jtimonen.github.io/posts/post-01/)](./stan_software.png)
 
-# Fitting a model with brms
 
-## Loading the dataset and data exploration
+Although the package **brms** depends on **rstan** as a default backend, there is another software tool worth mentioning: **cmdstanr**. 
+[Compared to **rstan**, **cmdstanr**]( https://mc-stan.org/cmdstanr/articles/cmdstanr.html#comparison-with-rstan) benefits from more frequent updates and some performance advantages, yet it requires [extra installation steps](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan).
+In the `brm(...)` function introduced below, you can switch these two with the `backend = ...` keyword.
+
+
+# Loading the dataset and data exploration
 
 We load a dataset on the number of ant species in New England (USA). Type `?ants` into the console for more info.
 
@@ -593,6 +603,9 @@ ants_df %>%
 As an exercise, we will create a model to compare the number of species between both habitats.
 From the data exploration, we already saw that the number of species seems to be higher in forests and that sites with a higher number in bogs often also have a higher number in forests.
 
+
+# Fitting a model with `brms`
+
 ## Specification of a linear regression
 
 ### Model specification
@@ -617,8 +630,8 @@ First of all we decide which MCMC parameters we will use. Type `?brm` to see wha
 ```{r simple-model-mcmc-par}
 # Set MCMC parameters
 nchains <- 3 # number of chains
-niter <- 2000 # number of iterations (incl. burn-in, see next)
-burnin <- niter / 4 # number of initial samples to remove (= burn-in)
+niter <- 2000 # number of iterations (incl. warmup, see next)
+warmup <- niter / 4 # number of initial samples to remove (= warmup)
 nparallel <- nchains # number of cores for parallel computing
 thinning <- 1 # thinning factor (here 1 = no thinning)
 ```
@@ -630,14 +643,14 @@ The model is fitted using the `brm()` function. The syntax is very similar to fu
 - `file` and `file_refit` to save the model object after it has been fitted. If you run the code again and the model has already been saved, `brm()` will simply load this model instead of refitting it.
 
 
-```{r simple-model-fit-poisson}
+```{r simple-model-fit-poisson, class.source='fold-show'}
 # Fit Normal model
 fit_normal1 <- brm(
   formula = sp_rich ~ habitat, # specify the model
   family = gaussian(),         # we use the Normal distribution
   data = ants_df,              # specify data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -649,7 +662,7 @@ Before we look at the results, we first check whether the model converges well.
 
 ### MCMC convergence
 
-There are several ways to check convergence of the MCMC algorithm for each parameter. The burn-in samples are not taken into account. First and foremost, you have *visual controls*.
+There are several ways to check convergence of the MCMC algorithm for each parameter. The warmup samples are not taken into account. First and foremost, you have *visual controls*.
 
 We can obtain the MCMC samples with the `as_draws()` functions or visualise them at once via the [**bayesplot**](https://mc-stan.org/bayesplot/) package that is compatible with brmsfit objects.
 
@@ -714,7 +727,7 @@ as_draws_df(fit_normal1, variable = parameters) %>%
   pivot_longer(cols = starts_with(parameters), names_to = "name",
                values_to = "value") %>%
   # split columns names at the last underscore
-  extract(name, into = c("parameter", "statistic"), "(.*)_([^_]+)$") %>%
+  tidyr::extract(name, into = c("parameter", "statistic"), "(.*)_([^_]+)$") %>%
   ggplot(aes(y = value, x = .iteration, colour = factor(.chain))) +
     geom_line(aes(linetype = statistic), linewidth = 0.8) +
     facet_wrap(~parameter, nrow = 3, scales = "free")
@@ -836,14 +849,14 @@ $$
 
 So we need to estimate two parameters: $\beta_0$ and $\beta_1$ We use the same MCMC parameters as before. The only thing we need to adjust is the choice `family = poisson()`.
 
-```{r poisson-model-fit}
+```{r poisson-model-fit, class.source='fold-show'}
 # Fit Poisson model
 fit_poisson1 <- brm(
   formula = sp_rich ~ habitat, # specify the model
   family = poisson(),          # we use the Poisson distribution
   data = ants_df,              # specify the data
   chains = nchains,            # MCMC parameters
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -898,14 +911,14 @@ $$
 b_0 \sim N(0, \sigma_b)
 $$
 
-```{r rand-intercept-model-fit}
+```{r rand-intercept-model-fit, class.source='fold-show'}
 # Fit Poisson model with random intercept per site
 fit_poisson2 <- brm(
   formula = sp_rich ~ habitat + (1|site),
   family = poisson(),
   data = ants_df,
   chains = nchains,
-  warmup = burnin, 
+  warmup = warmup, 
   iter = niter,
   cores = nparallel,
   thin = thinning,
@@ -937,15 +950,15 @@ pp_check(fit_poisson2, type = "dens_overlay_grouped", ndraws = 100,
 
 How can we objectively compare these models?
 
-# Compare models
+## Compare models
 
 Based on the PPCs we can already see which model fits the data best. Furthermore, there are some functions that **brms** provides to compare different models. With the function `add_criterion()` you can add model fit criteria to model objects. Type `?add_criterion()` to see which ones are available. See also <https://mc-stan.org/loo/articles/online-only/faq.html>
 
-## Leave-one-out cross validation
+### Leave-one-out cross validation
 
 Cross-validation (CV) is a family of techniques that attempts to estimate how well a model would predict unknown data through predictions of the model fitted to the known data. You do not necessarily have to collect new data for this. You can split your own data into a test and training dataset. You fit the model to the training dataset and then use that model to estimate how well it can predict the data in the test dataset. With leave-one-out CV (LOOCV) you leave out one observation each time as test dataset and refit the model based on all other observations (= training dataset).
 
-![Figure LOOCV.](loocv.png)
+![Figure LOOCV.](./loocv.png)
 
 ```{r compare-loocv}
 # Add leave-one-out model fit criterium to model objects
@@ -977,11 +990,11 @@ comp_loo %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## K-fold cross-validation
+### K-fold cross-validation
 
 With K-fold cross-validation, the data is split into $K$ groups. We will use $K = 10$ groups (= folds) here. So instead of leaving out a single observation each time, as with leave-one-out CV, we will leave out one $10^{th}$ of the data here. Via the arguments `folds = "stratified"` and `group = "habitat"` we ensure that the relative frequencies of habitat are preserved for each group. This technique will therefore be less precise than the previous one, but will be faster to calculate if you work with a lot of data.
 
-![Figure K-fold CV.](k-foldcv.png)
+![Figure K-fold CV.](./k-foldcv.png)
 
 ```{r compare-K-fold}
 # Add K-fold model fit criterium to model objects
@@ -1023,7 +1036,7 @@ comp_kfold %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## WAIC
+### WAIC
 
 The Widely Applicable Information Criterion (WAIC) does not use cross-validation but is a computational way to estimate the ELPD. How this happens exactly is beyond the purpose of this tutorial. It is yet another measure to apply model selection.
 
@@ -1055,9 +1068,11 @@ comp_waic %>%
          ul_diff = elpd_diff  + qnorm(0.95) * se_diff)
 ```
 
-## Conclusion
+### Conclusion
 
 Both based on the PPC and the comparisons with different model selection criteria, we can conclude that the second Poisson model with random intercepts fits the data best. In principle, we could have expected this based on our own intuition and the design of the study, i.e. the use of the Poisson distribution to model numbers and the use of random intercepts to control for a hierarchical design (habitats nested within sites).
+
+
 
 # Final model results
 
@@ -1183,6 +1198,181 @@ t_test_normal1
 ```
 
 We see that this indeed produces almost exactly the same results. Our Bayesian model estimates that on average `r round(diff_bog1, 3)` more ant species occur in forests than in bogs (90% credible interval:  `r round(ll_diff_bog1, 3)` to `r round(ul_diff_bog1, 3)`). The t-test estimates that on average `r round(diff_bog2, 3)` more ant species occur in forests than in bogs (90% confidence interval: `r round(ll_diff_bog2, 3)` to `r round(ul_diff_bog2, 3)`).
+
+
+# Deep Dive: `rstan`
+## Stan: What? Why?!
+The `brms` package is a convenience wrapper for the `rstan` package, which in turn ports `stan` functionality to R. 
+Stan is a modeling framework written in the `C` programming language, which implements many probabilistic ("Bayesian") modeling tools.
+More info can be found on [the Stan website](https://mc-stan.org).
+
+
+The advantage of `brms` is usability: many functions work out-of-the-box, with reasonable default values, and a syntax that is similar to what many statisticians are habituated to.
+However, the relative ease-of-use comes at the cost of flexibility, and do some degree, readability.
+
+In contrast, Stan and `rstan` lean more to the mathematical formulation of models.
+Every aspect of the model has to be explicitly set, which can be an advantage (e.g. if you face non-standard use cases), or disadvantage (e.g. if you specify models in non-optimal ways).
+
+
+To briefly give an impression, we will build the same models as above, using the Stan framework.
+
+
+```{r}
+library("rstan")
+conflicted::conflicts_prefer(rstan::extract)
+conflicted::conflicts_prefer(brms::loo)
+```
+
+## Model Definition
+RMarkdown can handle `stan` code chunks, though more general model definition is outsourced to a separate "*.stan" file (e.g. [here](https://github.com/inbo/tutorials/tree/master/static/code/brms_modeling/poisson_model.stan)).
+Alternatively, you can define your model in a big text block, as shown below.
+The simple poisson model resembles [one of the `stan`-dard examples](https://mc-stan.org/docs/stan-users-guide/posterior-prediction.html#posterior-prediction-for-regressions), which you can refer to for all further details and more.
+
+
+```{r stan_poisson_simple, eval=TRUE, output.var="", class.source='fold-show'}
+stan_poisson_model_code = '
+data {
+  int<lower=1> N;                   // sample size
+  vector[N] habitat_obs;            // habitat
+  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
+}
+
+parameters {
+  real intercept_rich;              // intercept
+  real habitat_effect;              // slope
+}
+
+model {
+  // priors
+  intercept_rich ~ normal(0, 1);
+  habitat_effect ~ normal(0, 1);
+
+  // "posterior", "likelihood", ... give it a name!
+  sp_rich ~ poisson_log(intercept_rich + habitat_effect * habitat_obs);
+
+}
+
+'
+```
+
+
+Take this as a "look behind the scenes"!
+You have to explicitly define the model structure, priors, even the data types of input variables.
+Yet note how even Stan is not without convenience functions: we can use the `poisson_log` posterior to model log rates.
+
+
+When working outside RStudio/RMarkdown, you might prefer loading the model from a file:
+
+```{r stan_load_model, eval=TRUE, class.source='fold-show'}
+stan_poisson_model <- stan_model(
+  # file = here("code", "brms_modeling", "poisson_model.stan"),
+  model_code = stan_poisson_model_code, 
+  model_name = "stan poisson model"
+  )
+```
+
+
+## Sampling
+
+Sampling does pretty much the same as above, since at the core, `brms` is just `stan`.
+
+```{r stan_sampling}
+stan_poisson_fit <- sampling(
+  stan_poisson_model,
+  list(
+    N = nrow(ants_df),
+    habitat_obs = as.integer(ants_df$habitat)-1,
+    sp_rich = ants_df$sp_rich
+    ),
+  iter = niter,
+  chains = nchains,
+  cores = nparallel
+  )
+
+stan_poisson_fit
+```
+
+
+A convenient way of quickly inspecting model fits is `shinystan`.
+It opens a browser with shiny plots.
+
+```{r eval=FALSE}
+library("shinystan")
+launch_shinystan(stan_poisson_fit)
+```
+
+
+Behold: model outcome is exactly as above.
+In the present case, the benefit from turning to `stan` is very limited.
+In other cases, it might pay off.
+
+Know that Stan is there for you, do not hesitate to turn to its extensive documentation, and do not fear to give it a try!
+
+
+## Homework: Hierarchical Model
+To take your modeling skills even further, you may implement and sample the "random intercept" model.
+In "Bayesian" terms, the [general terminology is "hierarchical" model](https://mc-stan.org/docs/stan-users-guide/regression.html#hierarchical-regression).
+
+
+Below is the code which considers site-specific intercepts.
+It works slightly different from the `+(1|site)` approach above: the upper one is an "offset" parametrization, whereas this time we use a hyperprior.
+These are two common strategies often worth interchanging, with marginal or substantial effects on sampler performance.
+
+
+```{stan, eval=FALSE, output.var="stan_hierarchical_poisson"}
+data {
+  int<lower=1> N;                   // sample size
+  int<lower=1> L;                   // number of sites
+  vector[N] habitat_obs;            // habitat
+  array[N] int<lower=1, upper=L> site_obs; // site
+  array[N] int<lower=0> sp_rich;    // outcome variable: number of ants
+}
+
+parameters {
+  real intercept_rich;              // "global" intercept
+  vector[L] site_effect;            // the sr intercept at each site
+  real<lower=0> site_variation;     // variation on site level
+  real habitat_effect;              // habitat slope
+}
+
+model {
+  // priors
+  intercept_rich ~ normal(0, 1);
+  site_variation ~ cauchy(0, 1);
+  habitat_effect ~ normal(0, 1);
+
+  // site-wise intercept
+  for (i in 1:L) {
+    site_effect[i] ~ normal(intercept_rich, site_variation);
+  }
+
+  // "posterior", "likelihood", ... give it a name!
+  sp_rich ~ poisson_log(site_effect[site_obs] + habitat_effect * habitat_obs);
+
+}
+```
+
+
+```{r, eval=FALSE, stan_hierarchical_sampling}
+stan_poisson_fit <- sampling(
+  stan_poisson_model,
+  list(
+    N = nrow(ants_df),
+    L = length(levels(ants_df$site)),
+    habitat_obs = as.integer(ants_df$habitat)-1,
+    site_obs = as.integer(ants_df$site),
+    sp_rich = ants_df$sp_rich
+    ),
+  iter = niter,
+  chains = nchains,
+  cores = nparallel
+  )
+
+stan_poisson_fit
+```
+
+With Stan, po(i)ssibilities are almost endless - don't get lost in model building!
+
 
 
 # References {-}
