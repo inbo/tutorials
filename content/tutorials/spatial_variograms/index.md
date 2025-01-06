@@ -167,6 +167,7 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-raw-dat
 id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." />
 <figcaption>Figure 1: The raw data, unsmoothed.</figcaption>
 
+
 If you look closely, the upper right is more golden than the lower-left.
 This is the effect of covariate `a`.
 Symbols indicate the categorical covariate `b`.
@@ -235,6 +236,8 @@ plot(data$x, data$y, col = color, pch = 20)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-smooth-data-1.png"
 id="fig-smooth-data"
 alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping." />
+<figcaption>Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping.</figcaption>
+
 
 Nice and smooth.
 Feel free to draw a sunset by adjusting `a`.
@@ -274,6 +277,8 @@ plot(data$x, data$y, col = color, pch = 20)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-data-detrend-1.png"
 id="fig-data-detrend"
 alt="Figure 3: The smoothed data, again, after de-trending." />
+<figcaption>Figure 3: The smoothed data, again, after de-trending.</figcaption>
+
 
 {{% callout note %}}
 Whether or not to de-trend prior to variogram calculation is a crucial design decision.
@@ -348,6 +353,8 @@ dist_diff %>%
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-difference-distance-1.png"
 id="fig-difference-distance"
 alt="Figure 4: The difference-distance plot, visualized here as box-and-whiskers. Sorry for the ugly x-axis tick labels." />
+<figcaption>Figure 4: The difference-distance plot, visualized here as box-and-whiskers. Sorry for the ugly x-axis tick labels.</figcaption>
+
 
 ## Eminent Empirics
 
@@ -373,6 +380,8 @@ par(mfrow = c(1,1))
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-empirical-variogram-1.png"
 id="fig-empirical-variogram"
 alt="Figure 5: The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance." />
+<figcaption>Figure 5: The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance.</figcaption>
+
 
 You might call the right one (<a href="#fig-empirical-variogram" class="quarto-xref">Figure 5</a>, right) the "empirical variogram", if you like.
 It is effectively a variogram.
@@ -471,6 +480,8 @@ ggplot(NULL, aes(x = x, y = y)) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-linear-regression-1.png"
 id="fig-linear-regression"
 alt="Figure 6: In principle, you can fit anything you like to the semivariance." />
+<figcaption>Figure 6: In principle, you can fit anything you like to the semivariance.</figcaption>
+
 
 Observations:
 
@@ -592,6 +603,8 @@ plot_residuals_histogram(x, y, predictor_function,
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-matern-residuals-1.png"
 id="fig-matern-residuals"
 alt="Figure 7: Residual distribution of the Matérn model for semivariance." />
+<figcaption>Figure 7: Residual distribution of the Matérn model for semivariance.</figcaption>
+
 
 The regression results are 8.4748, 26.2594.
 
@@ -626,6 +639,8 @@ ggplot(NULL, aes(x = x, y = y)) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-matern-variogram-1.png"
 id="fig-matern-variogram"
 alt="Figure 8: Residual distribution of the Matérn model for semivariance." />
+<figcaption>Figure 8: Residual distribution of the Matérn model for semivariance.</figcaption>
+
 
 Whenever it works (I had to give it good starting values), the fit is quite good, but not perfect.
 Our Matérn implementation does not allow decreasing semivariance, but on the other hand decreasing semivariance would griefly violate Tobler's observation.
@@ -739,6 +754,8 @@ range_b1 <- plot_matern_variogram(
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-1.png"
 id="fig-subdata-variogram"
 alt="Figure 9: Variogram of the sub-data in the b == 1 category." />
+<figcaption>Figure 9: Variogram of the sub-data in the b == 1 category.</figcaption>
+
 
 The range of the full data set with two different categories mixed is 67.798424.
 If we only include one of the categories, making the data points more similar, range is 70.4161378.
@@ -768,6 +785,8 @@ range_trended <- plot_matern_variogram(
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-nodetrend-1.png"
 id="fig-variogram-nodetrend"
 alt="Figure 10: Variogram of the data with de-trending disabled." />
+<figcaption>Figure 10: Variogram of the data with de-trending disabled.</figcaption>
+
 
 Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
 which does not match the Matérn model.
@@ -800,6 +819,8 @@ range_raw <- plot_matern_variogram(
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-rawdata-1.png"
 id="fig-variogram-rawdata"
 alt="Figure 11: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation." />
+<figcaption>Figure 11: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation.</figcaption>
+
 
 As expected, with purely random data, Tobler's law does not apply.
 (The jitter on close points is due to lower sample size.)

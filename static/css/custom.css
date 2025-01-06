@@ -1,5 +1,6 @@
 /* Custom CSS */
 
+/* callout boxes */
 /* cf. https://rossabaker.com/configs/website/shortcodes/callout/ */
 .callout {
     margin: 1.5rem 0;
@@ -20,6 +21,14 @@
 .callout-warning {
     border-color: #ffaa00;
     background: #fff4c6;
+}
+
+/* callout boxes */
+/* cf. https://thesynack.com/posts/markdown-captions */
+figcaption {
+  font-style: italic;
+  padding: 2px;
+  text-align: center;
 }
 
 /* SIDEBAR */
