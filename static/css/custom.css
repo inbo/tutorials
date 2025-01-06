@@ -27,8 +27,8 @@
 /* cf. https://thesynack.com/posts/markdown-captions */
 figcaption {
   font-style: italic;
+  font-size: small;
   padding: 0px;
-  line-height:4px;
   text-align: center;
 }
 
