@@ -262,7 +262,7 @@ Feel free to draw a sunset by adjusting `a`.
 
 > **Note**
 >
-> I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the \(s\) often used elsewhere to descripe the position vector of locations.
+> I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to descripe the position vector of locations.
 
 > **Note**
 >
@@ -311,24 +311,13 @@ It is good to keep track of the difference-distance plot.
 Conventionally, variance is the average difference of observations (or a subset of observatrions, e.g. in a group or bin) from the average.
 In *variograms*, the mean is replaced by a given point on the landscape (we want to look at differences from that focus point), and then we iterate over adjacent points.
 This will lead to a structurally similar formula as the classical variance, and in fact the concepts are related (Cressie 1993, 75).
-We define the **semivariance** \(\gamma\) (Matheron 1962):
-
-\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\)
-
-
-\\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\)
+We define the **semivariance** \\(\gamma\\) (Matheron 1962):
 
 
 \\[\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\]
 
 
-\\[\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\]
-
-
-$$\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2$$
-
-
-Herein, \(N\) is the number of observation pairs \(\{i, j\}\); those are usually grouped (binned) so to quantify variances at different distances \(\gamma\left(h\right)\) (with \(h\) the "lag vector magnitude", i.e. distance group).
+Herein, \\(N\\) is the number of observation pairs \\(\{i, j\}\\); those are usually grouped (binned) so to quantify variances at different distances \\(\gamma\left(h\right)\\) (with \\(h\\) the "lag vector magnitude", i.e. distance group).
 
 The functions `self_difference` and `Euclid_wrap` are defined above (<a href="#sec-crossdifference" class="quarto-xref">Section 2.4</a>).
 
@@ -507,7 +496,7 @@ Observations:
 
 -   The regression fits the data more or less well, quantified by the mean square error (`mse`).
 -   Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
--   Parameters can be measured, in this case intercept (\(0.07\)) and slope (\(0\)).
+-   Parameters can be measured, in this case intercept (\\(0.07\\)) and slope (\\(0\\)).
 
 We can still do better.
 
@@ -520,24 +509,24 @@ Let's mimic what the pro's do!
 > There are logical reasons for choosing Matérn, namely its generality and the assumption of Gaussian interdependence.
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
-Note that the \(s\) here stants for a position vector, and *not* the smoothed `z`.
+Note that the \\(s\\) here stants for a position vector, and *not* the smoothed `z`.
 
 `<quote>`
 
-The Matérn defines the covariance \(\Phi\left( s_j, s_k\right)\) between spatial locations \(s_j\) and \(s_k\) as
+The Matérn defines the covariance \\(\Phi\left( s_j, s_k\right)\\) between spatial locations \\(s_j\\) and \\(s_k\\) as
 
 \[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\]
 <!-- Φ(sj,sk)=τ2/Γ(ν)2ν−1(κdjk)νKν(κdjk),-->
 
-where \(\tau^2\) controls the spatial variance,
-\(\nu\) controls the smoothness,
-\(\Gamma\) represents the Gamma function,
-\(d_{jk}\) represents the distance between locations \(s_j\) and \(s_k\),
-\(K_\nu\) represents the modified Bessel function of the second kind,
-and \(\kappa\) represents the decorrelation rate.
-The parameter \(\nu\) is set to \(1\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
+where \\(\tau^2\\) controls the spatial variance,
+\\(\nu\\) controls the smoothness,
+\\(\Gamma\\) represents the Gamma function,
+\\(d_{jk}\\) represents the distance between locations \\(s_j\\) and \\(s_k\\),
+\\(K_\nu\\) represents the modified Bessel function of the second kind,
+and \\(\kappa\\) represents the decorrelation rate.
+The parameter \\(\nu\\) is set to \\(1\\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
 to greatly increase computational efficiency (Lindgren, Rue, and Lindström 2011).
-Internally, the parameters \(\kappa\) and \(\tau\) are converted to range and marginal standard deviation \(\sigma\) as
+Internally, the parameters \\(\kappa\\) and \\(\tau\\) are converted to range and marginal standard deviation \\(\sigma\\) as
 \[range=\frac{8}{\kappa}\]
 and
 \[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\]
