@@ -23,12 +23,19 @@
     background: #fff4c6;
 }
 
-/* callout boxes */
+/* captions */
 /* cf. https://thesynack.com/posts/markdown-captions */
 figcaption {
   font-style: italic;
-  padding: 2px;
+  padding: 0px;
+  line-height:4px;
   text-align: center;
+}
+
+quotecaption {
+  font-style: italic;
+  padding: 0px;
+  text-align: right;
 }
 
 /* SIDEBAR */

@@ -26,8 +26,10 @@ output:
 # Introduction
 
 > Everything is related to everything else, but near things are more related than distant things.
-
+<quotecaption>
 [*(First Law according to Waldo Tobler)*](https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography)
+</quotecaption>
+
 
 This remarkably unquantitative statement, or "law", is described [on wikipedia](https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography#Background) as "a direct product of the quantitative revolution" in Geography.
 Contrast it with the [wikipedia article on variograms](https://en.wikipedia.org/wiki/Variogram), which is full of jargon and seemingly complicated equations.
@@ -165,7 +167,7 @@ plot(data$x, data$y, col = color, pch = as.integer(18 + 2*data$b))
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-raw-data-1.png"
 id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." />
-<figcaption>Figure 1: The raw data, unsmoothed.</figcaption>
+<figcaption>Figure 1: The raw data, unsmoothed.</figcaption><br>
 
 
 If you look closely, the upper right is more golden than the lower-left.
@@ -236,7 +238,7 @@ plot(data$x, data$y, col = color, pch = 20)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-smooth-data-1.png"
 id="fig-smooth-data"
 alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping." />
-<figcaption>Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping.</figcaption>
+<figcaption>Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping.</figcaption><br>
 
 
 Nice and smooth.
@@ -277,7 +279,7 @@ plot(data$x, data$y, col = color, pch = 20)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-data-detrend-1.png"
 id="fig-data-detrend"
 alt="Figure 3: The smoothed data, again, after de-trending." />
-<figcaption>Figure 3: The smoothed data, again, after de-trending.</figcaption>
+<figcaption>Figure 3: The smoothed data, again, after de-trending.</figcaption><br>
 
 
 {{% callout note %}}
@@ -353,7 +355,7 @@ dist_diff %>%
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-difference-distance-1.png"
 id="fig-difference-distance"
 alt="Figure 4: The difference-distance plot, visualized here as box-and-whiskers. Sorry for the ugly x-axis tick labels." />
-<figcaption>Figure 4: The difference-distance plot, visualized here as box-and-whiskers. Sorry for the ugly x-axis tick labels.</figcaption>
+<figcaption>Figure 4: The difference-distance plot, visualized here as box-and-whiskers. Sorry for the ugly x-axis tick labels.</figcaption><br>
 
 
 ## Eminent Empirics
@@ -380,7 +382,7 @@ par(mfrow = c(1,1))
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-empirical-variogram-1.png"
 id="fig-empirical-variogram"
 alt="Figure 5: The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance." />
-<figcaption>Figure 5: The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance.</figcaption>
+<figcaption>Figure 5: The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance.</figcaption><br>
 
 
 You might call the right one (<a href="#fig-empirical-variogram" class="quarto-xref">Figure 5</a>, right) the "empirical variogram", if you like.
@@ -480,7 +482,7 @@ ggplot(NULL, aes(x = x, y = y)) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-linear-regression-1.png"
 id="fig-linear-regression"
 alt="Figure 6: In principle, you can fit anything you like to the semivariance." />
-<figcaption>Figure 6: In principle, you can fit anything you like to the semivariance.</figcaption>
+<figcaption>Figure 6: In principle, you can fit anything you like to the semivariance.</figcaption><br>
 
 
 Observations:
@@ -604,7 +606,7 @@ plot_residuals_histogram(x, y, predictor_function,
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-matern-residuals-1.png"
 id="fig-matern-residuals"
 alt="Figure 7: Residual distribution of the Matérn model for semivariance." />
-<figcaption>Figure 7: Residual distribution of the Matérn model for semivariance.</figcaption>
+<figcaption>Figure 7: Residual distribution of the Matérn model for semivariance.</figcaption><br>
 
 
 The regression results are 8.4748, 26.2594.
@@ -640,7 +642,7 @@ ggplot(NULL, aes(x = x, y = y)) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-matern-variogram-1.png"
 id="fig-matern-variogram"
 alt="Figure 8: Residual distribution of the Matérn model for semivariance." />
-<figcaption>Figure 8: Residual distribution of the Matérn model for semivariance.</figcaption>
+<figcaption>Figure 8: Residual distribution of the Matérn model for semivariance.</figcaption><br>
 
 
 Whenever it works (I had to give it good starting values), the fit is quite good, but not perfect.
@@ -755,7 +757,7 @@ range_b1 <- plot_matern_variogram(
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-1.png"
 id="fig-subdata-variogram"
 alt="Figure 9: Variogram of the sub-data in the b == 1 category." />
-<figcaption>Figure 9: Variogram of the sub-data in the b == 1 category.</figcaption>
+<figcaption>Figure 9: Variogram of the sub-data in the b == 1 category.</figcaption><br>
 
 
 The range of the full data set with two different categories mixed is 67.798424.
@@ -786,7 +788,7 @@ range_trended <- plot_matern_variogram(
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-nodetrend-1.png"
 id="fig-variogram-nodetrend"
 alt="Figure 10: Variogram of the data with de-trending disabled." />
-<figcaption>Figure 10: Variogram of the data with de-trending disabled.</figcaption>
+<figcaption>Figure 10: Variogram of the data with de-trending disabled.</figcaption><br>
 
 
 Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
@@ -820,7 +822,7 @@ range_raw <- plot_matern_variogram(
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-rawdata-1.png"
 id="fig-variogram-rawdata"
 alt="Figure 11: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation." />
-<figcaption>Figure 11: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation.</figcaption>
+<figcaption>Figure 11: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation.</figcaption><br>
 
 
 As expected, with purely random data, Tobler's law does not apply.
