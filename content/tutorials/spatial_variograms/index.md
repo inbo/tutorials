@@ -172,7 +172,8 @@ Symbols indicate the categorical covariate `b`.
 
 All rather random.
 
-## Cross-Difference
+
+## <a href="sec-crossdifference"></a> Cross-Difference
 
 The following one-line functions are a major game-changer for large data sets, in particular the `self_difference()`.
 All it does is compute the difference of all elements of one vector to each other, in matrix form.
@@ -199,7 +200,7 @@ Euclid_wrap <- function (data) sqrt(wrap_difference(data$x)^2 + wrap_difference(
 lower_triangle <- function (mat) mat[lower.tri(mat)]
 ```
 
-## Simple Smoothing
+## <a href="sec-smoothing"></a> Simple Smoothing
 
 Just so that we can optionally incorporate **some Tobler spirit**: a smoother.
 2D smoothing, or "convolution with a 2D Gaussian", as the pro's call it, is what creates relation among adjacent points.
@@ -478,7 +479,7 @@ Observations:
 
 We can still do better.
 
-## Matérn Machinery
+## <a href="sec-matern"></a> Matérn Machinery
 
 Let's mimic what the pro's do!
 
@@ -749,7 +750,7 @@ Ironically, the whole "effect" shebang is gone, due to my attempt to give you da
 
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
-## Disabled De-trending
+## <a href="sec-nodetrend"></a> Disabled De-trending
 
 ``` r
 range_trended <- plot_matern_variogram(
