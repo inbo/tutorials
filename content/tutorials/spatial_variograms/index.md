@@ -311,7 +311,20 @@ In *variograms*, the mean is replaced by a given point on the landscape (we want
 This will lead to a structurally similar formula as the classical variance, and in fact the concepts are related (Cressie 1993, 75).
 We define the **semivariance** $\gamma$ (Matheron 1962):
 
-$\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2$
+\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\)
+
+
+\\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\)
+
+
+\\[\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\]
+
+
+\\[\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\]
+
+
+$$\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2$$
+
 
 Herein, $N$ is the number of observation pairs $\{i, j\}$; those are usually grouped (binned) so to quantify variances at different distances $\gamma\left(h\right)$ (with $h$ the "lag vector magnitude", i.e. distance group).
 
