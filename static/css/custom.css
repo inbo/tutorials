@@ -1,5 +1,27 @@
 /* Custom CSS */
 
+/* cf. https://rossabaker.com/configs/website/shortcodes/callout/ */
+.callout {
+    margin: 1.5rem 0;
+    padding: 1em;
+    border-inline-start: .25em solid;
+}
+
+.callout-title {
+    font-weight: bolder;
+    margin-bottom: 1em;
+}
+
+.callout-note {
+    border-color: green;
+    background: #dee8c6;
+}
+
+.callout-warning {
+    border-color: #ffaa00;
+    background: #fff4c6;
+}
+
 /* SIDEBAR */
 
 /* Add gray background to sidebar */

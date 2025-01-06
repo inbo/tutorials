@@ -23,6 +23,16 @@ output:
 ---
 
 
+<div class="callout callout-warning" role="note">
+  <div class="callout-title">Warning</div>
+  Test
+</div>
+
+{{% callout note %}}
+My cat's breath smells like cat food.
+{{% /callout %}}
+
+
 -   [<span class="toc-section-number">1</span> Introduction](#introduction)
 -   [<span class="toc-section-number">2</span> Data](#data)
     -   [<span class="toc-section-number">2.1</span> Simulation Settings](#simulation-settings)
@@ -515,7 +525,7 @@ Note that the \\(s\\) here stants for a position vector, and *not* the smoothed 
 
 The Matérn defines the covariance \\(\Phi\left( s_j, s_k\right)\\) between spatial locations \\(s_j\\) and \\(s_k\\) as
 
-\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\]
+\\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\\]
 <!-- Φ(sj,sk)=τ2/Γ(ν)2ν−1(κdjk)νKν(κdjk),-->
 
 where \\(\tau^2\\) controls the spatial variance,
@@ -527,9 +537,9 @@ and \\(\kappa\\) represents the decorrelation rate.
 The parameter \\(\nu\\) is set to \\(1\\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
 to greatly increase computational efficiency (Lindgren, Rue, and Lindström 2011).
 Internally, the parameters \\(\kappa\\) and \\(\tau\\) are converted to range and marginal standard deviation \\(\sigma\\) as
-\[range=\frac{8}{\kappa}\]
+\\[range=\frac{8}{\kappa}\\]
 and
-\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\]
+\\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\\]
 
 `</quote>`
 
