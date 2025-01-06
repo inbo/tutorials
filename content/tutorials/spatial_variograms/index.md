@@ -495,9 +495,10 @@ We can still do better.
 
 Let's mimic what the pro's do!
 
-> **Tip**
->
-> There are logical reasons for choosing Matérn, namely its generality and the assumption of Gaussian interdependence.
+{{% callout note %}}
+There are logical reasons for choosing Matérn, namely its generality and the assumption of Gaussian interdependence.
+{{% /callout %}}
+
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
 Note that the \\(s\\) here stants for a position vector, and *not* the smoothed `z`.
@@ -589,7 +590,7 @@ print_regression_results(optimizer_results, label = "Matérn")
     [1] "Matérn regression: convergence 0 at (8.4748, 26.2594), mse 40.3"
 
 {{% callout note %}}
-> Some caution is warranted with the units/order of magnitude of semivariance and distance, since they affect the performance of `optim`.
+Some caution is warranted with the units/order of magnitude of semivariance and distance, since they affect the performance of `optim`.
 {{% /callout %}}
 
 Inspecting the residual pattern:
@@ -796,7 +797,7 @@ The variance of all points in a fixed circle around you will be much higher, com
 Even the inverse seems to be a general pattern:
 
 {{% callout note %}}
-> If your semivariance keeps linearly increasing, try de-trending your data.
+If your semivariance keeps linearly increasing, try de-trending your data.
 {{% /callout %}}
 
 
@@ -827,7 +828,7 @@ As expected, with purely random data, Tobler's law does not apply.
 As with [Non-Newtonian fluids](https://en.wikipedia.org/wiki/Non-Newtonian_fluid), these could be called "Non-Tobleronian data".
 
 {{% callout note %}}
-> If your semivariance returns a constant, your data was not spatially related.
+If your semivariance returns a constant, your data was not spatially related.
 {{% /callout %}}
 
 
