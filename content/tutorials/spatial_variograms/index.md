@@ -6,6 +6,8 @@ authors: [falkmielke]
 categories: ["r", "statistics", "development"]
 tags: ["r", "spatial", "co-variance", "de-trending", "binning", "regression", "analysis", "gis"]
 number-sections: true
+params:
+  math: true
 format:
   html:
     toc: true
