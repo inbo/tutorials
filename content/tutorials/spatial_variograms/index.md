@@ -1,8 +1,10 @@
 ---
-title: An Algorithmic Approach to Variograms
-author: Falk Mielke
-date: '2025-01-03'
-bibliography: references_csl.json
+title: "An Algorithmic Approach to Variograms"
+description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
+date: "2025-01-06"
+authors: [falkmielke]
+categories: ["r", "statistics", "development"]
+tags: ["r", "spatial", "co-variance", "de-trending", "binning", "regression", "analysis", "gis"]
 number-sections: true
 format:
   html:
@@ -10,6 +12,12 @@ format:
     html-math-method: katex
   hugo-md:
     toc: true
+    preserve_yaml: true
+    html-math-method: katex
+output:
+  hugo-md:
+    preserve_yaml: true
+    variant: gfm+footnotes
 ---
 
 
@@ -56,7 +64,7 @@ For example:
 -   They [initially](https://en.wikipedia.org/wiki/Variogram#) describe a (semi-)variogram as **"a \[mathematical\] function"**.
 -   That "function" describes the "degree of dependence" of a spatial random field (pro tip: if it is dependent, it is not random, such as the distribution of gold ore used as an introductory example is not random).
 -   As becomes unclear [afterwards](https://en.wikipedia.org/wiki/Variogram#Definition), that function is not "variance" (`var()`), but something else. Although the whole thing is called *variogram*, variance is in fact the "degree of dependence".
--   Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would refer to the popular philosopher Vladimir Ilyich Ulyanov on this: "\[Praxis\](https://de.wikipedia.org/wiki/Praxis\_(Philosophie%29) is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
+-   Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would \[refer to\](https://de.wikipedia.org/wiki/Praxis\_(Philosophie%29) the popular philosopher Vladimir Ilyich Ulyanov on this: "Praxis is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
 -   Finally, ["variogram models"](https://en.wikipedia.org/wiki/Variogram#Variogram_models) are mentioned, which are actually *the function* we began with. They are not just one function: there are many options, with the unmentioned Matérn being the generalization for a Gaussian- to Exponential class of functions.
 
 My personal definition of the term **variogram** would rather describe it as a moderately flexible algorithm (see box below).
@@ -94,7 +102,7 @@ library("ggplot2") |> void()
 
 # Data
 
-We will work on a simulated data set of more or random values, in which we know *a priori* what is going on.
+We will work on a simulated data set of more or less random values, in which we know *a priori* what is going on.
 
 ## Simulation Settings
 
@@ -125,13 +133,13 @@ data <- data.frame(
 knitr::kable(head(data, 5))
 ```
 
-|          x |          y |        z\_ |
-|-----------:|-----------:|-----------:|
-|  -10.70067 |  118.09791 | -0.3080138 |
-|  -38.96698 |  110.46046 |  2.6855052 |
-|  123.26304 | -119.88887 | -2.9992719 |
-|  116.75264 |  -32.11697 |  0.7152767 |
-| -106.79026 |  -86.86944 | -3.0093113 |
+|         x |           y |        z\_ |
+|----------:|------------:|-----------:|
+|  50.10042 |  -29.841458 |  0.1370379 |
+|  15.63503 |    8.887691 |  1.4151003 |
+| 122.40755 | -120.354944 |  1.3737732 |
+| 101.80691 |   13.630176 |  1.5135420 |
+| 102.64732 |   87.423913 | -2.6582331 |
 
 *Mental note: points towards the rim will tend to have fewer neighbors.*
 
@@ -139,8 +147,8 @@ knitr::kable(head(data, 5))
 
 I also want to throw in two covariates, say... `a` and `b`.
 Those stand in for real covariates.
-One will systematically vary with the location.
-The other is completely random.
+One will systematically vary continuously with the location.
+The other is completely random, and categorical.
 
 ``` r
 data$a <- 0.7 * data$x / extent + 0.3 * data$y / extent
@@ -158,11 +166,11 @@ data$z <- data$z_ + a_slope * data$a + b_slope * data$b
 knitr::kable(head(data, 3))
 ```
 
-|         x |         y |        z\_ |         a |   b |          z |
-|----------:|----------:|-----------:|----------:|----:|-----------:|
-| -10.70067 |  118.0979 | -0.3080138 | 0.2182727 |   0 | -0.1937265 |
-| -38.96698 |  110.4605 |  2.6855052 | 0.0457910 |   0 |  2.7094814 |
-| 123.26304 | -119.8889 | -2.9992719 | 0.3931052 |   1 | -2.4007434 |
+|         x |           y |       z\_ |         a |   b |        z |
+|----------:|------------:|----------:|----------:|----:|---------:|
+|  50.10042 |  -29.841458 | 0.1370379 | 0.2040458 |   0 | 0.243876 |
+|  15.63503 |    8.887691 | 1.4151003 | 0.1063346 |   1 | 1.863476 |
+| 122.40755 | -120.354944 | 1.3737732 | 0.3873344 |   0 | 1.576581 |
 
 There no noise applied to those covariates, moderate noise on the raw data, so they should be recover-able.
 
@@ -183,6 +191,8 @@ id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." />
 If you look closely, the upper right is more golden than the lower-left.
 This is the effect of covariate `a`.
 Symbols indicate the categorical covariate `b`.
+
+All rather random.
 
 ## Cross-Difference
 
@@ -248,6 +258,10 @@ alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are dark
 
 Nice and smooth.
 Feel free to draw a sunset by adjusting `a`.
+
+> **Note**
+>
+> I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the $s$ often used elsewhere to descripe the position vector of locations.
 
 > **Note**
 >
@@ -375,11 +389,11 @@ par(mfrow = c(1,1))
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-empirical-variogram-1.png"
 id="fig-empirical-variogram"
-alt="Figure 5: The left is the averaged difference-distance plot, whereas the right plot is the semivariance, plotted against the distance." />
+alt="Figure 5: The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance." />
 
-You might call the right one the "empirical variogram", if you like.
+You might call the right one (<a href="#fig-empirical-variogram" class="quarto-xref">Figure 5</a>, right) the "empirical variogram", if you like.
 It is effectively a variogram.
-Vari-o-gram (<a href="#fig-empirical-variogram" class="quarto-xref">Figure 5</a>, right).
+Vari-o-gram.
 A plot of the bin-wise semivariance against distance.
 
 Good to have.
@@ -390,13 +404,13 @@ Good to have.
 
 *Cognitive Dissonance Warning:*
 because we binned the data above, we now need to fit a function through the bins to interpolate the space in between.
-Even more of a paradox is that we will not use that model to predict any values; it just models semivariance, anyways.
+Even more of a paradox is that we will not use that model here to predict any values; it just models semivariance, anyways.
 
 There are some general convenience wrappers for classical regression.
 However, [base-r `optim` does all we need](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/optim) (*sometimes*).
 There are [other libraries](https://cran.r-project.org/web/views/Optimization.html).
 
-We choose between well-known "Nelder-Mead" optimization algorithm (Nelder and Mead 1965), or the more versatile ["L-BFGS-B"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) Byrd et al. (1995).
+We choose between well-known "Nelder-Mead" optimization algorithm (Nelder and Mead 1965), or the more versatile ["L-BFGS-B"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) (Zhu et al. 1997; Byrd et al. 1995).
 They are interchangeable to some degree, yet the latter allows to define logical parameter boundaries to facilitate optimization convergence.
 
 ``` r
@@ -459,7 +473,7 @@ optimizer_results <- optim(
 print_regression_results(optimizer_results, label = "linear")
 ```
 
-    [1] "linear regression: convergence 0 at (0.0743, 1e-04), mse 0.5"
+    [1] "linear regression: convergence 0 at (0.0659, 0), mse 0.3"
 
 ``` r
 predictor_function <- create_prediction_function(linear_function, optimizer_results)
@@ -479,7 +493,7 @@ Observations:
 
 -   The regression fits the data more or less well, quantified by the mean square error (`mse`).
 -   Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
--   Parameters can be measured, in this case intercept (0.07) and slope (10^{-4}).
+-   Parameters can be measured, in this case intercept ($0.07$) and slope ($0$).
 
 We can still do better.
 
@@ -492,6 +506,7 @@ Let's mimic what the pro's do!
 > There are logical reasons for choosing Matérn, namely its generality and the assumption of Gaussian interdependence.
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
+Note that the $s$ here stants for a position vector, and *not* the smoothed `z`.
 
 `<quote>`
 
@@ -577,7 +592,7 @@ predictor_function <- create_prediction_function(
 print_regression_results(optimizer_results, label = "Matérn")
 ```
 
-    [1] "Matérn regression: convergence 0 at (10.4344, 28.4001), mse 64.2"
+    [1] "Matérn regression: convergence 0 at (8.4748, 26.2594), mse 40.3"
 
 > **Note**
 >
@@ -595,7 +610,7 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-matern-
 id="fig-matern-residuals"
 alt="Figure 7: Residual distribution of the Matérn model for semivariance." />
 
-The regression results are 10.4344, 28.4001.
+The regression results are 8.4748, 26.2594.
 
 Conversion to meaningful parameters:
 
@@ -735,19 +750,19 @@ range_b1 <- plot_matern_variogram(
 )
 ```
 
-    [1] "Matérn regression: convergence 0 at (11.295, 0.2883), mse 0.0"
+    [1] "Matérn regression: convergence 0 at (8.802, 0.263), mse 0.0"
 
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-1.png"
 id="fig-subdata-variogram"
 alt="Figure 9: Variogram of the sub-data in the b == 1 category." />
 
-The range of the full data set with two different categories mixed is 83.4749429.
-If we only include one of the categories, making the data points more similar, range is 90.3600718.
+The range of the full data set with two different categories mixed is 67.798424.
+If we only include one of the categories, making the data points more similar, range is 70.4161378.
 Longer range would mean that distant points are more similar, which I would expect in the test case.
 
 I suspect the reasons for this limited change are that I applied *category-independent smoothing* above, and the points are densely packed.
-Ironically, the whole "effect" shabang is gone, due to my attempt to give you data which follows Tobler's law...
+Ironically, the whole "effect" shebang is gone, due to my attempt to give you data which follows Tobler's law...
 
 # Recap: De-Trending and Smoothing
 
@@ -764,7 +779,7 @@ range_trended <- plot_matern_variogram(
 )
 ```
 
-    [1] "Matérn regression: convergence 0 at (16.8016, 0.333), mse 0.0"
+    [1] "Matérn regression: convergence 0 at (16.0342, 0.3202), mse 0.0"
 
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-nodetrend-1.png"
@@ -773,8 +788,10 @@ alt="Figure 10: Variogram of the data with de-trending disabled." />
 
 Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
 which does not match the Matérn model.
+Think about it as standing on a slope: if you look uphill, points tend to be higher, downhill, lower, otherwise points level.
+The variance of all points in a fixed circle around you will be much higher, compared to a level field.
 
-This seems to be a general pattern:
+Even the inverse seems to be a general pattern:
 
 > **Note**
 >
@@ -793,7 +810,7 @@ range_raw <- plot_matern_variogram(
 )
 ```
 
-    [1] "Matérn regression: convergence 0 at (0.3798, 1.8507), mse 0.0"
+    [1] "Matérn regression: convergence 0 at (0.0537, 1.8397), mse 0.1"
 
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-rawdata-1.png"
@@ -820,7 +837,7 @@ Why is that the BLUP?
 Well, "Gaussian" is often what we strive for in our error distributions; it is the definition of "unbiased".
 Some other techniques quantify how Gaussian things are to get [independent components](https://en.wikipedia.org/wiki/Independent_component_analysis).
 I would argue that there is a bias in science to prefer Gaussian distributions.
-You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate. RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)).
+You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)).
 
 In other fields, kriging might be called "convolution with a Gaussian kernel" (e.g. [image processing](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)).
 But in that case, the points are in a regular raster.
@@ -828,7 +845,7 @@ It can be easily implemented, you can get an idea in the section on "smoothing" 
 
 You might feel the annoying impudence in my latent mocking of Tobler and Krige and all the great pioneers of the spatial geographical sciences.
 Yet I do this on purpose, to motivate you to understand the amazing procedures they established.
-I would like you see the pattern: there is no magic in maths.
+I would like you look beyond authority to see the pattern: there is no magic in maths (only beauty, if you appreciate it).
 
 A mathematical procedure seems new and fascinating and maybe intimidating.
 Until you master it by understanding its less intimidating components.

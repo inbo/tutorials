@@ -33,7 +33,7 @@ For example:
 - They [initially](https://en.wikipedia.org/wiki/Variogram#) describe a (semi-)variogram as **"a [mathematical] function"**.
 - That "function" describes the "degree of dependence" of a spatial random field (pro tip: if it is dependent, it is not random, such as the distribution of gold ore used as an introductory example is not random).
 - As becomes unclear [afterwards](https://en.wikipedia.org/wiki/Variogram#Definition), that function is not "variance" (`var()`), but something else. Although the whole thing is called *variogram*, variance is in fact the "degree of dependence".
-- Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would refer to the popular philosopher Vladimir Ilyich Ulyanov on this: "[Praxis](https://de.wikipedia.org/wiki/Praxis_(Philosophie%29) is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
+- Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would [refer to](https://de.wikipedia.org/wiki/Praxis_(Philosophie%29) the popular philosopher Vladimir Ilyich Ulyanov on this: "Praxis is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
 - Finally, ["variogram models"](https://en.wikipedia.org/wiki/Variogram#Variogram_models) are mentioned, which are actually *the function* we began with. They are not just one function: there are many options, with the unmentioned Matérn being the generalization for a Gaussian- to Exponential class of functions.
 
 
@@ -83,7 +83,7 @@ library("ggplot2") |> void()
 
 # Data
 
-We will work on a simulated data set of more or random values, in which we know *a priori* what is going on.
+We will work on a simulated data set of more or less random values, in which we know *a priori* what is going on.
 
 
 ## Simulation Settings
@@ -124,8 +124,8 @@ knitr::kable(head(data, 5))
 
 I also want to throw in two covariates, say... `a` and `b`.
 Those stand in for real covariates.
-One will systematically vary with the location.
-The other is completely random.
+One will systematically vary continuously with the location.
+The other is completely random, and categorical.
 
 ```{r covariate-definition}
 
@@ -167,8 +167,10 @@ If you look closely, the upper right is more golden than the lower-left.
 This is the effect of covariate `a`. 
 Symbols indicate the categorical covariate `b`.
 
+All rather random.
 
-## Cross-Difference Convenience {#sec-crossdifference}
+
+## Cross-Difference {#sec-crossdifference}
 
 The following one-line functions are a major game-changer for large data sets, in particular the `self_difference()`.
 All it does is compute the difference of all elements of one vector to each other, in matrix form.
@@ -191,15 +193,12 @@ self_difference <- function (vec) outer(X = vec, Y = vec, FUN = function(X, Y)  
 wrap_difference <- function (vec) outer(X = vec, Y = vec, FUN = function(X, Y) (Y-X) %% (2*extent))
 
 # Calculate the Euclidean distance of the x and y columns in a data frame.
-Euclid <- function (data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
+# Euclid <- function (data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
 Euclid_wrap <- function (data) sqrt(wrap_difference(data$x)^2 + wrap_difference(data$y)^2 )
 
 # return the lower triangle of a matrix, unpacking it into a vector of unique values
 lower_triangle <- function (mat) mat[lower.tri(mat)]
 ```
-
-Note: on real data, you will probably not want to wrap.
-
 
 
 ## Simple Smoothing {#sec-smoothing}
@@ -239,6 +238,10 @@ plot(data$x, data$y, col = color, pch = 20)
 
 Nice and smooth. 
 Feel free to draw a sunset by adjusting `a`.
+
+::: {.callout-note}
+I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the $s$ often used elsewhere to descripe the position vector of locations.
+:::
 
 
 ::: {.callout-note}
@@ -359,7 +362,7 @@ One more step:
 
 ```{r empirical-varigram}
 #| label: fig-empirical-variogram
-#| fig-cap: "The left is the averaged difference-distance plot, whereas the right plot is the semivariance, plotted against the distance."
+#| fig-cap: "The left panel shows the averaged difference-distance plot, whereas the right panel is the semivariance, plotted against the distance."
 
 par(mfrow = c(1,2))
 plot(dist_diff_binned$distance_mean, dist_diff_binned$distance_count,
@@ -377,9 +380,9 @@ par(mfrow = c(1,1))
 ```
 
 
-You might call the right one the "empirical variogram", if you like.
+You might call the right one ([@fig-empirical-variogram], right) the "empirical variogram", if you like.
 It is effectively a variogram. 
-Vari-o-gram ([@fig-empirical-variogram], right).
+Vari-o-gram.
 A plot of the bin-wise semivariance against distance.
 
 Good to have.
@@ -391,14 +394,14 @@ Good to have.
 
 *Cognitive Dissonance Warning:*
 because we binned the data above, we now need to fit a function through the bins to interpolate the space in between.
-Even more of a paradox is that we will not use that model to predict any values; it just models semivariance, anyways. 
+Even more of a paradox is that we will not use that model here to predict any values; it just models semivariance, anyways. 
 
 
 There are some general convenience wrappers for classical regression.
 However, [base-r `optim` does all we need](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/optim) (*sometimes*).
 There are [other libraries](https://cran.r-project.org/web/views/Optimization.html).
 
-We choose between well-known "Nelder-Mead" optimization algorithm [@nelder1965], or the more versatile ["L-BFGS-B"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) [@zhu1997, @byrd1995].
+We choose between well-known "Nelder-Mead" optimization algorithm [@nelder1965], or the more versatile ["L-BFGS-B"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) [@zhu1997; @byrd1995].
 They are interchangeable to some degree, yet the latter allows to define logical parameter boundaries to facilitate optimization convergence.
 
 
@@ -485,7 +488,7 @@ Observations:
 
 - The regression fits the data more or less well, quantified by the mean square error (`mse`).
 - Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
-- Parameters can be measured, in this case intercept (`{r} round(optimizer_results$par[1], 2)`) and slope (`{r} round(optimizer_results$par[2], 4)`).
+- Parameters can be measured, in this case intercept ($`{r} round(optimizer_results$par[1], 2)`$) and slope ($`{r} round(optimizer_results$par[2], 4)`$).
 
 We can still do better.
 
@@ -500,6 +503,8 @@ There are logical reasons for choosing Matérn, namely its generality and the as
 
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
+Note that the $s$ here stants for a position vector, and *not* the smoothed `z`.
+
 
 `<quote>`
 
@@ -757,7 +762,7 @@ If we only include one of the categories, making the data points more similar, r
 Longer range would mean that distant points are more similar, which I would expect in the test case.
 
 I suspect the reasons for this limited change are that I applied *category-independent smoothing* above, and the points are densely packed.
-Ironically, the whole "effect" shabang is gone, due to my attempt to give you data which follows Tobler's law...
+Ironically, the whole "effect" shebang is gone, due to my attempt to give you data which follows Tobler's law...
 
 
 # Recap: De-Trending and Smoothing
@@ -779,8 +784,11 @@ range_trended <- plot_matern_variogram(
 
 Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
 which does not match the Matérn model.
+Think about it as standing on a slope: if you look uphill, points tend to be higher, downhill, lower, otherwise points level.
+The variance of all points in a fixed circle around you will be much higher, compared to a level field.
 
-This seems to be a general pattern: 
+
+Even the inverse seems to be a general pattern:
 
 ::: {.callout-note}
 If your semivariance keeps linearly increasing, try de-trending your data.
@@ -823,8 +831,7 @@ Why is that the BLUP?
 Well, "Gaussian" is often what we strive for in our error distributions; it is the definition of "unbiased". 
 Some other techniques quantify how Gaussian things are to get [independent components](https://en.wikipedia.org/wiki/Independent_component_analysis).
 I would argue that there is a bias in science to prefer Gaussian distributions.
-You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.
-RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)).
+You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)).
 
 
 In other fields, kriging might be called "convolution with a Gaussian kernel" (e.g. [image processing](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)).
@@ -834,7 +841,7 @@ It can be easily implemented, you can get an idea in the section on "smoothing" 
 
 You might feel the annoying impudence in my latent mocking of Tobler and Krige and all the great pioneers of the spatial geographical sciences.
 Yet I do this on purpose, to motivate you to understand the amazing procedures they established.
-I would like you see the pattern: there is no magic in maths.
+I would like you look beyond authority to see the pattern: there is no magic in maths (only beauty, if you appreciate it).
 
 A mathematical procedure seems new and fascinating and maybe intimidating.
 Until you master it by understanding its less intimidating components.
