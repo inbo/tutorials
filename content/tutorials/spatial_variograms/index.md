@@ -41,7 +41,7 @@ For example:
 -   They [initially](https://en.wikipedia.org/wiki/Variogram#) describe a (semi-)variogram as **"a \[mathematical\] function"**.
 -   That "function" describes the "degree of dependence" of a spatial random field (pro tip: if it is dependent, it is not random, such as the distribution of gold ore used as an introductory example is not random).
 -   As becomes unclear [afterwards](https://en.wikipedia.org/wiki/Variogram#Definition), that function is not "variance" (`var()`), but something else. Although the whole thing is called *variogram*, variance is in fact the "degree of dependence".
--   Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would \[refer to\](https://de.wikipedia.org/wiki/Praxis\_(Philosophie%29) the popular philosopher Vladimir Ilyich Ulyanov on this: "Praxis is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
+-   Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would [refer to](https://de.wikipedia.org/wiki/Praxis\_(Philosophie%29) the popular philosopher Vladimir Ilyich Ulyanov on this: "Praxis is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
 -   Finally, ["variogram models"](https://en.wikipedia.org/wiki/Variogram#Variogram_models) are mentioned, which are actually *the function* we began with. They are not just one function: there are many options, with the unmentioned Matérn being the generalization for a Gaussian- to Exponential class of functions.
 
 My personal definition of the term **variogram** would rather describe it as a moderately flexible algorithm (see box below).
@@ -165,6 +165,7 @@ plot(data$x, data$y, col = color, pch = as.integer(18 + 2*data$b))
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-raw-data-1.png"
 id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." />
+<figcaption>Figure 1: The raw data, unsmoothed.</figcaption>
 
 If you look closely, the upper right is more golden than the lower-left.
 This is the effect of covariate `a`.
