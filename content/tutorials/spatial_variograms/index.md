@@ -23,41 +23,6 @@ output:
 ---
 
 
-<div class="callout callout-warning" role="note">
-  <div class="callout-title">Warning</div>
-  Test
-</div>
-
-{{% callout note %}}
-My cat's breath smells like cat food.
-{{% /callout %}}
-
-
--   [<span class="toc-section-number">1</span> Introduction](#introduction)
--   [<span class="toc-section-number">2</span> Data](#data)
-    -   [<span class="toc-section-number">2.1</span> Simulation Settings](#simulation-settings)
-    -   [<span class="toc-section-number">2.2</span> Raw Random](#raw-random)
-    -   [<span class="toc-section-number">2.3</span> Common Covariate Classes](#common-covariate-classes)
-    -   [<span class="toc-section-number">2.4</span> Cross-Difference](#sec-crossdifference)
-    -   [<span class="toc-section-number">2.5</span> Simple Smoothing](#sec-smoothing)
--   [<span class="toc-section-number">3</span> Variograms](#sec-variograms)
-    -   [<span class="toc-section-number">3.1</span> Debatable "De-Trending"](#sec-detrending)
-    -   [<span class="toc-section-number">3.2</span> Distance-Difference Diagrams](#sec-distdiffplots)
-    -   [<span class="toc-section-number">3.3</span> Eminent Empirics](#eminent-empirics)
--   [<span class="toc-section-number">4</span> Model Regression](#sec-model-regression)
-    -   [<span class="toc-section-number">4.1</span> Fitting Functions](#fitting-functions)
-    -   [<span class="toc-section-number">4.2</span> Matérn Machinery](#sec-matern)
-    -   [<span class="toc-section-number">4.3</span> Virtuous Variograms](#virtuous-variograms)
--   [<span class="toc-section-number">5</span> Playground](#playground)
-    -   [<span class="toc-section-number">5.1</span> Full-Fledged Function](#full-fledged-function)
-    -   [<span class="toc-section-number">5.2</span> Prior Parametrization](#prior-parametrization)
--   [<span class="toc-section-number">6</span> Recap: De-Trending and Smoothing](#recap-de-trending-and-smoothing)
-    -   [<span class="toc-section-number">6.1</span> Disabled De-trending](#sec-nodetrend)
-    -   [<span class="toc-section-number">6.2</span> Skip Smoothing](#skip-smoothing)
--   [<span class="toc-section-number">7</span> If You Need The BLUP, Get The BLUP!](#if-you-need-the-blup-get-the-blup)
--   [<span class="toc-section-number">8</span> Summary](#summary)
--   [<span class="toc-section-number">9</span> References](#references)
-
 # Introduction
 
 > Everything is related to everything else, but near things are more related than distant things.
@@ -83,13 +48,15 @@ My personal definition of the term **variogram** would rather describe it as a m
 This notion is based on the actual implementation and application of the technique in various computer software libraries (R: `gstat::variogram`, `geoR::variog`, `fields::vgram`; Python: `skgstat.Variogram`), as well as primary references given below.
 
 
-> The common steps of performing variogram-based data analysis are:
->
-> 1.  **de-trending** (optional), i.e. working on the residuals after spatial linear regression
-> 2.  **cross-calculate** distance and difference of measurement locations
-> 3.  **binning** by distance (and optionally direction), thereby calculating **semivariance** per bin
-> 4.  **modeling**, i.e. performing a Matérn regression on the semivariance-distance data
-> 5.  **kriging** (optional) is the application of the model for spatial interpolation (not shown)
+{{% callout note %}}
+The common steps of performing variogram-based data analysis are:
+
+1.  **de-trending** (optional), i.e. working on the residuals after spatial linear regression
+2.  **cross-calculate** distance and difference of measurement locations
+3.  **binning** by distance (and optionally direction), thereby calculating **semivariance** per bin
+4.  **modeling**, i.e. performing a Matérn regression on the semivariance-distance data
+5.  **kriging** (optional) is the application of the model for spatial interpolation (not shown)
+{{% /callout %}}
 
 I will implement these steps below, and interested readers are invited to confirm for themselves that the outcome matches the abundant variogram implementations in the mentioned libraries.
 The focus of this notebook is *the code*, interspersed with rather brief hints and explanations.
@@ -270,15 +237,15 @@ alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are dark
 Nice and smooth.
 Feel free to draw a sunset by adjusting `a`.
 
-> **Note**
->
-> I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to descripe the position vector of locations.
+{{% callout note %}}
+I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to descripe the position vector of locations.
+{{% /callout %}}
 
-> **Note**
->
-> We chose Gaussian smoothing here.
-> Hold that thought.
-> As will become clear in the end, the **assumption of Gaussian spatial interdependence** is what will allow the Matérn regression to work (<a href="#sec-matern" class="quarto-xref">Section 4.2</a>).
+{{% callout note %}}
+We chose Gaussian smoothing here.
+Hold that thought.
+As will become clear in the end, the **assumption of Gaussian spatial interdependence** is what will allow the Matérn regression to work (<a href="#sec-matern" class="quarto-xref">Section 4.2</a>).
+{{% /callout %}}
 
 # Variograms
 
@@ -306,13 +273,14 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-data-de
 id="fig-data-detrend"
 alt="Figure 3: The smoothed data, again, after de-trending." />
 
-> **Note**
->
-> Whether or not to de-trend prior to variogram calculation is a crucial design decision.
-> De-trending often improves variogram model regression (<a href="#sec-nodetrend" class="quarto-xref">Section 6.1</a>), but it also removes/diminishes the effects of spatially correlated co-variates.
->
-> Make sure that you know whether your variogram function applies de-trending, or not.
-> At any rate, I would recommend to **store the detrended linear effects for later** by applying your own `lm()`, prior to variogramming.
+{{% callout note %}}
+Whether or not to de-trend prior to variogram calculation is a crucial design decision.
+De-trending often improves variogram model regression (<a href="#sec-nodetrend" class="quarto-xref">Section 6.1</a>), but it also removes/diminishes the effects of spatially correlated co-variates.
+
+Make sure that you know whether your variogram function applies de-trending, or not.
+At any rate, I would recommend to **store the detrended linear effects for later** by applying your own `lm()`, prior to variogramming.
+{{% /callout %}}
+
 
 ## Distance-Difference Diagrams
 
@@ -607,9 +575,9 @@ print_regression_results(optimizer_results, label = "Matérn")
 
     [1] "Matérn regression: convergence 0 at (8.4748, 26.2594), mse 40.3"
 
-> **Note**
->
+{{% callout note %}}
 > Some caution is warranted with the units/order of magnitude of semivariance and distance, since they affect the performance of `optim`.
+{{% /callout %}}
 
 Inspecting the residual pattern:
 
@@ -806,9 +774,10 @@ The variance of all points in a fixed circle around you will be much higher, com
 
 Even the inverse seems to be a general pattern:
 
-> **Note**
->
+{{% callout note %}}
 > If your semivariance keeps linearly increasing, try de-trending your data.
+{{% /callout %}}
+
 
 ## Skip Smoothing
 
@@ -834,9 +803,10 @@ As expected, with purely random data, Tobler's law does not apply.
 (The jitter on close points is due to lower sample size.)
 As with [Non-Newtonian fluids](https://en.wikipedia.org/wiki/Non-Newtonian_fluid), these could be called "Non-Tobleronian data".
 
-> **Note**
->
+{{% callout note %}}
 > If your semivariance returns a constant, your data was not spatially related.
+{{% /callout %}}
+
 
 # If You Need The BLUP, Get The BLUP!
 
