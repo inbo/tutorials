@@ -71,17 +71,13 @@ My personal definition of the term **variogram** would rather describe it as a m
 This notion is based on the actual implementation and application of the technique in various computer software libraries (R: `gstat::variogram`, `geoR::variog`, `fields::vgram`; Python: `skgstat.Variogram`), as well as primary references given below.
 
 
-{{% callout warning %}}
-The common steps of performing variogram-based data analysis are:
-
-1.  **de-trending** (optional), i.e. working on the residuals after spatial linear regression
-2.  **cross-calculate** distance and difference of measurement locations
-3.  **binning** by distance (and optionally direction), thereby calculating **semivariance** per bin
-4.  **modeling**, i.e. performing a Matérn regression on the semivariance-distance data
-5.  **kriging** (optional) is the application of the model for spatial interpolation (not shown)
-
-{{% /callout %}}
-
+> The common steps of performing variogram-based data analysis are:
+>
+> 1.  **de-trending** (optional), i.e. working on the residuals after spatial linear regression
+> 2.  **cross-calculate** distance and difference of measurement locations
+> 3.  **binning** by distance (and optionally direction), thereby calculating **semivariance** per bin
+> 4.  **modeling**, i.e. performing a Matérn regression on the semivariance-distance data
+> 5.  **kriging** (optional) is the application of the model for spatial interpolation (not shown)
 
 I will implement these steps below, and interested readers are invited to confirm for themselves that the outcome matches the abundant variogram implementations in the mentioned libraries.
 The focus of this notebook is *the code*, interspersed with rather brief hints and explanations.
