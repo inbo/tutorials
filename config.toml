@@ -161,6 +161,4 @@ weight = 1
           block = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)']]
 [params]
-  math = true
-
-
+  math = false
