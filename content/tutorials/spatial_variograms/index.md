@@ -26,9 +26,10 @@ output:
 # Introduction
 
 > Everything is related to everything else, but near things are more related than distant things.
-<quotecaption>
+
+<p align=right>
 [*(First Law according to Waldo Tobler)*](https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography)
-</quotecaption>
+</p>
 
 
 This remarkably unquantitative statement, or "law", is described [on wikipedia](https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography#Background) as "a direct product of the quantitative revolution" in Geography.
@@ -71,9 +72,7 @@ But your mileage may vary, so feel invited to try it yourself.
 Enjoy!
 
 ``` r
-.libPaths("/data/R/library")
 void <- suppressPackageStartupMessages
-# library("sp") |> void()
 
 # our beloved tidyverse components:
 library("dplyr") |> void() 
