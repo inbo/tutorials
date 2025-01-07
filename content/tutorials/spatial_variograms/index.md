@@ -1,7 +1,7 @@
 ---
 title: "An Algorithmic Approach to Variograms"
 description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
-date: "2025-01-06"
+date: "2025-01-07"
 authors: [falkmielke]
 categories: ["r", "statistics", "development"]
 tags: ["r", "spatial", "co-variance", "de-trending", "binning", "regression", "analysis", "gis"]
