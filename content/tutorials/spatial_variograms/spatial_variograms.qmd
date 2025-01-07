@@ -44,7 +44,7 @@ For example:
 - They [initially](https://en.wikipedia.org/wiki/Variogram#) describe a (semi-)variogram as **"a [mathematical] function"**.
 - That "function" describes the "degree of dependence" of a spatial random field (pro tip: if it is dependent, it is not random, such as the distribution of gold ore used as an introductory example is not random).
 - As becomes unclear [afterwards](https://en.wikipedia.org/wiki/Variogram#Definition), that function is not "variance" (`var()`), but something else. Although the whole thing is called *variogram*, variance is in fact the "degree of dependence".
-- Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would [refer to](https://de.wikipedia.org/wiki/Praxis_(Philosophie%29) the popular philosopher Vladimir Ilyich Ulyanov on this: "Praxis is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
+- Then, they distinguish an **empirical variogram** ([here](https://en.wikipedia.org/wiki/Variogram#Empirical_variogram)). I would <a href="https://de.wikipedia.org/wiki/Praxis_(Philosophie)">refer to</a> the popular philosopher Vladimir Ilyich Ulyanov on this: "Praxis is the criterion of truth"[^1], i.e. there exists no useful *non-empirical variogram*.
 - Finally, ["variogram models"](https://en.wikipedia.org/wiki/Variogram#Variogram_models) are mentioned, which are actually *the function* we began with. They are not just one function: there are many options, with the unmentioned Matérn being the generalization for a Gaussian- to Exponential class of functions.
 
 
@@ -175,7 +175,7 @@ plot(data$x, data$y, col = color, pch = as.integer(18 + 2*data$b),
 ```
 
 
-If you look closely, the upper right is more golden than the lower-left. 
+If you look closely, the upper right is more golden than the lower left. 
 This is the effect of covariate `a`. 
 Symbols indicate the categorical covariate `b`.
 
@@ -530,7 +530,7 @@ Observations:
 
 - The regression fits the data more or less well, quantified by the mean square error (`mse`).
 - Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
-- Parameters can be measured, in this case intercept ($`{r} round(optimizer_results$par[1], 2)`$) and slope ($`{r} round(optimizer_results$par[2], 2)`$).
+- Parameters can be measured, in this case intercept ($`{r} round(optimizer_results$par[1], 2)`$) and slope ($`{r} round(optimizer_results$par[2], 4)`$).
 
 We can do better, of course.
 
@@ -637,7 +637,7 @@ Finally, visualization.
 
 ```{r plot-gauss-variogram}
 #| label: fig-gauss-variogram
-#| fig-cap: "Residual distribution of the Matérn model for semivariance."
+#| fig-cap: "Variogram of the simulated data, using a Gauss model."
 
 predx <- seq(0, extent, length.out = 2*extent + 1)
 
@@ -725,7 +725,7 @@ fit_variogram <- function(x, y, value, fcn, skip_detrend = FALSE, ...) {
 
 ## Matérn Machinery {#sec-matern}
 
-There is one step further from Gauss.
+There is at least one step further from Gauss.
 Let's mimic what the pro's do!
 
 
@@ -780,12 +780,12 @@ matern_function <- function(d, parameters) {
 
 ```
 
-I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the complex version is quite flexible to fit our variogram.
+I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the version above is quite flexible to fit our variogram.
 Note that the function is not defined at zero, which is why I filter `NA`.
-Our Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
+The Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
 
 
-A regression function demands a specific plot function:
+Any regression function demands a specific plot function:
 
 ```{r matern-visualization}
 plot_matern <- function(optimizer_results) {
@@ -911,12 +911,18 @@ The variance itself is also determined by the magnitude of values:
 on the `b==1` subset, we added to the measured parameter. 
 Consequently, we see the `sill-nugget` increase from $`{r} round(vg_b0$par[1]-vg_b0$par[3], 2)`$ to $`{r} round(vg_b1$par[1]-vg_b1$par[3], 2)`$.
 
+  
+If you noticed that expecially the `b==0` data does not entirely fit the model, you are right: because of the "wrapped smoothing, then detrending" simulation procedure, the margin prohibits perfect detrending. 
+Which brings me to a revision of these effects.
+
 
 # Recap: De-Trending and Smoothing
 
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
 ## Disabled De-trending {#sec-nodetrend}
+
+Luckily, we computer-engineerd in a `skip_detrend` flag above.
 
 ```{r variogram-nodetrend}
 #| label: fig-variogram-nodetrend
@@ -937,8 +943,8 @@ plot_matern(vg_nodetrend)
 
 ```
 
-Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
-which does not match the Matérn model.
+Due to the systematic effect in the "trended" data, the semivariance keeps rising with increasing distance,
+which the Matérn model shows in a low `nu` and wide `sigma`.
 Think about it as standing on a slope: if you look uphill, points tend to be higher, downhill, lower, otherwise points level.
 The variance of all points in a fixed circle around you would be much higher, compared to a level field.
 
@@ -995,7 +1001,8 @@ Why is that the BLUP?
 Well, "Gaussian" is often what we strive for in our error distributions; it is the definition of "unbiased". 
 Some other techniques quantify how Gaussian things are to get [independent components](https://en.wikipedia.org/wiki/Independent_component_analysis).
 I would argue that there is a bias in science to prefer Gaussian distributions.
-You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)).
+You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)),
+without ever plotting such beautiful variograms.
 
 
 In other fields, kriging might be called "convolution with a Gaussian kernel" (e.g. [image processing](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)).
@@ -1004,10 +1011,10 @@ It can be easily implemented, you can get an idea in the section on "smoothing" 
 
 
 You might feel the annoying impudence in my latent mocking of Tobler and Krige and all the great pioneers of the spatial geographical sciences.
-Yet I do this on purpose, to motivate you to understand the amazing procedures they established.
+Yet I do this on purpose, to motivate you to understand the amazing procedures they established, while keeping an eye out for alternatives.
 I would like you look beyond authority to see the pattern: there is no magic in maths (only beauty, if you appreciate it).
 
-A mathematical procedure seems new and fascinating and maybe intimidating.
+Approaching a new mathematical procedure can be fascinating and maybe intimidating.
 Until you master it by understanding its less intimidating components.
 Computer code can help with that.
 No fear of equations!
@@ -1018,7 +1025,7 @@ No fear of equations!
 This tutorial provides all the tools you need for your very own variogram analysis.
 As demonstrated, the term *variogram* conceals several simple steps, which, when applied by themselves, offer some flexibility for adjustment to specific experimental situations.
 
-I hope you found the tipps useful, and appreciate feedback, comments, PRs and additions.
+I hope you found the tips useful, and I appreciate feedback, comments, PRs, and additions.
 Thank you for reading!
 
 
