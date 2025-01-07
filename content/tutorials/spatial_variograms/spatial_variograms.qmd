@@ -1,7 +1,10 @@
 ---
 title: "An Algorithmic Approach to Variograms"
-author: "Falk Mielke"
-date: "2025-01-03"
+description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
+date: "2025-01-07"
+authors: [falkmielke]
+categories: ["r", "statistics", "development"]
+tags: ["r", "spatial", "co-variance", "de-trending", "binning", "regression", "analysis", "gis"]
 bibliography: references_csl.json
 number-sections: true
 format:
@@ -10,6 +13,14 @@ format:
     html-math-method: katex
   hugo-md:
     toc: true
+    preserve_yaml: true
+    html-math-method: katex
+output:
+  hugo-md:
+    preserve_yaml: true
+    variant: gfm+footnotes
+  html:
+    variant: gfm+footnotes
 ---
 
 
@@ -93,12 +104,12 @@ Some general settings that define our synthetic data set:
 ```{r settings}
 n_observations <- 2^13
 extent <- 128
-smooth_sigma <- 12
-zrange <- pi
+smooth_sigma <- 16
+zrange <- 2*pi
 
 # covariate effect magnitudes
-a_slope <- pi/6
-b_slope <- pi/8
+a_slope <- pi/3
+b_slope <- pi/4
 
 ```
 
@@ -159,7 +170,8 @@ Visualizing, with color:
 rbpal <- colorRampPalette(c('black','gold'))
 color <- rbpal(n_observations)[as.numeric(cut(data$z, breaks = n_observations))]
 
-plot(data$x, data$y, col = color, pch = as.integer(18 + 2*data$b))
+plot(data$x, data$y, col = color, pch = as.integer(18 + 2*data$b),
+  xlab = "x", ylab = "y")
 ```
 
 
@@ -193,7 +205,7 @@ self_difference <- function (vec) outer(X = vec, Y = vec, FUN = function(X, Y)  
 wrap_difference <- function (vec) outer(X = vec, Y = vec, FUN = function(X, Y) (Y-X) %% (2*extent))
 
 # Calculate the Euclidean distance of the x and y columns in a data frame.
-# Euclid <- function (data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
+Euclid <- function (data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
 Euclid_wrap <- function (data) sqrt(wrap_difference(data$x)^2 + wrap_difference(data$y)^2 )
 
 # return the lower triangle of a matrix, unpacking it into a vector of unique values
@@ -227,17 +239,32 @@ smooth <- function (data, sigma = NULL) {
 ```
 
 
+Smoothing just smoothes all the points, irrespective of groups in the categorical `b`.
+To get something out of the parameter we implemented, better smooth group-wise.
+
 ```{r plot-smoothing}
 #| label: fig-smooth-data
 #| fig-cap: "The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping."
 
-data$s <- smooth(data, smooth_sigma)
+groupwise_smoothing <- function (grp) {
+  sub_data <- data %>%
+    filter(b == grp)
+  sub_data$s <- smooth(sub_data, smooth_sigma)
+  return(sub_data)
+}
+
+# "split-apply-combine" strategy
+data <- bind_rows(lapply(sort(unique(data$b)),
+  FUN = groupwise_smoothing
+  ))
 color <- rbpal(n_observations)[as.numeric(cut(data$s, breaks = n_observations))]
-plot(data$x, data$y, col = color, pch = 20)
+plot(data$x, data$y, col = color, pch = 20,
+  xlab = "x", ylab = "y")
+
 ```
 
 Nice and smooth. 
-Feel free to draw a sunset by adjusting `a`.
+Feel free to draw a sunset by adjusting `a` and removing the groups.
 
 ::: {.callout-note}
 I chose `s` here as avariable name for the smoothed `z`, which should not be confused with the $s$ often used elsewhere to descripe the position vector of locations.
@@ -274,7 +301,8 @@ data$d <- lm(s ~ x + y, data)$residual
 
 # another sunrise...
 color <- rbpal(n_observations)[as.numeric(cut(data$d, breaks = n_observations))]
-plot(data$x, data$y, col = color, pch = 20) 
+plot(data$x, data$y, col = color, pch = 20,
+  xlab = "x", ylab = "y") 
 
 ```
 
@@ -409,11 +437,25 @@ They are interchangeable to some degree, yet the latter allows to define logical
 
 # wrap a regression function to generate residuals
 # the result is the parameter to be minimized.
-wrap_target_function <- function(x, y, regressor, params) {
-  predictions <- regressor(x, params)
+wrap_target_function <- function(x, y, regressor, parameters) {
+  predictions <- regressor(x, parameters)
   differences <- y - predictions
   return(sum(sqrt(differences^2)))
 }
+
+# yet another trick: we can improve model fit on the closer points,
+#   by giving them more weight
+wrap_target_function_distanceweighted <- function(x, y, regressor, parameters) {
+  predictions <- regressor(x, parameters)
+  differences <- y - predictions
+
+  # gently improving performance on proximal points:
+  differences <- differences * 1/sqrt(x)
+
+  mse <- sqrt(sum(differences^2))
+  return(mse)
+}
+
 
 # this can turn regression output into a usable function.
 # εὕρηκα, functional programming!
@@ -455,14 +497,14 @@ To test this, behold the non-sensical linear regression!
 x <- dist_diff_binned$distance_mean
 y <- dist_diff_binned$semivariance
 
-linear_function <- function(x, params) {
-  return(params[1] + params[2]*x)
+linear_function <- function(x, parameters) {
+  return(parameters[1] + parameters[2]*x)
 }
 
 optimizer_results <- optim(
   par = c(0, 0.05),
-  fn = function(params) {
-    wrap_target_function(x, y, linear_function, params)
+  fn = function(parameters) {
+    wrap_target_function(x, y, linear_function, parameters)
   }, method = "Nelder-Mead"
 )
 
@@ -488,18 +530,203 @@ Observations:
 
 - The regression fits the data more or less well, quantified by the mean square error (`mse`).
 - Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
-- Parameters can be measured, in this case intercept ($`{r} round(optimizer_results$par[1], 2)`$) and slope ($`{r} round(optimizer_results$par[2], 4)`$).
+- Parameters can be measured, in this case intercept ($`{r} round(optimizer_results$par[1], 2)`$) and slope ($`{r} round(optimizer_results$par[2], 2)`$).
 
-We can still do better.
+We can do better, of course.
 
+
+
+## Beloved Bellcurve {#sec-gauss}
+
+Quite a popular choice is the **Gaussian**.
+There is a suitable "parametric extension" [on wikipedia](https://en.wikipedia.org/wiki/Gaussian_function).
+It can be slightly simplified, and the terminology adjusted to Variogram slang.
+
+
+```{r gauss-definition}
+#| label: fig-gauss-function
+#| fig-cap: "Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed."
+
+gauss_function <- function(x, parameters) {
+  sill <- parameters[1] # height
+  mu <- 0 # mean, always zero here
+  sigma <- parameters[2] # standard deviation
+  nugget <- parameters[3] # total height
+
+  # the raw, unscaled gaussian kernel
+  gauss <- exp(-((x-mu)^2)/(2*sigma^2))
+
+  # the bell should point downwards:
+  result <- sill - (sill - nugget) * gauss
+
+  return(result)
+}
+
+try_x <- seq(-pi, pi, length.out = 100)
+try_y <- gauss_function(try_x, parameters = c(2., 1., 0.5))
+
+plot(try_x, try_y, type = "l", xlab = "x", ylab = "y", ylim = c(0, 2.))
+abline(v = 0)
+
+```
+
+
+
+
+## Virtuous Variograms
+
+This can be put to action as follows.
+
+```{r regression-matérn}
+
+
+x <- dist_diff_binned$distance_mean
+y <- dist_diff_binned$semivariance # multiplied to support optimizer
+
+start_values <- c(zrange, smooth_sigma, 0.) 
+optimizer_results <- optim(
+  par = start_values,
+  lower = c(0.0, 0.0, 0.0), # all positive parameters
+  fn = function(parameters) {
+    wrap_target_function_distanceweighted(x, y, gauss_function, parameters)
+  }, 
+  control = list("fnscale" = 1e-8),
+  method = "L-BFGS-B" 
+)
+
+predictor_function <- create_prediction_function(
+  gauss_function,
+  optimizer_results
+)
+
+print_regression_results(optimizer_results, label = "Gauss")
+
+```
+
+The lower bounds are enabled by our parametrization; the control parameter `fnscale` seems to improve regression accuracy on low-magnitude `y`-values; start values are using our prior knowledge (this is a tutorial, after all, so the regression better work).
+
+
+
+Inspecting the residual pattern:
+
+```{r regression-residuals-histogram}
+#| label: fig-gauss-residuals
+#| fig-cap: "Residual distribution of the Matérn model for semivariance."
+plot_residuals_histogram(x, y, predictor_function,
+  bins = 32, fill = "lightgray", color = "black")
+```
+
+
+The regression results are `{r} paste(round(optimizer_results$par, 2), collapse = ", ")`.
+
+Conversion to slightly more meaningful parameters:
+
+```{r range-sill-conversion}
+sill <- optimizer_results$par[1]
+range <- 2*optimizer_results$par[2]
+nugget <- optimizer_results$par[3]
+```
+
+::: {.callout-note}
+The parameter `sigma` here is related to the sigma we used for smoothing above; I chose to define the range as two sigma (which is not conventional).
+:::
+  
+
+Finally, visualization.
+**Behold: a variogram.**
+
+```{r plot-gauss-variogram}
+#| label: fig-gauss-variogram
+#| fig-cap: "Residual distribution of the Matérn model for semivariance."
+
+predx <- seq(0, extent, length.out = 2*extent + 1)
+
+ggplot(NULL, aes(x = x, y = y)) +
+  geom_vline(xintercept = range, color = "darkgrey") +
+  geom_hline(yintercept = nugget, color = "darkgrey") +
+  geom_hline(yintercept = sill, color = "darkgrey") +
+  geom_point(size = 2.5, colour = "black", fill = "white", alpha = 0.4) +
+  geom_line(aes(x = predx, y = predictor_function(predx))) +
+  theme_minimal()
+
+```
+
+Whenever it works (which should not be taken for granted), the fit is quite good. 
+Not perfect here, we can still do better. 
+
+
+There are certainly much better regression tools, including probabilistic ones which estimate parameter credible intervals.
+Please do not hold back to explore these.
+
+
+# Playground: Taking It Further
+
+## Gentle Generalization
+
+Can we collect all the steps above in a handy function?
+Sure!
+
+```{r variogram-function}
+
+fit_variogram <- function(x, y, value, fcn, skip_detrend = FALSE, ...) {
+  # the ellipsis ( , ...) will pass through optimizer parameters
+
+  # convenience structure to match the above
+  df <- data.frame(x = x, y = y, z = value)
+
+  # de-trending, optionally disabled
+  if (skip_detrend) {
+    df$d <- df$z
+  } else {
+    df$d <- lm(z ~ x + y, df)$residual
+  }
+
+  # distance-difference
+  dd <- data.frame(
+      dist = lower_triangle(Euclid_wrap(df)),
+      diff = lower_triangle(self_difference(df$d))
+    ) %>%
+    filter(dist > 0, dist < extent)
+
+  # binning
+  dd$bin <- as.factor(cut(dd$dist, breaks = as.integer(extent/2)))
+  dd_binned <- dd %>% 
+    group_by(bin) %>%
+    summarize_all(
+      c("mean" = mean,
+        "var" = var
+      )
+    )
+
+  # regression
+  regx <- dd_binned$dist_mean
+  regy <- 0.5 * dd_binned$diff_var
+
+
+  optimizer_results <- optim(
+    fn = function(parameters) {
+      wrap_target_function_distanceweighted(regx, regy, fcn, parameters)
+    },
+    ...
+  )
+
+  print_regression_results(optimizer_results, label = "")
+
+  # store everything in one list;
+  # do I sense a smidgen of OOP here? No, not really.
+  optimizer_results$fcn <- fcn
+  optimizer_results$regx <- regx
+  optimizer_results$regy <- regy
+
+  return(optimizer_results)
+}
+
+```
 
 ## Matérn Machinery {#sec-matern}
 
+There is one step further from Gauss.
 Let's mimic what the pro's do!
-
-::: {.callout-tip}
-There are logical reasons for choosing Matérn, namely its generality and the assumption of Gaussian interdependence.
-:::
 
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
@@ -529,240 +756,160 @@ $$\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}$$
 
 `</quote>`
 
-In code, this means:
+
+This is just to confuse you.
+I found the $\tau$/$\kappa/$\sigma$-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
+
 
 ```{r matern-definition}
 
-matern_function <- function(d, params) {
-  kappa <- 1/params[1] # related to range; turning point
-  tau2 <- params[2]^2 # related to semivariance
-  nu <- 1. # params[3]
-  d <- d
-  z <- sqrt(2 * nu) * d * kappa
+matern_function <- function(d, parameters) {
+  sill <- parameters[1] # related to semivariance
+  sigma <- parameters[2] # related to actual range; turning point
+  nugget <- parameters[3]
+  nu <- parameters[4]
+
+  z <- sqrt(2 * nu) * d / sigma
   K <- suppressWarnings(besselK(z, nu))
-  result <- tau2 - tau2 * (z)^nu * K / (2^(nu - 1) * gamma(nu))
+  matern <- (z)^nu * K / (2^(nu - 1) * gamma(nu))
+  result <- sill - (sill - nugget) * matern
+  
   result[is.na(result)] <- 0
   return(result)
 }
 
-
 ```
 
-There are variants of this function.
-Note that I needed to take the inverse (`tau2 - ...`) to get meaningful values.
-Also, I tried to include `nu` in the equation, but the optimizer seems to leave it at starting value.
-(See also some experience [of another user](https://stats.stackexchange.com/questions/611908/how-to-properly-implement-a-mat%C3%A9rn-kernel-function-in-r).)
+I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the complex version is quite flexible to fit our variogram.
+Note that the function is not defined at zero, which is why I filter `NA`.
+Our Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
 
 
-## Virtuous Variograms
+A regression function demands a specific plot function:
 
-This can be put to action as follows.
+```{r matern-visualization}
+plot_matern <- function(optimizer_results) {
 
-```{r regression-matérn}
+  # retrieve everything 
+  fcn <- optimizer_results$fcn
+  regx <- optimizer_results$regx
+  regy <- optimizer_results$regy
 
-# yet another trick: we can improve model fit on the closer points.
-wrap_target_function_distanceweighted <- function(x, y, regressor, params) {
-  predictions <- regressor(x, params)
-  differences <- y - predictions
-  differences <- differences * 1/sqrt(x) # gently improving performance on proximal points
-  mse <- sqrt(sum(differences^2))
-  return(mse)
-}
-
-
-x <- dist_diff_binned$distance_mean
-y <- 10000*dist_diff_binned$semivariance # multiplied to support optimizer
-
-start_values <- c(6., 40.) # , "nu" = 1. # these seemed to work well.
-optimizer_results <- optim(
-  par = start_values,
-  lower = c(0.0, 0.0),
-  # upper = c(extent/8, 4*max(y)),
-  fn = function(params) {
-    wrap_target_function_distanceweighted(x, y, matern_function, params)
-  }, 
-  control = list(
-    "fnscale" = 1e-5
-  ),
-  method = "L-BFGS-B" 
-  # method = "Nelder-Mead" 
-)
-
-predictor_function <- create_prediction_function(
-  matern_function,
-  optimizer_results
-)
-
-print_regression_results(optimizer_results, label = "Matérn")
-
-```
-
-::: {.callout-note}
-Some caution is warranted with the units/order of magnitude of semivariance and distance, since they affect the performance of `optim`.
-:::
-
-
-Inspecting the residual pattern:
-
-```{r regression-residuals-histogram}
-#| label: fig-matern-residuals
-#| fig-cap: "Residual distribution of the Matérn model for semivariance."
-plot_residuals_histogram(x, y, predictor_function,
-  bins = 32, fill = "lightgray", color = "black")
-```
-
-
-The regression results are `{r} paste(round(optimizer_results$par, 4), collapse = ", ")`.
-
-Conversion to meaningful parameters:
-
-```{r range-sill-conversion}
-kappa <- 1/optimizer_results$par[1]
-tau <- optimizer_results$par[2]
-
-range <- 8/kappa
-sigma <- 1/sqrt(4*pi*exp(2*log(tau)+2*log(kappa)))
-
-```
-
-Note: "sigma" here is not related to the sigma we used for smoothing above; in fact, the smoothing sigma is more related to `range` and `tau`.
-Certainly there is a reparametrization to relate them.
-
-
-Finally, visualization.
-**Behold: a variogram.**
-
-```{r plot-matern-variogram}
-#| label: fig-matern-variogram
-#| fig-cap: "Residual distribution of the Matérn model for semivariance."
-
-predx <- seq(0, extent, length.out = 2*extent + 1)
-
-ggplot(NULL, aes(x = x, y = y)) +
-  geom_vline(xintercept = range, color = "darkgrey") +
-  geom_point(size = 2.5, colour = "black", fill = "white", alpha = 0.4) +
-  geom_line(aes(x = predx, y = predictor_function(predx))) +
-  labs(title = "Matérn regression, with range indicated (vertical line)") +
-  theme_minimal()
-
-```
-
-Whenever it works (I had to give it good starting values), the fit is quite good, but not perfect. 
-Our Matérn implementation does not allow decreasing semivariance, but on the other hand decreasing semivariance would griefly violate Tobler's observation.
-
-There are certainly much better regression tools, including probabilistic ones which estimate parameter credible intervals.
-Please do not hold back to explore these.
-
-
-# Playground
-
-## Full-Fledged Function
-
-Can we collect all the steps above in a handy function?
-Sure!
-
-```{r variogram-function}
-# x <- data$x
-# y <- data$y
-# value <- data$s
-
-plot_matern_variogram <- function (x, y, value, skip_detrend = FALSE){
-
-  df <- data.frame(x = x, y = y, z = value)
-
-  # de-trending
-  if (skip_detrend) {
-    df$d <- df$z 
-  } else {
-    df$d <- lm(z ~ x + y, df)$residual
-  }
-
-  # distance-difference
-  dd <- data.frame(
-    dist = lower_triangle(Euclid_wrap(df)),
-    diff = lower_triangle(self_difference(df$d))
-  )%>% 
-  filter(dist > 0, dist < extent)
-
-  # binning
-  dd$bin <- as.factor(cut(dd$dist, breaks = as.integer(extent/2)))
-  dd_binned <- dd %>% 
-    group_by(bin) %>%
-    summarize_all(
-      c("mean" = mean,
-        "var" = var
-      )
-    )
-
-  # regression
-  regx <- dd_binned$dist_mean
-  regy <- 0.5 * dd_binned$diff_var
-
-  optimizer_results <- optim(
-    par = c(6., 40.),
-    lower = c(0.0, 0.0),
-    fn = function(params) {
-      wrap_target_function_distanceweighted(regx, regy, matern_function, params)
-    }, 
-    method = "L-BFGS-B" 
-  )
-
-  print_regression_results(optimizer_results, label = "Matérn")
-  
+  # wrap the function with the optimized parameters
   predictor_function <- create_prediction_function(
-    matern_function,
+    fcn,
     optimizer_results
   )
-  
+
+  # extract parameters
+  sill <- optimizer_results$par[1]
+  sigma <- optimizer_results$par[2]
+  range <- 2*optimizer_results$par[2]
+  nugget <- optimizer_results$par[3]
+
 
   # plotting
   plotx <- seq(0, extent, length.out = 2*extent + 1)
+  plotx <- plotx[plotx>0]
   
   g <- ggplot(NULL, aes(x = regx, y = regy)) +
     geom_vline(xintercept = range, color = "darkgrey") +
+    geom_hline(yintercept = nugget, color = "darkgrey") +
+    geom_hline(yintercept = sill, color = "darkgrey") +
     geom_point(size = 2.5, colour = "black", fill = "white", alpha = 0.4) +
     geom_line(aes(x = plotx, y = predictor_function(plotx))) +
     labs(title = "Matérn regression, with range indicated (vertical line)") +
     theme_minimal()
-  print(g)
 
-  # return range
-  kappa <- 1/optimizer_results$par[1]
-  tau <- optimizer_results$par[2]
-  
-  range <- 8/kappa
-  # sigma <- 1/sqrt(4*pi*exp(2*log(tau)+2*log(kappa)))
-
-  return(range)
+  return(g)
 }
+
+
 ```
 
-Note that regression is always a bit fishy. 
-This is not the most robust optimizer, and I lack the skills to set it up correctly.
+
+In application:
+
+
+```{r variogram-all}
+#| label: fig-alldata-variogram
+#| fig-cap: "Variogram of all the data, with a Matérn fit."
+
+vg_all <- fit_variogram(
+    x = data$x,
+    y = data$y,
+    value = data$s,
+    fcn = matern_function,
+    par = c(zrange, smooth_sigma, 0., 1.),
+    lower = c(0.0, 0.0, 0., 0.001),
+    upper = c(10, 100, 100, 100),
+    control = list("fnscale" = 1e-8),
+    method = "L-BFGS-B" 
+  )
+plot_matern(vg_all)
+
+```
+
+Note the sensible choice of starting values and boundaries. 
+Again, I indicated the $2\sigma$ range.
 
 
 ## Prior Parametrization
 
-To test this, we can filter the dataset to retrieve one of the two `b` categories.
+To take this further, we can filter the dataset to retrieve one of the two `b` categories.
+The `nu` parameter takes more extreme values here.
 
-```{r variogram-b}
+```{r variogram-b0}
 #| label: fig-subdata-variogram
+#| fig-cap: "Variogram of the sub-data in the `b == 0` category."
+semi_data <- data %>%
+  filter(b == 0)
+
+vg_b0 <- fit_variogram(
+    x = semi_data$x,
+    y = semi_data$y,
+    value = semi_data$s,
+    fcn = matern_function,
+    par = c(zrange, smooth_sigma, 0., 1.),
+    lower = c(0.0, 0.0, 0., 0.001),
+    upper = c(10, 100, 100, 100),
+    control = list("fnscale" = 1e-8),
+    method = "L-BFGS-B" 
+  )
+plot_matern(vg_b0)
+
+
+```
+
+
+```{r variogram-b1}
+#| label: fig-subdata-variogram-b1
 #| fig-cap: "Variogram of the sub-data in the `b == 1` category."
 semi_data <- data %>%
   filter(b == 1)
-range_b1 <- plot_matern_variogram(
-  x = semi_data$x,
-  y = semi_data$y,
-  value = semi_data$s
-)
+vg_b1 <- fit_variogram(
+    x = semi_data$x,
+    y = semi_data$y,
+    value = semi_data$s,
+    fcn = matern_function,
+    par = c(zrange, smooth_sigma, 0., 1.),
+    lower = c(0.0, 0.0, 0., 0.001),
+    upper = c(10, 100, 100, 100),
+    control = list("fnscale" = 1e-8),
+    method = "L-BFGS-B" 
+  )
+plot_matern(vg_b1)
+
 ```
 
-The range of the full data set with two different categories mixed is `{r} range`.
-If we only include one of the categories, making the data points more similar, range is `{r} range_b1`.
-Longer range would mean that distant points are more similar, which I would expect in the test case.
+The $2\sigma$-range of the full data set with two different categories mixed is $`{r} round(2*vg_all$par[2], 1)`$.
+If we only include one of the categories, making the data points more similar, ranges are $`{r} round(2*vg_b0$par[2], 1)`$ and $`{r} round(2*vg_b1$par[2], 1)`$.
+Longer range would mean that distant points are more similar.
 
-I suspect the reasons for this limited change are that I applied *category-independent smoothing* above, and the points are densely packed.
-Ironically, the whole "effect" shebang is gone, due to my attempt to give you data which follows Tobler's law...
+
+The variance itself is also determined by the magnitude of values: 
+on the `b==1` subset, we added to the measured parameter. 
+Consequently, we see the `sill-nugget` increase from $`{r} round(vg_b0$par[1]-vg_b0$par[3], 2)`$ to $`{r} round(vg_b1$par[1]-vg_b1$par[3], 2)`$.
 
 
 # Recap: De-Trending and Smoothing
@@ -774,18 +921,26 @@ Ironically, the whole "effect" shebang is gone, due to my attempt to give you da
 ```{r variogram-nodetrend}
 #| label: fig-variogram-nodetrend
 #| fig-cap: "Variogram of the data with de-trending disabled."
-range_trended <- plot_matern_variogram(
-  x = data$x,
-  y = data$y,
-  value = data$s,
-  skip_detrend = TRUE
-)
+vg_nodetrend <- fit_variogram(
+    x = data$x,
+    y = data$y,
+    value = data$s,
+    fcn = matern_function,
+    skip_detrend = TRUE,
+    par = c(zrange, smooth_sigma, 0., 1.),
+    lower = c(0.0, 0.0, 0., 0.001),
+    upper = c(10, 100, 100, 100),
+    control = list("fnscale" = 1e-8),
+    method = "L-BFGS-B" 
+  )
+plot_matern(vg_nodetrend)
+
 ```
 
 Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
 which does not match the Matérn model.
 Think about it as standing on a slope: if you look uphill, points tend to be higher, downhill, lower, otherwise points level.
-The variance of all points in a fixed circle around you will be much higher, compared to a level field.
+The variance of all points in a fixed circle around you would be much higher, compared to a level field.
 
 
 Even the inverse seems to be a general pattern:
@@ -801,24 +956,33 @@ How about the raw-raw data?
 ```{r variogram-nosmoothing}
 #| label: fig-variogram-rawdata
 #| fig-cap: "Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation."
-range_raw <- plot_matern_variogram(
-  x = data$x,
-  y = data$y,
-  value = data$z,
-  skip_detrend = TRUE
-)
+
+vg_nosmoothing <- fit_variogram(
+    x = data$x,
+    y = data$y,
+    value = data$z,
+    fcn = matern_function,
+    skip_detrend = TRUE,
+    par = c(zrange, smooth_sigma, 0., 1.),
+    lower = c(0.0, 0.0, 0., 0.99),
+    upper = c(100, 100, 0.01, 1.01),
+    control = list("fnscale" = 1e-8),
+    method = "L-BFGS-B" 
+  )
+plot_matern(vg_nosmoothing)
 ```
 
 As expected, with purely random data, Tobler's law does not apply. 
 (The jitter on close points is due to lower sample size.)
 As with [Non-Newtonian fluids](https://en.wikipedia.org/wiki/Non-Newtonian_fluid), these could be called "Non-Tobleronian data".
+I had to fix the `nu` and `nugget` because the whole concept does not make sense for a constant.
 
 ::: {.callout-note}
 If your semivariance returns a constant, your data was not spatially related.
 :::
 
 
-# If You Need The BLUP, Get The BLUP!
+# Prospect: Kriging
 
 You might wonder what [kriging](https://en.wikipedia.org/wiki/Kriging) ("BLUP" = Best Linear Unbiased Prediction) has to do with all this?
 
@@ -868,4 +1032,5 @@ Useful links:
 
 - https://scikit-gstat.readthedocs.io/en/latest/auto_examples/index.html
 - https://www.paulamoraga.com/book-spatial/geostatistical-data-1.html
+
 

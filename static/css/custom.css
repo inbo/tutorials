@@ -14,12 +14,12 @@
 }
 
 .callout-note {
-    border-color: green;
+    border-color: #6994c9;
     background: #dee8c6;
 }
 
-.callout-warning {
-    border-color: #ffaa00;
+.callout-emphasize {
+    border-color: #c04384;
     background: #fff4c6;
 }
 
