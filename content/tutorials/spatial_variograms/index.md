@@ -710,10 +710,10 @@ The Matérn defines the covariance \\(\Phi\left( s_j, s_k\right)\\) between spat
 <!-- Φ(sj,sk)=τ2/Γ(ν)2ν−1(κdjk)νKν(κdjk),-->
 
 where \\(\tau^2\\) controls the spatial variance,
-\\($\nu\\) controls the smoothness,
-\\($\Gamma\\) represents the Gamma function,
-\\($d_{jk}\\) represents the distance between locations \\(s_j\\) and \\(s_k\\),
-\\($K_\nu\\) represents the modified Bessel function of the second kind,
+\\(\nu\\) controls the smoothness,
+\\(\Gamma\\) represents the Gamma function,
+\\(d_{jk}\\) represents the distance between locations \\(s_j\\) and \\(s_k\\),
+\\(K_\nu\\) represents the modified Bessel function of the second kind,
 and \\(\kappa\\) represents the decorrelation rate.
 The parameter \\(\nu\\) is set to \\(1\\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
 to greatly increase computational efficiency (Lindgren, Rue, and Lindström 2011).
