@@ -169,7 +169,7 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-raw-dat
 id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." />
 <figcaption> Figure 1: The raw data, unsmoothed.</figcaption><br>
 
-If you look closely, the upper right is more golden than the lower-left.
+If you look closely, the upper right is more golden than the lower left.
 This is the effect of covariate `a`.
 Symbols indicate the categorical covariate `b`.
 
@@ -696,7 +696,7 @@ fit_variogram <- function(x, y, value, fcn, skip_detrend = FALSE, ...) {
 
 ## <a href="sec-matern"></a> Matérn Machinery
 
-There is one step further from Gauss.
+There is at least one step further from Gauss.
 Let's mimic what the pro's do!
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
@@ -744,11 +744,12 @@ matern_function <- function(d, parameters) {
 }
 ```
 
-I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the complex version is quite flexible to fit our variogram.
+I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the version above is quite flexible to fit our variogram.
 Note that the function is not defined at zero, which is why I filter `NA`.
-Our Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
+The Matérn function does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
 
-A regression function demands a specific plot function:
+
+Any regression function demands a specific plot function:
 
 ``` r
 plot_matern <- function(optimizer_results) {
@@ -889,11 +890,18 @@ The variance itself is also determined by the magnitude of values:
 on the `b==1` subset, we added to the measured parameter.
 Consequently, we see the `sill-nugget` increase from \\(0.31\\) to \\(0.43\\).
 
+
+If you noticed that expecially the `b==0` data does not entirely fit the model, you are right: because of the "wrapped smoothing, then detrending" simulation procedure, the margin prohibits perfect detrending. 
+Which brings me to a revision of these effects.
+
+
 # Recap: De-Trending and Smoothing
 
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
 ## <a href="sec-nodetrend"></a> Disabled De-trending
+
+Luckily, we computer-engineerd in a `skip_detrend` flag above.
 
 ``` r
 vg_nodetrend <- fit_variogram(
@@ -922,8 +930,9 @@ id="fig-variogram-nodetrend"
 alt="Figure 13: Variogram of the data with de-trending disabled." />
 <figcaption>Figure 13: Variogram of the data with de-trending disabled.</figcaption><br>
 
-Due to the systematic effect in the data, the semivariance keeps rising with increasing distance,
-which does not match the Matérn model.
+
+Due to the systematic effect in the "trended" data, the semivariance keeps rising with increasing distance,
+which the Matérn model shows in a low `nu` and wide `sigma`.
 Think about it as standing on a slope: if you look uphill, points tend to be higher, downhill, lower, otherwise points level.
 The variance of all points in a fixed circle around you would be much higher, compared to a level field.
 
@@ -985,17 +994,18 @@ Why is that the BLUP?
 Well, "Gaussian" is often what we strive for in our error distributions; it is the definition of "unbiased".
 Some other techniques quantify how Gaussian things are to get [independent components](https://en.wikipedia.org/wiki/Independent_component_analysis).
 I would argue that there is a bias in science to prefer Gaussian distributions.
-You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)).
+You might as well interpolate with the more general [RBF](https://en.wikipedia.org/wiki/Radial_basis_function) (e.g. [using `scipy.interpolate.RBFInterpolator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html)), 
+without ever plotting such beautiful variograms.
 
 In other fields, kriging might be called "convolution with a Gaussian kernel" (e.g. [image processing](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)).
 But in that case, the points are in a regular raster.
 It can be easily implemented, you can get an idea in the section on "smoothing" (<a href="#sec-smoothing" class="quarto-xref">Section 2.5</a>) above.
 
 You might feel the annoying impudence in my latent mocking of Tobler and Krige and all the great pioneers of the spatial geographical sciences.
-Yet I do this on purpose, to motivate you to understand the amazing procedures they established.
+Yet I do this on purpose, to motivate you to understand the amazing procedures they established, while keeping an eye out for alternatives.
 I would like you look beyond authority to see the pattern: there is no magic in maths (only beauty, if you appreciate it).
 
-A mathematical procedure seems new and fascinating and maybe intimidating.
+Approaching a new mathematical procedure can be fascinating and maybe intimidating.
 Until you master it by understanding its less intimidating components.
 Computer code can help with that.
 No fear of equations!
@@ -1005,7 +1015,7 @@ No fear of equations!
 This tutorial provides all the tools you need for your very own variogram analysis.
 As demonstrated, the term *variogram* conceals several simple steps, which, when applied by themselves, offer some flexibility for adjustment to specific experimental situations.
 
-I hope you found the tipps useful, and appreciate feedback, comments, PRs and additions.
+I hope you found the tips useful, and I appreciate feedback, comments, PRs, and additions.
 Thank you for reading!
 
 # References
