@@ -419,7 +419,7 @@ They are interchangeable to some degree, yet the latter allows to define logical
 wrap_target_function <- function(x, y, regressor, parameters) {
   predictions <- regressor(x, parameters)
   differences <- y - predictions
-  return(sum(sqrt(differences^2)))
+  return(sqrt(mean(differences^2)))
 }
 
 # yet another trick: we can improve model fit on the closer points,
@@ -431,8 +431,8 @@ wrap_target_function_distanceweighted <- function(x, y, regressor, parameters) {
   # gently improving performance on proximal points:
   differences <- differences * 1/sqrt(x)
 
-  mse <- sqrt(sum(differences^2))
-  return(mse)
+  rmse <- sqrt(mean(differences^2))
+  return(rmse)
 }
 
 
