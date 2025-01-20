@@ -424,7 +424,7 @@ This is not restricted to equally-spaced bins: try log-spacing or equal-size bin
 
 
 It might make sense to incorporate categorecal variables into the binning.
-{{% callout note %}}
+{{% /callout %}}
 
 
 
