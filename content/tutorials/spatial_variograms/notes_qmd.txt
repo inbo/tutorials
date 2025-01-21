@@ -7,8 +7,6 @@ steps to get a qmd to hugo markdown:
 + include yaml
   preserve_yaml: true
 
-+ math https://gohugo.io/content-management/mathematics/
-  eqn with \\(\\) and \\[\\]
 
 
 + callouts: https://rossabaker.com/configs/website/shortcodes/callout/
@@ -32,6 +30,8 @@ alt="Figure 1: Caption text." />
    params:
      math: true
   replace $s$ -> \\(s\\), $$\ldots$$ -> \\[\ldots\\]
+  cf. math https://gohugo.io/content-management/mathematics/
+    eqn with \\(\\) and \\[\\]
 
 + preview procedure:
   rm tutorials -rf
