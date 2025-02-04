@@ -11,7 +11,15 @@ knitr:
 ---
 
 
-In this tutorial, I demonstrate how to set up and deploy a **custom docker container** with [**docker**](https://docs.docker.com).
+You might have heard about "containerization" with [**Docker**](https://docs.docker.com).
+Docker has been labeled "the *Holy Grail* of reproducibility" in [The Open Science Manual by Claudio Zandonella Callegher and Davide Massidda (2023)](https://arca-dpss.github.io/manual-open-science/docker-chapter.html).
+Although containerization is an immensely useful Open Science tool worth striving for, the *Holy Grail* is an inaccurate metaphor, because 
+(i) Docker is easy to find and accessible; 
+(ii) Docker alone does not make a reproducible workflow; 
+(iii) Docker has issues, some of them mitigated by "Podman".
+
+
+In this tutorial, I demonstrate step-by-step how to set up and deploy a **custom container** with Docker or Podman.
 This is intended to be a rather general test case, serving for later configuration of more specific container solutions.
 For example, you will learn how to spin up an existing `rocker/rstudio` container, and even modify it with additional system components and libraries.
 I follow other tutorials available online, and try to capture their essence for an INBO-context.
@@ -21,10 +29,10 @@ Hence, this is just an assembly of other tutorials, with references - no origina
 On Windows, installation, configuration, and management of containers runs via the `docker desktop` app. 
 However, this tutorial also covers (and in fact focuses on) the terminal-centered steps to be executed on a linux computer or within a WSL.
 
-I also present **podman** as a full replacement for docker, and recommend to give it a try.
+I also present **Podman** as a full replacement for docker, and recommend to give it a try.
 
 
-Generally, it is recommended to contact and involve your ICT department for support with the setup.
+Generally, if you are an INBO user, it is recommended to contact and involve your ICT department for support with the setup.
 
 
 __References:__
@@ -35,6 +43,7 @@ __References:__
 - <https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html>
 - <https://medium.com/@geeekfa/docker-compose-setup-for-a-python-flask-api-with-nginx-reverse-proxy-b9be09d9db9b>
 - <https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx>
+- <https://arca-dpss.github.io/manual-open-science/docker-chapter.html>
 
 
 # Installation
@@ -52,8 +61,8 @@ Download the "App" (newspeak for: graphical user interface to a software tool).
 Install it.
 
 
-*Note for INBO users:* you should select Hyper-V, instead of WSL, against recommendation (WSL is discouraged/disabled by enterprise settings, see below). 
-However, you probably do not have admin rights, which is good.
+*Note for INBO users:* you should select Hyper-V, instead of WSL, against recommendation (WSL is discouraged/disabled by enterprise settings; however, ICT might help). 
+You probably do not have admin rights, which is good.
 To re-iterate: **ask our friendly ICT helpdesk for support right away.**
 
 
@@ -65,20 +74,27 @@ Side rant collection:
 
 - Installation of Docker Desktop does not allow you to specify an install path (might have missed it).
 - `&'C:\Program Files\Docker\Docker\Docker Desktop.exe'` only runs with admin privileges.
-- It is bloated to more than 2GB (compared to the installed size of `docker` and `docker-buildx` on linux <200MB).
+- It is bloated to more than 2GB (compared to the installed size of `docker` and `docker-buildx` on linux <200MB; What A GUI!).
 - The first thing it does is prompt you for an unnecessary login (smells like telemetry).
 - The second thing it does is annoy you with a survey (explicit telemetry).
 - It is full of uninvited ads ("Docker Build Cloud", "To access the latest features, sign in."/don't!).
 
 If you want some dignity, learn and use the terminal commands below. 
-I label them "linux", but they are OS-agnostic.
+I label them "linux", but they are, in fact, OS-agnostic.
 :::
 
-
-## linux
-
 On linux, that same `docker-desktop` [is available for installation](https://docs.docker.com/desktop/setup/install/linux). 
-*Or* you could install docker as a terminal tool.
+But, why would you?
+
+
+## terminal
+
+On the windows terminal or linux shell, you can install `docker` as a terminal tool.
+
+:::{.callout-note}
+On windows, this comes bundled with the App; the steps below are not necessary.
+However, note that you need to run a terminal *as administrator*.
+:::
 
 
 ```{sh}
@@ -117,8 +133,6 @@ systemctl stop docker.socket
 systemctl stop docker.service
 ```
 
-
-## both, *post hoc*
 
 You can check the docker installation by confirming the version at which the service is running.
 
@@ -173,7 +187,7 @@ docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD rocker/rstudio
 
 
 - The `--rm` flag makes the docker image non-permanent, i.e. disk space will be freed after you close the container.
-- The port specified at `-p` is the one you use to access this local container server. You have to specify it explicitly, otherwise the host system will not let you pass (`:gandalf-meme:`).
+- The port specified at `-p` is the one you use to access this local container server (the `-p` actually maps host- and container ports). You have to specify it explicitly, otherwise the host system will not let you pass (`:gandalf-meme:`).
 - The `-e` flag allows you to specify a password, but if you do not specify one, this container will provide a random password upon startup (read the terminal output).
 
 ![run](docker_run.jpg)
@@ -183,7 +197,7 @@ You are now running (`run`) a `rocker/rstudio` server instance on your `localhos
 You can access it via a browser, going to <localhost:8787>, with the username `rstudio` and your chosen password.
 
 
-You can shut down the container with the keyboard shortcut `[ctrl]+[C]` (probably `[ctrl]+[Z]` on windows).
+You can shut down the container with the keyboard shortcut `[ctrl]+[C]` (probably `[ctrl]+[Z] [Return]` on windows).
 
 
 ## file access
@@ -202,7 +216,11 @@ Then you can link this to your containers' home folder via the following command
 
 ```{sh}
 #| eval: false
-docker run --rm -p 8787:8787 -v /data/git/coding-club:/home/rstudio/coding-club rocker/rstudio
+# windows syntax, mapping on `D:\`
+docker run --rm -p 8787:8787 -v //d/data/git/coding-club:/home/rstudio/coding-club rocker/rstudio
+
+# linux syntax
+docker run --rm -p 8787:8787 -v /data/git/coding-club:/home/rstudio/coding-club rocker/rstudio 
 ```
 
 Again, navigate to <localhost:8787>, *et voilà*, you can access your project and store files back in your regular folders.
@@ -216,8 +234,8 @@ However, there are limitations:
 
 ::: {.callout-warning}
 - You have to live with the R packages provided in the container, or otherwise install them each time you access it...
-- ... unless you make you container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of docker), and demand occasional updates.
-- Speaking of updates: it is good practice to keep software up to date. Occasionally re-install your docker image and R packages to get the latest versions.
+- ... unless you make you container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of docker), and demand occasional updates. (Still the best choice.)
+- Speaking of updates: it is good practice to keep software up to date. Occasionally update or simply re-install your docker image and R packages to get the latest versions.
 - You should make sure that the containers are configured correctly and securely. This is especially important with server components which expose your machine to the internet.
 - There is a performance penalty from using containers: in inaccurate laymans' terms, they emulate (parts of a) "computer" inside your computer. 
 
@@ -271,12 +289,13 @@ Feel free to systematically and scientifically repeat the tests on your own mach
 
 ## rationale
 
-One advantage of a docker container is its mobility: you can "bring it with you" to other workstations, host it for others, use cloud computing, mostly without having to worry about installation of the components.
-This especially pays off in complicated server setups and distributed computing.
-The container is standardized; you could share it with colleagues to make sure versions are compatible.
+One advantage of a docker container is its mobility: you can "bring it with you" to other workstations, host it for colleagues or readers, use cloud computing, mostly without having to worry about installation of the components.
+This is a matter of good open science practice.
+But it also pays off in complicated server setups and distributed computing.
 
 
-However, as mentioned above, you will require personalization.
+A standardized container from [dockerhub](https://hub.docker.com) is a good start.
+However, you will probably require personalization.
 As a use case, imagine you would like to have an RStudio server which comes with relevant inbo packages pre-installed (e.g. [`inbodb`](https://inbo.github.io/inbodb), [`watina`](https://inbo.github.io/watina); *cf.* [contaINBO](https://github.com/inbo/contaINBO)).
 
 I will return to this use case below.
@@ -314,20 +333,21 @@ I started from the following examples and tutorials to spin up a flask container
 
 As you will see, the docker file will give you all the design choices to create your own containers.
 I think of the docker file as a script which provides all the instructions to set up your container, starting with `FROM` (i.e. which prior container you build upon) to `RUN`ning any type of commands.
-Not *any* type, really: we are working on (mysterious, powerful) linux.
+Not *any* type, really: we are working on (mysterious, powerful) linux - don't fret, it's easier than you think!
 
 
 To our `python/flask` example.
 A list of the official python containers is [available here](https://hub.docker.com/_/python).
 Note that you build every container upon the skeleton of an operating system: I chose [alpine linux](https://en.wikipedia.org/wiki/Alpine_Linux).
-It's *en vogue*.
+(It's *en vogue*.)
 
 
 The dockerfile resides in your working folder (yet it also defines a [`WORKDIR`](https://stackoverflow.com/a/51066379) from within which later commands are executed).
 
-- Navigate to a folder in which you intend to store your container(s), e.g. `cd /data/docker`.
+- Navigate to a folder in which you intend to store your container(s), e.g. `cd C:\data\docker` (windows) or `cd /data/docker` (linux).
 - Create a file called `Dockerfile`: `touch Dockerfile`.
-- Edit the file in your favorite text editor (`vim Dockerfile`): paste and modify the content below.
+- Edit the file in your favorite text editor (`vim Dockerfile`; windows people probably use "notepad"). 
+- Paste and optionally modify the content below.
 
 ```{dsl}
 # Use the official Python image (alpine linux, python 3)
@@ -363,10 +383,14 @@ With the `Dockerfile` and `hello.py` in place, you can build the container [^4].
 
 ```{sh}
 #| eval: false
+# on windows, you are already in an administrator terminal
+docker build -t my-flask .
+
+# on linux, use sudo if you like or go to "Podman" (rootless)
 sudo docker build -t my-flask .
 ```
 
-[^4]: If you did not install the `docker-buildx` package, you will get a legacy warning.
+[^4]: If you did not install the `docker-buildx` package on linux, you will get a legacy warning.
 
 
 ![build](docker_build.jpg)
@@ -385,7 +409,7 @@ docker run my-flask
 
 The terminal should give you an IP and port; because the flask runs in a container, `localhost:8000` will **not work** out-of-the-box.
 Instead, in my case, it was `http://172.17.0.2:8000`.
-(Sadly, although I could build and run this container on windows, I did not get through via the browser :shrug:.)
+(Sadly, although I could build and run this container on windows, I did not get through via the browser :shrug: but try with port mapping `-p 8000:8000`.)
 
 
 :::{.callout-note}
@@ -398,7 +422,7 @@ This works via writing a `Dockerfile` and building an image.
 ## Multiple Images: `compose` versus `build`
 
 The above works fine for most cases.
-However, if you want to assemble multiple images, or build on base images from multiple sources, you need a level up.
+However, if you want to assemble and combine multiple images, or build on base images from multiple sources, you need a level up.
 
 In that case `docker compose` is [the way to go](https://docs.docker.com/compose/gettingstarted).
 I did not have the need to try this out, yet, but will return here if that changes.
@@ -415,6 +439,8 @@ Build recipes for some of the INBO packages you might want to include are collec
 
 - <https://github.com/inbo/contaINBO>
 
+Contributions are much appreciated!
+
 
 ## dockerfile
 
@@ -424,7 +450,7 @@ This use case is, in fact, well documented:
 - <https://rocker-project.org/images/versioned/rstudio.html>
 - <https://davetang.org/muse/2021/04/24/running-rstudio-server-with-docker>
 
-In fact, the Rocker crew rocks! 
+The Rocker crew rocks! 
 They prepared quite [a lot of useful images](https://hub.docker.com/u/rocker), including for example the `tidyverse` or geospatial packages.
 
 
@@ -459,6 +485,14 @@ However, there is hope: (i) the error output is quite instructive (at least for 
 It just takes patience.
 Remember which system powers your container (Debian/Ubuntu), find help online, and document your progress.
 
+:::{.callout-note}
+Dockerfiles offer some room for optimization. 
+For example, every `RUN` is a "Layer"; you should put stable layers top and volatile layers later.
+In principle, it is recommended to combine layers as much as possible.
+
+More here: <https://docs.docker.com/build/building/best-practices>
+:::
+
 
 Test the image:
 
@@ -476,7 +510,7 @@ docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD test-rstudio
 ```
 
 
-It is good practice to extract modifications in scripts and modularly bring them in to be executed upon installation ([see here](https://stackoverflow.com/q/69167940), [and here](https://rocker-project.org/use/extending.html#install2.r)), via `COPY`.
+Another good practice is to extract modifications in scripts and modularly bring them in to be executed upon installation ([see here](https://stackoverflow.com/q/69167940), [and here](https://rocker-project.org/use/extending.html#install2.r)), via `COPY`.
 This makes them available for a more refined version control.
 As you know, [version control is key!](https://tutorials.inbo.be/tags/git)
 
@@ -492,10 +526,10 @@ There are [several options available](https://forums.docker.com/t/best-practices
 - `COPY` in the Dockerfile (or `ADD` [in appropriate cases](https://www.docker.com/blog/docker-best-practices-understanding-the-differences-between-add-and-copy-instructions-in-dockerfiles))
 - ["bind mounts"](https://docs.docker.com/engine/storage/bind-mounts) 
 - [volumes](https://docs.docker.com/engine/storage/volumes)
-- possibly R ways of 
+- R's own ways of installing from far (e.g. `remotes::install_github()`)
 
 
-For the use case of [installing R packages from a private git repo](https://www.geeksforgeeks.org/how-to-clone-private-git-repo-with-dockerfile), however, there are several constraints:
+For the use case of [installing R packages from a private git repo](https://www.geeksforgeeks.org/how-to-clone-private-git-repo-with-dockerfile), there are several constraints:
 
 - It best happens at build time, to enable all the good stuff: `--rm`, sharing, ...
 - Better keep your credentials (e.g. ssh keys, access tokens) off the container, both system side and [on the R side](https://usethis.r-lib.org/articles/git-credentials.html).
@@ -523,15 +557,24 @@ This [seems to be good practice](https://stackoverflow.com/questions/23391839/cl
 
 We have briefly seen `docker --version`, `docker build`, `docker run`, and there are certainly more settings and tweaks on these commands to learn about.
 
-There are other docker commands which might help you out of a misery.
+There are other docker commands which might help you out of a temporary misery.
 
-- `docker run -it --entrypoint /bin/bash <image>` brings you to the shell of a container; you can update, upgrade, or just mess around.
+- `docker run -it --entrypoint /bin/bash <image>` or `docker run -it <image> /bin/bash` brings you to the shell of a container; you can update, upgrade, or just mess around. Try `bash` or `bin/sh` as alternatives.
 - `docker images` will list your images in convenient table format; the `-q` flag returns only IDs.
 - `docker inspect <image-name or image-id>` brings up all the configuration details about a specific image; you can, for example, find out its docker version and network ip.
 - `docker ps` ("print status") will list all running containers; `docker stop $(docker ps -a -q)` will stop them **all**.
 - `docker rmi <image-name or image-id>` will remove an image; `docker rmi $(docker images -q)` will remove **all** your images. Of course, you get to keep the dockerfiles.
 
 There are a gazillion more to choose and use, the [docker docs](https://docs.docker.com/reference/cli/docker) are your go-to source.
+
+
+One more note on the `ENTRYPOINT`:
+It defines through which terminal or script the user will access the container.
+For example, `/bin/bash`, `/usr/bin/bash` or `bin/sh` are the bash (linux terminal).
+Rocker images usually enter into an R console, or monitor an RStudio server.
+The flask container above runs a script which hosts your website and python.
+Anything is possible.
+You can define an entrypoint in the Dockerfile (i.e. set a default), or overwrite it on each `run`.
 
 
 # Podman
@@ -545,7 +588,7 @@ Don't fall for the docker marketing!
 There are alternatives which mitigate some of the docker limitations and disadvantages.
 
 The most prominent one (or rather the only one *I* looked at, sorry) might be `podman`.
-A container is a "pod", they run on a "machine", and this FOSS tool helps you manage them.
+A container is a "pod", they run on a "machine", and this FOSS tool helps you to manage them.
 The major advantage of podman is that it can be configured to run **"rootless"**, i.e. without administrator rights [^5].
 
 [^5]: Daniel J. Walsh (2019): "How does rootless Podman work?" <https://opensource.com/article/19/2/how-does-rootless-podman-work>
@@ -562,6 +605,8 @@ It is intuitive, transparent (telemetry opt-out), backed by RedHat.
 Unfortunately, it relies on Windows Subsystem for Linux (WSL), which is not available for INBO users at the moment.
 
 :(
+
+We are working on it.
 :::
 
 
@@ -626,6 +671,7 @@ These and more settings are in `/etc/containers/containers.conf` and `/etc/conta
 ## usage
 
 You can use images from `docker.io` with podman.
+The only difference from docker is the explicit mention of the source, `docker.io`.
 For example:
 
 ```{sh}
@@ -641,20 +687,22 @@ exit
 
 From here, **podman is a full drop-in replacement for docker**; just that you are not forced to grant host system root privileges to containers.
 
-And you can use any docker image; `rocker/rstudio` [is available](https://rocker-project.org/use/rootless-podman.html) (don't forget to specify the port).
+Any `Dockerfile` should work, with the mentioned mini-adjustment to `FROM`.
+And you can use any docker image; `docker.io/rocker/rstudio` [is available](https://rocker-project.org/use/rootless-podman.html) (don't forget to specify the port).
+You may even write `docker` in the terminal: it will alias to `podman` (via the `podman-docker` package on linux).
 
 ```{sh}
 #| eval: false
 podman run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD -v /data/git/coding-club:/root/coding-club docker.io/rocker/rstudio
 ```
 
-With one exception: the user to login to `rstudio` is not `rstudio`, but `root`, and you have root rights on the container. 
+There is another subtle change: the default user to login to `rstudio` is not `rstudio`, but `root`, because you need to have root rights on the container. 
 You had those before anyways, but now they are confined to within the pod.
 
 
 
 :::{.callout-note}
-To summarize:
+To summarize the Podman experience:
 
 - **Docker's Dockerfiles like the one above will build as with docker.**
 - You can even stick to the `docker` commands thanks to the `podman-docker` package.
@@ -669,7 +717,7 @@ Kudos to the podman devs!
 # Summary
 
 In this tutorial, I demonstrated the basics of containerization with docker and podman.
-There are convenient GUI apps, and sophisticated terminal commands, both of which are worth getting familiar to.
+There are convenient GUI apps, and sophisticated terminal commands, the latter is much more powerful.
 
 Personally, I find the concept of containerization fascinating, and was surprised how simple and useful of a trick it is.
 
@@ -678,7 +726,8 @@ Containerization offers the advantages of modularity, configurability, transpare
 There are some manageable pitfalls with respect to admin rights and resource limitation.
 
 
-Your head might twisting in a swirl of containers by now.
-I hope you find this overview instructive. 
+This was just a quick tour; I brushed over a lot of novel vocabulary with which you will have to familiarize yourself.
+Your head might be twisting in a swirl of containers by now.
+I hope you find this overview useful, nevertheless. 
 Thank you for reading!
 
