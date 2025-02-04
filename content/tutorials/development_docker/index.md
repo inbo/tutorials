@@ -73,7 +73,7 @@ You probably do not have admin rights, which is good.
 To re-iterate: **ask our friendly ICT helpdesk for support right away.**
 
 <figure>
-<img src="docker_desktop1.jpg" alt="desktop app" />
+<img src="../../images/tutorials/development_docker/docker_desktop1.jpg" alt="desktop app" />
 <figcaption aria-hidden="true">desktop app</figcaption>
 </figure>
 
@@ -164,7 +164,7 @@ If you control containers via the desktop app, simply search, pull, and run it.
 {{% /callout %}}
 
 <figure>
-<img src="docker_desktop2.jpg" alt="desktop app: run" />
+<img src="../../images/tutorials/development_docker/docker_desktop2.jpg" alt="desktop app: run" />
 <figcaption aria-hidden="true">desktop app: run</figcaption>
 </figure>
 
@@ -180,7 +180,7 @@ docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD rocker/rstudio
 -   The `-e` flag allows you to specify a password, but if you do not specify one, this container will provide a random password upon startup (read the terminal output).
 
 <figure>
-<img src="docker_run.jpg" alt="run" />
+<img src="../../images/tutorials/development_docker/docker_run.jpg" alt="run" />
 <figcaption aria-hidden="true">run</figcaption>
 </figure>
 
@@ -286,7 +286,7 @@ Once you create a `Dockerfile` and build it, it will appear in the GUI.
 {{% /callout %}}
 
 <figure>
-<img src="docker_winbuild.jpg" alt="build on windows" />
+<img src="../../images/tutorials/development_docker/docker_winbuild.jpg" alt="build on windows" />
 <figcaption aria-hidden="true">build on windows</figcaption>
 </figure>
 
@@ -357,7 +357,7 @@ sudo docker build -t my-flask .
 ```
 
 <figure>
-<img src="docker_build.jpg" alt="build" />
+<img src="../../images/tutorials/development_docker/docker_build.jpg" alt="build" />
 <figcaption aria-hidden="true">build</figcaption>
 </figure>
 
