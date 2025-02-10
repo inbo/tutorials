@@ -38,9 +38,9 @@ This provides a way to preview how these updates will look on the website, usefu
 ### Instructions to preview the updated website
 
 1) On the PR page, you can find a "details" link under "checks - On PR, build the site and ...". Go there, click on the top link in the left sidebar ("Summary"), and download the generated artifact at the bottom of the page.
-2) Decompress it and make sure the target directory is called 'tutorials' (you may need to rename it)
-3) From the parent directory (just above the `tutorials` folder you created/renamed), run `python -m http.server 8887`, _or_ launch the Google Chrome [Web Server app](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb) and point it at the parent directory.
-4) Point your browser to http://localhost:8887/tutorials.
+2) Decompress it into a target directory.
+3) From the target directory, run `python -m http.server 8887`, _or_ launch the Google Chrome [Web Server app](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb) and point it at the target directory.
+4) Point your browser to http://0.0.0.0:8887.
 5) Review the updated website. As a contributor, you can push extra commits to update the PR. As a reviewer, you can accept/refuse/comment the PR.
 
 **Note: for step 3, you can use any other simple HTTP server to serve the current directory if you don't have a Python 3 environment or Google Chrome available.**
