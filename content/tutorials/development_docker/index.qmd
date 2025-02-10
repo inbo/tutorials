@@ -1,13 +1,27 @@
 ---
-title: "Development/Docker: Compose"
+title: "Building Containers with Docker and Podman"
+description: "Introduction to containerization and the practical use of docker-like tools."
+date: "2025-02-04"
+authors: [falkmielke]
+categories: ["development", "open science"]
+tags: ["development", "open science"]
+number-sections: false
+params:
+  math: true
 format:
   html:
     toc: true
     html-math-method: katex
-    code-fold: true
-knitr:
-  opts_chunk:
-    echo: true
+  hugo-md:
+    toc: true
+    preserve_yaml: true
+    html-math-method: katex
+output:
+  hugo-md:
+    preserve_yaml: true
+    variant: gfm+footnotes
+  html:
+    variant: gfm+footnotes
 ---
 
 
@@ -68,23 +82,15 @@ To re-iterate: **ask our friendly ICT helpdesk for support right away.**
 
 ![desktop app](docker_desktop1.jpg)
 
-
-:::{.container-note}
-Side rant collection: 
-
-- Installation of Docker Desktop does not allow you to specify an install path (might have missed it).
-- `&'C:\Program Files\Docker\Docker\Docker Desktop.exe'` only runs with admin privileges.
-- It is bloated to more than 2GB (compared to the installed size of `docker` and `docker-buildx` on linux <200MB; What A GUI!).
-- The first thing it does is prompt you for an unnecessary login (smells like telemetry).
-- The second thing it does is annoy you with a survey (explicit telemetry).
-- It is full of uninvited ads ("Docker Build Cloud", "To access the latest features, sign in."/don't!).
-
-If you want some dignity, learn and use the terminal commands below. 
-I label them "linux", but they are, in fact, OS-agnostic.
-:::
-
+Using a convenient app is possible with Docker Desktop.
+On windows, you can download and install it with administrator rights.
 On linux, that same `docker-desktop` [is available for installation](https://docs.docker.com/desktop/setup/install/linux). 
-But, why would you?
+Yet while automating some aspects, the app is not entirely transparent on telemetry and advertisement; some anti-features are included (e.g. required login).
+This is unfortunate, because it makes the app less open for more privacy-concerned users.
+
+
+The terminal aspect of docker is entirely free and open source, and universally accessible.
+This is why the rest of this tutorial will focus on terminal access.
 
 
 ## terminal
@@ -204,15 +210,19 @@ You can shut down the container with the keyboard shortcut `[ctrl]+[C]` (probabl
 
 The downside of this is that your container is isolated (well... at least to a certain degree).
 
-To store files locally, i.e. on the host machine, without storing the bloated container, you will have to map a virtual path on the container to a local drive on your computer.
-(Linux people will be familiar with the concept of "mounting" and "linking" storage locations.)
+Images can take up considerable storage space.
+Storing files locally, i.e. on the host machine, without storing an unneccessarily filled container, might be a good strategy.
+This can be achieved by mapping a virtual path on the container to a local drive on your computer.
+(Linux users will be familiar with the concept of "mounting" and "linking" storage locations.)
+Note that the technique is equally relevant when running the container locally, hence not exclusive to remote hosts.
 
-Docker `run` brings the `-v` flag for this.
+
+Docker `run` brings the `-v` flag for mounting volumes.
 Suppose you have an R project you would like to work on, stored, for example, in this path:
 
 - `/data/git/coding-club`
 
-Then you can link this to your containers' home folder via the following command.
+Then you can link this to your container's home folder via the following command.
 
 ```{sh}
 #| eval: false
@@ -234,7 +244,7 @@ However, there are limitations:
 
 ::: {.callout-warning}
 - You have to live with the R packages provided in the container, or otherwise install them each time you access it...
-- ... unless you make you container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of docker), and demand occasional updates. (Still the best choice.)
+- ... unless you make your container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of docker), and demand occasional updates. (Still the best choice.)
 - Speaking of updates: it is good practice to keep software up to date. Occasionally update or simply re-install your docker image and R packages to get the latest versions.
 - You should make sure that the containers are configured correctly and securely. This is especially important with server components which expose your machine to the internet.
 - There is a performance penalty from using containers: in inaccurate laymans' terms, they emulate (parts of a) "computer" inside your computer. 
@@ -274,9 +284,10 @@ In the container:
 ```
 
 
-Now, the *good news* is that the difference is not by orders of magnitude, which indicates that the chosen rocker image integrated the same good `blas` variant I installed on my computer (`blas-openblas`).
+Now, the *good news* is that the difference is not by orders of magnitude.
+This indicates that the chosen rocker image integrated the more performant `blas` variant which is [recommended](https://pbs-assess.github.io/sdmTMB/index.html#installation) [elsewhere](https://prdm0.github.io/ropenblas/#installation) (`blas-openblas`).
 
-The *bad news* is that we still still a hit of `-20%` performance, which is considerable.
+The *bad news* is that we still a hit of `-20%` performance, which is considerable.
 
 
 This is just a single snapshot on a laptop, and putatively `blas`-confounded. 
@@ -347,7 +358,7 @@ The dockerfile resides in your working folder (yet it also defines a [`WORKDIR`]
 
 - Navigate to a folder in which you intend to store your container(s), e.g. `cd C:\data\docker` (windows) or `cd /data/docker` (linux).
 - Create a file called `Dockerfile`: `touch Dockerfile`.
-- Edit the file in your favorite text editor (`vim Dockerfile`; windows people probably use "notepad"). 
+- Edit the file in your favorite text editor (`vim Dockerfile`; windows users probably use "notepad"). 
 - Paste and optionally modify the content below.
 
 ```{}
@@ -388,8 +399,9 @@ With the `Dockerfile` and `hello.py` in place, you can build the container [^4].
 # on windows, you are already in an administrator terminal
 docker build -t my-flask .
 
-# on linux, use sudo if you like or go to "Podman" (rootless)
-sudo docker build -t my-flask .
+# on linux, use sudo if the user is not in the `docker` group.
+# sudo docker build -t my-flask .
+docker build -t my-flask .
 ```
 
 [^4]: If you did not install the `docker-buildx` package on linux, you will get a legacy warning.
@@ -485,6 +497,7 @@ RUN R -q -e 'remotes::install_github("inbo/INBOmd", dependencies = TRUE)'
 It takes some puzzle work to get the dependencies right, e.g. with the `libgit2` dependency (try commenting out that line to get a feeling for build failure).
 However, there is hope: (i) the error output is quite instructive (at least for linux persons), (ii) building is incremental, so you can add successively.
 It just takes patience.
+As a shortcut, consider using `pak` (from R) or `r2u` (apt repository) to implicitly deal with the system dependencies.
 Remember which system powers your container (Debian/Ubuntu), find help online, and document your progress.
 
 :::{.callout-note}
@@ -561,6 +574,7 @@ We have briefly seen `docker --version`, `docker build`, `docker run`, and there
 
 There are other docker commands which might help you out of a temporary misery.
 
+- `docker --help` will list the available commands and options.
 - `docker run -it --entrypoint /bin/bash <image>` or `docker run -it <image> /bin/bash` brings you to the shell of a container; you can update, upgrade, or just mess around. Try `bash` or `bin/sh` as alternatives.
 - `docker images` will list your images in convenient table format; the `-q` flag returns only IDs.
 - `docker inspect <image-name or image-id>` brings up all the configuration details about a specific image; you can, for example, find out its docker version and network ip.
@@ -583,10 +597,6 @@ You can define an entrypoint in the Dockerfile (i.e. set a default), or overwrit
 
 ## purpose
 
-Whales don't really carry "containers", and "images" are better hung on walls. 
-Don't fall for the docker marketing!
-
-
 There are alternatives which mitigate some of the docker limitations and disadvantages.
 
 The most prominent one (or rather the only one *I* looked at, sorry) might be `podman`.
@@ -598,7 +608,7 @@ The major advantage of podman is that it can be configured to run **"rootless"**
 
 Podman is [well documented](https://podman.io/docs/installation).
 Another reliable source as so often is the [arch linux wiki on podman](https://wiki.archlinux.org/title/Podman), no matter which linux you are on.
-On windows, people have succeeded in running Podman through a WSL.
+Windows users have succeeded in running Podman through a WSL.
 
 :::{.callout-note}
 For windows, there is a convenient "Podman Desktop" GUI which guides you through the installation and setup, including WSL instantiation.
@@ -734,3 +744,14 @@ Your head might be twisting in a swirl of containers by now.
 I hope you find this overview useful, nevertheless. 
 Thank you for reading!
 
+
+# TODO Review
+
+- Add text on @FV question: "Generally, I think it is good practice to treat containers as volatile to keep them hostmachine-independent."
+
+- https://github.com/inbo/tutorials/pull/356#discussion_r1949162627
+- what does containerd do? https://github.com/inbo/tutorials/pull/356#discussion_r1949167299
+
+- https://github.com/inbo/tutorials/pull/356#discussion_r1949270329
+
+- podman --box  "The requirements below seem to be met out of the box in an Ubuntu environment. Then am I right that the 'out of the box' statement here does not hold?"
