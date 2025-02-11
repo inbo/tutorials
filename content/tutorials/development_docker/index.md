@@ -193,7 +193,8 @@ You can access it via a browser, going to <localhost:8787>, with the username `r
 You can shut down the container with the keyboard shortcut `[ctrl]+[C]` (probably `[ctrl]+[Z] [Return]` on Windows).
 
 
-## <a id="#sec-mounting"></a> File Access
+<a id="#sec-mounting"></a> 
+## File Access
 
 The downside of this is that your container is isolated (well... at least to a certain degree).
 
@@ -269,7 +270,8 @@ This is just a single snapshot on a laptop, and putatively `blas`-confounded.
 Feel free to systematically and scientifically repeat the tests on your own machine.
 
 
-## <a id="#sec-permanence"></a> Container Permanence: The `--rm` Option
+<a id="#sec-permanence"></a> 
+## Container Permanence: The `--rm` Option
 
 As briefly touched above, `docker run` comes with the `--rm` option.
 This basically enables two separate workflows, i.e. usage paradigms.
@@ -482,7 +484,8 @@ Furthermore, Docker itself does not fix the versions of installed system compone
 Ideally, you want to implement **version control and virtual environments within the container**, to be a "full stack open science developer".
 
 
-## <a id="#sec-rootless"></a> "Because Roots Are Important"[^6]: Rootless Mode
+<a id="#sec-rootless"></a> 
+## "Because Roots Are Important"[^6]: Rootless Mode
 
 One of the main criticism about Docker is the necessity to run in a privileged user environment, which is indeed a security issue.
 This may refer to the system process requiring elevated privileges, or users in the `docker` system group [effectively having superuser privileges](https://github.com/moby/moby/issues/9976).
@@ -613,7 +616,8 @@ This way of handling private repositories [seems to be good practice](https://st
 The next best alternative would be mounting the `~/.ssh` folder from the host to the container via `-v`.
 
 
-# <a id="#sec-commands"></a> Useful Commands
+<a id="#sec-commands"></a> 
+# Useful Commands
 
 We have briefly seen `docker --version`, `docker build`, `docker run`, and there are certainly more settings and tweaks on these commands to learn about.
 
@@ -638,7 +642,8 @@ Anything is possible.
 You can define an entrypoint in the Dockerfile (i.e. set a default), or overwrite it on each `run`.
 
 
-# <a id="#sec-podman"></a> Podman
+<a id="#sec-podman"></a> 
+# Podman
 
 ## Purpose
 
