@@ -1,7 +1,7 @@
 ---
 title: "Building Containers with Docker and Podman"
 description: "Introduction to containerization and the practical use of Docker-like tools."
-date: "2025-02-04"
+date: "2025-02-11"
 authors: [falkmielke]
 categories: ["development", "open science"]
 tags: ["development", "open science"]
@@ -330,6 +330,7 @@ You might want to test this for yourself.
 Consider the following series of commands to create a test file in the Docker home directory:
 
 ```{sh}
+#| eval: false
 docker run  --name testing_permanence --rm -it docker.io/rocker/r-base
 echo "testing permanence." > ~/test.txt
 exit
@@ -340,6 +341,7 @@ Re-connecting is instantateous.
 However,
 
 ```{sh}
+#| eval: false
 docker run  --name testing_permanence --rm -it docker.io/rocker/r-base bash
 cat ~/test.txt
 ```
@@ -355,6 +357,7 @@ Whether this makes sense as a workflow has to be evaluated with respect to with 
 You can "link in" folders for working files (note how you have to specify the full path to `new_home`, and that this container uses the root user by default):
 
 ```{sh}
+#| eval: false
 mkdir new_home
 docker run  --name testing_permanence -v /data/containers/new_home:/root --rm -it docker.io/rocker/r-base bash
 echo "testing permanence." > ~/test.txt

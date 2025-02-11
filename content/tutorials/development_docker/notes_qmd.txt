@@ -6,7 +6,7 @@ steps to get a qmd to hugo markdown:
 
 + include yaml
   preserve_yaml: true
-but double-check the yaml header: it does not always copy correctly.
+but double-check the yaml header: it does not always copy correctly (author, date, categories, tags).
 
 
 + callouts: https://rossabaker.com/configs/website/shortcodes/callout/
