@@ -318,7 +318,7 @@ This basically enables two separate workflows, i.e. usage paradigms.
 The first option, which is the default, is that your container is stored on the system permanently.
 This counts for the upstream images, which are downloaded upon first invocation of a container.
 But also, changes you apply while working in the container are persistently stored until you log in again, using hard drive space of the host.
-Images may still be removed by manually running `docker rmi [...]` [@sec-commands].
+Images may still be removed by manually running `docker rmi [...]` ([@sec-commands]).
 
 
 In contrast, with the second option, `docker run --rm [...]`, ad-hoc changes in the container are removed when the container is finished.
