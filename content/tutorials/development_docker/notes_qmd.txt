@@ -16,7 +16,8 @@ but double-check the yaml header: it does not always copy correctly (author, dat
 
 
 + section crosslinks:
-## <a href="sec-section"></a> Section
+<a id="sec-section"></a>
+## Section
 
 + figure captions
 <img
