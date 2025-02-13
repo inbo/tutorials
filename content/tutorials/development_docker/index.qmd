@@ -58,6 +58,9 @@ __References:__
 - <https://medium.com/@geeekfa/docker-compose-setup-for-a-python-flask-api-with-nginx-reverse-proxy-b9be09d9db9b>
 - <https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx>
 - <https://arca-dpss.github.io/manual-open-science/docker-chapter.html>
+- <https://do4ds.com/chapters/sec1/1-6-docker.html>
+- <https://colinfay.me/docker-r-reproducibility>
+- <https://solutions.posit.co/envs-pkgs/environments/docker>
 
 
 # Installation
@@ -726,7 +729,8 @@ There are other Docker commands which might help you out of a temporary misery.
 - `docker rmi <image-name or image-id>` will remove an image; `docker rmi $(docker images -q)` will remove **all** your images. The command `docker system prune` provides an interactive cleanup. Of course, you get to keep the Dockerfiles.
 - `docker commit` and `docker diff` support the creation and maintenance of snapshots of processed images, which you could keep locally, or upload them to an online storage such as Docker Hub.
 
-There are a gazillion more to choose and use, the [Docker docs](https://docs.docker.com/reference/cli/docker) are your go-to source.
+There are a gazillion more to choose and use.
+A more complete list can be found [here, for example](https://do4ds.com/chapters/append/cheatsheets.html#cheat-docker), and the [Docker docs](https://docs.docker.com/reference/cli/docker) are your go-to source.
 
 
 One more note on the `ENTRYPOINT`:
