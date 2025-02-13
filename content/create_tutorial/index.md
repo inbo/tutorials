@@ -172,7 +172,7 @@ Replace all the CAPITAL words with appropriate information:
 - multiple tags you can pick yourself, all lowercase words. Have a look at the current [wordcloud](https://inbo.github.io/tutorials/tags/) to check which would be useful for your submission.
 - leave the `output` section as it is
 
-Underneath the last triple dahs (`---`), you can write the tutorial as you like using [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) and add code chunks to run R code. 
+Underneath the last triple dash (`---`), you can write the tutorial as you like using [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) and add code chunks to run R code. 
 
 As the Rmarkown file will not be part of the website, make sure to click the `knit` button to create the equivalent markdown file (`index.md`) in the same directory:
 
@@ -180,7 +180,7 @@ As the Rmarkown file will not be part of the website, make sure to click the `kn
 
 **Notice**: always knit the Rmarkdown file before you start committing the changes!
 
-- `add`/`commit` **both files** to git, cfr. [STEP 2 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#while_editing). You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, `push` the tutorial as in [STEP 3 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github).
+- `add`/`commit` **both files** to git, *cfr.* [STEP 2 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#while_editing). You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, `push` the tutorial as in [STEP 3 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github).
 - When ready, `push` your tutorial a last time and create a `Pull request` to the website maintainers as explained in [STEP 4 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master).
 
 After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.
