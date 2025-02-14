@@ -15,7 +15,7 @@ In this page, the roadmap towards a new tutorial will be explained.
 
 ## Writing a tutorial
 
-Each tutorial is setup in a subfolder of the `content/tutorials` folder. Within this folder, different files and formats may exist as you create them, but a file with the name `index.md` will be used for the tutorials website. So, you can create the tutorial directly in markdown or create it based on a [Rmarkdown](https://rmarkdown.rstudio.com/), a [Jupyter notebook](https://jupyter.org/) or any other format, as long as there is a single markdown file with the name `index.md` in your tutorial folder. 
+Each tutorial is setup in a subfolder of the `content/tutorials` folder. Within this folder, different files and formats may exist as you create them, but a file with the name `index.md` will be used for the tutorials website. So, you can create the tutorial directly in markdown or create it based on a [Rmarkdown](https://rmarkdown.rstudio.com/), a [Jupyter notebook](https://jupyter.org/), [quarto](https://quarto.org/docs/output-formats/hugo.html) or any other format, as long as there is a single markdown file with the name `index.md` in your tutorial folder. 
 
 There are different ways to create this file. We will provide in this document specific instructions for markdown an Rmarkdown based tutorials. Still, if you got useful information or text in another format or you got stuck with the description, do not hesitate to describe your submission in a [new issue ](https://github.com/inbo/tutorials/issues/new). If you do not have a Github account, ask the [IT helpdesk](mailto:ict.helpdesk@inbo.be). We will try to support you as soon as possible. 
 
@@ -94,7 +94,7 @@ Next, click `commit new file` and your submission will be reviewed by the websit
 
 When you ever used git or Github before, either using the command line, rstudio, Github Desktop,... you can work on your own computer and submit the tutorial using git.  In this section, we assume you are familiar to the git command or interface and have some basic knowledge. If not, no worries, we have a dedicated course to get you up to speed, see the [INBO git course](https://inbo.github.io/git-course/).
 
-_**Notice**: The links in the different steps will refer to the Rstudio steps in the INBO git tutorial, but can be done using other interfaces or the command line as well. Pick the one you prefer_
+_**Notice**: The links in the different steps will refer to the Rstudio steps in the INBO git tutorial, but can be done using other interfaces or the command line as well. Pick the one you prefer._
 
 If it is your first submission using your computer, [clone](https://inbo.github.io/git-course/course_rstudio.html#23_clone_a_repo_to_work_locally) the [INBO tutorials](https://github.com/inbo/tutorials) repository (*so use the clone button on the https://github.com/inbo/tutorials page!*).
 
