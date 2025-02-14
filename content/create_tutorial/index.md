@@ -100,7 +100,7 @@ If it is your first submission using your computer, [clone](https://inbo.github.
 
 Next, we use the [git workflow](https://inbo.github.io/git-course/workflow_rstudio.html) to submit the new tutorial:
 
-- Update your code and create a new branch, cfr. [STEP 1 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with). Provide a useful name for your branch related to the topic of your tutorial, e.g. `r_tidy_data` or `database_query_inboveg` and not ~~`my_tutorial`~~.
+- Update your code and create a new branch, *cf.* [STEP 1 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with). Provide a useful name for your branch related to the topic of your tutorial, e.g. `r_tidy_data` or `database_query_inboveg` and not ~~`my_tutorial`~~.
 - Navigate to the subfolder `content/tutorials` and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name. 
 - Within the folder, create a new file markdown `index.md`.  The header of this file has an agreed format and you should copy paste this to start with:
 
@@ -128,7 +128,7 @@ Replace all the CAPITAL words with appropriate information:
 
 Underneath the last triple dahs (`---`), you can write the tutorial as you like using [markdown syntax](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
-- `add`/`commit` the file to git, cfr. [STEP 2 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#while_editing). You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, `push` the tutorial as in [STEP 3 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github).
+- `add`/`commit` the file to git, *cf.* [STEP 2 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#while_editing). You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, `push` the tutorial as in [STEP 3 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github).
 - When ready, `push` your tutorial a last time and create a `Pull request` to the website maintainers as explained in [STEP 4 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master).
 
 After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.
@@ -141,7 +141,7 @@ If it is your first submission using your computer, [clone](https://inbo.github.
 
 Next, we use the [git workflow](https://inbo.github.io/git-course/workflow_rstudio.html) to submit the new tutorial:
 
-- Update your code and create a new branch, cfr. [STEP 1 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with). Provide a useful name for your branch related to the topic of your tutorial, e.g. `r_tidy_data` or `database_query_inboveg` and not ~~`my_tutorial`~~.
+- Update your code and create a new branch, *cf.* [STEP 1 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with). Provide a useful name for your branch related to the topic of your tutorial, e.g. `r_tidy_data` or `database_query_inboveg` and not ~~`my_tutorial`~~.
 - Navigate to the subfolder `content/tutorials` and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name. 
 - Within the folder, create a new file markdown `index.Rmd`.  The header of this file has an agreed format and you should copy paste this to start with:
 
@@ -180,7 +180,7 @@ As the Rmarkown file will not be part of the website, make sure to click the `kn
 
 **Notice**: always knit the Rmarkdown file before you start committing the changes!
 
-- `add`/`commit` **both files** to git, *cfr.* [STEP 2 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#while_editing). You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, `push` the tutorial as in [STEP 3 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github).
+- `add`/`commit` **both files** to git, *cf.* [STEP 2 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#while_editing). You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, `push` the tutorial as in [STEP 3 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github).
 - When ready, `push` your tutorial a last time and create a `Pull request` to the website maintainers as explained in [STEP 4 of the workflow](https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master).
 
 After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.
