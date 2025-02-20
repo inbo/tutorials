@@ -464,37 +464,71 @@ In that case `docker compose` is [the way to go](https://docs.docker.com/compose
 On Debian or Ubuntu, this extra functionality comes with the `docker-compose-plugin`.
 I did not have the need to try this out, yet, but will return here if that changes.
 
-## Confusion with Version Control and Version Management
+## Relation to Version Control and Version Management
 
 Back to the initial paradigma of reproducibility:
 *What exactly is the Open Science aspect of containerization?*
 
 This question might have led to some confusion, and I would like to throw in a paragraph of clarification.
+A crucial distinction lies in the preparation of *Dockerfiles* (i.e. build instructions) and the preservation of *images* (i.e. end products of a build process).
 
-One purpose of a container may be that you document the exact components of your system environment.
-You might start at a base image (e.g. a `rocker`) and add all necessary software via a Dockerfile.
+
+One purpose of a Dockerfile may be that you document the exact components of your system environment.
+You start at a base image (e.g. a `rocker`) and add additional software via Dockerfile layers.
 This is good practice, and encouraged: if you publish an analysis, provide a tested container recipe with it.
 
-However, this does not solve the problem of version conflicts.
+However, this alone does not solve the problem of version conflicts.
 Documenting the versions of packages you used is an extra step, for which [other tools are available](https://doi.org/10.1038/d41586-023-01469-0).
 
--   Version control such as `git` will track the changes within your own scripts and texts.
 -   It is good practice to report the exact versions of the software used upon publication ([see here, for example](https://arca-dpss.github.io/manual-open-science/requirements-chapter.html)).
+- Version control such as `git` will track the changes within your own texts, scripts, even version snapshots and Dockerfiles.
+-   Finally, docker images can serve as a snapshot of a (virtual) machine on which your code would run.
 
-The first point, **version control**, is a fantastic tool to enable open science, and avoid personal trouble.
+{{% callout emphasize %}}
+The simple rule of thumb is: use all three methods, ideally all the time.
+
+Virtual environments.
+Version control.
+Snapshots.
+
+Get used to them.
+They are easy.
+They will save you time and trouble almost immediately.
+{{% /callout %}}
+
+
+But unless you use them already, you might require some starting points and directions: here we go.
+The second point, **version control**, is a fantastic tool to enable open science, and avoid personal trouble.
 You will [find starting points and help in other tutorials on this website](https://tutorials.inbo.be/tags/git).
-The second point, version documentation, is ideally handled by **virtual environments**.
+It might have a steep learning curve, yet [there](https://rstudio.github.io/cheatsheets/git-github.pdf) [are](https://www.sourcetreeapp.com) [fantastic](https://magit.vc) [tools](https://www.sublimemerge.com) to get you started.
+The other point, version documentation, is trivially achieved by manual storage of currently installed versions via `sessionInfo()` in R, or `pip freeze > versions.txt` for Python.
+A small step towads somewhat more professionalism are **virtual environments**.
 Those exist for R ([renv](https://rstudio.github.io/renv/articles/renv.html)) or Python ([venv](https://docs.python.org/3/library/venv.html)).
 The `pak` library in R can [handle lock files conveniently](https://pak.r-lib.org/reference/lockfile_install.html) with `pak::lockfile_install()`.
 Then there is the integration of R, Python and system packages in `conda`-like tools ([e.g. micromamba](https://mamba.readthedocs.io/en/latest)).
+There are even system level tools, for example [`nix` and `rix`](https://docs.ropensci.org/rix).
 
-A simple, less effective basic solution to version reproducibility is the manual storage of currently installed versions via `sessionInfo()` in R, or `pip freeze > versions.txt` for Python.
+The methods are not mutually exclusive:
+all Dockerfiles, build recipes and scripts to establish virtual environments should generally be subject to version control.
 
-You can find Docker images of (recent) older versions of working environments on Docker Hub.
-You might think that this is how Docker supports version reproducibility.
-However, those will fail to build once the binary dependencies get removed.
-Furthermore, Docker itself does not fix the versions of installed system components by default.
-Ideally, you want to implement **version control and virtual environments within the container**, to be a "full stack open science developer".
+
+However, documenting the exact tools and versions used in a project does not guarantee that these versions will be accessible to future investigators (like oneself, trying to reproduce an analysis five years later).
+This is where **Docker images** come in.
+Docker images are the actual containers which you create from the Dockerfile blueprints by the process of building.
+Think of a docker image as a virtual copy of your computer which you store for later re-activation.
+For example, a collection of images for specific analysis pipelines at INBO are preserved at [Docker Hub/inbobmk](https://hub.docker.com/u/inbobmk).
+We consider these "stable" versions because they could be re-activated no matter what crazy updates shatter the R community, which enables us to return to all details of previous analyses.
+
+
+Some confusion might arise from the fact that managing these image snapshots is achieved with the same vocabulary as version control, for example you would ["commit"](https://docs.docker.com/reference/cli/docker/container/commit) updated versions and ["push"](https://docs.docker.com/reference/cli/docker/image/push) them to a container repository.
+
+Even more confusion might arise from the fact that you also find ready-made images online, e.g. on [Docker Hub](https://hub.docker.com), or [Quai](https://quay.io), or elsewhere.
+These provide images of (recent) versions of working environments, supposed to stand in as starting points for derived containers. 
+Hence, be aware of the dual use case of images: (i) the dynamic, universal base image which improves efficiency and (ii) the static, derived, bespoke image which you created for your analysis (shared with the world for reproducibility).
+
+
+And, once more, those images are not a "holy grail" solution: they are not entirely system independent (e.g. processor architecture), and they might occupy a considerable amount of hard disk space (Dockerfile optimization is warranted).
+Ideally, to be a "full stack open science developer", you want to implement **a mixed strategy** consisting virtual environments and containers, wrapped in version control and stored in a backup image. 
 
 
 <a id="sec-rootless"></a> 
