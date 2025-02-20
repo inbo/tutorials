@@ -96,11 +96,14 @@ This is why the rest of this tutorial will focus on terminal access.
 On the Windows terminal or Linux shell, you can install `docker` as a terminal tool.
 
 {{% callout note %}}
-On Windows, this comes bundled with the App[^1]; the steps below are not necessary.
-However, note that you need to run a terminal *as administrator*.
+On Windows, this comes bundled with the App; the steps below are not necessary.
+There might be ways to get around the Desktop App and facilitate installation, either via WSL2 or using [a windows package manager called Chocolatey](https://en.wikipedia.org/wiki/Chocolatey).
+
+Either way, note that you need to run the docker app or docker in a terminal *as administrator*.
+
 {{% /callout %}}
 
-More info on the debian installation [can be found here](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
+More info about the installation on Debian-based or Ubuntu Linux systems [can be found here](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 The procedure requires you to add an extra repository, [some caution is warranted](https://wiki.debian.org/DontBreakDebian).
 
 ``` sh
@@ -182,7 +185,7 @@ If it does not find the resources locally, Docker will download and extract the 
 docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD rocker/rstudio
 ```
 
--   The `--rm` flag makes the Docker image non-permanent, i.e. disk space will be freed after you close the container (<a href="#sec-permanence" class="quarto-xref">Section 2.5</a>).
+-   The `--rm` flag makes the Docker container non-permanent, i.e. disk space will be freed after you close the container (<a href="#sec-permanence" class="quarto-xref">Section 2.5</a>).
 -   The port specified at `-p` is the one you use to access this local container server (the `-p` actually maps host- and container ports). You have to specify it explicitly, otherwise the host system will not let you pass (`:gandalf-meme:`).
 -   The `-e` flag allows you to specify environment variables, in this case used to set a password for the RStudio server. But if you do not specify one, a random password will be generated and displayed upon startup (read the terminal output).
 
@@ -312,7 +315,7 @@ will return:
 \> cat: /root/test.txt: No such file or directory
 
 This behavior is desired (in the second workflow above): if you start up a fresh environment each time you work in Docker, you **assure that your work pipeline is independent of prior changes on the system**.
-Whether this makes sense as a workflow has to be evaluated with respect to with hard drive space requirement, updates, the option to build upon a customized Dockerfile, reproducibility potential.
+Whether this makes sense as a workflow has to be evaluated with respect to hard drive space requirement, updates, the option to build upon a customized Dockerfile, reproducibility potential.
 
 You can "link in" folders for working files (note how you have to specify the full path to `new_home`, and that this container uses the root user by default):
 
@@ -338,7 +341,7 @@ But it also pays off in complicated server setups and distributed computing.
 
 A standardized container from [Docker Hub](https://hub.docker.com) is a good start.
 However, you will probably require personalization.
-As a use case, imagine you would like to have an RStudio server which comes with relevant inbo packages pre-installed (e.g. [`inbodb`](https://inbo.github.io/inbodb), [`watina`](https://inbo.github.io/watina); *cf.* [contaINBO](https://github.com/inbo/contaINBO)).
+As a use case, imagine you would like to have an RStudio server which comes with relevant inbo packages pre-installed (e.g. [`inbodb`](https://inbo.github.io/inbodb), [`watina`](https://inbo.github.io/watina); *cf.* [containbo](https://github.com/inbo/containbo)).
 
 I will return to this use case below.
 To explore the general workings of `docker build`, let us turn to more web-directed tasks for a change.
@@ -452,13 +455,13 @@ We have used an existing image and added `flask` on top of it.
 This works via writing a Dockerfile and building an image.
 {{% /callout %}}
 
-## Multiple Images: `compose` Versus `build`
+## Multiple Images: `compose` *versus* `build`
 
 The above works fine for most cases.
 However, if you want to assemble and combine multiple images, or build on base images from multiple sources, you need a level up.
 
 In that case `docker compose` is [the way to go](https://docs.docker.com/compose/gettingstarted).
-On Debian, this extra functionality comes with the `docker-compose-plugin`.
+On Debian or Ubuntu, this extra functionality comes with the `docker-compose-plugin`.
 I did not have the need to try this out, yet, but will return here if that changes.
 
 ## Confusion with Version Control and Version Management
@@ -813,7 +816,6 @@ Your head might be twisting in a swirl of containers by now.
 I hope you find this overview useful, nevertheless.
 Thank you for reading!
 
-[^1]: I saw several ways online to get around the Desktop App, either via WSL2 or using [a windows package manager called Chocolatey](https://en.wikipedia.org/wiki/Chocolatey).
 
 [^2]: I mostly follow [this tutorial](https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html).
 
