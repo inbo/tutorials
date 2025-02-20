@@ -1,10 +1,10 @@
 ---
-title: Building Containers with Docker and Podman
+title: Containers with Docker and Podman
 description: Introduction to containerization and the practical use of Docker-like tools.
-date: "2025-02-11"
+date: "2025-02-20"
 authors: [falkmielke]
 categories: ["development", "open science"]
-tags: ["development", "open science"]
+tags: ["development", "open science", "docker", "containers"]
 number-sections: false
 params:
   math: true
@@ -127,7 +127,7 @@ For this change to take effect, log off and log in again and restart the Docker 
 Containers are managed by a system task ("service" and "socket") which need to be started.
 Most likely, your Linux uses `systemd`.
 Your system can start and stop that service automatically, by using `systemctl enable <...>`.  
-However, due to [diverse](https://docs.docker.com/engine/security) [security](https://github.com/moby/moby/issues/9976) [pitfalls](https://snyk.io/blog/top-ten-most-popular-docker-images-each-contain-at-least-30-vulnerabilities), it is good practice to **not keep it enabled** permanently on your system.
+However, due to [diverse](https://docs.docker.com/engine/security) [security](https://github.com/moby/moby/issues/9976) [pitfalls](https://snyk.io/blog/top-ten-most-popular-docker-images-each-contain-at-least-30-vulnerabilities), it is good practice to **not keep it enabled** permanently on your system (unless, of course, if you use it all the time).
 
 On a `systemd` system, you can start and stop Docker on demand via the following commands (those will ask you for `sudo` authentification if necessary).
 
@@ -158,7 +158,14 @@ Docker is about assembling and working in containers.
 "Living" in containers.
 Or, rather, you can think of this as living in a ["tiny home", or "mobile home"](https://parametric-architecture.com/tiny-house-movement).
 Let's call it a fancy caravan.
-The good thing is that you get to pick a general design and to choose all details of the interior.
+The good thing is that at least you get to pick a general design and to choose all details of the interior.
+
+<figure>
+<img src="../../images/tutorials/development_docker/docker_metaphor_tiny_space.jpg" alt="Black/white image of a tiny home as a metaphor for software containerization." />
+<figcaption aria-hidden="true">A tiny home close to "Gare Maritime", Brussels, February 2025.</figcaption>
+</figure>
+
+
 
 The best thing: if you feel like you do not have the cash, time, or talent to build your own home, you can *of course* use someone else's.
 There are a gazillion **Docker images available for you** on [Docker Hub](https://hub.docker.com).
@@ -234,12 +241,13 @@ This is a simple and quick way to run R and RStudio in a container.
 
 However, there are limitations:
 
-{{% callout emphasize %}}
+{{% callout note %}}
 -   You have to live with the R packages provided in the container, or otherwise install them each time you access it...
 -   ... unless you make your container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of Docker), and demand occasional updates (<a href="#sec-permanence" class="quarto-xref">Section 2.5</a>).
 -   You could alternatively add `--pull always` to `docker run`, which will check and pull new versions.
 -   Speaking of updates: it is good practice to keep software up to date. Occasionally update or simply re-install your Docker image and R packages to get the latest versions.
 -   You should make sure that the containers are configured correctly and securely. This is especially important with server components which expose your machine to the internet.
+-   Because most containers contain a linux system, user permissions are taken seriously, and the consequences might be confusing. There are guides online ([e.g. here](https://labex.io/tutorials/docker-how-to-handle-permissions-in-docker-415866)); there are example repositories (like the author's own struggle [here](https://github.com/inbo/containbo?tab=readme-ov-file#understanding-volumes) and [here](https://github.com/inbo/containbo/tree/main/emacs)); base images are well set up and one can normally get by with default users.
 -   There is a performance penalty from using containers: in inaccurate laymans' terms, they emulate (parts of a) "computer" inside your computer.
 {{% /callout %}}
 
@@ -312,7 +320,8 @@ cat ~/test.txt
 ```
 
 will return:
-\> cat: /root/test.txt: No such file or directory
+
+> cat: /root/test.txt: No such file or directory
 
 This behavior is desired (in the second workflow above): if you start up a fresh environment each time you work in Docker, you **assure that your work pipeline is independent of prior changes on the system**.
 Whether this makes sense as a workflow has to be evaluated with respect to hard drive space requirement, updates, the option to build upon a customized Dockerfile, reproducibility potential.
@@ -341,7 +350,7 @@ But it also pays off in complicated server setups and distributed computing.
 
 A standardized container from [Docker Hub](https://hub.docker.com) is a good start.
 However, you will probably require personalization.
-As a use case, imagine you would like to have an RStudio server which comes with relevant inbo packages pre-installed (e.g. [`inbodb`](https://inbo.github.io/inbodb), [`watina`](https://inbo.github.io/watina); *cf.* [containbo](https://github.com/inbo/containbo)).
+As a use case, imagine you would like to have an RStudio server which comes with relevant inbo packages pre-installed (e.g. [`inbodb`](https://inbo.github.io/inbodb), [`watina`](https://inbo.github.io/watina); *cf.* [the containbo repository](https://github.com/inbo/containbo)).
 
 I will return to this use case below.
 To explore the general workings of `docker build`, let us turn to more web-directed tasks for a change.
@@ -477,8 +486,8 @@ One purpose of a Dockerfile may be that you document the exact components of you
 You start at a base image (e.g. a `rocker`) and add additional software via Dockerfile layers.
 This is good practice, and encouraged: if you publish an analysis, provide a tested container recipe with it.
 
-However, this alone does not solve the problem of version conflicts.
-Documenting the versions of packages you used is an extra step, for which [other tools are available](https://doi.org/10.1038/d41586-023-01469-0).
+However, this alone does not solve the problem of version conflicts and deprecation.
+Documenting the versions of packages you used is an extra step, for which [other tools are available](https://doi.org/10.1038/d41586-023-01469-0):
 
 -   It is good practice to report the exact versions of the software used upon publication ([see here, for example](https://arca-dpss.github.io/manual-open-science/requirements-chapter.html)).
 - Version control such as `git` will track the changes within your own texts, scripts, even version snapshots and Dockerfiles.
@@ -515,9 +524,10 @@ all Dockerfiles, build recipes and scripts to establish virtual environments sho
 However, documenting the exact tools and versions used in a project does not guarantee that these versions will be accessible to future investigators (like oneself, trying to reproduce an analysis five years later).
 This is where **Docker images** come in.
 Docker images are the actual containers which you create from the Dockerfile blueprints by the process of building.
-Think of a docker image as a virtual copy of your computer which you store for later re-activation.
+In the "tiny home" metaphor: your "image" is the physical (small, but real, DIY-achievement) home to live in, built from step-by-step instructions.
+Think of a Docker image as a virtual copy of your computer which you store for later re-activation.
 For example, a collection of images for specific analysis pipelines at INBO are preserved at [Docker Hub/inbobmk](https://hub.docker.com/u/inbobmk).
-We consider these "stable" versions because they could be re-activated no matter what crazy updates shatter the R community, which enables us to return to all details of previous analyses.
+We consider these "stable" versions because they could be re-activated no matter what crazy future updates will shatter the R community, which enables us to return to all details of previous analyses.
 
 
 Some confusion might arise from the fact that managing these image snapshots is achieved with the same vocabulary as version control, for example you would ["commit"](https://docs.docker.com/reference/cli/docker/container/commit) updated versions and ["push"](https://docs.docker.com/reference/cli/docker/image/push) them to a container repository.
