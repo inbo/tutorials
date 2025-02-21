@@ -39,7 +39,7 @@ Although containerization is an immensely useful Open Science tool worth strivin
 <img src="../../images/tutorials/development_docker/Gemini_Generated_Image_ngoz1wngoz1wngoz.jpg" alt="build" />
 <figcaption aria-hidden="true">I could not resist generating a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
 </figure>
-(Image via Google Gemini, modified[^2])
+<figcaption aria-hidden="true">(Image via Google Gemini, modified.)[^1] </figcaption>
 
 
 Time to explore what containers really are, and what they are not.
@@ -257,7 +257,7 @@ Ideally, to be a "full stack open science developer", you want to implement **a 
 
 
 <a id="sec-rootless"></a> 
-## "Because Roots Are Important"[^1]: Rootless Mode
+## "Because Roots Are Important": Rootless Mode[^2]
 
 One of the main criticism about Docker is the necessity to run in a privileged user environment, which is indeed a security issue.
 This may refer to the system process requiring elevated privileges, or users in the `docker` system group [effectively having superuser privileges](https://github.com/moby/moby/issues/9976).
@@ -361,6 +361,7 @@ Your head might be twisting in a swirl of containers by now.
 I hope you find this overview useful, nevertheless.
 Thank you for reading!
 
-[^1]: Reference to the film "La Grande Bellezza".
 
-[^2]: Produced with Google Gemini (2025-02-21). Prompt: "I would love to have a comic-style image of a whale in a grail. The grail should be golden and shiny, resembling the holy grail. The whale on top is a reference to the docker logo (you may add sketchy little container blocks on its back)."
+[^1]: Produced with Google Gemini (2025-02-21). Prompt: "I would love to have a comic-style image of a whale in a grail. The grail should be golden and shiny, resembling the holy grail. The whale on top is a reference to the docker logo (you may add sketchy little container blocks on its back)."
+
+[^2]: Reference to the film "La Grande Bellezza".
