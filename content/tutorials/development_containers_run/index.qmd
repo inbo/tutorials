@@ -40,7 +40,7 @@ there are a gazillion **Docker images available** on repositories like [Docker H
 
 
 This tutorial will show you how to use such "containers-to-go", thereby demonstrating some basic principles and vocabulary about containerization.
-I assume that you have [installed docker](../tutorials/development_containers).
+I assume that you have [installed docker](../tutorials/development_containers#sec-installation).
 This tutorial will stay on the more involved route of running Docker in the terminal (the Docker Desktop "app" is rather self-explanatory, and you can manoever it easily with knowledge of terminal vocabulary).
 Once you master these first step, you can proceed to [customize your container images](../tutorials/development_containers_build).
 You might also [consider Podman as a Docker alternative](../tutorials/development_containers_podman).

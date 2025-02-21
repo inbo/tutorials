@@ -92,6 +92,8 @@ Here is an incomplete list of online material which you might find helpful.
 -   <https://colinfay.me/docker-r-reproducibility>
 -   <https://solutions.posit.co/envs-pkgs/environments/docker>
 
+
+<a id="sec-installation"></a> 
 # Installation
 
 The installation procedure [is documented here](https://docs.docker.com/install).

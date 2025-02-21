@@ -25,7 +25,7 @@ output:
 ---
 
 
-By now, you [will have successfully installed](../tutorials/development_containers) Docker or [Podman](../tutorials/development_containers_podman).
+By now, you [will have successfully installed](../tutorials/development_containers#sec-installation) Docker or [Podman](../tutorials/development_containers_podman).
 You hopefully succeeded in [running others' containers](../tutorials/development_containers_run), e.g. from a container repository.
 
 Next, it is time to customize your container.
