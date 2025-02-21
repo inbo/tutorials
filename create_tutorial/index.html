@@ -272,7 +272,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Mon Jan 27 08:36:40 UTC 2025</small></p>
+  <p><small>Built on: Fri Feb 21 08:32:05 UTC 2025</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -393,7 +393,7 @@ Improve this page</a>
 <p>First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.</p>
 <p>In this page, the roadmap towards a new tutorial will be explained.</p>
 <h2 id="writing-a-tutorial">Writing a tutorial<a href="#writing-a-tutorial" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>Each tutorial is setup in a subfolder of the <code>content/tutorials</code> folder. Within this folder, different files and formats may exist as you create them, but a file with the name <code>index.md</code> will be used for the tutorials website. So, you can create the tutorial directly in markdown or create it based on a <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a>, a <a href="https://jupyter.org/">Jupyter notebook</a> or any other format, as long as there is a single markdown file with the name <code>index.md</code> in your tutorial folder.</p>
+<p>Each tutorial is setup in a subfolder of the <code>content/tutorials</code> folder. Within this folder, different files and formats may exist as you create them, but a file with the name <code>index.md</code> will be used for the tutorials website. So, you can create the tutorial directly in markdown or create it based on a <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a>, a <a href="https://jupyter.org/">Jupyter notebook</a>, <a href="https://quarto.org/docs/output-formats/hugo.html">quarto</a> or any other format, as long as there is a single markdown file with the name <code>index.md</code> in your tutorial folder.</p>
 <p>There are different ways to create this file. We will provide in this document specific instructions for markdown an Rmarkdown based tutorials. Still, if you got useful information or text in another format or you got stuck with the description, do not hesitate to describe your submission in a <a href="https://github.com/inbo/tutorials/issues/new">new issue </a>. If you do not have a Github account, ask the <a href="mailto:ict.helpdesk@inbo.be">IT helpdesk</a>. We will try to support you as soon as possible.</p>
 <h3 id="1-writing-a-markdown-tutorial">1. writing a markdown tutorial<a href="#1-writing-a-markdown-tutorial" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
 <p>If you are directly writing your documentation in markdown syntax, you can either work online using <a href="https://github.com/inbo/tutorials">Github</a> or work on your own computer while using git.</p>
@@ -447,11 +447,11 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <p>Next, click <code>commit new file</code> and your submission will be reviewed by the website maintainers. If accepted, the tutorial will be automatically integrated in the tutorials website.</p>
 <h4 id="using-git-or-github-desktop-rstudio">Using git (or Github Desktop, Rstudio,&hellip;)<a href="#using-git-or-github-desktop-rstudio" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
 <p>When you ever used git or Github before, either using the command line, rstudio, Github Desktop,&hellip; you can work on your own computer and submit the tutorial using git.  In this section, we assume you are familiar to the git command or interface and have some basic knowledge. If not, no worries, we have a dedicated course to get you up to speed, see the <a href="https://inbo.github.io/git-course/">INBO git course</a>.</p>
-<p><em><strong>Notice</strong>: The links in the different steps will refer to the Rstudio steps in the INBO git tutorial, but can be done using other interfaces or the command line as well. Pick the one you prefer</em></p>
+<p><em><strong>Notice</strong>: The links in the different steps will refer to the Rstudio steps in the INBO git tutorial, but can be done using other interfaces or the command line as well. Pick the one you prefer.</em></p>
 <p>If it is your first submission using your computer, <a href="https://inbo.github.io/git-course/course_rstudio.html#23_clone_a_repo_to_work_locally">clone</a> the <a href="https://github.com/inbo/tutorials">INBO tutorials</a> repository (<em>so use the clone button on the <a href="https://github.com/inbo/tutorials">https://github.com/inbo/tutorials</a> page!</em>).</p>
 <p>Next, we use the <a href="https://inbo.github.io/git-course/workflow_rstudio.html">git workflow</a> to submit the new tutorial:</p>
 <ul>
-<li>Update your code and create a new branch, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
+<li>Update your code and create a new branch, <em>cf.</em> <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
 <li>Navigate to the subfolder <code>content/tutorials</code> and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name.</li>
 <li>Within the folder, create a new file markdown <code>index.md</code>.  The header of this file has an agreed format and you should copy paste this to start with:</li>
 </ul>
@@ -476,7 +476,7 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 </ul>
 <p>Underneath the last triple dahs (<code>---</code>), you can write the tutorial as you like using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown syntax</a>.</p>
 <ul>
-<li><code>add</code>/<code>commit</code> the file to git, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#while_editing">STEP 2 of the workflow</a>. You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, <code>push</code> the tutorial as in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github">STEP 3 of the workflow</a>.</li>
+<li><code>add</code>/<code>commit</code> the file to git, <em>cf.</em> <a href="https://inbo.github.io/git-course/workflow_rstudio.html#while_editing">STEP 2 of the workflow</a>. You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, <code>push</code> the tutorial as in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github">STEP 3 of the workflow</a>.</li>
 <li>When ready, <code>push</code> your tutorial a last time and create a <code>Pull request</code> to the website maintainers as explained in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master">STEP 4 of the workflow</a>.</li>
 </ul>
 <p>After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.</p>
@@ -485,7 +485,7 @@ tags: [&quot;FIRST_TAG&quot;, &quot;SECOND_TAG&quot;, &quot;...&quot;]
 <p>If it is your first submission using your computer, <a href="https://inbo.github.io/git-course/course_rstudio.html#23_clone_a_repo_to_work_locally">clone</a> the <a href="https://github.com/inbo/tutorials">INBO tutorials</a> repository (<em>so use the clone button on the <a href="https://github.com/inbo/tutorials">https://github.com/inbo/tutorials</a> page!</em>).</p>
 <p>Next, we use the <a href="https://inbo.github.io/git-course/workflow_rstudio.html">git workflow</a> to submit the new tutorial:</p>
 <ul>
-<li>Update your code and create a new branch, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
+<li>Update your code and create a new branch, <em>cf.</em> <a href="https://inbo.github.io/git-course/workflow_rstudio.html#option-1a-ill-make-a-new-branch-to-work-with">STEP 1 of the workflow</a>. Provide a useful name for your branch related to the topic of your tutorial, e.g. <code>r_tidy_data</code> or <code>database_query_inboveg</code> and not <del><code>my_tutorial</code></del>.</li>
 <li>Navigate to the subfolder <code>content/tutorials</code> and create a new subfolder in this directory. This will be the directory of your tutorial. Again, use a representative name for the directory name similar to the branch name.</li>
 <li>Within the folder, create a new file markdown <code>index.Rmd</code>.  The header of this file has an agreed format and you should copy paste this to start with:</li>
 </ul>
@@ -513,12 +513,12 @@ output:
 <li>multiple tags you can pick yourself, all lowercase words. Have a look at the current <a href="https://inbo.github.io/tutorials/tags/">wordcloud</a> to check which would be useful for your submission.</li>
 <li>leave the <code>output</code> section as it is</li>
 </ul>
-<p>Underneath the last triple dahs (<code>---</code>), you can write the tutorial as you like using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown syntax</a> and add code chunks to run R code.</p>
+<p>Underneath the last triple dash (<code>---</code>), you can write the tutorial as you like using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">markdown syntax</a> and add code chunks to run R code.</p>
 <p>As the Rmarkown file will not be part of the website, make sure to click the <code>knit</code> button to create the equivalent markdown file (<code>index.md</code>) in the same directory:</p>
 <p><img src="images/knit_md.png" alt=""></p>
 <p><strong>Notice</strong>: always knit the Rmarkdown file before you start committing the changes!</p>
 <ul>
-<li><code>add</code>/<code>commit</code> <strong>both files</strong> to git, cfr. <a href="https://inbo.github.io/git-course/workflow_rstudio.html#while_editing">STEP 2 of the workflow</a>. You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, <code>push</code> the tutorial as in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github">STEP 3 of the workflow</a>.</li>
+<li><code>add</code>/<code>commit</code> <strong>both files</strong> to git, <em>cf.</em> <a href="https://inbo.github.io/git-course/workflow_rstudio.html#while_editing">STEP 2 of the workflow</a>. You can commit the tutorial all in once or split the commits in different steps, that is up to you. To make sure your work is updated online as well, <code>push</code> the tutorial as in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_3:_push_your_changes_to_github">STEP 3 of the workflow</a>.</li>
 <li>When ready, <code>push</code> your tutorial a last time and create a <code>Pull request</code> to the website maintainers as explained in <a href="https://inbo.github.io/git-course/workflow_rstudio.html#step_4:_pull_request_to_add_your_changes_to_the_current_master">STEP 4 of the workflow</a>.</li>
 </ul>
 <p>After you pull request, your submission will be checked and reviewed. When accepted and merged, you tutorial will be online.</p>
