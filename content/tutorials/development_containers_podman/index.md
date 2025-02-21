@@ -35,6 +35,13 @@ Luckily, Docker is not a monolith.
 There are alternative approaches to containerization which mitigate some of the Docker limitations and disadvantages.
 In this tutorial, I will present [Podman](https://podman.io), a Docker alternative which I personally use the most (besides occasionally turning to ["buildah"](https://buildah.io)).
 
+
+<figure>
+<img src="https://podman.io/images/raw/characters/seal-diving.png" alt="The podman masquot, a stylized comic seal, jumping into the water." />
+<figcaption aria-hidden="true">Podman - let's dive in! (<a href="https://podman.io/features">Image source: the Podman website.</a>)</figcaption>
+</figure>
+
+
 # Podman
 
 Podman might be the most prominent Docker alternative.
