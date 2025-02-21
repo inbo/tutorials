@@ -157,14 +157,14 @@ benchmark(test())
 
 In the terminal:
 
-```{}
+```
     test replications elapsed relative user.self sys.self user.child sys.child
 1 test()          100  22.391        1    83.961   65.291          0         0
 ```
 
 In the container:
 
-```{}
+```
     test replications elapsed relative user.self sys.self user.child sys.child
 1 test()          100  26.076        1   102.494   153.89          0         0
 ```

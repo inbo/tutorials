@@ -138,7 +138,7 @@ Either way, note that you need to run the docker app or docker in a terminal *as
 More info about the installation on your specific Linux operation systems [can be found here](https://docs.docker.com/engine/install).
 The procedure for Debian or Ubuntu-based distributions involves trusting dockers gpg keys and adding an extra repository, [some caution is warranted](https://wiki.debian.org/DontBreakDebian).
 
-``` {sh}
+``` sh
 #| eval: false
 sudo apt update && sudo apt install docker-ce docker-buildx-plugin # debian-based
 # sudo pacman -Sy docker docker-buildx # Arch Linux
@@ -151,7 +151,7 @@ Many features which you would take for granted in this kind of software (securit
 For users to be able to use Docker, they must be in the "docker" group.
 (Insert your username at `<your-username>`.)
 
-``` {sh}
+``` sh
 #| eval: false
 sudo usermod -a -G docker <your-username>
 ```
@@ -165,7 +165,7 @@ However, due to [diverse](https://docs.docker.com/engine/security) [security](ht
 
 On a `systemd` system, you can start and stop Docker on demand via the following commands (those will ask you for `sudo` authentification if necessary).
 
-``` {sh}
+``` sh
 #| eval: false
 systemctl start docker
 
@@ -179,7 +179,7 @@ For aficionados: docker actually runs multiple services: the docker service, the
 
 You can check the Docker installation by confirming the version at which the service is running.
 
-``` {sh}
+``` sh
 #| eval: false
 docker --version
 ```
@@ -296,14 +296,16 @@ In this (and only this) situation, the simple solution is to copy a clone of the
 The `git clone` should reside within the Dockerfile folder.
 Then the Dockerfile section can look like the following:
 
-    # copy the repo
-    COPY my_private_repo /opt/my_private_repo
+```
+# copy the repo
+COPY my_private_repo /opt/my_private_repo
 
-    # manually install dependencies
-    RUN R -q -e 'install.packages("remotes", dependencies = TRUE)'
+# manually install dependencies
+RUN R -q -e 'install.packages("remotes", dependencies = TRUE)'
 
-    # install package from folder
-    RUN R -q -e 'install.packages("/opt/my_private_repo", repos = NULL, type = "source", dependencies = TRUE)'
+# install package from folder
+RUN R -q -e 'install.packages("/opt/my_private_repo", repos = NULL, type = "source", dependencies = TRUE)'
+```
 
 This way of handling private repositories [seems to be good practice](https://stackoverflow.com/questions/23391839/clone-private-git-repo-with-dockerfile/55761914#55761914), for being simple, secure, and generally most feasible.
 

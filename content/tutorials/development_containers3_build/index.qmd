@@ -113,7 +113,7 @@ The Dockerfile resides in your working folder (yet it also defines a [`WORKDIR`]
 - Edit the file in your favorite text editor (`vim Dockerfile`; Windows users probably use "notepad"). 
 - Paste and optionally modify the content below.
 
-```{}
+```
 # Use the official Python image (Alpine Linux, Python 3)
 FROM python:3-alpine
 
@@ -133,7 +133,7 @@ CMD ["flask", "run", "--host", "0.0.0.0", "--port", "8000"]
 
 Note that the following `hello.py` file needs to be present in your working directory (you will be reminded by a friendly error message):
 
-```{python}
+```python
 #| eval: false
 from flask import Flask
 app = Flask(__name__)
@@ -146,7 +146,7 @@ def hello():
 
 With the `Dockerfile` and `hello.py` in place, you can build the container [^4].
 
-```{sh}
+```sh
 #| eval: false
 # on Windows, you are already in an administrator terminal
 docker build --pull -t my-flask .
@@ -171,7 +171,7 @@ You should now see a `python` image, which is the base alpine image we built upo
 There is also a `my-flask`. 
 Try it!
 
-```{sh}
+```sh
 #| eval: false
 docker run my-flask
 ```
@@ -229,7 +229,7 @@ They prepared quite [a lot of useful images](https://hub.docker.com/u/rocker), i
 
 Note the syntax in `FROM`: it is `rocker/<image>:<version>`.
 
-```{}
+```
 FROM rocker/rstudio:latest
 # (Use the rocker rstudio image)
 
@@ -280,7 +280,7 @@ More here: <https://docs.docker.com/build/building/best-practices>
 
 Test the image:
 
-```{sh}
+```sh
 #| eval: false
 docker build -t test-rstudio .
 ```
@@ -288,7 +288,7 @@ docker build -t test-rstudio .
 
 Run it, as before:
 
-```{sh}
+```sh
 #| eval: false
 docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD test-rstudio
 ```

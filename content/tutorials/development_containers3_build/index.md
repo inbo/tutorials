@@ -104,20 +104,22 @@ The Dockerfile resides in your working folder (yet it also defines a [`WORKDIR`]
 
 <!-- -->
 
-    # Use the official Python image (Alpine Linux, Python 3)
-    FROM python:3-alpine
+```
+# Use the official Python image (Alpine Linux, Python 3)
+FROM python:3-alpine
 
-    # install app dependencies
-    RUN apk update && apk add --no-cache python3 py3-pip
-    RUN pip install flask
+# install app dependencies
+RUN apk update && apk add --no-cache python3 py3-pip
+RUN pip install flask
 
-    # install app
-    COPY hello.py /
+# install app
+COPY hello.py /
 
-    # final configuration
-    ENV FLASK_APP=hello
-    EXPOSE 8000
-    CMD ["flask", "run", "--host", "0.0.0.0", "--port", "8000"]
+# final configuration
+ENV FLASK_APP=hello
+EXPOSE 8000
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "8000"]
+```
 
 Note that the following `hello.py` file needs to be present in your working directory (you will be reminded by a friendly error message):
 
@@ -132,7 +134,7 @@ def hello():
 
 With the `Dockerfile` and `hello.py` in place, you can build the container [^2].
 
-``` {sh}
+``` sh
 #| eval: false
 # on Windows, you are already in an administrator terminal
 docker build --pull -t my-flask .
@@ -156,7 +158,7 @@ You should now see a `python` image, which is the base alpine image we built upo
 There is also a `my-flask`.
 Try it!
 
-``` {sh}
+``` sh
 #| eval: false
 docker run my-flask
 ```
@@ -208,36 +210,38 @@ They prepared quite [a lot of useful images](https://hub.docker.com/u/rocker), i
 
 Note the syntax in `FROM`: it is `rocker/<image>:<version>`.
 
-    FROM rocker/rstudio:latest
-    # (Use the rocker rstudio image)
+```
+FROM rocker/rstudio:latest
+# (Use the rocker rstudio image)
 
-    # update the system packages
-    RUN apt update \
-        && apt upgrade --yes
+# update the system packages
+RUN apt update \
+    && apt upgrade --yes
 
-    # git2rdata requires git
-    RUN  apt-get update \
-      && apt-get install -y --no-install-recommends \
-        git libgit2-dev\
-      && apt-get clean
+# git2rdata requires git
+RUN  apt-get update \
+  && apt-get install -y --no-install-recommends \
+    git libgit2-dev\
+  && apt-get clean
 
-    # update pre-installed R packages
-    # RUN Rscript -e 'update.packages(ask=FALSE)'
+# update pre-installed R packages
+# RUN Rscript -e 'update.packages(ask=FALSE)'
 
-    # copy a `.Rprofile` to the container
-    # available here: https://tutorials.inbo.be/installation/administrator/admin_install_r/Rprofile.site
-    COPY docker/.Rprofile $R_HOME/etc/Rprofile.site
+# copy a `.Rprofile` to the container
+# available here: https://tutorials.inbo.be/installation/administrator/admin_install_r/Rprofile.site
+COPY docker/.Rprofile $R_HOME/etc/Rprofile.site
 
-    # install package via an R command (`R -q -e` or `Rscript -e`)
-    # (a) from pre-configured repositories
-    RUN Rscript -e 'install.packages("git2rdata")'
+# install package via an R command (`R -q -e` or `Rscript -e`)
+# (a) from pre-configured repositories
+RUN Rscript -e 'install.packages("git2rdata")'
 
-    # (b) via r-universe
-    RUN R -q -e 'install.packages("watina", repos = c(inbo = "https://inbo.r-universe.dev", CRAN = "https://cloud.r-project.org"))'
+# (b) via r-universe
+RUN R -q -e 'install.packages("watina", repos = c(inbo = "https://inbo.r-universe.dev", CRAN = "https://cloud.r-project.org"))'
 
-    # (b) from github
-    RUN R -q -e 'install.packages("remotes")'
-    RUN R -q -e 'remotes::install_github("inbo/INBOmd", dependencies = TRUE)'
+# (b) from github
+RUN R -q -e 'install.packages("remotes")'
+RUN R -q -e 'remotes::install_github("inbo/INBOmd", dependencies = TRUE)'
+```
 
 It takes some puzzle work to get the dependencies right, e.g. with the `libgit2` dependency (try commenting out that line to get a feeling for build failure).
 However, there is hope: (i) the error output is quite instructive (at least for Linux users), (ii) building is incremental, so you can add successively.
@@ -255,14 +259,14 @@ More here: <https://docs.docker.com/build/building/best-practices>
 
 Test the image:
 
-``` {sh}
+``` sh
 #| eval: false
 docker build -t test-rstudio .
 ```
 
 Run it, as before:
 
-``` {sh}
+``` sh
 #| eval: false
 docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD test-rstudio
 ```

@@ -73,7 +73,7 @@ I follow the `podman` installation instructions for Arch Linux, to set up a **ro
 
 Installation:
 
-``` {sh}
+``` sh
 #| eval: false
 pacman -Sy podman podman-docker passt
 ```
@@ -87,7 +87,7 @@ Just to be safe, I briefly list the major configuration steps.
 
 The first step is to confirm a required kernel module: check that `unpriviledged_users_clone` is set to one.
 
-``` {sh}
+``` sh
 #| eval: false
 sysctl kernel.unprivileged_userns_clone
 ```
@@ -95,7 +95,7 @@ sysctl kernel.unprivileged_userns_clone
 Then, configure "subordinate user IDs".
 There are detail differences in each Linux distribution; with some luck, your username is already present in these lists:
 
-``` {sh}
+``` sh
 #| eval: false
 cat /etc/subuid
 cat /etc/subgid
@@ -103,7 +103,7 @@ cat /etc/subgid
 
 If not, you can be admitted to the club of subordinates with the command:
 
-``` {sh}
+``` sh
 #| eval: false
 usermod --add-subuids 100000-165535 --add-subgids 100000-165535 <username>
 podman system migrate
@@ -112,7 +112,7 @@ podman system migrate
 We note some useful commands on the way: `podman system ...` and `podman info`.
 You might immediately check "native rootless overlays" (has something to do with mounting filesystems in the container):
 
-``` {sh}
+``` sh
 #| eval: false
 podman info | grep -i overlay
 ```
@@ -127,7 +127,7 @@ You can use images from `docker.io` with Podman.
 The only difference from Docker is the explicit mention of the source, `docker.io`.
 For example:
 
-``` {sh}
+``` sh
 #| eval: false
 podman search docker.io/alpine
 podman pull docker.io/alpine # download a machine
@@ -141,7 +141,7 @@ Except for the prefix, everything you [can read in our `docker run` tutorial](..
 
 Note that at least some `docker.io` images will not work: I actually experienced issues with the "rootless Docker image":
 
-``` {sh}
+``` sh
 #| eval: false
 # podman run --rm -it docker.io/docker:25.0-dind-rootless
 ```
@@ -162,7 +162,7 @@ Any Dockerfile should work, with the mentioned mini-adjustment to `FROM`.
 And you can use any Docker image; `docker.io/rocker/rstudio` [is available](https://rocker-project.org/use/rootless-podman.html) (don't forget to specify the port).
 You may even write `docker` in the terminal: it will alias to `podman` (via the `podman-docker` package on Linux, or an alias).
 
-``` {sh}
+``` sh
 #| eval: false
 podman run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD -v /data/git/coding-club:/root/coding-club docker.io/rocker/rstudio
 ```
