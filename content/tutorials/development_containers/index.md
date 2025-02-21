@@ -1,7 +1,7 @@
 ---
-title: Containers with Docker and Podman
+title: Containers: An Overview
 description: Introduction to containerization and the practical use of Docker-like tools.
-date: '2025-02-21'
+date: "2025-02-21"
 authors: [falkmielke]
 categories: ["development", "open science"]
 tags: ["development", "open science", "docker", "containers"]
@@ -33,6 +33,13 @@ Although containerization is an immensely useful Open Science tool worth strivin
 -  (i) Unlike The Grail, Docker is easy to find and accessible.
 -  (ii) Docker alone does not make a reproducible workflow; some of its capability is occasionally confused with package version management.
 -  (iii) Docker has issues, some of them mitigated by configuration adjustment or switching to "Podman".
+
+
+<figure>
+<img src="../../images/tutorials/development_docker/Gemini_Generated_Image_ngoz1wngoz1wngoz.jpg" alt="build" />
+<figcaption aria-hidden="true">I could not resist generating[^2] a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
+</figure>
+
 
 Time to explore what containers really are, and what they are not.
 
@@ -352,3 +359,5 @@ I hope you find this overview useful, nevertheless.
 Thank you for reading!
 
 [^1]: Reference to the film "La Grande Bellezza".
+
+[^2]: Produced with Google Gemini (2025-02-21). Prompt: "I would love to have a comic-style image of a whale in a grail. The grail should be golden and shiny, resembling the holy grail. The whale on top is a reference to the docker logo (you may add sketchy little container blocks on its back)."
