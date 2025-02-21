@@ -29,9 +29,13 @@ output:
 You might have heard about "containerization" with [**Docker**](https://docs.docker.com).
 Docker has been labeled "the *Holy Grail* of reproducibility" in [The Open Science Manual by Claudio Zandonella Callegher and Davide Massidda (2023)](https://arca-dpss.github.io/manual-open-science/docker-chapter.html).
 Although containerization is an immensely useful Open Science tool worth striving for, the *Holy Grail* is an inaccurate metaphor, because
-(i) Unlike The Grail, Docker is easy to find and accessible.
-(ii) Docker alone does not make a reproducible workflow; some of its capability is occasionally confused with package version management.
-(iii) Docker has issues, some of them mitigated by configuration adjustment or switching to "Podman".
+
+-  (i) Unlike The Grail, Docker is easy to find and accessible.
+-  (ii) Docker alone does not make a reproducible workflow; some of its capability is occasionally confused with package version management.
+-  (iii) Docker has issues, some of them mitigated by configuration adjustment or switching to "Podman".
+
+Time to explore what containers really are, and what they are not.
+
 
 # Overview
 
@@ -47,15 +51,15 @@ or store and publish a whole image right away.
 In this notebook, you will find **installation instructions**, <a href="#sec-commands" class="quarto-xref"><b>useful commands</b></a>, references, and a loose assembly of general and almost philosophical topics to prime you on the **complications and misconceptions** surrounding containerization.
 
 There are numerous useful build instructions and container images already out there, which you can **simply `pull` and `run`**.
-This is an easy, entry level application of container software like Docker, [covered in an introductory tutorial](../../../tutorials/TODO).
+This is an easy, entry level application of container software like Docker, [covered in an introductory tutorial](../../tutorials/development_containers_run).
 
-A second step is to set up and deploy a **self-`build` custom container** I demonstrate step-by-step [in a slightly more advanced tutorial](../../../tutorials/TODO).
+A second step is to set up and deploy a **self-`build` custom container** I demonstrate step-by-step [in a slightly more advanced tutorial](../../tutorials/development_containers_build).
 This is intended to be a rather general test case, enabling you to later configure more specific container solutions for your own purpose.
 For example, you will learn how to spin up an existing `rocker/rstudio` container, and even modify it with additional system components and libraries.
 
 For relevant INBO-specific use cases, make sure to [check out the `containbo` repository](https://github.com/inbo/containbo) which documents **even more tipps and tricks** assembled during my humble (but mostly succesful) attempts to get INBO R packages to run in a container environment.
 
-I also present **Podman** as a [full replacement for Docker](../../../tutorials/TODO), and recommend to give it a try.
+I also present **Podman** as a [full replacement for Docker](../../tutorials/development_containers_podman), and recommend to give it a try.
 
 On Windows, installation, configuration, and management of containers runs via the `docker desktop` app.
 However, this series of tutorials also covers (and in fact focuses on) the terminal-centered steps to be executed on a Linux computer or within a WSL.
@@ -173,7 +177,7 @@ docker --version
 
 Congratulations: now the fun starts!
 
-With docker installed, the next step is to run a container image which someone else has prepared and hosted online, [which you can read about in the next tutorial](../../../tutorials/TODO).
+With docker installed, the next step is to run a container image which someone else has prepared and hosted online, [which you can read about in the next tutorial](../../tutorials/development_containers_run).
 
 # The Holy Grail?
 
@@ -253,7 +257,7 @@ Historically, Docker could not run "rootless", i.e. without elevated privileges
 [This seems to have changed](https://docs.docker.com/engine/security/rootless), according to Docker.
 Some caution is still warranted: the setup procedure requires downloading and running shell scripts (which must be checked); the deamon still builds on `systemd` (*usually* root level); some functionality is limited.
 
-On the other hand, there is Podman (cf. the [Podman tutorial](../../../tutorials/TODO)).
+On the other hand, there is Podman (cf. the [Podman tutorial](../../tutorials/development_containers_podman)).
 It *used to* require almost the same extra steps as the `docker-rootless` to work rootless, but we found that these requirements are now met per default.
 It seems that, at the time of writing, Docker and Podman have identical capabilities in terms of rootless containerization.
 The remaining difference is that Podman seems to have more sensible default settings.

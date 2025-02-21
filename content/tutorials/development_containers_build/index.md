@@ -25,16 +25,20 @@ output:
 ---
 
 
-By now, you [will have successfully installed](../tutorials/development_containers) Docker or [Podman](../tutorials/development_containers_podman).
-You hopefully succeeded in [running others' containers](../tutorials/development_containers_run), e.g. from a container repository.
+By now, you [will have successfully installed](../../tutorials/development_containers) Docker or [Podman](../../tutorials/development_containers_podman).
+You hopefully succeeded in [running others' containers](../../tutorials/development_containers_run), e.g. from a container repository.
 
 Next, it is time to customize your container.
 
 To give you a metaphor to work on: imagine you have a nice little DIY project for your garage workshop.
 This time, you would like to build your own [Matryoshka dolls](https://en.wikipedia.org/wiki/Matryoshka_doll) (матрёшка, stacking dolls, a great allegory for recursion).
 
-https://images.unsplash.com/photo-1586010135736-c16373adf060?q=80
-(Photo by <a href="https://unsplash.com/@ilmatar?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Iza Gawrych</a> on <a href="https://unsplash.com/photos/a-group-of-blue-and-gold-vases-sitting-on-top-of-a-table-oL3O2PybLoo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>)
+<figure>
+<img src="https://images.unsplash.com/photo-1586010135736-c16373adf060?q=80" alt="build" />
+<figcaption aria-hidden="true">(Photo by <a href="https://unsplash.com/@ilmatar?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Iza Gawrych</a> on <a href="https://unsplash.com/photos/a-group-of-blue-and-gold-vases-sitting-on-top-of-a-table-oL3O2PybLoo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>)</figcaption>
+</figure>
+
+
 
 Like all good DIY, you do not fully start from scratch: you start with a blueprint which someone else has created, or general building instructions.
 You usually do not grow your own trees to get the wood, you buy wooden blocks of approximately the right size; neither do you mix you own paint from elemental ingredients, you assemble what others have to offer.
@@ -274,10 +278,10 @@ When designing and building Dockerfiles, you effectively craft your own DIY Matr
 This may involve tinkering, some sawdust will fall off on the sides, but often the end product is quite presentable.
 
 And that is one of the main purposes of a custom docker image: you can store a given set of interrelated software building blocks for later use (reproducibility).
-Some of these sets are rather rough, abstract, or general (like the images you get on image repositories, which you can [simply pull and run](../tutorials/development_containers_run)).
+Some of these sets are rather rough, abstract, or general (like the images you get on image repositories, which you can [simply pull and run](../../tutorials/development_containers_run)).
 Others are bespoke, containing exact requirements for a given task.
-Both functions are important building blocks of open science, and I elaborate more about this framework [in the main article on containerization](../tutorials/development_containers).
-Docker is a specific implementation of the container concept, and you might also want to [try out Podman](../tutorials/development_containers_podman) as an alternative.
+Both functions are important building blocks of open science, and I elaborate more about this framework [in the main article on containerization](../../tutorials/development_containers).
+Docker is a specific implementation of the container concept, and you might also want to [try out Podman](../../tutorials/development_containers_podman) as an alternative.
 
 Good luck with all your DIY projects, and thank you for reading!
 
