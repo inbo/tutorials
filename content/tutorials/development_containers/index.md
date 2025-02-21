@@ -1,6 +1,6 @@
 ---
-title: Containers: An Overview
-description: Introduction to containerization and the practical use of Docker-like tools.
+title: "Containers: An Overview"
+description: "Introduction to containerization and the practical use of Docker-like tools."
 date: "2025-02-21"
 authors: [falkmielke]
 categories: ["development", "open science"]
@@ -37,8 +37,8 @@ Although containerization is an immensely useful Open Science tool worth strivin
 
 <figure>
 <img src="../../images/tutorials/development_docker/Gemini_Generated_Image_ngoz1wngoz1wngoz.jpg" alt="build" />
-<figcaption aria-hidden="true">I could not resist generating a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
-</figure>[^2]
+<figcaption aria-hidden="true">I could not resist generating[^2] a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
+</figure>
 
 
 Time to explore what containers really are, and what they are not.
