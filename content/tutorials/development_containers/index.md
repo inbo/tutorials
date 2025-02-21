@@ -37,8 +37,8 @@ Although containerization is an immensely useful Open Science tool worth strivin
 
 <figure>
 <img src="../../images/tutorials/development_docker/Gemini_Generated_Image_ngoz1wngoz1wngoz.jpg" alt="build" />
-<figcaption aria-hidden="true">I could not resist generating[^2] a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
-</figure>
+<figcaption aria-hidden="true">I could not resist generating a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
+</figure>[^2]
 
 
 Time to explore what containers really are, and what they are not.
