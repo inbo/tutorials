@@ -1,6 +1,6 @@
 ---
-title: "Running Existing Containers"
-description: "Pulling and running containers from an online container repository."
+title: Running Existing Containers
+description: Pulling and running containers from an online container repository.
 date: "2025-02-21"
 authors: [falkmielke]
 categories: ["development", "open science"]
@@ -27,89 +27,84 @@ output:
 
 Docker is about assembling and working in containers.
 "Living" in containers.
-Or, rather, you can think of this as living in a ["tiny home", or "mobile home"](https://parametric-architecture.com/tiny-house-movement). 
+Or, rather, you can think of this as living in a ["tiny home", or "mobile home"](https://parametric-architecture.com/tiny-house-movement).
 (Let's call it a fancy caravan.)
 In the simple, but comfortable case, you do not get to pick a general design or to choose all details of the interior: you just take that wheeled cabine "as is" from a tiny home reseller.
 
-![A tiny home close to "Gare Maritime", Brussels, February 2025.](docker_metaphor_tiny_space.jpg)
-
+<figure>
+<img src="../../images/tutorials/development_docker/docker_metaphor_tiny_space.jpg" alt="Black/white image of a tiny home as a metaphor for software containerization." />
+<figcaption aria-hidden="true">A tiny home close to "Gare Maritime", Brussels, February 2025.</figcaption>
+</figure>
 
 Just as a tiny home is a mini-version of an immobile house, a container can be thought of as a miniature computer which can be transferred to other computing environments.
 The good news:
 there are a gazillion **Docker images available** on repositories like [Docker Hub](https://hub.docker.com) or [Quay](https://quay.io).
 
-
 This tutorial will show you how to use such "containers-to-go", thereby demonstrating some basic principles and vocabulary about containerization.
-I assume that you have [installed docker](../tutorials/development_containers).
+I assume that you have [installed docker](../../tutorials/development_containers).
 This tutorial will stay on the more involved route of running Docker in the terminal (the Docker Desktop "app" is rather self-explanatory, and you can manoever it easily with knowledge of terminal vocabulary).
-Once you master these first step, you can proceed to [customize your container images](../tutorials/development_containers_build).
-You might also [consider Podman as a Docker alternative](../tutorials/development_containers_podman).
-
+Once you master these first step, you can proceed to [customize your container images](../../tutorials/development_containers_build).
+You might also [consider Podman as a Docker alternative](../../tutorials/development_containers_podman).
 
 ## Example
 
-Because of the useful idea of bringing your computer environment along (think of benefits for distributed computing), container images of all kind are abundant on the container repositories mentioned above. 
-For example[^1], there are Docker images with [rstudio server](https://posit.co/download/rstudio-server) pre-installed: 
+Because of the useful idea of bringing your computer environment along (think of benefits for distributed computing), container images of all kind are abundant on the container repositories mentioned above.
+For example[^1], there are Docker images with [rstudio server](https://posit.co/download/rstudio-server) pre-installed:
 
-- <https://hub.docker.com/r/rocker/rstudio>
+-   <https://hub.docker.com/r/rocker/rstudio>
 
-[^1]: I mostly follow [this tutorial](https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html).
-
-
-:::{.callout-note}
+{{% callout note %}}
 If you control containers via the desktop app, simply search, pull, and run it.
-:::
+{{% /callout %}}
 
-![desktop app: run](docker_desktop2.jpg)
 
+<figure>
+<img src="../../images/tutorials/development_docker/docker_desktop2.jpg" alt="desktop app: run" />
+<figcaption aria-hidden="true">Desktop App: run.</figcaption>
+</figure>
 
 If you are comfortable using the terminal, execute the following script (*Windows*: use an administrator terminal).
 If it does not find the resources locally, Docker will download and extract the image from Docker Hub[^2].
 
-[^2]: Just like "Github" is a server service to store git repositories, guess what: "Docker Hub" is a hosting service to store Docker containers.
-
-```{sh}
-#| eval: false
+``` sh
 docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD rocker/rstudio
 ```
 
+-   The `run` command will automatically `pull`, i.e. download an existing image; though you could also `pull` without running.
+-   The `--rm` flag makes the Docker container non-permanent, i.e. disk space will be freed after you close the container (<a href="#sec-permanence" class="quarto-xref">Section 0.4</a>).
+-   The port specified at `-p` is the one you use to access this local container server (the `-p` actually maps host- and container ports). You have to specify it explicitly, otherwise the host system will not let you pass (`:gandalf-meme:`).
+-   The `-e` flag allows you to specify environment variables, in this case used to set a password for the RStudio server. But if you do not specify one, a random password will be generated and displayed upon startup (read the terminal output).
 
-- The `run` command will automatically `pull`, i.e. download an existing image; though you could also `pull` without running.
-- The `--rm` flag makes the Docker container non-permanent, i.e. disk space will be freed after you close the container ([@sec-permanence]).
-- The port specified at `-p` is the one you use to access this local container server (the `-p` actually maps host- and container ports). You have to specify it explicitly, otherwise the host system will not let you pass (`:gandalf-meme:`).
-- The `-e` flag allows you to specify environment variables, in this case used to set a password for the RStudio server. But if you do not specify one, a random password will be generated and displayed upon startup (read the terminal output).
+<figure>
+<img src="../../images/tutorials/development_docker/docker_run.jpg" alt="run" />
+<figcaption aria-hidden="true">Docker run, on the terminal.</figcaption>
+</figure>
 
-![run](docker_run.jpg)
-
-
-You are now running (`run`) a `rocker/rstudio` server instance on your `localhost`, i.e. your computer.
+You are now running (`run`) a `rocker/rstudio` server instance on your `localhost`, i.e. your computer.
 You can access it via a browser, going to <localhost:8787>, with the username `rstudio` and your chosen password.
-
 
 You can shut down the container with the keyboard shortcut `[ctrl]+[C]` (probably `[ctrl]+[Z] [Return]` on Windows).
 
 
-## File Access {#sec-mounting}
+<a id="sec-mounting"></a> 
+## File Access
 
 The downside of this is that your container is isolated (well... at least to a certain degree).
 
 Images can take up considerable storage space.
-Storing files locally, i.e. on the host machine, without storing an unneccessarily filled container, might be a good strategy.
+Storing files locally, i.e. on the host machine, without storing an unneccessarily filled container, might be a good strategy.
 This can be achieved by mapping a virtual path on the container to a local drive on your computer.
 (Linux users will be familiar with the concept of "mounting" and "linking" storage locations.)
 Note that the technique is equally relevant when running the container locally, hence not exclusive to remote hosts.
 
-
 Docker `run` brings the `-v` flag for mounting volumes.
 Suppose you have an R project you would like to work on, stored, for example, in this path:
 
-- `/data/git/coding-club`
-
+-   `/data/git/coding-club`
 
 Then you can link this to your container's home folder via the following command.
 
-```{sh}
-#| eval: false
+``` sh
 # Windows syntax, mapping on `D:\data`
 docker run --rm -p 8787:8787 -v //d/data/git/coding-club:/home/rstudio/coding-club rocker/rstudio
 
@@ -119,29 +114,27 @@ docker run --rm -p 8787:8787 -v /data/git/coding-club:/home/rstudio/coding-club 
 
 Again, navigate to <localhost:8787>, *et voilà*, you can access your project and store files back in your regular folders.
 
-
 ## Limitations
 
 This is a simple and quick way to run R and RStudio in a container.
 
 However, there are limitations:
 
-::: {.callout-note}
-- You have to live with the R packages provided in the container, or otherwise install them each time you access it...
-- ... unless you make your container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of Docker), and demand occasional updates ([@sec-permanence]). 
-- You could alternatively add `--pull always` to `docker run`, which will check and pull new versions.
-- Speaking of updates: it is good practice to keep software up to date. Occasionally update or simply re-install your Docker image and R packages to get the latest versions.
-- You should make sure that the containers are configured correctly and securely. This is especially important with server components which expose your machine to the internet.
-- Because most containers contain a Linux system, user permissions are taken seriously, and the consequences might be confusing. There are guides online ([e.g. here](https://labex.io/tutorials/docker-how-to-handle-permissions-in-docker-415866)); there are example repositories (like the author's own struggle [here](https://github.com/inbo/containbo?tab=readme-ov-file#understanding-volumes) and [here](https://github.com/inbo/containbo/tree/main/emacs)); base images are well set up and one can normally get by with default users.
-- There is a performance penalty from using containers: in inaccurate laymans' terms, they emulate (parts of a) "computer" inside your computer. 
 
-:::
+{{% callout note %}}
 
+-   You have to live with the R packages provided in the container, or otherwise install them each time you access it...
+-   ... unless you make your container permanent by omitting the `--rm` option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of Docker), and demand occasional updates (<a href="#sec-permanence" class="quarto-xref">Section 0.4</a>).
+-   You could alternatively add `--pull always` to `docker run`, which will check and pull new versions.
+-   Speaking of updates: it is good practice to keep software up to date. Occasionally update or simply re-install your Docker image and R packages to get the latest versions.
+-   You should make sure that the containers are configured correctly and securely. This is especially important with server components which expose your machine to the internet.
+-   Because most containers contain a Linux system, user permissions are taken seriously, and the consequences might be confusing. There are guides online ([e.g. here](https://labex.io/tutorials/docker-how-to-handle-permissions-in-docker-415866)); there are example repositories (like the author's own struggle [here](https://github.com/inbo/containbo?tab=readme-ov-file#understanding-volumes) and [here](https://github.com/inbo/containbo/tree/main/emacs)); base images are well set up and one can normally get by with default users.
+-   There is a performance penalty from using containers: in inaccurate laymans' terms, they emulate (parts of a) "computer" inside your computer.
+{{% /callout %}}
 
 On the performance issue: I attempted this on my local laptop with matrix multiplication.
 
-```{r eval=FALSE}
-#| eval: false
+``` r
 # https://cran.r-project.org/web/packages/rbenchmark/rbenchmark.pdf
 # install.packages("rbenchmark")
 
@@ -157,63 +150,52 @@ benchmark(test())
 
 In the terminal:
 
-```{}
-    test replications elapsed relative user.self sys.self user.child sys.child
-1 test()          100  22.391        1    83.961   65.291          0         0
-```
+        test replications elapsed relative user.self sys.self user.child sys.child
+    1 test()          100  22.391        1    83.961   65.291          0         0
 
 In the container:
 
-```{}
-    test replications elapsed relative user.self sys.self user.child sys.child
-1 test()          100  26.076        1   102.494   153.89          0         0
-```
-
+        test replications elapsed relative user.self sys.self user.child sys.child
+    1 test()          100  26.076        1   102.494   153.89          0         0
 
 Now, the *good news* is that the difference is not by orders of magnitude.
 This indicates that the chosen rocker image integrated the more performant `blas` variant which is [recommended](https://pbs-assess.github.io/sdmTMB/index.html#installation) [elsewhere](https://prdm0.github.io/ropenblas/#installation) (`blas-openblas`).
 
 The *bad news* is that we still a hit of `-20%` performance, which is considerable.
 
-
-This is just a single snapshot on a laptop, and putatively `blas`-confounded. 
+This is just a single snapshot on a laptop, and putatively `blas`-confounded.
 Feel free to systematically and scientifically repeat the tests on your own machine.
 
 
-## Container Permanence: The `--rm` Option {#sec-permanence}
+<a id="sec-permanence"></a> 
+## Container Permanence: The `--rm` Option
 
 As briefly touched above, `docker run` comes with the `--rm` option.
-This basically enables two separate workflows, i.e. usage paradigms.
-
+This basically enables two separate workflows, i.e. usage paradigms.
 
 The first option, which is the default, is that your container is stored on the system permanently.
 This counts for the upstream images, which are downloaded upon first invocation of a container.
 But also, changes you apply while working in the container are persistently stored until you log in again, using hard drive space of the host.
 Images may still be removed by manually running `docker rmi [...]` ([*cf.* "useful commands" in the overview tutorial](../../tutorials/development_containers#sec-commands)).
 
-
 In contrast, with the second option, `docker run --rm [...]`, ad-hoc changes in the container are removed when the container is finished.
-Unless, of course, you mount a local volume with `docker run --rm -v [...]` ([@sec-mounting]).
+Unless, of course, you mount a local volume with `docker run --rm -v [...]` (<a href="#sec-mounting" class="quarto-xref">Section 0.2</a>).
 However, contrary to a rather general intuition, starting a container with `--rm` will not require dependency download a second time.
-
 
 You might want to test this for yourself.
 Consider the following series of commands to create a test file in the Docker home directory:
 
-```{sh}
-#| eval: false
+``` sh
 docker run  --name testing_permanence --rm -it docker.io/rocker/r-base
 echo "testing permanence." > ~/test.txt
 cat ~/test.txt
 exit
 ```
 
-
-Re-connecting is instantateous. 
+Re-connecting is instantateous.
 However,
 
-```{sh}
-#| eval: false
+``` sh
 docker run  --name testing_permanence --rm -it docker.io/rocker/r-base bash
 cat ~/test.txt
 ```
@@ -222,25 +204,20 @@ will return:
 
 > cat: /root/test.txt: No such file or directory
 
-
 This behavior is desired (in the second workflow above): if you start up a fresh environment each time you work in Docker, you **assure that your work pipeline is independent of prior changes on the system**.
 Whether this makes sense as a workflow has to be evaluated with respect to hard drive space requirement, updates, the option to build upon a customized Dockerfile, reproducibility potential.
 
-
 You can "link in" folders for working files (note how you have to specify the full path to `new_home`, and that this container uses the root user by default):
 
-```{sh}
-#| eval: false
+``` sh
 mkdir new_home
 docker run  --name testing_permanence -v /data/containers/new_home:/root --rm -it docker.io/rocker/r-base bash
 echo "testing permanence." > ~/test.txt
 ```
 
-
 Using `--rm` might not be desirable in every case.
 However, it is a valuable option for testing, good to have when disk space is sparse, or as a final check before publishing.
 Generally, I would consider it good practice to treat containers as volatile, thereby keeping them hostmachine-independent as much as possible.
-
 
 # Summary
 
@@ -252,9 +229,12 @@ Luckily, other people have prepared images for you.
 For example, a collection of images for specific analysis pipelines at INBO are preserved at [Docker Hub/inbobmk](https://hub.docker.com/u/inbobmk).
 We consider these "stable" versions because they could be re-activated no matter what crazy future updates will shatter the R community, which enables us to return to all details of previous analyses.
 
-
 This tutorial provided introductory details on how to run such images.
-If you would like to take this further and customize your containers, proceed with [the next tutorial about the `build` command](../tutorials/development_containers_build).
-Those commands are practically identical [in Docker and Podman](../tutorials/development_containers_podman).
+If you would like to take this further and customize your containers, proceed with [the next tutorial about the `build` command](../../tutorials/development_containers_build).
+Those commands are practically identical [in Docker and Podman](../../tutorials/development_containers_podman).
 
-An overview on the topic is [available here](../tutorials/development_containers). 
+An overview on the topic is [available here](../../tutorials/development_containers).
+
+[^1]: I mostly follow [this tutorial](https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html).
+
+[^2]: Just like "Github" is a server service to store git repositories, guess what: "Docker Hub" is a hosting service to store Docker containers.
