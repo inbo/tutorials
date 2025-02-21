@@ -26,8 +26,8 @@ output:
 
 
 
-In this cluster of tutorials, you might have [gotten a general overview on containers](../../tutorials/development_containers), and installed Docker.
-You can find instructions on [how to run existing images](../../tutorials/development_containers_run), and take this further to [building custom containers](../../tutorials/development_containers_build).
+In this cluster of tutorials, you might have [gotten a general overview on containers](../../tutorials/development_containers1), and installed Docker.
+You can find instructions on [how to run existing images](../../tutorials/development_containers2_run), and take this further to [building custom containers](../../tutorials/development_containers3_build).
 And during the installation and use of Docker, you might have been annoyed by the mandatory administrator mode, or quirks of the Desktop App.
 Or you might value fully free and open source software, like I do.
 
@@ -135,7 +135,7 @@ podman run -it docker.io/alpine # will connect to the container
 exit
 ```
 
-Except for the prefix, everything you [can read in our `docker run` tutorial](../../tutorials/development_containers_run) still applies.
+Except for the prefix, everything you [can read in our `docker run` tutorial](../../tutorials/development_containers2_run) still applies.
 
 # Limitations
 
@@ -146,7 +146,7 @@ Note that at least some `docker.io` images will not work: I actually experienced
 # podman run --rm -it docker.io/docker:25.0-dind-rootless
 ```
 
-However, it is logical that that one does not work: it builds a (root-level) Docker which is supposed to contain a rootless Docker ([*cf.* the overview tutorial](../../tutorials/development_containers#sec-rootless)).
+However, it is logical that that one does not work: it builds a (root-level) Docker which is supposed to contain a rootless Docker ([*cf.* the overview tutorial](../../tutorials/development_containers1#sec-rootless)).
 The outer Docker layer requires root, which Podman cannot provide.
 
 This is a logical case; if you understand it, congratulations: you have achieved a basic understanding of containers and user privileges :)
@@ -156,7 +156,7 @@ Most use cases are covered, for example a containerized R environment.
 # Podman Rocker
 
 From here, **Podman is a full drop-in replacement for Docker**; just that you are not forced to grant host system root privileges to containers.
-This means that you can simply apply [everything I showed about the `build` command](../../tutorial/development_containers_build) by exchanging `docker` for `podman`.
+This means that you can simply apply [everything I showed about the `build` command](../../tutorial/development_containers3_build) by exchanging `docker` for `podman`.
 
 Any Dockerfile should work, with the mentioned mini-adjustment to `FROM`.
 And you can use any Docker image; `docker.io/rocker/rstudio` [is available](https://rocker-project.org/use/rootless-podman.html) (don't forget to specify the port).

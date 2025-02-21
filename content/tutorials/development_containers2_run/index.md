@@ -41,10 +41,10 @@ The good news:
 there are a gazillion **Docker images available** on repositories like [Docker Hub](https://hub.docker.com) or [Quay](https://quay.io).
 
 This tutorial will show you how to use such "containers-to-go", thereby demonstrating some basic principles and vocabulary about containerization.
-I assume that you have [installed docker](../../tutorials/development_containers#sec-installation).
+I assume that you have [installed docker](../../tutorials/development_containers1#sec-installation).
 This tutorial will stay on the more involved route of running Docker in the terminal (the Docker Desktop "app" is rather self-explanatory, and you can manoever it easily with knowledge of terminal vocabulary).
-Once you master these first step, you can proceed to [customize your container images](../../tutorials/development_containers_build).
-You might also [consider Podman as a Docker alternative](../../tutorials/development_containers_podman).
+Once you master these first step, you can proceed to [customize your container images](../../tutorials/development_containers3_build).
+You might also [consider Podman as a Docker alternative](../../tutorials/development_containers4_podman).
 
 ## Example
 
@@ -176,7 +176,7 @@ This basically enables two separate workflows, i.e. usage paradigms.
 The first option, which is the default, is that your container is stored on the system permanently.
 This counts for the upstream images, which are downloaded upon first invocation of a container.
 But also, changes you apply while working in the container are persistently stored until you log in again, using hard drive space of the host.
-Images may still be removed by manually running `docker rmi [...]` ([*cf.* "useful commands" in the overview tutorial](../../tutorials/development_containers#sec-commands)).
+Images may still be removed by manually running `docker rmi [...]` ([*cf.* "useful commands" in the overview tutorial](../../tutorials/development_containers1#sec-commands)).
 
 In contrast, with the second option, `docker run --rm [...]`, ad-hoc changes in the container are removed when the container is finished.
 Unless, of course, you mount a local volume with `docker run --rm -v [...]` (<a href="#sec-mounting" class="quarto-xref">Section 0.2</a>).
@@ -230,10 +230,10 @@ For example, a collection of images for specific analysis pipelines at INBO are 
 We consider these "stable" versions because they could be re-activated no matter what crazy future updates will shatter the R community, which enables us to return to all details of previous analyses.
 
 This tutorial provided introductory details on how to run such images.
-If you would like to take this further and customize your containers, proceed with [the next tutorial about the `build` command](../../tutorials/development_containers_build).
-Those commands are practically identical [in Docker and Podman](../../tutorials/development_containers_podman).
+If you would like to take this further and customize your containers, proceed with [the next tutorial about the `build` command](../../tutorials/development_containers3_build).
+Those commands are practically identical [in Docker and Podman](../../tutorials/development_containers4_podman).
 
-An overview on the topic is [available here](../../tutorials/development_containers).
+An overview on the topic is [available here](../../tutorials/development_containers1).
 
 [^1]: I mostly follow [this tutorial](https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html).
 

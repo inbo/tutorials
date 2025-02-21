@@ -58,15 +58,15 @@ or store and publish a whole image right away.
 In this notebook, you will find **installation instructions**, <a href="#sec-commands" class="quarto-xref"><b>useful commands</b></a>, references, and a loose assembly of general and almost philosophical topics to prime you on the **complications and misconceptions** surrounding containerization.
 
 There are numerous useful build instructions and container images already out there, which you can **simply `pull` and `run`**.
-This is an easy, entry level application of container software like Docker, [covered in an introductory tutorial](../../tutorials/development_containers_run).
+This is an easy, entry level application of container software like Docker, [covered in an introductory tutorial](../../tutorials/development_containers2_run).
 
-A second step is to set up and deploy a **self-`build` custom container** I demonstrate step-by-step [in a slightly more advanced tutorial](../../tutorials/development_containers_build).
+A second step is to set up and deploy a **self-`build` custom container** I demonstrate step-by-step [in a slightly more advanced tutorial](../../tutorials/development_containers3_build).
 This is intended to be a rather general test case, enabling you to later configure more specific container solutions for your own purpose.
 For example, you will learn how to spin up an existing `rocker/rstudio` container, and even modify it with additional system components and libraries.
 
 For relevant INBO-specific use cases, make sure to [check out the `containbo` repository](https://github.com/inbo/containbo) which documents **even more tipps and tricks** assembled during my humble (but mostly succesful) attempts to get INBO R packages to run in a container environment.
 
-I also present **Podman** as a [full replacement for Docker](../../tutorials/development_containers_podman), and recommend to give it a try.
+I also present **Podman** as a [full replacement for Docker](../../tutorials/development_containers4_podman), and recommend to give it a try.
 
 On Windows, installation, configuration, and management of containers runs via the `docker desktop` app.
 However, this series of tutorials also covers (and in fact focuses on) the terminal-centered steps to be executed on a Linux computer or within a WSL.
@@ -186,7 +186,7 @@ docker --version
 
 Congratulations: now the fun starts!
 
-With docker installed, the next step is to run a container image which someone else has prepared and hosted online, [which you can read about in the next tutorial](../../tutorials/development_containers_run).
+With docker installed, the next step is to run a container image which someone else has prepared and hosted online, [which you can read about in the next tutorial](../../tutorials/development_containers2_run).
 
 # The Holy Grail?
 
@@ -266,7 +266,7 @@ Historically, Docker could not run "rootless", i.e. without elevated privileges
 [This seems to have changed](https://docs.docker.com/engine/security/rootless), according to Docker.
 Some caution is still warranted: the setup procedure requires downloading and running shell scripts (which must be checked); the deamon still builds on `systemd` (*usually* root level); some functionality is limited.
 
-On the other hand, there is Podman (cf. the [Podman tutorial](../../tutorials/development_containers_podman)).
+On the other hand, there is Podman (cf. the [Podman tutorial](../../tutorials/development_containers4_podman)).
 It *used to* require almost the same extra steps as the `docker-rootless` to work rootless, but we found that these requirements are now met per default.
 It seems that, at the time of writing, Docker and Podman have identical capabilities in terms of rootless containerization.
 The remaining difference is that Podman seems to have more sensible default settings.
@@ -345,10 +345,10 @@ There are convenient GUI apps, and sophisticated terminal commands, the latter a
 This particular notebook assembled references, useful commands, information about the installation of Docker, and general considerations.
 
 This is the central node of a series of tutorials; the others are:
-- Running containers: [https://tutorials.inbo.be/tutorials/development_containers_run](../development_containers_run)
-- Building containers: [https://tutorials.inbo.be/tutorials/development_containers_build](../development_containers_build)
+- Running containers: [https://tutorials.inbo.be/tutorials/development_containers2_run](../development_containers2_run)
+- Building containers: [https://tutorials.inbo.be/tutorials/development_containers3_build](../development_containers3_build)
 - Advanced Build Recipes: <https://github.com/inbo/containbo>
-- Switching to Podman: [https://tutorials.inbo.be/tutorials/development_containers_podman](../development_containers_podman)
+- Switching to Podman: [https://tutorials.inbo.be/tutorials/development_containers4_podman](../development_containers4_podman)
 
 Personally, I find the concept of containerization fascinating, and was surprised how simple and useful of a trick it is.
 
