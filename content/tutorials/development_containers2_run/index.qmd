@@ -173,7 +173,7 @@ In the container:
 Now, the *good news* is that the difference is not by orders of magnitude.
 This indicates that the chosen rocker image integrated the more performant `blas` variant which is [recommended](https://pbs-assess.github.io/sdmTMB/index.html#installation) [elsewhere](https://prdm0.github.io/ropenblas/#installation) (`blas-openblas`).
 
-The *bad news* is that we still a hit of `-20%` performance, which is considerable.
+The *bad news* is that we still suffer a performance drop of `-20%`, which is considerable.
 
 
 This is just a single snapshot on a laptop, and putatively `blas`-confounded. 
