@@ -1338,6 +1338,8 @@ You get the point.
 Distribution plots are useful, and of course quantiles.
 
 ```{r plot-bootstraps}
+#| label: fig-bootstrapping_sigma
+#| fig-cap: "Bootstrapping results for the `sigma` parameter."
 
 bootstraps %>% 
   filter(conv == 0, sigma < 95) %>% 
@@ -1345,7 +1347,9 @@ bootstraps %>%
   geom_histogram(bins = 64, color = "black", fill = "steelblue") +
   geom_vline(xintercept = smooth_sigma) +
   theme_minimal()
+```
   
+```{r bootstrap-quantiles}
 bootstrap_quantiles <- bootstraps %>%
   filter(conv == 0, sigma < 95) %>% 
   select(-iteration, -conv) %>% 
