@@ -808,7 +808,7 @@ Not perfect here, we can still do better.
 There are certainly much better regression tools, including probabilistic ones which estimate parameter credible intervals.
 Please do not hold back to explore these.
 
-# Playground: Taking It Further
+# Playground: Generalization
 
 ## Gentle Generalization
 
