@@ -1362,7 +1362,7 @@ knitr::kable(bootstrap_quantiles, digits = 1)
 ```
 
 For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the [`{r} paste( round(bootstrap_quantiles[c(1,3), "sigma"], 1), collapse = ", ")`] interval.
-This 
+
 
 :::{.callout-note}
 Bootstrapping is a simple and effective procedure to estimate parameter uncertainties.

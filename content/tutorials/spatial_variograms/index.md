@@ -1351,7 +1351,6 @@ knitr::kable(bootstrap_quantiles, digits = 1)
 |   0.4 |  23.5 |    0.3 | 100.0 |  8.6 |       98 |
 
 For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.9, 23.5\] interval.
-This
 
 {{% callout note %}}
 Bootstrapping is a simple and effective procedure to estimate parameter uncertainties.
