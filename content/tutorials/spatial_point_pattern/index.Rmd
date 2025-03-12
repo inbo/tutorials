@@ -1,15 +1,229 @@
 ---
 title: Estimating densities from a point pattern
-maintainer: Thierry Onkelinx
-date: '2017-06-28'
+author: [thierryonkelinx, falkmielke]
+date: 2025-03-12
+categories: ["r", "gis"]
+tags: ["gis", "r", "maps", "density"]
 output: 
-  html_document: default
   md_document:
     preserve_yaml: true
     variant: gfm+footnotes
-params:
-  cellsize: 20
 ---
+
+# Update 2025: Geospatial Analysis
+
+Not *everything* was better in the good old times.
+
+This tutorial was originally written, some time in 2017, to demonstrate the calculation of spatial point densities.
+It got stuck on a version 4 update of the [`PROJ`](https://proj.org/en/stable) project, a system library which handles geospatial coordinate projections.
+
+
+Time moved on, and at the time of writing, about eight years later, `PROJ` has progressed to version 9.5, and geospatial analysis in R has evolved.
+Some major new packages to consider are:
+
+- "simple features" ([`sf`](https://r-spatial.github.io/sf/articles/sf1.html))
+- "Spatiotemporal Arrays: Raster and Vector Datacubes" ([`stars`](https://r-spatial.github.io/stars/)).
+- [`terra`](https://rspatial.github.io/terra/)
+- [`gstat`](https://github.com/r-spatial/gstat)
+
+They can be found on the [r-spatial repository](https://github.com/r-spatial).
+
+
+The need for point density analysis in undiminished.
+Noone updated this PR in the meantime.
+Until someone took pity to rebase and write a minor update.
+
+
+You will find a mini-intro dedicated to solving the task of the original tutorial here at the top.
+A much more comprehensive and general starting point for geospatial analysis can be found [here](https://r-spatial.github.io/sf/articles/sf1.html) and [here](https://www.youtube.com/watch?v=u5j13L-n7qQ), for example.
+Below is the original attempt as an archive, to make you appreciate how simple geospatial analysis has become in 2025 (though it does not always feel simple).
+
+
+Make sure to also scan the [other geospatial tutorials](https://tutorials.inbo.be/tags/gis).
+
+
+# Density Calculation
+
+You probably measured an array of spatial locations, to begin with.
+
+```{r load-points}
+points <- read.delim("point-pattern/points.txt", sep = " ")
+knitr::kable(dplyr::sample_n(points, 4), digits = 5)
+```
+
+For sure, you know which coordinate system those were recorded in. Do you?
+Then best transform those points into the right CRS.
+The library `sf` can handle geospatial objects, and forces but also supports you in handling CRS.
+
+```{r sf-coordinates}
+library("sf")
+points_sf <- sf::st_as_sf(points, coords = c("lon", "lat"), crs = 4326)
+
+```
+
+To briefly check your points on a map, you can use `mapview`.
+
+```{r mapview}
+library("mapview")
+mapview(points_sf, cex = 1, legend = FALSE)
+
+```
+
+And you might like to change CRS.
+```{r transform-crs}
+points_sf_lambert <- sf::st_transform(points_sf, 31370)
+
+```
+
+By the way, in case you get an `sf` geometry object and want to use the coordinates as base R numbers, you can extract either the geometry (point coordinates) or the associated data with `sf`.
+
+```{r retrieve-geometry}
+library("dplyr")
+points_lambert <- dplyr::as_tibble(sf::st_coordinates(points_sf_lambert)) %>%
+  dplyr::rename(c("lon" = X, "lat" = Y))
+
+# a bit too general: here is no info besides the coordinates
+df <- cbind(sf::st_drop_geometry(points_sf_lambert), points_lambert)
+
+knitr::kable(dplyr::sample_n(df, 4), digits = 5)
+```
+
+
+Now the song for which you bought the album: density calculation with `MASS`.
+
+
+```{r density-mass}
+
+calculate_density_2d <- function(points_sf, cellsize = 10){
+  stopifnot(dplyr = require("dplyr"),
+          MASS = require("MASS"))
+
+  # extract coordinates
+  points <- sf::st_coordinates(points_sf)
+  pt_x <- points[, 1]
+  pt_y <- points[, 2]
+
+  # range in both dimensions
+  xlim <- range(pretty(pt_x)) + c(-100, 100)
+  ylim <- range(pretty(pt_y)) + c(-100, 100)
+
+  # number of grid points
+  n <- c(
+      diff(xlim),
+      diff(ylim)
+    ) / cellsize + 1
+
+  # calculate density
+  dens <- kde2d(
+    x = pt_x,
+    y = pt_y,
+    n = n,
+    lims = c(xlim, ylim)
+  )
+
+  # differentials
+  dx <- diff(dens$x[1:2])
+  dy <- diff(dens$y[1:2])
+  # sum(dens$z * dx * dy)
+
+  # collect the density grid
+  dens <- expand.grid(
+      lon = dens$x,
+      lat = dens$y
+    ) %>%
+    mutate(
+      density = as.vector(dens$z) * length(points_sf),
+      id = seq_along(density)
+    ) %>%
+    merge(
+      data.frame(
+        x = dx * (c(0, 0, 1, 1, 0) - 0.5),
+        y = dy * (c(0, 1, 1, 0, 0) - 0.5)
+      )
+    ) %>%
+    mutate(
+      lon = lon + x,
+      lat = lat + y
+    )
+
+  return(dens)
+}
+
+point_density <- calculate_density_2d(points_sf_lambert)
+knitr::kable(dplyr::sample_n(point_density, 5), digits = 2)
+```
+
+
+The last challenge is to plot these densities.
+Mapview *can* do it...
+
+```{r density-mapview}
+point_density_sf <- sf::st_as_sf(point_density, coords = c("lon", "lat"), crs = 31370)
+mapview(
+  point_density_sf,
+  cex = "density",
+  zcol = "density"
+)
+
+```
+
+... another versatile library is `stars`.
+
+```{r plot-density-stars}
+library("stars")
+
+dens_stars <- stars::st_as_stars(point_density_sf, curvilinear=list(X1=x,X2=y))
+plot(dens_stars)
+```
+
+... and, not the least, there are `ggplot` and [`ggspatial`](https://paleolimbot.github.io/ggspatial).
+But still, these are only grid points.
+
+
+What you actually might want to achieve is an *interpolation*,
+for example [inverse distance weighted interpolation](https://www.paulamoraga.com/book-spatial/spatial-interpolation-methods.html#idw-inverse-distance-weighting).
+
+
+```{r plot-density-tmap}
+library("gstat")
+library("terra")
+library("tmap")
+
+res <- gstat(formula = density ~ 1, locations = point_density_sf,
+             nmax = 16, #or use nrow(point_density_sf) to use all the neighbors locations
+             set = list(idp = 1)) # beta = 1 
+
+# raster grid covering map
+grid <- terra::rast(point_density_sf, nrows = 256, ncols = 256)
+# coordinates of all cells
+xy <- terra::xyFromCell(grid, 1:terra::ncell(grid))
+coop <- st_as_sf(as.data.frame(xy), coords = c("x", "y"),
+                 crs = st_crs(point_density_sf))
+
+resp <- predict(res, coop)
+resp$x <- st_coordinates(resp)[,1]
+resp$y <- st_coordinates(resp)[,2]
+resp$pred <- resp$var1.pred
+
+pred <- terra::rasterize(resp, grid, field = "pred", fun = "mean")
+
+tmap::tm_shape(pred) +
+  tmap::tm_raster(
+    #col_alpha = 0.6,
+    col.scale = tmap::tm_scale_continuous(values = "viridis")
+    )
+```
+
+There are many other options to plot maps and data.
+You may find some more hints in [the November 2024 session](https://coding-club.inbo.be/sessions/20241128_visualize_spatial_data_in_r.html) 
+of the [INBO coding club](https://coding-club.inbo.be).
+
+
+Geospatial data analysis is a living field, and a lot has changed recently.
+We hope that this tutorial has given you some directions.
+
+
+# ARCHIVE: Density Calculation in 2017
 
 In this example we focus on a set of 10450 coordinates in a small area.
 The goal is to estimate the local density of points, expressed as the number of points per unit area.
@@ -23,7 +237,7 @@ The data used in this example is real data but centred to a different location f
 
 First we must read the data into R. Plotting the raw data helps to check errors in the data.
 
-```{r read-data, fig.cap = "Raw data"}
+```{r read-data, fig.cap = "Raw data", eval=FALSE}
 points <- read.delim("point-pattern/points.txt", sep = " ")
 library(ggmap)
 map <- get_map(
@@ -48,7 +262,7 @@ Currently, the function to set the CRS is still called `proj4string()`.
 
 [^epsg]: Most coordinate reference systems have an [EPSG](https://en.wikipedia.org/wiki/International_Association_of_Oil_%26_Gas_Producers#European_Petroleum_Survey_Group) code which you can find at http://epsg.io/.
 
-```{r crs-objects}
+```{r crs-objects, eval=FALSE}
 library(sp)
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs_lambert <- CRS(SRS_string = "EPSG:31370")
@@ -56,7 +270,7 @@ crs_lambert <- CRS(SRS_string = "EPSG:31370")
 
 The warning above once again demonstrates that some PROJ.4 information is not supported anymore.
 
-```{r reproject}
+```{r reproject, eval=FALSE}
 coordinates(points) <- ~lon + lat
 # proj4string() - still the only available function to set the CRS - may in the
 # future get a more general name:
@@ -68,7 +282,7 @@ Once we have the points into a projected coordinate system, we can calculate the
 
 We use [`dplyr::mutate()`](http://dplyr.tidyverse.org/) to convert it into a `data.frame`. The last two steps convert the centroids into a set of coordinates for square polygons.
 
-```{r density}
+```{r density, eval=FALSE}
 library(MASS)
 library(dplyr)
 xlim <- range(pretty(points_lambert$lon)) + c(-100, 100)
@@ -108,7 +322,7 @@ dens <- expand.grid(
 
 In order to visualise the result, we have to re-project the coordinates back to WGS84. Then we can display the raster with a web based background image.
 
-```{r ggmap, fig.cap = "Static image of density"}
+```{r ggmap, fig.cap = "Static image of density", eval=FALSE}
 coordinates(dens) <- ~lon + lat
 proj4string(dens) <- crs_lambert
 dens_wgs <- spTransform(dens, crs_wgs84) %>%
@@ -129,7 +343,7 @@ The `SpatialPolygons` consists of a list of `Polygons`, one for each row of the 
 A `Polygons` object consists of a list of one or more `Polygon` objects.
 In this example it is a single polygon which represents the grid cell.
 
-```{r convert-to-Spatial-Polygons}
+```{r convert-to-Spatial-Polygons, eval=FALSE}
 dens_sp <- lapply(
   unique(dens_wgs$id),
   function(i){
@@ -153,7 +367,7 @@ We use `leaflet::colorNumeric()` to get a continuous palette.
 Setting `stroke = FALSE` removes the borders of the polygon.
 `fillOpacity` sets the transparency of the polygons.
 
-```{r leaflet, fig.cap = "Dynamic map of density"}
+```{r leaflet, fig.cap = "Dynamic map of density", eval=FALSE}
 library(leaflet)
 pal <- colorNumeric(
   palette = rev(rainbow(100, start = 0, end = .7)),
