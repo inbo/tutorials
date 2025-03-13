@@ -11,17 +11,16 @@ format:
   html:
     toc: true
     html-math-method: katex
+    variant: -tex_math_dollars+tex_math_single_backslash
   hugo-md:
-    toc: true
+    toc: false
     preserve_yaml: true
-    html-math-method: katex
-output:
-  hugo-md:
-    preserve_yaml: true
-    variant: gfm+footnotes
-  html:
-    variant: gfm+footnotes
+    maths: true
+    variant: -tex_math_dollars+tex_math_single_backslash
 ---
+
+
+
 
 
 # Introduction
@@ -961,7 +960,7 @@ $$\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}$$
 
 
 This is just to confuse you.
-I found the $\tau$/$\kappa/$\sigma$-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
+I found the $\tau$/$\kappa$/$\sigma$-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
 
 
 ```{r matern-definition}
