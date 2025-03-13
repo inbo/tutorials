@@ -12,6 +12,7 @@ format:
     toc: true
     html-math-method: katex
     variant: -tex_math_dollars+tex_math_single_backslash
+    embed-resources: true
   hugo-md:
     toc: false
     preserve_yaml: true
@@ -90,6 +91,7 @@ library("ggplot2") |> void()
 library("ggridges")  |> void() # density ridges
 library("parallel")  |> void() # parallel processing, for bootstrapping
 
+set.seed(123)
 ```
 
 
