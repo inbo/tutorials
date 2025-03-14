@@ -15,7 +15,7 @@ format:
     toc: false
     preserve_yaml: false
     maths: true
-    variant: -tex_math_dollars+tex_math_single_backslash-yaml_metadata_block-pandoc_title_block
+    variant: -tex_math_dollars+tex_math_double_backslash-yaml_metadata_block-pandoc_title_block
 ---
 
 ```{=markdown}
@@ -213,7 +213,9 @@ Ensure that your data is accurate, [exploratory data analysis](https://r4ds.had.
 The parameter of interest does not have to be a raw measurement, but can be the end of a long data analysis and modeling pipeline (more on this in [@sec-detrending]).
 
 
-## `<a href="sec-crossdifference"></a>`{=markdown} Cross-Difference {#sec-crossdifference}
+`<a href="sec-crossdifference"></a>`{=markdown} 
+
+## Cross-Difference {#sec-crossdifference}
 
 The following one-line functions are a major game-changer for large data sets, in particular the `self_difference()`.
 Their purpose is to compute the difference of all elements of one vector to each other, in matrix form.
@@ -248,7 +250,9 @@ This was just an opportunistic excourse to step 2 **cross calculation** from the
 In fact, we are not yet finished preparing our test data set (for which these functions are useful).
 
 
-## `<a href="sec-smoothing"></a>`{=markdown} Simple Smoothing {#sec-smoothing}
+`<a href="sec-smoothing"></a>`{=markdown} 
+
+## Simple Smoothing {#sec-smoothing}
 
 Just so that we can optionally incorporate **some Tobler spirit**: a smoother.
 2D smoothing, or "convolution with a 2D Gaussian", as the pro's call it, is what creates relation among adjacent points.
@@ -318,9 +322,14 @@ As will become clear in the end, the **assumption of Gaussian spatial interdepen
 ```
 
 
-# `<a href="sec-variograms"></a>`{=markdown} Variograms {#sec-variograms}
+`<a href="sec-variograms"></a>`{=markdown}
 
-## `<a href="sec-detrending"></a>`{=markdown} Debatable "De-Trending" {#sec-detrending}
+# Variograms {#sec-variograms}
+
+
+`<a href="sec-detrending"></a>`{=markdown} 
+
+## Debatable "De-Trending" {#sec-detrending}
 
 For good reasons, which I hope to make clear below, variogram functions such as `gstat::variogram()` provide the option of de-trending the data.
 This is demonstrated in the [examples documented with the function](https://www.rdocumentation.org/packages/gstat/versions/2.1-2/topics/variogram); one available parameter (`trend.beta`) provides the option of incorporating pre-calculated spatial regressions.
@@ -382,7 +391,10 @@ At any rate, I would recommend to **store the detrended linear effects for later
 {{% /callout %}}
 ```
 
-## `<a href="sec-binning"></a>`{=markdown} Beautiful Binning {#sec-binning}
+
+`<a href="sec-binning"></a>`{=markdown} 
+
+## Beautiful Binning {#sec-binning}
 
 By now, we have prepared several variants of our simulated outcome variables (`z` -> `s` -> `d`), which is more than enough do demonstrate step 1.
 The next obvious step is to **cross-calculate distances and differences**, and that is quickly done with the base-R machinery.
@@ -433,8 +445,9 @@ dist_diff %>%
     quantile_lines = TRUE, quantiles = 4,
     scale = 2.0, bandwidth = 0.05) +
   labs(x = "mean absolute difference", y = "distance bin") +
+  xlim(0, 2) +
   theme_bw() + coord_flip() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
 ```
 `<figcaption>The difference-distance plot, ridgelines (i.e. density distribution).</figcaption><br>`{=markdown}
 
@@ -619,7 +632,9 @@ Good to have.
 Now let's get started.
 
 
-# `<a href="sec-model-regression"></a>`{=markdown} Model Regression {#sec-model-regression}
+`<a href="sec-model-regression"></a>`{=markdown}
+
+# Model Regression {#sec-model-regression}
 
 ## Fitting Functions
 
@@ -747,8 +762,9 @@ Observations:
 We can do better, of course.
 
 
+`<a href="sec-gauss"></a>`{=markdown} 
 
-## `<a href="sec-gauss"></a>`{=markdown} Beloved Bellcurve {#sec-gauss}
+## Beloved Bellcurve {#sec-gauss}
 
 Quite a popular choice is the **Gaussian**.
 There is a suitable "parametric extension" [on wikipedia](https://en.wikipedia.org/wiki/Gaussian_function).
@@ -976,7 +992,10 @@ fit_variogram <- function(
 
 ```
 
-## `<a href="sec-matern"></a>`{=markdown} Matérn Machinery {#sec-matern}
+
+`<a href="sec-matern"></a>`{=markdown} 
+
+## Matérn Machinery {#sec-matern}
 
 There is at least one step further from Gauss.
 Let's mimic what the pro's do!
@@ -1188,7 +1207,10 @@ Which brings me to a revision of these effects.
 
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
-## `<a href="sec-nodetrend"></a>`{=markdown} De-activated De-trending {#sec-nodetrend}
+
+`<a href="sec-nodetrend"></a>`{=markdown} 
+
+## De-activated De-trending {#sec-nodetrend}
 
 Luckily, we computer-engineerd in a `skip_detrend` flag above.
 

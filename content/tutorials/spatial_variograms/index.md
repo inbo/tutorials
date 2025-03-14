@@ -181,7 +181,9 @@ I mostly skip step 1 (**parameter choice**) from the list above, because it is a
 Ensure that your data is accurate, [exploratory data analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html), evaluation and feedback with meetings and stakeholders - these sorts of things.
 The parameter of interest does not have to be a raw measurement, but can be the end of a long data analysis and modeling pipeline (more on this in <a href="#sec-detrending" class="quarto-xref">Section 3.1</a>).
 
-## <a href="sec-crossdifference"></a> Cross-Difference
+<a href="sec-crossdifference"></a>
+
+## Cross-Difference
 
 The following one-line functions are a major game-changer for large data sets, in particular the `self_difference()`.
 Their purpose is to compute the difference of all elements of one vector to each other, in matrix form.
@@ -212,7 +214,9 @@ lower_triangle <- function (mat) mat[lower.tri(mat)]
 This was just an opportunistic excourse to step 2 **cross calculation** from the roadmap.
 In fact, we are not yet finished preparing our test data set (for which these functions are useful).
 
-## <a href="sec-smoothing"></a> Simple Smoothing
+<a href="sec-smoothing"></a>
+
+## Simple Smoothing
 
 Just so that we can optionally incorporate **some Tobler spirit**: a smoother.
 2D smoothing, or "convolution with a 2D Gaussian", as the pro's call it, is what creates relation among adjacent points.
@@ -266,7 +270,7 @@ alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are dark
 Nice and smooth.
 Feel free to draw a sunset by adjusting `a` and removing the groups.
 
-Note that I chose `s` here as a variable name for the smoothed `z`, which should not be confused with the \(s\) often used elsewhere to descripe the position vector of locations.
+Note that I chose `s` here as a variable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to descripe the position vector of locations.
 
 {{% callout note %}}
 
@@ -276,9 +280,13 @@ As will become clear in the end, the **assumption of Gaussian spatial interdepen
 
 {{% /callout %}}
 
-# <a href="sec-variograms"></a> Variograms
+<a href="sec-variograms"></a>
 
-## <a href="sec-detrending"></a> Debatable "De-Trending"
+# Variograms
+
+<a href="sec-detrending"></a>
+
+## Debatable "De-Trending"
 
 For good reasons, which I hope to make clear below, variogram functions such as `gstat::variogram()` provide the option of de-trending the data.
 This is demonstrated in the [examples documented with the function](https://www.rdocumentation.org/packages/gstat/versions/2.1-2/topics/variogram); one available parameter (`trend.beta`) provides the option of incorporating pre-calculated spatial regressions.
@@ -335,7 +343,9 @@ At any rate, I would recommend to **store the detrended linear effects for later
 
 {{% /callout %}}
 
-## <a href="sec-binning"></a> Beautiful Binning
+<a href="sec-binning"></a>
+
+## Beautiful Binning
 
 By now, we have prepared several variants of our simulated outcome variables (`z` -\> `s` -\> `d`), which is more than enough do demonstrate step 1.
 The next obvious step is to **cross-calculate distances and differences**, and that is quickly done with the base-R machinery.
@@ -378,9 +388,13 @@ dist_diff %>%
     quantile_lines = TRUE, quantiles = 4,
     scale = 2.0, bandwidth = 0.05) +
   labs(x = "mean absolute difference", y = "distance bin") +
+  xlim(0, 2) +
   theme_bw() + coord_flip() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
 ```
+
+    Warning: Removed 265464 rows containing non-finite outside the scale range
+    (`stat_density_ridges()`).
 
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-difference-distance-ridges-1.png"
@@ -467,17 +481,17 @@ The answer lies somewhere between (among?) the very exact maths hidden in the li
 
 And, anyways, if the assumption holds, we get a neat formula for semivariance ("Method-of-Moments Estimator" according to Cressie 1993, 69, eqn. 2.4.2), which goes back to Matheron (1962).
 
-We define the **semivariance** \(\gamma\):
+We define the **semivariance** \\(\gamma\\):
 
-\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\)
+\\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\)
 
-Herein, \(N\) is the number of observation pairs \(\{i, j\}\); those are usually grouped (binned) so to quantify variances at different distances \(\gamma\left(h\right)\) (with \(h\) the "lag vector magnitude", i.e. distance group).
+Herein, \\(N\\) is the number of observation pairs \\(\{i, j\}\\); those are usually grouped (binned) so to quantify variances at different distances \\(\gamma\left(h\right)\\) (with \\(h\\) the "lag vector magnitude", i.e. distance group).
 
-Semivariance \(\gamma\) should better be remembered as **half mean square difference** (HMSD).
+Semivariance \\(\gamma\\) should better be remembered as **half mean square difference** (HMSD).
 
 There is at least one more option worth attempting: instead of the square-form semivariance above, just calculate **mean absolute difference** (MAD) as follows.
 
-\[ \langle dw\rangle = \frac{1}{N} \sum\limits_{i,j} \left| z_j - z_i\right| \]
+\\[ \langle dw\rangle = \frac{1}{N} \sum\limits_{i,j} \left| z_j - z_i\right| \\]
 
 We will calculate all three parameters for demonstration:
 variance, semivariance, and mean absolute difference.
@@ -565,7 +579,9 @@ A plot of the bin-wise semivariance (or other difference measures) against dista
 Good to have.
 Now let's get started.
 
-# <a href="sec-model-regression"></a> Model Regression
+<a href="sec-model-regression"></a>
+
+# Model Regression
 
 ## Fitting Functions
 
@@ -683,11 +699,13 @@ Observations:
 
 -   The regression fits the data more or less well, quantified by the mean square error (`mse`).
 -   Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
--   Parameters can be measured, in this case intercept (\(0.43\)) and slope (\(4\times 10^{-4}\)).
+-   Parameters can be measured, in this case intercept (\\(0.43\\)) and slope (\\(4\times 10^{-4}\\)).
 
 We can do better, of course.
 
-## <a href="sec-gauss"></a> Beloved Bellcurve
+<a href="sec-gauss"></a>
+
+## Beloved Bellcurve
 
 Quite a popular choice is the **Gaussian**.
 There is a suitable "parametric extension" [on wikipedia](https://en.wikipedia.org/wiki/Gaussian_function).
@@ -908,38 +926,40 @@ fit_variogram <- function(
 }
 ```
 
-## <a href="sec-matern"></a> Matérn Machinery
+<a href="sec-matern"></a>
+
+## Matérn Machinery
 
 There is at least one step further from Gauss.
 Let's mimic what the pro's do!
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
-Note that the \(s\) here stants for a position vector, and *not* the smoothed `z`.
+Note that the \\(s\\) here stants for a position vector, and *not* the smoothed `z`.
 
 `<quote>`
 
-The Matérn defines the covariance \(\Phi\left( s_j, s_k\right)\) between spatial locations \(s_j\) and \(s_k\) as
+The Matérn defines the covariance \\(\Phi\left( s_j, s_k\right)\\) between spatial locations \\(s_j\\) and \\(s_k\\) as
 
-\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\]
+\\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\\]
 <!-- Φ(sj,sk)=τ2/Γ(ν)2ν−1(κdjk)νKν(κdjk),-->
 
-where \(\tau^2\) controls the spatial variance,
-\(\nu\) controls the smoothness,
-\(\Gamma\) represents the Gamma function,
-\(d_{jk}\) represents the distance between locations \(s_j\) and \(s_k\),
-\(K_\nu\) represents the modified Bessel function of the second kind,
-and \(\kappa\) represents the decorrelation rate.
-The parameter \(\nu\) is set to \(1\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
+where \\(\tau^2\\) controls the spatial variance,
+\\(\nu\\) controls the smoothness,
+\\(\Gamma\\) represents the Gamma function,
+\\(d_{jk}\\) represents the distance between locations \\(s_j\\) and \\(s_k\\),
+\\(K_\nu\\) represents the modified Bessel function of the second kind,
+and \\(\kappa\\) represents the decorrelation rate.
+The parameter \\(\nu\\) is set to \\(1\\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
 to greatly increase computational efficiency (Lindgren, Rue, and Lindström 2011).
-Internally, the parameters \(\kappa\) and \(\tau\) are converted to range and marginal standard deviation \(\sigma\) as
-\[range=\frac{8}{\kappa}\]
+Internally, the parameters \\(\kappa\\) and \\(\tau\\) are converted to range and marginal standard deviation \\(\sigma\\) as
+\\[range=\frac{8}{\kappa}\\]
 and
-\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\]
+\\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\\]
 
 `</quote>`
 
 This is just to confuse you.
-I found the \(\tau\)/\(\kappa\)/\(\sigma\)-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
+I found the \\(\tau\\)/\\(\kappa\\)/\\(\sigma\\)-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
 
 ``` r
 matern_function <- function(d, parameters) {
@@ -961,7 +981,7 @@ matern_function <- function(d, parameters) {
 
 I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the version above is quite flexible to fit our variogram.
 Note that the function is not defined at zero, which is why I filter `NA`.
-Sigma (\(\sigma\)) is related to the turning point of the Matérn function.
+Sigma (\\(\sigma\\)) is related to the turning point of the Matérn function.
 The Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
 
 Any regression function demands a specific plot function:
@@ -1040,7 +1060,7 @@ alt="Figure 11: Variogram of all the data, with a Matérn fit. Warning: the y-a
 <figcaption>Variogram of all the data, with a Matérn fit. Warning: the y-axis display range is limited.</figcaption><br>
 
 Note the sensible choice of starting values and boundaries.
-Again, I indicated the \(\sigma\) range.
+Again, I indicated the \\(\sigma\\) range.
 
 See the considerable non-zero nugget?
 Let us explore where it comes from!
@@ -1109,13 +1129,13 @@ alt="Figure 13: Variogram of the sub-data in the b == 1 category." />
 
 `<figcaption>Variogram of the sub-data in the`b == 1category.</figcaption><br>
 
-The \(\sigma\)-range of the full data set with two different categories mixed is \(16.8\).
-If we only include one of the categories, making the data points more similar, ranges are \(17.4\) and \(13.9\).
+The \\(\sigma\\)-range of the full data set with two different categories mixed is \\(16.8\\).
+If we only include one of the categories, making the data points more similar, ranges are \\(17.4\\) and \\(13.9\\).
 Longer range would mean that distant points are more similar.
 
 The variance itself is also determined by the magnitude of values:
 on the `b==1` subset, we added to the measured parameter.
-Consequently, we see the `scale = sill-nugget` increase from \(0.13\) to \(0.19\).
+Consequently, we see the `scale = sill-nugget` increase from \\(0.13\\) to \\(0.19\\).
 
 If you noticed that especially the `b==0` data does not entirely fit the model, you are right: because of the "wrapped smoothing, then detrending" simulation procedure, the margin prohibits perfect detrending.
 Which brings me to a revision of these effects.
@@ -1124,7 +1144,9 @@ Which brings me to a revision of these effects.
 
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
-## <a href="sec-nodetrend"></a> De-activated De-trending
+<a href="sec-nodetrend"></a>
+
+## De-activated De-trending
 
 Luckily, we computer-engineerd in a `skip_detrend` flag above.
 
@@ -1377,11 +1399,11 @@ knitr::kable(bootstrap_quantiles, digits = 1)
 
 | scale | sigma | nugget |    nu | rmse | quantile |
 |------:|------:|-------:|------:|-----:|---------:|
-|   0.0 |   1.6 |    0.0 |   0.0 |  2.0 |        2 |
-|   0.2 |  11.5 |    0.2 |   0.6 |  3.8 |       50 |
-|   0.4 |  32.3 |    0.3 | 100.0 |  9.0 |       98 |
+|   0.0 |   1.7 |    0.0 |   0.1 |  2.0 |        2 |
+|   0.2 |  11.4 |    0.2 |   0.6 |  3.8 |       50 |
+|   0.4 |  30.8 |    0.3 | 100.0 |  8.6 |       98 |
 
-For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.6, 32.3\] interval.
+For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.7, 30.8\] interval.
 
 {{% callout note %}}
 
