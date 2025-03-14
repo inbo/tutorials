@@ -181,7 +181,7 @@ I mostly skip step 1 (**parameter choice**) from the list above, because it is a
 Ensure that your data is accurate, [exploratory data analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html), evaluation and feedback with meetings and stakeholders - these sorts of things.
 The parameter of interest does not have to be a raw measurement, but can be the end of a long data analysis and modeling pipeline (more on this in <a href="#sec-detrending" class="quarto-xref">Section 3.1</a>).
 
-<a href="sec-crossdifference"></a>
+<a class="anchor" href="#sec-crossdifference"></a>
 
 ## Cross-Difference
 
@@ -214,7 +214,7 @@ lower_triangle <- function (mat) mat[lower.tri(mat)]
 This was just an opportunistic excourse to step 2 **cross calculation** from the roadmap.
 In fact, we are not yet finished preparing our test data set (for which these functions are useful).
 
-<a href="sec-smoothing"></a>
+<a class="anchor" href="#sec-smoothing"></a>
 
 ## Simple Smoothing
 
@@ -280,11 +280,11 @@ As will become clear in the end, the **assumption of Gaussian spatial interdepen
 
 {{% /callout %}}
 
-<a href="sec-variograms"></a>
+<a class="anchor" href="#sec-variograms"></a>
 
 # Variograms
 
-<a href="sec-detrending"></a>
+<a class="anchor" href="#sec-detrending"></a>
 
 ## Debatable "De-Trending"
 
@@ -343,7 +343,7 @@ At any rate, I would recommend to **store the detrended linear effects for later
 
 {{% /callout %}}
 
-<a href="sec-binning"></a>
+<a class="anchor" href="#sec-binning"></a>
 
 ## Beautiful Binning
 
@@ -579,7 +579,7 @@ A plot of the bin-wise semivariance (or other difference measures) against dista
 Good to have.
 Now let's get started.
 
-<a href="sec-model-regression"></a>
+<a class="anchor" href="#sec-model-regression"></a>
 
 # Model Regression
 
@@ -703,7 +703,7 @@ Observations:
 
 We can do better, of course.
 
-<a href="sec-gauss"></a>
+<a class="anchor" href="#sec-gauss"></a>
 
 ## Beloved Bellcurve
 
@@ -926,7 +926,7 @@ fit_variogram <- function(
 }
 ```
 
-<a href="sec-matern"></a>
+<a class="anchor" href="#sec-matern"></a>
 
 ## Matérn Machinery
 
@@ -1144,7 +1144,7 @@ Which brings me to a revision of these effects.
 
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
-<a href="sec-nodetrend"></a>
+<a class="anchor" href="#sec-nodetrend"></a>
 
 ## De-activated De-trending
 
@@ -1399,11 +1399,11 @@ knitr::kable(bootstrap_quantiles, digits = 1)
 
 | scale | sigma | nugget |    nu | rmse | quantile |
 |------:|------:|-------:|------:|-----:|---------:|
-|   0.0 |   1.7 |    0.0 |   0.1 |  2.0 |        2 |
-|   0.2 |  11.4 |    0.2 |   0.6 |  3.8 |       50 |
-|   0.4 |  30.8 |    0.3 | 100.0 |  8.6 |       98 |
+|   0.0 |   1.7 |    0.0 |   0.0 |  2.0 |        2 |
+|   0.2 |  11.5 |    0.2 |   0.6 |  3.7 |       50 |
+|   0.4 |  31.2 |    0.3 | 100.0 |  8.7 |       98 |
 
-For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.7, 30.8\] interval.
+For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.7, 31.2\] interval.
 
 {{% callout note %}}
 
