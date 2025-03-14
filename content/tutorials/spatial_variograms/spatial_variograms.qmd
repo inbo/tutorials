@@ -213,7 +213,7 @@ Ensure that your data is accurate, [exploratory data analysis](https://r4ds.had.
 The parameter of interest does not have to be a raw measurement, but can be the end of a long data analysis and modeling pipeline (more on this in [@sec-detrending]).
 
 
-`<a class="anchor" href="#sec-crossdifference"></a>`{=markdown} 
+`<a id="sec-crossdifference"></a>`{=markdown} 
 
 ## Cross-Difference {#sec-crossdifference}
 
@@ -250,7 +250,7 @@ This was just an opportunistic excourse to step 2 **cross calculation** from the
 In fact, we are not yet finished preparing our test data set (for which these functions are useful).
 
 
-`<a class="anchor" href="#sec-smoothing"></a>`{=markdown} 
+`<a id="sec-smoothing"></a>`{=markdown} 
 
 ## Simple Smoothing {#sec-smoothing}
 
@@ -322,12 +322,12 @@ As will become clear in the end, the **assumption of Gaussian spatial interdepen
 ```
 
 
-`<a class="anchor" href="#sec-variograms"></a>`{=markdown}
+`<a id="sec-variograms"></a>`{=markdown}
 
 # Variograms {#sec-variograms}
 
 
-`<a class="anchor" href="#sec-detrending"></a>`{=markdown} 
+`<a id="sec-detrending"></a>`{=markdown} 
 
 ## Debatable "De-Trending" {#sec-detrending}
 
@@ -392,7 +392,7 @@ At any rate, I would recommend to **store the detrended linear effects for later
 ```
 
 
-`<a class="anchor" href="#sec-binning"></a>`{=markdown} 
+`<a id="sec-binning"></a>`{=markdown} 
 
 ## Beautiful Binning {#sec-binning}
 
@@ -632,7 +632,7 @@ Good to have.
 Now let's get started.
 
 
-`<a class="anchor" href="#sec-model-regression"></a>`{=markdown}
+`<a id="sec-model-regression"></a>`{=markdown}
 
 # Model Regression {#sec-model-regression}
 
@@ -762,7 +762,7 @@ Observations:
 We can do better, of course.
 
 
-`<a class="anchor" href="#sec-gauss"></a>`{=markdown} 
+`<a id="sec-gauss"></a>`{=markdown} 
 
 ## Beloved Bellcurve {#sec-gauss}
 
@@ -993,7 +993,7 @@ fit_variogram <- function(
 ```
 
 
-`<a class="anchor" href="#sec-matern"></a>`{=markdown} 
+`<a id="sec-matern"></a>`{=markdown} 
 
 ## Matérn Machinery {#sec-matern}
 
@@ -1208,7 +1208,7 @@ Which brings me to a revision of these effects.
 *(How does semivariance change without de-trending and un-smoothed, and why?)*
 
 
-`<a class="anchor" href="#sec-nodetrend"></a>`{=markdown} 
+`<a id="sec-nodetrend"></a>`{=markdown} 
 
 ## De-activated De-trending {#sec-nodetrend}
 
@@ -1353,6 +1353,8 @@ I like to have one function which runs the whole procedure and returns a data fr
 ```{r bootstrapping-function}
 
 subset_bootstrap <- function(i){
+
+  set.seed(i)
 
   # choose a random subset of data rows
   selected_rows <- sample(
