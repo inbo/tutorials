@@ -1219,13 +1219,13 @@ plot_matern(vg_nosmoothing)
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-rawdata-1.png"
 id="fig-variogram-rawdata"
-alt="Figure 15: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation." />
+alt="Figure 15: Variogram of the Non-Toblerian raw data, i.e. random data without spatial relation." />
 
-<figcaption>Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation.</figcaption><br>
+<figcaption>Variogram of the Non-Toblerian raw data, i.e. random data without spatial relation.</figcaption><br>
 
 As expected, with purely random data, Tobler's law does not apply.
 (The jitter on close points is due to lower sample size.)
-As with [Non-Newtonian fluids](https://en.wikipedia.org/wiki/Non-Newtonian_fluid), these could be called "Non-Tobleronian data".
+As with [Non-Newtonian fluids](https://en.wikipedia.org/wiki/Non-Newtonian_fluid), these could be called "Non-Toblerian data".
 I had to fix the `nu` and `nugget` because the whole concept does not make sense for a constant.
 
 {{% callout note %}}
