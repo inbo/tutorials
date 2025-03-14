@@ -1165,7 +1165,7 @@ plot_matern(vg_b0)
 
 
 ```
-`<figcaption>Variogram of the sub-data in the `b == 0` category.</figcaption><br>`{=markdown}
+`<figcaption>Variogram of the sub-data in the ``b == 0`` category.</figcaption><br>`{=markdown}
 
 
 ```{r variogram-b1}
@@ -1187,7 +1187,7 @@ vg_b1 <- fit_variogram(
 plot_matern(vg_b1)
 
 ```
-`<figcaption>Variogram of the sub-data in the `b == 1` category.</figcaption><br>`{=markdown}
+`<figcaption>Variogram of the sub-data in the ``b == 1`` category.</figcaption><br>`{=markdown}
 
 The $\sigma$-range of the full data set with two different categories mixed is $`{r} round(vg_all$par[2], 1)`$.
 If we only include one of the categories, making the data points more similar, ranges are $`{r} round(vg_b0$par[2], 1)`$ and $`{r} round(vg_b1$par[2], 1)`$.
@@ -1439,8 +1439,9 @@ bootstraps %>%
   geom_vline(xintercept = smooth_sigma) +
   theme_minimal()
 ```
-`<figcaption>Bootstrapping results for the `sigma` parameter.</figcaption><br>`{=markdown}
+`<figcaption>Bootstrapping results for the ``sigma`` parameter.</figcaption><br>`{=markdown}
   
+
 ```{r bootstrap-quantiles}
 bootstrap_quantiles <- bootstraps %>%
   filter(conv == 0, sigma < 95) %>% 

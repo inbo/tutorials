@@ -1098,7 +1098,7 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata
 id="fig-subdata-variogram"
 alt="Figure 12: Variogram of the sub-data in the b == 0 category." />
 
-`<figcaption>Variogram of the sub-data in the`b == 0category.</figcaption><br>
+<figcaption>Variogram of the sub-data in the ``b == 0`` category.</figcaption><br>
 
 ``` r
 semi_data <- data %>%
@@ -1127,7 +1127,7 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata
 id="fig-subdata-variogram-b1"
 alt="Figure 13: Variogram of the sub-data in the b == 1 category." />
 
-`<figcaption>Variogram of the sub-data in the`b == 1category.</figcaption><br>
+<figcaption>Variogram of the sub-data in the ``b == 1`` category.</figcaption><br>
 
 The \\(\sigma\\)-range of the full data set with two different categories mixed is \\(16.8\\).
 If we only include one of the categories, making the data points more similar, ranges are \\(17.4\\) and \\(13.9\\).
@@ -1385,7 +1385,7 @@ src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-bootstr
 id="fig-bootstrapping_sigma"
 alt="Figure 17: Bootstrapping results for the sigma parameter." />
 
-`<figcaption>Bootstrapping results for the`sigmaparameter.</figcaption><br>
+<figcaption>Bootstrapping results for the ``sigma`` parameter.</figcaption><br>
 
 ``` r
 bootstrap_quantiles <- bootstraps %>%
