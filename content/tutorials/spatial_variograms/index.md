@@ -1,3 +1,5 @@
+
+
 ---
 title: "An Algorithmic Approach to Variograms"
 description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
@@ -9,21 +11,11 @@ number-sections: true
 params:
   math: true
 format:
-  html:
-    toc: true
-    html-math-method: katex
   hugo-md:
-    toc: true
+    toc: false
     preserve_yaml: true
     html-math-method: katex
-output:
-  hugo-md:
-    preserve_yaml: true
-    variant: gfm+footnotes
-  html:
-    variant: gfm+footnotes
 ---
-
 
 # Introduction
 
@@ -50,6 +42,7 @@ My personal definition of the term **variogram** would rather describe it as a m
 This notion is based on the actual implementation and application of the technique in various computer software libraries (R: `gstat::variogram`, `geoR::variog`, `fields::vgram`; Python: `skgstat.Variogram`), as well as primary references given below.
 
 {{% callout emphasize %}}
+
 The common steps of performing variogram-based data analysis are:
 
 1.  **parameter choice**, find or define the measure one would like to compare between locations within a well-organized data set
@@ -57,6 +50,7 @@ The common steps of performing variogram-based data analysis are:
 3.  **binning** by distance (and optionally direction), thereby calculating semivariance or any other aggregated **measure of difference** per bin
 4.  **modeling**, i.e. performing a regression (Matérn, Gauss, ...) on the difference-distance data
 5.  **kriging** (optional) is the application of the model for spatial interpolation (not shown)
+
 {{% /callout %}}
 
 I will implement these steps below, and interested readers are invited to confirm for themselves that the outcome matches the abundant variogram implementations in the mentioned libraries.
@@ -80,6 +74,8 @@ library("dplyr") |> void()
 library("ggplot2") |> void()  
 library("ggridges")  |> void() # density ridges
 library("parallel")  |> void() # parallel processing, for bootstrapping
+
+set.seed(123)
 ```
 
 # Data
@@ -115,13 +111,13 @@ data <- data.frame(
 knitr::kable(head(data, 5))
 ```
 
-|          x |         y |      z\_ |
-|-----------:|----------:|---------:|
-|  114.06219 |  34.17026 | 5.288940 |
-|  106.73819 | -41.00920 | 4.570976 |
-|  -27.36431 |  48.28280 | 3.166193 |
-| -116.40385 |  23.56221 | 2.226624 |
-|   78.16744 |  81.36742 | 5.179320 |
+|         x |          y |        z\_ |
+|----------:|-----------:|-----------:|
+| -54.38015 | -116.22783 | -0.5146002 |
+|  73.80611 |  -34.32992 |  1.6650901 |
+| -23.30191 |  -53.95508 |  2.6631489 |
+|  98.05246 |  -40.49404 | -0.9586115 |
+| 112.75962 |  -51.10675 | -5.5283416 |
 
 *Mental note: points towards the rim will tend to have fewer neighbors. Or, in general, mind your spatial layout! (Sparse/dense? Clustered/homogeneous? ...)*
 
@@ -148,11 +144,11 @@ data$z <- data$z_ + a_slope * data$a + b_slope * data$b
 knitr::kable(head(data, 3))
 ```
 
-|         x |         y |      z\_ |          a |   b |        z |
-|----------:|----------:|---------:|-----------:|----:|---------:|
-| 114.06219 |  34.17026 | 5.288940 |  0.7038642 |   0 | 6.026025 |
-| 106.73819 | -41.00920 | 4.570976 |  0.4876092 |   0 | 5.081599 |
-| -27.36431 |  48.28280 | 3.166193 | -0.0364857 |   0 | 3.127985 |
+|         x |          y |        z\_ |          a |   b |         z |
+|----------:|-----------:|-----------:|-----------:|----:|----------:|
+| -54.38015 | -116.22783 | -0.5146002 | -0.5698005 |   0 | -1.111294 |
+|  73.80611 |  -34.32992 |  1.6650901 |  0.3231664 |   1 |  2.788907 |
+| -23.30191 |  -53.95508 |  2.6631489 | -0.2538895 |   0 |  2.397276 |
 
 There no noise applied to those covariates, moderate noise on the raw data, so they should be recover-able by a statistical model.
 
@@ -169,9 +165,9 @@ plot(data$x, data$y, col = color, pch = as.integer(18 + 2*data$b),
 
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-raw-data-1.png"
-id="fig-raw-data" 
-alt="Figure 1: The raw data, unsmoothed." />
-<figcaption>Figure 1: The raw data, unsmoothed.</figcaption><br>
+id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." />
+
+<figcaption>The raw data, unsmoothed.</figcaption><br>
 
 If you look closely, the upper right is more golden than the lower left.
 This is the effect of covariate `a`.
@@ -264,22 +260,25 @@ plot(data$x, data$y, col = color, pch = 20,
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-smooth-data-1.png"
 id="fig-smooth-data"
 alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping." />
-<figcaption>Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping.</figcaption><br>
+
+<figcaption>The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping.</figcaption><br>
 
 Nice and smooth.
 Feel free to draw a sunset by adjusting `a` and removing the groups.
 
-Note that I chose `s` here as a variable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to descripe the position vector of locations.
+Note that I chose `s` here as a variable name for the smoothed `z`, which should not be confused with the \(s\) often used elsewhere to descripe the position vector of locations.
 
 {{% callout note %}}
+
 We chose Gaussian smoothing here.
 Hold that thought.
 As will become clear in the end, the **assumption of Gaussian spatial interdependence** is what will allow the Matérn regression to work (<a href="#sec-matern" class="quarto-xref">Section 5.2</a>) in the *modeling* step.
+
 {{% /callout %}}
 
-# Variograms
+# <a href="sec-variograms"></a> Variograms
 
-## Debatable "De-Trending"
+## <a href="sec-detrending"></a> Debatable "De-Trending"
 
 For good reasons, which I hope to make clear below, variogram functions such as `gstat::variogram()` provide the option of de-trending the data.
 This is demonstrated in the [examples documented with the function](https://www.rdocumentation.org/packages/gstat/versions/2.1-2/topics/variogram); one available parameter (`trend.beta`) provides the option of incorporating pre-calculated spatial regressions.
@@ -323,14 +322,17 @@ plot(data$x, data$y, col = color, pch = 20,
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-data-detrend-1.png"
 id="fig-data-detrend"
 alt="Figure 3: The smoothed data, again, after de-trending." />
-<figcaption>Figure 3: The smoothed data, again, after de-trending.</figcaption><br>
+
+<figcaption>The smoothed data, again, after de-trending.</figcaption><br>
 
 {{% callout note %}}
+
 Whether or not to de-trend prior to variogram calculation is a crucial design decision.
 De-trending often improves variogram model regression (<a href="#sec-nodetrend" class="quarto-xref">Section 6.1</a>), but it also removes/diminishes the effects of spatially correlated co-variates such as our parameter `a`.
 
 Make sure that you know whether your variogram function applies de-trending, or not.
 At any rate, I would recommend to **store the detrended linear effects for later** by applying your own `lm()`, prior to variogramming.
+
 {{% /callout %}}
 
 ## <a href="sec-binning"></a> Beautiful Binning
@@ -384,7 +386,8 @@ dist_diff %>%
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-difference-distance-ridges-1.png"
 id="fig-difference-distance-ridges"
 alt="Figure 4: The difference-distance plot, ridgelines (i.e. density distribution)." />
-<figcaption>Figure 4: The difference-distance plot, ridgelines (i.e. density distribution).</figcaption><br>
+
+<figcaption>The difference-distance plot, ridgelines (i.e. density distribution).</figcaption><br>
 
 This brings us fluently to step 3: **binning by distance**.
 Again, a number of choices await.
@@ -420,7 +423,8 @@ ggplot(NULL) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-equibin-sample-size-1.png"
 id="fig-equibin-sample-size"
 alt="Figure 5: Sample size per bin for fixed width bins (blue) or fixed sample size bins (turquoise). Consider both for your data set." />
-<figcaption>Figure 5: Sample size per bin for fixed width bins (blue) or fixed sample size bins (turquoise). Consider both for your data set.</figcaption><br>
+
+<figcaption>Sample size per bin for fixed width bins (blue) or fixed sample size bins (turquoise). Consider both for your data set.</figcaption><br>
 
 On synthedic data, the expected difference in variogram outcome between the two binning methods is negligible.
 On real data, it can make a difference:
@@ -430,6 +434,8 @@ On real data, it can make a difference:
 -   Bin sample size matters for some difference measures; bins with particularly small or large filling will occur as outliers, especially when calculating semivariance.
 -   Different sub-categories within the data might be binned separately (e.g. categorical parameter `b`).
 
+{{% callout note %}}
+
 Note that bin spacing and size are crucial for variogram calculation.
 A substantial minimum number of observations per bin is relevant.
 This can be output-driven: do bins align in the form you would like to model, or do they spread a lot with inter-bin noise?
@@ -437,6 +443,8 @@ This can be output-driven: do bins align in the form you would like to model, or
 This is not restricted to equally-spaced bins: try log-spacing or equal-size bins!
 
 It might make sense to incorporate categorecal variables into the binning.
+
+{{% /callout %}}
 
 ## "Difference" in Distance-Difference Diagrams
 
@@ -459,17 +467,17 @@ The answer lies somewhere between (among?) the very exact maths hidden in the li
 
 And, anyways, if the assumption holds, we get a neat formula for semivariance ("Method-of-Moments Estimator" according to Cressie 1993, 69, eqn. 2.4.2), which goes back to Matheron (1962).
 
-We define the **semivariance** \\(\gamma\\):
+We define the **semivariance** \(\gamma\):
 
-\\[\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\\]
+\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\)
 
-Herein, \\(N\\) is the number of observation pairs \\(\{i, j\}\\); those are usually grouped (binned) so to quantify variances at different distances \\(\gamma\left(h\right)\\) (with \\(h\\) the "lag vector magnitude", i.e. distance group).
+Herein, \(N\) is the number of observation pairs \(\{i, j\}\); those are usually grouped (binned) so to quantify variances at different distances \(\gamma\left(h\right)\) (with \(h\) the "lag vector magnitude", i.e. distance group).
 
-Semivariance \\(\gamma\\) should better be remembered as **half mean square difference** (HMSD).
+Semivariance \(\gamma\) should better be remembered as **half mean square difference** (HMSD).
 
 There is at least one more option worth attempting: instead of the square-form semivariance above, just calculate **mean absolute difference** (MAD) as follows.
 
-\\[ \langle dw\rangle = \frac{1}{N} \sum\limits_{i,j} \left| z_j - z_i\right| \\]
+\[ \langle dw\rangle = \frac{1}{N} \sum\limits_{i,j} \left| z_j - z_i\right| \]
 
 We will calculate all three parameters for demonstration:
 variance, semivariance, and mean absolute difference.
@@ -504,19 +512,23 @@ knitr::kable(head(dist_diff_binned), digits = 2)
 
 | bin | distance_mean | distance_count | variance | semivariance | mean_abs_difference | half_variance |
 |:-----------|---------:|----------:|------:|---------:|-------------:|---------:|
-| \[0.08944,11.27\] | 7.52 | 51448 | 0.54 | 0.33 | 0.61 | 0.27 |
-| (11.27,15.98\] | 13.76 | 51447 | 0.63 | 0.38 | 0.68 | 0.32 |
-| (15.98,19.55\] | 17.82 | 51448 | 0.69 | 0.41 | 0.71 | 0.34 |
-| (19.55,22.56\] | 21.09 | 51447 | 0.72 | 0.43 | 0.73 | 0.36 |
-| (22.56,25.22\] | 23.92 | 51447 | 0.74 | 0.43 | 0.74 | 0.37 |
-| (25.22,27.65\] | 26.45 | 51448 | 0.75 | 0.44 | 0.74 | 0.38 |
+| \[0.03019,11.29\] | 7.53 | 51475 | 0.56 | 0.35 | 0.62 | 0.28 |
+| (11.29,15.97\] | 13.76 | 51475 | 0.64 | 0.39 | 0.67 | 0.32 |
+| (15.97,19.59\] | 17.83 | 51475 | 0.67 | 0.41 | 0.70 | 0.34 |
+| (19.59,22.63\] | 21.14 | 51474 | 0.71 | 0.42 | 0.71 | 0.35 |
+| (22.63,25.28\] | 23.98 | 51475 | 0.72 | 0.43 | 0.72 | 0.36 |
+| (25.28,27.71\] | 26.51 | 51475 | 0.72 | 0.43 | 0.73 | 0.36 |
 
 As you see from the table, the three measures are slightly different; the difference can become more pronounced on non-synthetic data sets.
+
+{{% callout note %}}
 
 No matter whether you choose to use VAR, HSMD, MAD, or anything else,
 make sure your readers know what difference you are actually portraying.
 
 Bonus tip: consider standardizing your data prior to calculating differences.
+
+{{% /callout %}}
 
 ## Eminent Empirics
 
@@ -542,7 +554,8 @@ par(mfrow = c(1,1))
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-empirical-variogram-1.png"
 id="fig-empirical-variogram"
 alt="Figure 6: The left panel shows mean absolute difference, whereas the right panel is the semivariance, both plotted against the distance." />
-<figcaption>Figure 6: The left panel shows mean absolute difference, whereas the right panel is the semivariance, both plotted against the distance.</figcaption><br>
+
+<figcaption>The left panel shows mean absolute difference, whereas the right panel is the semivariance, both plotted against the distance.</figcaption><br>
 
 You might call these (<a href="#fig-empirical-variogram" class="quarto-xref">Figure 6</a>) the "empirical variogram", if you like.
 They are effectively a variogram.
@@ -552,7 +565,7 @@ A plot of the bin-wise semivariance (or other difference measures) against dista
 Good to have.
 Now let's get started.
 
-# Model Regression
+# <a href="sec-model-regression"></a> Model Regression
 
 ## Fitting Functions
 
@@ -648,7 +661,7 @@ optimizer_results <- optim(
 print_regression_results(optimizer_results, label = "linear")
 ```
 
-    [1] "linear regression: convergence 0 at (0.4381, 3e-04), mse 15.1"
+    [1] "linear regression: convergence 0 at (0.4287, 4e-04), mse 10.7"
 
 ``` r
 predictor_function <- create_prediction_function(linear_function, optimizer_results)
@@ -663,17 +676,18 @@ ggplot(NULL, aes(x = x, y = y)) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-linear-regression-1.png"
 id="fig-linear-regression"
 alt="Figure 7: In principle, you can fit anything you like to the semivariance." />
-<figcaption>Figure 7: In principle, you can fit anything you like to the semivariance.</figcaption><br>
+
+<figcaption>In principle, you can fit anything you like to the semivariance.</figcaption><br>
 
 Observations:
 
 -   The regression fits the data more or less well, quantified by the mean square error (`mse`).
 -   Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
--   Parameters can be measured, in this case intercept (\\(0.44\\)) and slope (\\(3\times 10^{-4}\\)).
+-   Parameters can be measured, in this case intercept (\(0.43\)) and slope (\(4\times 10^{-4}\)).
 
 We can do better, of course.
 
-## Beloved Bellcurve
+## <a href="sec-gauss"></a> Beloved Bellcurve
 
 Quite a popular choice is the **Gaussian**.
 There is a suitable "parametric extension" [on wikipedia](https://en.wikipedia.org/wiki/Gaussian_function).
@@ -709,7 +723,8 @@ abline(v = 0)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-function-1.png"
 id="fig-gauss-function"
 alt="Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed." />
-<figcaption>Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed.</figcaption><br>
+
+<figcaption>Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed.</figcaption><br>
 
 I still have a hard time to associate anything maths-related to the words `nugget` and `sill`: they could equally well be some ancient greek letters spelled out in a non-greek way, such as `σίγμα`.
 We have to accept that they are frequently encountered in the variogram literature.
@@ -748,7 +763,7 @@ predictor_function <- create_prediction_function(
 print_regression_results(optimizer_results, label = "Gauss")
 ```
 
-    [1] "Gauss regression: convergence 0 at (0.1472, 13.9505, 0.3184), mse 1.0"
+    [1] "Gauss regression: convergence 0 at (0.1202, 16.7599, 0.3464), mse 0.8"
 
 The lower bounds are enabled by our parametrization; the control parameter `fnscale` seems to improve regression accuracy on low-magnitude `y`-values; start values are using our prior knowledge (this is a tutorial, after all, so the regression better work).
 
@@ -763,9 +778,10 @@ plot_residuals_histogram(x, y, predictor_function,
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-residuals-1.png"
 id="fig-gauss-residuals"
 alt="Figure 9: Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination." />
-<figcaption>Figure 9: Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination.</figcaption><br>
 
-The regression results for scale, range, and nugget are 0.15, 13.95, 0.32, respectively.
+<figcaption>Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination.</figcaption><br>
+
+The regression results for scale, range, and nugget are 0.12, 16.76, 0.35, respectively.
 
 Conversion to our slightly more meaningful parameters:
 
@@ -777,8 +793,10 @@ sill <- nugget + scale
 ```
 
 {{% callout note %}}
+
 The parameter `sigma` here is related to the sigma we used for smoothing above; I chose to define the range as sigma (which is also not conventional).
 The sigma \| range I see here is the **width of the Gaussian**, which is related, but not equal to what others call `range`.
+
 {{% /callout %}}
 
 Finally, visualization.
@@ -800,7 +818,8 @@ ggplot(NULL, aes(x = x, y = y)) +
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-variogram-1.png"
 id="fig-gauss-variogram"
 alt="Figure 10: Variogram of the simulated data, using a Gauss model." />
-<figcaption>Figure 10: Variogram of the simulated data, using a Gauss model.</figcaption><br>
+
+<figcaption>Variogram of the simulated data, using a Gauss model.</figcaption><br>
 
 Whenever it works (which should not be taken for granted), the fit is quite good.
 Not perfect here, we can still do better.
@@ -895,32 +914,32 @@ There is at least one step further from Gauss.
 Let's mimic what the pro's do!
 
 What follows is an exact quote [(source)](https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields).
-Note that the \\(s\\) here stants for a position vector, and *not* the smoothed `z`.
+Note that the \(s\) here stants for a position vector, and *not* the smoothed `z`.
 
 `<quote>`
 
-The Matérn defines the covariance \\(\Phi\left( s_j, s_k\right)\\) between spatial locations \\(s_j\\) and \\(s_k\\) as
+The Matérn defines the covariance \(\Phi\left( s_j, s_k\right)\) between spatial locations \(s_j\) and \(s_k\) as
 
-\\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\\]
+\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\]
 <!-- Φ(sj,sk)=τ2/Γ(ν)2ν−1(κdjk)νKν(κdjk),-->
 
-where \\(\tau^2\\) controls the spatial variance,
-\\(\nu\\) controls the smoothness,
-\\(\Gamma\\) represents the Gamma function,
-\\(d_{jk}\\) represents the distance between locations \\(s_j\\) and \\(s_k\\),
-\\(K_\nu\\) represents the modified Bessel function of the second kind,
-and \\(\kappa\\) represents the decorrelation rate.
-The parameter \\(\nu\\) is set to \\(1\\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
+where \(\tau^2\) controls the spatial variance,
+\(\nu\) controls the smoothness,
+\(\Gamma\) represents the Gamma function,
+\(d_{jk}\) represents the distance between locations \(s_j\) and \(s_k\),
+\(K_\nu\) represents the modified Bessel function of the second kind,
+and \(\kappa\) represents the decorrelation rate.
+The parameter \(\nu\) is set to \(1\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
 to greatly increase computational efficiency (Lindgren, Rue, and Lindström 2011).
-Internally, the parameters \\(\kappa\\) and \\(\tau\\) are converted to range and marginal standard deviation \\(\sigma\\) as
-\\[range=\frac{8}{\kappa}\\]
+Internally, the parameters \(\kappa\) and \(\tau\) are converted to range and marginal standard deviation \(\sigma\) as
+\[range=\frac{8}{\kappa}\]
 and
-\\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\\]
+\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\]
 
 `</quote>`
 
 This is just to confuse you.
-I found the \\(\tau\\)/\\(\kappa\\)/\\(\sigma\\)-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
+I found the \(\tau\)/\(\kappa\)/\(\sigma\)-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.
 
 ``` r
 matern_function <- function(d, parameters) {
@@ -942,7 +961,7 @@ matern_function <- function(d, parameters) {
 
 I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the version above is quite flexible to fit our variogram.
 Note that the function is not defined at zero, which is why I filter `NA`.
-Sigma (\\(\sigma\\)) is related to the turning point of the Matérn function.
+Sigma (\(\sigma\)) is related to the turning point of the Matérn function.
 The Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
 
 Any regression function demands a specific plot function:
@@ -1007,7 +1026,7 @@ vg_all <- fit_variogram(
   )
 ```
 
-    [1] " regression: convergence 0 at (0.0872, 14.2847, 0.1461, 1.2805), mse 0.4"
+    [1] " regression: convergence 0 at (0.0916, 16.7871, 0.143, 0.4806), mse 0.3"
 
 ``` r
 plot_matern(vg_all) # + ylim(0, 0.25)
@@ -1017,10 +1036,11 @@ plot_matern(vg_all) # + ylim(0, 0.25)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-alldata-variogram-1.png"
 id="fig-alldata-variogram"
 alt="Figure 11: Variogram of all the data, with a Matérn fit. Warning: the y-axis display range is limited." />
-<figcaption>Figure 11: Variogram of all the data, with a Matérn fit. Warning: the y-axis display range is limited.</figcaption><br>
+
+<figcaption>Variogram of all the data, with a Matérn fit. Warning: the y-axis display range is limited.</figcaption><br>
 
 Note the sensible choice of starting values and boundaries.
-Again, I indicated the \\(\sigma\\) range.
+Again, I indicated the \(\sigma\) range.
 
 See the considerable non-zero nugget?
 Let us explore where it comes from!
@@ -1047,7 +1067,7 @@ vg_b0 <- fit_variogram(
   )
 ```
 
-    [1] " regression: convergence 0 at (0.1453, 12.9606, 0.0091, 1.2815), mse 0.3"
+    [1] " regression: convergence 0 at (0.1317, 17.4239, 0.0059, 0.6202), mse 0.4"
 
 ``` r
 plot_matern(vg_b0)
@@ -1057,7 +1077,8 @@ plot_matern(vg_b0)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-1.png"
 id="fig-subdata-variogram"
 alt="Figure 12: Variogram of the sub-data in the b == 0 category." />
-<figcaption>Figure 12: Variogram of the sub-data in the `b == 0` category.</figcaption><br>
+
+`<figcaption>Variogram of the sub-data in the`b == 0category.</figcaption><br>
 
 ``` r
 semi_data <- data %>%
@@ -1075,7 +1096,7 @@ vg_b1 <- fit_variogram(
   )
 ```
 
-    [1] " regression: convergence 0 at (0.1743, 12.267, 0.0192, 1.1167), mse 0.6"
+    [1] " regression: convergence 0 at (0.1859, 13.8511, 0.0159, 1.0527), mse 0.6"
 
 ``` r
 plot_matern(vg_b1)
@@ -1085,15 +1106,16 @@ plot_matern(vg_b1)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-b1-1.png"
 id="fig-subdata-variogram-b1"
 alt="Figure 13: Variogram of the sub-data in the b == 1 category." />
-<figcaption>Figure 13: Variogram of the sub-data in the `b == 1` category.</figcaption><br>
 
-The \\(\sigma\\)-range of the full data set with two different categories mixed is \\(14.3\\).
-If we only include one of the categories, making the data points more similar, ranges are \\(13\\) and \\(12.3\\).
+`<figcaption>Variogram of the sub-data in the`b == 1category.</figcaption><br>
+
+The \(\sigma\)-range of the full data set with two different categories mixed is \(16.8\).
+If we only include one of the categories, making the data points more similar, ranges are \(17.4\) and \(13.9\).
 Longer range would mean that distant points are more similar.
 
 The variance itself is also determined by the magnitude of values:
 on the `b==1` subset, we added to the measured parameter.
-Consequently, we see the `scale = sill-nugget` increase from \\(0.15\\) to \\(0.17\\).
+Consequently, we see the `scale = sill-nugget` increase from \(0.13\) to \(0.19\).
 
 If you noticed that especially the `b==0` data does not entirely fit the model, you are right: because of the "wrapped smoothing, then detrending" simulation procedure, the margin prohibits perfect detrending.
 Which brings me to a revision of these effects.
@@ -1121,7 +1143,7 @@ vg_nodetrend <- fit_variogram(
   )
 ```
 
-    [1] " regression: convergence 0 at (0.1883, 52.8893, 0.1406, 0.4832), mse 0.7"
+    [1] " regression: convergence 0 at (0.2116, 56.3717, 0.1388, 0.3905), mse 0.4"
 
 ``` r
 plot_matern(vg_nodetrend)
@@ -1131,7 +1153,8 @@ plot_matern(vg_nodetrend)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-nodetrend-1.png"
 id="fig-variogram-nodetrend"
 alt="Figure 14: Variogram of the data with de-trending disabled." />
-<figcaption>Figure 14: Variogram of the data with de-trending disabled.</figcaption><br>
+
+<figcaption>Variogram of the data with de-trending disabled.</figcaption><br>
 
 Due to the systematic effect in the "trended" data, the semivariance keeps rising with increasing distance,
 which the Matérn model shows in a low `nu` and wide `sigma`.
@@ -1141,7 +1164,9 @@ The variance of all points in a fixed circle around you would be much higher, co
 Even the inverse seems to be a general pattern:
 
 {{% callout note %}}
+
 If your semivariance keeps linearly increasing, try de-trending your data.
+
 {{% /callout %}}
 
 ## Skip Smoothing
@@ -1163,7 +1188,7 @@ vg_nosmoothing <- fit_variogram(
   )
 ```
 
-    [1] " regression: convergence 0 at (6.6603, 0.0928, 0.01, 0.99), mse 17.1"
+    [1] " regression: convergence 0 at (6.7494, 0.4544, 0.01, 1.01), mse 10.5"
 
 ``` r
 plot_matern(vg_nosmoothing)
@@ -1173,7 +1198,8 @@ plot_matern(vg_nosmoothing)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-rawdata-1.png"
 id="fig-variogram-rawdata"
 alt="Figure 15: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation." />
-<figcaption>Figure 15: Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation.</figcaption><br>
+
+<figcaption>Variogram of the Non-Tobleronian raw data, i.e. random data without spatial relation.</figcaption><br>
 
 As expected, with purely random data, Tobler's law does not apply.
 (The jitter on close points is due to lower sample size.)
@@ -1181,9 +1207,11 @@ As with [Non-Newtonian fluids](https://en.wikipedia.org/wiki/Non-Newtonian_fluid
 I had to fix the `nu` and `nugget` because the whole concept does not make sense for a constant.
 
 {{% callout note %}}
+
 If your semivariance returns a constant, your data was not spatially related.
 
 Return to step 1.
+
 {{% /callout %}}
 
 # Taking it Further
@@ -1207,7 +1235,7 @@ vg_mad <- fit_variogram(
   )
 ```
 
-    [1] " regression: convergence 0 at (0.121, 10.5657, 0.2582, 0.8804), mse 0.3"
+    [1] " regression: convergence 0 at (0.1352, 13.3888, 0.2461, 0.4093), mse 0.5"
 
 ``` r
 plot_matern(vg_mad)
@@ -1217,7 +1245,8 @@ plot_matern(vg_mad)
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-mad-variogram-1.png"
 id="fig-mad-variogram"
 alt="Figure 16: Is it still a variogram if we do not use semivariance?" />
-<figcaption>Figure 16: Is it still a variogram if we do not use semivariance?</figcaption><br>
+
+<figcaption>Is it still a variogram if we do not use semivariance?</figcaption><br>
 
 Except for the range of y-values, the regression seems to be similar or better.
 In particular, `sigma` is about the same - it better should be, because semivariance as defined above just calculates the square difference.
@@ -1225,9 +1254,11 @@ In particular, `sigma` is about the same - it better should be, because semivari
 Feel free to also give variance a try.
 
 {{% callout note %}}
+
 The "square" of differences used to calculate semivariance might be problematic in some situations.
 
 To re-iterate: variogram analysis is a flexible framework.
+
 {{% /callout %}}
 
 ## Basic Bootstrapping
@@ -1326,11 +1357,11 @@ bootstraps %>%
 ```
 
 <img
-src="spatial_variograms.markdown_strict_files/figure-markdown_strict/plot-bootstraps-1.png"
-id="fig-bootstrapping"
-alt="Figure 17: Bootstrapping results for the `sigma` parameter" />
-<figcaption>Figure 17: Bootstrapping results for the `sigma` parameter</figcaption><br>
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-bootstrapping_sigma-1.png"
+id="fig-bootstrapping_sigma"
+alt="Figure 17: Bootstrapping results for the sigma parameter." />
 
+`<figcaption>Bootstrapping results for the`sigmaparameter.</figcaption><br>
 
 ``` r
 bootstrap_quantiles <- bootstraps %>%
@@ -1346,14 +1377,16 @@ knitr::kable(bootstrap_quantiles, digits = 1)
 
 | scale | sigma | nugget |    nu | rmse | quantile |
 |------:|------:|-------:|------:|-----:|---------:|
-|   0.0 |   1.9 |    0.0 |   0.1 |  2.0 |        2 |
-|   0.1 |   9.1 |    0.2 |   1.2 |  3.6 |       50 |
-|   0.4 |  23.5 |    0.3 | 100.0 |  8.6 |       98 |
+|   0.0 |   1.6 |    0.0 |   0.0 |  2.0 |        2 |
+|   0.2 |  11.5 |    0.2 |   0.6 |  3.8 |       50 |
+|   0.4 |  32.3 |    0.3 | 100.0 |  9.0 |       98 |
 
-For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.9, 23.5\] interval.
+For the majority of bootstraps, the `sigma`-range of spatial coupling falls within the \[1.6, 32.3\] interval.
 
 {{% callout note %}}
+
 Bootstrapping is a simple and effective procedure to estimate parameter uncertainties.
+
 {{% /callout %}}
 
 ## Superimposed Scales
@@ -1373,7 +1406,9 @@ You could filter or subset your data, or adjust parameter choice by modeling in 
 With the tools I gave you above, you could even fit a "mulit-Matérn" to stepped variograms, if you desire.
 
 {{% callout note %}}
+
 But first of all, make sure you keep a broad perspective on the specificities of your data set.
+
 {{% /callout %}}
 
 # Prospect: Kriging
