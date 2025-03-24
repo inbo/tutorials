@@ -133,8 +133,14 @@ def show(img, ax = None, **kwargs):
 
 ## raw
 
+Here is the test image, included for download:
+
+![test image](Triturus cristatus_female_4_2025-03-17_106_IMG_9269.JPG)
+
+
+
 ```{python load-image}
-## I also flipped the test images to see whether the head direction is good.
+## For testing rotation below, I also flipped the test images to see whether the head direction is good.
 #  procedure tested on all four files.
 # image_file = "Triturus cristatus_female_4_2025-03-17_106_IMG_9269.JPG"
 # image_file = "Triturus cristatus_female_4_2025-03-17_106_IMG_9269_.JPG"
@@ -723,7 +729,7 @@ tform = skitrafo.AffineTransform(scale=(1.3, 1.1), rotation=0.5, translation=(0,
 fake_test = skitrafo.warp(crop_saturation, tform)
 
 
-descriptor_extractor = skifeat.ORB(n_keypoints=200)
+descriptor_extractor = skifeat.ORB(n_keypoints=64)
 
 descriptor_extractor.detect_and_extract(crop_saturation)
 keypoints1 = descriptor_extractor.keypoints
@@ -734,13 +740,13 @@ keypoints2 = descriptor_extractor.keypoints
 descriptors2 = descriptor_extractor.descriptors
 
 # find matches
-matches12 = match_descriptors(descriptors1, descriptors2, cross_check=True)
+matches12 = skifeat.match_descriptors(descriptors1, descriptors2, cross_check=True)
 
 fig, ax = plt.subplots(nrows=1, ncols=1)
 
 plt.gray()
 
-plot_matched_features(
+skifeat.plot_matched_features(
     crop_saturation,
     fake_test,
     keypoints0 = keypoints1,
@@ -764,7 +770,7 @@ The above was a lot of exploration.
 
 - Make sure the heuristic relmax-threshold above generalizes.
 - Make sure the automatic newt rotation above works consistently on more examples (angles are tricky).
-- You would want to extract the crucial steps and assemble them in a function.
+- You would want to extract the crucial steps and assemble them in a function (see file `ImageProcessingCollection.py`).
 - Roll out image standardized cropping to whole folders of images; more testing.
 - Explore further: feature matching, warping.
 - For uselessly elaborate matching models, you might want to resample the outcome image (uniform feature vector).
