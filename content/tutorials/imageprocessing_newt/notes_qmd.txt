@@ -1,0 +1,61 @@
+
+steps to get a qmd to hugo markdown:
+
++ export hugo-md:
+  quarto render <file>.qmd --to hugo-md
+
+
++ preview procedure:
+  rm tutorials -rf
+  unzip <zip>
+  python -m http.server 8887
+
+
+
+// should be handled by markdown export
++ include yaml
+  preserve_yaml: true
+  adjust date, tags, categories and authors
+
+
+// should be handled by markdown export
++ callouts: https://rossabaker.com/configs/website/shortcodes/callout/
+```{=markdown}
+{{% callout note %}}
+```
+Give a call out to your colleagues!
+```{=markdown}
+{{% /callout %}}
+```
+
+
+// should be handled by markdown export
++ section crosslinks:
+`<a id="sec-section"></a>`{=markdown}
+
+## Section
+
+
+// manually added as {=markdown} export
+!! careful with code ticks in markdown export
++ figure captions
+
+
+<img
+src="path/to/figure.png"
+id="fig-label"
+alt="Figure 1: Caption text." />
+<figcaption>Figure 1: Caption text.</figcaption><br>
+
+`<figcaption>This is the ``max(y)``.</figcaption><br>`{=markdown}
+
+
+// should be handled by yaml export options
++ equations
+  in yaml header:
+   params:
+     math: true
+  replace $s$ -> \\(s\\), $$\ldots$$ -> \\[\ldots\\]
+    eqn with \\(\\) and \\[\\]
+  cf. math https://gohugo.io/content-management/mathematics/
+  and https://github.com/quarto-dev/quarto-cli/discussions/12272
