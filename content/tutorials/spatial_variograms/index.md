@@ -1,5 +1,3 @@
-
-
 ---
 title: "An Algorithmic Approach to Variograms"
 description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
@@ -65,7 +63,6 @@ But your mileage may vary, so feel invited to try it yourself.
 Enjoy!
 
 ``` r
-.libPaths("/data/R/library")
 void <- suppressPackageStartupMessages
 # library("sp") |> void()
 
@@ -119,6 +116,9 @@ knitr::kable(head(data, 5))
 |  98.05246 |  -40.49404 | -0.9586115 |
 | 112.75962 |  -51.10675 | -5.5283416 |
 
+
+The raw data `z_` is calculated as random numbers from a uniform distribution (with a given sample size and data range).
+
 *Mental note: points towards the rim will tend to have fewer neighbors. Or, in general, mind your spatial layout! (Sparse/dense? Clustered/homogeneous? ...)*
 
 ## Common Covariate Classes
@@ -150,7 +150,7 @@ knitr::kable(head(data, 3))
 |  73.80611 |  -34.32992 |  1.6650901 |  0.3231664 |   1 |  2.788907 |
 | -23.30191 |  -53.95508 |  2.6631489 | -0.2538895 |   0 |  2.397276 |
 
-There no noise applied to those covariates, moderate noise on the raw data, so they should be recover-able by a statistical model.
+There is no noise applied to those covariates `a` and `b`, moderate noise on the raw data `z`, so the two additional effects should be recover-able by a statistical model.
 
 Visualizing, with color:
 
@@ -200,15 +200,15 @@ Usually, we only require unique cross-combinations of elements in arbitrary orde
 
 ``` r
 # compute the difference of all elements of one vector to each other
-self_difference <- function (vec) outer(X = vec, Y = vec, FUN = function(X, Y)  Y-X)
-wrap_difference <- function (vec) outer(X = vec, Y = vec, FUN = function(X, Y) (Y-X) %% (2*extent))
+self_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) Y - X )
+wrap_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) (Y - X) %% (2*extent))
 
 # Calculate the Euclidean distance of the x and y columns in a data frame.
-Euclid <- function (data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
-Euclid_wrap <- function (data) sqrt(wrap_difference(data$x)^2 + wrap_difference(data$y)^2 )
+Euclid <- function(data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
+Euclid_wrap <- function(data) sqrt(wrap_difference(data$x)^2 + wrap_difference(data$y)^2 )
 
 # return the lower triangle of a matrix, unpacking it into a vector of unique values
-lower_triangle <- function (mat) mat[lower.tri(mat)]
+lower_triangle <- function(mat) mat[lower.tri(mat)]
 ```
 
 This was just an opportunistic excourse to step 2 **cross calculation** from the roadmap.
@@ -223,7 +223,7 @@ Just so that we can optionally incorporate **some Tobler spirit**: a smoother.
 
 ``` r
 # smoothing 2D data
-smooth <- function (data, sigma = NULL) {
+smooth <- function(data, sigma = NULL) {
   
   if (sigma <= 0 || is.null(sigma) || is.na(sigma)) {
     return(data$z)
@@ -236,7 +236,7 @@ smooth <- function (data, sigma = NULL) {
   # do.call("cbind", rep(list(data$z), length(data$z)))
   
   zmoothed <- weight %*% data$z
-  return (zmoothed[,1])
+  return(zmoothed[,1])
 }
 ```
 
@@ -244,7 +244,7 @@ Smoothing just smoothes all the points, irrespective of groups in the categorica
 To get something out of the parameter we implemented, better smooth group-wise.
 
 ``` r
-groupwise_smoothing <- function (grp) {
+groupwise_smoothing <- function(grp) {
   sub_data <- data %>%
     filter(b == grp)
   sub_data$s <- smooth(sub_data, smooth_sigma)
@@ -270,7 +270,7 @@ alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are dark
 Nice and smooth.
 Feel free to draw a sunset by adjusting `a` and removing the groups.
 
-Note that I chose `s` here as a variable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to descripe the position vector of locations.
+Note that I chose `s` here as a variable name for the smoothed `z`, which should not be confused with the \\(s\\) often used elsewhere to describe the position vector of locations.
 
 {{% callout note %}}
 
@@ -315,7 +315,7 @@ What is a trend, where does it start, where does it end?
 
 What they really mean is that the analysis is continued on the residual of a linear regression on all spatial co-ordinates.
 In R, we can simply use `lm()`.
-The regression formula conatains the outcome variable on the left handside, and all spatial variables (`x`, `y`, sometimes `z`) on the right.
+The regression formula contains the outcome variable on the left handside, and all spatial variables (`x`, `y`, sometimes `z`) on the right.
 
 ``` r
 data$d <- lm(s ~ x + y, data)$residual # "d" as in "de-trending"
@@ -466,7 +466,7 @@ With binning comes the immediate question also part of step 3:
 **what do we actually quantify as "difference"?**
 
 Conventionally, *variance* (VAR) is the average difference of observations (or a subset of observations, e.g. in a group or bin) from the average.
-It is implemented in R with the `var` function.
+It is implemented in R with the `var` function (note that R implements the "sample variance", i.e. the formula normalizing by `n - 1` for [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)).
 However, applying this formula for variograms is ~~wrong~~ unconventional!
 
 In *variograms*, the mean is replaced by a given point on the landscape (we want to look at differences from that focus point), and then we iterate over adjacent points.
@@ -474,7 +474,7 @@ Conventional *variance* and geospatial *semivariance* are related in what is cal
 
 > the mean is constant between samples and is independent of location
 
-Please try to find out yourself what this means.
+Please try to find out yourself what this means (a great starting point might be [this extensive comparison of variance equations](https://www.probabilisticworld.com/alternative-variance-formulas-derivation)).
 Personally, I find "constant between samples" a bit fishy: is it "constant between/among two samples" (ridiculous: is it then the mean of those two samples?), or "constant across all samples" (i.e. just "constant everywhere")?
 If something is "independent of location", why bother computing a spatial interpolation?
 The answer lies somewhere between (among?) the very exact maths hidden in the literature.
@@ -497,17 +497,17 @@ We will calculate all three parameters for demonstration:
 variance, semivariance, and mean absolute difference.
 
 ``` r
-calculate_semivariance <- function (diff_vector) 1/(2*length(diff_vector)) * sum(diff_vector^2) # "HMSD"
+calculate_semivariance <- function(diff_vector) 1/(2*length(diff_vector)) * sum(diff_vector^2) # "HMSD"
 
 dist_diff_binned <- dist_diff %>% 
   select(-bin1) %>% 
   group_by(bin) %>%
   summarize(across(everything(), list(
       "mean" = mean,
-      "absmean" = function (measurements) sum(abs(measurements)) / length(measurements),
+      "absmean" = function(measurements) sum(abs(measurements)) / length(measurements),
       "variance" = var,
       "semivariance" = calculate_semivariance,
-      "count" = function (measurements) length(measurements)
+      "count" = function(measurements) length(measurements)
     )
   )) %>%
   select(bin, distance_mean, distance_count,
@@ -593,7 +593,7 @@ There are a lot of combinations and choices by now, and it is worth systematical
 because we binned the data above, we now need to fit a function through the bins to interpolate the space in between.
 Even more of a paradox is that we will not use that model here to predict any values; it just models semivariance, anyways.
 
-There are some general convenience wrappers for classical regression in R, though I personally did not find a really convenient one because the shere array of choices is rather intransparent.
+There are some general convenience wrappers for classical regression in R, though I personally did not find a really convenient one because the sheer array of choices is rather intransparent.
 However, [base-r `optim` does all we need](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/optim) (*sometimes*).
 There are [other libraries](https://cran.r-project.org/web/views/Optimization.html).
 
@@ -629,7 +629,7 @@ wrap_target_function_distanceweighted <- function(x, y, regressor, parameters) {
 # this can turn regression output into a usable function.
 # εὕρηκα, functional programming!
 create_prediction_function <- function(regressor, results) {
-  fcn <- function (x) {
+  fcn <- function(x) {
     regressor(x, results$par)
   }
 
@@ -649,7 +649,7 @@ print_regression_results <- function(orsl, label = "") {
 
 
 # Finally, a quick histogram plot of residuals.
-plot_residuals_histogram <- function (x, y, predictor_function, ...) {
+plot_residuals_histogram <- function(x, y, predictor_function, ...) {
   residuals <- predictor_function(x) - y
   ggplot(NULL, aes(x = residuals)) +
     geom_histogram(...) +
@@ -722,7 +722,7 @@ gauss_function <- function(x, parameters) {
   sill <- scale + nugget
 
   # the raw, unscaled gaussian kernel
-  gauss <- exp(-((x-mu)^2)/(2*sigma^2))
+  gauss <- exp(-((x - mu)^2) / (2 * sigma^2))
 
   # the bell should point downwards:
   result <- sill - scale * gauss
@@ -745,6 +745,8 @@ alt="Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero
 <figcaption>Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed.</figcaption><br>
 
 I still have a hard time to associate anything maths-related to the words `nugget` and `sill`: they could equally well be some ancient greek letters spelled out in a non-greek way, such as `σίγμα`.
+Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial: 
+> nugget comes from "gold" nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large "nugget" effect (large differences at very small distances).
 We have to accept that they are frequently encountered in the variogram literature.
 
 -   The `nugget` is the value our function takes at the zero intercept, i.e. baseline variance, i.e. the lowest difference we can get (often defined by measurement uncertainty).
@@ -765,7 +767,7 @@ start_values <- c(zrange, smooth_sigma, 0.)
 optimizer_results <- optim(
   par = start_values,
   lower = c(0.0, 0.0, 0.0), # all positive parameters
-  upper = c(2*zrange, extent/4, zrange), # prevent crazy outcomes
+  upper = c(2 * zrange, extent / 4, zrange), # prevent crazy outcomes
   fn = function(parameters) {
     wrap_target_function_distanceweighted(x, y, gauss_function, parameters)
   }, 
@@ -884,10 +886,10 @@ fit_variogram <- function(
     group_by(bin) %>%
     summarize(across(everything(), list(
         "mean" = mean,
-        "absmean" = function (vec) sum(abs(vec)) / length(vec),
+        "absmean" = function(vec) sum(abs(vec)) / length(vec),
         "variance" = var,
-        "semivariance" = function (vec) 1/(2*length(vec)) * sum(vec^2),
-        "count" = function (vec) length(vec)
+        "semivariance" = function(vec) 1 / (2 * length(vec)) * sum(vec^2),
+        "count" = function(vec) length(vec)
       )
     )) %>%
     select(bin, dist_mean, dist_count,
@@ -1010,8 +1012,8 @@ plot_matern <- function(optimizer_results) {
 
 
   # plotting
-  plotx <- seq(0, extent, length.out = 2*extent + 1)
-  plotx <- plotx[plotx>0]
+  plotx <- seq(0, extent, length.out = 2 * extent + 1)
+  plotx <- plotx[plotx > 0]
   
   g <- ggplot(NULL, aes(x = regx, y = regy)) +
     geom_vline(xintercept = range, color = "darkgrey") +
@@ -1307,12 +1309,12 @@ subset_bootstrap <- function(i){
   selected_rows <- sample(
     1:nrow(data), 
     # as.integer(nrow(data)), # <- normally, you would reproduce original sample size
-    as.integer(nrow(data)/10), # <- for demonstration, I take smaller samples
+    as.integer(nrow(data) / 10), # <- for demonstration, I take smaller samples
     replace = TRUE
     )
 
   # Obtain the bootstrap sample:
-  bootstrap_sample <- data[selected_rows,]
+  bootstrap_sample <- data[selected_rows, ]
 
   # run the variogram analysis
   optimizer_results <- fit_variogram(
@@ -1393,9 +1395,9 @@ bootstrap_quantiles <- bootstraps %>%
   select(-iteration, -conv) %>% 
   reframe(across(
     everything(), 
-    function (param) quantile(param, c(0.02, 0.5, 0.98))
+    function(param) quantile(param, c(0.02, 0.5, 0.98))
   )) %>% 
-  mutate(quantile = 100*c(0.02, 0.5, 0.98))
+  mutate(quantile = 100 * c(0.02, 0.5, 0.98))
 knitr::kable(bootstrap_quantiles, digits = 1)
 ```
 
