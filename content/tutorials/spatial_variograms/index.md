@@ -339,7 +339,7 @@ Whether or not to de-trend prior to variogram calculation is a crucial design de
 De-trending often improves variogram model regression (<a href="#sec-nodetrend" class="quarto-xref">Section 6.1</a>), but it also removes/diminishes the effects of spatially correlated co-variates such as our parameter `a`.
 
 Make sure that you know whether your variogram function applies de-trending, or not.
-At any rate, I would recommend to **store the detrended linear effects for later** by applying your own `lm()`, prior to variogramming.
+At any rate, I would recommend to **store the detrended linear effects for later** by applying your own `lm()`, prior to variogram fitting.
 
 {{% /callout %}}
 
@@ -347,7 +347,7 @@ At any rate, I would recommend to **store the detrended linear effects for later
 
 ## Beautiful Binning
 
-By now, we have prepared several variants of our simulated outcome variables (`z` -\> `s` -\> `d`), which is more than enough do demonstrate step 1.
+By now, we have prepared several variants of our simulated outcome variables (`z` -\> `s` -\> `d`), which is more than enough to demonstrate step 1.
 The next obvious step is to **cross-calculate distances and differences**, and that is quickly done with the base-R machinery.
 
 It is good to keep track of the difference-distance plot.
@@ -407,7 +407,7 @@ This brings us fluently to step 3: **binning by distance**.
 Again, a number of choices await.
 
 On real data, it can be beneficial to cut equal-sized bins.
-This can be done with the convenient R function `cut_number`.
+This can be done with the convenient R function `ggplot2::cut_number`.
 
 ``` r
 dist_diff$bin <- as.factor(
@@ -440,7 +440,7 @@ alt="Figure 5: Sample size per bin for fixed width bins (blue) or fixed sample 
 
 <figcaption>Sample size per bin for fixed width bins (blue) or fixed sample size bins (turquoise). Consider both for your data set.</figcaption><br>
 
-On synthedic data, the expected difference in variogram outcome between the two binning methods is negligible.
+On synthetic data, the expected difference in variogram outcome between the two binning methods is negligible.
 On real data, it can make a difference:
 
 -   A good minimum number of observations per bin should be achieved. Think in the order of a hundred, if your data allows it.
@@ -456,7 +456,7 @@ This can be output-driven: do bins align in the form you would like to model, or
 
 This is not restricted to equally-spaced bins: try log-spacing or equal-size bins!
 
-It might make sense to incorporate categorecal variables into the binning.
+It might make sense to incorporate categorical variables into the binning.
 
 {{% /callout %}}
 
@@ -1150,7 +1150,7 @@ Which brings me to a revision of these effects.
 
 ## De-activated De-trending
 
-Luckily, we computer-engineerd in a `skip_detrend` flag above.
+Luckily, we computer-engineered in a `skip_detrend` flag above.
 
 ``` r
 vg_nodetrend <- fit_variogram(
