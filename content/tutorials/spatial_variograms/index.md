@@ -465,7 +465,7 @@ It might make sense to incorporate categorical variables into the binning.
 With binning comes the immediate question also part of step 3:
 **what do we actually quantify as "difference"?**
 
-Conventionally, *variance* (VAR) is the average difference of observations (or a subset of observations, e.g. in a group or bin) from the average.
+Conventionally, *variance* (VAR) is the mean squared difference of observed values (or a subset of observations, e.g. in a group or bin) from their mean.
 It is implemented in R with the `var` function (note that R implements the "sample variance", i.e. the formula normalizing by `n - 1` for [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)).
 However, applying this formula for variograms is ~~wrong~~ unconventional!
 
