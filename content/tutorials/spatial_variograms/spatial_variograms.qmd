@@ -3,6 +3,8 @@ title: ""
 author: ""
 date: ""
 bibliography: references_csl.json
+link-citations: true
+csl: '`r cslfile <- file.path("./research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/master/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
 number-sections: true
 format:
   html:
@@ -22,11 +24,12 @@ format:
 ---
 title: "An Algorithmic Approach to Variograms"
 description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
-date: "2025-03-11"
+date: "2025-03-28"
 authors: [falkmielke]
 categories: ["r", "statistics", "development"]
 tags: ["r", "spatial", "co-variance", "de-trending", "binning", "regression", "analysis", "gis"]
 number-sections: true
+link-citations: true
 params:
   math: true
 format:
@@ -36,8 +39,6 @@ format:
     html-math-method: katex
 ---
 ```
-
-
 
 
 # Introduction
@@ -102,7 +103,6 @@ Enjoy!
 ```{r setup}
 #| eval: true
 void <- suppressPackageStartupMessages
-# library("sp") |> void()
 
 # our beloved tidyverse components:
 library("dplyr") |> void() 
@@ -340,8 +340,7 @@ In our example, one could use
 
 ```{r eval=FALSE}
 #| eval: false
-data_sf <- data # sf::st_as_sf(data, coords = c("x", "y"), crs = 31370)
-sp::coordinates(data_sf) = ~x+y
+data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 31370, remove = FALSE)
 v <- gstat::variogram(z ~ x + y, data = data_sf)
 v.fit <- gstat::fit.variogram(v, gstat::vgm("Mat"))
 v.fit
@@ -1059,8 +1058,12 @@ matern_function <- function(d, parameters) {
 
 I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the version above is quite flexible to fit our variogram.
 Note that the function is not defined at zero, which is why I filter `NA`.
-Sigma ($\sigma$) is related to the turning point of the Matérn function.
 The Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
+
+Note that there are different definitions of the Matérn range and the parameter `sigma`. 
+Make sure you know which range your toolbox of choice is reporting.
+Here and below, I will report the range that is determined by `sigma` in the above function definition.
+That sigma ($\sigma$) is related to the turning point of the Matérn function.
 
 
 Any regression function demands a specific plot function:

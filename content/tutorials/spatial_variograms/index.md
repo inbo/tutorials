@@ -1,11 +1,12 @@
 ---
 title: "An Algorithmic Approach to Variograms"
 description: "Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R."
-date: "2025-03-11"
+date: "2025-03-28"
 authors: [falkmielke]
 categories: ["r", "statistics", "development"]
 tags: ["r", "spatial", "co-variance", "de-trending", "binning", "regression", "analysis", "gis"]
 number-sections: true
+link-citations: true
 params:
   math: true
 format:
@@ -64,11 +65,10 @@ Enjoy!
 
 ``` r
 void <- suppressPackageStartupMessages
-# library("sp") |> void()
 
 # our beloved tidyverse components:
 library("dplyr") |> void() 
-library("ggplot2") |> void()  
+library("ggplot2") |> void()
 library("ggridges")  |> void() # density ridges
 library("parallel")  |> void() # parallel processing, for bootstrapping
 
@@ -108,14 +108,13 @@ data <- data.frame(
 knitr::kable(head(data, 5))
 ```
 
-|         x |          y |        z\_ |
-|----------:|-----------:|-----------:|
-| -54.38015 | -116.22783 | -0.5146002 |
-|  73.80611 |  -34.32992 |  1.6650901 |
-| -23.30191 |  -53.95508 |  2.6631489 |
-|  98.05246 |  -40.49404 | -0.9586115 |
-| 112.75962 |  -51.10675 | -5.5283416 |
-
+|      x |       y |     z\_ |
+|-------:|--------:|--------:|
+| -54.38 | -116.23 | -0.5146 |
+|  73.81 |  -34.33 |  1.6651 |
+| -23.30 |  -53.96 |  2.6631 |
+|  98.05 |  -40.49 | -0.9586 |
+| 112.76 |  -51.11 | -5.5283 |
 
 The raw data `z_` is calculated as random numbers from a uniform distribution (with a given sample size and data range).
 
@@ -144,11 +143,11 @@ data$z <- data$z_ + a_slope * data$a + b_slope * data$b
 knitr::kable(head(data, 3))
 ```
 
-|         x |          y |        z\_ |          a |   b |         z |
-|----------:|-----------:|-----------:|-----------:|----:|----------:|
-| -54.38015 | -116.22783 | -0.5146002 | -0.5698005 |   0 | -1.111294 |
-|  73.80611 |  -34.32992 |  1.6650901 |  0.3231664 |   1 |  2.788907 |
-| -23.30191 |  -53.95508 |  2.6631489 | -0.2538895 |   0 |  2.397276 |
+|      x |       y |     z\_ |       a |   b |      z |
+|-------:|--------:|--------:|--------:|----:|-------:|
+| -54.38 | -116.23 | -0.5146 | -0.5698 |   0 | -1.111 |
+|  73.81 |  -34.33 |  1.6651 |  0.3232 |   1 |  2.789 |
+| -23.30 |  -53.96 |  2.6631 | -0.2539 |   0 |  2.397 |
 
 There is no noise applied to those covariates `a` and `b`, moderate noise on the raw data `z`, so the two additional effects should be recover-able by a statistical model.
 
@@ -231,12 +230,12 @@ smooth <- function(data, sigma = NULL) {
 
   dist <- Euclid_wrap(data)
   # sigma <- extent / 3
-  weight <- dnorm(dist, 0, sigma) 
+  weight <- dnorm(dist, 0, sigma)
   weight <- weight / colSums(weight)
   # do.call("cbind", rep(list(data$z), length(data$z)))
   
   zmoothed <- weight %*% data$z
-  return(zmoothed[,1])
+  return(zmoothed[, 1])
 }
 ```
 
@@ -294,8 +293,7 @@ This is demonstrated in the [examples documented with the function](https://www.
 In our example, one could use
 
 ``` r
-data_sf <- data # sf::st_as_sf(data, coords = c("x", "y"), crs = 31370)
-sp::coordinates(data_sf) = ~x+y
+data_sf <- sf::st_as_sf(data, coords = c("x", "y"), crs = 31370, remove = FALSE)
 v <- gstat::variogram(z ~ x + y, data = data_sf)
 v.fit <- gstat::fit.variogram(v, gstat::vgm("Mat"))
 v.fit
@@ -465,8 +463,8 @@ It might make sense to incorporate categorical variables into the binning.
 With binning comes the immediate question also part of step 3:
 **what do we actually quantify as "difference"?**
 
-Conventionally, *variance* (VAR) is the mean squared difference of observed values (or a subset of observations, e.g. in a group or bin) from their mean.
-It is implemented in R with the `var` function (note that R implements the "sample variance", i.e. the formula normalizing by `n - 1` for [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)).
+Conventionally, *variance* (VAR) is the mean squared difference of observed values (or a subset of observations, e.g. in a group or bin) from their mean.
+It is implemented in R with the `var` function (note that R implements the "sample variance", i.e. the formula normalizing by `n - 1` for [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)).
 However, applying this formula for variograms is ~~wrong~~ unconventional!
 
 In *variograms*, the mean is replaced by a given point on the landscape (we want to look at differences from that focus point), and then we iterate over adjacent points.
@@ -479,7 +477,7 @@ Personally, I find "constant between samples" a bit fishy: is it "constant betwe
 If something is "independent of location", why bother computing a spatial interpolation?
 The answer lies somewhere between (among?) the very exact maths hidden in the literature.
 
-And, anyways, if the assumption holds, we get a neat formula for semivariance ("Method-of-Moments Estimator" according to Cressie 1993, 69, eqn. 2.4.2), which goes back to Matheron (1962).
+And, anyways, if the assumption holds, we get a neat formula for semivariance ("Method-of-Moments Estimator" according to [Cressie, 1993, p. 69](#ref-Cressie1993), eqn. 2.4.2), which goes back to Matheron ([1962](#ref-Matheron1962)).
 
 We define the **semivariance** \\(\gamma\\):
 
@@ -597,7 +595,7 @@ There are some general convenience wrappers for classical regression in R, thoug
 However, [base-r `optim` does all we need](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/optim) (*sometimes*).
 There are [other libraries](https://cran.r-project.org/web/views/Optimization.html).
 
-We choose between well-known "Nelder-Mead" optimization algorithm (Nelder and Mead 1965), or the more versatile ["L-BFGS-B"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) (Zhu et al. 1997; Byrd et al. 1995).
+We choose between well-known "Nelder-Mead" optimization algorithm ([Nelder & Mead, 1965](#ref-nelder1965)), or the more versatile ["L-BFGS-B"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) ([Byrd *et al.*, 1995](#ref-byrd1995); [Zhu *et al.*, 1997](#ref-zhu1997)).
 They are interchangeable to some degree, yet the latter allows to define logical parameter boundaries to facilitate optimization convergence.
 
 ``` r
@@ -628,7 +626,7 @@ wrap_target_function_distanceweighted <- function(x, y, regressor, parameters) {
 
 # this can turn regression output into a usable function.
 # εὕρηκα, functional programming!
-create_prediction_function <- function(regressor, results) {
+create_prediction_function<- function(regressor, results) {
   fcn <- function(x) {
     regressor(x, results$par)
   }
@@ -677,7 +675,7 @@ optimizer_results <- optim(
 print_regression_results(optimizer_results, label = "linear")
 ```
 
-    [1] "linear regression: convergence 0 at (0.4287, 4e-04), mse 10.7"
+    [1] "linear regression: convergence 0 at (0.4287, 0.0004), mse 10.7"
 
 ``` r
 predictor_function <- create_prediction_function(linear_function, optimizer_results)
@@ -699,7 +697,7 @@ Observations:
 
 -   The regression fits the data more or less well, quantified by the mean square error (`mse`).
 -   Optimizer did converge (`convergence 0`, [see "convergence" here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html)), which should not be overrated (the regression might still be irrelevant).
--   Parameters can be measured, in this case intercept (\\(0.43\\)) and slope (\\(4\times 10^{-4}\\)).
+-   Parameters can be measured, in this case intercept (\\(0.43\\)) and slope (\\(0.0004\\)).
 
 We can do better, of course.
 
@@ -745,8 +743,8 @@ alt="Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero
 <figcaption>Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed.</figcaption><br>
 
 I still have a hard time to associate anything maths-related to the words `nugget` and `sill`: they could equally well be some ancient greek letters spelled out in a non-greek way, such as `σίγμα`.
-Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial: 
-> nugget comes from "gold" nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large "nugget" effect (large differences at very small distances).
+Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial:
+\> nugget comes from "gold" nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large "nugget" effect (large differences at very small distances).
 We have to accept that they are frequently encountered in the variogram literature.
 
 -   The `nugget` is the value our function takes at the zero intercept, i.e. baseline variance, i.e. the lowest difference we can get (often defined by measurement uncertainty).
@@ -770,9 +768,9 @@ optimizer_results <- optim(
   upper = c(2 * zrange, extent / 4, zrange), # prevent crazy outcomes
   fn = function(parameters) {
     wrap_target_function_distanceweighted(x, y, gauss_function, parameters)
-  }, 
+  },
   control = list("fnscale" = 1e-8),
-  method = "L-BFGS-B" 
+  method = "L-BFGS-B"
 )
 
 predictor_function <- create_prediction_function(
@@ -952,7 +950,7 @@ where \\(\tau^2\\) controls the spatial variance,
 \\(K_\nu\\) represents the modified Bessel function of the second kind,
 and \\(\kappa\\) represents the decorrelation rate.
 The parameter \\(\nu\\) is set to \\(1\\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
-to greatly increase computational efficiency (Lindgren, Rue, and Lindström 2011).
+to greatly increase computational efficiency ([Lindgren *et al.*, 2011](#ref-Lindgren2011)).
 Internally, the parameters \\(\kappa\\) and \\(\tau\\) are converted to range and marginal standard deviation \\(\sigma\\) as
 \\[range=\frac{8}{\kappa}\\]
 and
@@ -983,8 +981,12 @@ matern_function <- function(d, parameters) {
 
 I initially had trouble fitting this function, because I simplified (leaving out `nugget` and `nu`); the version above is quite flexible to fit our variogram.
 Note that the function is not defined at zero, which is why I filter `NA`.
-Sigma (\\(\sigma\\)) is related to the turning point of the Matérn function.
 The Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler's observation.
+
+Note that there are different definitions of the Matérn range and the parameter `sigma`.
+Make sure you know which range your toolbox of choice is reporting.
+Here and below, I will report the range that is determined by `sigma` in the above function definition.
+That sigma (\\(\sigma\\)) is related to the turning point of the Matérn function.
 
 Any regression function demands a specific plot function:
 
@@ -1476,17 +1478,17 @@ Thank you for reading!
 
 # References
 
-Byrd, Richard H., Peihuang Lu, Jorge Nocedal, and Ciyou Zhu. 1995. "A Limited Memory Algorithm for Bound Constrained Optimization." *SIAM Journal on Scientific Computing* 16 (5): 1190--1208. <https://doi.org/10.1137/0916069>.
+Byrd R.H., Lu P., Nocedal J. & Zhu C. (1995). A Limited Memory Algorithm for Bound Constrained Optimization. SIAM Journal on Scientific Computing 16 (5): 1190--1208. <https://doi.org/10.1137/0916069>.
 
-Cressie, Noel. 1993. *Statistics for Spatial Data*. John Wiley & Sons.
+Cressie N. (1993). Statistics for spatial data. John Wiley & Sons.
 
-Lindgren, Finn, Håvard Rue, and Johan Lindström. 2011. "An Explicit Link Between Gaussian Fields and Gaussian Markov Random Fields: The Stochastic Partial Differential Equation Approach." *Journal of the Royal Statistical Society: Series B (Statistical Methodology)* 73 (4): 423--98. <https://doi.org/10.1111/j.1467-9868.2011.00777.x>.
+Lindgren F., Rue H. & Lindström J. (2011). An explicit link between Gaussian fields and Gaussian Markov random fields: the stochastic partial differential equation approach. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 73 (4): 423--498. <https://doi.org/10.1111/j.1467-9868.2011.00777.x>.
 
-Matheron, Georges. 1962. *Traité de Géostatistique Appliquée*. Memoires du Bureau de Recherches Geologiques et Minieres, Editions Technip, Paris.
+Matheron G. (1962). Traité de géostatistique appliquée. No. 14. Memoires du Bureau de Recherches Geologiques et Minieres, Editions Technip, Paris.
 
-Nelder, J. A., and R. Mead. 1965. "A Simplex Method for Function Minimization." *The Computer Journal* 7 (4): 308--13. <https://doi.org/10.1093/comjnl/7.4.308>.
+Nelder J.A. & Mead R. (1965). A Simplex Method for Function Minimization. The Computer Journal 7 (4): 308--313. <https://doi.org/10.1093/comjnl/7.4.308>.
 
-Zhu, Ciyou, Richard H. Byrd, Peihuang Lu, and Jorge Nocedal. 1997. "Algorithm 778: L-BFGS-B: Fortran Subroutines for Large-Scale Bound-Constrained Optimization." *ACM Transactions on Mathematical Software* 23 (4): 550--60. <https://doi.org/10.1145/279232.279236>.
+Zhu C., Byrd R.H., Lu P. & Nocedal J. (1997). Algorithm 778: L-BFGS-B: Fortran subroutines for large-scale bound-constrained optimization. ACM Transactions on Mathematical Software 23 (4): 550--560. <https://doi.org/10.1145/279232.279236>.
 
 Useful links:
 
