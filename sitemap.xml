@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/articles/</loc>
     <lastmod>2023-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tutorials/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/create_tutorial/</loc>
     <lastmod>2018-12-14T00:00:00+00:00</lastmod>
@@ -18,10 +18,52 @@
     <lastmod>2024-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tutorials/spatial_variograms/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/analysis/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/authors/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/binning/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/co-variance/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/de-trending/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/development/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/authors/falkmielke/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/gis/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/r/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/r/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/regression/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/spatial/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/statistics/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2025-03-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/authors/dirkmaes/</loc>
     <lastmod>2024-09-30T00:00:00+00:00</lastmod>
@@ -39,15 +81,6 @@
     <lastmod>2024-09-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tutorials/vignette_inbodb_get_data_taxonlijsten/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/r/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/r/</loc>
-    <lastmod>2024-09-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2024-09-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/authors/toonwestra/</loc>
@@ -92,16 +125,10 @@
     <loc>/tags/stan/</loc>
     <lastmod>2024-01-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/statistics/</loc>
-    <lastmod>2024-01-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tutorials/r_brms/</loc>
     <lastmod>2024-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/databases/</loc>
-    <lastmod>2023-12-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/development/</loc>
     <lastmod>2023-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/open-science/</loc>
@@ -117,9 +144,6 @@
     <lastmod>2023-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/authors/florisvdh/</loc>
-    <lastmod>2023-10-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/gis/</loc>
     <lastmod>2023-10-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/gis/</loc>
@@ -432,9 +456,6 @@
     <lastmod>2020-07-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tutorials/r_zoom_in_ggplot/</loc>
-    <lastmod>2020-07-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/analysis/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/ggplot2/</loc>

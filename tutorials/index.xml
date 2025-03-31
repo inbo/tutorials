@@ -6,7 +6,19 @@
     <description>Recent content in Tutorials on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>An Algorithmic Approach to Variograms</title>
+      <link>/tutorials/spatial_variograms/</link>
+      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tutorials/spatial_variograms/</guid>
+      <description>Introduction  Everything is related to everything else, but near things are more related than distant things.
+ (First Law according to Waldo Tobler)
+This remarkably unquantitative statement, or &amp;ldquo;law&amp;rdquo;, is described on wikipedia as &amp;ldquo;a direct product of the quantitative revolution&amp;rdquo; in Geography. Contrast it with the wikipedia article on variograms, which is full of jargon and seemingly complicated equations.
+With this tutorial, I would like to document the condensed essence of my own trials and misunderstandings with practical variogram-based analysis.</description>
+    </item>
+    
     <item>
       <title>inbodb: How to retrieve data from the Meetnetten database</title>
       <link>/tutorials/vignette_inbodb_get_data_meetnetten/</link>

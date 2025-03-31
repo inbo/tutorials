@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='An Algorithmic Approach to Variograms • Falk Mielke'>
+<meta property='og:description' content='Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R.'>
+<meta property='og:url' content='/tutorials/spatial_variograms/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='r'><meta property='article:tag' content='spatial'><meta property='article:tag' content='co-variance'><meta property='article:tag' content='de-trending'><meta property='article:tag' content='binning'><meta property='article:tag' content='regression'><meta property='article:tag' content='analysis'><meta property='article:tag' content='gis'><meta property='article:published_time' content='2025-03-28T00:00:00Z'/><meta property='article:modified_time' content='2025-03-28T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>An Algorithmic Approach to Variograms • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/spatial_variograms/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0632911392405062em'>analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0126582278481013em'>api</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0126582278481013em'>bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0126582278481013em'>biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0126582278481013em'>bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.0253164556962024em'>checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0126582278481013em'>ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>co-variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0126582278481013em'>csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.0253164556962024em'>data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.0506329113924051em'>database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>de-trending</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.0126582278481013em'>development</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.0253164556962024em'>effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0126582278481013em'>gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0126582278481013em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0126582278481013em'>ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.139240506329114em'>gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.1265822784810127em'>git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0126582278481013em'>gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0379746835443038em'>github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0126582278481013em'>google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0379746835443038em'>gwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.0253164556962024em'>inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0379746835443038em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0379746835443038em'>inborutils</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.0253164556962024em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.0253164556962024em'>inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1139240506329113em'>installation</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.0506329113924051em'>literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.0759493670886076em'>maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.0253164556962024em'>markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0632911392405062em'>mixed model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>mixed models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.0506329113924051em'>n2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.0886075949367089em'>open science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0379746835443038em'>packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0126582278481013em'>pandoc</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0126582278481013em'>reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0632911392405062em'>rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.0253164556962024em'>rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.0506329113924051em'>rstudio</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1em'>spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>stan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0379746835443038em'>styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0379746835443038em'>tidyverse</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0126582278481013em'>uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1012658227848102em'>version control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.481012658227848em'>vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.0253164556962024em'>wateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.0253164556962024em'>watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0379746835443038em'>webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0126582278481013em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Mon Mar 31 10:09:05 UTC 2025</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>An Algorithmic Approach to Variograms</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>An Algorithmic Approach to Variograms</h1>
+      
+<p class='desc'>Variograms, an algorithm to analyze spatial interdependence of measurement locations, implemented step by step in R.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2025-03-28T00:00:00Z'>2025, Mar 28</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+36 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/spatial_variograms/index.md'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h1 id="introduction">Introduction<a href="#introduction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<blockquote>
+<p>Everything is related to everything else, but near things are more related than distant things.</p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography"><em>(First Law according to Waldo Tobler)</em></a></p>
+<p>This remarkably unquantitative statement, or &ldquo;law&rdquo;, is described <a href="https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography#Background">on wikipedia</a> as &ldquo;a direct product of the quantitative revolution&rdquo; in Geography.
+Contrast it with the <a href="https://en.wikipedia.org/wiki/Variogram">wikipedia article on variograms</a>, which is full of jargon and seemingly complicated equations.</p>
+<p>With this tutorial, I would like to document the condensed essence of my own trials and misunderstandings with practical variogram-based analysis.
+We will see below that variograms are not that complicated after all.</p>
+<p>The latter wikipedia article is a reminder that wikipedia generally is a non-academic, low quality resource.
+For example:</p>
+<ul>
+<li>They <a href="https://en.wikipedia.org/wiki/Variogram#">initially</a> describe a (semi-)variogram as <strong>&ldquo;a [mathematical] function&rdquo;</strong>.</li>
+<li>That &ldquo;function&rdquo; describes the &ldquo;degree of dependence&rdquo; of a spatial random field (pro tip: if it is dependent, it is not random, such as the distribution of gold ore used as an introductory example is not random).</li>
+<li>As becomes unclear <a href="https://en.wikipedia.org/wiki/Variogram#Definition">afterwards</a>, that function is not &ldquo;variance&rdquo; (<code>var()</code>), but something else. Although the whole thing is called <em>variogram</em>, variance is in fact the &ldquo;degree of dependence&rdquo;.</li>
+<li>Then, they distinguish an <strong>empirical variogram</strong> (<a href="https://en.wikipedia.org/wiki/Variogram#Empirical_variogram">here</a>). I would <a href="https://de.wikipedia.org/wiki/Praxis_(Philosophie)">refer to</a> the popular philosopher Vladimir Ilyich Ulyanov on this: &ldquo;Praxis is the criterion of truth&rdquo;<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, i.e. there exists no useful <em>non-empirical variogram</em>.</li>
+<li>Finally, <a href="https://en.wikipedia.org/wiki/Variogram#Variogram_models">&ldquo;variogram models&rdquo;</a> are mentioned, which are actually <em>the function</em> we began with. They are not just <em>one</em> function: there are many options, with the unmentioned Matérn being the generalization for a Gaussian- to Exponential class of functions.</li>
+</ul>
+<p>My personal definition of the term <strong>variogram</strong> would rather describe it as a moderately flexible algorithm.
+This notion is based on the actual implementation and application of the technique in various computer software libraries (R: <code>gstat::variogram</code>, <code>geoR::variog</code>, <code>fields::vgram</code>; Python: <code>skgstat.Variogram</code>), as well as primary references given below.</p>
+<div class="callout callout-emphasize" role="note">
+  <div class="callout-title"></div>
+  <p>The common steps of performing variogram-based data analysis are:</p>
+<ol>
+<li><strong>parameter choice</strong>, find or define the measure one would like to compare between locations within a well-organized data set</li>
+<li><strong>cross-calculate</strong> distance and difference of measurement locations</li>
+<li><strong>binning</strong> by distance (and optionally direction), thereby calculating semivariance or any other aggregated <strong>measure of difference</strong> per bin</li>
+<li><strong>modeling</strong>, i.e. performing a regression (Matérn, Gauss, &hellip;) on the difference-distance data</li>
+<li><strong>kriging</strong> (optional) is the application of the model for spatial interpolation (not shown)</li>
+</ol>
+</div>
+<p>I will implement these steps below, and interested readers are invited to confirm for themselves that the outcome matches the abundant variogram implementations in the mentioned libraries.
+The focus of this notebook is <em>the code</em>, interspersed with rather brief hints and explanations.
+The reason I present this is, first of all, <em>educational</em> (take-home ideas summarized in the blue boxes).
+Beyond that, I experienced some frustration with reproducibility of some of the variograms common libraries would give me: they simply do not <em>document all the steps involved</em>.
+Most of the intermediate steps are trivial by themselves, and giving the combined procedure the fancy name &ldquo;variogram&rdquo; seems like &ldquo;hiding traces&rdquo; to me.
+Mastering the building blocks can empower you to get creative with them.
+As a bonus, and to my surprise, the <strong>cross-calculation of distance and difference</strong> seems to be <em>computationally more efficient</em> if implemented as below (<a href="#sec-crossdifference" class="quarto-xref">Section 2.4</a>), which <strong>enables the calculation of variograms for far bigger data sets</strong>.
+But your mileage may vary, so feel invited to try it yourself.</p>
+<p>Enjoy!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">void &lt;- suppressPackageStartupMessages
+
+<span style="color:#aaa;font-style:italic"># our beloved tidyverse components:</span>
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;dplyr&#34;</span>) |&gt; <span style="color:#0a0">void</span>() 
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;ggplot2&#34;</span>) |&gt; <span style="color:#0a0">void</span>()
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;ggridges&#34;</span>)  |&gt; <span style="color:#0a0">void</span>() <span style="color:#aaa;font-style:italic"># density ridges</span>
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;parallel&#34;</span>)  |&gt; <span style="color:#0a0">void</span>() <span style="color:#aaa;font-style:italic"># parallel processing, for bootstrapping</span>
+
+<span style="color:#0a0">set.seed</span>(<span style="color:#099">123</span>)
+</code></pre></div><h1 id="data">Data<a href="#data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>We will work on a simulated data set of more or less random values, in which we know <em>a priori</em> what is going on.</p>
+<h2 id="simulation-settings">Simulation Settings<a href="#simulation-settings" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Some general settings that define our synthetic data set:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n_observations &lt;- <span style="color:#099">2</span>^13 <span style="color:#aaa;font-style:italic"># sample size</span>
+extent &lt;- <span style="color:#099">128</span> <span style="color:#aaa;font-style:italic"># width of the playing field</span>
+smooth_sigma &lt;- <span style="color:#099">16</span> <span style="color:#aaa;font-style:italic"># smoothing range for creating spatial inter-dependence via Gaussian convolution (&#34;smoothing&#34;)</span>
+zrange &lt;- <span style="color:#099">2</span>*<span style="color:#00a">pi</span> <span style="color:#aaa;font-style:italic"># range of parameter values</span>
+
+<span style="color:#aaa;font-style:italic"># covariate effect magnitudes</span>
+a_slope &lt;- <span style="color:#00a">pi</span>/<span style="color:#099">3</span>
+b_slope &lt;- <span style="color:#00a">pi</span>/<span style="color:#099">4</span>
+</code></pre></div><h2 id="raw-random">Raw Random<a href="#raw-random" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Generating a data set of random points for playing around.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gimme_points &lt;- <span style="color:#0a0">function</span>(N = <span style="color:#099">100</span>, scale = <span style="color:#099">1.0</span>) (<span style="color:#0a0">runif</span>(N)*<span style="color:#099">2.0-1.0</span>) * scale
+data &lt;- <span style="color:#0a0">data.frame</span>(
+  x = <span style="color:#0a0">gimme_points</span>(n_observations, extent),
+  y = <span style="color:#0a0">gimme_points</span>(n_observations, extent),
+  z_ = <span style="color:#0a0">gimme_points</span>(n_observations, zrange)
+)
+knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(data, <span style="color:#099">5</span>))
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">x</th>
+<th style="text-align:right">y</th>
+<th style="text-align:right">z_</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">-54.38</td>
+<td style="text-align:right">-116.23</td>
+<td style="text-align:right">-0.5146</td>
+</tr>
+<tr>
+<td style="text-align:right">73.81</td>
+<td style="text-align:right">-34.33</td>
+<td style="text-align:right">1.6651</td>
+</tr>
+<tr>
+<td style="text-align:right">-23.30</td>
+<td style="text-align:right">-53.96</td>
+<td style="text-align:right">2.6631</td>
+</tr>
+<tr>
+<td style="text-align:right">98.05</td>
+<td style="text-align:right">-40.49</td>
+<td style="text-align:right">-0.9586</td>
+</tr>
+<tr>
+<td style="text-align:right">112.76</td>
+<td style="text-align:right">-51.11</td>
+<td style="text-align:right">-5.5283</td>
+</tr>
+</tbody>
+</table>
+<p>The raw data <code>z_</code> is calculated as random numbers from a uniform distribution (with a given sample size and data range).</p>
+<p><em>Mental note: points towards the rim will tend to have fewer neighbors. Or, in general, mind your spatial layout! (Sparse/dense? Clustered/homogeneous? &hellip;)</em></p>
+<h2 id="common-covariate-classes">Common Covariate Classes<a href="#common-covariate-classes" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>I also want to throw in two covariates, say&hellip; <code>a</code> and <code>b</code>.
+Those stand in for real covariates.
+One of them will systematically and continuously vary with the location (think of a North-South temperature gradient, or gradual humidity based on surface water distance).
+The other is completely random, and categorical (e.g. micro-habitat subclasses, like in patches of vegetation on an agricultural landscape).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data$a &lt;- <span style="color:#099">0.7</span> * data$x / extent + <span style="color:#099">0.3</span> * data$y / extent
+</code></pre></div><p>As you see, <code>a</code> is continuous, but correlated to <code>x</code> and <code>y</code>.</p>
+<p>In contrast, <code>b</code> is a categorical and randomly distributed:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data$b &lt;- <span style="color:#0a0">as.integer</span>(<span style="color:#0a0">rbinom</span>(n = n_observations, size = <span style="color:#099">1</span>, prob = <span style="color:#099">0.4</span>))
+
+data$z &lt;- data$z_ + a_slope * data$a + b_slope * data$b
+
+knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(data, <span style="color:#099">3</span>))
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">x</th>
+<th style="text-align:right">y</th>
+<th style="text-align:right">z_</th>
+<th style="text-align:right">a</th>
+<th style="text-align:right">b</th>
+<th style="text-align:right">z</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">-54.38</td>
+<td style="text-align:right">-116.23</td>
+<td style="text-align:right">-0.5146</td>
+<td style="text-align:right">-0.5698</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">-1.111</td>
+</tr>
+<tr>
+<td style="text-align:right">73.81</td>
+<td style="text-align:right">-34.33</td>
+<td style="text-align:right">1.6651</td>
+<td style="text-align:right">0.3232</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2.789</td>
+</tr>
+<tr>
+<td style="text-align:right">-23.30</td>
+<td style="text-align:right">-53.96</td>
+<td style="text-align:right">2.6631</td>
+<td style="text-align:right">-0.2539</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">2.397</td>
+</tr>
+</tbody>
+</table>
+<p>There is no noise applied to those covariates <code>a</code> and <code>b</code>, moderate noise on the raw data <code>z</code>, so the two additional effects should be recover-able by a statistical model.</p>
+<p>Visualizing, with color:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># https://stackoverflow.com/a/9946970</span>
+rbpal &lt;- <span style="color:#0a0">colorRampPalette</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#39;black&#39;</span>,<span style="color:#a50">&#39;gold&#39;</span>))
+color &lt;- <span style="color:#0a0">rbpal</span>(n_observations)<span style="color:#0a0">[as.numeric</span>(<span style="color:#0a0">cut</span>(data$z, breaks = n_observations))]
+
+<span style="color:#0a0">plot</span>(data$x, data$y, col = color, pch = <span style="color:#0a0">as.integer</span>(<span style="color:#099">18</span> + <span style="color:#099">2</span>*data$b),
+  xlab = <span style="color:#a50">&#34;x&#34;</span>, ylab = <span style="color:#a50">&#34;y&#34;</span>)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-raw-data-1.png"
+id="fig-raw-data" alt="Figure 1: The raw data, unsmoothed." /></p>
+<figcaption>The raw data, unsmoothed.</figcaption><br>
+<p>If you look closely, the upper right is more golden than the lower left.
+This is the effect of covariate <code>a</code>.
+Symbols indicate the categorical covariate <code>b</code>.</p>
+<p>All rather random.</p>
+<p>This artificial dataset is a placeholder for any real data you or someone else might have collected.
+All these data sets have in common that there are spatial coordinates involved (here <code>x</code> and <code>y</code> without loss of generality; you can trivially add a third spatial dimension).
+I mostly skip step 1 (<strong>parameter choice</strong>) from the list above, because it is a rather individual undertaking.
+Ensure that your data is accurate, <a href="https://r4ds.had.co.nz/exploratory-data-analysis.html">exploratory data analysis</a>, evaluation and feedback with meetings and stakeholders - these sorts of things.
+The parameter of interest does not have to be a raw measurement, but can be the end of a long data analysis and modeling pipeline (more on this in <a href="#sec-detrending" class="quarto-xref">Section 3.1</a>).</p>
+<p><a id="sec-crossdifference"></a></p>
+<h2 id="cross-difference">Cross-Difference<a href="#cross-difference" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The following one-line functions are a major game-changer for large data sets, in particular the <code>self_difference()</code>.
+Their purpose is to compute the difference of all elements of one vector to each other, in matrix form.
+The <code>outer</code> vector product is well-implemented in R, most efficient, which allows this to be applied to long vectors.
+There are many applications beyond the one shown here.
+Try to read and understand them one by one, and <a href="https://www.geeksforgeeks.org/outer-function-in-r">go beyond</a> the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/outer.html">limited R documentation</a>.</p>
+<p>With <code>self_difference</code>, we can define a simple function to calculate the Euclidean cross-distance of points within a data set.
+We can even make the distance wrap at the edges, simply using the modulo in <code>wrap_difference</code>, but that is specific to our artificial test case and probably has little relevance in real life.
+The modified <code>Euclid_wrap</code> effectively gives us an infinite playing field.</p>
+<p>Those functions return matrices, with all the vector indices in rows and columns.
+Usually, we only require unique cross-combinations of elements in arbitrary order, which can be achieved by <code>lower_triangl</code>ing the matrix (grabbing the lower triangle of a matrix with <code>lower.tri</code>).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># compute the difference of all elements of one vector to each other</span>
+self_difference &lt;- <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">outer</span>(X = vec, Y = vec, FUN = <span style="color:#0a0">function</span>(X, Y) Y - X )
+wrap_difference &lt;- <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">outer</span>(X = vec, Y = vec, FUN = <span style="color:#0a0">function</span>(X, Y) (Y - X) %% (<span style="color:#099">2</span>*extent))
+
+<span style="color:#aaa;font-style:italic"># Calculate the Euclidean distance of the x and y columns in a data frame.</span>
+Euclid &lt;- <span style="color:#0a0">function</span>(data) <span style="color:#0a0">sqrt</span>(<span style="color:#0a0">self_difference</span>(data$x)^2 + <span style="color:#0a0">self_difference</span>(data$y)^2 )
+Euclid_wrap &lt;- <span style="color:#0a0">function</span>(data) <span style="color:#0a0">sqrt</span>(<span style="color:#0a0">wrap_difference</span>(data$x)^2 + <span style="color:#0a0">wrap_difference</span>(data$y)^2 )
+
+<span style="color:#aaa;font-style:italic"># return the lower triangle of a matrix, unpacking it into a vector of unique values</span>
+lower_triangle &lt;- <span style="color:#0a0">function</span>(mat) mat<span style="color:#0a0">[lower.tri</span>(mat)]
+</code></pre></div><p>This was just an opportunistic excourse to step 2 <strong>cross calculation</strong> from the roadmap.
+In fact, we are not yet finished preparing our test data set (for which these functions are useful).</p>
+<p><a id="sec-smoothing"></a></p>
+<h2 id="simple-smoothing">Simple Smoothing<a href="#simple-smoothing" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Just so that we can optionally incorporate <strong>some Tobler spirit</strong>: a smoother.
+2D smoothing, or &ldquo;convolution with a 2D Gaussian&rdquo;, as the pro&rsquo;s call it, is what creates relation among adjacent points.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># smoothing 2D data</span>
+smooth &lt;- <span style="color:#0a0">function</span>(data, sigma = <span style="color:#00a">NULL</span>) {
+  
+  <span style="color:#0a0">if </span>(sigma &lt;= <span style="color:#099">0</span> || <span style="color:#0a0">is.null</span>(sigma) || <span style="color:#0a0">is.na</span>(sigma)) {
+    <span style="color:#0a0">return</span>(data$z)
+  }
+
+  dist &lt;- <span style="color:#0a0">Euclid_wrap</span>(data)
+  <span style="color:#aaa;font-style:italic"># sigma &lt;- extent / 3</span>
+  weight &lt;- <span style="color:#0a0">dnorm</span>(dist, <span style="color:#099">0</span>, sigma)
+  weight &lt;- weight / <span style="color:#0a0">colSums</span>(weight)
+  <span style="color:#aaa;font-style:italic"># do.call(&#34;cbind&#34;, rep(list(data$z), length(data$z)))</span>
+  
+  zmoothed &lt;- weight %*% data$z
+  <span style="color:#0a0">return</span>(zmoothed[, <span style="color:#099">1</span>])
+}
+</code></pre></div><p>Smoothing just smoothes all the points, irrespective of groups in the categorical <code>b</code>.
+To get something out of the parameter we implemented, better smooth group-wise.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">groupwise_smoothing &lt;- <span style="color:#0a0">function</span>(grp) {
+  sub_data &lt;- data %&gt;%
+    <span style="color:#0a0">filter</span>(b == grp)
+  sub_data$s &lt;- <span style="color:#0a0">smooth</span>(sub_data, smooth_sigma)
+  <span style="color:#0a0">return</span>(sub_data)
+}
+
+<span style="color:#aaa;font-style:italic"># &#34;split-apply-combine&#34; strategy</span>
+data &lt;- <span style="color:#0a0">bind_rows</span>(<span style="color:#0a0">lapply</span>(<span style="color:#0a0">sort</span>(<span style="color:#0a0">unique</span>(data$b)),
+  FUN = groupwise_smoothing
+  ))
+color &lt;- <span style="color:#0a0">rbpal</span>(n_observations)<span style="color:#0a0">[as.numeric</span>(<span style="color:#0a0">cut</span>(data$s, breaks = n_observations))]
+<span style="color:#0a0">plot</span>(data$x, data$y, col = color, pch = <span style="color:#099">20</span>,
+  xlab = <span style="color:#a50">&#34;x&#34;</span>, ylab = <span style="color:#a50">&#34;y&#34;</span>)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-smooth-data-1.png"
+id="fig-smooth-data"
+alt="Figure 2: The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping." /></p>
+<figcaption>The data, smoothed with a 2D Gaussian kernel. The edges are darker due to edge wrapping.</figcaption><br>
+<p>Nice and smooth.
+Feel free to draw a sunset by adjusting <code>a</code> and removing the groups.</p>
+<p>Note that I chose <code>s</code> here as a variable name for the smoothed <code>z</code>, which should not be confused with the \(s\) often used elsewhere to describe the position vector of locations.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  We chose Gaussian smoothing here.
+Hold that thought.
+As will become clear in the end, the <strong>assumption of Gaussian spatial interdependence</strong> is what will allow the Matérn regression to work (<a href="#sec-matern" class="quarto-xref">Section 5.2</a>) in the <em>modeling</em> step.
+</div>
+<p><a id="sec-variograms"></a></p>
+<h1 id="variograms">Variograms<a href="#variograms" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p><a id="sec-detrending"></a></p>
+<h2 id="debatable-de-trending">Debatable &ldquo;De-Trending&rdquo;<a href="#debatable-de-trending" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>For good reasons, which I hope to make clear below, variogram functions such as <code>gstat::variogram()</code> provide the option of de-trending the data.
+This is demonstrated in the <a href="https://www.rdocumentation.org/packages/gstat/versions/2.1-2/topics/variogram">examples documented with the function</a>; one available parameter (<code>trend.beta</code>) provides the option of incorporating pre-calculated spatial regressions.</p>
+<p>In our example, one could use</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data_sf &lt;- sf::<span style="color:#0a0">st_as_sf</span>(data, coords = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;x&#34;</span>, <span style="color:#a50">&#34;y&#34;</span>), crs = <span style="color:#099">31370</span>, remove = <span style="color:#00a">FALSE</span>)
+v &lt;- gstat::<span style="color:#0a0">variogram</span>(z ~ x + y, data = data_sf)
+v.fit &lt;- gstat::<span style="color:#0a0">fit.variogram</span>(v, gstat::<span style="color:#0a0">vgm</span>(<span style="color:#a50">&#34;Mat&#34;</span>))
+v.fit
+</code></pre></div><p><strong>De-trending</strong> just refers to working on the residuals after spatial linear regression.
+It is an optional preprocessing step in the context of step 1/<strong>parameter choice</strong>, which can improve the data in a sense that the derived values better match assumptions which are favorable for the following variogram analysis steps.</p>
+<p>More details on variogram fitting are available <a href="https://r-spatial.org/r/2016/02/14/gstat-variogram-fitting.html">online, for example on r-spatial</a>.</p>
+<p>In preparation of this tutorial, I initially confused setting <code>sp::coordinates</code> with the <code>gstat::variogram</code> formula <code>z ~ x + y</code>, and thought that de-trending is mandatory.
+This is not the case: you can use a <code>z ~ 1</code> variogram.
+However, the present synthetic data benefits from de-trending (<a href="#sec-nodetrend" class="quarto-xref">Section 6.1</a>).</p>
+<p>In my opinion, &ldquo;de-trending&rdquo; is not an accurate statistical term.
+What is a trend, where does it start, where does it end?</p>
+<p>What they really mean is that the analysis is continued on the residual of a linear regression on all spatial co-ordinates.
+In R, we can simply use <code>lm()</code>.
+The regression formula contains the outcome variable on the left handside, and all spatial variables (<code>x</code>, <code>y</code>, sometimes <code>z</code>) on the right.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">data$d &lt;- <span style="color:#0a0">lm</span>(s ~ x + y, data)$residual <span style="color:#aaa;font-style:italic"># &#34;d&#34; as in &#34;de-trending&#34;</span>
+
+<span style="color:#aaa;font-style:italic"># another sunrise...</span>
+color &lt;- <span style="color:#0a0">rbpal</span>(n_observations)<span style="color:#0a0">[as.numeric</span>(<span style="color:#0a0">cut</span>(data$d, breaks = n_observations))]
+<span style="color:#0a0">plot</span>(data$x, data$y, col = color, pch = <span style="color:#099">20</span>,
+  xlab = <span style="color:#a50">&#34;x&#34;</span>, ylab = <span style="color:#a50">&#34;y&#34;</span>) 
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-data-detrend-1.png"
+id="fig-data-detrend"
+alt="Figure 3: The smoothed data, again, after de-trending." /></p>
+<figcaption>The smoothed data, again, after de-trending.</figcaption><br>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>Whether or not to de-trend prior to variogram calculation is a crucial design decision.
+De-trending often improves variogram model regression (<a href="#sec-nodetrend" class="quarto-xref">Section 6.1</a>), but it also removes/diminishes the effects of spatially correlated co-variates such as our parameter <code>a</code>.</p>
+<p>Make sure that you know whether your variogram function applies de-trending, or not.
+At any rate, I would recommend to <strong>store the detrended linear effects for later</strong> by applying your own <code>lm()</code>, prior to variogram fitting.</p>
+</div>
+<p><a id="sec-binning"></a></p>
+<h2 id="beautiful-binning">Beautiful Binning<a href="#beautiful-binning" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>By now, we have prepared several variants of our simulated outcome variables (<code>z</code> -&gt; <code>s</code> -&gt; <code>d</code>), which is more than enough to demonstrate step 1.
+The next obvious step is to <strong>cross-calculate distances and differences</strong>, and that is quickly done with the base-R machinery.</p>
+<p>It is good to keep track of the difference-distance plot.</p>
+<p>The functions <code>self_difference</code> and <code>Euclid_wrap</code> are defined above (<a href="#sec-crossdifference" class="quarto-xref">Section 2.4</a>).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># compute raw distance and difference</span>
+dist_diff &lt;- <span style="color:#0a0">data.frame</span>(
+  distance = <span style="color:#0a0">lower_triangle</span>(<span style="color:#0a0">Euclid_wrap</span>(data)),
+  difference_raw = <span style="color:#0a0">lower_triangle</span>(<span style="color:#0a0">self_difference</span>(data$z)),
+  difference_smooth = <span style="color:#0a0">lower_triangle</span>(<span style="color:#0a0">self_difference</span>(data$s)),
+  difference = <span style="color:#0a0">lower_triangle</span>(<span style="color:#0a0">self_difference</span>(data$d))
+)
+
+<span style="color:#aaa;font-style:italic"># limit range, which is a major performance saver.</span>
+dist_diff &lt;- dist_diff %&gt;% 
+  <span style="color:#0a0">filter</span>(distance &gt; <span style="color:#099">0</span>, distance &lt; extent)
+
+
+<span style="color:#aaa;font-style:italic"># binning, using `cut`</span>
+dist_diff$bin1 &lt;- <span style="color:#0a0">as.factor</span>(
+  <span style="color:#0a0">cut</span>(
+    dist_diff$distance,
+    breaks = <span style="color:#0a0">seq</span>(
+      <span style="color:#099">0</span>, extent,
+      length.out = <span style="color:#0a0">as.integer</span>(extent/<span style="color:#099">4+1</span>)
+    )
+  ))
+</code></pre></div><p>I would recommend to <em>always</em> look at a raw plot of the difference against distance, before proceeding with any other variogram steps.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dist_diff %&gt;%
+  <span style="color:#0a0">ggplot</span>(<span style="color:#0a0">aes</span>(x = <span style="color:#0a0">abs</span>(difference), y = bin1)) +
+  <span style="color:#0a0">geom_density_ridges</span>(rel_min_height = <span style="color:#099">0.05</span>,
+    quantile_lines = <span style="color:#00a">TRUE</span>, quantiles = <span style="color:#099">4</span>,
+    scale = <span style="color:#099">2.0</span>, bandwidth = <span style="color:#099">0.05</span>) +
+  <span style="color:#0a0">labs</span>(x = <span style="color:#a50">&#34;mean absolute difference&#34;</span>, y = <span style="color:#a50">&#34;distance bin&#34;</span>) +
+  <span style="color:#0a0">xlim</span>(<span style="color:#099">0</span>, <span style="color:#099">2</span>) +
+  <span style="color:#0a0">theme_bw</span>() + <span style="color:#0a0">coord_flip</span>() +
+  <span style="color:#0a0">theme</span>(axis.text.x = <span style="color:#0a0">element_text</span>(angle = <span style="color:#099">90</span>, vjust = <span style="color:#099">0.5</span>, hjust=<span style="color:#099">1</span>)) 
+</code></pre></div><pre><code>Warning: Removed 265464 rows containing non-finite outside the scale range
+(`stat_density_ridges()`).
+</code></pre>
+<p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-difference-distance-ridges-1.png"
+id="fig-difference-distance-ridges"
+alt="Figure 4: The difference-distance plot, ridgelines (i.e. density distribution)." /></p>
+<figcaption>The difference-distance plot, ridgelines (i.e. density distribution).</figcaption><br>
+<p>This brings us fluently to step 3: <strong>binning by distance</strong>.
+Again, a number of choices await.</p>
+<p>On real data, it can be beneficial to cut equal-sized bins.
+This can be done with the convenient R function <code>ggplot2::cut_number</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">dist_diff$bin &lt;- <span style="color:#0a0">as.factor</span>(
+  <span style="color:#0a0">cut_number</span>(
+      dist_diff$distance,
+      n = <span style="color:#0a0">as.integer</span>(extent)
+    ))
+</code></pre></div><p>Note the difference of <em>equal-sized</em> (i.e. all bins house the same number of observations) to the more conventional, but maybe less natural <em>equal-width</em> (i.e. all bins span the same value range):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">b1 &lt;- dist_diff %&gt;%
+  <span style="color:#0a0">summarize</span>(<span style="color:#a50">&#34;ds&#34;</span> = <span style="color:#0a0">mean</span>(distance), <span style="color:#a50">&#34;n&#34;</span> = <span style="color:#0a0">n</span>(), .by = bin1)
+b2 &lt;- dist_diff %&gt;%
+  <span style="color:#0a0">summarize</span>(<span style="color:#a50">&#34;ds&#34;</span> = <span style="color:#0a0">mean</span>(distance), <span style="color:#a50">&#34;n&#34;</span> = <span style="color:#0a0">n</span>(), .by = bin)
+
+<span style="color:#0a0">ggplot</span>(<span style="color:#00a">NULL</span>) +
+  <span style="color:#0a0">geom_step</span>(<span style="color:#0a0">aes</span>(x = b1$ds, y = b1$n), color = <span style="color:#a50">&#34;darkblue&#34;</span>) +
+  <span style="color:#0a0">geom_step</span>(<span style="color:#0a0">aes</span>(x = b2$ds, y = b2$n), color = <span style="color:#a50">&#34;turquoise&#34;</span>) +
+  <span style="color:#0a0">geom_hline</span>(yintercept = <span style="color:#099">0</span>, color = <span style="color:#a50">&#34;darkgrey&#34;</span>) +
+  <span style="color:#0a0">labs</span>(x = <span style="color:#a50">&#34;distance (bin average)&#34;</span>, y = <span style="color:#a50">&#34;samples per bin&#34;</span>) +
+  <span style="color:#0a0">theme_bw</span>()
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-equibin-sample-size-1.png"
+id="fig-equibin-sample-size"
+alt="Figure 5: Sample size per bin for fixed width bins (blue) or fixed sample size bins (turquoise). Consider both for your data set." /></p>
+<figcaption>Sample size per bin for fixed width bins (blue) or fixed sample size bins (turquoise). Consider both for your data set.</figcaption><br>
+<p>On synthetic data, the expected difference in variogram outcome between the two binning methods is negligible.
+On real data, it can make a difference:</p>
+<ul>
+<li>A good minimum number of observations per bin should be achieved. Think in the order of a hundred, if your data allows it.</li>
+<li>Fixed distance bin sample size does not generally ramp up as in the synthetic data.</li>
+<li>Bin sample size matters for some difference measures; bins with particularly small or large filling will occur as outliers, especially when calculating semivariance.</li>
+<li>Different sub-categories within the data might be binned separately (e.g. categorical parameter <code>b</code>).</li>
+</ul>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>Note that bin spacing and size are crucial for variogram calculation.
+A substantial minimum number of observations per bin is relevant.
+This can be output-driven: do bins align in the form you would like to model, or do they spread a lot with inter-bin noise?</p>
+<p>This is not restricted to equally-spaced bins: try log-spacing or equal-size bins!</p>
+<p>It might make sense to incorporate categorical variables into the binning.</p>
+</div>
+<h2 id="difference-in-distance-difference-diagrams">&ldquo;Difference&rdquo; in Distance-Difference Diagrams<a href="#difference-in-distance-difference-diagrams" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>With binning comes the immediate question also part of step 3:
+<strong>what do we actually quantify as &ldquo;difference&rdquo;?</strong></p>
+<p>Conventionally, <em>variance</em> (VAR) is the mean squared difference of observed values (or a subset of observations, e.g. in a group or bin) from their mean.
+It is implemented in R with the <code>var</code> function (note that R implements the &ldquo;sample variance&rdquo;, i.e. the formula normalizing by <code>n - 1</code> for <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel&rsquo;s correction</a>).
+However, applying this formula for variograms is <del>wrong</del> unconventional!</p>
+<p>In <em>variograms</em>, the mean is replaced by a given point on the landscape (we want to look at differences from that focus point), and then we iterate over adjacent points.
+Conventional <em>variance</em> and geospatial <em>semivariance</em> are related in what is called the &ldquo;stationary case&rdquo;; in fact, stationarity is a critical assumption for the following spatial data analyses (<a href="https://desktop.arcgis.com/en/arcmap/10.3/guide-books/extensions/geostatistical-analyst/random-processes-with-dependence.htm">see here</a>): we assume that</p>
+<blockquote>
+<p>the mean is constant between samples and is independent of location</p>
+</blockquote>
+<p>Please try to find out yourself what this means (a great starting point might be <a href="https://www.probabilisticworld.com/alternative-variance-formulas-derivation">this extensive comparison of variance equations</a>).
+Personally, I find &ldquo;constant between samples&rdquo; a bit fishy: is it &ldquo;constant between/among two samples&rdquo; (ridiculous: is it then the mean of those two samples?), or &ldquo;constant across all samples&rdquo; (i.e. just &ldquo;constant everywhere&rdquo;)?
+If something is &ldquo;independent of location&rdquo;, why bother computing a spatial interpolation?
+The answer lies somewhere between (among?) the very exact maths hidden in the literature.</p>
+<p>And, anyways, if the assumption holds, we get a neat formula for semivariance (&ldquo;Method-of-Moments Estimator&rdquo; according to <a href="#ref-Cressie1993">Cressie, 1993, p. 69</a>, eqn. 2.4.2), which goes back to Matheron (<a href="#ref-Matheron1962">1962</a>).</p>
+<p>We define the <strong>semivariance</strong> \(\gamma\):</p>
+<p>\(\gamma = \frac{1}{2N} \sum\limits_{N} \left(z_j - z_i\right)^2\)</p>
+<p>Herein, \(N\) is the number of observation pairs \({i, j}\); those are usually grouped (binned) so to quantify variances at different distances \(\gamma\left(h\right)\) (with \(h\) the &ldquo;lag vector magnitude&rdquo;, i.e. distance group).</p>
+<p>Semivariance \(\gamma\) should better be remembered as <strong>half mean square difference</strong> (HMSD).</p>
+<p>There is at least one more option worth attempting: instead of the square-form semivariance above, just calculate <strong>mean absolute difference</strong> (MAD) as follows.</p>
+<p>\[ \langle dw\rangle = \frac{1}{N} \sum\limits_{i,j} \left| z_j - z_i\right| \]</p>
+<p>We will calculate all three parameters for demonstration:
+variance, semivariance, and mean absolute difference.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">calculate_semivariance &lt;- <span style="color:#0a0">function</span>(diff_vector) <span style="color:#099">1</span>/(<span style="color:#099">2</span>*<span style="color:#0a0">length</span>(diff_vector)) * <span style="color:#0a0">sum</span>(diff_vector^2) <span style="color:#aaa;font-style:italic"># &#34;HMSD&#34;</span>
+
+dist_diff_binned &lt;- dist_diff %&gt;% 
+  <span style="color:#0a0">select</span>(-bin1) %&gt;% 
+  <span style="color:#0a0">group_by</span>(bin) %&gt;%
+  <span style="color:#0a0">summarize</span>(<span style="color:#0a0">across</span>(<span style="color:#0a0">everything</span>(), <span style="color:#0a0">list</span>(
+      <span style="color:#a50">&#34;mean&#34;</span> = mean,
+      <span style="color:#a50">&#34;absmean&#34;</span> = <span style="color:#0a0">function</span>(measurements) <span style="color:#0a0">sum</span>(<span style="color:#0a0">abs</span>(measurements)) / <span style="color:#0a0">length</span>(measurements),
+      <span style="color:#a50">&#34;variance&#34;</span> = var,
+      <span style="color:#a50">&#34;semivariance&#34;</span> = calculate_semivariance,
+      <span style="color:#a50">&#34;count&#34;</span> = <span style="color:#0a0">function</span>(measurements) <span style="color:#0a0">length</span>(measurements)
+    )
+  )) %&gt;%
+  <span style="color:#0a0">select</span>(bin, distance_mean, distance_count,
+    difference_variance, difference_semivariance, difference_absmean
+  ) %&gt;%
+  <span style="color:#0a0">rename</span>(<span style="color:#0a0">c</span>(
+    <span style="color:#a50">&#34;variance&#34;</span> = difference_variance,
+    <span style="color:#a50">&#34;semivariance&#34;</span> = difference_semivariance,
+    <span style="color:#a50">&#34;mean_abs_difference&#34;</span> = difference_absmean
+  ))
+
+<span style="color:#aaa;font-style:italic"># semivariance is NOT simply half the variance</span>
+dist_diff_binned$half_variance &lt;- <span style="color:#099">0.5</span> * dist_diff_binned$variance
+knitr::<span style="color:#0a0">kable</span>(<span style="color:#0a0">head</span>(dist_diff_binned), digits = <span style="color:#099">2</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">bin</th>
+<th style="text-align:right">distance_mean</th>
+<th style="text-align:right">distance_count</th>
+<th style="text-align:right">variance</th>
+<th style="text-align:right">semivariance</th>
+<th style="text-align:right">mean_abs_difference</th>
+<th style="text-align:right">half_variance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">[0.03019,11.29]</td>
+<td style="text-align:right">7.53</td>
+<td style="text-align:right">51475</td>
+<td style="text-align:right">0.56</td>
+<td style="text-align:right">0.35</td>
+<td style="text-align:right">0.62</td>
+<td style="text-align:right">0.28</td>
+</tr>
+<tr>
+<td style="text-align:left">(11.29,15.97]</td>
+<td style="text-align:right">13.76</td>
+<td style="text-align:right">51475</td>
+<td style="text-align:right">0.64</td>
+<td style="text-align:right">0.39</td>
+<td style="text-align:right">0.67</td>
+<td style="text-align:right">0.32</td>
+</tr>
+<tr>
+<td style="text-align:left">(15.97,19.59]</td>
+<td style="text-align:right">17.83</td>
+<td style="text-align:right">51475</td>
+<td style="text-align:right">0.67</td>
+<td style="text-align:right">0.41</td>
+<td style="text-align:right">0.70</td>
+<td style="text-align:right">0.34</td>
+</tr>
+<tr>
+<td style="text-align:left">(19.59,22.63]</td>
+<td style="text-align:right">21.14</td>
+<td style="text-align:right">51474</td>
+<td style="text-align:right">0.71</td>
+<td style="text-align:right">0.42</td>
+<td style="text-align:right">0.71</td>
+<td style="text-align:right">0.35</td>
+</tr>
+<tr>
+<td style="text-align:left">(22.63,25.28]</td>
+<td style="text-align:right">23.98</td>
+<td style="text-align:right">51475</td>
+<td style="text-align:right">0.72</td>
+<td style="text-align:right">0.43</td>
+<td style="text-align:right">0.72</td>
+<td style="text-align:right">0.36</td>
+</tr>
+<tr>
+<td style="text-align:left">(25.28,27.71]</td>
+<td style="text-align:right">26.51</td>
+<td style="text-align:right">51475</td>
+<td style="text-align:right">0.72</td>
+<td style="text-align:right">0.43</td>
+<td style="text-align:right">0.73</td>
+<td style="text-align:right">0.36</td>
+</tr>
+</tbody>
+</table>
+<p>As you see from the table, the three measures are slightly different; the difference can become more pronounced on non-synthetic data sets.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>No matter whether you choose to use VAR, HSMD, MAD, or anything else,
+make sure your readers know what difference you are actually portraying.</p>
+<p>Bonus tip: consider standardizing your data prior to calculating differences.</p>
+</div>
+<h2 id="eminent-empirics">Eminent Empirics<a href="#eminent-empirics" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>One more step:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">par</span>(mfrow = <span style="color:#0a0">c</span>(<span style="color:#099">1</span>,<span style="color:#099">2</span>))
+<span style="color:#0a0">plot</span>(dist_diff_binned$distance_mean, dist_diff_binned$mean_abs_difference,
+   type = <span style="color:#a50">&#34;o&#34;</span>, col = <span style="color:#a50">&#34;darkblue&#34;</span>,
+   xlab = <span style="color:#a50">&#34;distance bin number&#34;</span>,
+   ylab = <span style="color:#a50">&#34;mean absolute difference&#34;</span>
+   )
+<span style="color:#0a0">plot</span>(dist_diff_binned$distance_mean, dist_diff_binned$semivariance,
+   type = <span style="color:#a50">&#34;o&#34;</span>, col = <span style="color:#a50">&#34;darkgreen&#34;</span>,
+   xlab = <span style="color:#a50">&#34;bin average distance&#34;</span>,
+   ylab = <span style="color:#a50">&#34;semivariance&#34;</span>
+   )
+
+<span style="color:#0a0">par</span>(mfrow = <span style="color:#0a0">c</span>(<span style="color:#099">1</span>,<span style="color:#099">1</span>))
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-empirical-variogram-1.png"
+id="fig-empirical-variogram"
+alt="Figure 6: The left panel shows mean absolute difference, whereas the right panel is the semivariance, both plotted against the distance." /></p>
+<figcaption>The left panel shows mean absolute difference, whereas the right panel is the semivariance, both plotted against the distance.</figcaption><br>
+<p>You might call these (<a href="#fig-empirical-variogram" class="quarto-xref">Figure 6</a>) the &ldquo;empirical variogram&rdquo;, if you like.
+They are effectively a variogram.
+Vari-o-gram.
+A plot of the bin-wise semivariance (or other difference measures) against distance.</p>
+<p>Good to have.
+Now let&rsquo;s get started.</p>
+<p><a id="sec-model-regression"></a></p>
+<h1 id="model-regression">Model Regression<a href="#model-regression" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="fitting-functions">Fitting Functions<a href="#fitting-functions" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>You might consider all the above as really just preparation for step 4/<strong>modeling</strong>.
+However, (lack of) good preparation is the start and end of any modeling attempt.
+There are a lot of combinations and choices by now, and it is worth systematically permuting target parameters and difference measures.</p>
+<p><em>Cognitive Dissonance Warning:</em>
+because we binned the data above, we now need to fit a function through the bins to interpolate the space in between.
+Even more of a paradox is that we will not use that model here to predict any values; it just models semivariance, anyways.</p>
+<p>There are some general convenience wrappers for classical regression in R, though I personally did not find a really convenient one because the sheer array of choices is rather intransparent.
+However, <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/optim">base-r <code>optim</code> does all we need</a> (<em>sometimes</em>).
+There are <a href="https://cran.r-project.org/web/views/Optimization.html">other libraries</a>.</p>
+<p>We choose between well-known &ldquo;Nelder-Mead&rdquo; optimization algorithm (<a href="#ref-nelder1965">Nelder &amp; Mead, 1965</a>), or the more versatile <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html">&ldquo;L-BFGS-B&rdquo;</a> (<a href="#ref-byrd1995">Byrd <em>et al.</em>, 1995</a>; <a href="#ref-zhu1997">Zhu <em>et al.</em>, 1997</a>).
+They are interchangeable to some degree, yet the latter allows to define logical parameter boundaries to facilitate optimization convergence.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># wrap a regression function to generate residuals</span>
+<span style="color:#aaa;font-style:italic"># the result is the parameter to be minimized.</span>
+wrap_target_function &lt;- <span style="color:#0a0">function</span>(x, y, regressor, parameters) {
+  predictions &lt;- <span style="color:#0a0">regressor</span>(x, parameters)
+  differences &lt;- y - predictions
+
+  <span style="color:#aaa;font-style:italic"># optimization superstition: scaling rmse to better read decimals</span>
+  differences &lt;- differences * <span style="color:#099">1000</span>
+  <span style="color:#0a0">return</span>(<span style="color:#0a0">sqrt</span>(<span style="color:#0a0">mean</span>(differences^2)))
+}
+
+<span style="color:#aaa;font-style:italic"># yet another trick: we can improve model fit on the closer points,</span>
+<span style="color:#aaa;font-style:italic">#   by giving them more weight</span>
+wrap_target_function_distanceweighted &lt;- <span style="color:#0a0">function</span>(x, y, regressor, parameters) {
+  predictions &lt;- <span style="color:#0a0">regressor</span>(x, parameters)
+  differences &lt;- y - predictions
+
+  <span style="color:#aaa;font-style:italic"># gently improving performance on proximal points:</span>
+  differences &lt;- <span style="color:#099">1000</span> * differences * <span style="color:#099">1</span>/<span style="color:#0a0">sqrt</span>(x)
+
+  rmsd &lt;- <span style="color:#0a0">sqrt</span>(<span style="color:#0a0">mean</span>(differences^2))
+  <span style="color:#0a0">return</span>(rmsd)
+}
+
+
+<span style="color:#aaa;font-style:italic"># this can turn regression output into a usable function.</span>
+<span style="color:#aaa;font-style:italic"># εὕρηκα, functional programming!</span>
+create_prediction_function&lt;- <span style="color:#0a0">function</span>(regressor, results) {
+  fcn &lt;- <span style="color:#0a0">function</span>(x) {
+    <span style="color:#0a0">regressor</span>(x, results$par)
+  }
+
+  <span style="color:#0a0">return</span>(fcn)
+}
+
+<span style="color:#aaa;font-style:italic"># a uniform way to print results</span>
+print_regression_results &lt;- <span style="color:#0a0">function</span>(orsl, label = <span style="color:#a50">&#34;&#34;</span>) {
+  par &lt;- <span style="color:#0a0">paste</span>(<span style="color:#0a0">round</span>(orsl$par, <span style="color:#099">4</span>), collapse = <span style="color:#a50">&#34;, &#34;</span>)
+  conv &lt;- orsl$convergence
+  eps &lt;- orsl$value
+  <span style="color:#0a0">print</span>(<span style="color:#0a0">sprintf</span>(<span style="color:#a50">&#34;%s regression: convergence %i at (%s), mse %.1f&#34;</span>, label, conv, par, eps))
+}
+
+<span style="color:#aaa;font-style:italic"># note: the `epsilon` can be calculated manually with the formula:</span>
+<span style="color:#aaa;font-style:italic">#   sum((predictor_function(x) - y)^2)</span>
+
+
+<span style="color:#aaa;font-style:italic"># Finally, a quick histogram plot of residuals.</span>
+plot_residuals_histogram &lt;- <span style="color:#0a0">function</span>(x, y, predictor_function, <span style="color:#00a">...</span>) {
+  residuals &lt;- <span style="color:#0a0">predictor_function</span>(x) - y
+  <span style="color:#0a0">ggplot</span>(<span style="color:#00a">NULL</span>, <span style="color:#0a0">aes</span>(x = residuals)) +
+    <span style="color:#0a0">geom_histogram</span>(<span style="color:#00a">...</span>) +
+    <span style="color:#0a0">theme_bw</span>()
+}
+</code></pre></div><p>To test this, behold the non-sensical linear regression!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x &lt;- dist_diff_binned$distance_mean
+y &lt;- dist_diff_binned$semivariance
+
+linear_function &lt;- <span style="color:#0a0">function</span>(x, parameters) {
+  <span style="color:#0a0">return</span>(parameters[1] + parameters[2]*x)
+}
+
+optimizer_results &lt;- <span style="color:#0a0">optim</span>(
+  par = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>, <span style="color:#099">0.05</span>),
+  fn = <span style="color:#0a0">function</span>(parameters) {
+    <span style="color:#0a0">wrap_target_function</span>(x, y, linear_function, parameters)
+  }, method = <span style="color:#a50">&#34;Nelder-Mead&#34;</span>
+)
+
+<span style="color:#0a0">print_regression_results</span>(optimizer_results, label = <span style="color:#a50">&#34;linear&#34;</span>)
+</code></pre></div><pre><code>[1] &quot;linear regression: convergence 0 at (0.4287, 0.0004), mse 10.7&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">predictor_function &lt;- <span style="color:#0a0">create_prediction_function</span>(linear_function, optimizer_results)
+
+<span style="color:#0a0">ggplot</span>(<span style="color:#00a">NULL</span>, <span style="color:#0a0">aes</span>(x = x, y = y)) +
+  <span style="color:#0a0">geom_point</span>(size = <span style="color:#099">2.5</span>, colour = <span style="color:#a50">&#34;black&#34;</span>, fill = <span style="color:#a50">&#34;white&#34;</span>, alpha = <span style="color:#099">0.4</span>) +
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(x = x, y = <span style="color:#0a0">predictor_function</span>(x))) +
+  <span style="color:#0a0">theme_minimal</span>()
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-linear-regression-1.png"
+id="fig-linear-regression"
+alt="Figure 7: In principle, you can fit anything you like to the semivariance." /></p>
+<figcaption>In principle, you can fit anything you like to the semivariance.</figcaption><br>
+<p>Observations:</p>
+<ul>
+<li>The regression fits the data more or less well, quantified by the mean square error (<code>mse</code>).</li>
+<li>Optimizer did converge (<code>convergence 0</code>, <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/optim.html">see &ldquo;convergence&rdquo; here</a>), which should not be overrated (the regression might still be irrelevant).</li>
+<li>Parameters can be measured, in this case intercept (\(0.43\)) and slope (\(0.0004\)).</li>
+</ul>
+<p>We can do better, of course.</p>
+<p><a id="sec-gauss"></a></p>
+<h2 id="beloved-bellcurve">Beloved Bellcurve<a href="#beloved-bellcurve" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Quite a popular choice is the <strong>Gaussian</strong>.
+There is a suitable &ldquo;parametric extension&rdquo; <a href="https://en.wikipedia.org/wiki/Gaussian_function">on wikipedia</a>.
+It can be slightly simplified, and the terminology adjusted to Variogram slang.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gauss_function &lt;- <span style="color:#0a0">function</span>(x, parameters) {
+  scale &lt;- parameters[1] <span style="color:#aaa;font-style:italic"># height</span>
+  mu &lt;- <span style="color:#099">0</span> <span style="color:#aaa;font-style:italic"># mean, always zero here</span>
+  sigma &lt;- parameters[2] <span style="color:#aaa;font-style:italic"># standard deviation</span>
+  nugget &lt;- parameters[3] <span style="color:#aaa;font-style:italic"># height at the zero intercept</span>
+
+  <span style="color:#aaa;font-style:italic"># This parametrization ensures that &#34;nugget &lt; sill&#34; if &#34;scale &gt; 0&#34;</span>
+  sill &lt;- scale + nugget
+
+  <span style="color:#aaa;font-style:italic"># the raw, unscaled gaussian kernel</span>
+  gauss &lt;- <span style="color:#0a0">exp</span>(-((x - mu)^2) / (<span style="color:#099">2</span> * sigma^2))
+
+  <span style="color:#aaa;font-style:italic"># the bell should point downwards:</span>
+  result &lt;- sill - scale * gauss
+
+  <span style="color:#0a0">return</span>(result)
+}
+
+try_x &lt;- <span style="color:#0a0">seq</span>(-<span style="color:#00a">pi</span>, <span style="color:#00a">pi</span>, length.out = <span style="color:#099">100</span>)
+try_y &lt;- <span style="color:#0a0">gauss_function</span>(try_x, parameters = <span style="color:#0a0">c</span>(<span style="color:#099">1.5</span>, <span style="color:#099">1</span>., <span style="color:#099">0.5</span>))
+
+<span style="color:#0a0">plot</span>(try_x, try_y, type = <span style="color:#a50">&#34;l&#34;</span>, xlab = <span style="color:#a50">&#34;x&#34;</span>, ylab = <span style="color:#a50">&#34;y&#34;</span>, ylim = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>, <span style="color:#099">2</span>.))
+<span style="color:#0a0">abline</span>(v = <span style="color:#099">0</span>)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-function-1.png"
+id="fig-gauss-function"
+alt="Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed." /></p>
+<figcaption>Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed.</figcaption><br>
+<p>I still have a hard time to associate anything maths-related to the words <code>nugget</code> and <code>sill</code>: they could equally well be some ancient greek letters spelled out in a non-greek way, such as <code>σίγμα</code>.
+Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial:
+&gt; nugget comes from &ldquo;gold&rdquo; nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large &ldquo;nugget&rdquo; effect (large differences at very small distances).
+We have to accept that they are frequently encountered in the variogram literature.</p>
+<ul>
+<li>The <code>nugget</code> is the value our function takes at the zero intercept, i.e. baseline variance, i.e. the lowest difference we can get (often defined by measurement uncertainty).</li>
+<li>Conversely, the <code>sill</code> is the maximum variance we expect to be reached when comparing measurements at totally unrelated locations. The stereotypical Gaussian variogram will asymptotically approach this value towards infinite distance.</li>
+<li>The <code>sigma</code> parameter characterizes the width of the curve; it will indicate the range at which measurements still resemble each other to a certain degree.</li>
+</ul>
+<p>These parameters will become clearer below when we actually adjust our model to fit the data (i.e. regression).</p>
+<h2 id="virtuous-variograms">Virtuous Variograms<a href="#virtuous-variograms" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>This can be put to action as follows.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x &lt;- dist_diff_binned$distance_mean
+y &lt;- dist_diff_binned$semivariance <span style="color:#aaa;font-style:italic"># multiplied to support optimizer</span>
+
+start_values &lt;- <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>.) 
+optimizer_results &lt;- <span style="color:#0a0">optim</span>(
+  par = start_values,
+  lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>), <span style="color:#aaa;font-style:italic"># all positive parameters</span>
+  upper = <span style="color:#0a0">c</span>(<span style="color:#099">2</span> * zrange, extent / <span style="color:#099">4</span>, zrange), <span style="color:#aaa;font-style:italic"># prevent crazy outcomes</span>
+  fn = <span style="color:#0a0">function</span>(parameters) {
+    <span style="color:#0a0">wrap_target_function_distanceweighted</span>(x, y, gauss_function, parameters)
+  },
+  control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+  method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span>
+)
+
+predictor_function &lt;- <span style="color:#0a0">create_prediction_function</span>(
+  gauss_function,
+  optimizer_results
+)
+
+<span style="color:#0a0">print_regression_results</span>(optimizer_results, label = <span style="color:#a50">&#34;Gauss&#34;</span>)
+</code></pre></div><pre><code>[1] &quot;Gauss regression: convergence 0 at (0.1202, 16.7599, 0.3464), mse 0.8&quot;
+</code></pre>
+<p>The lower bounds are enabled by our parametrization; the control parameter <code>fnscale</code> seems to improve regression accuracy on low-magnitude <code>y</code>-values; start values are using our prior knowledge (this is a tutorial, after all, so the regression better work).</p>
+<p>Inspecting the residual pattern:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_residuals_histogram</span>(x, y, predictor_function,
+  bins = <span style="color:#099">32</span>, fill = <span style="color:#a50">&#34;lightgray&#34;</span>, color = <span style="color:#a50">&#34;black&#34;</span>)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-residuals-1.png"
+id="fig-gauss-residuals"
+alt="Figure 9: Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination." /></p>
+<figcaption>Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination.</figcaption><br>
+<p>The regression results for scale, range, and nugget are 0.12, 16.76, 0.35, respectively.</p>
+<p>Conversion to our slightly more meaningful parameters:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">scale &lt;- optimizer_results$par[1]
+range &lt;- optimizer_results$par[2]
+nugget &lt;- optimizer_results$par[3]
+sill &lt;- nugget + scale
+</code></pre></div><div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  The parameter <code>sigma</code> here is related to the sigma we used for smoothing above; I chose to define the range as sigma (which is also not conventional).
+The sigma | range I see here is the <strong>width of the Gaussian</strong>, which is related, but not equal to what others call <code>range</code>.
+</div>
+<p>Finally, visualization.
+<strong>Behold: a variogram model.</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">predx &lt;- <span style="color:#0a0">seq</span>(<span style="color:#099">0</span>, extent, length.out = <span style="color:#099">2</span>*extent + <span style="color:#099">1</span>)
+
+<span style="color:#0a0">ggplot</span>(<span style="color:#00a">NULL</span>, <span style="color:#0a0">aes</span>(x = x, y = y)) +
+  <span style="color:#0a0">geom_vline</span>(xintercept = range, color = <span style="color:#a50">&#34;darkgrey&#34;</span>) +
+  <span style="color:#0a0">geom_hline</span>(yintercept = nugget, color = <span style="color:#a50">&#34;darkgrey&#34;</span>) +
+  <span style="color:#aaa;font-style:italic"># geom_hline(yintercept = sill, color = &#34;darkgrey&#34;) +</span>
+  <span style="color:#0a0">geom_point</span>(size = <span style="color:#099">2.5</span>, colour = <span style="color:#a50">&#34;black&#34;</span>, fill = <span style="color:#a50">&#34;white&#34;</span>, alpha = <span style="color:#099">0.4</span>) +
+  <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(x = predx, y = <span style="color:#0a0">predictor_function</span>(predx))) +
+  <span style="color:#0a0">theme_minimal</span>()
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-variogram-1.png"
+id="fig-gauss-variogram"
+alt="Figure 10: Variogram of the simulated data, using a Gauss model." /></p>
+<figcaption>Variogram of the simulated data, using a Gauss model.</figcaption><br>
+<p>Whenever it works (which should not be taken for granted), the fit is quite good.
+Not perfect here, we can still do better.</p>
+<p>There are certainly much better regression tools, including probabilistic ones which estimate parameter credible intervals.
+Please do not hold back to explore these.</p>
+<h1 id="playground-generalization">Playground: Generalization<a href="#playground-generalization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="gentle-generalization">Gentle Generalization<a href="#gentle-generalization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Can we collect all the steps above in a handy function?
+Sure!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">fit_variogram &lt;- <span style="color:#0a0">function</span>(
+                   x, y, value, fcn,
+                   difference_parameter = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;semivariance&#34;</span>, <span style="color:#a50">&#34;var&#34;</span>, <span style="color:#a50">&#34;mad&#34;</span>),
+                   skip_detrend = <span style="color:#00a">FALSE</span>,
+                   verbose = <span style="color:#00a">TRUE</span>,
+                   <span style="color:#00a">...</span>) {
+  <span style="color:#aaa;font-style:italic"># the ellipsis ( , ...) will pass through optimizer parameters</span>
+
+  <span style="color:#aaa;font-style:italic"># convenience structure to match the above</span>
+  df &lt;- <span style="color:#0a0">data.frame</span>(x = x, y = y, z = value)
+
+  <span style="color:#aaa;font-style:italic"># de-trending, optionally disabled</span>
+  <span style="color:#0a0">if </span>(skip_detrend) {
+    df$d &lt;- df$z
+  } else {
+    df$d &lt;- <span style="color:#0a0">lm</span>(z ~ x + y, df)$residual
+  }
+
+  <span style="color:#aaa;font-style:italic"># distance-difference</span>
+  dd &lt;- <span style="color:#0a0">data.frame</span>(
+      dist = <span style="color:#0a0">lower_triangle</span>(<span style="color:#0a0">Euclid_wrap</span>(df)),
+      diff = <span style="color:#0a0">lower_triangle</span>(<span style="color:#0a0">self_difference</span>(df$d))
+    ) %&gt;%
+    <span style="color:#0a0">filter</span>(dist &gt; <span style="color:#099">0</span>, dist &lt; extent)
+
+  <span style="color:#aaa;font-style:italic"># binning (could be improved!)</span>
+  dd$bin &lt;- <span style="color:#0a0">as.factor</span>(<span style="color:#0a0">cut</span>(dd$dist, breaks = <span style="color:#0a0">as.integer</span>(extent/<span style="color:#099">2</span>)))
+  dd_binned &lt;- dd %&gt;% 
+    <span style="color:#0a0">group_by</span>(bin) %&gt;%
+    <span style="color:#0a0">summarize</span>(<span style="color:#0a0">across</span>(<span style="color:#0a0">everything</span>(), <span style="color:#0a0">list</span>(
+        <span style="color:#a50">&#34;mean&#34;</span> = mean,
+        <span style="color:#a50">&#34;absmean&#34;</span> = <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">sum</span>(<span style="color:#0a0">abs</span>(vec)) / <span style="color:#0a0">length</span>(vec),
+        <span style="color:#a50">&#34;variance&#34;</span> = var,
+        <span style="color:#a50">&#34;semivariance&#34;</span> = <span style="color:#0a0">function</span>(vec) <span style="color:#099">1</span> / (<span style="color:#099">2</span> * <span style="color:#0a0">length</span>(vec)) * <span style="color:#0a0">sum</span>(vec^2),
+        <span style="color:#a50">&#34;count&#34;</span> = <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">length</span>(vec)
+      )
+    )) %&gt;%
+    <span style="color:#0a0">select</span>(bin, dist_mean, dist_count,
+      diff_variance, diff_semivariance, diff_absmean
+    ) %&gt;%
+    <span style="color:#0a0">rename</span>(<span style="color:#0a0">c</span>(
+      <span style="color:#a50">&#34;var&#34;</span> = diff_variance,
+      <span style="color:#a50">&#34;semivariance&#34;</span> = diff_semivariance,
+      <span style="color:#a50">&#34;mad&#34;</span> = diff_absmean
+    ))
+
+  <span style="color:#aaa;font-style:italic"># regression</span>
+  regx &lt;- dd_binned$dist_mean
+
+  diffpar &lt;- <span style="color:#0a0">match.arg</span>(difference_parameter, several.ok = <span style="color:#00a">FALSE</span>)
+  regy &lt;- <span style="color:#099">0.5</span> * dd_binned %&gt;% <span style="color:#0a0">pull</span>(!!diffpar)
+
+
+  optimizer_results &lt;- <span style="color:#0a0">optim</span>(
+    fn = <span style="color:#0a0">function</span>(parameters) {
+      <span style="color:#0a0">wrap_target_function_distanceweighted</span>(regx, regy, fcn, parameters)
+    },
+    <span style="color:#00a">...</span>
+  )
+
+  <span style="color:#0a0">if </span>(verbose) <span style="color:#0a0">print_regression_results</span>(optimizer_results, label = <span style="color:#a50">&#34;&#34;</span>)
+
+  <span style="color:#aaa;font-style:italic"># store everything in one list;</span>
+  <span style="color:#aaa;font-style:italic"># do I sense a smidgen of OOP here? No, not really.</span>
+  optimizer_results$fcn &lt;- fcn
+  optimizer_results$regx &lt;- regx
+  optimizer_results$regy &lt;- regy
+  optimizer_results$diffpar &lt;- diffpar
+
+  <span style="color:#0a0">return</span>(optimizer_results)
+}
+</code></pre></div><p><a id="sec-matern"></a></p>
+<h2 id="matérn-machinery">Matérn Machinery<a href="#matérn-machinery" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>There is at least one step further from Gauss.
+Let&rsquo;s mimic what the pro&rsquo;s do!</p>
+<p>What follows is an exact quote <a href="https://pbs-assess.github.io/sdmTMB/articles/model-description.html#gaussian-random-fields">(source)</a>.
+Note that the \(s\) here stants for a position vector, and <em>not</em> the smoothed <code>z</code>.</p>
+<p><code>&lt;quote&gt;</code></p>
+<p>The Matérn defines the covariance \(\Phi\left( s_j, s_k\right)\) between spatial locations \(s_j\) and \(s_k\) as</p>
+<p>\[\Phi\left( s_j, s_k\right) = \tau^2 / \Gamma\left(\nu\right) 2^{\nu -1} \left(\kappa d_{jk}\right)^\nu K_\nu\left(\kappa d_{jk}\right)\]</p>
+<!-- Φ(sj,sk)=τ2/Γ(ν)2ν−1(κdjk)νKν(κdjk),-->
+<p>where \(\tau^2\) controls the spatial variance,
+\(\nu\) controls the smoothness,
+\(\Gamma\) represents the Gamma function,
+\(d_{jk}\) represents the distance between locations \(s_j\) and \(s_k\),
+\(K_\nu\) represents the modified Bessel function of the second kind,
+and \(\kappa\) represents the decorrelation rate.
+The parameter \(\nu\) is set to \(1\) to take advantage of the Stochastic Partial Differential Equation (SPDE) approximation to the GRF
+to greatly increase computational efficiency (<a href="#ref-Lindgren2011">Lindgren <em>et al.</em>, 2011</a>).
+Internally, the parameters \(\kappa\) and \(\tau\) are converted to range and marginal standard deviation \(\sigma\) as
+\[range=\frac{8}{\kappa}\]
+and
+\[\sigma=\left(4\pi e^{2log(\tau )+2log(\kappa)}\right)^{-\frac{1}{2}}\]</p>
+<p><code>&lt;/quote&gt;</code></p>
+<p>This is just to confuse you.
+I found the \(\tau\)/\(\kappa\)/\(\sigma\)-parametrization to be less intuitive and not fitting our geoscience jargon, but the Bessel and Gamma were appropriate; so here a slightly modified parametrization.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matern_function &lt;- <span style="color:#0a0">function</span>(d, parameters) {
+  scale &lt;- parameters[1] <span style="color:#aaa;font-style:italic"># related to semivariance</span>
+  sigma &lt;- parameters[2] <span style="color:#aaa;font-style:italic"># related to actual range; turning point</span>
+  nugget &lt;- parameters[3] <span style="color:#aaa;font-style:italic"># minimum difference (at the intercept)</span>
+  nu &lt;- parameters[4] <span style="color:#aaa;font-style:italic"># shape parameter</span>
+
+  sill &lt;- scale + nugget
+  z &lt;- <span style="color:#0a0">sqrt</span>(<span style="color:#099">2</span> * nu) * d / sigma
+  K &lt;- <span style="color:#0a0">suppressWarnings</span>(<span style="color:#0a0">besselK</span>(z, nu))
+  matern &lt;- (z)^nu * K / (<span style="color:#099">2</span><span style="color:#0a0">^</span>(nu - <span style="color:#099">1</span>) * <span style="color:#0a0">gamma</span>(nu))
+  result &lt;- sill - scale * matern
+  
+  result<span style="color:#0a0">[is.na</span>(result)] &lt;- <span style="color:#099">0</span>
+  <span style="color:#0a0">return</span>(result)
+}
+</code></pre></div><p>I initially had trouble fitting this function, because I simplified (leaving out <code>nugget</code> and <code>nu</code>); the version above is quite flexible to fit our variogram.
+Note that the function is not defined at zero, which is why I filter <code>NA</code>.
+The Matérn implementation does not allow decreasing or oscillating semivariance (sometimes seen in real data), but on the other hand decreasing semivariance would griefly violate Tobler&rsquo;s observation.</p>
+<p>Note that there are different definitions of the Matérn range and the parameter <code>sigma</code>.
+Make sure you know which range your toolbox of choice is reporting.
+Here and below, I will report the range that is determined by <code>sigma</code> in the above function definition.
+That sigma (\(\sigma\)) is related to the turning point of the Matérn function.</p>
+<p>Any regression function demands a specific plot function:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">plot_matern &lt;- <span style="color:#0a0">function</span>(optimizer_results) {
+
+  <span style="color:#aaa;font-style:italic"># retrieve everything </span>
+  fcn &lt;- optimizer_results$fcn
+  regx &lt;- optimizer_results$regx
+  regy &lt;- optimizer_results$regy
+  diffpar &lt;- optimizer_results$diffpar
+
+  <span style="color:#aaa;font-style:italic"># wrap the function with the optimized parameters</span>
+  predictor_function &lt;- <span style="color:#0a0">create_prediction_function</span>(
+    fcn,
+    optimizer_results
+  )
+
+  <span style="color:#aaa;font-style:italic"># extract parameters</span>
+  scale &lt;- optimizer_results$par[1]
+  sigma &lt;- optimizer_results$par[2]
+  range &lt;- optimizer_results$par[2]
+  nugget &lt;- optimizer_results$par[3]
+  sill &lt;- scale + nugget
+
+
+  <span style="color:#aaa;font-style:italic"># plotting</span>
+  plotx &lt;- <span style="color:#0a0">seq</span>(<span style="color:#099">0</span>, extent, length.out = <span style="color:#099">2</span> * extent + <span style="color:#099">1</span>)
+  plotx &lt;- plotx[plotx &gt; <span style="color:#099">0</span>]
+  
+  g &lt;- <span style="color:#0a0">ggplot</span>(<span style="color:#00a">NULL</span>, <span style="color:#0a0">aes</span>(x = regx, y = regy)) +
+    <span style="color:#0a0">geom_vline</span>(xintercept = range, color = <span style="color:#a50">&#34;darkgrey&#34;</span>) +
+    <span style="color:#0a0">geom_hline</span>(yintercept = nugget, color = <span style="color:#a50">&#34;darkgrey&#34;</span>) +
+    <span style="color:#0a0">geom_hline</span>(yintercept = sill, color = <span style="color:#a50">&#34;darkgrey&#34;</span>) +
+    <span style="color:#0a0">geom_point</span>(size = <span style="color:#099">2.5</span>, colour = <span style="color:#a50">&#34;black&#34;</span>, fill = <span style="color:#a50">&#34;white&#34;</span>, alpha = <span style="color:#099">0.4</span>) +
+    <span style="color:#0a0">geom_line</span>(<span style="color:#0a0">aes</span>(x = plotx, y = <span style="color:#0a0">predictor_function</span>(plotx))) +
+    <span style="color:#0a0">labs</span>(
+      title = <span style="color:#a50">&#34;Matérn regression, with range indicated (vertical line)&#34;</span>,
+      y = diffpar,
+      x = <span style="color:#a50">&#34;distance&#34;</span>
+      ) +
+    <span style="color:#0a0">theme_minimal</span>()
+
+  <span style="color:#0a0">return</span>(g)
+}
+</code></pre></div><p>In application:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">vg_all &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = data$x,
+    y = data$y,
+    value = data$s,
+    fcn = matern_function,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.001</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">10</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+</code></pre></div><pre><code>[1] &quot; regression: convergence 0 at (0.0916, 16.7871, 0.143, 0.4806), mse 0.3&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_matern</span>(vg_all) <span style="color:#aaa;font-style:italic"># + ylim(0, 0.25)</span>
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-alldata-variogram-1.png"
+id="fig-alldata-variogram"
+alt="Figure 11: Variogram of all the data, with a Matérn fit. Warning: the y-axis display range is limited." /></p>
+<figcaption>Variogram of all the data, with a Matérn fit. Warning: the y-axis display range is limited.</figcaption><br>
+<p>Note the sensible choice of starting values and boundaries.
+Again, I indicated the \(\sigma\) range.</p>
+<p>See the considerable non-zero nugget?
+Let us explore where it comes from!</p>
+<h2 id="prior-parametrization">Prior Parametrization<a href="#prior-parametrization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>To take variogram analysis further, we can filter the dataset to retrieve one of the two <code>b</code> categories.
+Compare what happens to the range and nugget!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">semi_data &lt;- data %&gt;%
+  <span style="color:#0a0">filter</span>(b == <span style="color:#099">0</span>)
+
+vg_b0 &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = semi_data$x,
+    y = semi_data$y,
+    value = semi_data$s,
+    fcn = matern_function,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.001</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">10</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+</code></pre></div><pre><code>[1] &quot; regression: convergence 0 at (0.1317, 17.4239, 0.0059, 0.6202), mse 0.4&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_matern</span>(vg_b0)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-1.png"
+id="fig-subdata-variogram"
+alt="Figure 12: Variogram of the sub-data in the b == 0 category." /></p>
+<figcaption>Variogram of the sub-data in the ``b == 0`` category.</figcaption><br>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">semi_data &lt;- data %&gt;%
+  <span style="color:#0a0">filter</span>(b == <span style="color:#099">1</span>)
+vg_b1 &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = semi_data$x,
+    y = semi_data$y,
+    value = semi_data$s,
+    fcn = matern_function,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.001</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">10</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+</code></pre></div><pre><code>[1] &quot; regression: convergence 0 at (0.1859, 13.8511, 0.0159, 1.0527), mse 0.6&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_matern</span>(vg_b1)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-subdata-variogram-b1-1.png"
+id="fig-subdata-variogram-b1"
+alt="Figure 13: Variogram of the sub-data in the b == 1 category." /></p>
+<figcaption>Variogram of the sub-data in the ``b == 1`` category.</figcaption><br>
+<p>The \(\sigma\)-range of the full data set with two different categories mixed is \(16.8\).
+If we only include one of the categories, making the data points more similar, ranges are \(17.4\) and \(13.9\).
+Longer range would mean that distant points are more similar.</p>
+<p>The variance itself is also determined by the magnitude of values:
+on the <code>b==1</code> subset, we added to the measured parameter.
+Consequently, we see the <code>scale = sill-nugget</code> increase from \(0.13\) to \(0.19\).</p>
+<p>If you noticed that especially the <code>b==0</code> data does not entirely fit the model, you are right: because of the &ldquo;wrapped smoothing, then detrending&rdquo; simulation procedure, the margin prohibits perfect detrending.
+Which brings me to a revision of these effects.</p>
+<h1 id="recap-de-trending-and-smoothing">Recap: De-Trending and Smoothing<a href="#recap-de-trending-and-smoothing" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p><em>(How does semivariance change without de-trending and un-smoothed, and why?)</em></p>
+<p><a id="sec-nodetrend"></a></p>
+<h2 id="de-activated-de-trending">De-activated De-trending<a href="#de-activated-de-trending" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Luckily, we computer-engineered in a <code>skip_detrend</code> flag above.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">vg_nodetrend &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = data$x,
+    y = data$y,
+    value = data$s,
+    fcn = matern_function,
+    skip_detrend = <span style="color:#00a">TRUE</span>,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.001</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">10</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+</code></pre></div><pre><code>[1] &quot; regression: convergence 0 at (0.2116, 56.3717, 0.1388, 0.3905), mse 0.4&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_matern</span>(vg_nodetrend)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-nodetrend-1.png"
+id="fig-variogram-nodetrend"
+alt="Figure 14: Variogram of the data with de-trending disabled." /></p>
+<figcaption>Variogram of the data with de-trending disabled.</figcaption><br>
+<p>Due to the systematic effect in the &ldquo;trended&rdquo; data, the semivariance keeps rising with increasing distance,
+which the Matérn model shows in a low <code>nu</code> and wide <code>sigma</code>.
+Think about it as standing on a slope: if you look uphill, points tend to be higher, downhill, lower, otherwise points level.
+The variance of all points in a fixed circle around you would be much higher, compared to a level field.</p>
+<p>Even the inverse seems to be a general pattern:</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  If your semivariance keeps linearly increasing, try de-trending your data.
+</div>
+<h2 id="skip-smoothing">Skip Smoothing<a href="#skip-smoothing" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>How about the raw-raw data?</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">vg_nosmoothing &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = data$x,
+    y = data$y,
+    value = data$z,
+    fcn = matern_function,
+    skip_detrend = <span style="color:#00a">TRUE</span>,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.99</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">0.01</span>, <span style="color:#099">1.01</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+</code></pre></div><pre><code>[1] &quot; regression: convergence 0 at (6.7494, 0.4544, 0.01, 1.01), mse 10.5&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_matern</span>(vg_nosmoothing)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-variogram-rawdata-1.png"
+id="fig-variogram-rawdata"
+alt="Figure 15: Variogram of the Non-Toblerian raw data, i.e. random data without spatial relation." /></p>
+<figcaption>Variogram of the Non-Toblerian raw data, i.e. random data without spatial relation.</figcaption><br>
+<p>As expected, with purely random data, Tobler&rsquo;s law does not apply.
+(The jitter on close points is due to lower sample size.)
+As with <a href="https://en.wikipedia.org/wiki/Non-Newtonian_fluid">Non-Newtonian fluids</a>, these could be called &ldquo;Non-Toblerian data&rdquo;.
+I had to fix the <code>nu</code> and <code>nugget</code> because the whole concept does not make sense for a constant.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>If your semivariance returns a constant, your data was not spatially related.</p>
+<p>Return to step 1.</p>
+</div>
+<h1 id="taking-it-further">Taking it Further<a href="#taking-it-further" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="mad-measurements">MAD Measurements<a href="#mad-measurements" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Conventionally, semivariance is used as a difference measure, yet there are alternatives (<a href="#sec-binning" class="quarto-xref">Section 3.2</a>).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">vg_mad &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = data$x,
+    y = data$y,
+    value = data$s,
+    difference_parameter = <span style="color:#a50">&#34;mad&#34;</span>,
+    fcn = matern_function,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.001</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">10</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+</code></pre></div><pre><code>[1] &quot; regression: convergence 0 at (0.1352, 13.3888, 0.2461, 0.4093), mse 0.5&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">plot_matern</span>(vg_mad)
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-mad-variogram-1.png"
+id="fig-mad-variogram"
+alt="Figure 16: Is it still a variogram if we do not use semivariance?" /></p>
+<figcaption>Is it still a variogram if we do not use semivariance?</figcaption><br>
+<p>Except for the range of y-values, the regression seems to be similar or better.
+In particular, <code>sigma</code> is about the same - it better should be, because semivariance as defined above just calculates the square difference.</p>
+<p>Feel free to also give variance a try.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>The &ldquo;square&rdquo; of differences used to calculate semivariance might be problematic in some situations.</p>
+<p>To re-iterate: variogram analysis is a flexible framework.</p>
+</div>
+<h2 id="basic-bootstrapping">Basic Bootstrapping<a href="#basic-bootstrapping" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>How certain is the model outcome of our regression?
+Bootstrapping might give you a hint.
+I much enjoyed <a href="https://www.modernstatisticswithr.com/modchapter.html#bootstrap">this book chapter</a>, which deconstructs the bootstrapping algorithm just like I attempted to deconstruct variogram analysis in this tutorial.</p>
+<p>The basic idea:</p>
+<ul>
+<li>repeatedly draw a sample from your data, with replacement</li>
+<li>repeat the whole analysis pipeline and record outcome parameters</li>
+<li>analyze the distribution of model parameters</li>
+</ul>
+<p>In code:
+I like to have one function which runs the whole procedure and returns a data frame row of the results.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">subset_bootstrap &lt;- <span style="color:#0a0">function</span>(i){
+
+  <span style="color:#0a0">set.seed</span>(i)
+
+  <span style="color:#aaa;font-style:italic"># choose a random subset of data rows</span>
+  selected_rows &lt;- <span style="color:#0a0">sample</span>(
+    <span style="color:#099">1</span>:<span style="color:#0a0">nrow</span>(data), 
+    <span style="color:#aaa;font-style:italic"># as.integer(nrow(data)), # &lt;- normally, you would reproduce original sample size</span>
+    <span style="color:#0a0">as.integer</span>(<span style="color:#0a0">nrow</span>(data) / <span style="color:#099">10</span>), <span style="color:#aaa;font-style:italic"># &lt;- for demonstration, I take smaller samples</span>
+    replace = <span style="color:#00a">TRUE</span>
+    )
+
+  <span style="color:#aaa;font-style:italic"># Obtain the bootstrap sample:</span>
+  bootstrap_sample &lt;- data[selected_rows, ]
+
+  <span style="color:#aaa;font-style:italic"># run the variogram analysis</span>
+  optimizer_results &lt;- <span style="color:#0a0">fit_variogram</span>(
+    x = bootstrap_sample$x,
+    y = bootstrap_sample$y,
+    value = bootstrap_sample$s,
+    difference_parameter = <span style="color:#a50">&#34;mad&#34;</span>,
+    verbose = <span style="color:#00a">FALSE</span>,
+    fcn = matern_function,
+    par = <span style="color:#0a0">c</span>(zrange, smooth_sigma, <span style="color:#099">0</span>., <span style="color:#099">1</span>.),
+    lower = <span style="color:#0a0">c</span>(<span style="color:#099">0.0</span>, <span style="color:#099">0.0</span>, <span style="color:#099">0</span>., <span style="color:#099">0.001</span>),
+    upper = <span style="color:#0a0">c</span>(<span style="color:#099">10</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>, <span style="color:#099">100</span>),
+    control = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;fnscale&#34;</span> = <span style="color:#099">1e-8</span>),
+    method = <span style="color:#a50">&#34;L-BFGS-B&#34;</span> 
+  )
+
+  <span style="color:#aaa;font-style:italic"># collect the results</span>
+  strap &lt;- <span style="color:#0a0">as.data.frame</span>(<span style="color:#0a0">list</span>(
+    <span style="color:#a50">&#34;iteration&#34;</span> = i,
+    <span style="color:#a50">&#34;scale&#34;</span> = optimizer_results$par[1], 
+    <span style="color:#a50">&#34;sigma&#34;</span> = optimizer_results$par[2], 
+    <span style="color:#a50">&#34;nugget&#34;</span> = optimizer_results$par[3], 
+    <span style="color:#a50">&#34;nu&#34;</span> = optimizer_results$par[4], 
+    <span style="color:#a50">&#34;conv&#34;</span> = optimizer_results$convergence,
+    <span style="color:#a50">&#34;rmse&#34;</span> = optimizer_results$value
+    ))
+  <span style="color:#0a0">return</span>(strap)
+
+}
+
+<span style="color:#aaa;font-style:italic"># print(subset_bootstrap(1)) # test before use</span>
+</code></pre></div><p>The function is free of &ldquo;side-effects&rdquo;, except that it requires a copy of the <code>data</code>,
+and therefore the bootstrapping can be parallelized easily.
+Otherwise, just set a high number of iterations, and let it run overnight (writing the outcome to disk).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n_iterations &lt;- <span style="color:#099">2</span>^12
+
+<span style="color:#aaa;font-style:italic"># using the `parallel` toolbox</span>
+bootstraps &lt;- <span style="color:#0a0">bind_rows</span>(<span style="color:#0a0">mclapply</span>(
+    <span style="color:#099">1</span>:n_iterations,
+    subset_bootstrap,
+    mc.cores = <span style="color:#0a0">max</span>(<span style="color:#0a0">c</span>(<span style="color:#099">1</span>, <span style="color:#0a0">detectCores</span>()<span style="color:#099">-2</span>))
+    ))
+</code></pre></div><p>Note that I invalidly reduced bootstrap sample size above, which
+(i) speeds up calculation for demonstration purpose,
+(ii) keeps my RAM from being filled by full copies of the <code>data</code> as part of R&rsquo;s parallelization incompetence,
+(iii) changes the data situation because sampling is altered,
+(iv) for example leads to regression parameters at the limits, and
+(v) is thus not the way to go on real applications.
+You get the point.</p>
+<p>Distribution plots are useful, and of course quantiles.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bootstraps %&gt;% 
+  <span style="color:#0a0">filter</span>(conv == <span style="color:#099">0</span>, sigma &lt; <span style="color:#099">95</span>) %&gt;% 
+  <span style="color:#0a0">ggplot</span>(<span style="color:#0a0">aes</span>(x = sigma)) +
+  <span style="color:#0a0">geom_histogram</span>(bins = <span style="color:#099">64</span>, color = <span style="color:#a50">&#34;black&#34;</span>, fill = <span style="color:#a50">&#34;steelblue&#34;</span>) +
+  <span style="color:#0a0">geom_vline</span>(xintercept = smooth_sigma) +
+  <span style="color:#0a0">theme_minimal</span>()
+</code></pre></div><p><img
+src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-bootstrapping_sigma-1.png"
+id="fig-bootstrapping_sigma"
+alt="Figure 17: Bootstrapping results for the sigma parameter." /></p>
+<figcaption>Bootstrapping results for the ``sigma`` parameter.</figcaption><br>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bootstrap_quantiles &lt;- bootstraps %&gt;%
+  <span style="color:#0a0">filter</span>(conv == <span style="color:#099">0</span>, sigma &lt; <span style="color:#099">95</span>) %&gt;% 
+  <span style="color:#0a0">select</span>(-iteration, -conv) %&gt;% 
+  <span style="color:#0a0">reframe</span>(<span style="color:#0a0">across</span>(
+    <span style="color:#0a0">everything</span>(), 
+    <span style="color:#0a0">function</span>(param) <span style="color:#0a0">quantile</span>(param, <span style="color:#0a0">c</span>(<span style="color:#099">0.02</span>, <span style="color:#099">0.5</span>, <span style="color:#099">0.98</span>))
+  )) %&gt;% 
+  <span style="color:#0a0">mutate</span>(quantile = <span style="color:#099">100</span> * <span style="color:#0a0">c</span>(<span style="color:#099">0.02</span>, <span style="color:#099">0.5</span>, <span style="color:#099">0.98</span>))
+knitr::<span style="color:#0a0">kable</span>(bootstrap_quantiles, digits = <span style="color:#099">1</span>)
+</code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">scale</th>
+<th style="text-align:right">sigma</th>
+<th style="text-align:right">nugget</th>
+<th style="text-align:right">nu</th>
+<th style="text-align:right">rmse</th>
+<th style="text-align:right">quantile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">1.6</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">0.0</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">11.4</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.6</td>
+<td style="text-align:right">3.8</td>
+<td style="text-align:right">50</td>
+</tr>
+<tr>
+<td style="text-align:right">0.4</td>
+<td style="text-align:right">31.5</td>
+<td style="text-align:right">0.3</td>
+<td style="text-align:right">100.0</td>
+<td style="text-align:right">8.6</td>
+<td style="text-align:right">98</td>
+</tr>
+</tbody>
+</table>
+<p>For the majority of bootstraps, the <code>sigma</code>-range of spatial coupling falls within the [1.6, 31.5] interval.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  Bootstrapping is a simple and effective procedure to estimate parameter uncertainties.
+</div>
+<h2 id="superimposed-scales">Superimposed Scales<a href="#superimposed-scales" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>One issue I cannot demonstrate on the idealized data of the present tutorial is the issue of <strong>spatial scales</strong>.
+On real analysis questions, your geographic range might span multiple (often hierarchical) sub-classes.</p>
+<p>Think of site clusters, nested in micro-habitat types, nested in geographically homogeneous areas, overlapping with weather zones&hellip;
+The different scales of all those spatial categories we can possibly assign are interwoven in complex ways.</p>
+<p>And there might be a logical ground for spatial classifications: observations in homogeneous categories of locations are likely to be more similar among than across clusters.
+Unless you restrict your analysis to a single cluster or cluster type, you will <strong>retrieve influence of all spatial organization levels in your variogram.</strong>
+These effects manifest in step-like variograms (in the textbook case), or neverending sloped difference-distance plots much like the &ldquo;non-detrended&rdquo; example above, or anything in between.</p>
+<p>These effects are more or less subtle if you look at plots of your data at the various steps of variogram analysis.
+You could filter or subset your data, or adjust parameter choice by modeling in a &ldquo;random intercept&rdquo; for clusters.
+With the tools I gave you above, you could even fit a &ldquo;mulit-Matérn&rdquo; to stepped variograms, if you desire.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  But first of all, make sure you keep a broad perspective on the specificities of your data set.
+</div>
+<h1 id="prospect-kriging">Prospect: Kriging<a href="#prospect-kriging" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>You might wonder what <a href="https://en.wikipedia.org/wiki/Kriging">kriging</a> (&ldquo;BLUP&rdquo; = Best Linear Unbiased Prediction) has to do with all this?</p>
+<p>Kriging is a spatial interpolation method, i.e. it can predict values at points in between measured points.
+To do so, it requires <em>prior information</em> about how data at adjacent locations co-varies.
+Look and behold: our variogram procedure above yields exactly that prior.</p>
+<p>Why is that the BLUP?
+Well, &ldquo;Gaussian&rdquo; is often what we strive for in our error distributions; it is the definition of &ldquo;unbiased&rdquo;.
+Some other techniques quantify how Gaussian things are to get <a href="https://en.wikipedia.org/wiki/Independent_component_analysis">independent components</a>.
+I would argue that there is a bias in science to prefer Gaussian distributions.
+You might as well interpolate with the more general <a href="https://en.wikipedia.org/wiki/Radial_basis_function">RBF</a> (e.g. <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html">using <code>scipy.interpolate.RBFInterpolator</code></a>),
+without ever plotting such beautiful variograms.</p>
+<p>In other fields, kriging might be called &ldquo;convolution with a Gaussian kernel&rdquo; (e.g. <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html">image processing</a>).
+But in that case, the points are arranged in a regular raster and we call them &ldquo;pixels&rdquo; (worth searching for useful image processing routines which you might use for data preparation).
+Gaussian convolution can be easily implemented, you can get an idea in the section on &ldquo;smoothing&rdquo; (<a href="#sec-smoothing" class="quarto-xref">Section 2.5</a>) above.</p>
+<p>You might feel the annoying impudence in my latent mocking of Tobler and Krige and all the great pioneers of the spatial geographical sciences.
+Yet I do this on purpose, to motivate you to understand the amazing procedures they established, while keeping an eye out for alternatives.
+I would like you look beyond authority to see the pattern: there is no magic in maths (only beauty, if you appreciate it).</p>
+<p>Approaching a new mathematical procedure can be fascinating and maybe intimidating.
+Until you master it by understanding its less intimidating components.
+Computer code can help with that.
+No fear of equations!</p>
+<h1 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>This tutorial provides all the tools you need for your very own variogram analysis.
+As demonstrated, the term <em>variogram</em> conceals several simple steps, which, when applied by themselves, offer some flexibility for adjustment to specific experimental situations.
+Some of that flexibility is summarized in the note-boxes above.</p>
+<p>I hope you found the tips useful, and I appreciate feedback, comments, PRs, and additions.
+Thank you for reading!</p>
+<h1 id="references">References<a href="#references" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Byrd R.H., Lu P., Nocedal J. &amp; Zhu C. (1995). A Limited Memory Algorithm for Bound Constrained Optimization. SIAM Journal on Scientific Computing 16 (5): 1190&ndash;1208. <a href="https://doi.org/10.1137/0916069">https://doi.org/10.1137/0916069</a>.</p>
+<p>Cressie N. (1993). Statistics for spatial data. John Wiley &amp; Sons.</p>
+<p>Lindgren F., Rue H. &amp; Lindström J. (2011). An explicit link between Gaussian fields and Gaussian Markov random fields: the stochastic partial differential equation approach. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 73 (4): 423&ndash;498. <a href="https://doi.org/10.1111/j.1467-9868.2011.00777.x">https://doi.org/10.1111/j.1467-9868.2011.00777.x</a>.</p>
+<p>Matheron G. (1962). Traité de géostatistique appliquée. No. 14. Memoires du Bureau de Recherches Geologiques et Minieres, Editions Technip, Paris.</p>
+<p>Nelder J.A. &amp; Mead R. (1965). A Simplex Method for Function Minimization. The Computer Journal 7 (4): 308&ndash;313. <a href="https://doi.org/10.1093/comjnl/7.4.308">https://doi.org/10.1093/comjnl/7.4.308</a>.</p>
+<p>Zhu C., Byrd R.H., Lu P. &amp; Nocedal J. (1997). Algorithm 778: L-BFGS-B: Fortran subroutines for large-scale bound-constrained optimization. ACM Transactions on Mathematical Software 23 (4): 550&ndash;560. <a href="https://doi.org/10.1145/279232.279236">https://doi.org/10.1145/279232.279236</a>.</p>
+<p>Useful links:</p>
+<ul>
+<li><a href="https://scikit-gstat.readthedocs.io/en/latest/auto_examples/index.html">https://scikit-gstat.readthedocs.io/en/latest/auto_examples/index.html</a></li>
+<li><a href="https://www.paulamoraga.com/book-spatial/geostatistical-data-1.html">https://www.paulamoraga.com/book-spatial/geostatistical-data-1.html</a></li>
+<li><a href="https://desktop.arcgis.com/en/arcmap/10.3/guide-books/extensions/geostatistical-analyst/empirical-semivariogram-and-covariance-functions.htm">https://desktop.arcgis.com/en/arcmap/10.3/guide-books/extensions/geostatistical-analyst/empirical-semivariogram-and-covariance-functions.htm</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>As a fun fact, reference to Lenin is prominently present in the German wikipedia, but not in the English one.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/r/'>r</a>, <a class='category' href='/categories/statistics/'>statistics</a>, <a class='category' href='/categories/development/'>development</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/r/'>r</a>, <a class='tag' href='/tags/spatial/'>spatial</a>, <a class='tag' href='/tags/co-variance/'>co-variance</a>, <a class='tag' href='/tags/de-trending/'>de-trending</a>, <a class='tag' href='/tags/binning/'>binning</a>, <a class='tag' href='/tags/regression/'>regression</a>, <a class='tag' href='/tags/analysis/'>analysis</a>, <a class='tag' href='/tags/gis/'>gis</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/vignette_inbodb_get_data_meetnetten/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>inbodb: How to retrieve data from the Meetnetten database</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2025 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+
