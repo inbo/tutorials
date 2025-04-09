@@ -1,6 +1,3 @@
-# Constructing Form Elements
-
-
 ---
 title: "Scripted Generation of GIS Data Forms Using PyQGIS"
 description: "Editing a QGIS project without opening QGIS."
