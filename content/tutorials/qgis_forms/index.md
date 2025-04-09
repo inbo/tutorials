@@ -23,7 +23,7 @@ As a kid, you might have taken the challenge of eating chocolate cake without us
 What fun it was.
 I find it a pity that we do not do this any more.
 
-![The image of a toddler's face after eating chocolate.]("https://images.unsplash.com/flagged/photo-1557749846-14320a49d3ed?q=80&w=640&auto=format&fit=crop" "Foto by Wilfried Santer, via Unsplash")
+![The image of a toddler's face after eating chocolate.](https://images.unsplash.com/flagged/photo-1557749846-14320a49d3ed?q=80&w=640&auto=format&fit=crop "Foto by Wilfried Santer, via Unsplash")
 
 <figcaption> Photo by <a href="https://unsplash.com/@wsanter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wilfried Santer</a> on <a href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> </figcaption><br>
 
@@ -42,9 +42,7 @@ It is worthwile to train using and understanding this feature.
 
 Prepare to leave the world you know (the QGIS GUI), and enter *The Matrix*.
 
-```{=html}
-<a title="Jahobr, CC0, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Digital_rain_animation_medium_letters_shine.gif"><img width="512" alt="Digital rain: green letters falling across the screen (The Matrix)." src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Digital_rain_animation_medium_letters_shine.gif?20171014215546"></a>
-```
+[![Digital rain: green letters falling across the screen (The Matrix).](https://upload.wikimedia.org/wikipedia/commons/c/cc/Digital_rain_animation_medium_letters_shine.gif?20171014215546 "Jahobr, CC0, via Wikimedia Commons")](https://commons.wikimedia.org/wiki/File:Digital_rain_animation_medium_letters_shine.gif)
 
 Because, you know, the immediate utility of this skill is much more obvious than in the cake analogy.
 If you have QGIS under your scripts, you can automate data chains, version control data sources, document changes, dynamically customize elements, and learn about the inner workings of this fabulous, open GIS software program.
@@ -80,6 +78,9 @@ from qgis.PyQt.QtCore import QMetaType, QVariant
 
 import pathlib as pl
 ```
+
+
+# Constructing Form Elements
 
 The more I think about it, the more I like the chocolate cake analogy.
 Because, you see: just like in the *good* chocolate tarts, a QGIS project consists of many layers which are stapled one above the other.
@@ -377,8 +378,12 @@ I found this immensely helpful to find my way around.
 At this stage, we have a already encountered quite a lot of QGIS jargon: layers, attributes (fields and features), the data provider, the form configurator, form elements, widgets, a root container.
 Look at our depressingly simple form.
 
-![](images/fig1_simpleform.jpg)
-<figcaption>A first form widget. The red circle indicates the toolbar used for editing a layer, and adding features, which is what opens the form.</figcaption><br>
+<figure>
+<img src="../../images/tutorials/qgis_forms/fig1_simpleform.jpg" alt="A simple QGIS form." />
+<figcaption>
+A first form widget. The red circle indicates the toolbar used for editing a layer, and adding features, which is what opens the form.
+</figcaption>
+</figure>
 
 # Generalization
 
@@ -549,6 +554,13 @@ for answer, question in questions.items():
 
     root_container.addChildElement(container)
 ```
+
+<figure>
+<img src="../../images/tutorials/qgis_forms/fig2_dynamicform.jpg" alt="A more advanced QGIS form with dynamically changing content, all made in Python." />
+<figcaption>
+A more advanced QGIS form with dynamically changing content, all made in Python.
+</figcaption>
+</figure>
 
 I hope you see how this scales.
 The functions and objects give dedicated structure to the otherwise cryptic objects in PyQGIS, redundancies are reduced, which facilitates debugging.
