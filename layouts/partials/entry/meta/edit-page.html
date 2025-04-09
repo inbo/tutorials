@@ -11,7 +11,7 @@
         {{ end }}
 
         {{ with .Site.Params.githublink.GithubEditLink }}
-            <a href='{{ . }}{{ $.Scratch.Get "FilePath" }}'> {{- partial "svg/icons" "github" -}} Improve this page</a>
+            <a href='{{ . }}{{ $.Scratch.Get "FilePath" }}'> {{- partial "svg/icon" "github" -}} Improve this page</a>
         {{ end }}
 
         {{ end }}
