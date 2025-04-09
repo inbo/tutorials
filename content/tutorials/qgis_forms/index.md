@@ -1,25 +1,6 @@
----
-title: ""
-author: ""
-date: ""
-link-citations: true
-csl: '`r cslfile <- file.path("./research-institute-for-nature-and-forest.csl"); download.file("https://github.com/inbo/styles/raw/master/research-institute-for-nature-and-forest.csl", cslfile); cslfile`'
-number-sections: true
-format:
-  html:
-    toc: true
-    html-math-method: katex
-    variant: -tex_math_dollars+tex_math_single_backslash
-    embed-resources: true
-  hugo-md:
-    output-file: "index.md"
-    toc: false
-    preserve_yaml: false
-    maths: true
-    variant: -tex_math_dollars+tex_math_double_backslash-yaml_metadata_block-pandoc_title_block
----
+# Constructing Form Elements
 
-```{=markdown}
+
 ---
 title: "Scripted Generation of GIS Data Forms Using PyQGIS"
 description: "Editing a QGIS project without opening QGIS."
@@ -37,8 +18,6 @@ format:
     preserve_yaml: true
     html-math-method: katex
 ---
-```
-
 
 # Introduction
 
@@ -47,18 +26,15 @@ As a kid, you might have taken the challenge of eating chocolate cake without us
 What fun it was.
 I find it a pity that we do not do this any more.
 
-````{=markdown}
 ```{=html}
 <a title="Foto by Wilfried Santer, via Unsplash" href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash"><img width="640" alt="The image of a toddler's face after eating chocolate." src="https://images.unsplash.com/flagged/photo-1557749846-14320a49d3ed?q=80&w=640&auto=format&fit=crop"></a>
 ```
-````
 
-`<figcaption> Photo by <a href="https://unsplash.com/@wsanter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wilfried Santer</a> on <a href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> </figcaption><br>`{=markdown}
-      
+<figcaption> Photo by <a href="https://unsplash.com/@wsanter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wilfried Santer</a> on <a href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> </figcaption><br>
+
 If you still feel brave, consider taking up this challenge again next weekend.
 I would not consider this a totally infantile exercise: is is an exercise in the art of reductionism, experiencing our dependence on the trivial tools which we are so much used to, growing appreciation for everyday actions, gaining a new, yet familiar perspective.
 And, as is the causality of things, you might remember this notebook next time you see chocolate cake.
-
 
 In a way, this tutorial attempts to do something similar to eating cake without using your hands.
 I will demonstrate how to **edit a QGIS project -- without opening QGIS.**
@@ -69,49 +45,39 @@ Yet there are a few FOSS tools which go one step further[^1]: they expose their 
 QGIS has a Python back-end, and exposes it via an internal editor.
 It is worthwile to train using and understanding this feature.
 
-[^1]: "Blender" is another example, where you can even record your actions as a Python script macro, and manipulate commands on the fly.
-
 Prepare to leave the world you know (the QGIS GUI), and enter *The Matrix*.
 
-````{=markdown}
 ```{=html}
 <a title="Jahobr, CC0, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Digital_rain_animation_medium_letters_shine.gif"><img width="512" alt="Digital rain: green letters falling across the screen (The Matrix)." src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Digital_rain_animation_medium_letters_shine.gif?20171014215546"></a>
 ```
-````
-
 
 Because, you know, the immediate utility of this skill is much more obvious than in the cake analogy.
 If you have QGIS under your scripts, you can automate data chains, version control data sources, document changes, dynamically customize elements, and learn about the inner workings of this fabulous, open GIS software program.
 On the way, you will learn about the basic components and elements of QGIS, and GIS in general, and I might sprinkle in a Python trick or two.
 
-
 You will see that scripting QGIS is just a piece of cake.
-Grab a coffee. 
-*Take a cookie… and everything will be right as rain.*
+Grab a coffee.
+*Take a cookie... and everything will be right as rain.*
 And enjoy reading!
-
-
 
 # QGIS Interface and References
 
 Introducing you to QGIS is beyond the scope of this tutorial, since there are excellent sources available online.
 
-- The official documentation: <https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html>
-- General youtube series by "GISWorld": < https://www.youtube.com/playlist?list=PLCxnvDblgXGQHKgnbRTFB6a6AeKqYy9-9>
-- PyQGIS series by "GISWorld": < https://www.youtube.com/playlist?list=PLCxnvDblgXGRzlmmVgAxpTJc60Rklxe8R>
-- PyQGIS "masterclass" tutorial: <https://courses.spatialthoughts.com/pyqgis-masterclass.html>
-- See also `QGISProcess` for R bindings: <https://r-spatial.github.io/qgisprocess>
-
+-   The official documentation: <https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html>
+-   General youtube series by "GISWorld": \< https://www.youtube.com/playlist?list=PLCxnvDblgXGQHKgnbRTFB6a6AeKqYy9-9\>
+-   PyQGIS series by "GISWorld": \< https://www.youtube.com/playlist?list=PLCxnvDblgXGRzlmmVgAxpTJc60Rklxe8R\>
+-   PyQGIS "masterclass" tutorial: <https://courses.spatialthoughts.com/pyqgis-masterclass.html>
+-   See also `QGISProcess` for R bindings: <https://r-spatial.github.io/qgisprocess>
 
 I personally found the trickiest part to be figuring out the QGIS-specific vocabulary.
-If you have a background in geospatial analysis, you might struggle more with the workings of Python. 
+If you have a background in geospatial analysis, you might struggle more with the workings of Python.
 I will attempt to facilitate both.
 
-
-The code below is designed to be standalone, for the sake of this tutorial. 
+The code below is designed to be standalone, for the sake of this tutorial.
 However, whith some minor tweaks, it should also work well in the QGIS Python console.
 
-```{python qgis-library-import}
+``` python
 from qgis.core import *
 from qgis.gui import *
 from qgis.utils import *
@@ -120,13 +86,9 @@ from qgis.PyQt.QtCore import QMetaType, QVariant
 import pathlib as pl
 ```
 
-
-# Constructing Form Elements
-
 The more I think about it, the more I like the chocolate cake analogy.
 Because, you see: just like in the *good* chocolate tarts, a QGIS project consists of many layers which are stapled one above the other.
 We will work our way from the ground up.
-
 
 ## App
 
@@ -136,9 +98,7 @@ For this, there is an app interface: `QgsApplication`.
 This is the base layer, the foundation of the rest of the procedure.
 Code below simply copies the steps shown [in the official docs](https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html#using-pyqgis-in-standalone-scripts).
 
-
-```{python qgis-application}
-
+``` python
 # Supply path to qgis install location
 # QgsApplication.prefixPath()
 QgsApplication.setPrefixPath("/usr/bin/qgis", True)
@@ -149,9 +109,7 @@ app = QgsApplication([], False)
 
 # initialize the QGIS app (load providers)
 app.initQgis()
-
 ```
-
 
 ## Project
 
@@ -159,8 +117,7 @@ Mimicing how you work in the QGIS GUI: once you start the program, you will have
 This is the second layer, and here is how you enter it in PyQGIS.
 Certainly set your project CRS, otherwise all data is flawed and all hope is lost.
 
-
-```{python qgis-project}
+``` python
 project = QgsProject.instance() # taking a new QGIS project instance as our project.
 
 project_crs = QgsCoordinateReferenceSystem.fromEpsgId(31370)
@@ -170,29 +127,24 @@ project.setCrs(project_crs)
 You can associate the project with a file location to store it.
 The Python base library `pathlib` provides some useful tools for file- and path management.
 
-```{python qgis-save-project}
-#| eval: true
+``` python
 project_path: pl._local.PosixPath = pl.Path(project.readPath("./"))
 save_filename = project_path / "test.qgs"
 save_check = project.write(str(save_filename))
-
 ```
-
 
 Below, we will need to clean up, save, and exit our project, which is why I take this along as a function (allowing you to hack in and save intermediate stages).
 
-```{python save-and-exit}
+``` python
 ## clean up, save, and optionally exit
 def SaveAndExitQGIS(quit_app = True):
     save_check = project.write(str(save_filename))
     
     if quit_app:
         app.exitQgis()
-
 ```
 
 But do not run this function yet, just when the fun is about to start.
-
 
 ## Layers
 
@@ -201,44 +153,37 @@ Now up on the way to the cake top cherry, all we need are more and more *layers*
 For example, you might import existing `shp` shapefiles or `geojson` data sources and add them to your project.
 Here is how you would do that:
 
-```{python import-data-layer}
-#| eval: false
-
+``` python
 layer_path: pl._local.PosixPath = project_path / f"geodata/{data_filename}.geojson"
 
 layer: QgsVectorLayer = QgsVectorLayer(path = str(layer_path), baseName = {data_layer_name})
 assert layer.isValid(), "Layer is not valid!" # should be a better check/raise in production
 
 project.addMapLayer(layer) # this will add the layer to the project
-
 ```
-
 
 There [are similar objects and functions](https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/loadlayer.html) to get the different available data sources into QGIS; you find those well documented.
 Make sure to provide a beautiful background map to help yourself and the users of your QGIS project to some basic orientation.
 
-
 Instead, for the purpose of this tutorial, we will create a new layer which will then hold spatial data, and a form to fill for fieldworkers.
-Worth mentioning is the **`provider`**, i.e. the data back-end of your layer.
+Worth mentioning is the **`provider`**, i.e. the data back-end of your layer.
 There are [many options](https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/loadlayer.html#vector-layers), most noteworthy `ogr`, `csv`, or `postgres`.
 In the tutorial case, we will keep the data in `memory` without linking it to an external data storage.
 
-```{python new-vector-layer}
+``` python
 layer_name = "questionnaire"
 layer_provider = "memory"
 layer = QgsVectorLayer("Point", layer_name, layer_provider)
 ```
-    
 
-:::{.callout-note}
-Layers are the central connection between your data storage and the user interface.
-They hold attributes in an attribute table (the data), and control data entry and visualization via their *layer properties*.
-:::
+> **Note**
+>
+> Layers are the central connection between your data storage and the user interface.
+> They hold attributes in an attribute table (the data), and control data entry and visualization via their *layer properties*.
 
-Note that you will not see your layer on the project unless you add it via `project.addMapLayer(layer)`. 
+Note that you will not see your layer on the project unless you add it via `project.addMapLayer(layer)`.
 However, right now, the layer is initialized and empty, and I will add it after finishing all preparation.
 This is a general pattern of how PyQGIS works: you create an object, manipulate/fill/style it, and then associate it to the appropriate structure.
-
 
 ## Attributes, Fields, and Features
 
@@ -252,17 +197,15 @@ Data in the layers is organized in **fields** (columns).
 When you add a row entry to the table, that is called a **feature**.
 If you have a background in geographical sciences and relational databases / SQL, all of these terms will be familiar from different contexts; if not, they might need some getting used to.
 
-
-The primary service of a QGIS project, at least for my purposes, is to collect data in the field. 
+The primary service of a QGIS project, at least for my purposes, is to collect data in the field.
 However, to get to that, it is important to have a meaningful data structure on the back-end.
 **The Attribute Table is exactly that:** a visual display of the data table which stores your data.
-Thus, the first thing we need to do is get all the relevant fields (i.e. columns) to the attribute table (assuming they are not previously loaded from an external source).
-
+Thus, the first thing we need to do is get all the relevant fields (i.e. columns) to the attribute table (assuming they are not previously loaded from an external source).
 
 On the Python side, we want to access the `dataProvider` of the layer, which you can access by calling the `.dataProvider()` function of the layer class.
 Through that data provider, we can add the fields we would fill in later.
 
-```{python layer-data}
+``` python
 data_provider = layer.dataProvider()
 
 data_provider.addAttributes([ \
@@ -281,18 +224,15 @@ field_index_lookup = lambda field_label: layer.fields().indexFromName(field_labe
 
 The `addAttributes()` function takes a list of `QgsField` elements, which you could as well predefine.
 You see that here I initialized three question fields: a Boolean, an Integer, a String variable.
-Those data types come directly [from the Qt back-end](https://doc.qt.io/qt-6/qmetatype.html#Type-enum), i.e. the part that contributes the Q to QGIS. 
+Those data types come directly [from the Qt back-end](https://doc.qt.io/qt-6/qmetatype.html#Type-enum), i.e. the part that contributes the Q to QGIS.
 You may think of Qt as a layer even below the `app`.
 Yet except when searching data types and basic GUI elements, you rarely have to dig this deep.
 
-
-Finally, the convenience function I defined there will help us finding the internal index for any field we want to access below. 
+Finally, the convenience function I defined there will help us finding the internal index for any field we want to access below.
 It should be updated each time the fields of a layer are updated.
-
 
 So far, so good:
 if you run all the above code, you should have a QGIS project with a point vector layer and an attribute table prepared, though no form yet.
-
 
 ## Forms, Containers, and Widgets
 
@@ -303,34 +243,27 @@ One of the strengths of the QGIS interface is that you can design dynamic forms 
 Programmatically constructing such a form in a Python script is a blast, once you get the components right.
 We will start simple, then generalize.
 
-
-Whereas the `layer.dataProvider()` was the "back-end", i.e. the path to the attribute table,
+Whereas the `layer.dataProvider()` was the "back-end", i.e. the path to the attribute table,
 there is also the `layer.editFormConfig()` to configure the "front-end" to the user.
-In the GUI, you can find this in the "Layer (*right-click*) >> Properties", under **"Attributes Form"**.
+In the GUI, you can find this in the "Layer (*right-click*) \>\> Properties", under **"Attributes Form"**.
 Some extra options are visible in that GUI if you select "Drag and Drop Designer" layout.
 The consistent integration of the Python back-end requires exactly the same steps, including selection of drag-and-drop layout.
 
-
-```{python form-config}
+``` python
 form_config = layer.editFormConfig() # accessing the form configurator
 form_config.setLayout(Qgis.AttributeFormLayout(1)) # drag&drop layout
-
 ```
 
 To be flexible within this notebook, I find it useful to append the `SaveAndExit()` function above at this point.
 
-
-```{python save-and-exit-form}
+``` python
 ## clean up, save, and optionally exit
 def LayerSaveAndExitQGIS(quit_app = True):
     layer.setEditFormConfig(form_config)
     layer.updateFields()
     project.addMapLayer(layer)
     SaveAndExitQGIS(quit_app = quit_app)
-
-
 ```
-
 
 ### Root Container
 
@@ -338,7 +271,7 @@ The first item present in any form configurator is the *root container*.
 As the name suggests, it is at the root of each form, and we will place our widgets in a structured manner underneath that container.
 First thing to do is to clear it, to start constructing a fresh form.
 
-```{python root-container}
+``` python
 root_container = form_config.invisibleRootContainer() 
 root_container.clear()
 ```
@@ -347,13 +280,11 @@ Containers are one type of widget: they can be used to visually group other widg
 The root container is "invisible" in a sense that it does not have a label on top, and cannot be folded; yet it is "always visible" in a sense that it is the very root of your form structure.
 This terminology is typical Qt and OOP GUI design heritage.
 
-
 ### Text Widget
 
 Time to add our **first widget**: a simple text!
 
-```{python text-widget-creation}
-
+``` python
 question_text = """
 You take the blue pill... the story ends, you wake up in your bed and believe whatever you want to believe. You take the red pill... you stay in Wonderland, and I show you how deep the rabbit hole goes. 
 Will you take the *red* pill?
@@ -361,19 +292,17 @@ Will you take the *red* pill?
 form_qn_text = QgsAttributeEditorTextElement(name = "Question 1", parent = root_container)
 form_qn_text.setText(question_text)
 root_container.addChildElement(form_qn_text)
-
 ```
 
-That was too simple. 
+That was too simple.
 Not really a challenge.
 But, of course, text alone does not do much: we would like to interact with data.
-
 
 ### Field Widget
 
 Therefore, we need a `QgsAttributeEditorField` (*read*: a "Field" in the "QgsAttributeEditor"), which specifically links to the fields above.
 
-```{python field-widget-creation}
+``` python
 # terminology: we seek an answer, not a question.
 this_field_label = "Answer 1"
 
@@ -388,18 +317,15 @@ checkbox_widget = QgsEditorWidgetSetup( \
 
 # set up the field so that it will be set by the checkbox
 layer.setEditorWidgetSetup(field_index_lookup(this_field_label), checkbox_widget)
-
 ```
 
-
-Carefully observe the way PyQGIS works: 
+Carefully observe the way PyQGIS works:
 we have associated a data field with a checkbox.
 This actually brings a checkbox to the **Attribute Table** editor of the layer.
 We have not yet configured our form, or attached a checkbox to the form config's root container.
 This is done as follows:
 
-
-```{python add-form-element}
+``` python
 # Note: the `name` must be equal to the field label
 form_element = QgsAttributeEditorField( \
             name = this_field_label, \
@@ -412,9 +338,7 @@ root_container.addChildElement(form_element)
 
 # style options: putting the field label on top (True) or on the left (False) of the form element
 form_config.setLabelOnTop(field_index_lookup(this_field_label), False)
-
 ```
-
 
 ## More Widgets
 
@@ -425,16 +349,16 @@ But, hey, I am not Morpheus, and this is just QGIS.
 However, your may as a homework edit the widget above to make it a dropdown.
 Solution hint is folded below.
 
-```{python value-map-widget}
-#| eval: false
-#| code-fold: true
+<details class="code-fold">
+<summary>Code</summary>
 
+``` python
 dropdown_widget = QgsEditorWidgetSetup(
         'ValueMap', {"map": {"Red": True, "Blue": False}}
         )
-
 ```
 
+</details>
 
 QGIS has many more widget options, which are controlled from the *attribute editor*.
 
@@ -444,9 +368,7 @@ In terms of widgets for the Field elements, there a multitude of customization o
 If you have a widget in mind, and would like to create it in python, [the following code](https://gis.stackexchange.com/a/346374) can be used to extract widget configurations from the QGIS Python console.
 Create a layer with a layer name of choice, manually create and configure a widget in the Drag and Drop Layout designer, and track it in the console with the following code:
 
-```{python widget-config-extraction}
-#| eval: false
-
+``` python
 # layer = QgsProject.instance().mapLayersByName("questionnaire")[0]
 ews = layer.editorWidgetSetup(layer.fields().indexFromName("Answer 1"))
 print("Type:", ews.type())
@@ -455,40 +377,35 @@ print("Config:", ews.config())
 
 I found this immensely helpful to find my way around.
 
-
 ### Recap
+
 At this stage, we have a already encountered quite a lot of QGIS jargon: layers, attributes (fields and features), the data provider, the form configurator, form elements, widgets, a root container.
 Look at our depressingly simple form.
 
 ![](images/fig1_simpleform.jpg)
-`<figcaption>A first form widget. The red circle indicates the toolbar used for editing a layer, and adding features, which is what opens the form.</figcaption><br>`{=markdown}
-
+<figcaption>A first form widget. The red circle indicates the toolbar used for editing a layer, and adding features, which is what opens the form.</figcaption><br>
 
 # Generalization
 
-Acknowledged: we constructed a very simple, but already fully layered chocolate cake. 
+Acknowledged: we constructed a very simple, but already fully layered chocolate cake.
 (And you might have the feeling by now that I keep promising too much cake.)
 So, how about if I tell you that, instead of a single cake, you can create an entire bakery?
 
 Because, after all, this is Python!
 
-
 ## Functions
 
-For example, we saw somewhat cumbersome code for creating that text element above. 
+For example, we saw somewhat cumbersome code for creating that text element above.
 Let's turn it into a function.
 
-```{python form-text-function}
-
+``` python
 def AddInfoText(question_text, label = "", parent = root_container):
     text_element = QgsAttributeEditorTextElement(name = label, parent = parent)
     text_element.setText(question_text)
     parent.addChildElement(text_element)
-
 ```
 
 Using a loop, you could spam out lines of form text with this function.
-
 
 ## Classes
 
@@ -496,8 +413,7 @@ Another helpful thing is automating the field element widget creation with a ded
 Or a set of functions.
 Or... How about... An **Object-Oriented Approach**?
 
-```{python form-widget-object}
-
+``` python
 # define a FieldWidget class, 
 # which assembles all the actions necessary to create a form element, set a widget, 
 # and add everything to the form.
@@ -541,29 +457,22 @@ class FieldWidget(object):
         # functions with double underscores are Python "magic functions": 
         # this one defines how an object of this class is printed.
         return f"A form field widget labeled {self.label}, stored under {self.parent}."
-
-
 ```
-
 
 This can be used to quickly add Answer 2 to the form.
 But maybe those should not be visible from the start.
 
 To control visibility, containers can help!
 
-
 ## Containers
 
 The goal is to display `Answer 2A` and `Answer 2B`, depending on the choice in `Answer 1`.
 In real life examples, there are many more questions and answers, and you might not want to show them at the same time (I envision huge, dynamic trees of forms evolving, now you know how to dynamically program them).
 
-
 Do not Repeat Yourself: two answers, two containers, this calls for a function.
-Something new on the way: you can control container visibility with an SQL condition (i.e. an expression which returns TRUE or FALSE).
+Something new on the way: you can control container visibility with an SQL condition (i.e. an expression which returns TRUE or FALSE).
 
-
-```{python container-function}
-
+``` python
 def CreateContainer(label, parent = root_container, visibility_condition = None):
     # create a container, optionally controlling visibility with an expression
     
@@ -580,18 +489,16 @@ def CreateContainer(label, parent = root_container, visibility_condition = None)
 
 I get why you might find the above expressions extra confusing: we effectively use
 `.setVisibilityExpression(QgsOptionalExpression(QgsExpression(expression)))`.
-Express yourself! 
+Express yourself!
 And accept the strange beauty of an organically grown object-oriented construct.
 
 In practice, you deal with this sort of things by defining your own wrapper classes and functions.
-
 
 ## Application: Question 2
 
 We still need widgets to decide how the user is supposed to answer our questions, don't we?
 
-```{python question-2-widgets}
-
+``` python
 question_widgets = {}
 
 # The String field can be entered by a free edit field.
@@ -625,14 +532,11 @@ question_widgets["Answer 2B"] = QgsEditorWidgetSetup( \
                 'I have never seen any!': 0 \
             }} \
         )
-
 ```
 
+Behold how this can quickly create a slightly more involved and dynamic form.
 
-Behold how this can quickly create a slightly more involved and dynamic form. 
-
-
-```{python question-2-scripted}
+``` python
 questions = {
     "Answer 2A": "When was the date that you first saw The Matrix?", \
     "Answer 2B": "Which of the Matrix movies is the best?", \
@@ -649,15 +553,12 @@ for answer, question in questions.items():
     widget = FieldWidget(answer, container, widget = question_widgets[answer])
 
     root_container.addChildElement(container)
-
 ```
-
 
 I hope you see how this scales.
 The functions and objects give dedicated structure to the otherwise cryptic objects in PyQGIS, redundancies are reduced, which facilitates debugging.
 
 Still, things can go wrong.
-
 
 ## Braking Vases
 
@@ -666,22 +567,19 @@ Some basic helpers in Python are `print(dir(<some object>))` and `help(<some fun
 
 But why should it not work as intended, eh?
 
-
 Ah, and never mind shutting down the QGIS app.
-```{python finalize-qgis}
+
+``` python
 LayerSaveAndExitQGIS()
 ```
 
-
-> *Oh… What’s really going to bake your noodle later on is, would you still have broken it if I hadn’t said anything.*
-
+> *Oh... What's really going to bake your noodle later on is, would you still have broken it if I hadn't said anything.*
 
 # Summary
 
 Congratulations!
 This may have been your first steps to the QGIS Python console.
 Maybe your first steps in Python at all.
-
 
 I hope to have given you some directions of how to auto-construct custom forms with PyQGIS.
 If you have a meaningful way to store your questionnaires, determination keys, and field data assembly structures, take it from here and bring them to QGIS.
@@ -692,9 +590,7 @@ And you could spin up a [QFieldCloud](https://qfield.cloud) for sync or a custom
 Finally, [QField](https://qfield.org) is an outstandig app, a highly optimized mobile phone interface to your QGIS projects.
 All of these are part of the "QGIS Matrix", and in this tutorial you got introduced to its Python foundation.
 
-
 As always, questions and feedback are welcome!
-
 
 # Versions
 
@@ -702,9 +598,10 @@ The following software versions were used at the time of writing:
 <!-- 
 pacman -Qv python qgis qt5-base python-pyqt5
 -->
-```
-python 3.13.2-1
-qgis 3.42.1-2
-qt5-base 5.15.16+kde+r130-4
-python-pyqt5 5.15.11-2
-```
+
+    python 3.13.2-1
+    qgis 3.42.1-2
+    qt5-base 5.15.16+kde+r130-4
+    python-pyqt5 5.15.11-2
+
+[^1]: "Blender" is another example, where you can even record your actions as a Python script macro, and manipulate commands on the fly.
