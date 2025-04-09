@@ -3,7 +3,7 @@ title: "Scripted Generation of GIS Data Forms Using PyQGIS"
 description: "Editing a QGIS project without opening QGIS."
 date: "2025-04-09"
 authors: [falkmielke]
-categories: ["gis", "python", "development"]
+categories: ["gis", "development", "python"]
 tags: ["python", "spatial", "gis", "qgis", "forms", "fieldwork"]
 number-sections: true
 link-citations: true
@@ -23,9 +23,7 @@ As a kid, you might have taken the challenge of eating chocolate cake without us
 What fun it was.
 I find it a pity that we do not do this any more.
 
-```{=html}
-<a title="Foto by Wilfried Santer, via Unsplash" href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash"><img width="640" alt="The image of a toddler's face after eating chocolate." src="https://images.unsplash.com/flagged/photo-1557749846-14320a49d3ed?q=80&w=640&auto=format&fit=crop"></a>
-```
+![The image of a toddler's face after eating chocolate.]("https://images.unsplash.com/flagged/photo-1557749846-14320a49d3ed?q=80&w=640&auto=format&fit=crop" "Foto by Wilfried Santer, via Unsplash")
 
 <figcaption> Photo by <a href="https://unsplash.com/@wsanter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wilfried Santer</a> on <a href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> </figcaption><br>
 
