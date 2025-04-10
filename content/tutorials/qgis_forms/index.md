@@ -20,23 +20,23 @@ format:
 
 Life was good before we were exposed to its real challenges, wasn't it?
 As a kid, you might have taken the challenge of eating chocolate cake without using your hands.
-What fun it was.
-I find it a pity that we do not do this any more.
+What fun that was.
+I find it a pity that we "grown-ups" do not do this any more.
 
 ![The image of a toddler's face after eating chocolate.](https://images.unsplash.com/flagged/photo-1557749846-14320a49d3ed?q=80&w=640&auto=format&fit=crop "Foto by Wilfried Santer, via Unsplash")
 
 <figcaption> Photo by <a href="https://unsplash.com/@wsanter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wilfried Santer</a> on <a href="https://unsplash.com/photos/toddlers-face-mWpXom9Ry1s?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> </figcaption><br>
 
-If you still feel brave, consider taking up this challenge again next weekend.
+If you still feel brave, how about taking that challenge up again next weekend?
 I would not consider this a totally infantile exercise: is is an exercise in the art of reductionism, experiencing our dependence on the trivial tools which we are so much used to, growing appreciation for everyday actions, gaining a new, yet familiar perspective.
 And, as is the causality of things, you might remember this notebook next time you see chocolate cake.
 
 In a way, this tutorial attempts to do something similar to eating cake without using your hands.
-I will demonstrate how to **edit a QGIS project -- without opening QGIS.**
+I will demonstrate how to **edit a QGIS project -- without opening QGIS**, with a particular focus on creating dynamic forms.
 
-Please do not get me wrong: QGIS is an outstanding software tool by itself.
+Please do not get this wrong: QGIS is an outstanding software tool by itself.
 The interface is simple and intuitive, yet gives you powerful options to manipulate spatial data from a variety of sources.
-Yet there are a few FOSS tools which go one step further[^1]: they expose their inner workings by enabling scripting in a programming language.
+There are a few FOSS tools which go a step further than the norm[^1]: they expose their inner workings by enabling scripting in a programming language.
 QGIS has a Python back-end, and exposes it via an internal editor.
 It is worthwile to train using and understanding this feature.
 
@@ -45,7 +45,11 @@ Prepare to leave the world you know (the QGIS GUI), and enter *The Matrix*.
 [![Digital rain: green letters falling across the screen (The Matrix).](https://upload.wikimedia.org/wikipedia/commons/c/cc/Digital_rain_animation_medium_letters_shine.gif?20171014215546 "Jahobr, CC0, via Wikimedia Commons")](https://commons.wikimedia.org/wiki/File:Digital_rain_animation_medium_letters_shine.gif)
 
 Because, you know, the immediate utility of this skill is much more obvious than in the cake analogy.
+
+{{% callout emphasize %}}
 If you have QGIS under your scripts, you can automate data chains, version control data sources, document changes, dynamically customize elements, and learn about the inner workings of this fabulous, open GIS software program.
+{{% /callout %}}
+
 On the way, you will learn about the basic components and elements of QGIS, and GIS in general, and I might sprinkle in a Python trick or two.
 
 You will see that scripting QGIS is just a piece of cake.
@@ -55,7 +59,7 @@ And enjoy reading!
 
 # QGIS Interface and References
 
-Introducing you to QGIS is beyond the scope of this tutorial, since there are excellent sources available online.
+Introducing QGIS from the beginning is beyond the scope of this tutorial, but there are excellent sources available online.
 
 -   The official documentation: <https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html>
 -   General youtube series by "GISWorld": \< https://www.youtube.com/playlist?list=PLCxnvDblgXGQHKgnbRTFB6a6AeKqYy9-9\>
@@ -64,7 +68,7 @@ Introducing you to QGIS is beyond the scope of this tutorial, since there are ex
 -   See also `QGISProcess` for R bindings: <https://r-spatial.github.io/qgisprocess>
 
 I personally found the trickiest part to be figuring out the QGIS-specific vocabulary.
-If you have a background in geospatial analysis, you might struggle more with the workings of Python.
+If you have a background in geospatial analysis, but did not use Python before, you might struggle more with the workings of that programming language.
 I will attempt to facilitate both.
 
 The code below is designed to be standalone, for the sake of this tutorial.
@@ -116,6 +120,7 @@ Certainly set your project CRS, otherwise all data is flawed and all hope is los
 ``` python
 project = QgsProject.instance() # taking a new QGIS project instance as our project.
 
+# at INBO we usually turn to EPSG:31370 BD72 / Belgian Lambert 72
 project_crs = QgsCoordinateReferenceSystem.fromEpsgId(31370)
 project.setCrs(project_crs)
 ```
@@ -137,6 +142,7 @@ def SaveAndExitQGIS(quit_app = True):
     save_check = project.write(str(save_filename))
     
     if quit_app:
+        # you could skip app exiting to just save intermediate states
         app.exitQgis()
 ```
 
@@ -172,21 +178,21 @@ layer_provider = "memory"
 layer = QgsVectorLayer("Point", layer_name, layer_provider)
 ```
 
-> **Note**
->
-> Layers are the central connection between your data storage and the user interface.
-> They hold attributes in an attribute table (the data), and control data entry and visualization via their *layer properties*.
+{{% callout note %}}
+Layers are the central connection between your data storage and the user interface.
+They hold attributes in an attribute table (the data), and control data entry and visualization via their *layer properties*.
+{{% /callout %}}
 
-Note that you will not see your layer on the project unless you add it via `project.addMapLayer(layer)`.
+You will not see your layer on the project unless you add it via `project.addMapLayer(layer)`.
 However, right now, the layer is initialized and empty, and I will add it after finishing all preparation.
-This is a general pattern of how PyQGIS works: you create an object, manipulate/fill/style it, and then associate it to the appropriate structure.
+This is a general pattern of how PyQGIS works: you create an object, manipulate/fill/style it, and then associate it to the appropriate upstream structure.
 
 ## Attributes, Fields, and Features
 
 One of the first things to check on your layers is the **attribute table**.
 
 <!--
-TODO: screenshot
+OPTIONAL: screenshot? -> I do not have a nicely filled one yet.
 -->
 
 Data in the layers is organized in **fields** (columns).
@@ -198,7 +204,7 @@ However, to get to that, it is important to have a meaningful data structure on 
 **The Attribute Table is exactly that:** a visual display of the data table which stores your data.
 Thus, the first thing we need to do is get all the relevant fields (i.e. columns) to the attribute table (assuming they are not previously loaded from an external source).
 
-On the Python side, we want to access the `dataProvider` of the layer, which you can access by calling the `.dataProvider()` function of the layer class.
+On the Python side, we want to access the `dataProvider` of the layer, which you can access by calling the `.dataProvider()` function (or "method") of the layer class.
 Through that data provider, we can add the fields we would fill in later.
 
 ``` python
@@ -218,19 +224,21 @@ layer.updateFields()  # feed changes on the vector layer to the datasource
 field_index_lookup = lambda field_label: layer.fields().indexFromName(field_label)
 ```
 
-The `addAttributes()` function takes a list of `QgsField` elements, which you could as well predefine.
+The `addAttributes()` function takes a list of `QgsField` elements, which you could as well predefine outside the project context.
 You see that here I initialized three question fields: a Boolean, an Integer, a String variable.
 Those data types come directly [from the Qt back-end](https://doc.qt.io/qt-6/qmetatype.html#Type-enum), i.e. the part that contributes the Q to QGIS.
 You may think of Qt as a layer even below the `app`.
 Yet except when searching data types and basic GUI elements, you rarely have to dig this deep.
 
 Finally, the convenience function I defined there will help us finding the internal index for any field we want to access below.
-It should be updated each time the fields of a layer are updated.
+It should be updated each time the fields of a layer change in any way.
 
 So far, so good:
 if you run all the above code, you should have a QGIS project with a point vector layer and an attribute table prepared, though no form yet.
 
 ## Forms, Containers, and Widgets
+
+(There is a [basic lesson about forms](https://docs.qgis.org/3.40/en/docs/training_manual/create_vector_data/forms.html) in the QGIS documentation; yet of course we will not open QGIS.)
 
 ### Form Configurator
 
@@ -307,7 +315,7 @@ checkbox_widget = QgsEditorWidgetSetup( \
     'CheckBox', { \
         'AllowNullState': True, \
         'CheckedState': 'red', \
-        'TextDisplayMethod': 1, \
+        'TextDisplayMethod': 0, \
         'UncheckedState': 'blue' \
     })
 
@@ -322,7 +330,7 @@ We have not yet configured our form, or attached a checkbox to the form config's
 This is done as follows:
 
 ``` python
-# Note: the `name` must be equal to the field label
+# IMPORTANT: the `name` must be equal to the field label, and the index must match
 form_element = QgsAttributeEditorField( \
             name = this_field_label, \
             idx = field_index_lookup(this_field_label), \
@@ -375,8 +383,11 @@ I found this immensely helpful to find my way around.
 
 ### Recap
 
+{{% callout note %}}
 At this stage, we have a already encountered quite a lot of QGIS jargon: layers, attributes (fields and features), the data provider, the form configurator, form elements, widgets, a root container.
-Look at our depressingly simple form.
+{{% /callout %}}
+
+But look at our depressingly simple form.
 
 <figure>
 <img src="../../images/tutorials/qgis_forms/fig1_simpleform.jpg" alt="A simple QGIS form." />
@@ -385,10 +396,14 @@ A first form widget. The red circle indicates the toolbar used for editing a lay
 </figcaption>
 </figure>
 
+QGIS offers a feature to load `.ui` files which store forms for re-use.
+However, this leaves the problem of changing dependencies and non-continuous integration.
+Therefore, in this tutorial, we will follow a different path to scale our user interface.
+
 # Generalization
 
 Acknowledged: we constructed a very simple, but already fully layered chocolate cake.
-(And you might have the feeling by now that I keep promising too much cake.)
+(Tasty, but you might have the feeling by now that I keep promising too much cake.)
 So, how about if I tell you that, instead of a single cake, you can create an entire bakery?
 
 Because, after all, this is Python!
@@ -459,7 +474,7 @@ class FieldWidget(object):
         return f"A form field widget labeled {self.label}, stored under {self.parent}."
 ```
 
-This can be used to quickly add Answer 2 to the form.
+This can be used to quickly add Answer 2 to the form (patience, please, we will get to that).
 But maybe those should not be visible from the start.
 
 To control visibility, containers can help!
@@ -492,11 +507,12 @@ I get why you might find the above expressions extra confusing: we effectively u
 Express yourself!
 And accept the strange beauty of an organically grown object-oriented construct.
 
-In practice, you deal with this sort of things by defining your own wrapper classes and functions.
+In practice, you deal with this sort of things by defining your own wrapper classes and functions with a simple name that you find meaningful.
 
 ## Application: Question 2
 
 We still need widgets to decide how the user is supposed to answer our questions, don't we?
+Here some examples.
 
 ``` python
 question_widgets = {}
@@ -534,24 +550,30 @@ question_widgets["Answer 2B"] = QgsEditorWidgetSetup( \
         )
 ```
 
-Behold how this can quickly create a slightly more involved and dynamic form.
+Behold how these ingredients can quickly be baked into a slightly more involved and dynamic form cake.
 
 ``` python
+# define your questions and answers
 questions = {
     "Answer 2A": "When was the date that you first saw The Matrix?", \
     "Answer 2B": "Which of the Matrix movies is the best?", \
 }
+
 for answer, question in questions.items():
+    # create one container per question
     container = CreateContainer(
         label = answer.replace("Answer", "Block"), 
         parent = root_container,
         visibility_condition = "\"Answer 1\" = " + ("TRUE" if "2A" in answer else "FALSE")
     )
 
+    # add the question text
     AddInfoText(question, label = answer.replace("Answer", "Question"), parent = container)
 
+    # ... followed by the form widget
     widget = FieldWidget(answer, container, widget = question_widgets[answer])
 
+    # finally, append the container (with the text and form widget) to the root.
     root_container.addChildElement(container)
 ```
 
@@ -567,7 +589,7 @@ The functions and objects give dedicated structure to the otherwise cryptic obje
 
 Still, things can go wrong.
 
-## Braking Vases
+## Breaking Vases
 
 Whenever PyQGIS does not work as intended, fire up QGIS, run the Python console, and paste in some of your commands to check on the fly whether they do what they are supposed to do.
 Some basic helpers in Python are `print(dir(<some object>))` and `help(<some function>)`, and those work just as well within QGIS.
@@ -588,14 +610,14 @@ Congratulations!
 This may have been your first steps to the QGIS Python console.
 Maybe your first steps in Python at all.
 
-I hope to have given you some directions of how to auto-construct custom forms with PyQGIS.
+I hope to have given you some directions of how to bake custom forms with PyQGIS.
 If you have a meaningful way to store your questionnaires, determination keys, and field data assembly structures, take it from here and bring them to QGIS.
 I mentioned the advantages above.
 
-You might use R to handle your GIS data, and only use Python for parsing it to QGIS.
+Or you might use R to handle your GIS data, and only use Python for parsing it to QGIS.
 And you could spin up a [QFieldCloud](https://qfield.cloud) for sync or a custom [PostGIS server](https://docs.qgis.org/3.40/en/docs/training_manual/spatial_databases/spatial_functions.html) as a data source.
 Finally, [QField](https://qfield.org) is an outstandig app, a highly optimized mobile phone interface to your QGIS projects.
-All of these are part of the "QGIS Matrix", and in this tutorial you got introduced to its Python foundation.
+All of these are part of the "QGIS Matrix", and this tutorial introduced the strange Python objects which turn all of the bits and bytes to something you can make sense of.
 
 As always, questions and feedback are welcome!
 
@@ -611,4 +633,4 @@ pacman -Qv python qgis qt5-base python-pyqt5
     qt5-base 5.15.16+kde+r130-4
     python-pyqt5 5.15.11-2
 
-[^1]: "Blender" is another example, where you can even record your actions as a Python script macro, and manipulate commands on the fly.
+[^1]: "[Blender](https://www.blender.org)" is another example, where you can even record your actions as a Python script macro, and manipulate commands on the fly; I also saw a Python console in [Gimp](https://www.gimp.org). Which is excellent.
