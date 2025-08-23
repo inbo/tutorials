@@ -1,0 +1,141 @@
+[
+	{
+		"id": "robertson2013",
+		"type": "article-journal",
+		"abstract": "Summary\n            \n              \n              To design an efficient survey or monitoring program for a natural resource it is important to consider the spatial distribution of the resource. Generally, sample designs that are spatially balanced are more efficient than designs which are not. A spatially balanced design selects a sample that is evenly distributed over the extent of the resource. In this article we present a new spatially balanced design that can be used to select a sample from discrete and continuous populations in multi‐dimensional space. The design, which we call balanced acceptance sampling, utilizes the Halton sequence to assure spatial diversity of selected locations. Targeted inclusion probabilities are achieved by acceptance sampling. The BAS design is conceptually simpler than competing spatially balanced designs, executes faster, and achieves better spatial balance as measured by a number of quantities. The algorithm has been programed in an R package freely available for download.",
+		"container-title": "Biometrics",
+		"DOI": "10.1111/biom.12059",
+		"ISSN": "0006-341X, 1541-0420",
+		"issue": "3",
+		"journalAbbreviation": "Biometrics",
+		"language": "en",
+		"license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+		"page": "776-784",
+		"source": "DOI.org (Crossref)",
+		"title": "BAS: Balanced Acceptance Sampling of Natural Resources",
+		"title-short": "BAS",
+		"URL": "https://academic.oup.com/biometrics/article/69/3/776-784/7492439",
+		"volume": "69",
+		"author": [
+			{
+				"family": "Robertson",
+				"given": "B. L."
+			},
+			{
+				"family": "Brown",
+				"given": "J. A."
+			},
+			{
+				"family": "McDonald",
+				"given": "T."
+			},
+			{
+				"family": "Jaksons",
+				"given": "P."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					8,
+					27
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2013",
+					9
+				]
+			]
+		}
+	},
+	{
+		"id": "stevens2004",
+		"type": "article-journal",
+		"container-title": "Journal of the American Statistical Association",
+		"DOI": "10.1198/016214504000000250",
+		"ISSN": "0162-1459, 1537-274X",
+		"issue": "465",
+		"journalAbbreviation": "Journal of the American Statistical Association",
+		"language": "en",
+		"page": "262-278",
+		"source": "DOI.org (Crossref)",
+		"title": "Spatially Balanced Sampling of Natural Resources",
+		"URL": "http://www.tandfonline.com/doi/abs/10.1198/016214504000000250",
+		"volume": "99",
+		"author": [
+			{
+				"family": "Stevens",
+				"given": "Don L"
+			},
+			{
+				"family": "Olsen",
+				"given": "Anthony R"
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2024",
+					8,
+					27
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2004",
+					3
+				]
+			]
+		}
+	},
+	{
+		"id": "stevens2003",
+		"type": "article-journal",
+		"abstract": "Abstract\n            The spatial distribution of a natural resource is an important consideration in designing an efficient survey or monitoring program for the resource. We review a unified strategy for designing probability samples of discrete, finite resource populations, such as lakes within some geographical region; linear populations, such as a stream network in a drainage basin, and continuous, two‐dimensional populations, such as forests. The strategy can be viewed as a generalization of spatial stratification. In this article, we develop a local neighborhood variance estimator based on that perspective, and examine its behavior via simulation. The simulations indicate that the local neighborhood estimator is unbiased and stable. The Horvitz–Thompson variance estimator based on assuming independent random sampling (IRS) may be two times the magnitude of the local neighborhood estimate. An example using data from a generalized random‐tessellation stratified design on the Oahe Reservoir resulted in local variance estimates being 22 to 58 percent smaller than Horvitz–Thompson IRS variance estimates. Variables with stronger spatial patterns had greater reductions in variance, as expected. Copyright © 2003 John Wiley & Sons, Ltd.",
+		"container-title": "Environmetrics",
+		"DOI": "10.1002/env.606",
+		"ISSN": "1180-4009, 1099-095X",
+		"issue": "6",
+		"journalAbbreviation": "Environmetrics",
+		"language": "en",
+		"license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+		"page": "593-610",
+		"source": "DOI.org (Crossref)",
+		"title": "Variance estimation for spatially balanced samples of environmental resources",
+		"URL": "https://onlinelibrary.wiley.com/doi/10.1002/env.606",
+		"volume": "14",
+		"author": [
+			{
+				"family": "Stevens",
+				"given": "Don L."
+			},
+			{
+				"family": "Olsen",
+				"given": "Anthony R."
+			}
+		],
+		"accessed": {
+			"date-parts": [
+				[
+					"2025",
+					8,
+					23
+				]
+			]
+		},
+		"issued": {
+			"date-parts": [
+				[
+					"2003",
+					9
+				]
+			]
+		}
+	}
+]
