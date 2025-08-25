@@ -1,3 +1,5 @@
+
+
 ---
 title: "Mathematical Transformations of Spatially Balanced Samples"
 description: "Channeling chaos into balanced, random point density distributions."
@@ -270,10 +272,9 @@ as_tibble(coords) %>%
 | 0.0270 | 0.3548 |
 
 Because, to be honest, I have tricked you from the beginning:
-The unit square was not a unit square in Cartesian space, but is a unit square in Polar coordinates.
+The unit square was not a unit square in Cartesian space, but is a **unit square in Polar coordinates**.
 
-If you are afraid of polar coordinates, fret not.
-Next thing we will do is transform them back to our well-known `x` and `y`.
+If you are afraid of polar coordinates, fret not, because the next thing we will do is to transform them back to our well-known `x` and `y`.
 Though, one more thing: To be able to do more stretching and bending below, we will also prepare a tiny "transformation" algorithm (`apply_trafo`).
 No worries about that either: we start with the "identity" transform [^2], and later try our more (or less) crazy stuff.
 
@@ -462,10 +463,28 @@ trial(function(x) tan(x))
 <img src="index.markdown_strict_files/figure-markdown_strict/tan-pattern-1.png" width="768" />
 
 ``` r
-trial(function(x) exp(x^2)-1)
+trial(function(x) exp(x^2))
 ```
 
 <img src="index.markdown_strict_files/figure-markdown_strict/square-exponential-1.png" width="768" />
+
+Oh... Wait...
+What happened here?
+
+Ah, yes!
+
+{{% callout note %}}
+
+In the present implementation, transformation functions best transform to an interval which starts at zero, and goes positive.
+For example, the exponential function can be shifted down by one.
+
+{{% /callout %}}
+
+``` r
+trial(function(x) exp(x^2)-1)
+```
+
+<img src="index.markdown_strict_files/figure-markdown_strict/square-exponential-minus-one-1.png" width="768" />
 
 You could move more density to the borders, giving bowl-shaped (marginal) distributions.
 
@@ -477,7 +496,7 @@ trial( function(x) atan(4*x) )
 
 {{% callout note %}}
 
-Note that I transformed `r` and `phi` independently; in fact, I mostly just experimented with the distance.
+Note that I herein transformed `r` and `phi` independently; in fact, I mostly just experimented with the distance.
 The real fun stuff happens when transformation contains a combination of both (for example, as [this post implies](https://math.stackexchange.com/questions/2124869/converting-a-uniform-distribution-variable-to-a-normal-distribution-one), you could transform into a Gaussian).
 
 {{% /callout %}}

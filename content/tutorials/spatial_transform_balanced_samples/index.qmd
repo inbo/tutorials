@@ -306,10 +306,9 @@ as_tibble(coords) %>%
 ```
 
 Because, to be honest, I have tricked you from the beginning: 
-The unit square was not a unit square in Cartesian space, but is a unit square in Polar coordinates.
+The unit square was not a unit square in Cartesian space, but is a **unit square in Polar coordinates**.
 
-If you are afraid of polar coordinates, fret not.
-Next thing we will do is transform them back to our well-known `x` and `y`.
+If you are afraid of polar coordinates, fret not, because the next thing we will do is to transform them back to our well-known `x` and `y`.
 Though, one more thing: To be able to do more stretching and bending below, we will also prepare a tiny "transformation" algorithm (`apply_trafo`).
 No worries about that either: we start with the "identity" transform [^2], and later try our more (or less) crazy stuff.
 
@@ -509,6 +508,24 @@ trial(function(x) tan(x))
 
 
 ```{r square-exponential}
+trial(function(x) exp(x^2))
+```
+
+Oh... Wait... 
+What happened here?
+
+Ah, yes!
+
+```{=markdown}
+{{% callout note %}}
+```
+In the present implementation, transformation functions best transform to an interval which starts at zero, and goes positive.
+For example, the exponential function can be shifted down by one.
+```{=markdown}
+{{% /callout %}}
+```
+
+```{r square-exponential-minus-one}
 trial(function(x) exp(x^2)-1)
 ```
 
@@ -523,7 +540,7 @@ trial( function(x) atan(4*x) )
 ```{=markdown}
 {{% callout note %}}
 ```
-Note that I transformed `r` and `phi` independently; in fact, I mostly just experimented with the distance. 
+Note that I herein transformed `r` and `phi` independently; in fact, I mostly just experimented with the distance. 
 The real fun stuff happens when transformation contains a combination of both (for example, as [this post implies](https://math.stackexchange.com/questions/2124869/converting-a-uniform-distribution-variable-to-a-normal-distribution-one), you could transform into a Gaussian).
 
 ```{=markdown}
