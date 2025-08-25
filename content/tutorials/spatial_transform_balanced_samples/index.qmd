@@ -64,7 +64,7 @@ set.seed(location_id)
 
 # Introduction
 
-## Randomness is Chaos
+## Is Randomness Chaos?
 
 Occasionally, one requires a set of points which are **randomly distributed** in a given area.
 
@@ -79,13 +79,14 @@ plot(data, pch = 21, col = "black")
 ```
 
 But then, you know, if we are honest, "random" might be a bit too random.
+Some points lie above each other, some areas remain blank, and the corner points are quite far from the center.
 
 
 ## Gradually Less Randomness
 
-### (1) Your Inner Circle
-
 There are options and choices to modify the randomness to our liking.
+
+### (1) Your Inner Circle
 
 First of all, the square layout is not generally useful; imagine another common case where you want to randomly distribute points in a circle.
 You could filter the circle within the square.
@@ -106,35 +107,39 @@ title(glue::glue("N = {nrow(data)}"))
 ... but then, your sample size changes (lost about 20% of points).
 So this is not of general use.
 
-Below, I will demonstrate how to create a circular area covered with random points, by means of a simple polar coordinate transformation.
+Below, I will demonstrate how to create a circular area covered with the defined number of random points, by means of a simple polar coordinate transformation.
 
 
 ### (2) Find Your Spatial Balance
 
 A second feature of the initial example random points is that they cluster randomly. 
-This means that some of the points are close together, and other areas are undersampled.
+This matches the observation that some of the points are close together, whereas other areas are undersampled.
 
-This has disadvantages, e.g. if you want to sample information about a geographic area. 
-Points proximal to existing measurements provide very little extra information (at least if [Tobler's Law](https://tutorials.inbo.be/tutorials/spatial_variograms) holds).
+This has disadvantages, e.g. in terms of information theory. 
+If you want to sample information about a geographic area, points proximal to existing measurements provide little extra information (at least if [Tobler's Law](https://tutorials.inbo.be/tutorials/spatial_variograms) holds).
 Yet, purposefully placing a measurement into "that previously missed open spot" bares the danger of bias, and the cost of potential future oversampling.
 
 
-What we often desire is **spatially balanced sampling**:
+What we often desire is **spatially balanced sampling**, like this:
 
 <img
 src="./fig1_spatially_balanced_circle.png"
 id="fig-spatbalsamp"
 alt="Figure 1: Spatially balanced sampling in a circular area." />
-<figcaption>Figure 1: Spatially balanced sampling in a circular area.</figcaption><br>
-
 `<figcaption>Figure 1: Spatially balanced sampling in a circular area.</figcaption><br>`{=markdown}
+
 
 ### (3) Choose Your Distribution Pattern
 
-The figure above treats all points in the circle equally. 
-But then, there are special points in a circular area - obviously, its center.
+The figure above treats points in all areas in the circle equally. 
+But then, if you think about it, there are special points in a circular area - obviously, its center.
 And in many applications, it is a valid strategy to give points closer to the center a higher chance of being chosen, or to have a sampling pattern that reduces likelihood with distance from center, or just the opposite (i.e. bias towards the rim).
 
+<img
+src="./fig2_center_weighted_circle.png"
+id="fig-spatbalsamp"
+alt="Figure 2: An example of distance-dependent sampling likelihood." />
+`<figcaption>Figure 2: An example of distance-dependent sampling likelihood.</figcaption><br>`{=markdown}
 
 Anything goes.
 In this tutorial, I will briefly demonstrate, how.
@@ -144,10 +149,10 @@ In this tutorial, I will briefly demonstrate, how.
 
 # Methods
 
-## Functional Programming
+## Functional Programming *(a bit)*
 
-Throughout this tutorial, I will also apply some basic concepts of functional programming.
-(Really just a tiny, superficial addition, nothing to worry about.)
+Throughout this tutorial, I will apply some basic concepts of functional programming.
+(Really just a tiny, superficial addition, nothing to be excited about.)
 
 
 As is the habit of my institute, I will use R.
@@ -203,7 +208,8 @@ Later, we will stretch and morph it to the desired area.
 ### Balanced Acceptance Sampling (BAS)
 
 This method is a rather recent addition to the toolbox [@robertson2013].
-In my own words, which (much like an LLM chatbot) are in fact just the inaccurate transformation of the bunch of cryptic text my neural processing unit has attempted to decipher and categorize during some indefinite training period:
+In my own words *(which, much like an LLM chatbot, are in fact just the inaccurate transformation of the bunch of cryptic text my neural processing unit has attempted to decipher and categorize during some indefinite training period)*:
+
 BAS uses mathematical sequences (feel free to read up on the  "Halton sequence") which produce a desired number of quasi-random, multi-dimensional coordinates from a given starting point.
 That those points are spatially balanced is rather a side-effect.
 You can add some tweaks and priors to tune the outcome, and the authors claim that the algorithm is computationally efficient.
@@ -277,11 +283,10 @@ plot(samples, pch = 21, col = "black")
 A desirable feature of spatially balanced sampling is that the sample remains spatially balanced even if you just take a subset from it.
 If I understood correctly, both BAS and GRTS have this feature, at least if you take a consecutive subset from the start of the series.
 
-This also means that you can add samples to the end of the series later on.
+This also means that you can append more samples to the end of your set later on.
 ```{=markdown}
 {{% /callout %}}
 ```
-
 
 
 `<a id="sec-results"></a>`{=markdown}
@@ -292,7 +297,7 @@ This also means that you can add samples to the end of the series later on.
 
 To this point, we have a unit square and a number of points, evenly distributed throughout it.
 
-But now, a major brain twister: imagine the sides of that unit square to be not `x` and `y`, as we are commonly used to, but an angle (direction) and a radius (distance).
+But now, a major brain twister: imagine the sides of that unit square to be not `x` and `y`, as we are commonly used to, but an angle (**direction**) and a radius (**distance**).
 
 This is easiest to understand in tabular form: 
 just take the values we have, and rename them to `phi` and `r`:
@@ -331,12 +336,12 @@ apply_trafo <- function(coord, trafo_fcn = identity_trafo, scale = 1) {
 ```
 
 Functional programming basics: 
-the function `apply_transform` takes a function as an input argument.
+the function `apply_transform` [takes a function as an input argument](https://en.wikipedia.org/wiki/First-class_function).
 It then applies it, but also does some more stuff (here: scaling).
-We just invented a simple "wrapper".
+You could say that we just invented a simple, dynamic "wrapper".
 
 
-Finally, we get our `x` and `y` back: 
+Finally, we get our `x` and `y` back as follows: 
 
 ```{r transform-polar-to-cartesian}
 
@@ -370,14 +375,14 @@ Does the outcome surprise you?
 
 ## Spatial Balance - in a Weird Way
 
-Note how the sample is still spatially balanced, but in an unexpected way:
+Note how the sample is still spatially balanced, but in a way that one might not have expected:
 
 - At each distance from the center, there is an equal chance of finding a point.
 - Across all directions, points are uniformly distributed (i.e. everywhere the same chance to see points).
 
 
 However, point density (the chance of finding a point in a given "pixel" window), is not homogeneous.
-It is high, close to the center, and reduces towards the edges of our circle.
+Close to the center, it is high, but it reduces towards the edges of our circle.
 Logical, if you think about it: the orbits close to the center are much shorter, yet they house equally many points as the distant orbits.
 
 This outcome might be fine in some situations, but undesired in others.
@@ -389,8 +394,8 @@ If we want to go for homogeneous point density in our circle, we need to nullify
 Even if you did pay attention in highschool maths, you might not immediately know which of the usual suspect functions counteract the "orbit effect", and in which direction to apply it.
 Exponential? Gaussian? Polynomial? Hyperbolical? Just saying something.
 
-To support my own sparse maths memory, I like to trial-and-error my way out.
-What helps me are concise functions to test the same procedure over and over with altering input arguments.
+To support my own sparse maths memory, I like to trial-and-error my way out with functional programming.
+What helps me are concise functions to test the same procedure over and over with altering input arguments (also functions); I often iterate over all the usual suspects.
 
 ```{r modify-trafo-function}
 
@@ -428,8 +433,8 @@ Admitted, I trial-errored this initially, but the result makes sense:
 - the surface of a circle increases with $\sim r^2$ (surface, because remember, we want to homogenize density)
 - square root is the inverse operation
 
-So to get the distribution uniform, we apply the inverse.
-(The skalar $\pi$ does not matter because of the distance normalization above.)
+So to get the distribution uniform, we apply the square root.
+(The skalar $\pi$ in $A = \pi r^2$ does not matter because of a distance normalization hidden in the wrapper above.)
 
 
 ```{r find-inverse-trafo}
@@ -439,7 +444,7 @@ inverse_radial <- function(x) sqrt(x)
 par(pty = "s")
 plot(test_trafos(), pch = 20, col = "grey") # for comparison: original points
 points(test_trafos(trafo_r = inverse_radial), col = "darkred") # transformed points
-title("the red and grey points are the same, before and after transformation")
+title("Red and grey points show the data set before and after transformation.")
 
 ```
 
@@ -519,8 +524,8 @@ Ah, yes!
 ```{=markdown}
 {{% callout note %}}
 ```
-In the present implementation, transformation functions best transform to an interval which starts at zero, and goes positive.
-For example, the exponential function can be shifted down by one.
+In the present implementation, transformation functions best transform to an interval which starts at zero where the input interval is zero, and then goes positive.
+For example, the exponential function normally has `1 = exp(0)`, and should be shifted down by one.
 ```{=markdown}
 {{% /callout %}}
 ```
@@ -548,13 +553,13 @@ The real fun stuff happens when transformation contains a combination of both (f
 ```
 
 
-Unfortunately, I did not manage to get periodical, concentric bands of points yet, but I suspect they require complex numbers.
+You can even get periodical, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
 
 ```{r periodicity}
-trial( function(x) x + sin(16 * x) ) 
+trial( function(x) x + 0.2 * sin(16 * x) ) 
 ```
 
-You now possess the basic tooling and can take these ideas and concepts further, for your own good.
+You now possess the basic tooling and can take these ideas and concepts further, for your own purposes.
 
 
 
@@ -563,7 +568,7 @@ You now possess the basic tooling and can take these ideas and concepts further,
 
 # Summary
 
-In this tutorial, I assembled several simple but useful tools to homogeneously, but randomly distribute a given number of points in a circular area.
+In this tutorial, I assembled several simple tools to randomly distribute a given number of points in a circular area with homogeneous point density.
 This originated from the practical need to identify random points in not perfectly random places.
 The procedure draws from existing, widely acknowledged methods; no claim of novelty from my side.
 
@@ -573,7 +578,7 @@ On the other hand, a series of mathematical operations can transform polar coord
 
 
 A major philosophical question remains, and I will leave it up to you to make up your mind about it. 
-After all these choices and adjustments, can we still talk about a random distribution?
+After all these choices and adjustments, do you think that we can still say with confidence that distribution we created is *random*?
 
 
 ----
