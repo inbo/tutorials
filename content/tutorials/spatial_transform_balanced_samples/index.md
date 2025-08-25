@@ -496,12 +496,18 @@ trial( function(x) atan(4*x) )
 
 <img src="index.markdown_strict_files/figure-markdown_strict/border-preference-1.png" width="768" />
 
-{{% callout note %}}
+You can try to approximate [a Gaussian](https://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function), and I am sure there is an analytical way to represent it in polar coordinates ([see also](https://math.stackexchange.com/questions/2124869/converting-a-uniform-distribution-variable-to-a-normal-distribution-one)).
+However, if you need a Gaussian, you could also directly go to the 2D Gauss function, without the need for the polar-to-cartesian transformation trick.
 
-Note that I herein transformed `r` and `phi` independently; in fact, I mostly just experimented with the distance.
-The real fun stuff happens when transformation contains a combination of both (for example, as [this post implies](https://math.stackexchange.com/questions/2124869/converting-a-uniform-distribution-variable-to-a-normal-distribution-one), you could transform into a Gaussian).
+``` r
+sigma <- 0.5
+gauss <- function(r) r*exp((r^2)/(2*sigma^2))
+# xi <- seq(0., 1., length.out = 101)
+# plot(xi, gauss(xi))
+trial( gauss )
+```
 
-{{% /callout %}}
+<img src="index.markdown_strict_files/figure-markdown_strict/gaussian-like-1.png" width="768" />
 
 You can even get periodical, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
 
