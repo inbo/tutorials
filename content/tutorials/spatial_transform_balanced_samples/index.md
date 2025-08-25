@@ -509,7 +509,7 @@ trial( gauss )
 
 <img src="index.markdown_strict_files/figure-markdown_strict/gaussian-like-1.png" width="768" />
 
-You can even get periodical, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
+You can even get periodic, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
 
 ``` r
 trial( function(x) x + 0.2 * sin(16 * x) ) 

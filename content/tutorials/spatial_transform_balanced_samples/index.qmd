@@ -555,7 +555,7 @@ trial( gauss )
 
 
 
-You can even get periodical, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
+You can even get periodic, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
 
 ```{r periodicity}
 trial( function(x) x + 0.2 * sin(16 * x) ) 
