@@ -1,5 +1,3 @@
-
-
 ---
 title: "The `keyring` package: We can do better than `*******`."
 description: "Using your system keyring for storing and accessing secrets from within R via the `keyring` package"
@@ -38,19 +36,19 @@ best time to keep them private.
 But to sort these secret new emotions, it would be good to put them to paper.
 **Let us see what options you have to store our secret thoughts.**
 
--   1.  You could just write them on a *plain paper* on your desk.
+-   1\. You could just write them on a *plain paper* on your desk.
 
 Good that they are sorted.
 Bad that anyone can read them: mum, pa, and that annoying little brother.
 
 This is what we call *"hardcoded, unencrypted"* storage, and it is precicely what needs to be avoided.
 
--   1.  You can write them in a *diary with a lock*.
+-   2\. You can write them in a *diary with a lock*.
 
 Better.
 Yet if someone has the key, or can xray-view the text in the diary, your secrets are still exposed.
 
--   1.  You can write in a secret language (*encryption*), in a locked diary.
+-   3\. You can write in a secret language (*encryption*), in a locked diary.
 
 It turns out that your computer already has such a diary place, a safe space where it can store secrets and credentials.
 It is called the **"system keyring"**.
@@ -115,9 +113,9 @@ keyring_create(keyring = "vault")
 
 On my computer, in a fresh R terminal, this single command initiated three things which happen in a row.
 
--   1.  Asks the user for a password on the terminal.
--   1.  Opens a (very neat) popup window which asks for password and confirmation, indicating password strength.
--   1.  Issues a warning that `Password ignored, will be read interactively`.
+-   i\. Asks the user for a password on the terminal.
+-  ii\. Opens a (very neat) popup window which asks for password and confirmation, indicating password strength.
+- iii\. Issues a warning that `Password ignored, will be read interactively`.
 
 This might be confusing, and three passwords seem one too much.
 I guess this is historic burden, or compatibility for headless systems, and found that in my workflow I can safely get rid of points (i) and (iii) by instead using the following:
