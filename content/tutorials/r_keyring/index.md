@@ -1,5 +1,3 @@
-
-
 ---
 title: "The `keyring` package: We can do better than `*******`."
 description: "Using your system keyring for storing and accessing secrets from within R via the `keyring` package"
