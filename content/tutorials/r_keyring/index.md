@@ -1,3 +1,5 @@
+
+
 ---
 title: "The `keyring` package: We can do better than `*******`."
 description: "Using your system keyring for storing and accessing secrets from within R via the `keyring` package"
@@ -321,6 +323,43 @@ keyring_unlock(keyring = "vault")
 ```
 
 (Requires an explicit `keyring_unlock` prior to any `key_set` or `key_get` operation.)
+
+For the Linux operating system, I assembled a function which will spawn a background process for delayed locking of the keyring:
+
+``` r
+# lock the keyring after a delay
+lock_keyring_delayed <- function(keyring_label, delay = 300) {
+
+  stopifnot("glue" = require("glue"))
+  stopifnot("keyring" = require("keyring"))
+
+  # string building blocks
+  l <- glue::glue('\"{keyring_label}\"')
+  k <- 'keyring::keyring_'
+  x <- glue::glue('({l} %in% keyring::keyring_list()$keyring)')
+
+  # this only works on linux
+  if (isFALSE(.Platform$OS.type == "unix")) {
+    message(glue::glue("
+      (keyring will not lock with delay;
+       invoke 'keyring::keyring_lock({l})')
+    "))
+    return(invisible(NULL))
+  }
+
+  # build the core script
+  cmd <- glue::glue(
+    "Rscript -e 'if ({x} && isFALSE({k}is_locked({l}))) {k}lock({l})'"
+    #  && echo 'slam!' # <- for testing
+  )
+
+  # background-execute the script with a delay
+  system(glue::glue("sleep {delay} && {cmd} &", wait = FALSE))
+
+} # /lock_keyring_delayed
+```
+
+However, that still leaves the keyring on the system.
 
 # Cleanup
 
