@@ -1,0 +1,409 @@
+
+
+---
+title: "The `keyring` package: We can do better than `*******`."
+description: "Using your system keyring for storing and accessing secrets from within R via the `keyring` package"
+date: "2025-09-05"
+authors: [falkmielke]
+categories: ["development", "r"]
+tags: ["secrets", "keyring", "passwords", "credentials", "r", "scripting"]
+number-sections: true
+link-citations: true
+params:
+  math: true
+format:
+  hugo-md:
+    toc: false
+    preserve_yaml: true
+    html-math-method: katex
+---
+
+What do the software "giants" Cisco, Ivanti, and Atlassian all have in common?
+They all (repeatedly) raised negative attention in the past by [pushing hardcoded, unencrypted credentials to the public](https://www.bleepingcomputer.com/search/?q=hardcoded+credentials).
+
+This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners' mistake.
+
+The programming environment we will use is R.
+The package of choice is [`keyring`](https://keyring.r-lib.org/index.html), but it will be spiced up with some extra precautions.
+
+# How it Works: the Diary
+
+Imagine that you are age fourteen again, sitting in your room in the evening and reflecting the day, still aroused by that encounter at school with that attractive same-aged conspecific who subtly expressed interest in you after lunchbreak.
+*First love is tough.*
+
+No way you would tell anyone about this: your friends would lay on the floor giggling as is habit at the age; and of course not your parents (how embarassing would that be).
+It is all new, emotions are going rampage -
+best time to keep them private.
+
+But to sort these secret new emotions, it would be good to put them to paper.
+**Let us see what options you have to store our secret thoughts.**
+
+-   1.  You could just write them on a *plain paper* on your desk.
+
+Good that they are sorted.
+Bad that anyone can read them: mum, pa, and that annoying little brother.
+
+This is what we call *"hardcoded, unencrypted"* storage, and it is precicely what needs to be avoided.
+
+-   1.  You can write them in a *diary with a lock*.
+
+Better.
+Yet if someone has the key, or can xray-view the text in the diary, your secrets are still exposed.
+
+-   1.  You can write in a secret language (*encryption*), in a locked diary.
+
+It turns out that your computer already has such a diary place, a safe space where it can store secrets and credentials.
+It is called the **"system keyring"**.
+The system keyring lives on your [operating system](https://keyring.r-lib.org/index.html), and can be used to temporarily or permanently store any secrets in working memory.
+
+Storing secrets in RAM is like the plain paper option above, so smart computer engineers also gave us the lock and the secret language.
+
+And here is where it gets useful:
+you can manage the keyring from within *R*, to automate secrecy in your scripts.
+Guess what: the package is called `keyring`.
+
+``` r
+library("keyring")
+library("getPass") # for some additional tweaks, see below.
+```
+
+Some further constraints:
+
+-   You do not want to get caught/observed writing your secrets, prior to encryption, which is why we will also use `getPass` in some situations.
+-   Just like a diary, your secrets can potentially get lost in any of the options above, they are more or less volatile / persistent. Keep that in mind, and don't complain to me if you loose one.
+
+# The Naïve Keyring Failure
+
+## Simple Usage
+
+The `keyring` package [is simple to use](https://keyring.r-lib.org/index.html#usage), and your system keyring is normally in place.
+
+For most common use, you might want to get away with
+
+``` r
+keyring::key_set("diary-entry-1")
+keyring::key_get("diary-entry-1")
+```
+
+And, admitted, I used keyring like so for quite a while now.
+However, then I noticed a serious problem, which is there by design:
+
+{{% callout warning %}}
+
+-   The default keyring is not password-locked.
+-   The secrets persist across R sessions, potentially even across reboots.
+
+{{% /callout %}}
+
+This is an unfortunate combination: it means that if you use `key_set`, and enter your password, you are in a worse situation than before.
+You just created a diary without a lock and left it on your desk, so that everyone who likes can just enter your room and read that good-looking Mickey gave you a complement about your new braces :blush:.
+
+In computer terms: anyone who comes to your computer can access the password in a new R session with `key_get`.
+If I am not mistaken, passwords in some keyrings even persist reboots, yet I did not test the default one.
+
+What a lousy vault.
+Laxity killed secrecy.
+
+## Creating a Custom Keyring
+
+Lesson learned: you **always** want to create a custom keyring.
+And this is actually what the authors of `keyring` correctly explain [in the "Usage" section](https://keyring.r-lib.org/index.html#usage).
+
+``` r
+keyring_create(keyring = "vault")
+```
+
+On my computer, in a fresh R terminal, this initiated three things which happen in a row.
+
+-   1.  Asks the user for a password on the terminal.
+-   1.  Opens a (very neat) popup window which asks for password and confirmation, indicating password strength.
+-   1.  Issues a warning that `Password ignored, will be read interactively`.
+
+This might be confusing, and three passwords seem one too much.
+I guess this is historic burden, or compatibility for headless systems, and found that in my workflow I can safely get rid of points (i) and (iii) by instead using the following:
+
+``` r
+suppressWarnings(keyring::keyring_create(keyring = "vault", password = ""))
+```
+
+The first password is given as empty string, and thus not prompted, and the ignorant warning message gets suppressed.
+
+This is the keyring which we can use to store our secrets.
+It is locked and unlocked with a master password, and any secrets stored inside will be encrypted.
+Keep in mind that your keyring will survive a reboot, unless you delete it.
+
+More on all that, below.
+
+# Managing Keys
+
+## Stowing Secrets
+
+Now that we have a place to stow our secrets, let's use it.
+
+``` r
+key_set(
+  service = "diary",
+  username = "mickey",
+  keyring = "vault"
+)
+```
+
+Note that the function takes a `service`, which I think of as a sort of category within a `keyring`.
+Turns out that I can use my vault to store different kind of things: passwords, money, photos of ex girlfriends...
+Here, I named it `diary`, for the sake of analogy.
+
+Then, there is the `username`, which makes sense in a service created for storing username-password credentials.
+You ask the "diary"-service of your "vault"-keyring for the password of/to "mickey".
+Generally, think of it as a label, or a secret message[^1], which you provide to your vault when you want to retrieve your secret...
+
+## Recovering Secrets
+
+### Naïve Getting
+
+And that would work like so:
+
+``` r
+key_get("diary", "mickey", keyring = "vault")
+```
+
+Wait...
+
+OMG...
+
+Did my R console just print the secret we entered earlier?!
+
+### Invisible Getting
+
+You might consider using `invisible(key_get(...))`, or even generally:
+
+``` r
+key_get <- function(...) invisible(keyring::key_get(...))
+```
+
+*Welcome to next level paranoia.*
+
+However, this indicates what I think `keyring` is actually made for:
+you actually want to assign your secrets to some variable, temporarily, as in
+
+``` r
+database_connection <- DBI::dbConnect(
+  RPostgres::Postgres(),
+  dbname = "my_database",
+  host = "localhost",
+  port = 5439,
+  user = "mickey",
+  password = key_get("diary", "mickey", keyring = "vault") 
+) # just an example...
+```
+
+### Scripted Getting: Interactive Pitfalls
+
+Conclusion:
+
+{{% callout note %}}
+
+The main use case of `keyring` are scripts and code chains which repeatedly use secrets (because, if it was not repeatedly, `getPass` would be fine).
+In these situations, `keyring` helps you to avoid te worse options of (a) hardcoding your secrets or (b) having to type them over and over again.
+
+{{% /callout %}}
+
+However, that did not quite work out for me.
+The reason lies in the distinction between R's `interactive()` and non-interactive execution mode for using `key_set`.
+
+What does *(non-)interactive* mean?
+
+Say you have an automated process: a script which will write all the secret events of the day into your diary.
+Or a script which performs data processes on an SQL database.
+The script is called `secrecy_processing.R`.
+
+The working of `key_set(...)` depends on whether you run the code inside that script from a system terminal, like in `Rscript secrecy_processing.R`, or from the R console or another script, e.g. `source('secrecy_processing.R')`.
+The second situation, *interactive mode*, is equivalend to what RStudio does, and works conveniently for most people.
+
+Yet in case you have an automated process, one that you run from a terminal or via a `cronjob`, `key_set` fails because it takes continuous input: it will just use the next line that it receives and think it is the password.
+
+This is a weird quirk[^2] which has caused me some headache, but at least I [learned about R's `interactive` mode](https://stackoverflow.com/a/27114322) on the way.
+
+Here is the workaround: `keyring` brings a function to `key_set_with_value` with a password argument, which can be customized.
+
+``` r
+# takes the arguments `service`, `username` and `keyring`
+key_set <- function(...) {
+  # check whether this is executed in interactive mode
+  if (interactive()) {
+    keyring::key_set(...)
+  } else {
+    # when run as a script, getPass will wait for user input
+    keyring::key_set_with_value(
+      ...,
+      password = getPass::getPass("Please enter your secret:")
+    )
+  }
+}
+
+# example usage
+key_set(
+  service = "diary",
+  username = "mickey",
+  keyring = "vault"
+)
+
+# print(key_get("diary", "mickey", keyring = "vault"))
+```
+
+This could be solved with `readLines("stdin", n = 1)`, yet then the user input is visible in plain text during typing.
+The terminal solution I found is the R library `getPass`; however, you could also search for a dialog box option to enter the password, or a confirmation mechanism.
+
+Another option would be to use [`configr`](https://github.com/Miachol/configr) and store a config file with secrets in a system vault (e.g. with ["tomb"](https://dyne.org/tomb/)).
+
+Get creative.
+
+### Locking and Unlocking
+
+You might notice that, once your keyring is created, the master password is never asked again.
+*What good is a vault for if you do not lock the door?*
+
+At the end of your script, or even better: after finishing an operation, you might want to lock your keyring.
+
+``` r
+keyring::keyring_lock(keyring = "vault")
+# keyring::keyring_unlock(keyring = "vault")
+```
+
+This is critical:
+Because you work on the **system keyring**, your keyring stays open even after the R sessions closed.
+
+Normally, it should be locked upon reboot.
+However, it is good practice to lock your keyrings whenever you procedure using it has finished.
+
+{{% callout note %}}
+
+**Always** make sure that your keyring is locked when the work is finished.
+
+{{% /callout %}}
+
+It might be even better practice to already schedule the closing of your keyring at the moment you open it.
+Just so you don't forget to leave your door open when you leave.
+
+``` r
+keyring_unlock <- function(keyring = NULL, ...) {
+
+  # unlock the keyring
+  keyring::keyring_unlock(keyring = keyring, ...)
+  
+  # plan a procedure to lock it when the R session ends
+  # https://stackoverflow.com/a/41179916
+  reg.finalizer(
+    .GlobalEnv,
+    function(e) {
+      keyring::keyring_lock(keyring = keyring)
+      message(glue::glue("Keyring `{keyring}` locked."))
+    },
+    onexit = TRUE # I wonder whether you could also set a timer...
+  )
+
+  return(invisible(NULL))
+}
+
+keyring_unlock(keyring = "vault")
+```
+
+# Cleanup
+
+After using this for a while, you might begin to hear a sort of metallic rattling noise whenever you start moving.
+These are all the keys you are bringing along on your dear old `keyring`, but forgot about.
+
+Help is near:
+
+``` r
+key_list()
+key_list(keyring = "vault")
+```
+
+To delete the naïve key we created above:
+
+``` r
+key_delete("diary-entry-1")
+```
+
+And, for even more paranoia, delete your entire keyring:
+
+``` r
+keyring_delete("vault")
+```
+
+This will prompt you if the keyring is not empty, so in a scripted situation, you would want to delete all keys prior to deleting the empty keyring.
+
+# Summary
+
+Never ever fall to the temptation of hardcoding a password, anywhere.
+It almost inevitably will cause you trouble later on.
+
+The longer-than-intended text above captures my own musings with the great `keyring` package for R.
+I sincerely hope that it has made your code safer.
+I certainly would have loved to know about all those things back then when puberty hit me.
+
+# TL;DR
+
+For the young and impatient, here are all the tricks from above in one code block.
+
+``` r
+library("keyring")
+library("getPass")
+
+
+keyring_create <- function(...) {
+  suppressWarnings(
+    keyring::keyring_create(..., password = "")
+  )
+}
+
+# reduce the chance of accidental printout of a key 
+key_get <- function(...) invisible(keyring::key_get(...))
+
+# setting keys in a scripted environment
+# takes the arguments `service`, `username` and `keyring`
+key_set <- function(...) {
+  # check whether this is executed in interactive mode
+  if (interactive()) {
+    keyring::key_set(...)
+  } else {
+    # when run as a script, getPass will wait for user input
+    keyring::key_set_with_value(
+      ...,
+      password = getPass::getPass("Please enter your secret:")
+    )
+  }
+}
+
+
+# unlock a keyring, and schedule locking for when the R session ends
+keyring_unlock <- function(keyring = NULL, ...) {
+
+  # unlock the keyring
+  keyring::keyring_unlock(keyring = keyring, ...)
+  
+  # plan a procedure to lock it when the R session ends
+  # https://stackoverflow.com/a/41179916
+  reg.finalizer(
+    .GlobalEnv,
+    function(e) {
+      keyring::keyring_lock(keyring = keyring)
+      message(glue::glue("Keyring `{keyring}` locked."))
+    },
+    onexit = TRUE # I wonder whether you could also set a timer...
+  )
+
+  return(invisible(NULL))
+}
+```
+
+-   Never hard-code or store plain text secrets.
+-   Always create a custom keyring.
+-   Lock your keyring from within each process which uses it.
+-   Inspect and clean up you keyrings regularly.
+
+*Stay safe, everyone!*
+
+[^1]: This `username` itself is subject to secrecy, in a sense that you might increase security in certain situations by not hardcoding it (you could ask the user "which secret would you like to retrieve", with another `getPass`, stay tuned to see how that works).
+
+[^2]: Note that scripted `key_set` is probably not in the intention of the creators of `keyring`, relying on system keyring persistence across sessions; yet I for my part like to delete all secrets from memory after a process has finished.
