@@ -176,7 +176,7 @@ And that would work like so:
 key_get("diary", "mickey", keyring = "vault")
 ```
 
-    [1] "Python is better than R!"
+    [1] "I love Python!"
 
 Wait...
 
@@ -361,6 +361,8 @@ However, that still leaves the keyring on the system.
 
 # Cleanup
 
+## Cleanup Command
+
 After using all this for a while, you might begin to hear a sort of metallic rattling noise whenever you start moving.
 These are all the keys on your dear old `keyring` which you are bringing along but forgot about.
 
@@ -382,6 +384,22 @@ keyring_delete("vault")
 ```
 
 This will prompt you if the keyring is not empty, so in a scripted situation, you would want to delete all keys prior to deleting the empty keyring.
+
+## Cleanup System Keyring (Warning!)
+
+As I experienced, cleanup can go to far.
+After finishing this write-up, I cleaned up all the keyrings which had accumulated over time from mis-use of R's `keyring`.
+This reminded me that what I demonstrated herein is working on the **host system**, and has implications which go beyond R.
+
+What went wrong?
+There was a keyring I could not place, called `Login`.
+
+I learned the hard way that the `Login` keyring is a system requirement, and deleting is will cause system issues.
+What followed was a desparate, but ultimately succesful attempt to repair arch linux by force-removing the `keyutils` package (which immediately broke the system even more[^3], the package manager depends on it), and then re-install it via sideloading from a live-usb-system.
+
+Long story short:
+**your system keyring is vital**.
+Keep it in order.
 
 # Summary
 
@@ -452,9 +470,12 @@ keyring_unlock <- function(keyring = NULL, ...) {
 -   Lock your keyring from within each process which uses it.
 -   Inspect and clean up you keyrings regularly.
 -   R I/O-functions can behave differently in `interactive()` mode.
+-   Do not wipe your system keyring, it is an integral component.
 
 *Stay safe, everyone!*
 
 [^1]: This `username` itself is subject to secrecy, in a sense that you might increase security in certain situations by not hardcoding it (you could ask the user "which secret would you like to retrieve", with another `getPass`, stay tuned to see how that works).
 
 [^2]: Note that scripted `key_set` is probably not in the intention of the creators of `keyring`, relying on system keyring persistence across sessions; yet I for my part prefer to delete all secrets from memory and clean up each time a process has finished.
+
+[^3]: A brick with windows on it, to be exact.
