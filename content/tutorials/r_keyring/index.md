@@ -1,5 +1,3 @@
-
-
 ---
 title: "The `keyring` package: We can do better than `*******`."
 description: "Using your system keyring for storing and accessing secrets from within R via the `keyring` package"
@@ -115,17 +113,11 @@ keyring_create(keyring = "vault")
 
 On my computer, in a fresh R terminal, this single command initiated three things which happen in a row.
 
-<ol class="org-ol">
-<li value="  i.">
-Asks the user for a password on the terminal.
-</li>
-<li value=" ii.">
-Opens a (very neat) popup window which asks for password and confirmation, indicating password strength.
-</li>
-<li value="iii.">
-Issues a warning that `Password ignored, will be read interactively`.
-</li>
-</ol>
+... i. Asks the user for a password on the terminal.
+
+... ii. Opens a (very neat) popup window which asks for password and confirmation, indicating password strength.
+
+... iii. Issues a warning that `Password ignored, will be read interactively`.
 
 This might be confusing, and three passwords seem one too much.
 I guess this is historic burden, or compatibility for headless systems, and found that in my workflow I can safely get rid of points (i) and (iii) by instead using the following:
