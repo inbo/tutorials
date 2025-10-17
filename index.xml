@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create tutorial</title>
       <link>/create_tutorial/</link>
@@ -16,6 +16,16 @@
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>Statistical Analysis Plans (StAPs)</title>
+      <link>/tutorials/stap/</link>
+      <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tutorials/stap/</guid>
+      <description>Overview Statistical Analysis Plans (StAPs) were introduced at INBO in october 2025. This page gathers all information you need to write your own StAP. For now, we provide the slides for the lessons that have been given and the latest template to download. In the future, we will add recordings of the classes and a step-by-step procedure to start, make, and review your StAP
+Lessons Module 1 Slides lesson 1</description>
     </item>
     
     <item>
