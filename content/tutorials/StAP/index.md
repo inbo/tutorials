@@ -2,7 +2,7 @@
 title: "Statistical Analysis Plans (StAPs)"
 description: "This page will contain everything you need to make a StAP."
 authors: [raisacarmen, robrechtdockx]
-date: 2025-10-17
+date: 2025-11-17
 categories: ["r", "statistics"]
 tags: ["statistical analysis plan", "StAP", "design of experiments"]
 ---
