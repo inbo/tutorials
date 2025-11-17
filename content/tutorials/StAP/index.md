@@ -18,6 +18,7 @@ In the future, we will add recordings of the classes and a step-by-step procedur
 
 ## Module 1
 [Slides lesson 1](https://inbo.github.io/tutorials/tutorials/stap/StAP-module1-part1.pdf)
+[Slides lesson 2](https://inbo.github.io/tutorials/tutorials/stap/StAP-module1-part2.pdf)
 
 
 # Template
