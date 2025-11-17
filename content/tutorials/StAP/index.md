@@ -2,7 +2,7 @@
 title: "Statistical Analysis Plans (StAPs)"
 description: "This page will contain everything you need to make a StAP."
 authors: [raisacarmen, robrechtdockx]
-date: 2025-10-17
+date: 2025-11-17
 categories: ["r", "statistics"]
 tags: ["statistical analysis plan", "StAP", "design of experiments"]
 ---
@@ -18,6 +18,7 @@ In the future, we will add recordings of the classes and a step-by-step procedur
 
 ## Module 1
 [Slides lesson 1](https://inbo.github.io/tutorials/tutorials/stap/StAP-module1-part1.pdf)
+[Slides lesson 2](https://inbo.github.io/tutorials/tutorials/stap/StAP-module1-part2.pdf)
 
 
 # Template
