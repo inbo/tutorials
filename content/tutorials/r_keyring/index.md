@@ -215,7 +215,7 @@ Conclusion:
 {{% callout note %}}
 
 The main use case of `keyring` are scripts and code chains which repeatedly use secrets (because, if it was not repeatedly, `getPass` would be fine).
-In these situations, `keyring` helps you to avoid te worse options of (a) hardcoding your secrets or (b) having to type them over and over again.
+In these situations, `keyring` helps you to avoid the worse options of (a) hardcoding your secrets or (b) having to type them over and over again.
 
 {{% /callout %}}
 
