@@ -387,7 +387,7 @@ This will prompt you if the keyring is not empty, so in a scripted situation, yo
 
 ## Cleanup System Keyring (Warning!)
 
-As I experienced, cleanup can go to far.
+As I experienced, cleanup can go too far.
 After finishing this write-up, I cleaned up all the keyrings which had accumulated over time from mis-use of R's `keyring`.
 This reminded me that what I demonstrated herein is working on the **host system**, and has implications which go beyond R.
 
