@@ -286,7 +286,7 @@ This is critical:
 Because you work on the **system keyring**, your keyring stays open even after the R sessions closed.
 
 Normally, it should be locked upon reboot.
-However, it is good practice to "consciously" lock your keyrings whenever you procedure using it has finished.
+However, it is good practice to "consciously" lock your keyrings whenever your procedure using it has finished.
 
 {{% callout note %}}
 
