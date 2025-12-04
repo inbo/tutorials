@@ -18,12 +18,13 @@ In the future, we will add recordings of the classes and a step-by-step procedur
 
 ## Module 1
 [Slides lesson 1](https://inbo.github.io/tutorials/tutorials/stap/StAP-module1-part1.pdf)
+
 [Slides lesson 2](https://inbo.github.io/tutorials/tutorials/stap/StAP-module1-part2.pdf)
 
 
 # Template
-For now we only provide a .gdoc template which can be found [here](https://docs.google.com/document/d/1DMmAxMF_kkYFW4tSR2fVhX0Bx7FkP0we6Mo33LzRXIk/edit?tab=t.0#heading=h.7kmxpvcq7ddn).
-In the future, we plan to provide a Dutch version of the template and a RMarkDown template as well.
+For now we only provide a .gdoc template which can be found [here in English](https://docs.google.com/document/d/1DMmAxMF_kkYFW4tSR2fVhX0Bx7FkP0we6Mo33LzRXIk/edit?tab=t.0#heading=h.7kmxpvcq7ddn) and in [Dutch](https://docs.google.com/document/d/1bKNgz4TmkuBlIzSiMBxnZy45E8fuEw01hKNHNLQR3rA/edit?tab=t.0#heading=h.7kmxpvcq7ddn).
+In the future, we plan to provide a RMarkDown template as well.
 
 
 # Procedure
