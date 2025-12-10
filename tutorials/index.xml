@@ -18,6 +18,17 @@ Lessons Module 1 Slides lesson 1</description>
     </item>
     
     <item>
+      <title>The `keyring` package: We can do better than `*******`.</title>
+      <link>/tutorials/r_keyring/</link>
+      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tutorials/r_keyring/</guid>
+      <description>What do the software &amp;ldquo;giants&amp;rdquo; Cisco, Ivanti, and Atlassian all have in common? They all (repeatedly) raised negative attention in the past by pushing hardcoded, unencrypted credentials to the public.
+This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners&#39; mistake.
+The programming environment we will use is R. The package of choice is keyring, but it will be spiced up with some extra precautions.</description>
+    </item>
+    
+    <item>
       <title>An Algorithmic Approach to Variograms</title>
       <link>/tutorials/spatial_variograms/</link>
       <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>

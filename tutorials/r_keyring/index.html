@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Using your system keyring for storing and accessing secrets from within R via the `keyring` package'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='The `keyring` package: We can do better than `*******`. • Falk Mielke'>
+<meta property='og:description' content='Using your system keyring for storing and accessing secrets from within R via the `keyring` package'>
+<meta property='og:url' content='/tutorials/r_keyring/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='secrets'><meta property='article:tag' content='keyring'><meta property='article:tag' content='passwords'><meta property='article:tag' content='credentials'><meta property='article:tag' content='r'><meta property='article:tag' content='scripting'><meta property='article:published_time' content='2025-09-05T00:00:00Z'/><meta property='article:modified_time' content='2025-09-05T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>The `keyring` package: We can do better than `*******`. • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/r_keyring/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>api</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>co-variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>de-trending</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>design of experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.0125em'>development</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>gwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>inborutils</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>mixed model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>mixed models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>n2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.0875em'>open science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>passwords</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>rstudio</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1em'>spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>statistical analysis plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>tidyverse</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>version control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>wateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Wed Dec 10 08:07:20 UTC 2025</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>The `keyring` package: We can do better than `*******`.</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>The `keyring` package: We can do better than `*******`.</h1>
+      
+<p class='desc'>Using your system keyring for storing and accessing secrets from within R via the `keyring` package</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2025-09-05T00:00:00Z'>2025, Sep 05</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+12 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/r_keyring/index.md'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>What do the software &ldquo;giants&rdquo; Cisco, Ivanti, and Atlassian all have in common?
+They all (repeatedly) raised negative attention in the past by <a href="https://www.bleepingcomputer.com/search/?q=hardcoded+credentials">pushing hardcoded, unencrypted credentials to the public</a>.</p>
+<p>This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners' mistake.</p>
+<p>The programming environment we will use is R.
+The package of choice is <a href="https://keyring.r-lib.org/index.html"><code>keyring</code></a>, but it will be spiced up with some extra precautions.</p>
+<h1 id="how-it-works-the-diary">How it Works: the Diary<a href="#how-it-works-the-diary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Imagine that you are age fourteen again, sitting in your room in the evening and reflecting the day, still aroused by that encounter at school with that attractive same-aged conspecific who subtly expressed interest in you after lunchbreak.
+<em>First love is tough.</em></p>
+<p>No way you would tell anyone about this: your friends would lay on the floor giggling as is habit at the age; and of course not your parents (how embarassing would that be).
+It is all new, emotions are going rampage -
+best time to keep them private.</p>
+<p>But to sort these secret new emotions, it would be good to put them to paper.
+<strong>Let us see what options you have to store our secret thoughts.</strong></p>
+<p>1. You could just write them on a <em>plain paper</em> on your desk.</p>
+<p>Good that they are sorted.
+Bad that anyone can read them: mum, pa, and that annoying little brother.</p>
+<p>This is what we call <em>&ldquo;hardcoded, unencrypted&rdquo;</em> storage, and it is precicely what needs to be avoided.</p>
+<p>2. You can write them in a <em>diary with a lock</em>.</p>
+<p>Better.
+Yet if someone has the key, or can xray-view the text in the diary, your secrets are still exposed.</p>
+<p>3. You can write in a secret language (<em>encryption</em>), in a locked diary.</p>
+<p>It turns out that your computer already has such a diary place, a safe space where it can store secrets and credentials.
+It is called the <strong>&ldquo;system keyring&rdquo;</strong>.
+The system keyring lives on your <a href="https://keyring.r-lib.org/index.html">operating system</a>, and can be used to temporarily or permanently store any secrets in working memory.</p>
+<p>Storing secrets in RAM is like the plain paper option above, so smart computer engineers also gave us the lock and the secret language.</p>
+<p>And here is where it gets useful:
+you can manage the keyring from within <em>R</em>, to automate secrecy in your scripts.
+Guess what: the package is called <code>keyring</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(<span style="color:#a50">&#34;keyring&#34;</span>)
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;getPass&#34;</span>) <span style="color:#aaa;font-style:italic"># for some additional tweaks, see below.</span>
+</code></pre></div><p>Some further constraints:</p>
+<ul>
+<li>You do not want to get caught/observed writing your secrets, prior to encryption, which is why we will also use <code>getPass</code> in some situations.</li>
+<li>Just like a diary, your secrets can potentially get lost in any of the options above, they are more or less volatile / persistent. Keep that in mind, and don&rsquo;t complain to me if you loose one.</li>
+</ul>
+<h1 id="the-naïve-keyring-failure">The Naïve Keyring Failure<a href="#the-naïve-keyring-failure" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="simple-usage">Simple Usage<a href="#simple-usage" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The <code>keyring</code> package <a href="https://keyring.r-lib.org/index.html#usage">is simple to use</a>, and your system keyring is normally in place.</p>
+<p>For most common use, you might want to get away with</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">keyring::<span style="color:#0a0">key_set</span>(<span style="color:#a50">&#34;diary-entry-1&#34;</span>)
+keyring::<span style="color:#0a0">key_get</span>(<span style="color:#a50">&#34;diary-entry-1&#34;</span>)
+</code></pre></div><p>And, admitted, I used keyring like so for quite a while now.
+However, then I noticed a serious problem, which is there by design:</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <ul>
+<li>The default keyring is not password-locked: it gets unlocked at user login.</li>
+<li>The system secrets persist across R sessions, potentially even across reboots.</li>
+</ul>
+</div>
+<p>This is an unfortunate combination: it means that if you used <code>key_set</code>, and entered your password, you are in a worse situation than before.
+You just created a diary without a lock and left it on your desk, so that everyone who likes can just enter your room and read that good-looking Mickey gave you a compliment about your new braces 😊.</p>
+<p>In computer terms: anyone who comes to your computer can access the recent passwords in a new R session with <code>key_get</code>.
+If I am not mistaken, passwords in some keyrings even persist reboots, yet I did not test.</p>
+<p>What a lousy vault.
+Laxity killed secrecy.</p>
+<h2 id="creating-a-custom-keyring">Creating a Custom Keyring<a href="#creating-a-custom-keyring" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Lesson learned: you <strong>always</strong> want to create a custom keyring.
+And this is actually what the authors of <code>keyring</code> correctly explain <a href="https://keyring.r-lib.org/index.html#usage">in the &ldquo;Usage&rdquo; section</a>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">keyring_create</span>(keyring = <span style="color:#a50">&#34;vault&#34;</span>)
+</code></pre></div><p>On my computer, in a fresh R terminal, this single command initiated three things which happen in a row.</p>
+<p>&hellip; i. Asks the user for a password on the terminal.</p>
+<p>&hellip; ii. Opens a (very neat) popup window which asks for password and confirmation, indicating password strength.</p>
+<p>&hellip; iii. Issues a warning that <code>Password ignored, will be read interactively</code>.</p>
+<p>This might be confusing, and three passwords seem one too much.
+I guess this is historic burden, or compatibility for headless systems, and found that in my workflow I can safely get rid of points (i) and (iii) by instead using the following:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">suppressWarnings</span>(<span style="color:#0a0">keyring_create</span>(keyring = <span style="color:#a50">&#34;vault&#34;</span>, password = <span style="color:#a50">&#34;&#34;</span>))
+</code></pre></div><p>The first password is given as empty string, and thus not prompted, and the ignorant warning message gets suppressed.</p>
+<p>It is possible to wrap this in a function and shadow the package function:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">keyring_create &lt;- <span style="color:#0a0">function</span>(<span style="color:#00a">...</span>) {
+  <span style="color:#0a0">suppressWarnings</span>(
+    keyring::<span style="color:#0a0">keyring_create</span>(<span style="color:#00a">...</span>, password = <span style="color:#a50">&#34;&#34;</span>)
+  )
+}
+</code></pre></div><p>Here you go, a personal keyring which we can use to store secrets.
+It is locked and unlocked with a master password, and any secrets stored inside will be encrypted.
+Keep in mind that your keyring will not lock automatically and will survive a reboot, unless you delete it.</p>
+<p>More on all that, below.</p>
+<h1 id="managing-keys">Managing Keys<a href="#managing-keys" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="stowing-secrets">Stowing Secrets<a href="#stowing-secrets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Now that we have a place to stow our secrets, let&rsquo;s use it.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">key_set</span>(
+  service = <span style="color:#a50">&#34;diary&#34;</span>,
+  username = <span style="color:#a50">&#34;mickey&#34;</span>,
+  keyring = <span style="color:#a50">&#34;vault&#34;</span>
+)
+</code></pre></div><p>Note that the function takes a <code>service</code>, which I think of as a sort of category within a <code>keyring</code>.
+Turns out that I can use my vault to store different kind of things: passwords, money, photos of ex girlfriends&hellip;
+Here, I named it <code>diary</code>, for the sake of analogy.</p>
+<p>Then, there is the <code>username</code>, which makes sense in a service created for storing username-password credentials.
+You ask the &ldquo;diary&rdquo;-service of your &ldquo;vault&rdquo;-keyring for the password of/to &ldquo;mickey&rdquo;.
+Generally, think of it as a label, or a secret phrase<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> which you provide to your vault when you want to retrieve your secret&hellip;</p>
+<h2 id="recovering-secrets">Recovering Secrets<a href="#recovering-secrets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="naïve-getting">Naïve Getting<a href="#naïve-getting" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>And that would work like so:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">key_get</span>(<span style="color:#a50">&#34;diary&#34;</span>, <span style="color:#a50">&#34;mickey&#34;</span>, keyring = <span style="color:#a50">&#34;vault&#34;</span>)
+</code></pre></div><pre><code>[1] &quot;I love Python!&quot;
+</code></pre>
+<p>Wait&hellip;</p>
+<p>OMG&hellip;</p>
+<p>Why did my R console just print that top secret passphrase I entered earlier?!</p>
+<h3 id="invisible-getting">Invisible Getting<a href="#invisible-getting" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>You might consider using <code>invisible(key_get(...))</code>, or even generally:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">key_get &lt;- <span style="color:#0a0">function</span>(<span style="color:#00a">...</span>) <span style="color:#0a0">invisible</span>(keyring::<span style="color:#0a0">key_get</span>(<span style="color:#00a">...</span>))
+</code></pre></div><p><em>Welcome to next level paranoia.</em></p>
+<p>However, this indicates what I think <code>keyring</code> is actually made for:
+you actually want to assign your secrets to some variable, temporarily and on-the-fly, as in</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">database_connection &lt;- DBI::<span style="color:#0a0">dbConnect</span>(
+  RPostgres::<span style="color:#0a0">Postgres</span>(),
+  dbname = <span style="color:#a50">&#34;my_database&#34;</span>,
+  host = <span style="color:#a50">&#34;localhost&#34;</span>,
+  port = <span style="color:#099">5439</span>,
+  user = <span style="color:#a50">&#34;mickey&#34;</span>,
+  password = <span style="color:#0a0">key_get</span>(<span style="color:#a50">&#34;diary&#34;</span>, <span style="color:#a50">&#34;mickey&#34;</span>, keyring = <span style="color:#a50">&#34;vault&#34;</span>) 
+) <span style="color:#aaa;font-style:italic"># just an example...</span>
+</code></pre></div><h3 id="scripted-getting-interactive-pitfalls">Scripted Getting: Interactive Pitfalls<a href="#scripted-getting-interactive-pitfalls" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Conclusion:</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  The main use case of <code>keyring</code> are scripts and code chains which repeatedly use secrets (because, if it was not repeatedly, <code>getPass</code> would be fine).
+In these situations, <code>keyring</code> helps you to avoid the worse options of (a) hardcoding your secrets or (b) having to type them over and over again.
+</div>
+<p>However, that did not quite work out for me.
+The reason lies in the distinction between R&rsquo;s <code>interactive()</code> and non-interactive execution mode for using <code>key_set</code>.</p>
+<p>What does <em>(non-)interactive</em> mean?</p>
+<p>Say you have an automated process: a script which will write all the secret events of the day into your diary.
+Or a script which performs data processes on an SQL database.
+The script is called <code>secrecy_processing.R</code>, contains a call to <code>key_set</code>, and is run prior to executing other scripts.</p>
+<p>The working of <code>key_set(...)</code> in there depends on whether you run the code inside that script from a system terminal, like in <code>Rscript secrecy_processing.R</code>, or from the R console or another script, e.g. <code>source('secrecy_processing.R')</code>.
+The second situation, <em>interactive mode</em>, is equivalend to what RStudio does, and works conveniently for most users.</p>
+<p>Yet in case you have an automated <code>isFALSE(interactive())</code> process, one that you run from a terminal or via a <code>cronjob</code> (exactly where <code>keyring</code> shines), <code>key_set</code> fails because it takes continuous input: it will just use the next line that it receives and think it is the password.</p>
+<p>This is a weird quirk<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> which has caused me some headache, but at least I <a href="https://stackoverflow.com/a/27114322">learned about R&rsquo;s <code>interactive</code> mode</a> on the way.</p>
+<p>Here is the workaround: <code>keyring</code> brings a function to <code>key_set_with_value</code> with a password argument, which can be customized.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># takes the arguments `service`, `username` and `keyring`</span>
+key_set &lt;- <span style="color:#0a0">function</span>(<span style="color:#00a">...</span>) {
+  <span style="color:#aaa;font-style:italic"># check whether this is executed in interactive mode</span>
+  <span style="color:#0a0">if </span>(<span style="color:#0a0">interactive</span>()) {
+    keyring::<span style="color:#0a0">key_set</span>(<span style="color:#00a">...</span>)
+  } else {
+    <span style="color:#aaa;font-style:italic"># when run as a script, getPass will wait for user input</span>
+    keyring::<span style="color:#0a0">key_set_with_value</span>(
+      <span style="color:#00a">...</span>,
+      password = getPass::<span style="color:#0a0">getPass</span>(<span style="color:#a50">&#34;Please enter your secret:&#34;</span>)
+    )
+  }
+}
+
+<span style="color:#aaa;font-style:italic"># example usage</span>
+<span style="color:#0a0">key_set</span>(
+  service = <span style="color:#a50">&#34;diary&#34;</span>,
+  username = <span style="color:#a50">&#34;mickey&#34;</span>,
+  keyring = <span style="color:#a50">&#34;vault&#34;</span>
+)
+
+<span style="color:#aaa;font-style:italic"># print(key_get(&#34;diary&#34;, &#34;mickey&#34;, keyring = &#34;vault&#34;))</span>
+</code></pre></div><p>This could be solved with <code>readLines(&quot;stdin&quot;, n = 1)</code>, yet then the user input is visible in plain text during typing.
+The next best terminal solution I found is the R library <code>getPass</code>.
+You could also search for a dialog box option to enter the password, or a confirmation mechanism.</p>
+<p>Another option would be to use <a href="https://github.com/Miachol/configr"><code>configr</code></a> and store a config file with secrets in a system vault (e.g. with <a href="https://dyne.org/tomb/">&ldquo;tomb&rdquo;</a>).</p>
+<p>Get creative.</p>
+<h3 id="locking-and-unlocking">Locking and Unlocking<a href="#locking-and-unlocking" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>You might notice that, once your keyring is created, the master password is rarely asked again.
+<em>What good is a vault for if you do not lock the door?</em></p>
+<p>At the end of your script, or even better: after finishing an operation, you might want to lock your keyring.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">keyring_lock</span>(keyring = <span style="color:#a50">&#34;vault&#34;</span>)
+<span style="color:#aaa;font-style:italic"># keyring_unlock(keyring = &#34;vault&#34;)</span>
+</code></pre></div><p>This is critical:
+Because you work on the <strong>system keyring</strong>, your keyring stays open even after the R sessions closed.</p>
+<p>Normally, it should be locked upon reboot.
+However, it is good practice to &ldquo;consciously&rdquo; lock your keyrings whenever your procedure using it has finished.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <strong>Always</strong> make sure that your keyring is locked when the work is finished.
+</div>
+<p>It might be even better practice to already schedule the closing of your keyring at the moment you open it.
+Just so you don&rsquo;t forget to leave your door open when you leave.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">keyring_unlock &lt;- <span style="color:#0a0">function</span>(keyring = <span style="color:#00a">NULL</span>, <span style="color:#00a">...</span>) {
+
+  <span style="color:#aaa;font-style:italic"># unlock the keyring</span>
+  keyring::<span style="color:#0a0">keyring_unlock</span>(keyring = keyring, <span style="color:#00a">...</span>)
+  
+  <span style="color:#aaa;font-style:italic"># plan a procedure to lock it when the R session ends</span>
+  <span style="color:#aaa;font-style:italic"># https://stackoverflow.com/a/41179916</span>
+  <span style="color:#0a0">reg.finalizer</span>(
+    .GlobalEnv,
+    <span style="color:#0a0">function</span>(e) {
+      keyring::<span style="color:#0a0">keyring_lock</span>(keyring = keyring)
+      <span style="color:#0a0">message</span>(glue::<span style="color:#0a0">glue</span>(<span style="color:#a50">&#34;Keyring `{keyring}` locked.&#34;</span>))
+    },
+    onexit = <span style="color:#00a">TRUE</span> <span style="color:#aaa;font-style:italic"># I wonder whether you could also set a timer...</span>
+  )
+
+  <span style="color:#0a0">return</span>(<span style="color:#0a0">invisible</span>(<span style="color:#00a">NULL</span>))
+}
+
+<span style="color:#0a0">keyring_unlock</span>(keyring = <span style="color:#a50">&#34;vault&#34;</span>)
+</code></pre></div><p>(Requires an explicit <code>keyring_unlock</code> prior to any <code>key_set</code> or <code>key_get</code> operation.)</p>
+<p>For the Linux operating system, I assembled a function which will spawn a background process for delayed locking of the keyring:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># lock the keyring after a delay</span>
+lock_keyring_delayed &lt;- <span style="color:#0a0">function</span>(keyring_label, delay = <span style="color:#099">300</span>) {
+
+  <span style="color:#0a0">stopifnot</span>(<span style="color:#a50">&#34;glue&#34;</span> = <span style="color:#0a0">require</span>(<span style="color:#a50">&#34;glue&#34;</span>))
+  <span style="color:#0a0">stopifnot</span>(<span style="color:#a50">&#34;keyring&#34;</span> = <span style="color:#0a0">require</span>(<span style="color:#a50">&#34;keyring&#34;</span>))
+
+  <span style="color:#aaa;font-style:italic"># string building blocks</span>
+  l &lt;- glue::<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;\&#34;{keyring_label}\&#34;&#39;</span>)
+  k &lt;- <span style="color:#a50">&#39;keyring::keyring_&#39;</span>
+  x &lt;- glue::<span style="color:#0a0">glue</span>(<span style="color:#a50">&#39;({l} %in% keyring::keyring_list()$keyring)&#39;</span>)
+
+  <span style="color:#aaa;font-style:italic"># this only works on linux</span>
+  <span style="color:#0a0">if </span>(<span style="color:#0a0">isFALSE</span>(.Platform$OS.type == <span style="color:#a50">&#34;unix&#34;</span>)) {
+    <span style="color:#0a0">message</span>(glue::<span style="color:#0a0">glue</span>(<span style="color:#a50">&#34;
+</span><span style="color:#a50">      (keyring will not lock with delay;
+</span><span style="color:#a50">       invoke &#39;keyring::keyring_lock({l})&#39;)
+</span><span style="color:#a50">    &#34;</span>))
+    <span style="color:#0a0">return</span>(<span style="color:#0a0">invisible</span>(<span style="color:#00a">NULL</span>))
+  }
+
+  <span style="color:#aaa;font-style:italic"># build the core script</span>
+  cmd &lt;- glue::<span style="color:#0a0">glue</span>(
+    <span style="color:#a50">&#34;Rscript -e &#39;if ({x} &amp;&amp; isFALSE({k}is_locked({l}))) {k}lock({l})&#39;&#34;</span>
+    <span style="color:#aaa;font-style:italic">#  &amp;&amp; echo &#39;slam!&#39; # &lt;- for testing</span>
+  )
+
+  <span style="color:#aaa;font-style:italic"># background-execute the script with a delay</span>
+  <span style="color:#0a0">system</span>(glue::<span style="color:#0a0">glue</span>(<span style="color:#a50">&#34;sleep {delay} &amp;&amp; {cmd} &amp;&#34;</span>, wait = <span style="color:#00a">FALSE</span>))
+
+} <span style="color:#aaa;font-style:italic"># /lock_keyring_delayed</span>
+</code></pre></div><p>However, that still leaves the keyring on the system.</p>
+<h1 id="cleanup">Cleanup<a href="#cleanup" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="cleanup-command">Cleanup Command<a href="#cleanup-command" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>After using all this for a while, you might begin to hear a sort of metallic rattling noise whenever you start moving.
+These are all the keys on your dear old <code>keyring</code> which you are bringing along but forgot about.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">key_list</span>()
+<span style="color:#0a0">key_list</span>(keyring = <span style="color:#a50">&#34;vault&#34;</span>)
+</code></pre></div><p>To delete the naïve key we created above:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">key_delete</span>(<span style="color:#a50">&#34;diary-entry-1&#34;</span>)
+</code></pre></div><p>And, for even more paranoia and tracelessness, delete your entire keyring:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">keyring_delete</span>(<span style="color:#a50">&#34;vault&#34;</span>)
+</code></pre></div><p>This will prompt you if the keyring is not empty, so in a scripted situation, you would want to delete all keys prior to deleting the empty keyring.</p>
+<h2 id="cleanup-system-keyring-warning">Cleanup System Keyring (Warning!)<a href="#cleanup-system-keyring-warning" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>As I experienced, cleanup can go too far.
+After finishing this write-up, I cleaned up all the keyrings which had accumulated over time from mis-use of R&rsquo;s <code>keyring</code>.
+This reminded me that what I demonstrated herein is working on the <strong>host system</strong>, and has implications which go beyond R.</p>
+<p>What went wrong?
+There was a keyring I could not place, called <code>Login</code>.</p>
+<p>I learned the hard way that the <code>Login</code> keyring is a system requirement, and deleting is will cause system issues.
+What followed was a desparate, but ultimately succesful attempt to repair arch linux by force-removing the <code>keyutils</code> package (which immediately broke the system even more<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, the package manager depends on it), and then re-install it via sideloading from a live-usb-system.</p>
+<p>Long story short:
+<strong>your system keyring is vital</strong>.
+Keep it in order.</p>
+<h1 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Never ever fall to the temptation of hardcoding a password, anywhere.
+It almost inevitably will cause you trouble later on.</p>
+<p>The story above captures my own musings with the great <code>keyring</code> package for R.
+I sincerely hope that it has made your code safer.
+I certainly would have loved to know about all those things back then when puberty hit me.</p>
+<h1 id="tldr">TL;DR<a href="#tldr" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>For the young and impatient, here are all the tricks from above in one code block.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">library</span>(<span style="color:#a50">&#34;keyring&#34;</span>)
+<span style="color:#0a0">library</span>(<span style="color:#a50">&#34;getPass&#34;</span>)
+
+
+keyring_create &lt;- <span style="color:#0a0">function</span>(<span style="color:#00a">...</span>) {
+  <span style="color:#0a0">suppressWarnings</span>(
+    keyring::<span style="color:#0a0">keyring_create</span>(<span style="color:#00a">...</span>, password = <span style="color:#a50">&#34;&#34;</span>)
+  )
+}
+
+<span style="color:#aaa;font-style:italic"># reduce the chance of accidental printout of a key </span>
+key_get &lt;- <span style="color:#0a0">function</span>(<span style="color:#00a">...</span>) <span style="color:#0a0">invisible</span>(keyring::<span style="color:#0a0">key_get</span>(<span style="color:#00a">...</span>))
+
+<span style="color:#aaa;font-style:italic"># setting keys in a scripted environment</span>
+<span style="color:#aaa;font-style:italic"># takes the arguments `service`, `username` and `keyring`</span>
+key_set &lt;- <span style="color:#0a0">function</span>(<span style="color:#00a">...</span>) {
+  <span style="color:#aaa;font-style:italic"># check whether this is executed in interactive mode</span>
+  <span style="color:#0a0">if </span>(<span style="color:#0a0">interactive</span>()) {
+    keyring::<span style="color:#0a0">key_set</span>(<span style="color:#00a">...</span>)
+  } else {
+    <span style="color:#aaa;font-style:italic"># when run as a script, getPass will wait for user input</span>
+    keyring::<span style="color:#0a0">key_set_with_value</span>(
+      <span style="color:#00a">...</span>,
+      password = getPass::<span style="color:#0a0">getPass</span>(<span style="color:#a50">&#34;Please enter your secret:&#34;</span>)
+    )
+  }
+}
+
+
+<span style="color:#aaa;font-style:italic"># unlock a keyring, and schedule locking for when the R session ends</span>
+keyring_unlock &lt;- <span style="color:#0a0">function</span>(keyring = <span style="color:#00a">NULL</span>, <span style="color:#00a">...</span>) {
+
+  <span style="color:#aaa;font-style:italic"># unlock the keyring</span>
+  keyring::<span style="color:#0a0">keyring_unlock</span>(keyring = keyring, <span style="color:#00a">...</span>)
+  
+  <span style="color:#aaa;font-style:italic"># plan a procedure to lock it when the R session ends</span>
+  <span style="color:#aaa;font-style:italic"># https://stackoverflow.com/a/41179916</span>
+  <span style="color:#0a0">reg.finalizer</span>(
+    .GlobalEnv,
+    <span style="color:#0a0">function</span>(e) {
+      keyring::<span style="color:#0a0">keyring_lock</span>(keyring = keyring)
+      <span style="color:#0a0">message</span>(glue::<span style="color:#0a0">glue</span>(<span style="color:#a50">&#34;Keyring `{keyring}` locked.&#34;</span>))
+    },
+    onexit = <span style="color:#00a">TRUE</span> <span style="color:#aaa;font-style:italic"># I wonder whether you could also set a timer...</span>
+  )
+
+  <span style="color:#0a0">return</span>(<span style="color:#0a0">invisible</span>(<span style="color:#00a">NULL</span>))
+}
+</code></pre></div><ul>
+<li>Never hard-code or store plain text secrets.</li>
+<li>Always create a custom keyring.</li>
+<li>Lock your keyring from within each process which uses it.</li>
+<li>Inspect and clean up you keyrings regularly.</li>
+<li>R I/O-functions can behave differently in <code>interactive()</code> mode.</li>
+<li>Do not wipe your system keyring, it is an integral component.</li>
+</ul>
+<p><em>Stay safe, everyone!</em></p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>This <code>username</code> itself is subject to secrecy, in a sense that you might increase security in certain situations by not hardcoding it (you could ask the user &ldquo;which secret would you like to retrieve&rdquo;, with another <code>getPass</code>, stay tuned to see how that works).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Note that scripted <code>key_set</code> is probably not in the intention of the creators of <code>keyring</code>, relying on system keyring persistence across sessions; yet I for my part prefer to delete all secrets from memory and clean up each time a process has finished.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>A brick with windows on it, to be exact.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/development/'>development</a>, <a class='category' href='/categories/r/'>r</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/secrets/'>secrets</a>, <a class='tag' href='/tags/keyring/'>keyring</a>, <a class='tag' href='/tags/passwords/'>passwords</a>, <a class='tag' href='/tags/credentials/'>credentials</a>, <a class='tag' href='/tags/r/'>r</a>, <a class='tag' href='/tags/scripting/'>scripting</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/spatial_variograms/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>An Algorithmic Approach to Variograms</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/tutorials/stap/'>
+        <span class='screen-reader-text'>Next post: </span>Statistical Analysis Plans (StAPs)<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="4" y1="12" x2="20" y2="12"/>
+  <polyline points="14 6 20 12 14 18"/>
+  
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2025 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

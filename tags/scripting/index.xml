@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scripting on INBO Tutorials</title>
+    <link>/tags/scripting/</link>
+    <description>Recent content in scripting on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 05 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The `keyring` package: We can do better than `*******`.</title>
+      <link>/tutorials/r_keyring/</link>
+      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tutorials/r_keyring/</guid>
+      <description>What do the software &amp;ldquo;giants&amp;rdquo; Cisco, Ivanti, and Atlassian all have in common? They all (repeatedly) raised negative attention in the past by pushing hardcoded, unencrypted credentials to the public.
+This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners&#39; mistake.
+The programming environment we will use is R. The package of choice is keyring, but it will be spiced up with some extra precautions.</description>
+    </item>
+    
+  </channel>
+</rss>
