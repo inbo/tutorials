@@ -12,7 +12,7 @@ copyright = ""
 disqusShortname = ""
 googleAnalytics = ""
 
-Paginate = 1000
+pagination.pagerSize = 1000
 preserveTaxonomyNames = true
 
 enableRobotsTXT = true # generate robots.txt
