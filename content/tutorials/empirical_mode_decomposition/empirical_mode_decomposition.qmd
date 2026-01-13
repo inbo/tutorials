@@ -16,7 +16,7 @@ If signals oscillate regularly, Fourier methods are applicable.
 These methods are well known and readily applied.
 
 
-However, these methods fail to capture the complex characteristics of a signal. 
+However, these methods occasionally fail to capture the complex characteristics of a signal. 
 Irregular changes, varying amplitudes, and changing frequencies can result in derived measures which are no good representation of the data.
 
 
@@ -78,7 +78,7 @@ import matplotlib.pyplot as PLT
 
 ## gape angle data 
 
-For exploration, take this brief episode of beak gape angle of a canary cracking hemp seeds, courtesy of [Maja Mielke](https://orcid.org/0000-0001-6328-0589) ([*website*](http://mielke-bio.info/maja/blog)).
+For exploration, take this brief episode of beak gape angle of a canary cracking hemp seeds, courtesy of [Maja Mielke](https://orcid.org/0000-0001-6328-0589) ([*website*](https://maja.mielke.ws/blog/)).
 
 
 ::: {.panel-tabset group="language"}
@@ -144,7 +144,7 @@ ShowPlot()
 
 :::
 
-This bird was in ["positioning" and "biting" phase](http://mielke-bio.info/maja/blog/01_eating_or_being_eaten), placing a hemp seed in the right position for cracking with the help of their upper beak, lower beak and tongue.
+This bird was in ["positioning" and "biting" phase](https://doi.org/10.1242/jeb.244360), placing a hemp seed in the right position for cracking with the help of their upper beak, lower beak and tongue.
 On the x axis of [@fig-data-py]/[@fig-data-r], you see the time (available in video frames, or normalized).
 On the y axis, gape angle indicates (approximately) the angle between the beak tips and corner[^1].
 
@@ -160,7 +160,7 @@ You can clearly see an initial episode with large gape angle oscillations, and a
 Engineers often talk about "peak amplitude" (as in: amplitude along the peaks) and quantify a **momentary amplitude** of a noticably oscillating signal ([see here](https://www.keysight.com/used/be/en/knowledge/guides/how-to-measure-amplitude-engineers-guide)).
 
 This goes by the framework of ["Hilbert Transform"](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.hilbert.html#scipy.signal.hilbert) and ["Analytical Signal"](https://en.wikipedia.org/wiki/Analytic_signal).
-All fascinating, yet we will here stick with the practical implementation.
+All fascinating, yet we will here stick to the practical implementation.
 
 
 To find the peak amplitude of the signal, one obviously has to detect the **peaks** (i.e. local maxima) of the signal.
@@ -295,7 +295,7 @@ One which is used by the reference implementation is `pchip`, "Piecewise Cubic"[
 ::: {.panel-tabset group="language"}
 ### R
 
-In R, the `pracma` and `signal` libraries contain interpoltion functions which are not accurate (copies of matlab).
+In R, the `pracma` and `signal` libraries contain interpolation functions which are not accurate (copies of matlab).
 
 Then, there is the `interpolators` library, yet for some weird design choice it does not offer the choice to extrapolate beyond the data range (though splines can do that easily, see Python).
 
@@ -596,7 +596,7 @@ These functions can help a lot to play around with the peak finding parameters a
 # Example II: Random Walk on Water
 ## anachronistic measures
 
-Ultimately, I would like to apply these functions to quasi-continuous water level measurements from `watina`.
+Ultimately, I would like to apply these functions to quasi-continuous water level measurements from [`watina`](https://www.vlaanderen.be/inbo/datasets/watina/).
 My goal is to slightly improve water level analysis, for the following reason.
 
 
@@ -620,7 +620,7 @@ the mean of the three lowest/highest ground water levels measured in bi-weekly m
 
 
 The anachronism is that we still calculate `xG3` like this, despite the availability of high frequency sampled water levels.
-We artificially pick bi-weekly values.
+We artificially pick bi-weekly values, at 8:00 AM or at noon.
 We disregard the continuous, temporally periodic nature of the phenomenon.
 We choose an arbitrary sampling cadence.
 We ignore measurement uncertainty.
@@ -1059,7 +1059,7 @@ PLT.show();
 As with the random walks above, unguided peak detection *should* find each tiny local peak, therefore initially extracting white noise where it is present.
 
 
-## Guided Mode Search
+## Guided Mode Search (*advanced*)
 
 Experimenting with the peak detection parameters is worth a try.
 (Because this works much better in Python, I will omit the R code here.)
@@ -1069,6 +1069,7 @@ First, search the long-term oscillations, by setting `prominence`, `width`, or `
 In this special case, `width` will exclude the local minima: the lower peaks seem to be rather narrow on this water hole.
 If this is an issue, remember that you can control peak finding for maxima and minima separately.
 However, a combination of distance (more than half a year; remember that peaks and troughs are found separately) and prominence (*meaningful* peak) did the job to find the yearly baseline and straighten out the data (which might not be what we want).
+This **effectively eliminates drift**.
 
 
 ```{python py-emd-wata-topdown1}
@@ -1121,8 +1122,10 @@ There are some obvious problems in this:
 - wet summer ~2015: pronounced "dry" minimum was lacking; water levels around that year are dragged towards the zero
 - peak chopping: some peaks, e.g. mid-2010 and 2016, are lost by smoothing 
 
+Note that, in this particular example, drainage might be the cause of the asymmetrical (capped) distribution of water level values; EMD still handles it relatively well.
 
-Nevertheless, there is another valuable outcome of EMD: we get the lower and upper **envelope**!
+
+There is another valuable outcome of EMD: we get the lower and upper **envelope**!
 
 ```{python py-wateremd-envelope}
 #| label: fig-water-envelope-py
@@ -1140,10 +1143,11 @@ PLT.show();
 
 ```
 
+This envelope, if averaged over time, is somewhat related to the GxG's.
 
 
 
-Note that there is no guarantee that the same guiding parameters will work on every observation in your data set.
+There is no guarantee that the same guiding parameters will work on every observation in your data set.
 In my experience, a "guided" (top-down or bottom-up) EMD approach requires a lot of fiddling with the parameters, possibly even case distinction.
 
 
@@ -1162,13 +1166,13 @@ PLT.show();
 
 ```
 
-However, these peak detection controls are unavailable in R, so we might better stick with the defaults anyways (which usually work).
+The peak detection controls are unavailable in R (at least I did not find them), so we might better stick with the defaults anyways (which usually work).
 
 
 ## Summary: Water Level EMD
 
 ::: {.callout-note}
-To "wrap up" (envelope-pun), some observations:
+To "wrap up" (envelope-pun intended), some observations:
 
 - "guided EMD": yearly oscillations are found first by selecting for peak characteristics
 - noise can be extracted either before or after; EMD is one way of naturally smoothing a signal
@@ -1181,17 +1185,17 @@ And the most important take-home message:
 :::
 
 
-One goal of my application of EMD was to find a better way to extract a yearly range of water levels, to replace the anachronistic `LG3` and `HG3` calculations.
+One goal of my application of EMD was to find a better way to extract a yearly range of water levels, to replace the anachronistic `LG3` and `HG3` calculations (which, nevertheless, worked surprisingly well on random walks).
 With plain application of EMD (i.e. no pre-processing of the data), the envelope seems to be a promising aspect for further inspection.
 
-The reason that water levels turned out to be non-ideal for EMD application is that they lack regular oscillations.
-They are not symmetric (winter wet plateau; summer dry dip), and not necessarily regular (e.g. "wet summer").
-Generally, water level measurements such as the first example above might be more usefully approached with [wavelets](https://docs.scipy.org/doc/scipy-1.12.0/reference/signal.html#wavelets) to find the summer minima.
+The cases in which water levels turned out to be non-ideal for EMD application is when they lack regular oscillations.
+They are not symmetric (e.g. winter wet plateau due to drainage, summer dry dip, drift, ...), and not necessarily regular (e.g. "wet summer").
+Water level measurements such as the first example above might be more usefully approached with [wavelets](https://docs.scipy.org/doc/scipy-1.12.0/reference/signal.html#wavelets) to find the summer minima.
 This is just my [almost-uneducated guess](http://mielke-bio.info/falk/posts/27.cycle_extraction/#orgac5a9c6), based on the visual form of the curves.
 CWT (Continuous Wavelet Transform, [e.g. in R](https://www.rdocumentation.org/packages/Rwave/versions/2.6-5/topics/cwt)) is a great subject for another tutorial.
 
 
-As a reminder, there are many tools to consider for signal analysis. 
+As a general reminder, there are many tools to consider for signal analysis. 
 I hope this tutorial could help to bring EMD to your personal repertoire. 
 
 
