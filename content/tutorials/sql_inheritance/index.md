@@ -1,7 +1,7 @@
 ---
 title: "Table Inheritance with PostgreSQL"
 description: "A logical and efficient table structure for TODO lists and fieldwork calendars."
-date: "2026-02-01"
+date: "2026-01-30"
 authors: [falkmielke]
 categories: ["databases", "development"]
 tags: ["sql", "postgresql", "inheritance", "development"]
