@@ -22,7 +22,7 @@ For our "Monitoring Programme for the Natural Environment" project (MNE, [*cf.*]
 The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.
 
 One central component of our database is a fieldwork calendar, which you could think of as a sort of **TODO list**: in there are the various activity types, per location, with a due date.
-This is outbound information: it is planned in desktop work, and facilitates the planning and allocation of our efforts in the field.
+This is outbound information: it is planned in desktop work, and facilitates the allocation of our efforts in the field.
 On the other hand, there are the actual actions performed in the field: inbound information captured during execution of the task.
 All the different tasks (installation/preparation/measurement) have **some data fields in common, whereas other fields are task-specific**.
 
@@ -33,17 +33,17 @@ In programming terms, the related concepts are [polymorphism](https://en.wikiped
 This tutorial demonstrates how to implement a TODO list with activities of different task types in [postgreSQL](https://www.postgresql.org/docs/current/ddl-inherit.html).
 The situation can be solved entirely without inheritance - in fact, we did so, naïvely, for our initial iteration of MNE fieldwork tools.
 However, an adequate logical representation of the data type hierarchy is both logically convenient ("elegant", and understandable) and computationally efficient.
-Thus, inheritance might be an option to consider for joining our field activities.
-We will explore the basic implementation, in practical use, and also assert which use cases this technique is good for.
+Thus, inheritance might be an option to consider for joining TODO lists or field activities.
+I will herein explore the basic implementation, in practical use, and also assert which use cases this technique is good for.
 
 # PostgreSQL installation (optional)
 
-To get our hands on the examples below, running some kind of postgreSQL service is required.
-There are convenient online service to test small chunks of pgSQL, which allow you to test the SQL code below without a local installation: for example <https://dbfiddle.uk> or <https://aiven.io/tools/pg-playground>.
+To get our hands on the examples below, running some kind of postgreSQL server is required.
+There are convenient online services to test small chunks of pgSQL, which allow you to test the SQL code below without a local installation: for example <https://dbfiddle.uk> or <https://aiven.io/tools/pg-playground>.
 You will find links to "fiddles" in between sections below.
 
 However, installing a local postgreSQL server is not all too complicated, so I took the occasion to list the simple steps.
-These will work on an arbitrary linux system, with minor variance.
+These will work on an arbitrary linux system (e.g. in a [container](https://tutorials.inbo.be/tags/containers/)), with minor variance.
 Installation on Windows can be [achieved via an installer](https://www.postgresql.org/download/windows/) and documented elsewhere.
 
 First off, install the right `postgresql` package for your operating system; usually it is called `postgresql`.
@@ -192,7 +192,7 @@ SELECT * FROM Activities;
 | 9           | pull     | pull-ups | 2026-02-02 |         6 | FALSE | NA    |
 | 10          | push     | dips     | 2026-02-02 |        18 | FALSE | NA    |
 
-Displaying records 1 - 10
+    Displaying records 1 - 10
 
 This is the key SQL syntax, and it is really that simple: `CREATE`, `INSERT`, `UPDATE`, `SELECT`, `DROP` all do what you intuitively think they would.
 
@@ -261,7 +261,7 @@ LEFT JOIN Squats S ON A.activity_id = S.activity_id
 | 4 | push | dips | 2026-02-01 | 16 | FALSE | NA | NA | NA |
 | 1 | push | push-ups | 2026-02-01 | 20 | FALSE | NA | NA | NA |
 
-Displaying records 1 - 10
+    Displaying records 1 - 10
 
 Or, slightly less convoluted:
 
@@ -286,17 +286,21 @@ NATURAL FULL JOIN Squats
 | 9 | pull | pull-ups | 2026-02-02 | 6 | FALSE | NA | NA | NA |
 | 10 | push | dips | 2026-02-02 | 18 | FALSE | NA | NA | NA |
 
-Displaying records 1 - 10
+    Displaying records 1 - 10
 
 And filling the auxiliary tables might be tricky.
 Push-up duration is filled on execution time, whereas squat weight might be planned by the supervisor at plan creation time.
 
-> **Note**
->
-> This design works, but is relatively impractical, not only for reporting purposes.
-> The tables with "special" activities must be filled a priory, or in the gym, conditional upon the activity type, and consistency of the identifier fields must be ensured.
->
-> Keep track of your keys!
+```{=markdown}
+{{% callout note %}}
+```
+This design works, but is relatively impractical, not only for reporting purposes.
+The tables with "special" activities must be filled a priory, or in the gym, conditional upon the activity type, and consistency of the identifier fields must be ensured.
+
+Keep track of your keys!
+```{=markdown}
+{{% /callout %}}
+```
 
 Our database is fully functional, yet maintenance is somewhat cumbersome.
 
@@ -343,7 +347,7 @@ CREATE TABLE Squats (
   ) INHERITS (Activities);
 ```
 
-Here are two changes from above: the identifier column may be omitted (it is inherited), and inheritance is established by the keyword.
+Here are two changes from above: the identifier column may be omitted (it is inherited), and inheritance is established by the keyword `INHERITS (parenttable)`.
 
 ## Data
 
@@ -400,7 +404,7 @@ SELECT * FROM Activities;
 |           1 | push     | push-ups | 2026-02-01 |        20 | FALSE | NA    |
 |           7 | push     | push-ups | 2026-02-02 |        22 | FALSE | NA    |
 
-Displaying records 1 - 10
+    Displaying records 1 - 10
 
 Trivially, PushUps can be queried by selecting from the respective table.
 Yet there is also the option to show activities which are neither push-ups, nor squats, using `ONLY`.
@@ -420,15 +424,19 @@ SELECT * FROM ONLY Activities;
 |          11 | quad     | lunges   | 2026-02-02 |        30 | FALSE | NA    |
 |          12 | pull     | pull-ups | 2026-02-02 |         6 | FALSE | NA    |
 
-8 records
+    8 records
 
 In both cases, only the fields common to all activities are returned ([see here](https://stackoverflow.com/questions/20036578/is-it-possible-to-access-child-information-from-parent-in-postgresql-inheritance)).
 
-> **Note**
->
-> Inheritance in postgreSQL is *not* inheritance of content.
-> Parent tables and child tables remain strictly separated in terms of the data in them.
-> Instead, this is about **structural inheritance**: the child tables inherit fields of the parent table.
+```{=markdown}
+{{% callout note %}}
+```
+Inheritance in postgreSQL is *not* inheritance of content.
+Parent tables and child tables remain strictly separated in terms of the data in them.
+Instead, this is about **structural inheritance**: the child tables inherit fields of the parent table.
+```{=markdown}
+{{% /callout %}}
+```
 
 We still need a way to get the [combined set of fields](https://dba.stackexchange.com/a/125028/358945):
 
@@ -454,7 +462,7 @@ ORDER BY activity_id ASC
 | 9 | pull | pull-ups | 2026-02-02 | 6 | FALSE | NA | NA | NA |
 | 10 | push | dips | 2026-02-02 | 18 | FALSE | NA | NA | NA |
 
-Displaying records 1 - 10
+    Displaying records 1 - 10
 
 This gives us all the options for querying data from the tables.
 But there is a caveat: *updating* data in the tables is conditional on the data type, i.e. activity-type-dependent.
@@ -495,7 +503,7 @@ ORDER BY activity_id ASC
 This by itself is convenient for reporting; the data is even ordered.
 
 Views cannot be updated directly, unless update rules are defined.
-As with real fitness, I like to start with a `DO NOTHING`, and build up from that.
+As with real fitness, I personally like to start with a `DO NOTHING`, and build up from that.
 
 ``` sql
 -- first, erase all default updating activities
@@ -540,7 +548,7 @@ SELECT * FROM AllActivities;
 | 9 | pull | pull-ups | 2026-02-02 | 6 | FALSE | NA | NA | NA |
 | 10 | push | dips | 2026-02-02 | 18 | FALSE | NA | NA | NA |
 
-Displaying records 1 - 10
+    Displaying records 1 - 10
 
 Testing it:
 
@@ -561,6 +569,7 @@ There are additional benefits to this seemingly cumbersome setup of views and up
 -   dynamic sorting and grouping are possible
 -   only editable fields are edited (e.g. user has no saying on the number of repeats)
 -   multiple inheritance and complex joins are possible
+-   keys/indexes/serials can cover all tables in the inheritance chain
 
 For technical UPDATEs and INSERTs, however, the implemented routines best remain conditional (unless they only affect the common fields).
 
@@ -571,13 +580,13 @@ Views are not exclusive to situations which use Inheritance: they could have equ
 # Summary and Discussion
 
 While databases are convenient and highly efficient to work with, there are lots of considerations and choices for database design.
-The most fundamental idea of relational databases is that tables relate to each other via keys, and that different data types should be stored in their own tables.
+The most fundamental idea of relational databases is that tables relate to each other via keys, and that different types or classes of data should be stored in their own tables.
 
-However, in some specific cases, the naïve implementation is agnostic to the logical relation of data types.
+However, in some specific cases, the naïve implementation is agnostic to the logical relation of data classes.
 This could cause technical inefficiency by redundancy.
 In these cases, table **inheritance** might be an elegant solution.
 
-Even if the computational background was equivalent in both the implementations I presented above,
+Even if the computational load would be equivalent in both the implementations I presented above,
 the use of `INHERITS` gives some extra conceptual structure to the data which has documentational value.
 
 Inheritance is not a general solution, and should be carefully considered.
