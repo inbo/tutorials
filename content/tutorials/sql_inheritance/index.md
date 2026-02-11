@@ -291,16 +291,14 @@ NATURAL FULL JOIN Squats
 And filling the auxiliary tables might be tricky.
 Push-up duration is filled on execution time, whereas squat weight might be planned by the supervisor at plan creation time.
 
-```{=markdown}
 {{% callout note %}}
-```
+
 This design works, but is relatively impractical, not only for reporting purposes.
 The tables with "special" activities must be filled a priory, or in the gym, conditional upon the activity type, and consistency of the identifier fields must be ensured.
 
 Keep track of your keys!
-```{=markdown}
+
 {{% /callout %}}
-```
 
 Our database is fully functional, yet maintenance is somewhat cumbersome.
 
@@ -428,15 +426,13 @@ SELECT * FROM ONLY Activities;
 
 In both cases, only the fields common to all activities are returned ([see here](https://stackoverflow.com/questions/20036578/is-it-possible-to-access-child-information-from-parent-in-postgresql-inheritance)).
 
-```{=markdown}
 {{% callout note %}}
-```
+
 Inheritance in postgreSQL is *not* inheritance of content.
 Parent tables and child tables remain strictly separated in terms of the data in them.
 Instead, this is about **structural inheritance**: the child tables inherit fields of the parent table.
-```{=markdown}
+
 {{% /callout %}}
-```
 
 We still need a way to get the [combined set of fields](https://dba.stackexchange.com/a/125028/358945):
 
