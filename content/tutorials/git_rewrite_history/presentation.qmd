@@ -113,7 +113,7 @@ digraph G {
 ::::
 
 
-## Commiting to current branch
+## Committing to current branch
 
 :::: {.columns}
 
@@ -426,7 +426,7 @@ digraph G {
 
 - allows to change older commits
 
-1. make sure you have checkout the correct branch
+1. make sure you have checked out the correct branch
 	- `git checkout my_feature`
 1. define the range of commits you want to alter
 	- `git rebase -i f2` start at commit f2
@@ -461,10 +461,10 @@ Use `git rebase --abort` to undo the changes while the rebase is in progress.
 
 ## Workflow
 
-- apply the changes locally as describe in the previous chapter
+- apply the changes locally as described in the previous chapter
 - a simple `git push` will fail because of a diverging history
 - you must use `git push --force` or `git push -f`
-- be carefull because you can't undo that
+- be careful because you can't undo that
 
 ## Get updated branch in other clone
 
