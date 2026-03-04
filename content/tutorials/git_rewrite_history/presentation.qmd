@@ -1,0 +1,653 @@
+# Refresher on git basics
+
+## The commit
+
+::: {.callout-note}
+### content
+
+- which files to change
+- how to change the files
+- when (timestamp)
+- by whom (author)
+- description (message)
+- previous commit
+:::
+
+::: {.callout-tip}
+### commit hash
+
+- sha1 digest of content
+- references the commit
+:::
+
+## Commands
+
+### `git add README.md`
+
+- select `README.md` to be added to the next commit
+
+### `git commit -m "initial commit"`
+
+- create a commit with message "initial commit"
+
+## Git history
+
+```{dot}
+digraph G {
+    rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+    main -> m3 [dir = none, color="#019966"];
+    m3 -> m2 -> m1 -> m0;
+    HEAD -> m3 [dir = none, color="#019966"];
+    main [shape = diamond, color="#019966"];
+    HEAD [shape = diamond, color="#019966"];
+	m3 [color = "#C04384"]
+}
+```
+
+## Going back in time
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+    rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+    main -> m3 [dir = none, color="#019966"];
+    m3 -> m2 -> m1 -> m0;
+    HEAD -> m3 [dir = none, color="#019966"];
+    main [shape = diamond, color="#019966"];
+    HEAD [shape = diamond, color="#019966"];
+	m2 [color = "#C04384"]
+}
+```
+
+:::
+
+::: {.column}
+
+- `git checkout m2`
+- changes the files under version control in your working directory
+- detached HEAD state
+
+:::
+
+::::
+
+## Creating a new branch
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+    rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+    main -> m3 [dir = none, color="#019966"];
+    m3 -> m2 -> m1 -> m0;
+    HEAD -> m2 [dir = none, color="#019966"];
+    main [shape = diamond, color="#019966"];
+    my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+	my_feature -> m2 [dir = none, color="#019966"];
+    HEAD [shape = diamond, color="#019966"];
+	m2 [color = "#C04384"]
+}
+```
+
+:::
+
+::: {.column}
+
+- `git branch my_feature`
+	- always at the current checkout position
+- `git checkout my_feature`
+	- switch to the new branch
+
+:::
+
+::::
+
+
+## Commiting to current branch
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+    rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+    main -> m3 [dir = none, color="#019966"];
+    main [shape = diamond, color="#019966"];
+    m3 -> m2 -> m1 -> m0;
+	f1 -> f0 -> m2 [color = "#BDDDD7"];
+    my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+	my_feature -> f1 [dir = none, color="#019966"];
+    HEAD [shape = diamond, color="#019966"];
+    HEAD -> f1 [dir = none, color="#019966"];
+	f0 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+}
+```
+
+:::
+
+::: {.column}
+
+
+- `git add`
+- `git commit`
+
+:::
+
+::::
+
+
+## `git push -u origin my_feature`
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+    rankdir="TB";
+    compound=true; 
+    subgraph cluster_local {
+		node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+		main -> m3 [dir = none, color="#019966"];
+		main [shape = diamond, color="#019966"];
+		m3 -> m2 -> m1 -> m0;
+		f1 -> f0 -> m2 [color = "#BDDDD7"];
+		my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+		my_feature -> f1 [dir = none, color="#019966"];
+		origin_my_feature [shape = diamond, color="#019966", label = "origin/my_feature", style=filled, fillcolor = "#BDDDD7"];
+		origin_my_feature -> f1 [dir = none, color="#019966"];
+		HEAD [shape = diamond, color="#019966"];
+		HEAD -> f1 [dir = none, color="#019966"];
+		f0 [style = filled, fillcolor = "#BDDDD7"]
+		f1 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+		label = "local";
+	}
+}
+```
+
+:::
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+    rankdir="TB";
+    compound=true; 
+    subgraph cluster_local {
+		node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+		m2 -> m1 -> m0;
+		f1 -> f0 -> m2 [color = "#BDDDD7"];
+		my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+		my_feature -> f1 [dir = none, color="#019966"];
+		f0 [style = filled, fillcolor = "#BDDDD7"]
+		f1 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+		label = "origin";
+	}
+}
+```
+:::
+
+::::
+
+# Rewriting history locally
+
+## Assumptions
+
+- you are the only person working on the commits
+- you haven't pushed the involved commits
+
+## Problem in the most recent commit
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+    rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	main -> m3 [dir = none, color="#019966"];
+	main [shape = diamond, color="#019966"];
+	m3 -> m2 -> m1 -> m0;
+	f3 -> f2 -> f1 -> f0 -> m2 [color = "#BDDDD7"];
+	my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+	my_feature -> f3 [dir = none, color="#019966"];
+	origin_my_feature [shape = diamond, color="#019966", label = "origin/my_feature", style=filled, fillcolor = "#BDDDD7"];
+	origin_my_feature -> f1 [dir = none, color="#019966"];
+	HEAD [shape = diamond, color="#019966"];
+	HEAD -> f3 [dir = none, color="#019966"];
+	f0 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [style = filled, fillcolor = "#BDDDD7"]
+	f2 [style = filled, fillcolor = "#BDDDD7"]
+	f3 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+}
+```
+
+:::
+
+::: {.column}
+- correct files
+- stage them with `git add`
+- `git commit --amend`
+	- alters the last commit instead of creating a new commit 
+- note that the commit hash will change
+:::
+
+::::
+
+## Resetting
+
+- `git reset`
+	- unstage all stages changes
+	- doesn't change files
+- `git reset --hard`
+	- revert all changes to the status of the latest commit
+- `git reset --hard HEAD~1`
+	- remove the latest commit
+	- revert all changes to the status of the current latest commit
+
+## Rebase
+
+- add commits from one branch at the end of the another branch
+
+1. go the branch to which you want to add commits
+    - `git checkout my_feature`
+1. rebase the branch you want to add
+    - `git rebase other_feature`
+
+## Git rebase visualised
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	subgraph cluster {
+		main -> m3 [dir = none, color="#019966"];
+		main [shape = diamond, color="#019966"];
+		m3 -> m2 -> m1 -> m0;
+		f3 -> f2 -> f1 -> f0 -> m2 [color = "#BDDDD7"];
+		my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+		my_feature -> f3 [dir = none, color="#019966"];
+		origin_my_feature [shape = diamond, color="#019966", label = "origin/my_feature", style=filled, fillcolor = "#BDDDD7"];
+		origin_my_feature -> f1 [dir = none, color="#019966"];
+		HEAD [shape = diamond, color="#019966"];
+		HEAD -> f3 [dir = none, color="#019966"];
+		f0 [style = filled, fillcolor = "#BDDDD7"]
+		f1 [style = filled, fillcolor = "#BDDDD7"]
+		f2 [style = filled, fillcolor = "#BDDDD7"]
+		f3 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+		g0 [style = filled, fillcolor = "#EF972C"]
+		g1 [style=filled, fillcolor = "#EF972C"]
+		g1 -> g0 -> f1 [color = "#EF972C"];
+		other_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#EF972C"];
+		other_feature -> g1 [dir = none, color="#019966"];
+		label = "before"
+	}
+}
+```
+
+:::
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	subgraph cluster {
+		main -> m3 [dir = none, color="#019966"];
+		main [shape = diamond, color="#019966"];
+		m3 -> m2 -> m1 -> m0;
+		g1b -> g0b -> f3 -> f2 -> f1 -> f0 -> m2 [color = "#BDDDD7"];
+		my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+		my_feature -> g1b [dir = none, color="#019966"];
+		origin_my_feature [shape = diamond, color="#019966", label = "origin/my_feature", style=filled, fillcolor = "#BDDDD7"];
+		origin_my_feature -> f1 [dir = none, color="#019966"];
+		HEAD [shape = diamond, color="#019966"];
+		HEAD -> g1b [dir = none, color="#019966"];
+		f0 [style = filled, fillcolor = "#BDDDD7"]
+		f1 [style = filled, fillcolor = "#BDDDD7"]
+		f2 [style = filled, fillcolor = "#BDDDD7"]
+		f3 [style=filled, fillcolor = "#BDDDD7"]
+		g0b [style = filled, fillcolor = "#EF972C"]
+		g1b [color = "#C04384", style=filled, fillcolor = "#EF972C"]
+		label = "after"
+	}
+}
+```
+:::
+
+::::
+
+## Cherry-pick
+
+- add one or more individual commits from one branch at the end of the another branch
+
+1. go the branch to which you want to add commits
+    - `git checkout my_feature`
+1. cherry-pick the commit you want to add
+    - `git cherry-pick g1`
+
+## Git cherry-pick visualised
+
+:::: {.columns}
+
+::: {.column}
+
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	subgraph cluster {
+		main -> m3 [dir = none, color="#019966"];
+		main [shape = diamond, color="#019966"];
+		m3 -> m2 -> m1 -> m0;
+		f3 -> f2 -> f1 -> f0 -> m2 [color = "#BDDDD7"];
+		my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+		my_feature -> f3 [dir = none, color="#019966"];
+		origin_my_feature [shape = diamond, color="#019966", label = "origin/my_feature", style=filled, fillcolor = "#BDDDD7"];
+		origin_my_feature -> f1 [dir = none, color="#019966"];
+		HEAD [shape = diamond, color="#019966"];
+		HEAD -> f3 [dir = none, color="#019966"];
+		f0 [style = filled, fillcolor = "#BDDDD7"]
+		f1 [style = filled, fillcolor = "#BDDDD7"]
+		f2 [style = filled, fillcolor = "#BDDDD7"]
+		f3 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+		g0 [style = filled, fillcolor = "#EF972C"]
+		g1 [style=filled, fillcolor = "#EF972C"]
+		g1 -> g0 -> f1 [color = "#EF972C"];
+		other_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#EF972C"];
+		other_feature -> g1 [dir = none, color="#019966"];
+		label = "before"
+	}
+}
+```
+
+:::
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	subgraph cluster {
+		main -> m3 [dir = none, color="#019966"];
+		main [shape = diamond, color="#019966"];
+		m3 -> m2 -> m1 -> m0;
+		g1b -> f3 -> f2 -> f1 -> f0 -> m2 [color = "#BDDDD7"];
+		my_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#BDDDD7"];
+		my_feature -> g1b [dir = none, color="#019966"];
+		origin_my_feature [shape = diamond, color="#019966", label = "origin/my_feature", style=filled, fillcolor = "#BDDDD7"];
+		origin_my_feature -> f1 [dir = none, color="#019966"];
+		HEAD [shape = diamond, color="#019966"];
+		HEAD -> g1b [dir = none, color="#019966"];
+		f0 [style = filled, fillcolor = "#BDDDD7"]
+		f1 [style = filled, fillcolor = "#BDDDD7"]
+		f2 [style = filled, fillcolor = "#BDDDD7"]
+		f3 [color = "#C04384", style=filled, fillcolor = "#BDDDD7"]
+		g0 [style = filled, fillcolor = "#EF972C"]
+		g1 [style=filled, fillcolor = "#EF972C"]
+		g1b [style=filled, fillcolor = "#EF972C"]
+		g1 -> g0 -> f1 [color = "#EF972C"];
+		other_feature [shape = diamond, color="#019966", style=filled, fillcolor = "#EF972C"];
+		other_feature -> g1 [dir = none, color="#019966"];
+		label = "after"
+	}
+}
+```
+:::
+
+::::
+
+## Interactive rebase
+
+- allows to change older commits
+
+1. make sure you have checkout the correct branch
+	- `git checkout my_feature`
+1. define the range of commits you want to alter
+	- `git rebase -i f2` start at commit f2
+	- `git rebase -i HEAD~2` start 2 commits before HEAD
+
+## Interactive rebase
+
+3. indicate what you want to do with every commit
+	- `pick`: use as is
+	- `edit`: change the commit
+	- `drop`: remove the commit
+
+## Interactive rebase
+
+4. rebase will automatically checkout the first `edit` commit
+	- correct the files
+	- `git add` changed files
+	- `git commit --amend` to update commit
+	- `git rebase --continue` to continue the process
+
+Use `git rebase --abort` to undo the changes while the rebase is in progress.
+
+# Rewriting history on a remote repository
+
+## Precautions
+
+- warn all active users to stop pushing and pulling until you're done
+- make sure no one has created a branch start from the range you want to alter
+	- merge such branches before rewriting the history
+- do the work in a different `git clone`
+- create a new branch before altering a branch
+
+## Workflow
+
+- apply the changes locally as describe in the previous chapter
+- a simple `git push` will fail because of a diverging history
+- you must use `git push --force` or `git push -f`
+- be carefull because you can't undo that
+
+## Get updated branch in other clone
+
+1. Checkout the local branch
+	- `git checkout <branch-name>`
+1. Get new branches from remote
+	- `git fetch origin`
+1. Reset to the new origin branch
+	- `git reset --hard origin/<branch-name>`
+
+## Recreate a release by remerging a branch
+
+:::: {.columns}
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	main -> m1 [dir = none, color="#019966"];
+	omain -> m1 [dir = none, color="#019966"];
+	m1 -> m0;
+	f1 -> f0 -> m0 [color = "#BDDDD7"];
+	m1 -> f1;
+	main [shape = diamond, color="#019966"];
+	omain [shape = diamond, color="#019966", label = "origin/main"];
+	HEAD [shape = diamond, color="#019966"];
+	HEAD -> m1 [dir = none, color="#019966"];
+	f0 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [style = filled, fillcolor = "#BDDDD7"]
+	m1 [color = "#C04384"]
+}
+```
+:::
+
+::: {.column}
+1. Delete the release and the related tag on GitHub
+1. `git checkout main`: go to the `main` branch
+1. `git pull`: make sure you have the latest `main`
+:::
+
+::::
+
+
+## Recreate a release by remerging a branch
+
+:::: {.columns}
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	main -> m1 [dir = none, color="#019966"];
+	omain -> m1 [dir = none, color="#019966"];
+	m1 -> m0;
+	f1 -> f0 -> m0 [color = "#BDDDD7"];
+	m1 -> f1;
+	main [shape = diamond, color="#019966"];
+	omain [shape = diamond, color="#019966", label = "origin/main"];
+	feature [shape = diamond, color="#019966"];
+	ofeature [shape = diamond, color="#019966", label = "origin/feature"];
+	HEAD [shape = diamond, color="#019966"];
+	feature -> f1 [dir = none, color="#019966"];
+	ofeature -> f1 [dir = none, color="#019966"];
+	HEAD -> f1 [dir = none, color="#019966"];
+	f0 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [color = "#C04384"]
+}
+```
+:::
+
+::: {.column}
+4. `git checkout <commit-SHA>`: go the latest commit of the feature branch
+1. `git branch <branch_name>`: recreate the feature branch
+1. `git push -u origin <branch_name>`: push the feature branch
+:::
+
+::::
+
+## Recreate a release by remerging a branch
+
+:::: {.columns}
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	main -> m0 [dir = none, color="#019966"];
+	omain -> m0 [dir = none, color="#019966"];
+	m0;
+	f1 -> f0 -> m0 [color = "#BDDDD7"];
+	main [shape = diamond, color="#019966"];
+	omain [shape = diamond, color="#019966", label = "origin/main"];
+	feature [shape = diamond, color="#019966"];
+	ofeature [shape = diamond, color="#019966", label = "origin/feature"];
+	HEAD [shape = diamond, color="#019966"];
+	feature -> f1 [dir = none, color="#019966"];
+	ofeature -> f1 [dir = none, color="#019966"];
+	HEAD -> m0 [dir = none, color="#019966"];
+	f0 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [style = filled, fillcolor = "#BDDDD7"]
+	m0 [color = "#C04384"]
+}
+```
+:::
+
+::: {.column}
+7. `git checkout main`: go back to the main branch
+1. `git reset --hard HEAD~1`: remove the latest commit of the main branch
+1. `git push -f`: force push the main branch
+:::
+
+::::
+
+## Recreate a release by remerging a branch
+
+:::: {.columns}
+
+::: {.column}
+```{dot}
+//| fig-width: 6
+digraph G {
+  rankdir="TB";
+	node [fontname="FlandersArtSans-Bold.ttf,sans-serif"]
+	main -> m0 [dir = none, color="#019966"];
+	omain -> m0 [dir = none, color="#019966"];
+	m0;
+	f2 -> f1 -> f0 -> m0 [color = "#BDDDD7"];
+	main [shape = diamond, color="#019966"];
+	omain [shape = diamond, color="#019966", label = "origin/main"];
+	feature [shape = diamond, color="#019966"];
+	ofeature [shape = diamond, color="#019966", label = "origin/feature"];
+	HEAD [shape = diamond, color="#019966"];
+	feature -> f2 [dir = none, color="#019966"];
+	ofeature -> f2 [dir = none, color="#019966"];
+	HEAD -> f2 [dir = none, color="#019966"];
+	f0 [style = filled, fillcolor = "#BDDDD7"]
+	f1 [style = filled, fillcolor = "#BDDDD7"]
+	f2 [style = filled, fillcolor = "#BDDDD7"]
+	f2 [color = "#C04384"]
+}
+```
+:::
+
+::: {.column}
+10. `git checkout <feature_branch>`: go back to the feature branch
+1. alter the `<feature_branch>`
+1. `git push -f`
+1. create a new pull request
+1. merge pull request
+:::
+
+::::
+
+# Git recommendations
+
+## Keep your commits small
+
+- easier to give a good description
+- easier to read history
+- easier to revert changes
+- easier to cherry-pick
+
+You don't have to commit all changes of a file in a single commit!
+
+## Agree on a workflow
+
+- don't work in the `main` branch
+- protect the `main` branch on GitHub
+- use `pull request` on GitHub to add feature branches to the main branch
+- only one person at a time should work in a branch
+
+## Use `checklist`
+
+- add an improved `.gitignore`
+- adds a lot of automated checks
+
+## Saperlipopette
+
+[Saperlipopette](https://docs.ropensci.org/saperlipopette/articles/saperlipopette.html) creates Git exercises, that users solve using their local and usual tools.
