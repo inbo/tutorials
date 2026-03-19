@@ -28,4 +28,14 @@ In the future, we plan to provide a RMarkDown template as well.
 
 
 # Procedure
-Once the process is streamlined, we will describe the procedure to start, make, and review your StAP here.
+You can request support for your StAP by contacting the [BMK-helpdesk](https://docs.google.com/forms/d/e/1FAIpQLScF5OKr-Ybn1Mz7Vk2CIwDXAITSB0xFC3oFqyg7VMOCSrmu_A/viewform).
+Team BMK can help you with: 
+
+* drafting the complete StAP together with you
+* providing targeted advice on specific components, such as research design
+* translating a scientific hypothesis into a statistical hypothesis
+* selecting and designing suitable models
+* performing or supervising sample size calculations
+* advice on handling missing data
+* checking the final StAP before publication
+* ...
