@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='A logical and efficient table structure for TODO lists and fieldwork calendars.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Table Inheritance with PostgreSQL • Falk Mielke'>
+<meta property='og:description' content='A logical and efficient table structure for TODO lists and fieldwork calendars.'>
+<meta property='og:url' content='/tutorials/sql_inheritance/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='sql'><meta property='article:tag' content='postgresql'><meta property='article:tag' content='inheritance'><meta property='article:tag' content='development'><meta property='article:published_time' content='2026-04-03T00:00:00Z'/><meta property='article:modified_time' content='2026-04-03T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.88.1" />
+
+  <title>Table Inheritance with PostgreSQL • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/sql_inheritance/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>analysis of variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>api</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>bioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>co-variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>coding club</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>de-trending</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>design of experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.025em'>development</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>e-book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>explorative data analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>frictionless</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>generalized linear regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>gwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>inborutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>mixed model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>mixed models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>multivariate statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>n2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.0875em'>open science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>r</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>rstudio</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1em'>spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0125em'>sql</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>statistical analysis plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>tidyverse</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>version control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>visual markdown editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>wateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Fri Apr 3 13:02:36 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Table Inheritance with PostgreSQL</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Table Inheritance with PostgreSQL</h1>
+      
+<p class='desc'>A logical and efficient table structure for TODO lists and fieldwork calendars.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2026-04-03T00:00:00Z'>2026, Apr 03</time>
+</span>
+
+  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
+  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
+  
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+15 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/sql_inheritance/index.md'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h1 id="motivation">Motivation<a href="#motivation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>For our &ldquo;Monitoring Programme for the Natural Environment&rdquo; project (MNE, <a href="https://www.vlaanderen.be/inbo/teams/meetnetten-natuurlijk-milieu"><em>cf.</em></a>) we organize fieldwork with a <a href="https://qgis.org">QGIS</a>/<a href="https://qfield.org">QField</a> front-end which connects to a database backend.
+The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.</p>
+<p>One central component of our database is a fieldwork calendar, which you could think of as a sort of <strong>TODO list</strong>: in there are the various activity types, per location, with a due date.
+This is outbound information: it is planned in desktop work, and facilitates the allocation of our efforts in the field.
+On the other hand, there are the actual actions performed in the field: inbound information captured during execution of the task.
+All the different tasks (installation/preparation/measurement) have <strong>some data fields in common, whereas other fields are task-specific</strong>.</p>
+<p>This is a rather specific situation, but not too uncommon:
+we have an <em>abstract definition</em> of a task (common fields), and <em>special sub-types</em> of tasks (specific fields).
+In programming terms, the related concepts are <a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)">polymorphism</a> and <a href="https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)">inheritance</a>.</p>
+<p>This tutorial demonstrates how to implement a TODO list with activities of different task types in <a href="https://www.postgresql.org/docs/current/ddl-inherit.html">postgreSQL</a>.
+The situation can be solved entirely without inheritance - in fact, we did so, naïvely, for our initial iteration of MNE fieldwork tools.
+However, an adequate logical representation of the data type hierarchy is both logically convenient (&ldquo;elegant&rdquo;, and understandable) and computationally efficient.
+Thus, inheritance might be an option to consider for joining TODO lists or field activities.
+I will herein explore the basic implementation, in practical use, and also assert which use cases this technique is good for.</p>
+<h1 id="postgresql-installation-optional">PostgreSQL installation (optional)<a href="#postgresql-installation-optional" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>To get our hands on the examples below, running some kind of postgreSQL server is required.
+There are convenient online services to test small chunks of pgSQL, which allow you to test the SQL code below without a local installation: for example <a href="https://dbfiddle.uk">https://dbfiddle.uk</a> or <a href="https://aiven.io/tools/pg-playground">https://aiven.io/tools/pg-playground</a>.
+You will find links to &ldquo;fiddles&rdquo; in between sections below.</p>
+<p>However, installing a local postgreSQL server is not all too complicated, so I took the occasion to list the simple steps.
+These will work on an arbitrary linux system (e.g. in a <a href="https://tutorials.inbo.be/tags/containers/">container</a>), with minor variance.
+Installation on Windows can be <a href="https://www.postgresql.org/download/windows/">achieved via an installer</a> as documented elsewhere.</p>
+<p>Thus, the following guidelines apply to a linux environment.
+First off, install the right <code>postgresql</code> package for your operating system; usually it is called <code>postgresql</code>.
+Here, I will mostly follow <a href="https://wiki.archlinux.org/title/PostgreSQL">this guide</a>, which contains good general advice independent of OS.</p>
+<p>Next, a database must be initialized:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">su - postgres
+initdb -D /var/lib/postgres/data
+</code></pre></div><p>Initalization succeeds, and the server process can be started with the following command.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pg_ctl -D /var/lib/postgres/data -l logfile start
+</code></pre></div><p>If startup fails, you will find the <code>logfile</code> (a text file) in the folder where you started (e.g. folder permissions should be granted to the <code>postgres</code> user).</p>
+<p>Otherwise, congratulations, a local server is up and running!
+We will need a user&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">createuser --interactive
+<span style="color:#aaa;font-style:italic"># I called my user &#34;sauron&#34;, reference to a famous story. A superuser, of course.</span>
+</code></pre></div><p>&hellip; and a database.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">createdb middleearth -O sauron
+</code></pre></div><p>Here, the test database is <code>middleearth</code>, its owner is <code>sauron</code>; names are totally arbitrary.</p>
+<p>To connect to the database, use the <code>psql</code> command, specifying the user with option <code>-U</code> and the database with option <code>-d</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">psql -U sauron -d middleearth
+</code></pre></div><p>I skip over many details here, which you will find explained elsewhere.
+For a production server, I highly recommend to carefully go through all the postgres configurations and settings, to set up a firewall, an so forth.</p>
+<p>You might find <a href="https://www.pgadmin.org">pgAdmin</a> a convenient tool to interact with the database, and it comes bundled with many postgres installations.
+Also have a look at <a href="https://pgmodeler.io">pgModeler</a> for more complex, visually guided database design.
+For the toy data below, choice is all up to you.</p>
+<p>To use the connection in this quarto notebook, I will establish a connection via R.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">stopifnot</span>(<span style="color:#a50">&#34;DBI&#34;</span> = <span style="color:#0a0">require</span>(<span style="color:#a50">&#34;DBI&#34;</span>))
+</code></pre></div><pre><code>Loading required package: DBI
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#0a0">stopifnot</span>(<span style="color:#a50">&#34;RPostgreSQL&#34;</span> = <span style="color:#0a0">require</span>(<span style="color:#a50">&#34;RPostgreSQL&#34;</span>))
+</code></pre></div><pre><code>Loading required package: RPostgreSQL
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">conn &lt;- DBI::<span style="color:#0a0">dbConnect</span>(
+  drv = DBI::<span style="color:#0a0">dbDriver</span>(<span style="color:#a50">&#34;PostgreSQL&#34;</span>),
+  <span style="color:#aaa;font-style:italic"># host = &#34;localhost&#34;, port = 5432,</span>
+  user = <span style="color:#a50">&#34;sauron&#34;</span>, db = <span style="color:#a50">&#34;middleearth&#34;</span>
+)
+</code></pre></div><h1 id="test-data---naïve-implementation">Test Data - Naïve Implementation<a href="#test-data---naïve-implementation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="nomenclature">Nomenclature<a href="#nomenclature" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>I will use this chapter to establish some basic terminology of SQL, stuff that you probably learn in all the very first books or tutorials you encounter.</p>
+<p><em>Raison d&rsquo;être</em> for all SQL applications is the use of <strong>relational databases</strong>, i.e. sets of tables which are somehow <em>linked</em> to one another.
+Linkage is established with keys, as I will not demonstrate below for the sake of simplicity.
+Database software is designed to handle tables in a computationally efficient way.
+<strong>SQL</strong> is the &ldquo;language&rdquo; which helps you to control your database (e.g. insert data, or ask for reports).
+One dialect of SQL is <strong>postgreSQL</strong>, or postgres, or pgSQL, or <code>pg</code> for short.</p>
+<p>You can think of the columns of the tables in your database as the characteristics which define each table entry.
+Hence, they are called <strong>fields</strong>.
+The data is stored in rows.
+This is best understood on an example.</p>
+<h2 id="activities">Activities<a href="#activities" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>We will create our first table with the following fields.
+In brackets, the different columns are defined as a given data type.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>activity_id<span style="color:#bbb"> </span><span style="color:#0aa">INT</span><span style="color:#bbb"> </span><span style="color:#00a">PRIMARY</span><span style="color:#bbb"> </span><span style="color:#00a">KEY</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>category<span style="color:#bbb"> </span><span style="color:#0aa">VARCHAR</span>(<span style="color:#099">4</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>activity<span style="color:#bbb"> </span><span style="color:#0aa">VARCHAR</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>due_date<span style="color:#bbb"> </span><span style="color:#0aa">DATE</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>n_repeats<span style="color:#bbb"> </span><span style="color:#0aa">INT</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>done<span style="color:#bbb"> </span><span style="color:#0aa">BOOLEAN</span><span style="color:#bbb"> </span><span style="color:#00a">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#00a">FALSE</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>notes<span style="color:#bbb"> </span><span style="color:#0aa">TEXT</span><span style="color:#bbb"> </span><span style="color:#00a">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#00a">NULL</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>);<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- if adjustment is needed:
+</span><span style="color:#aaa;font-style:italic">-- DROP TABLE Activities;
+</span></code></pre></div><p>To remain the ruler of middle earth, some workout might be justified.
+Here is our training plan.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">INSERT</span><span style="color:#bbb"> </span><span style="color:#00a">INTO</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>(activity_id,<span style="color:#bbb"> </span>category,<span style="color:#bbb"> </span>activity,<span style="color:#bbb"> </span>due_date,<span style="color:#bbb"> </span>n_repeats)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">VALUES</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">1</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">20</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">2</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;squats&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">16</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">3</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">5</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">4</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;dips&#39;</span>,<span style="color:#bbb">     </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">16</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">5</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;lunges&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">25</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">6</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">5</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">7</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">22</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">8</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;squats&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">17</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">9</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">6</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#099">10</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;dips&#39;</span>,<span style="color:#bbb">     </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">18</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#099">11</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;lunges&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">30</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#099">12</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">6</span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span></code></pre></div><p>We can look at out training plan with a simple <code>SELECT</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> </span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span>Activities;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">17</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>This is the key SQL syntax, and it is really that simple: <code>CREATE</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>SELECT</code>, <code>DROP</code> all do what you intuitively think they would.</p>
+<p>Note the conceptually different kinds of fields (columns) in this table:</p>
+<ul>
+<li><code>activity_id</code> is a technical identifier, the &ldquo;primary key&rdquo;; one would define a &ldquo;sequence&rdquo; in real databases</li>
+<li><code>category</code> and <code>activity</code> are the logical, human-readable tasks; they are not unique here and could be moved to a metadata-table (linked with a foreign key)</li>
+<li>however, the combination of these with <code>date</code> uniquely characterizes an activity</li>
+<li><code>n_repeats</code> is given <em>a priori</em> by the personal trainer</li>
+<li><code>done</code> and <code>notes</code> are only entered upon execution; they are input fields</li>
+</ul>
+<h2 id="all-activities-are-equal">All Activities are Equal&hellip;<a href="#all-activities-are-equal" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<blockquote>
+<p>&hellip; but some activities are more equal than others.</p>
+</blockquote>
+<p>Let&rsquo;s assume that, in order to follow up training progress, we would like to capture additional information for only some activities, at execution time.</p>
+<p>For example, we might be pushed to get fast on push-ups, so recording their <code>duration</code> in seconds might make sense (in contrast, &ldquo;dips&rdquo; may take their time, duration is not relevant).
+For squats, a weight must be mounted beforehand, which makes less sense for lunges unless you intend the combined exercise.</p>
+<p>Naïvely, this could be solved by extra tables which are activity-specific.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>activity_id<span style="color:#bbb"> </span><span style="color:#0aa">INT</span><span style="color:#bbb"> </span><span style="color:#00a">REFERENCES</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>(activity_id),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>duration_s<span style="color:#bbb"> </span>DOUBLE<span style="color:#bbb"> </span><span style="color:#00a">PRECISION</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>);<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>activity_id<span style="color:#bbb"> </span><span style="color:#0aa">INT</span><span style="color:#bbb"> </span><span style="color:#00a">REFERENCES</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>(activity_id),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>weight_kg<span style="color:#bbb"> </span>DOUBLE<span style="color:#bbb"> </span><span style="color:#00a">PRECISION</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>);<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- Squat weights are defined a priori:
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#00a">INSERT</span><span style="color:#bbb"> </span><span style="color:#00a">INTO</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb"> </span>(activity_id,<span style="color:#bbb"> </span>weight_kg)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">VALUES</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">2</span>,<span style="color:#bbb"> </span><span style="color:#099">60</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">8</span>,<span style="color:#bbb"> </span><span style="color:#099">64</span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span></code></pre></div><p><em>(Technical note: normally, these auxiliary tables should contain their own primary keys. Omitted here for simplicity.)</em></p>
+<p>The training plan query gets a bit more involved:
+it requires some <a href="https://www.postgresql.org/docs/current/queries-table-expressions.html">kind of join</a>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>A.*,<span style="color:#bbb"> </span>P.duration_s,<span style="color:#bbb"> </span>S.weight_kg<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>A<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">LEFT</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb"> </span>P<span style="color:#bbb"> </span><span style="color:#00a">ON</span><span style="color:#bbb"> </span>A.activity_id<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>P.activity_id<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">LEFT</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb"> </span>S<span style="color:#bbb"> </span><span style="color:#00a">ON</span><span style="color:#bbb"> </span>A.activity_id<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span>S.activity_id<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+<th style="text-align:right">duration_s</th>
+<th style="text-align:right">weight_kg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">60</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">17</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">30</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>Or, slightly less convoluted:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">NATURAL</span><span style="color:#bbb"> </span><span style="color:#00a">FULL</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">NATURAL</span><span style="color:#bbb"> </span><span style="color:#00a">FULL</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+<th style="text-align:right">duration_s</th>
+<th style="text-align:right">weight_kg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">60</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">17</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>And filling the auxiliary tables might be tricky.
+Push-up duration is filled on execution time, whereas squat weight might be planned by the supervisor at plan creation time.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>This design works, but is relatively impractical, not only for reporting purposes.
+The tables with &ldquo;special&rdquo; activities must be filled <em>a priori</em>, or in the gym, conditional upon the activity type, and consistency of the identifier fields must be ensured.</p>
+<p>Keep track of your keys!</p>
+</div>
+<p>Our database is fully functional, yet maintenance is somewhat cumbersome.</p>
+<p>It is time to start over and explore <strong>inheritance</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">DROP</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span><span style="color:#00a">IF</span><span style="color:#bbb"> </span><span style="color:#00a">EXISTS</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span><span style="color:#00a">CASCADE</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DROP</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span><span style="color:#00a">IF</span><span style="color:#bbb"> </span><span style="color:#00a">EXISTS</span><span style="color:#bbb"> </span>PushUps;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DROP</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span><span style="color:#00a">IF</span><span style="color:#bbb"> </span><span style="color:#00a">EXISTS</span><span style="color:#bbb"> </span>Squats;<span style="color:#bbb">
+</span></code></pre></div><p><em>(For reproduction, I dropped all the above here: <a href="https://dbfiddle.uk/X9vf4Czd">https://dbfiddle.uk/X9vf4Czd</a>)</em></p>
+<h1 id="table-inheritance">Table Inheritance<a href="#table-inheritance" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="structure">Structure<a href="#structure" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The central information structure of <code>Activities</code> is still fine.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>activity_id<span style="color:#bbb"> </span><span style="color:#0aa">INT</span><span style="color:#bbb"> </span><span style="color:#00a">PRIMARY</span><span style="color:#bbb"> </span><span style="color:#00a">KEY</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>category<span style="color:#bbb"> </span><span style="color:#0aa">VARCHAR</span>(<span style="color:#099">4</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>activity<span style="color:#bbb"> </span><span style="color:#0aa">VARCHAR</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>due_date<span style="color:#bbb"> </span><span style="color:#0aa">DATE</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>n_repeats<span style="color:#bbb"> </span><span style="color:#0aa">INT</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>done<span style="color:#bbb"> </span><span style="color:#0aa">BOOLEAN</span><span style="color:#bbb"> </span><span style="color:#00a">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#00a">FALSE</span>,<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>notes<span style="color:#bbb"> </span><span style="color:#0aa">TEXT</span><span style="color:#bbb"> </span><span style="color:#00a">DEFAULT</span><span style="color:#bbb"> </span><span style="color:#00a">NULL</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>);<span style="color:#bbb">
+</span></code></pre></div><p>However, in addition to the general activities, there are the special ones.
+Their tables <em>inherit</em> all the fields and features from general activities.
+They add their own fields.
+(See also the example in the <a href="https://www.postgresql.org/docs/current/ddl-inherit.html">postgresql documentation</a>.)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>duration_s<span style="color:#bbb"> </span>DOUBLE<span style="color:#bbb"> </span><span style="color:#00a">PRECISION</span><span style="color:#bbb"> </span><span style="color:#aaa;font-style:italic">-- entered upon execution time
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#bbb">  </span>)<span style="color:#bbb"> </span><span style="color:#00a">INHERITS</span><span style="color:#bbb"> </span>(Activities);<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb"> </span>(<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>weight_kg<span style="color:#bbb"> </span>DOUBLE<span style="color:#bbb"> </span><span style="color:#00a">PRECISION</span><span style="color:#bbb"> </span><span style="color:#aaa;font-style:italic">-- a priori training plan
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#bbb">  </span>)<span style="color:#bbb"> </span><span style="color:#00a">INHERITS</span><span style="color:#bbb"> </span>(Activities);<span style="color:#bbb">
+</span></code></pre></div><p>Here are two changes from above: the identifier column may be omitted (it is inherited), and inheritance is established by the keyword <code>INHERITS (parenttable)</code>.</p>
+<h2 id="data">Data<a href="#data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Data input should be specific to ensure that the correct types are filled:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">INSERT</span><span style="color:#bbb"> </span><span style="color:#00a">INTO</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span>(activity_id,<span style="color:#bbb"> </span>category,<span style="color:#bbb"> </span>activity,<span style="color:#bbb"> </span>due_date,<span style="color:#bbb"> </span>n_repeats)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">VALUES</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">3</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">5</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">4</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;dips&#39;</span>,<span style="color:#bbb">     </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">16</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">5</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;lunges&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">25</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">6</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">5</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">9</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">6</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#099">10</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;dips&#39;</span>,<span style="color:#bbb">     </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">18</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#099">11</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;lunges&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">30</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#099">12</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;pull-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb">  </span><span style="color:#099">6</span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">INSERT</span><span style="color:#bbb"> </span><span style="color:#00a">INTO</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb"> </span>(activity_id,<span style="color:#bbb"> </span>category,<span style="color:#bbb"> </span>activity,<span style="color:#bbb"> </span>due_date,<span style="color:#bbb"> </span>n_repeats)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">VALUES</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">1</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">20</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">7</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;push-ups&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">22</span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">INSERT</span><span style="color:#bbb"> </span><span style="color:#00a">INTO</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb"> </span>(activity_id,<span style="color:#bbb"> </span>category,<span style="color:#bbb"> </span>activity,<span style="color:#bbb"> </span>due_date,<span style="color:#bbb"> </span>n_repeats,<span style="color:#bbb"> </span>weight_kg)<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">VALUES</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">2</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;squats&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-01&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">16</span>,<span style="color:#bbb"> </span><span style="color:#099">60</span>),<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>(<span style="color:#bbb"> </span><span style="color:#099">8</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;quad&#39;</span>,<span style="color:#bbb"> </span><span style="color:#a50">&#39;squats&#39;</span>,<span style="color:#bbb">   </span><span style="color:#a50">&#39;2026-02-02&#39;</span>,<span style="color:#bbb"> </span><span style="color:#099">17</span>,<span style="color:#bbb"> </span><span style="color:#099">64</span>)<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- if something went wrong:
+</span><span style="color:#aaa;font-style:italic">-- DELETE FROM Squats;
+</span></code></pre></div><h2 id="reports">Reports<a href="#reports" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Time for a fitness report:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> </span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span>Activities;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">30</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>Trivially, PushUps can be queried by selecting from the respective table.
+Yet there is also the option to show activities which are neither push-ups, nor squats, using <code>ONLY</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> </span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span><span style="color:#00a">ONLY</span><span style="color:#bbb"> </span>Activities;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:right">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">30</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>8 records
+</code></pre>
+<p>In both cases, only the fields common to all activities are returned (<a href="https://stackoverflow.com/questions/20036578/is-it-possible-to-access-child-information-from-parent-in-postgresql-inheritance">see here</a>).</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  Inheritance in postgreSQL is <em>not</em> inheritance of content.
+Parent tables and child tables remain strictly separated in terms of the data in them.
+Instead, this is about <strong>structural inheritance</strong>: the child tables inherit fields of the parent table.
+</div>
+<p>We still need a way to get the <a href="https://dba.stackexchange.com/a/125028/358945">combined set of fields</a>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> 
+</span><span style="color:#bbb"></span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span><span style="color:#00a">ONLY</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> 
+</span><span style="color:#bbb"></span><span style="color:#00a">NATURAL</span><span style="color:#bbb"> </span><span style="color:#00a">FULL</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">NATURAL</span><span style="color:#bbb"> </span><span style="color:#00a">FULL</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">ORDER</span><span style="color:#bbb"> </span><span style="color:#00a">BY</span><span style="color:#bbb"> </span>activity_id<span style="color:#bbb"> </span><span style="color:#00a">ASC</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+<th style="text-align:right">duration_s</th>
+<th style="text-align:right">weight_kg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">60</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">17</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>This gives us all the options for querying data from the tables.
+But there is a caveat: <em>updating</em> data in the tables is conditional on the data type, i.e. activity-type-dependent.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">SET</span><span style="color:#bbb"> </span>duration_s<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#099">16</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">WHERE</span><span style="color:#bbb"> </span>category<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">AND</span><span style="color:#bbb"> </span>activity<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;push-ups&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">AND</span><span style="color:#bbb"> </span>due_date<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- fails!
+</span></code></pre></div><pre><code>Error in postgresqlExecStatement(conn, statement, ...): RPosgreSQL error: could not Retrieve the result : ERROR:  column &quot;duration_s&quot; of relation &quot;activities&quot; does not exist
+LINE 2: SET duration_s = 16
+            ^
+</code></pre>
+<p>This might be intentional, if your front-end is specific for each activity type.
+It is easily possible to update the push-ups by updating the <code>PushUps</code> table directly, as in <code>UPDATE Activities SET duration_s = 16 [...]</code>.
+But it is less convenient than with the non-inheritance, supertable solution to distinguish PushUps, Squats, and other Activities on upload.
+If you built a general interface, making an exception for only certain activity types might be complicated.</p>
+<p>However, there is a solution: update rules.
+I would judge that update rules are a more advanced skill, but do not hold back: with some patience and testing, they are a convenient skill to master<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<h2 id="advanced-views-and-update-rules"><em>Advanced:</em> Views and Update Rules<a href="#advanced-views-and-update-rules" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The first step to solve the above is formalizing our inclusive query above into a <strong>View</strong> (<a href="https://www.postgresql.org/docs/18/sql-createview.html"><em>cf.</em> the documentation</a>):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">VIEW</span><span style="color:#bbb"> </span>AllActivities<span style="color:#bbb"> </span><span style="color:#00a">AS</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> 
+</span><span style="color:#bbb"></span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span><span style="color:#00a">ONLY</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> 
+</span><span style="color:#bbb"></span><span style="color:#00a">NATURAL</span><span style="color:#bbb"> </span><span style="color:#00a">FULL</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">NATURAL</span><span style="color:#bbb"> </span><span style="color:#00a">FULL</span><span style="color:#bbb"> </span><span style="color:#00a">JOIN</span><span style="color:#bbb"> </span>Squats<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">ORDER</span><span style="color:#bbb"> </span><span style="color:#00a">BY</span><span style="color:#bbb"> </span>activity_id<span style="color:#bbb"> </span><span style="color:#00a">ASC</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span></code></pre></div><p>This by itself is convenient for reporting; the data is even ordered.</p>
+<p>Views which combine tables cannot be updated directly, unless update rules are defined.
+As with real fitness, I personally like to start with a <code>DO NOTHING</code>, and build up from that.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#aaa;font-style:italic">-- first, erase all default updating activities
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">RULE</span><span style="color:#bbb"> </span>Activities_upd0<span style="color:#bbb"> </span><span style="color:#00a">AS</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">ON</span><span style="color:#bbb"> </span><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span><span style="color:#00a">TO</span><span style="color:#bbb"> </span>AllActivities<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DO</span><span style="color:#bbb"> </span><span style="color:#00a">INSTEAD</span><span style="color:#bbb"> </span><span style="color:#00a">NOTHING</span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- update common fields of general activities
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">RULE</span><span style="color:#bbb"> </span>Activities_upd_all<span style="color:#bbb"> </span><span style="color:#00a">AS</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">ON</span><span style="color:#bbb"> </span><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span><span style="color:#00a">TO</span><span style="color:#bbb"> </span>AllActivities<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DO</span><span style="color:#bbb"> </span>ALSO<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#00a">SET</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>done<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#00a">NEW</span>.done,<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>notes<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#00a">NEW</span>.notes<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#00a">WHERE</span><span style="color:#bbb"> </span>activity_id<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#00a">OLD</span>.activity_id<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- finally, update specific activities which require user input
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#00a">CREATE</span><span style="color:#bbb"> </span><span style="color:#00a">RULE</span><span style="color:#bbb"> </span>Activities_upd_pushups<span style="color:#bbb"> </span><span style="color:#00a">AS</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">ON</span><span style="color:#bbb"> </span><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span><span style="color:#00a">TO</span><span style="color:#bbb"> </span>AllActivities<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DO</span><span style="color:#bbb"> </span>ALSO<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span>PushUps<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#00a">SET</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>duration_s<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#00a">NEW</span>.duration_s<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#00a">WHERE</span><span style="color:#bbb"> </span>activity_id<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#00a">OLD</span>.activity_id<span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> </span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span>AllActivities;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+<th style="text-align:right">duration_s</th>
+<th style="text-align:right">weight_kg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">60</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">17</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>Testing it:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">UPDATE</span><span style="color:#bbb"> </span>AllActivities<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">SET</span><span style="color:#bbb"> </span>duration_s<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#099">16</span>,<span style="color:#bbb"> </span>notes<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;best attempt ever!&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">WHERE</span><span style="color:#bbb"> </span>category<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;push&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">AND</span><span style="color:#bbb"> </span>activity<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;push-ups&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">AND</span><span style="color:#bbb"> </span>due_date<span style="color:#bbb"> </span>=<span style="color:#bbb"> </span><span style="color:#a50">&#39;2026-02-01&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#aaa;font-style:italic">-- this stdouts &#34;UPDATE 0&#34;, but did actually work:
+</span><span style="color:#aaa;font-style:italic"></span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">SELECT</span><span style="color:#bbb"> </span>*<span style="color:#bbb"> </span><span style="color:#00a">FROM</span><span style="color:#bbb"> </span>AllActivities;<span style="color:#bbb">
+</span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">activity_id</th>
+<th style="text-align:left">category</th>
+<th style="text-align:left">activity</th>
+<th style="text-align:left">due_date</th>
+<th style="text-align:right">n_repeats</th>
+<th style="text-align:left">done</th>
+<th style="text-align:left">notes</th>
+<th style="text-align:right">duration_s</th>
+<th style="text-align:right">weight_kg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">20</td>
+<td style="text-align:left">TRUE</td>
+<td style="text-align:left">&lsquo;best attempt ever!&rsquo;</td>
+<td style="text-align:right">16</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">60</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">16</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">lunges</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">25</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-01</td>
+<td style="text-align:right">5</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">push-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">22</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">quad</td>
+<td style="text-align:left">squats</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">17</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">64</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">pull</td>
+<td style="text-align:left">pull-ups</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">6</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">push</td>
+<td style="text-align:left">dips</td>
+<td style="text-align:left">2026-02-02</td>
+<td style="text-align:right">18</td>
+<td style="text-align:left">FALSE</td>
+<td style="text-align:left">NA</td>
+<td style="text-align:right">NA</td>
+<td style="text-align:right">NA</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Displaying records 1 - 10
+</code></pre>
+<p>There are additional benefits to this seemingly cumbersome setup of views and update rules:</p>
+<ul>
+<li>dynamic sorting and grouping are possible</li>
+<li>only editable fields are edited (e.g. user has no saying on the number of repeats)</li>
+<li>multiple inheritance and complex joins are possible</li>
+<li>keys/indexes/serials can cover all tables in the inheritance chain</li>
+</ul>
+<p>For technical UPDATEs and INSERTs, however, the implemented routines best remain conditional (unless they only affect the common fields).</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p><em>A tip if you interact with inherited tables in R, using <code>dplyr</code>:</em></p>
+<p><code>dplyr</code>/<code>dbplyr</code> lack a switch to trigger the <code>ONLY</code> keyword, or at least I did not find one.
+However, you can work around by creating your own function for that, based on the <code>tbl(...)</code> query and <code>anti_join</code> (<a href="https://dplyr.tidyverse.org/reference/filter-joins.html">docs</a>).
+Alternatively, build your tools around direct queries via <code>DBI</code>.</p>
+</div>
+<p>Views are not exclusive to situations which use Inheritance: they could have equally well simplified the naïve, non-hierarchical situation.</p>
+<p><em>(A snapshot of this second design variant is available here: <a href="https://dbfiddle.uk/cWOS-ALP">https://dbfiddle.uk/cWOS-ALP</a>)</em></p>
+<h1 id="summary-and-discussion">Summary and Discussion<a href="#summary-and-discussion" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>While databases are convenient and highly efficient to work with, there are lots of considerations and choices for database design.
+The most fundamental idea of relational databases is that tables relate to each other via keys, and that different types or classes of data should be stored in their own tables.</p>
+<p>However, in some specific cases, the naïve implementation is agnostic to the logical relation of data classes.
+This could cause technical inefficiency by redundancy.
+In these cases, table <strong>inheritance</strong> might be an elegant solution.</p>
+<p>Even if the computational load would be equivalent in both the implementations I presented above,
+the use of <code>INHERITS</code> gives some extra conceptual structure to the data which has documentational value.</p>
+<p>Inheritance is not a general solution, and should be carefully considered.
+Keep in mind that postgreSQL inheritance is <em>structural</em> inheritance (I think of it as automatic <code>UNION</code>s which happen when I query the common fields; <code>NATURAL FULL JOIN</code>s play nicely into that).
+Advanced functionality is available with other <code>JOIN</code>s, Views, and <code>UPDATE</code> Rules.</p>
+<p>Taking this further, some more ideas.</p>
+<p>As in all good manifestations of inheritance, multiple inheritance is possible: your tables can be the recombination of multiple parent tables (e.g. you could define a combination of fitness <code>Activities</code> and <code>Calendar</code> elements).</p>
+<p>There is a crucial design choice I have skipped above: namely whether the parent table is supposed to contain data at all.
+What I have shown is a cumulative hierarchical implementation, where some subset of a data type receives extra fields.
+In other situations, the definition of an abstract <a href="https://en.wikipedia.org/wiki/Interface_(object-oriented_programming)">interface</a> would be useful.
+Think of one table which defines all the columns and data types common to all activities (but holds no actual data), and a set of descendant &ldquo;sibling tables&rdquo; which inherit these fields and each add their own.</p>
+<p>Finally, you might want to check how user roles and permissions behave in different inheritance settings.
+Basically, child tables inherit the permissions of the parent tables; just keep track of permissions (<code>\dp</code>).</p>
+<p>These are interesting design options, which require basic understanding of the conceptual idea.
+I hope the test setting above helped you to familiarize with the concept, enabling you to implement your own meaningful and elegant relational database structures.</p>
+<h1 id="further-reading">Further Reading<a href="#further-reading" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Some references I found on the way:</p>
+<ul>
+<li><a href="https://www.postgresql.org/docs/current/tutorial-inheritance.html">https://www.postgresql.org/docs/current/tutorial-inheritance.html</a></li>
+<li><a href="https://www.postgresql.org/docs/current/ddl-inherit.html">https://www.postgresql.org/docs/current/ddl-inherit.html</a></li>
+<li><a href="https://ruheni.dev/writing/sql-table-inheritance/">https://ruheni.dev/writing/sql-table-inheritance/</a></li>
+<li><a href="https://medium.com/@akshatgadodia/unlocking-the-power-of-postgresql-table-inheritance-a-hidden-gem-842229a1848f">https://medium.com/@akshatgadodia/unlocking-the-power-of-postgresql-table-inheritance-a-hidden-gem-842229a1848f</a></li>
+<li><a href="https://www.experts-exchange.com/questions/21399911/inheritance-of-tables-in-mssql.html">https://www.experts-exchange.com/questions/21399911/inheritance-of-tables-in-mssql.html</a></li>
+<li><a href="https://www.scaler.com/topics/postgresql/inheritance-in-postgresql/">https://www.scaler.com/topics/postgresql/inheritance-in-postgresql/</a></li>
+</ul>
+<p><em>(Final steps to clean up the sql environment.)</em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a">DROP</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span><span style="color:#00a">IF</span><span style="color:#bbb"> </span><span style="color:#00a">EXISTS</span><span style="color:#bbb"> </span>Activities<span style="color:#bbb"> </span><span style="color:#00a">CASCADE</span>;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DROP</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span><span style="color:#00a">IF</span><span style="color:#bbb"> </span><span style="color:#00a">EXISTS</span><span style="color:#bbb"> </span>PushUps;<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#00a">DROP</span><span style="color:#bbb"> </span><span style="color:#00a">TABLE</span><span style="color:#bbb"> </span><span style="color:#00a">IF</span><span style="color:#bbb"> </span><span style="color:#00a">EXISTS</span><span style="color:#bbb"> </span>Squats;<span style="color:#bbb">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">DBI::<span style="color:#0a0">dbDisconnect</span>(conn)
+</code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Another pretty useful application for update rules is this: during alteration of database structure, you can set up redirection rules which automatically parse incoming data from an old structure component to the new one. This ensures continuity and prevents data loss, even if a user or dev missed that important line on your changelog.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
+  
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/databases/'>databases</a>, <a class='category' href='/categories/development/'>development</a></div>
+<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
+  <line x1="7" y1="7" x2="7" y2="7"/>
+  
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/sql/'>sql</a>, <a class='tag' href='/tags/postgresql/'>postgresql</a>, <a class='tag' href='/tags/inheritance/'>inheritance</a>, <a class='tag' href='/tags/development/'>development</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/stap/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Statistical Analysis Plans (StAPs)</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

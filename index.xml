@@ -6,7 +6,7 @@
     <description>Recent content in Home on INBO Tutorials</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create tutorial</title>
       <link>/create_tutorial/</link>
@@ -16,6 +16,16 @@
       <description>Introduction First of all, thanks to consider making a new tutorial! By providing a tutorial, you are actively supporting your colleagues and the wider community and making work more efficient.
 In this page, the roadmap towards a new tutorial will be explained.
 Writing a tutorial Each tutorial is setup in a subfolder of the content/tutorials folder. Within this folder, different files and formats may exist as you create them, but a file with the name index.</description>
+    </item>
+    
+    <item>
+      <title>Table Inheritance with PostgreSQL</title>
+      <link>/tutorials/sql_inheritance/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/tutorials/sql_inheritance/</guid>
+      <description>Motivation For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, cf.) we organize fieldwork with a QGIS/QField front-end which connects to a database backend. The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.
+One central component of our database is a fieldwork calendar, which you could think of as a sort of TODO list: in there are the various activity types, per location, with a due date.</description>
     </item>
     
     <item>

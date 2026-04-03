@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2025-11-17T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/articles/</loc>
     <lastmod>2023-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tutorials/</loc>
-    <lastmod>2025-11-17T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/create_tutorial/</loc>
     <lastmod>2018-12-14T00:00:00+00:00</lastmod>
@@ -18,10 +18,37 @@
     <lastmod>2024-07-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-    <lastmod>2025-11-17T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/authors/</loc>
-    <lastmod>2025-11-17T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/databases/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/development/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/development/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/authors/falkmielke/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/inheritance/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/postgresql/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/sql/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tutorials/sql_inheritance/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2026-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/design-of-experiments/</loc>
     <lastmod>2025-11-17T00:00:00+00:00</lastmod>
@@ -47,16 +74,7 @@
     <loc>/categories/statistics/</loc>
     <lastmod>2025-11-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2025-11-17T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/credentials/</loc>
-    <lastmod>2025-09-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/development/</loc>
-    <lastmod>2025-09-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/authors/falkmielke/</loc>
     <lastmod>2025-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/keyring/</loc>
@@ -163,9 +181,6 @@
   </url><url>
     <loc>/tutorials/r_brms/</loc>
     <lastmod>2024-01-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/databases/</loc>
-    <lastmod>2023-12-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/open-science/</loc>
     <lastmod>2023-12-01T00:00:00+00:00</lastmod>
@@ -512,9 +527,6 @@
     <loc>/authors/gertvanspaendonk/</loc>
     <lastmod>2020-06-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/sql/</loc>
-    <lastmod>2020-06-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/styleguide/</loc>
     <lastmod>2020-06-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -666,9 +678,6 @@
     <lastmod>2018-04-19T11:01:31+02:00</lastmod>
   </url><url>
     <loc>/tags/ci/</loc>
-    <lastmod>2018-03-23T11:23:07+01:00</lastmod>
-  </url><url>
-    <loc>/tags/development/</loc>
     <lastmod>2018-03-23T11:23:07+01:00</lastmod>
   </url><url>
     <loc>/tutorials/development_wercker/</loc>
