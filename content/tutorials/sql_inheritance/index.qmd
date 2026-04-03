@@ -24,7 +24,7 @@ format:
 ---
 title: "Table Inheritance with PostgreSQL"
 description: "A logical and efficient table structure for TODO lists and fieldwork calendars."
-date: "2026-02-01"
+date: "2026-04-03"
 authors: [falkmielke]
 categories: ["databases", "development"]
 tags: ["sql", "postgresql", "inheritance", "development"]
@@ -491,7 +491,7 @@ If you built a general interface, making an exception for only certain activity 
 However, there is a solution: update rules.
 I would judge that update rules are a more advanced skill, but do not hold back: with some patience and testing, they are a convenient skill to master[^1].
 
-[^1]: Another pretty useful application for update rules is this: during alteration of database structure, you can set up redirection rules which automatically parse incoming data from an old structure component to the new one. This ensures continuity and prevents data loss, even if a user or dev missed that important line your changelog.
+[^1]: Another pretty useful application for update rules is this: during alteration of database structure, you can set up redirection rules which automatically parse incoming data from an old structure component to the new one. This ensures continuity and prevents data loss, even if a user or dev missed that important line on your changelog.
 
 
 ## *Advanced:* Views and Update Rules
@@ -584,9 +584,10 @@ For technical UPDATEs and INSERTs, however, the implemented routines best remain
 {{% callout note %}}
 ```
 *A tip if you interact with inherited tables in R, using `dplyr`:*
-R/`dplyr`/`dbplyr` lacks a switch to trigger the `ONLY` keyword, or at least I did not find one.
+
+`dplyr`/`dbplyr` lack a switch to trigger the `ONLY` keyword, or at least I did not find one.
 However, you can work around by creating your own function for that, based on the `tbl(...)` query and `anti_join` ([docs](https://dplyr.tidyverse.org/reference/filter-joins.html)).
-Alternatively, build around direct queries via `DBI`.
+Alternatively, build your tools around direct queries via `DBI`.
 ```{=markdown}
 {{% /callout %}}
 ```
@@ -660,5 +661,7 @@ DROP TABLE IF EXISTS Squats;
 ```
 
 ```{r}
+#| eval: true
+#| output: false
 DBI::dbDisconnect(conn)
 ```
