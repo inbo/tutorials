@@ -44,7 +44,7 @@ You will find links to "fiddles" in between sections below.
 
 However, installing a local postgreSQL server is not all too complicated, so I took the occasion to list the simple steps.
 These will work on an arbitrary linux system (e.g. in a [container](https://tutorials.inbo.be/tags/containers/)), with minor variance.
-Installation on Windows can be [achieved via an installer](https://www.postgresql.org/download/windows/) and documented elsewhere.
+Installation on Windows can be [achieved via an installer](https://www.postgresql.org/download/windows/) as documented elsewhere.
 
 
 Thus, the following guidelines apply to a linux environment.
