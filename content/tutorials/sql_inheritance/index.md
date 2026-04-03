@@ -480,7 +480,7 @@ AND due_date = '2026-02-01'
                 ^
 
 This might be intentional, if your front-end is specific for each activity type.
-It is easily possible tu update the push-ups by updating the `PushUps` table directly, as in `UPDATE Activities SET duration_s = 16 [...]`.
+It is easily possible to update the push-ups by updating the `PushUps` table directly, as in `UPDATE Activities SET duration_s = 16 [...]`.
 But it is less convenient than with the non-inheritance, supertable solution to distinguish PushUps, Squats, and other Activities on upload.
 If you built a general interface, making an exception for only certain activity types might be complicated.
 
