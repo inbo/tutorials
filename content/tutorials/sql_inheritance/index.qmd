@@ -77,6 +77,7 @@ These will work on an arbitrary linux system (e.g. in a [container](https://tuto
 Installation on Windows can be [achieved via an installer](https://www.postgresql.org/download/windows/) and documented elsewhere.
 
 
+Thus, the following guidelines apply to a linux environment.
 First off, install the right `postgresql` package for your operating system; usually it is called `postgresql`.
 Here, I will mostly follow [this guide](https://wiki.archlinux.org/title/PostgreSQL), which contains good general advice independent of OS.
 
@@ -310,7 +311,7 @@ Push-up duration is filled on execution time, whereas squat weight might be plan
 {{% callout note %}}
 ```
 This design works, but is relatively impractical, not only for reporting purposes.
-The tables with "special" activities must be filled a priory, or in the gym, conditional upon the activity type, and consistency of the identifier fields must be ensured.
+The tables with "special" activities must be filled *a priori*, or in the gym, conditional upon the activity type, and consistency of the identifier fields must be ensured.
 
 Keep track of your keys!
 ```{=markdown}
@@ -483,9 +484,14 @@ AND due_date = '2026-02-01'
 ```
 
 This might be intentional, if your front-end is specific for each activity type.
-But if you built a general interface, making an exception for only certain activity types might be complicated.
+It is easily possible tu update the push-ups by updating the `PushUps` table directly, as in `UPDATE Activities SET duration_s = 16 [...]`.
+But it is less convenient than with the non-inheritance, supertable solution to distinguish PushUps, Squats, and other Activities on upload.
+If you built a general interface, making an exception for only certain activity types might be complicated.
 
 However, there is a solution: update rules.
+I would judge that update rules are a more advanced skill, but do not hold back: with some patience and testing, they are a convenient skill to master[^1].
+
+[^1]: Another pretty useful application for update rules is this: during alteration of database structure, you can set up redirection rules which automatically parse incoming data from an old structure component to the new one. This ensures continuity and prevents data loss, even if a user or dev missed that important line your changelog.
 
 
 ## *Advanced:* Views and Update Rules
@@ -509,7 +515,7 @@ ORDER BY activity_id ASC
 This by itself is convenient for reporting; the data is even ordered.
 
 
-Views cannot be updated directly, unless update rules are defined.
+Views which combine tables cannot be updated directly, unless update rules are defined.
 As with real fitness, I like to start with a `DO NOTHING`, and build up from that.
 
 ```{sql}
@@ -550,6 +556,7 @@ Testing it:
 
 ```{sql}
 --| eval: true
+--| output: true
 --| connection: conn
 UPDATE AllActivities
 SET duration_s = 16, notes = 'best attempt ever!'
@@ -572,6 +579,18 @@ There are additional benefits to this seemingly cumbersome setup of views and up
 
 
 For technical UPDATEs and INSERTs, however, the implemented routines best remain conditional (unless they only affect the common fields). 
+
+```{=markdown}
+{{% callout note %}}
+```
+*A tip if you interact with inherited tables in R, using `dplyr`:*
+R/`dplyr`/`dbplyr` lacks a switch to trigger the `ONLY` keyword, or at least I did not find one.
+However, you can work around by creating your own function for that, based on the `tbl(...)` query and `anti_join` ([docs](https://dplyr.tidyverse.org/reference/filter-joins.html)).
+Alternatively, build around direct queries via `DBI`.
+```{=markdown}
+{{% /callout %}}
+```
+
 
 Views are not exclusive to situations which use Inheritance: they could have equally well simplified the naïve, non-hierarchical situation.
 
