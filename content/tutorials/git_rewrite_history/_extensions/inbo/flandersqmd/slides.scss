@@ -1,0 +1,271 @@
+/*-- scss:defaults --*/
+
+// Fonts
+
+$font-family-sans-serif: flanders_art_sans, Calibri, Source Sans Pro, Helvetica, sans-serif;
+$font-family-monospace: inconsolata, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+
+@font-face {
+  font-family: flanders_art_sanslight;
+  src: url("../../../../../FlandersArtSans-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sansmedium;
+  src: url("../../../../../FlandersArtSans-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sansregular;
+  src: url("../../../../../FlandersArtSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sansbold;
+  src: url("../../../../../FlandersArtSans-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sans;
+  src: url("../../../../../FlandersArtSans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sans;
+  src: url("../../../../../FlandersArtSans-Medium.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sans;
+  src: url("../../../../../FlandersArtSans-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: flanders_art_sans;
+  src: url("../../../../../FlandersArtSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: inconsolata;
+  src: url("../../../../../Inconsolata-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: inconsolata;
+  src: url("../../../../../Inconsolata-Medium.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: inconsolata;
+  src: url("../../../../../Inconsolata-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: inconsolata;
+  src: url("../../../../../Inconsolata-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/*-- scss:rules --*/
+
+.reveal h1 {
+  margin: 30% 10% 0% 10%;
+}
+
+.subtitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 1.5em;
+}
+
+.reveal h1.title {
+  margin: 0% 0% 0% 0%;
+  font-size: 2em;
+}
+
+#title-slide {
+  text-align: left;
+}
+
+.reveal[data-navigation-mode="linear"] .title-slide h1 {
+  font-size: 2em;
+}
+
+.title-logo {
+  position: fixed;
+  right: 0;
+  top: -120px;
+  height: 110px;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  line-height: 1;
+}
+
+.title-logo-img {
+  text-align: center;
+  margin: 2px !important;
+  max-width: 100% !important;
+}
+
+.vl-tussen {
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  width: 200px;
+}
+
+.vl-tussen-vert {
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  height: 200px;
+}
+
+.entity-tussen {
+  position: absolute;
+  left: 15px;
+  top: 100px;
+  width: 200px;
+}
+
+.entity-tussen-vert {
+  position: absolute;
+  left: 15px;
+  top: 210px;
+  width: 200px;
+}
+
+.vl-slide {
+  position: absolute;
+  left: 0%;
+  bottom: -5%;
+  width: 200px;
+  z-index: -1;
+}
+
+.coop-slide {
+  position: absolute;
+  right: 0%;
+  bottom: -5%;
+  width: 200px;
+  z-index: -1;
+}
+
+.photographer {
+  font-size: 0.5em;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+.sidebar {
+  position: fixed;
+  left: -70px;
+  bottom: -40px;
+  width: 50px;
+  height: 800px;
+}
+
+.sidebar-tussen {
+  position: fixed;
+  left: -71px;
+  bottom: -40px;
+  width: 53px;
+  height: 800px;
+}
+
+.sidebar-url {
+  font-size: 0.5em;
+  position: fixed;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: inline-block;
+  left: -55px;
+  bottom: 0px;
+  width: 30px;
+  height: 700px;
+}
+
+.sidebar-url-tussen {
+  font-size: 0.5em;
+  position: fixed;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: inline-block;
+  left: -55px;
+  bottom: 0px;
+  width: 30px;
+  height: 700px;
+}
+
+.fontsize-0-5 {
+  font-size: 0.5em;
+}
+
+.fontsize-0-6 {
+  font-size: 0.6em;
+}
+
+.fontsize-0-7 {
+  font-size: 0.7em;
+}
+
+.fontsize-0-8 {
+  font-size: 0.8em;
+}
+
+.fontsize-0-9 {
+  font-size: 0.9em;
+}
+
+.trapezium {
+  z-index: -100;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  clip-path: polygon(0% 0%, 80% 0%, 100% 100%, 0% 100%);
+  width: 100%;
+  height: 700px;
+}
+
+caption {
+  text-align: center;
+}
+
+figcaption {
+  text-align: center;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  font-size: 35%;
+}
+
+.reveal .slide aside, .reveal .slide div.aside {
+  bottom: 50px;
+}
+
+.reveal pre {
+  font-size: inherit;
+}
+
+.reveal code {
+  font-size: inherit;
+}
