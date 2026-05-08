@@ -135,7 +135,6 @@ def hello():
 With the `Dockerfile` and `hello.py` in place, you can build the container [^2].
 
 ``` sh
-#| eval: false
 # on Windows, you are already in an administrator terminal
 docker build --pull -t my-flask .
 
@@ -159,7 +158,6 @@ There is also a `my-flask`.
 Try it!
 
 ``` sh
-#| eval: false
 docker run my-flask
 ```
 
@@ -260,14 +258,12 @@ More here: <https://docs.docker.com/build/building/best-practices>
 Test the image:
 
 ``` sh
-#| eval: false
 docker build -t test-rstudio .
 ```
 
 Run it, as before:
 
 ``` sh
-#| eval: false
 docker run --rm -p 8787:8787 -e PASSWORD=YOURNEWPASSWORD test-rstudio
 ```
 

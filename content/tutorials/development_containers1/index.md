@@ -139,7 +139,6 @@ More info about the installation on your specific Linux operation systems [can b
 The procedure for Debian or Ubuntu-based distributions involves trusting dockers gpg keys and adding an extra repository, [some caution is warranted](https://wiki.debian.org/DontBreakDebian).
 
 ``` sh
-#| eval: false
 sudo apt update && sudo apt install docker-ce docker-buildx-plugin # debian-based
 # sudo pacman -Sy docker docker-buildx # Arch Linux
 ```
@@ -152,7 +151,6 @@ For users to be able to use Docker, they must be in the "docker" group.
 (Insert your username at `<your-username>`.)
 
 ``` sh
-#| eval: false
 sudo usermod -a -G docker <your-username>
 ```
 
@@ -166,7 +164,6 @@ However, due to [diverse](https://docs.docker.com/engine/security) [security](ht
 On a `systemd` system, you can start and stop Docker on demand via the following commands (those will ask you for `sudo` authentification if necessary).
 
 ``` sh
-#| eval: false
 systemctl start docker
 
 systemctl status docker # check status
@@ -180,7 +177,6 @@ For aficionados: docker actually runs multiple services: the docker service, the
 You can check the Docker installation by confirming the version at which the service is running.
 
 ``` sh
-#| eval: false
 docker --version
 ```
 
@@ -276,7 +272,8 @@ It might therefore be worth considering and exchanging both tools.
 But, on that line, how about private repositories?
 More generally, how would we get (personal) data from our host machine to the container?
 
-## Data Exchange
+## Data Exchange and Secrets
+### COPYing data
 
 Arguably, among the rather tricky tasks when working with containers is file exchange.
 There are [several options available](https://forums.docker.com/t/best-practices-for-getting-code-into-a-container-git-clone-vs-copy-vs-data-container/4077):
@@ -312,6 +309,44 @@ This way of handling private repositories [seems to be good practice](https://st
 The next best alternative would be mounting the `~/.ssh` folder from the host to the container via `-v`.
 
 You can finde some more options [on the `containbo` repository](https://github.com/inbo/containbo).
+
+
+### Secrets
+*(This section was added after an instructive mail by Thierry Onkelinx)*
+
+It is quite obvious that, in the (common) case that docker build files are shared, one would not want to share secret information such as passwords or login tokens.
+However, login tokens might required to correctly spin up an image in the first place.
+Here is an example.
+
+
+A number of installation commands for R packages which are exchanged via github require a [personal access token](https://ropensci.org/blog/2020/07/07/github-pat/) (`GITHUB_PAT`) environment variable to work without restrictions.
+Critically, the `GITHUB_PAT` is linked to your personal account and repository privileges.
+It is a bad idea to pass it along as a regular build variable: 
+the token is then permanently available to others in the Docker. 
+
+
+The safe way to work is to pass such information as a secret. 
+In the Dockerfile, the build instructions could look like this example:
+
+```
+RUN --mount=type=secret,id=githubpat,env=GITHUB_PAT Rscript -e 'renv::install("trias")'
+```
+
+This line retrieves the secret `githubpat` and places it in the environment variable `GITHUB_PAT` for the duration of the command's runtime. 
+
+Building the image works with the `secret` argument. 
+
+```
+docker build --pull --secret id=githubpat,env=GITHUB_PAT --rm --tag
+<github_user>/<repository>:<tag> --progress=plain .
+```
+
+In this case, the command retrieves the contents of the environment variable `GITHUB_PAT` from your local computer and places it in the secret `githubpat`.
+
+
+These instructions give you a direction when specifically working with R packages. 
+For other scenarios, there are different solutions.
+The main take-home message is that docker files must not reveal your secrets when they are shared, there are ways to work around it.
 
 
 <a id="sec-commands"></a> 
