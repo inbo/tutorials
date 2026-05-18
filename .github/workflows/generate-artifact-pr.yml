@@ -22,7 +22,7 @@ jobs:
           path: themes/minimo
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@32c7754 #v3.1.0
+        uses: peaceiris/actions-hugo@32c7754570a8edd0ae33352fae4a8448f23858e9 #v3.1.0
         with:
           hugo-version: '0.88.1'
           # extended: true

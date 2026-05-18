@@ -23,7 +23,7 @@ jobs:
           path: themes/minimo
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@32c7754 #v3.1.0
+        uses: peaceiris/actions-hugo@32c7754570a8edd0ae33352fae4a8448f23858e9 #v3.1.0
         with:
           hugo-version: '0.88.1'
           # extended: true
@@ -39,7 +39,7 @@ jobs:
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@d92aa23 #v4.8.0
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f #v4.8.0
         with:
           branch: gh-pages
           folder: public
