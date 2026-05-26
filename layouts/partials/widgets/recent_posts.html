@@ -1,5 +1,5 @@
-{{- $defaultConfig := .Site.Data.config.default.widgets.recent_posts -}}
-{{- $configData := ( or .Site.Data.config.widgets.recent_posts $defaultConfig ) -}}
+{{- $defaultConfig := hugo.Data.config.default.widgets.recent_posts -}}
+{{- $configData := ( or hugo.Data.config.widgets.recent_posts $defaultConfig ) -}}
 {{- $lang := .Site.Language.Lang -}}
 {{- $config := ( ( index $configData $lang ) | default $configData ) -}}
 
