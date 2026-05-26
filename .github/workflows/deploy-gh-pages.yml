@@ -18,14 +18,14 @@ jobs:
       - name: Checkout (theme)
         uses: actions/checkout@v3
         with:
-          repository: MunifTanjim/minimo
-          ref: v2.10.1
+          repository: falkmielke/minimo
+          ref: update_202605
           path: themes/minimo
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.119.0'
+          hugo-version: '0.161.1'
           # extended: true
 
       - name: Build
