@@ -1,5 +1,5 @@
 theme = "minimo"
-languageCode = "en-us"
+locale = "en-us"
 title = "INBO Tutorials"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.qmd$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
