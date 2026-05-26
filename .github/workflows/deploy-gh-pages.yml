@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (tutorials)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Checkout (theme)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
-          repository: MunifTanjim/minimo
-          ref: v2.9.0
+          repository: falkmielke/minimo
+          ref: update_202605
           path: themes/minimo
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@32c7754570a8edd0ae33352fae4a8448f23858e9 #v3.1.0
         with:
-          hugo-version: '0.88.1'
+          hugo-version: '0.161.1'
           # extended: true
 
       - name: Build
@@ -39,7 +39,7 @@ jobs:
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f #v4.8.0
         with:
           branch: gh-pages
           folder: public
