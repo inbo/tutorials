@@ -200,7 +200,7 @@ Usually, we only require unique cross-combinations of elements in arbitrary orde
 ``` r
 # compute the difference of all elements of one vector to each other
 self_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) Y - X )
-wrap_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) ((Y - X + (extent/2)) %% (extent)) - (extent/2))
+wrap_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) ((Y - X + (extent)) %% (2*extent)) - (extent))
 
 # Calculate the Euclidean distance of the x and y columns in a data frame.
 Euclid <- function(data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
