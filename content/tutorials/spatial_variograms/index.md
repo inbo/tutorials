@@ -200,7 +200,7 @@ Usually, we only require unique cross-combinations of elements in arbitrary orde
 ``` r
 # compute the difference of all elements of one vector to each other
 self_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) Y - X )
-wrap_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) (Y - X) %% (2*extent))
+wrap_difference <- function(vec) outer(X = vec, Y = vec, FUN = function(X, Y) ((Y - X + (extent)) %% (2*extent)) - (extent))
 
 # Calculate the Euclidean distance of the x and y columns in a data frame.
 Euclid <- function(data) sqrt(self_difference(data$x)^2 + self_difference(data$y)^2 )
@@ -744,7 +744,10 @@ alt="Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero
 
 I still have a hard time to associate anything maths-related to the words `nugget` and `sill`: they could equally well be some ancient greek letters spelled out in a non-greek way, such as `σίγμα`.
 Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial:
-\> nugget comes from "gold" nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large "nugget" effect (large differences at very small distances).
+
+> nugget comes from "gold" nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large "nugget" effect (large differences at very small distances).
+
+
 We have to accept that they are frequently encountered in the variogram literature.
 
 -   The `nugget` is the value our function takes at the zero intercept, i.e. baseline variance, i.e. the lowest difference we can get (often defined by measurement uncertainty).
@@ -795,9 +798,9 @@ plot_residuals_histogram(x, y, predictor_function,
 <img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-residuals-1.png"
 id="fig-gauss-residuals"
-alt="Figure 9: Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination." />
+alt="Figure 9: Residual distribution of the Gaussian model for semivariance." />
 
-<figcaption>Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination.</figcaption><br>
+<figcaption>Residual distribution of the Gaussian model for semivariance.</figcaption><br>
 
 The regression results for scale, range, and nugget are 0.12, 16.76, 0.35, respectively.
 
