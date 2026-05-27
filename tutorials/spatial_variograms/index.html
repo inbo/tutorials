@@ -318,7 +318,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Fri Apr 3 13:02:36 UTC 2026</small></p>
+  <p><small>Built on: Wed May 27 06:49:43 UTC 2026</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -630,7 +630,7 @@ The modified <code>Euclid_wrap</code> effectively gives us an infinite playing f
 Usually, we only require unique cross-combinations of elements in arbitrary order, which can be achieved by <code>lower_triangl</code>ing the matrix (grabbing the lower triangle of a matrix with <code>lower.tri</code>).</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#aaa;font-style:italic"># compute the difference of all elements of one vector to each other</span>
 self_difference &lt;- <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">outer</span>(X = vec, Y = vec, FUN = <span style="color:#0a0">function</span>(X, Y) Y - X )
-wrap_difference &lt;- <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">outer</span>(X = vec, Y = vec, FUN = <span style="color:#0a0">function</span>(X, Y) (Y - X) %% (<span style="color:#099">2</span>*extent))
+wrap_difference &lt;- <span style="color:#0a0">function</span>(vec) <span style="color:#0a0">outer</span>(X = vec, Y = vec, FUN = <span style="color:#0a0">function</span>(X, Y) ((Y - X + (extent)) %% (<span style="color:#099">2</span>*extent)) - (extent))
 
 <span style="color:#aaa;font-style:italic"># Calculate the Euclidean distance of the x and y columns in a data frame.</span>
 Euclid &lt;- <span style="color:#0a0">function</span>(data) <span style="color:#0a0">sqrt</span>(<span style="color:#0a0">self_difference</span>(data$x)^2 + <span style="color:#0a0">self_difference</span>(data$y)^2 )
@@ -1107,9 +1107,11 @@ id="fig-gauss-function"
 alt="Figure 8: Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed." /></p>
 <figcaption>Although it is inverted, scaled, y-shifted, and centered on zero, you will certainly recognize our beloved bell-curve: the Gaussian. Note that we will only use the right half to proceed.</figcaption><br>
 <p>I still have a hard time to associate anything maths-related to the words <code>nugget</code> and <code>sill</code>: they could equally well be some ancient greek letters spelled out in a non-greek way, such as <code>σίγμα</code>.
-Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial:
-&gt; nugget comes from &ldquo;gold&rdquo; nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large &ldquo;nugget&rdquo; effect (large differences at very small distances).
-We have to accept that they are frequently encountered in the variogram literature.</p>
+Historically, they stem from what I think were the earliest applications of variogram-like analysis, as my colleague Hans Van Calster confirmed me when reviewing this tutorial:</p>
+<blockquote>
+<p>nugget comes from &ldquo;gold&rdquo; nugget in mining. In sampling gold, the chances of finding a nugget of gold from adjacent locations may differ a lot - hence they have a large &ldquo;nugget&rdquo; effect (large differences at very small distances).</p>
+</blockquote>
+<p>We have to accept that they are frequently encountered in the variogram literature.</p>
 <ul>
 <li>The <code>nugget</code> is the value our function takes at the zero intercept, i.e. baseline variance, i.e. the lowest difference we can get (often defined by measurement uncertainty).</li>
 <li>Conversely, the <code>sill</code> is the maximum variance we expect to be reached when comparing measurements at totally unrelated locations. The stereotypical Gaussian variogram will asymptotically approach this value towards infinite distance.</li>
@@ -1148,8 +1150,8 @@ predictor_function &lt;- <span style="color:#0a0">create_prediction_function</sp
 </code></pre></div><p><img
 src="spatial_variograms.markdown_strict_files/figure-markdown_strict/fig-gauss-residuals-1.png"
 id="fig-gauss-residuals"
-alt="Figure 9: Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination." /></p>
-<figcaption>Residual distribution of the Matérn model for semivariance. Reasonably Gaussian as well, with some imagination.</figcaption><br>
+alt="Figure 9: Residual distribution of the Gaussian model for semivariance." /></p>
+<figcaption>Residual distribution of the Gaussian model for semivariance.</figcaption><br>
 <p>The regression results for scale, range, and nugget are 0.12, 16.76, 0.35, respectively.</p>
 <p>Conversion to our slightly more meaningful parameters:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">scale &lt;- optimizer_results$par[1]
