@@ -1,5 +1,3 @@
-
-
 ---
 title: "Mathematical Transformations of Spatially Balanced Samples"
 description: "Channeling chaos into balanced, random point density distributions."
@@ -51,7 +49,7 @@ par(pty = "s")
 plot(data, pch = 21, col = "black")
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/totally-random-points-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/totally-random-points-1.png" width="80%" />
 
 But then, you know, if we are honest, "random" might be a bit too random.
 Some points lie above each other, some areas remain blank, and the corner points are quite far from the center.
@@ -78,7 +76,7 @@ plot(data, pch = 21, col = "black")
 title(glue::glue("N = {nrow(data)}"))
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/filter-circle-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/filter-circle-1.png" width="80%" />
 
 ... but then, your sample size changes (lost about 20% of points).
 So this is not of general use.
@@ -97,7 +95,7 @@ Yet, purposefully placing a measurement into "that previously missed open spot" 
 What we often desire is **spatially balanced sampling**, like this:
 
 <img
-src="./fig1_spatially_balanced_circle.png"
+src="/images/tutorials/spatial_transform_balanced_samples/fig1_spatially_balanced_circle.png"
 id="fig-spatbalsamp"
 alt="Figure 1: Spatially balanced sampling in a circular area." />
 <figcaption>Figure 1: Spatially balanced sampling in a circular area.</figcaption><br>
@@ -109,7 +107,7 @@ But then, if you think about it, there are special points in a circular area - o
 And in many applications, it is a valid strategy to give points closer to the center a higher chance of being chosen, or to have a sampling pattern that reduces likelihood with distance from center, or just the opposite (i.e. bias towards the rim).
 
 <img
-src="./fig2_center_weighted_circle.png"
+src="/images/tutorials/spatial_transform_balanced_samples/fig2_center_weighted_circle.png"
 id="fig-spatbalsamp"
 alt="Figure 2: An example of distance-dependent sampling likelihood." />
 <figcaption>Figure 2: An example of distance-dependent sampling likelihood.</figcaption><br>
@@ -199,7 +197,7 @@ par(pty = "s")
 plot(coords, pch = 21, col = "black")
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/spatial-sampling-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/spatial-sampling-1.png" width="80%" />
 
 {{% callout note %}}
 
@@ -295,7 +293,7 @@ apply_trafo <- function(coord, trafo_fcn = identity_trafo, scale = 1) {
 ```
 
 Functional programming basics:
-the function `apply_transform` [takes a function as an input argument](https://en.wikipedia.org/wiki/First-class_function).
+the function `apply_trafo` [takes a function as an input argument](https://en.wikipedia.org/wiki/First-class_function).
 It then applies it, but also does some more stuff (here: scaling).
 You could say that we just invented a simple, dynamic "wrapper".
 
@@ -326,7 +324,7 @@ plot(data, pch = 21, col = "black")
 title(glue::glue("{nrow(data)} points, spatially balanced in a circle -- or not?"))
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/transform-polar-to-cartesian-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/transform-polar-to-cartesian-1.png" width="80%" />
 
 Does the outcome surprise you?
 
@@ -379,7 +377,7 @@ margin_plot <- function(data) {
 margin_plot(test_trafos())
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/modify-trafo-function-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/modify-trafo-function-1.png" width="80%" />
 
 You can inverse the "center-heavy" distribution.
 Admitted, I trial-errored this initially, but the result makes sense:
@@ -399,7 +397,7 @@ points(test_trafos(trafo_r = inverse_radial), col = "darkred") # transformed poi
 title("Red and grey points show the data set before and after transformation.")
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/find-inverse-trafo-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/find-inverse-trafo-1.png" width="80%" />
 
 You can also see this on the histogram of radii:
 
@@ -410,7 +408,7 @@ r <- apply_trafo(coords[, 2], inverse_radial, scale = target_radius)
 hist(r, breaks = seq(0, target_radius, length.out = 2^6+1))
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/radius-histogram-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/radius-histogram-1.png" width="80%" />
 
 Let us apply this to give the `test_trafos()` function above the option to uniformize prior to transformation.
 
@@ -433,7 +431,7 @@ data <- test_unif(trafo_r = identity_trafo, n = 2^10)
 margin_plot(data)
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/marginal-histograms-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/marginal-histograms-1.png" width="80%" />
 
 Nice, functional programming with the "ellipsis" (the "`...`" in the function signature).
 Our `test_trafos` gained the extra capability of returning a spatially balanced distribution of points in a circle.
@@ -462,13 +460,13 @@ And, here you go, have fun:
 trial(function(x) tan(x))
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/tan-pattern-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/tan-pattern-1.png" width="80%" />
 
 ``` r
 trial(function(x) exp(x^2))
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/square-exponential-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/square-exponential-1.png" width="80%" />
 
 Oh... Wait...
 What happened here?
@@ -486,7 +484,7 @@ For example, the exponential function normally has `1 = exp(0)`, and should be s
 trial(function(x) exp(x^2)-1)
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/square-exponential-minus-one-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/square-exponential-minus-one-1.png" width="80%" />
 
 You could move more density to the borders, giving bowl-shaped (marginal) distributions.
 
@@ -494,7 +492,7 @@ You could move more density to the borders, giving bowl-shaped (marginal) distri
 trial( function(x) atan(4*x) )
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/border-preference-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/border-preference-1.png" width="80%" />
 
 You can try to approximate [a Gaussian](https://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function), and I am sure there is an analytical way to represent it in polar coordinates ([see also](https://math.stackexchange.com/questions/2124869/converting-a-uniform-distribution-variable-to-a-normal-distribution-one)).
 However, if you need a Gaussian, you could also directly go to the 2D Gauss function, without the need for the polar-to-cartesian transformation trick.
@@ -507,7 +505,7 @@ gauss <- function(r) r*exp((r^2)/(2*sigma^2))
 trial( gauss )
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/gaussian-like-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/gaussian-like-1.png" width="80%" />
 
 You can even get periodic, concentric bands of points, and as you would suspect these require trigonometric functions and/or complex numbers.
 
@@ -515,7 +513,7 @@ You can even get periodic, concentric bands of points, and as you would suspect 
 trial( function(x) x + 0.2 * sin(16 * x) ) 
 ```
 
-<img src="index.markdown_strict_files/figure-markdown_strict/periodicity-1.png" width="768" />
+<img src="/images/tutorials/spatial_transform_balanced_samples/periodicity-1.png" width="80%" />
 
 You now possess the basic tooling and can take these ideas and concepts further, for your own purposes.
 
