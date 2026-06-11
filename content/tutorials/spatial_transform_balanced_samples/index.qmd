@@ -336,7 +336,7 @@ apply_trafo <- function(coord, trafo_fcn = identity_trafo, scale = 1) {
 ```
 
 Functional programming basics: 
-the function `apply_transform` [takes a function as an input argument](https://en.wikipedia.org/wiki/First-class_function).
+the function `apply_trafo` [takes a function as an input argument](https://en.wikipedia.org/wiki/First-class_function).
 It then applies it, but also does some more stuff (here: scaling).
 You could say that we just invented a simple, dynamic "wrapper".
 
