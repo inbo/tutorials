@@ -1,7 +1,7 @@
 ---
 title: "Mathematical Transformations of Spatially Balanced Samples"
 description: "Channeling chaos into balanced, random point density distributions."
-date: "2025-08-24"
+date: "2026-06-11"
 authors: [falkmielke]
 categories: ["development", "r"]
 tags: ["spatial", "density", "distribution", "balanced", "sampling", "transformations", "functional programming"]
@@ -18,6 +18,7 @@ format:
 
 ``` r
 library("dplyr")
+library("magrittr")
 library("sf")
 library("glue")
 library("spbal")
@@ -52,7 +53,7 @@ plot(data, pch = 21, col = "black")
 <img src="/images/tutorials/spatial_transform_balanced_samples/totally-random-points-1.png" width="80%" />
 
 But then, you know, if we are honest, "random" might be a bit too random.
-Some points lie above each other, some areas remain blank, and the corner points are quite far from the center.
+Some points come out on top of each other, some areas remain blank, and the corner points are quite far from the center.
 
 ## Gradually Less Randomness
 
@@ -61,6 +62,7 @@ There are options and choices to modify the randomness to our liking.
 ### (1) Your Inner Circle
 
 First of all, the square layout is not generally useful; imagine another common case where you want to randomly distribute points in a circle.
+For example, think of sampling data "within a radius or range" of a target location.
 You could filter the circle within the square.
 
 ``` r
@@ -78,7 +80,7 @@ title(glue::glue("N = {nrow(data)}"))
 
 <img src="/images/tutorials/spatial_transform_balanced_samples/filter-circle-1.png" width="80%" />
 
-... but then, your sample size changes (lost about 20% of points).
+... but then, your sample size changes (lost about 20% of points, but the number is never exact).
 So this is not of general use.
 
 Below, I will demonstrate how to create a circular area covered with the defined number of random points, by means of a simple polar coordinate transformation.
@@ -88,7 +90,7 @@ Below, I will demonstrate how to create a circular area covered with the defined
 A second feature of the initial example random points is that they cluster randomly.
 This matches the observation that some of the points are close together, whereas other areas are undersampled.
 
-This has disadvantages, e.g. in terms of information theory.
+This has disadvantages, e.g. in terms of information theory.
 If you want to sample information about a geographic area, points proximal to existing measurements provide little extra information (at least if [Tobler's Law](https://tutorials.inbo.be/tutorials/spatial_variograms) holds).
 Yet, purposefully placing a measurement into "that previously missed open spot" bares the danger of bias, and the cost of potential future oversampling.
 
@@ -97,22 +99,30 @@ What we often desire is **spatially balanced sampling**, like this:
 <img
 src="/images/tutorials/spatial_transform_balanced_samples/fig1_spatially_balanced_circle.png"
 id="fig-spatbalsamp"
-alt="Figure 1: Spatially balanced sampling in a circular area." />
+alt="Figure 1: Spatially balanced sampling in a circular area." />
 <figcaption>Figure 1: Spatially balanced sampling in a circular area.</figcaption><br>
 
 ### (3) Choose Your Distribution Pattern
 
-The figure above treats points in all areas in the circle equally.
+The figure above treats points in all areas of the circle equally.
 But then, if you think about it, there are special points in a circular area - obviously, its center.
-And in many applications, it is a valid strategy to give points closer to the center a higher chance of being chosen, or to have a sampling pattern that reduces likelihood with distance from center, or just the opposite (i.e. bias towards the rim).
+And in many applications, it is a valid strategy to give points closer to the center a higher chance of being chosen, or to have a sampling pattern that reduces likelihood with distance from center, or just the opposite (i.e. bias towards the rim).
+Completely hypothetical example: imagine you want to study the effect of soil `pH` on plant root growth.
+Your experiment starts by measuring pH, and then planting a seed in a specific, central location. 
+If there is variability in pH, you might want to sample a number of random locations in your study area for averaging.
+By prior knowledge, roots spread out all directions, you might know a maximum radius.
+However, root density decreases with distance, and the further away from the center, the less likely it is that measured pH will affect your study subject. 
+A uniform random distribution cannot account for the distance effect: it overrates the samples further away from the center (by including more of them, relatively speaking).
+In contrast, the center-weighted sampling strategy can emphasize that data interrelation decreases with distance, making it suitable for any research question about specific points and radially decreasing effect correlation[^3].
 
 <img
 src="/images/tutorials/spatial_transform_balanced_samples/fig2_center_weighted_circle.png"
 id="fig-spatbalsamp"
-alt="Figure 2: An example of distance-dependent sampling likelihood." />
+alt="Figure 2: An example of distance-dependent sampling likelihood." />
 <figcaption>Figure 2: An example of distance-dependent sampling likelihood.</figcaption><br>
 
-Anything goes.
+The appropriate distribution of points depends on the (probability density) distribution of the values measured or sampled, and thus ultimately on the research question and subject.
+Nature creates a variety of distribution patterns, and it might be useful to be able to mimic them with computational sampling.
 In this tutorial, I will briefly demonstrate, how.
 
 <a id="sec-Methods"></a>
@@ -125,7 +135,7 @@ Throughout this tutorial, I will apply some basic concepts of functional program
 (Really just a tiny, superficial addition, nothing to be excited about.)
 
 As is the habit of my institute, I will use R.
-R has strong libraries for spatial analysis (`sf`, `terra`), it is moderately good at [functional programming](http://adv-r.had.co.nz/Functional-programming.html) (with some severe let-downs, such as cumbersome workarounds for multiple return values), and it is only just catching up on object-oriented programming ([e.g. see here](http://adv-r.had.co.nz/S4.html)).
+R has strong libraries for spatial analysis (`sf`, `terra`), it is moderately good at [functional programming](http://adv-r.had.co.nz/Functional-programming.html) (with some severe let-downs, such as cumbersome workarounds for multiple return values), and it is only just catching up on object-oriented programming ([e.g. see here](http://adv-r.had.co.nz/S4.html)).
 
 In this situation, the easiest way I found of implementing a system for basic school geometry are functions like the following wrappers to alleviate some of the unnecessary cumbersome-ness.
 
@@ -333,13 +343,13 @@ Does the outcome surprise you?
 Note how the sample is still spatially balanced, but in a way that one might not have expected:
 
 -   At each distance from the center, there is an equal chance of finding a point.
--   Across all directions, points are uniformly distributed (i.e. everywhere the same chance to see points).
+-   Across all directions, points are uniformly distributed (i.e. everywhere the same chance to see points).
 
 However, point density (the chance of finding a point in a given "pixel" window), is not homogeneous.
 Close to the center, it is high, but it reduces towards the edges of our circle.
 Logical, if you think about it: the orbits close to the center are much shorter, yet they house equally many points as the distant orbits.
 
-This outcome might be fine in some situations, but undesired in others.
+This outcome might be fine in some situations (e.g. where there is a radial component to the correlation structure or physical measurement; think of sources and sinks and limited diffusion), but undesired in others (e.g. repeated measurements in perfectly homogeneous mixtures or systems).
 
 ## Finding the Inverse Transformation
 
@@ -515,7 +525,9 @@ trial( function(x) x + 0.2 * sin(16 * x) )
 
 <img src="/images/tutorials/spatial_transform_balanced_samples/periodicity-1.png" width="80%" />
 
-You now possess the basic tooling and can take these ideas and concepts further, for your own purposes.
+Admittedly, my imagination falls short of finding concrete, real-life examples for these special distribution patterns.
+Nonetheless, I am fascinated by the computational capability of producing them.
+And if you encounter basically any more or less regular spatial distribution, you now possess the basic tooling and can take these ideas and concepts further, for your own purposes.
 
 <a id="sec-summary"></a>
 
@@ -547,6 +559,9 @@ Stevens D.L. & Olsen A.R. (2004). Spatially Balanced Sampling of Natural Resourc
 
 ------------------------------------------------------------------------
 
-[^1]: "Unit" indicates that the dimension extent of all relevant dimensions is one (i.e. one in the chosen units). For example, a unit square spans the area from points (0, 0) to point (1, 1), and a unit circle has a radius of 1 and goes 1 full round.
+[^3]: Conversely, probability might also increase with distance. An ad hoc hypothetical example which comes to my mind are territorial, competitive species and the chance of finding a conspecific as a function of distance from a known location.
+
+[^1]: "Unit" indicates that the dimension extent of all relevant dimensions is one (i.e. one in the chosen units). For example, a unit square spans the area from points (0, 0) to point (1, 1), and a unit circle has a radius of 1 and goes 1 full round.
 
 [^2]: "Identity" is just maths-speak for something that is identical on both sides of an equation, such as a function / projection / transformation for which the output always equals the input (take `y = x`).
+
