@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>distribution on INBO Tutorials</title>
+    <link>/tags/distribution/</link>
+    <description>Recent content in distribution on INBO Tutorials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/distribution/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mathematical Transformations of Spatially Balanced Samples</title>
+      <link>/tutorials/spatial_transform_balanced_samples/</link>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/tutorials/spatial_transform_balanced_samples/</guid>
+      <description>library(&amp;#34;dplyr&amp;#34;) library(&amp;#34;magrittr&amp;#34;) library(&amp;#34;sf&amp;#34;) library(&amp;#34;glue&amp;#34;) library(&amp;#34;spbal&amp;#34;) library(&amp;#34;ggplot2&amp;#34;) library(&amp;#34;ggExtra&amp;#34;) # set specific seed for reproducability location_id &amp;lt;- 42 set.seed(location_id) 
+Introduction Is Randomness Chaos? Occasionally, one requires a set of points which are randomly distributed in a given area.
+n_samples &amp;lt;- 2^8 x &amp;lt;- runif(n_samples) y &amp;lt;- runif(n_samples) data &amp;lt;- data.frame(&amp;#34;x&amp;#34; = x, &amp;#34;y&amp;#34; = y) par(pty = &amp;#34;s&amp;#34;) plot(data, pch = 21, col = &amp;#34;black&amp;#34;) But then, you know, if we are honest, &amp;ldquo;random&amp;rdquo; might be a bit too random.</description>
+    </item>
+    
+  </channel>
+</rss>
