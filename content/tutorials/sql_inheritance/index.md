@@ -36,6 +36,14 @@ However, an adequate logical representation of the data type hierarchy is both l
 Thus, inheritance might be an option to consider for joining TODO lists or field activities.
 I will herein explore the basic implementation, in practical use, and also assert which use cases this technique is good for.
 
+
+{{% callout note %}}
+
+If you would like to get started with SQL and R: the [INBO Coding Club session](https://coding-club.inbo.be/sessions/index.html) of August 27th, 2026 ([slides](https://coding-club.inbo.be/sessions/20260827_sql_in_r.html)) covered the topic.
+
+{{% /callout %}}
+
+
 # PostgreSQL installation (optional)
 
 To get our hands on the examples below, running some kind of postgreSQL server is required.
