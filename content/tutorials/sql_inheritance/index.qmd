@@ -615,6 +615,10 @@ the use of `INHERITS` gives some extra conceptual structure to the data which ha
 
 
 Inheritance is not a general solution, and should be carefully considered.
+A breaking limitation for some use cases, and probably the reason why the postgreSQL implementation of inheritance is not abundantly used, is that **primary keys and triggers are not inherited**. 
+Worse even, inherited tables can lead to primary key duplicates (more leads [on this comment](https://github.com/qgis/QGIS/issues/21962#issuecomment-495853940)).
+I personally can work around that by defining new primary keys in the child tables (`activity_id` in `Activities`, and `pushup_id` in `PushUps`), and by having extra measures in place to enforce PK integrity.
+Triggers simply have to be applied to all child tables individually, even if they only affect parent table fields.
 Keep in mind that postgreSQL inheritance is *structural* inheritance (I think of it as automatic `UNION`s which happen when I query the common fields; `NATURAL FULL JOIN`s play nicely into that).
 Advanced functionality is available with other `JOIN`s, Views, and `UPDATE` Rules.
 
