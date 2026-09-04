@@ -1,6 +1,6 @@
 ---
-title: Running Existing Containers
-description: Pulling and running containers from an online container repository.
+title: "Containers (2): Running Existing Containers"
+description: "Pulling and running containers from an online container repository."
 date: "2025-02-21"
 authors: [falkmielke]
 categories: ["development", "open science"]
@@ -227,7 +227,7 @@ Think of a Docker image as a virtual copy of your computer which you store for l
 
 Luckily, other people have prepared images for you.
 For example, a collection of images for specific analysis pipelines at INBO are preserved at [Docker Hub/inbobmk](https://hub.docker.com/u/inbobmk).
-We consider these "stable" versions because they could be re-activated no matter what crazy future updates will shatter the R community, which enables us to return to all details of previous analyses.
+We consider these "stable" versions because they could be re-activated at any point in the future, which enables us to return to all details of previous analyses.
 
 This tutorial provided introductory details on how to run such images.
 If you would like to take this further and customize your containers, proceed with [the next tutorial about the `build` command](../../tutorials/development_containers3_build).
