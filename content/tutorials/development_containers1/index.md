@@ -1,5 +1,5 @@
 ---
-title: "Containers: An Overview"
+title: "Containers (1): An Overview"
 description: "Introduction to containerization and the practical use of Docker-like tools."
 date: "2025-02-21"
 authors: [falkmielke]
@@ -71,7 +71,7 @@ In this notebook, you will find **installation instructions**, <a href="#sec-com
 There are numerous useful build instructions and container images already out there, which you can **simply `pull` and `run`**.
 This is an easy, entry level application of container software like Docker, [covered in an introductory tutorial](../../tutorials/development_containers2_run).
 
-A second step is to set up and deploy a **self-`build` custom container** I demonstrate step-by-step [in a slightly more advanced tutorial](../../tutorials/development_containers3_build).
+A second step is to set up and deploy a **self-`build` custom container**, which I demonstrate step-by-step [in a slightly more advanced tutorial](../../tutorials/development_containers3_build).
 This is intended to be a rather general test case, enabling you to later configure more specific container solutions for your own purpose.
 For example, you will learn how to spin up an existing `rocker/rstudio` container, and even modify it with additional system components and libraries.
 
@@ -183,7 +183,7 @@ systemctl stop docker.socket
 systemctl stop docker.service
 ```
 
-For aficionados: docker actually runs multiple services: the docker service, the docker socket, and the [container daemon](https://www.docker.com/blog/containerd-vs-docker) `containerd`.
+For aficionados, docker actually runs multiple services: the docker service, the docker socket, and the [container daemon](https://www.docker.com/blog/containerd-vs-docker) `containerd`.
 
 You can check the Docker installation by confirming the version at which the service is running.
 
@@ -208,7 +208,7 @@ This question might have led to some confusion, and I would like to throw in a p
 A crucial distinction lies in the preparation of *Dockerfiles* (i.e. build instructions) and the preservation of *images* (i.e. end products of a build process).
 
 One purpose of a Dockerfile may be that you document the exact components of your system environment.
-You start at a base image (e.g. a `rocker`) and add additional software via Dockerfile layers.
+You start at a base image (e.g. a `rocker`, short for "R-docker", a container [pre-configured with an R programming environment](https://rocker-project.org)) and add additional software via Dockerfile layers.
 This is good practice, and encouraged: if you publish an analysis, provide a tested container recipe with it.
 
 However, this alone does not solve the problem of version conflicts and deprecation.
@@ -216,7 +216,7 @@ Documenting the versions of packages you used is an extra step, for which [other
 
 -   It is good practice to report the exact versions of the software used upon publication ([see here, for example](https://arca-dpss.github.io/manual-open-science/requirements-chapter.html)). This is best achieved via virtual environments.
 -   Version control such as `git` will track the changes within your own texts, scripts, even version snapshots and Dockerfiles.
--   Finally, docker images can serve as a snapshot of a (virtual) machine on which your code would run.
+-   Finally, docker *images* can serve as a snapshot of a (virtual) machine on which your code would run.
 
 {{% callout note %}}
 The simple rule of thumb is: use all three methods, ideally all the time.
@@ -242,7 +242,7 @@ Then there is the integration of R, Python and system packages in `conda`-like t
 There are even system level tools, for example [`nix` and `rix`](https://docs.ropensci.org/rix).
 
 The methods are not mutually exclusive:
-all Dockerfiles, build recipes and scripts to establish virtual environments should generally be subject to version control.
+all Dockerfiles, build recipes, and scripts to establish virtual environments should generally be subject to version control.
 
 However, documenting the exact tools and versions used in a project does not guarantee that these versions will be accessible to future investigators (like oneself, trying to reproduce an analysis five years later).
 This is where **Docker images** come in.
