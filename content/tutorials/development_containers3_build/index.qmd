@@ -1,5 +1,5 @@
 ---
-title: "Building Custom Containers"
+title: ""Containers (3): Building Custom Containers""
 description: "How to customize and extend containers with Dockerfiles and the `build` command."
 date: "2025-02-21"
 authors: [falkmielke]
@@ -70,9 +70,9 @@ Once you create a `Dockerfile` and build it, it will appear in the GUI.
 ## Rationale
 
 Matryoshka dolls only work because the internal dolls are smaller than the ones covering them.
-In terms of software, size is a rather abstract metric, but you might think of different layers as "wrappers" to toher elements.
+In terms of software, size is a rather abstract metric, but you might think of different layers as "wrappers" around other elements.
 
-For example, [`flask`](https://palletsprojects.com/projects/flask) is a wrapper for other tools ("Werkzeug"), and it is a library within the Python ecosystem.
+For example, [`flask`](https://palletsprojects.com/projects/flask) is a wrapper for other tools, and it is a library within the Python ecosystem.
 In this chapter, you will learn how to wrap `flask` in a container.
 
 
