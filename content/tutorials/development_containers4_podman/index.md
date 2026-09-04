@@ -1,6 +1,6 @@
 ---
-title: Containers with Podman
-description: 'Podman: a drop-in alternative to Docker.'
+title: "Containers (4): Containers with Podman"
+description: "Podman: a drop-in alternative to Docker."
 date: "2025-02-21"
 authors: [falkmielke]
 categories: ["development", "open science"]
