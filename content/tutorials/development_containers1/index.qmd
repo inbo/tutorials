@@ -44,7 +44,13 @@ Although containerization is an immensely useful Open Science tool worth strivin
 Time to explore what containers really are, and what they are not.
 
 :::{.callout-note}
-This tutorial will go in-depth on the use of containers and discusses their role in Open Science. The technical level of this tutorial is quite high. Links are provided to other websites to give you the necessary background knowledge. People with zero prior experience with containers are encouraged to read this tutorial, but a better practical starting point may be to follow the built-in tutorial in the [Docker Desktop app](https://docs.docker.com). Another tip for the absolute novice may be to try it on your own personal computer; while the ICT staff of INBO are happy to install it for you on your INBO computer (see below), you may run into admin rights issues while going through this tutorial. The tutorial is written from the point-of-view of Linux command-line users but also contains pointers for the average Windows user. Inside the containers however you need linux commands and a basic understanding of these commands is assumed.
+This tutorial will go in-depth on the use of containers and discusses their role in Open Science.
+The technical level of this tutorial is quite high.
+Links are provided to other websites to give you the necessary background knowledge.
+People with zero prior experience with containers are encouraged to read this tutorial, but a better practical starting point may be to follow the built-in tutorial in the [Docker Desktop app](https://docs.docker.com).
+Another tip for the absolute novice may be to try it on your own personal computer; while the ICT staff of INBO are happy to install it for you on your INBO computer (see below), you may run into admin rights issues while going through this tutorial.
+The tutorial is written from the point-of-view of Linux command-line users but also contains pointers for the average Windows user.
+Inside the containers however you need linux commands and a basic understanding of these commands is assumed.
 :::
 
 # Overview
