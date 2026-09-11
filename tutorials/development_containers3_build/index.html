@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='How to customize and extend containers with Dockerfiles and the `build` command.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Containers (3): Building Custom Containers • Falk Mielke'>
+<meta property='og:description' content='How to customize and extend containers with Dockerfiles and the `build` command.'>
+<meta property='og:url' content='/tutorials/development_containers3_build/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='development'><meta property='article:tag' content='open science'><meta property='article:tag' content='docker'><meta property='article:tag' content='containers'><meta property='article:published_time' content='2025-02-21T00:00:00Z'/><meta property='article:modified_time' content='2025-02-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.165.0">
+
+  <title>Containers (3): Building Custom Containers • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/development_containers3_build/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.e45c9137.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>Analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>Analysis of Variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>Api</a>
+      </li><li>
+        <a href='/tags/balanced/' style='font-size:1em'>Balanced</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>Bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>Binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>Biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>BioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>Bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>Brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>Checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>Ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>Co-Variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>Coding Club</a>
+      </li><li>
+        <a href='/tags/containers/' style='font-size:1.0375em'>Containers</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>Credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>Csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>Data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>Database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>De-Trending</a>
+      </li><li>
+        <a href='/tags/density/' style='font-size:1em'>Density</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>Design of Experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.075em'>Development</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/docker/' style='font-size:1.0375em'>Docker</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>Dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>E-Book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>Effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>Endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>Etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>Explorative Data Analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>Frictionless</a>
+      </li><li>
+        <a href='/tags/functional-programming/' style='font-size:1em'>Functional Programming</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>Gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>Generalized Linear Regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>Ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>Gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>Git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>Gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>Github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>Google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>Grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>GwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>Inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>Inborutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>Inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>Inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>Inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>Installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>Keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>Literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>Maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>Markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>Mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>Mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>Mixed Model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>Mixed Models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>Multivariate Statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>N2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.1375em'>Open Science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>Packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>Pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>Passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>Postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>Python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>R</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>Regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>Renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>Reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>Rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>Rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>Rstudio</a>
+      </li><li>
+        <a href='/tags/sampling/' style='font-size:1em'>Sampling</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>Scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>Secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1.0125em'>Spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>Spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0125em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>Stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>Statistical Analysis Plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>Styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>Tidyverse</a>
+      </li><li>
+        <a href='/tags/transformations/' style='font-size:1em'>Transformations</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>Uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>Utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>Version Control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>Vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>Visual Markdown Editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>Vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>WateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>Watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>Webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>Windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>Zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>Zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Fri Sep 11 10:33:40 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="3" y1="12" x2="21" y2="12" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<line x1="3" y1="18" x2="21" y2="18" />
+</svg>
+</span>
+  <span class='close'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Containers (3): Building Custom Containers</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Containers (3): Building Custom Containers</h1>
+      
+<p class='desc'>How to customize and extend containers with Dockerfiles and the `build` command.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+<line x1="16" y1="2" x2="16" y2="6" />
+<line x1="8" y1="2" x2="8" y2="6" />
+<line x1="3" y1="10" x2="21" y2="10" />
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2025-02-21T00:00:00Z'>2025, Feb 21</time>
+</span>
+
+  <span class='byline'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1" />
+<path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z" />
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><circle cx="12" cy="12" r="10" />
+<polyline points="12 6 12 12 15 15" />
+</svg>
+8 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/development_containers3_build/index.md'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>By now, you <a href="/tutorials/development_containers1/#sec-installation">will have successfully installed</a> Docker or <a href="/tutorials/development_containers4_podman/">Podman</a>.
+You hopefully succeeded in <a href="/tutorials/development_containers2_run/">running others&rsquo; containers</a>, e.g. from a container repository.</p>
+<p>Next, it is time to customize your container.</p>
+<p>To give you a metaphor to work on: imagine you have a nice little DIY project for your garage workshop.
+This time, you would like to build your own <a href="https://en.wikipedia.org/wiki/Matryoshka_doll">Matryoshka dolls</a> (матрёшка, stacking dolls, a great allegory for recursion).</p>
+<figure>
+<img src="https://images.unsplash.com/photo-1586010135736-c16373adf060?q=80" alt="Photo of a set of Matryoshka dolls." />
+<figcaption aria-hidden="true">(Photo by <a href="https://unsplash.com/@ilmatar?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Iza Gawrych</a> on <a href="https://unsplash.com/photos/a-group-of-blue-and-gold-vases-sitting-on-top-of-a-table-oL3O2PybLoo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>)</figcaption>
+</figure>
+<p>Like all good DIY, you do not fully start from scratch: you start with a blueprint which someone else has created, or general building instructions.
+You usually do not grow your own trees to get the wood, you buy wooden blocks of approximately the right size; neither do you mix paint from elemental ingredients, you assemble what others have to offer.
+But with those ingredients, you customize your making and end up with a very individual creation which, ideally, is exactly what you had in mind.</p>
+<p>Customizing container images with the <code>build</code> command is the same business.
+Start from an image someone else prepared, as close as possible to your outcome.
+Add extra ingredients, few of them are innovative.
+Sprinkle in your own files for customization.
+The result is a container with a set of components which noone else might have ever used.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>With Docker Desktop, you have the graphical interface for &ldquo;builds&rdquo;.
+This might fall under the extended functionality which requires a login.</p>
+<p>Yet even without a login, you <em>can</em> proceed via a terminal, as below.
+Once you create a <code>Dockerfile</code> and build it, it will appear in the GUI.</p>
+</div>
+<figure>
+<img src="../../images/tutorials/development_docker/docker_winbuild.jpg" alt="build on Windows" />
+<figcaption aria-hidden="true">Build on Windows.</figcaption>
+</figure>
+<h1 id="simple-example-a-webserver-with-pythonflask">Simple Example: A Webserver with Python/<code>flask</code><a href="#simple-example-a-webserver-with-pythonflask" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="rationale">Rationale<a href="#rationale" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Matryoshka dolls only work because the internal dolls are smaller than the ones covering them.
+In terms of software, size is a rather abstract metric, but you might think of different layers as &ldquo;wrappers&rdquo; around other elements.</p>
+<p>For example, <a href="https://palletsprojects.com/projects/flask"><code>flask</code></a> is a wrapper for other tools, and it is a library within the Python ecosystem.
+In this chapter, you will learn how to wrap <code>flask</code> in a container.</p>
+<h2 id="init-what-is-a-flask">Init: What is a <code>flask</code><a href="#init-what-is-a-flask" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Flask_%28web_framework%29">Python <code>flask</code></a> is a library which allows you to execute Python scripts upon web access by users.
+Though I will not go into details, know that flask is a useful library for interactive website functions.
+For example, you can use flask to gather information a user provides in an html form, then process and store it wherever you like.</p>
+<p>I started from the following examples and tutorials to spin up a flask container, but provide modifications and comments on the steps.</p>
+<ul>
+<li><a href="https://docs.docker.com/build/concepts/dockerfile">https://docs.docker.com/build/concepts/dockerfile</a></li>
+<li><a href="https://medium.com/@geeekfa/dockerizing-a-python-flask-app-a-step-by-step-guide-to-containerizing-your-web-application-d0f123159ba2">https://medium.com/@geeekfa/dockerizing-a-python-flask-app-a-step-by-step-guide-to-containerizing-your-web-application-d0f123159ba2</a></li>
+</ul>
+<blockquote>
+<p><strong>It all starts with a <a href="https://www.geeksforgeeks.org/what-is-dockerfile">Dockerfile</a>.</strong><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+</blockquote>
+<p>As you will see, the Docker file will give you all the design choices to create your own containers.
+I think of the Docker file as a script which provides all the instructions to set up your container, starting with <code>FROM</code> (i.e. which prior container you build upon) to <code>RUN</code>ning any type of commands.
+Not <em>any</em> type, really: we are working on (mysterious, powerful) Linux - don&rsquo;t fret, it is easier than you think!</p>
+<p>To our <code>python/flask</code> example.
+A list of the official python containers is <a href="https://hub.docker.com/_/python">available here</a>.
+Note that you build every container upon the skeleton of an operating system: I chose <a href="https://en.wikipedia.org/wiki/Alpine_Linux">Alpine Linux</a>.
+(It&rsquo;s <em>en vogue</em>.)</p>
+<p>The Dockerfile resides in your working folder (yet it also defines a <a href="https://stackoverflow.com/a/51066379"><code>WORKDIR</code></a> from within which later commands are executed).</p>
+<ul>
+<li>Navigate to a folder in which you intend to store your container(s), e.g. <code>cd C:\data\docker</code> (Windows) or <code>cd /data/docker</code> (Linux).</li>
+<li>Create a file called <code>Dockerfile</code>: <code>touch Dockerfile</code>.</li>
+<li>Edit the file in your favorite text editor (<code>vim Dockerfile</code>; Windows users probably use &ldquo;notepad&rdquo;).</li>
+<li>Paste and optionally modify the content below.</li>
+</ul>
+<!-- -->
+<pre tabindex="0"><code># Use the official Python image (Alpine Linux, Python 3)
+FROM python:3-alpine
+
+# install app dependencies
+RUN apk update &amp;&amp; apk add --no-cache python3 py3-pip
+RUN pip install flask
+
+# install app
+COPY hello.py /
+
+# final configuration
+ENV FLASK_APP=hello
+EXPOSE 8000
+CMD [&#34;flask&#34;, &#34;run&#34;, &#34;--host&#34;, &#34;0.0.0.0&#34;, &#34;--port&#34;, &#34;8000&#34;]
+</code></pre><p>Note that the following <code>hello.py</code> file needs to be present in your working directory (you will be reminded by a friendly error message):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#00a">from</span> <span style="color:#0aa;text-decoration:underline">flask</span> <span style="color:#00a">import</span> Flask
+</span></span><span style="display:flex;"><span>app = Flask(<span style="color:#a00">__name__</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888">@app.route</span>(<span style="color:#a50">&#34;/&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#00a">def</span> <span style="color:#0a0">hello</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#00a">return</span> <span style="color:#a50">&#34;Hello, INBO!&#34;</span>
+</span></span></code></pre></div><p>With the <code>Dockerfile</code> and <code>hello.py</code> in place, you can build the container <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># on Windows, you are already in an administrator terminal</span>
+</span></span><span style="display:flex;"><span>docker build --pull -t my-flask .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker build --pull -t my-flask .
+</span></span></code></pre></div><p>On Linux, you might need to use <code>sudo</code> if the user is not in the <code>docker</code> group, like so: <code>sudo docker build -t my-flask</code>.
+Using <code>--pull</code> is good practice to ensure the download of the latest upstream containers; you could even use <code>--no-cache</code> to avoid previous downloads altogether.
+The <code>-t</code> parameter <a href="https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image">will &ldquo;tag&rdquo; the image at build time</a>, auto-generating extra metadata.
+Also, some variants can omit the final dot (&quot;.&quot;), others require it; the dot is just a Linux shorthand reference to the current working directory (i.e. where your Dockerfile resides).</p>
+<figure>
+<img src="../../images/tutorials/development_docker/docker_build.jpg" alt="build" />
+<figcaption aria-hidden="true">Docker build.</figcaption>
+</figure>
+<p>List your available container images via the <code>docker images</code> command.</p>
+<p>You should now see a <code>python</code> image, which is the base alpine image we built upon.
+There is also a <code>my-flask</code>.
+Try it!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run my-flask
+</span></span></code></pre></div><p>The terminal should give you an IP and port; because the flask runs in a container, <code>localhost:8000</code> will <strong>not work</strong> out-of-the-box.
+Instead, in my case, it was <code>http://172.17.0.2:8000</code>.
+(Sadly, although I could build and run this container on windows, I did not get through via the browser &#x1f937; but try with port mapping <code>-p 8000:8000</code>.)</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  So far, so good.
+We have used an existing image and added <code>flask</code> on top of it.
+This works via writing a Dockerfile and building an image.
+</div>
+<h2 id="multiple-images-compose-versus-build">Multiple Images: <code>compose</code> <em>versus</em> <code>build</code><a href="#multiple-images-compose-versus-build" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The above works fine for most cases.
+However, if you want to assemble and combine multiple images, or build on base images from multiple sources, you need a level up.</p>
+<p>In that case <code>docker compose</code> is <a href="https://docs.docker.com/compose/gettingstarted">the way to go</a>.
+On Debian or Ubuntu, this extra functionality comes with the <code>docker-compose-plugin</code>.
+I did not have the need to try this out, yet, but will return here if that changes.</p>
+<h1 id="application-rstudio-with-packages">Application: RStudio With Packages<a href="#application-rstudio-with-packages" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="rationale-1">Rationale<a href="#rationale-1" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>A Python flask might not be your kind of Matryoshka doll, if you are mainly concerned with heavy R scripting from within your familiar RStudio environment.
+To re-iterate: containers are immensely flexible, and images are available for a multitude of situations.</p>
+<p>With the general tools presented above, we should be able to apply the above to modify the <code>rocker/rstudio</code> server image for our purpose.</p>
+<p>Build recipes for some of the INBO packages you might want to include are collected in this repository:</p>
+<ul>
+<li><a href="https://github.com/inbo/contaINBO">https://github.com/inbo/contaINBO</a></li>
+</ul>
+<p>Contributions are much appreciated!</p>
+<h2 id="dockerfile">Dockerfile<a href="#dockerfile" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>This use case is, in fact, well documented:</p>
+<ul>
+<li><a href="https://rocker-project.org/use/extending.html">https://rocker-project.org/use/extending.html</a></li>
+<li><a href="https://rocker-project.org/images/versioned/rstudio.html">https://rocker-project.org/images/versioned/rstudio.html</a></li>
+<li><a href="https://davetang.org/muse/2021/04/24/running-rstudio-server-with-docker">https://davetang.org/muse/2021/04/24/running-rstudio-server-with-docker</a></li>
+</ul>
+<p>The Rocker crew rocks!
+They prepared quite <a href="https://hub.docker.com/u/rocker">a lot of useful images</a>, including for example the <code>tidyverse</code> or geospatial packages.</p>
+<p>Note the syntax in <code>FROM</code>: it is <code>rocker/&lt;image&gt;:&lt;version&gt;</code>.</p>
+<pre tabindex="0"><code>FROM rocker/rstudio:latest
+# (Use the rocker rstudio image)
+
+# update the system packages
+RUN apt update \
+    &amp;&amp; apt upgrade --yes
+
+# git2rdata requires git
+RUN  apt-get update \
+  &amp;&amp; apt-get install -y --no-install-recommends \
+    git libgit2-dev\
+  &amp;&amp; apt-get clean
+
+# update pre-installed R packages
+# RUN Rscript -e &#39;update.packages(ask=FALSE)&#39;
+
+# copy a `.Rprofile` to the container
+# available here: https://tutorials.inbo.be/installation/administrator/admin_install_r/Rprofile.site
+COPY docker/.Rprofile $R_HOME/etc/Rprofile.site
+
+# install package via an R command (`R -q -e` or `Rscript -e`)
+# (a) from pre-configured repositories
+RUN Rscript -e &#39;install.packages(&#34;git2rdata&#34;)&#39;
+
+# (b) via r-universe
+RUN R -q -e &#39;install.packages(&#34;watina&#34;, repos = c(inbo = &#34;https://inbo.r-universe.dev&#34;, CRAN = &#34;https://cloud.r-project.org&#34;))&#39;
+
+# (b) from github
+RUN R -q -e &#39;install.packages(&#34;remotes&#34;)&#39;
+RUN R -q -e &#39;remotes::install_github(&#34;inbo/INBOmd&#34;, dependencies = TRUE)&#39;
+</code></pre><p>It takes some puzzle work to get the dependencies right, e.g. with the <code>libgit2</code> dependency (try commenting out that line to get a feeling for build failure).
+However, there is hope: (i) the error output is quite instructive (at least for Linux users), (ii) building is incremental, so you can add successively.
+It just takes patience.
+As a shortcut, consider using <code>pak</code> (<a href="https://pak.r-lib.org">from r-lib</a>) or <code>r2u</code> (<a href="https://github.com/eddelbuettel/r2u">apt repository</a>) to implicitly deal with the system dependencies.
+Generally, remember which system powers your container (Debian/Ubuntu), find help online, and document your progress.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>Dockerfiles offer some room for optimization.
+For example, every <code>RUN</code> is a &ldquo;Layer&rdquo;; you should put stable layers top and volatile layers later.
+In principle, it is recommended to combine layers as much as possible.</p>
+<p>More here: <a href="https://docs.docker.com/build/building/best-practices">https://docs.docker.com/build/building/best-practices</a></p>
+</div>
+<p>Test the image:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker build -t test-rstudio .
+</span></span></code></pre></div><p>Run it, as before:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run --rm -p 8787:8787 -e <span style="color:#a00">PASSWORD</span>=YOURNEWPASSWORD test-rstudio
+</span></span></code></pre></div><p>Another good practice is to extract modifications in scripts and modularly bring them in to be executed upon installation (<a href="https://stackoverflow.com/q/69167940">see here</a>, <a href="https://rocker-project.org/use/extending.html#install2.r">and here</a>), via <code>COPY</code>.
+This exposes them to a more refined version control on the host machine.
+As you know, <a href="https://tutorials.inbo.be/tags/git">version control is key!</a></p>
+<h1 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Like a Matryoshka doll, software often comes in <em>layers</em>, as I have tried to illustrate in the examples above.
+When designing and building Dockerfiles, you effectively craft your own DIY Matryoshka.
+This may involve tinkering, some sawdust will fall off on the sides, but often the end product is quite presentable.</p>
+<p>And that is one of the main purposes of a custom docker image: you can store a given set of interrelated software building blocks for later use (reproducibility).
+Some of these sets are rather rough, abstract, or general (like the images you get on image repositories, which you can <a href="/tutorials/development_containers2_run/">simply pull and run</a>).
+Others are bespoke, containing exact requirements for a given task.
+Both functions are important building blocks of open science, and I elaborate more about this framework <a href="/tutorials/development_containers1/">in the main article on containerization</a>.
+Docker is a specific implementation of the container concept, and you might also want to <a href="/tutorials/development_containers4_podman/">try out Podman</a> as an alternative.</p>
+<p>Good luck with all your DIY projects, and thank you for reading!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Here I quoted the docs (<a href="https://docs.docker.com/build/concepts/dockerfile">https://docs.docker.com/build/concepts/dockerfile</a>) before having read them.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>If you did not install the <code>buildx</code> package on Linux, you will read a legacy warning.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z" />
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/development/'>Development</a>, <a class='category' href='/categories/open-science/'>Open Science</a></div>
+<div class='tags'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
+<line x1="7" y1="7" x2="7" y2="7" />
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/development/'>Development</a>, <a class='tag' href='/tags/open-science/'>Open Science</a>, <a class='tag' href='/tags/docker/'>Docker</a>, <a class='tag' href='/tags/containers/'>Containers</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/development_containers4_podman/'>
+        <span aria-hidden='true'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="20" y1="12" x2="4" y2="12" />
+<polyline points="10 18 4 12 10 6" />
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Containers (4): Containers with Podman</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/tutorials/development_containers2_run/'>
+        <span class='screen-reader-text'>Next post: </span>Containers (2): Running Existing Containers<span aria-hidden='true'>Next <svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="4" y1="12" x2="20" y2="12" />
+<polyline points="14 6 20 12 14 18" />
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.56dcff95.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

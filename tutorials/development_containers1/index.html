@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Introduction to containerization and the practical use of Docker-like tools.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Containers (1): An Overview • Falk Mielke'>
+<meta property='og:description' content='Introduction to containerization and the practical use of Docker-like tools.'>
+<meta property='og:url' content='/tutorials/development_containers1/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='development'><meta property='article:tag' content='open science'><meta property='article:tag' content='docker'><meta property='article:tag' content='containers'><meta property='article:published_time' content='2025-02-21T00:00:00Z'/><meta property='article:modified_time' content='2025-02-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.165.0">
+
+  <title>Containers (1): An Overview • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/development_containers1/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.e45c9137.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>Analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>Analysis of Variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>Api</a>
+      </li><li>
+        <a href='/tags/balanced/' style='font-size:1em'>Balanced</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>Bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>Binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>Biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>BioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>Bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>Brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>Checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>Ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>Co-Variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>Coding Club</a>
+      </li><li>
+        <a href='/tags/containers/' style='font-size:1.0375em'>Containers</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>Credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>Csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>Data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>Database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>De-Trending</a>
+      </li><li>
+        <a href='/tags/density/' style='font-size:1em'>Density</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>Design of Experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.075em'>Development</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/docker/' style='font-size:1.0375em'>Docker</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>Dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>E-Book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>Effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>Endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>Etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>Explorative Data Analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>Frictionless</a>
+      </li><li>
+        <a href='/tags/functional-programming/' style='font-size:1em'>Functional Programming</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>Gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>Generalized Linear Regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>Ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>Gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>Git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>Gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>Github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>Google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>Grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>GwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>Inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>Inborutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>Inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>Inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>Inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>Installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>Keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>Literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>Maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>Markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>Mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>Mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>Mixed Model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>Mixed Models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>Multivariate Statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>N2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.1375em'>Open Science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>Packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>Pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>Passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>Postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>Python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>R</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>Regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>Renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>Reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>Rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>Rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>Rstudio</a>
+      </li><li>
+        <a href='/tags/sampling/' style='font-size:1em'>Sampling</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>Scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>Secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1.0125em'>Spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>Spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0125em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>Stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>Statistical Analysis Plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>Styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>Tidyverse</a>
+      </li><li>
+        <a href='/tags/transformations/' style='font-size:1em'>Transformations</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>Uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>Utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>Version Control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>Vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>Visual Markdown Editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>Vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>WateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>Watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>Webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>Windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>Zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>Zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Fri Sep 11 10:33:40 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="3" y1="12" x2="21" y2="12" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<line x1="3" y1="18" x2="21" y2="18" />
+</svg>
+</span>
+  <span class='close'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Containers (1): An Overview</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Containers (1): An Overview</h1>
+      
+<p class='desc'>Introduction to containerization and the practical use of Docker-like tools.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+<line x1="16" y1="2" x2="16" y2="6" />
+<line x1="8" y1="2" x2="8" y2="6" />
+<line x1="3" y1="10" x2="21" y2="10" />
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2025-02-21T00:00:00Z'>2025, Feb 21</time>
+</span>
+
+  <span class='byline'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1" />
+<path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z" />
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><circle cx="12" cy="12" r="10" />
+<polyline points="12 6 12 12 15 15" />
+</svg>
+16 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/development_containers1/index.md'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>You might have heard about &ldquo;containerization&rdquo; with <a href="https://docs.docker.com"><strong>Docker</strong></a>.
+Docker has been labeled &ldquo;the <em>Holy Grail</em> of reproducibility&rdquo; in <a href="https://arca-dpss.github.io/manual-open-science/docker-chapter.html">The Open Science Manual by Claudio Zandonella Callegher and Davide Massidda (2023)</a>.
+Although containerization is an immensely useful Open Science tool worth striving for, the <em>Holy Grail</em> is an inaccurate metaphor, because</p>
+<ul>
+<li>(i) Unlike The Grail, Docker is easy to find and accessible.</li>
+<li>(ii) Docker alone does not make a reproducible workflow; some of its capability is occasionally confused with package version management.</li>
+<li>(iii) Docker has issues, some of them mitigated by configuration adjustment or switching to &ldquo;Podman&rdquo;.</li>
+</ul>
+<figure>
+<img src="../../images/tutorials/development_docker/Gemini_Generated_Image_ngoz1wngoz1wngoz.jpg" alt="build" />
+<figcaption aria-hidden="true">I could not resist generating<sup id="fnref:gemini"><a class="footnote-ref" href="#fn:gemini" role="doc-noteref">*</a></sup> a catchy image on this, just to make this tutorial seem a little less dull. </figcaption>
+</figure>
+<p>Time to explore what containers really are, and what they are not.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  This tutorial will go in-depth on the use of containers and discusses their role in Open Science.
+The technical level of this tutorial is quite high.
+Links are provided to other websites to give you the necessary background knowledge.
+People with zero prior experience with containers are encouraged to read this tutorial, but a better practical starting point may be to follow the built-in tutorial in the <a href="https://docs.docker.com">Docker Desktop app</a>.
+Another tip for the absolute novice may be to try it on your own personal computer; while the ICT staff of INBO are happy to install it for you on your INBO computer (see below), you may run into admin rights issues while going through this tutorial.
+The tutorial is written from the point-of-view of Linux command-line users but also contains pointers for the average Windows user.
+Inside the containers however you need linux commands and a basic understanding of these commands is assumed.
+</div>
+<h1 id="overview">Overview<a href="#overview" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>There are many good applications for containers.</p>
+<p>One advantage of a container is its <em>mobility</em>: you can &ldquo;bring it with you&rdquo; to other workstations, host it for colleagues or readers, use cloud computing, mostly without having to worry about installation of the components.
+Containers pay off in complicated server setups and distributed computing.</p>
+<p>Yet they are also a matter of good <em>open science</em> practice:
+you can document build instructions for a reproducible analysis environment,
+or store and publish a whole image right away.</p>
+<p>In this notebook, you will find <strong>installation instructions</strong>, <a href="#sec-commands" class="quarto-xref"><b>useful commands</b></a>, references, and a loose assembly of general and almost philosophical topics to prime you on the <strong>complications and misconceptions</strong> surrounding containerization.</p>
+<p>There are numerous useful build instructions and container images already out there, which you can <strong>simply <code>pull</code> and <code>run</code></strong>.
+This is an easy, entry level application of container software like Docker, <a href="/tutorials/development_containers2_run/">covered in an introductory tutorial</a>.</p>
+<p>A second step is to set up and deploy a <strong>self-<code>build</code> custom container</strong>, which I demonstrate step-by-step <a href="/tutorials/development_containers3_build/">in a slightly more advanced tutorial</a>.
+This is intended to be a rather general test case, enabling you to later configure more specific container solutions for your own purpose.
+For example, you will learn how to spin up an existing <code>rocker/rstudio</code> container, and even modify it with additional system components and libraries.</p>
+<p>For relevant INBO-specific use cases, make sure to <a href="https://github.com/inbo/containbo">check out the <code>containbo</code> repository</a> which documents <strong>even more tipps and tricks</strong> assembled during my humble (but mostly succesful) attempts to get INBO R packages to run in a container environment.</p>
+<p>I also present <strong>Podman</strong> as a <a href="/tutorials/development_containers4_podman/">full replacement for Docker</a>, and recommend to give it a try.</p>
+<p>On Windows, installation, configuration, and management of containers runs via the <code>docker desktop</code> app.
+However, this series of tutorials also covers (and in fact focuses on) the terminal-centered steps to be executed on a Linux computer or within a WSL.</p>
+<p>Generally, if you are an INBO user, it is recommended to contact and involve your ICT department for support with the setup.</p>
+<h1 id="general-references">General References<a href="#general-references" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>I follow other tutorials available online, and try to capture their essence for an INBO context.
+Hence, this series is just an assembly of other tutorials, with references - no original ideas to be found herein, but nevertheless some guidance.
+Here is an incomplete list of online material which you might find helpful.</p>
+<ul>
+<li><a href="https://docs.docker.com">https://docs.docker.com</a></li>
+<li><a href="https://podman.io/docs">https://podman.io/docs</a>, <a href="https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md">https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md</a></li>
+<li><a href="https://github.com/inbo/contaINBO">https://github.com/inbo/contaINBO</a></li>
+<li><a href="https://wiki.archlinux.org/title/Podman">https://wiki.archlinux.org/title/Podman</a></li>
+<li><a href="https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html">https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html</a></li>
+<li><a href="https://medium.com/@geeekfa/docker-compose-setup-for-a-python-flask-api-with-nginx-reverse-proxy-b9be09d9db9b">https://medium.com/@geeekfa/docker-compose-setup-for-a-python-flask-api-with-nginx-reverse-proxy-b9be09d9db9b</a></li>
+<li><a href="https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx">https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx</a></li>
+<li><a href="https://arca-dpss.github.io/manual-open-science/docker-chapter.html">https://arca-dpss.github.io/manual-open-science/docker-chapter.html</a></li>
+<li><a href="https://do4ds.com/chapters/sec1/1-6-docker.html">https://do4ds.com/chapters/sec1/1-6-docker.html</a></li>
+<li><a href="https://colinfay.me/docker-r-reproducibility">https://colinfay.me/docker-r-reproducibility</a></li>
+<li><a href="https://solutions.posit.co/envs-pkgs/environments/docker">https://solutions.posit.co/envs-pkgs/environments/docker</a></li>
+</ul>
+<p><a id="sec-installation"></a></p>
+<h1 id="installation">Installation<a href="#installation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>The installation procedure <a href="https://docs.docker.com/install">is documented here</a>.</p>
+<p>Docker comes with the <em>Docker Desktop</em> app.
+That app by itself is trivial and hardly worth a tutorial.</p>
+<h2 id="microsoft-windows">Microsoft Windows<a href="#microsoft-windows" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Navigate to <a href="https://docs.docker.com/desktop/setup/install/windows-install">the download site for Docker on Windows</a>.
+Download the &ldquo;App&rdquo; (newspeak for: graphical user interface to a software tool).
+Install it.</p>
+<p><em>Note for INBO users:</em> you might choose to select Hyper-V, instead of WSL, against Docker&rsquo;s recommendation (WSL is not working in our enterprise environment; however, we are trying to improve and ICT might help).
+You probably do not have admin rights, which is good.
+To re-iterate: <strong>ask our friendly ICT helpdesk for support right away.</strong></p>
+<figure>
+<img src="../../images/tutorials/development_docker/docker_desktop1.jpg" alt="desktop app" />
+<figcaption aria-hidden="true">The Desktop App.</figcaption>
+</figure>
+<p>Using a convenient app is possible with &ldquo;Docker Desktop&rdquo;.
+On Windows, you can download and install it with administrator rights.
+On Linux, that same <code>docker-desktop</code> <a href="https://docs.docker.com/desktop/setup/install/linux">is available for installation</a>.
+Yet while automating some aspects, the app is not entirely transparent on telemetry and advertisement; some anti-features are included (e.g. required login).
+This is unfortunate, because it makes the app less open for more privacy-concerned users.</p>
+<p>The terminal aspect of Docker is entirely free and open source, and universally accessible.
+This is why the rest of this tutorial will focus on terminal access.</p>
+<h2 id="terminal">Terminal<a href="#terminal" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>On the Windows terminal or Linux shell, you can install <code>docker</code> as a terminal tool.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>On Windows, this comes bundled with the App; the steps below are not necessary.
+There might be ways to get around the Desktop App and facilitate installation, either via WSL2 or using <a href="https://en.wikipedia.org/wiki/Chocolatey">a windows package manager called Chocolatey</a>.</p>
+<p>Either way, note that you need to run the docker app or docker in a terminal <em>as administrator</em>.</p>
+</div>
+<p>More info about the installation on your specific Linux operation systems <a href="https://docs.docker.com/engine/install">can be found here</a>.
+The procedure for Debian or Ubuntu-based distributions involves trusting dockers gpg keys and adding an extra repository, <a href="https://wiki.debian.org/DontBreakDebian">some caution is warranted</a>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update &amp;&amp; sudo apt install docker-ce docker-buildx-plugin <span style="color:#aaa;font-style:italic"># debian-based</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># sudo pacman -Sy docker docker-buildx # Arch Linux</span>
+</span></span></code></pre></div><p>As you will notice, this installs a &ldquo;CE&rdquo; version of Docker, <code>docker-ce</code>.
+CE stands for &ldquo;community edition&rdquo;, as opposed to &ldquo;enterprise edition&rdquo; (<a href="https://www.geeksforgeeks.org/docker-community-edition-vs-enterprise-edition">cf. here</a>).
+Many features which you would take for granted in this kind of software (security, consistency, scalability) are handled differently in the two editions, thus it is worth knowing the difference and considering the alternatives.</p>
+<p>For users to be able to use Docker, they must be in the &ldquo;docker&rdquo; group.
+(Insert your username at <code>&lt;your-username&gt;</code>.)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo usermod -a -G docker &lt;your-username&gt;
+</span></span></code></pre></div><p>For this change to take effect, log off and log in again and restart the Docker service if it was running.</p>
+<p>Containers are managed by a system task (&ldquo;service&rdquo; and &ldquo;socket&rdquo;) which need to be started.
+Most likely, your Linux uses <code>systemd</code>.
+Your system can start and stop that service automatically, by using <code>systemctl enable &lt;...&gt;</code>.<br>
+However, due to <a href="https://docs.docker.com/engine/security">diverse</a> <a href="https://github.com/moby/moby/issues/9976">security</a> <a href="https://snyk.io/blog/top-ten-most-popular-docker-images-each-contain-at-least-30-vulnerabilities">pitfalls</a>, it is good practice to <strong>not keep it enabled</strong> permanently on your system (unless, of course, if you use it all the time).</p>
+<p>On a <code>systemd</code> system, you can start and stop Docker on demand via the following commands (those will ask you for <code>sudo</code> authentification if necessary).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>systemctl start docker
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>systemctl status docker <span style="color:#aaa;font-style:italic"># check status</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>systemctl stop docker.socket
+</span></span><span style="display:flex;"><span>systemctl stop docker.service
+</span></span></code></pre></div><p>For aficionados, docker actually runs multiple services: the docker service, the docker socket, and the <a href="https://www.docker.com/blog/containerd-vs-docker">container daemon</a> <code>containerd</code>.</p>
+<p>You can check the Docker installation by confirming the version at which the service is running.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker --version
+</span></span></code></pre></div><p>Congratulations: now the fun starts!</p>
+<p>With docker installed, the next step is to run a container image which someone else has prepared and hosted online, <a href="/tutorials/development_containers2_run/">which you can read about in the next tutorial</a>.</p>
+<h1 id="the-holy-grail">The Holy Grail?<a href="#the-holy-grail" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Yet to know what containers can achieve and what not, it is useful to understand their general workings, quirks, and relation to other tools.</p>
+<h2 id="relation-to-version-control-and-version-management">Relation to Version Control and Version Management<a href="#relation-to-version-control-and-version-management" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Back to the initial paradigm of reproducibility:
+<em>What exactly is the Open Science aspect of containerization?</em></p>
+<p>This question might have led to some confusion, and I would like to throw in a paragraph of clarification.
+A crucial distinction lies in the preparation of <em>Dockerfiles</em> (i.e. build instructions) and the preservation of <em>images</em> (i.e. end products of a build process).</p>
+<p>One purpose of a Dockerfile may be that you document the exact components of your system environment.
+You start at a base image (e.g. a <code>rocker</code>, short for &ldquo;R-docker&rdquo;, a container <a href="https://rocker-project.org">pre-configured with an R programming environment</a>) and add additional software via Dockerfile layers.
+This is good practice, and encouraged: if you publish an analysis, provide a tested container recipe with it.</p>
+<p>However, this alone does not solve the problem of version conflicts and deprecation.
+Documenting the versions of packages you used is an extra step, for which <a href="https://doi.org/10.1038/d41586-023-01469-0">other tools are available</a>:</p>
+<ul>
+<li>It is good practice to report the exact versions of the software used upon publication (<a href="https://arca-dpss.github.io/manual-open-science/requirements-chapter.html">see here, for example</a>). This is best achieved via virtual environments.</li>
+<li>Version control such as <code>git</code> will track the changes within your own texts, scripts, even version snapshots and Dockerfiles.</li>
+<li>Finally, docker <em>images</em> can serve as a snapshot of a (virtual) machine on which your code would run.</li>
+</ul>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>The simple rule of thumb is: use all three methods, ideally all the time.</p>
+<p>Virtual environments.
+Version control.
+Snapshots.</p>
+<p>Get used to them.
+They are easy.
+They will save you time and trouble almost immediately.</p>
+</div>
+<p>But unless you use them already, you might require some starting points and directions: here we go.
+The second point, <strong>version control</strong>, is a fantastic tool to enable open science, and avoid personal trouble.
+It might have a steep learning curve, yet <a href="https://rstudio.github.io/cheatsheets/git-github.pdf">there</a> <a href="https://www.sourcetreeapp.com">are</a> <a href="https://magit.vc">fantastic</a> <a href="https://www.sublimemerge.com">tools</a> to get you started.
+You will <a href="https://tutorials.inbo.be/tags/git">find starting points and help in other tutorials on this website</a>.
+The other point, version documentation, is trivially achieved by manual storage of currently installed versions via <code>sessionInfo()</code> in R, or <code>pip freeze &gt; versions.txt</code> for Python.
+A small step towads somewhat more professionalism are <strong>virtual environments</strong>.
+Those exist for R (<a href="https://rstudio.github.io/renv/articles/renv.html">renv</a>) or Python (<a href="https://docs.python.org/3/library/venv.html">venv</a>).
+The <code>pak</code> library in R can <a href="https://pak.r-lib.org/reference/lockfile_install.html">handle lock files conveniently</a> with <code>pak::lockfile_install()</code>.
+Then there is the integration of R, Python and system packages in <code>conda</code>-like tools (<a href="https://mamba.readthedocs.io/en/latest">e.g. micromamba</a>).
+There are even system level tools, for example <a href="https://docs.ropensci.org/rix"><code>nix</code> and <code>rix</code></a>.</p>
+<p>The methods are not mutually exclusive:
+all Dockerfiles, build recipes, and scripts to establish virtual environments should generally be subject to version control.</p>
+<p>However, documenting the exact tools and versions used in a project does not guarantee that these versions will be accessible to future investigators (like oneself, trying to reproduce an analysis five years later).
+This is where <strong>Docker images</strong> come in.
+Docker images are the actual containers which you create from the Dockerfile blueprints by the process of building.
+In the &ldquo;tiny home&rdquo; metaphor: your &ldquo;image&rdquo; is the physical (small, but real, DIY-achievement) home to live in, built from step-by-step instructions.
+Think of a Docker image as a virtual copy of your computer which you store for later re-activation.
+For example, a collection of images for specific analysis pipelines at INBO are preserved at <a href="https://hub.docker.com/u/inbobmk">Docker Hub/inbobmk</a>.
+We consider these &ldquo;stable&rdquo; versions because they could be re-activated no matter what crazy future updates will shatter the R community, which enables us to return to all details of previous analyses.</p>
+<p>Some confusion might arise from the fact that managing these image snapshots is achieved with the same vocabulary as version control, for example you would <a href="https://docs.docker.com/reference/cli/docker/container/commit">&ldquo;commit&rdquo;</a> updated versions and <a href="https://docs.docker.com/reference/cli/docker/image/push">&ldquo;push&rdquo;</a> them to a container repository.</p>
+<p>Even more confusion might arise from the fact that you also find ready-made images online, e.g. on <a href="https://hub.docker.com">Docker Hub</a>, or <a href="https://quay.io">Quai</a>, or elsewhere.
+These provide images of (recent) versions of working environments, supposed to stand in as starting points for derived containers.
+Hence, be aware of the dual use case of images: (i) the dynamic, universal base image which improves efficiency and (ii) the static, derived, bespoke image which you created for your analysis (shared with the world for reproducibility).</p>
+<p>And, once more, those images are not a &ldquo;holy grail&rdquo; solution: they are not entirely system independent (e.g. processor architecture), and they might occupy a considerable amount of hard disk space (Dockerfile optimization is warranted).
+Ideally, to be a &ldquo;full stack open science developer&rdquo;, you want to implement <strong>a mixed strategy</strong> consisting virtual environments and containers, wrapped in version control and stored in a backup image.</p>
+<p><a id="sec-rootless"></a></p>
+<h2 id="because-roots-are-important-rootless-mode">&ldquo;Because Roots Are Important&rdquo;: Rootless Mode<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup><a href="#because-roots-are-important-rootless-mode" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>One of the main criticism about Docker is the necessity to run in a privileged user environment, which is indeed a security issue.
+This may refer to the system process requiring elevated privileges, or users in the <code>docker</code> system group <a href="https://github.com/moby/moby/issues/9976">effectively having superuser privileges</a>.
+Because of the risk of privilege escalation in case of a container breakout, this situation would worsen existing vulnerabilities, <a href="https://snyk.io/blog/top-5-docker-security-vulnerabilities">of which there are some</a> in <a href="https://www.docker.com/blog/container-security-and-why-it-matters">Docker containers</a>.</p>
+<p>Historically, Docker could not run &ldquo;rootless&rdquo;, i.e. without elevated privileges.
+<a href="https://docs.docker.com/engine/security/rootless">This seems to have changed</a>, according to Docker.
+Some caution is still warranted: the setup procedure requires downloading and running shell scripts (which must be checked); the deamon still builds on <code>systemd</code> (<em>usually</em> root level); some functionality is limited.</p>
+<p>On the other hand, there is Podman (cf. the <a href="/tutorials/development_containers4_podman/">Podman tutorial</a>).
+It <em>used to</em> require almost the same extra steps as the <code>docker-rootless</code> to work rootless, but we found that these requirements are now met per default.
+It seems that, at the time of writing, Docker and Podman have identical capabilities in terms of rootless containerization.
+The remaining difference is that Podman seems to have more sensible default settings.</p>
+<p>It might therefore be worth considering and exchanging both tools.</p>
+<p>But, on that line, how about private repositories?
+More generally, how would we get (personal) data from our host machine to the container?</p>
+<h2 id="data-exchange-and-secrets">Data Exchange and Secrets<a href="#data-exchange-and-secrets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="copying-data">COPYing data<a href="#copying-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p>Arguably, among the rather tricky tasks when working with containers is file exchange.
+There are <a href="https://forums.docker.com/t/best-practices-for-getting-code-into-a-container-git-clone-vs-copy-vs-data-container/4077">several options available</a>:</p>
+<ul>
+<li><code>COPY</code> in the Dockerfile (or <code>ADD</code> <a href="https://www.docker.com/blog/docker-best-practices-understanding-the-differences-between-add-and-copy-instructions-in-dockerfiles">in appropriate cases</a>)</li>
+<li><a href="https://docs.docker.com/engine/storage/bind-mounts">&ldquo;bind mounts&rdquo;</a></li>
+<li><a href="https://docs.docker.com/engine/storage/volumes">volumes</a></li>
+<li>R&rsquo;s own ways of installing from far (e.g. <code>remotes::install_github()</code>)</li>
+</ul>
+<p>For the use case of <a href="https://www.geeksforgeeks.org/how-to-clone-private-git-repo-with-dockerfile">installing R packages from a private git repo</a>, there are several constraints:</p>
+<ul>
+<li>It best happens at build time, to enable all the good stuff: <code>--rm</code>, sharing, &hellip;</li>
+<li>Better keep your credentials (e.g. ssh keys, access tokens) off the container, both system side and <a href="https://usethis.r-lib.org/articles/git-credentials.html">on the R side</a>.</li>
+<li>On the other hand, updates can often happen by re-building.</li>
+</ul>
+<p>In this (and only this) situation, the simple solution is to copy a clone of the repository to the container, and then install it.
+The <code>git clone</code> should reside within the Dockerfile folder.
+Then the Dockerfile section can look like the following:</p>
+<pre tabindex="0"><code># copy the repo
+COPY my_private_repo /opt/my_private_repo
+
+# manually install dependencies
+RUN R -q -e &#39;install.packages(&#34;remotes&#34;, dependencies = TRUE)&#39;
+
+# install package from folder
+RUN R -q -e &#39;install.packages(&#34;/opt/my_private_repo&#34;, repos = NULL, type = &#34;source&#34;, dependencies = TRUE)&#39;
+</code></pre><p>This way of handling private repositories <a href="https://stackoverflow.com/questions/23391839/clone-private-git-repo-with-dockerfile/55761914#55761914">seems to be good practice</a>, for being simple, secure, and generally most feasible.</p>
+<p>The next best alternative would be mounting the <code>~/.ssh</code> folder from the host to the container via <code>-v</code>.</p>
+<p>You can finde some more options <a href="https://github.com/inbo/containbo">on the <code>containbo</code> repository</a>.</p>
+<h3 id="secrets">Secrets<a href="#secrets" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<p><em>(This section was added after an instructive mail by Thierry Onkelinx)</em></p>
+<p>It is quite obvious that, in the (common) case that docker build files are shared, one would not want to share secret information such as passwords or login tokens.
+However, login tokens might required to correctly spin up an image in the first place.
+Here is an example.</p>
+<p>A number of installation commands for R packages which are exchanged via github require a <a href="https://ropensci.org/blog/2020/07/07/github-pat/">personal access token</a> (<code>GITHUB_PAT</code>) environment variable to work without restrictions.
+Critically, the <code>GITHUB_PAT</code> is linked to your personal account and repository privileges.
+It is a bad idea to pass it along as a regular build variable:
+the token is then permanently available to others in the Docker.</p>
+<p>The safe way to work is to pass such information as a secret.
+In the Dockerfile, the build instructions could look like this example:</p>
+<pre tabindex="0"><code>RUN --mount=type=secret,id=githubpat,env=GITHUB_PAT Rscript -e &#39;renv::install(&#34;trias&#34;)&#39;
+</code></pre><p>This line retrieves the secret <code>githubpat</code> and places it in the environment variable <code>GITHUB_PAT</code> for the duration of the command&rsquo;s runtime.</p>
+<p>Building the image works with the <code>secret</code> argument.</p>
+<pre tabindex="0"><code>docker build --pull --secret id=githubpat,env=GITHUB_PAT --rm --tag
+&lt;github_user&gt;/&lt;repository&gt;:&lt;tag&gt; --progress=plain .
+</code></pre><p>In this case, the command retrieves the contents of the environment variable <code>GITHUB_PAT</code> from your local computer and places it in the secret <code>githubpat</code>.</p>
+<p>These instructions give you a direction when specifically working with R packages.
+For other scenarios, there are different solutions.
+The main take-home message is that docker files must not reveal your secrets when they are shared, there are ways to work around it.</p>
+<p><a id="sec-commands"></a></p>
+<h1 id="useful-commands">Useful Commands<a href="#useful-commands" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>You will certainly encounter <code>docker --version</code>, <code>docker run</code>, and <code>docker build</code> in this series of tutorials, and there are certainly more settings and tweaks on these commands to learn about.</p>
+<p>There are other Docker commands which might help you out of a temporary misery.</p>
+<ul>
+<li>First and foremost, <code>docker --help</code> will list the available commands and options.</li>
+<li><code>docker run -it --entrypoint /bin/bash &lt;image&gt;</code> or <code>docker run -it &lt;image&gt; /bin/bash</code> brings you to the shell of a container; you can update, upgrade, or just mess around. Try <code>bash</code> or <code>bin/sh</code> as alternatives.</li>
+<li><code>docker images</code> will list your images in convenient table format; the <code>-q</code> flag returns only IDs.</li>
+<li><code>docker inspect &lt;image-name or image-id&gt;</code> brings up all the configuration details about a specific image; you can, for example, find out its Docker version and network IP address.</li>
+<li><code>docker ps</code> (&ldquo;print status&rdquo;) will list all running containers; <code>docker stop $(docker ps -a -q)</code> will stop them <strong>all</strong>.</li>
+<li>Be aware that docker images occupy a considerable amount of hard disk space. <code>docker rmi &lt;image-name or image-id&gt;</code> will remove an image; <code>docker rmi $(docker images -q)</code> will remove <strong>all</strong> your images. The command <code>docker system prune</code> provides an interactive cleanup, <code>docker system prune --all</code> will clean up non-interactively. Of course, you get to keep the Dockerfiles.</li>
+<li><code>docker commit</code> and <code>docker diff</code> support the creation and maintenance of snapshots of processed images, which you could keep locally, or upload them to an online storage such as Docker Hub.</li>
+</ul>
+<p>There are a gazillion more to choose and use.
+A more complete list can be found <a href="https://do4ds.com/chapters/append/cheatsheets.html#cheat-docker">here, for example</a>, and the <a href="https://docs.docker.com/reference/cli/docker">Docker docs</a> are your go-to source.</p>
+<p>One more note on the <code>ENTRYPOINT</code>:
+It defines through which terminal or script the user will access the container.
+For example, <code>/bin/bash</code>, <code>/usr/bin/bash</code> or <code>bin/sh</code> are the bash (Linux terminal on the container).
+Rocker images usually enter into an R console, or monitor an RStudio server, via an <code>/init</code> script.
+The flask container above runs a script which hosts your website and Python.
+Anything is possible.
+You can define an entrypoint in the Dockerfile (i.e. set a default), or overwrite it on each <code>run</code>.</p>
+<h1 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>In this series of tutorials, I demonstrate the basics of containerization with Docker and Podman.
+There are convenient GUI apps, and sophisticated terminal commands, the latter are much more powerful.
+This particular notebook assembled references, useful commands, information about the installation of Docker, and general considerations.</p>
+<p>This is the central node of a series of tutorials; the others are:</p>
+<ul>
+<li>Running containers: <a href="../development_containers2_run">https://tutorials.inbo.be/tutorials/development_containers2_run</a></li>
+<li>Building containers: <a href="../development_containers3_build">https://tutorials.inbo.be/tutorials/development_containers3_build</a></li>
+<li>Advanced Build Recipes: <a href="https://github.com/inbo/containbo">https://github.com/inbo/containbo</a></li>
+<li>Switching to Podman: <a href="../development_containers4_podman">https://tutorials.inbo.be/tutorials/development_containers4_podman</a></li>
+</ul>
+<p>Personally, I find the concept of containerization fascinating, and was surprised how simple and useful of a trick it is.</p>
+<p>Containerization offers the advantages of modularity, configurability, transparency (open science: share your rocker file), shared use &hellip;
+There are some manageable pitfalls with respect to admin rights and resource limitation.</p>
+<p>This was just a quick tour; I brushed over a lot of novel vocabulary with which you will have to familiarize yourself.
+Your head might be twisting in a swirl of containers by now.
+I hope you find this overview useful, nevertheless.
+Thank you for reading!</p>
+<hr>
+<ol>
+<li id="fn:gemini" role="doc-endnote">
+<sup>*</sup> <p>Generated by Google Gemini (2025-02-21), modified. Prompt `I would love to have a comic-style image of a whale in a grail. The grail should be golden and shiny, resembling the holy grail. The whale on top is a reference to the docker logo (you may add sketchy little container blocks on its back).`
+<a href="#fnref:gemini" class="footnote-backref" role="doc-backlink">↩︎</a> </p>
+</li> </ol>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Reference to the film &ldquo;La Grande Bellezza&rdquo;.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z" />
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/development/'>Development</a>, <a class='category' href='/categories/open-science/'>Open Science</a></div>
+<div class='tags'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
+<line x1="7" y1="7" x2="7" y2="7" />
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/development/'>Development</a>, <a class='tag' href='/tags/open-science/'>Open Science</a>, <a class='tag' href='/tags/docker/'>Docker</a>, <a class='tag' href='/tags/containers/'>Containers</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/development_containers2_run/'>
+        <span aria-hidden='true'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="20" y1="12" x2="4" y2="12" />
+<polyline points="10 18 4 12 10 6" />
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Containers (2): Running Existing Containers</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/tutorials/spatial_variograms/'>
+        <span class='screen-reader-text'>Next post: </span>An Algorithmic Approach to Variograms<span aria-hidden='true'>Next <svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="4" y1="12" x2="20" y2="12" />
+<polyline points="14 6 20 12 14 18" />
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.56dcff95.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

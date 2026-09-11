@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Podman: a drop-in alternative to Docker.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Containers (4): Containers with Podman • Falk Mielke'>
+<meta property='og:description' content='Podman: a drop-in alternative to Docker.'>
+<meta property='og:url' content='/tutorials/development_containers4_podman/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='development'><meta property='article:tag' content='open science'><meta property='article:tag' content='docker'><meta property='article:tag' content='containers'><meta property='article:published_time' content='2025-02-21T00:00:00Z'/><meta property='article:modified_time' content='2025-02-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.165.0">
+
+  <title>Containers (4): Containers with Podman • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/development_containers4_podman/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.e45c9137.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>Analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>Analysis of Variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>Api</a>
+      </li><li>
+        <a href='/tags/balanced/' style='font-size:1em'>Balanced</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>Bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>Binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>Biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>BioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>Bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>Brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>Checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>Ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>Co-Variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>Coding Club</a>
+      </li><li>
+        <a href='/tags/containers/' style='font-size:1.0375em'>Containers</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>Credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>Csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>Data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>Database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>De-Trending</a>
+      </li><li>
+        <a href='/tags/density/' style='font-size:1em'>Density</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>Design of Experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.075em'>Development</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/docker/' style='font-size:1.0375em'>Docker</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>Dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>E-Book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>Effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>Endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>Etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>Explorative Data Analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>Frictionless</a>
+      </li><li>
+        <a href='/tags/functional-programming/' style='font-size:1em'>Functional Programming</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>Gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>Generalized Linear Regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>Ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>Gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>Git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>Gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>Github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>Google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>Grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>GwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>Inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>Inborutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>Inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>Inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>Inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>Installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>Keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>Literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>Maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>Markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>Mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>Mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>Mixed Model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>Mixed Models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>Multivariate Statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>N2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.1375em'>Open Science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>Packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>Pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>Passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>Postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>Python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>R</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>Regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>Renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>Reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>Rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>Rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>Rstudio</a>
+      </li><li>
+        <a href='/tags/sampling/' style='font-size:1em'>Sampling</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>Scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>Secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1.0125em'>Spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>Spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0125em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>Stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>Statistical Analysis Plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>Styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>Tidyverse</a>
+      </li><li>
+        <a href='/tags/transformations/' style='font-size:1em'>Transformations</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>Uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>Utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>Version Control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>Vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>Visual Markdown Editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>Vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>WateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>Watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>Webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>Windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>Zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>Zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Fri Sep 11 10:33:40 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="3" y1="12" x2="21" y2="12" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<line x1="3" y1="18" x2="21" y2="18" />
+</svg>
+</span>
+  <span class='close'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Containers (4): Containers with Podman</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Containers (4): Containers with Podman</h1>
+      
+<p class='desc'>Podman: a drop-in alternative to Docker.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+<line x1="16" y1="2" x2="16" y2="6" />
+<line x1="8" y1="2" x2="8" y2="6" />
+<line x1="3" y1="10" x2="21" y2="10" />
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2025-02-21T00:00:00Z'>2025, Feb 21</time>
+</span>
+
+  <span class='byline'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1" />
+<path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z" />
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><circle cx="12" cy="12" r="10" />
+<polyline points="12 6 12 12 15 15" />
+</svg>
+5 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/development_containers4_podman/index.md'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>In this cluster of tutorials, you might have <a href="/tutorials/development_containers1/">gotten a general overview on containers</a>, and installed Docker.
+You can find instructions on <a href="/tutorials/development_containers2_run/">how to run existing images</a>, and take this further to <a href="/tutorials/development_containers3_build/">building custom containers</a>.
+And during the installation and use of Docker, you might have been annoyed by the mandatory administrator mode, or quirks of the Desktop App.
+Or you might value fully free and open source software, like I do.</p>
+<p>Luckily, Docker is not a monolith.
+There are alternative approaches to containerization which mitigate some of the Docker limitations and disadvantages.
+In this tutorial, I will present <a href="https://podman.io">Podman</a>, a Docker alternative which I personally use the most (besides occasionally turning to <a href="https://buildah.io">&ldquo;buildah&rdquo;</a>).</p>
+<figure>
+<img src="https://podman.io/images/raw/characters/seal-diving.png" alt="The podman masquot, a stylized comic seal, jumping into the water." />
+<figcaption aria-hidden="true">Podman - let's dive in! (<a href="https://podman.io/features">Image source: the Podman website.</a>)</figcaption>
+</figure>
+<h1 id="podman">Podman<a href="#podman" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Podman might be the most prominent Docker alternative.
+Vocabulary is marginally different: a container is a &ldquo;pod&rdquo;, they run on a &ldquo;machine&rdquo;, and this FOSS tool helps you to manage them with the <code>podman</code> command.</p>
+<p>One major advantage of Podman is that it can be configured to run <strong>&ldquo;rootless&rdquo;</strong>, i.e. without administrator rights <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.
+A second advantage is that it is &ldquo;all community&rdquo;, full Free and Open Source: it does not promote and &ldquo;enterprise edition&rdquo;.</p>
+<p>Podman is <a href="https://podman.io/docs/installation">well documented</a>.
+Another reliable source as so often is the <a href="https://wiki.archlinux.org/title/Podman">Arch Linux wiki on Podman</a>, no matter which Linux you are on.
+Windows users have succeeded in running Podman through a WSL.</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <p>For Windows, there is a convenient &ldquo;Podman Desktop&rdquo; GUI which guides you through the installation and setup, including WSL instantiation.
+It is intuitive, transparent (telemetry opt-out), backed by RedHat.</p>
+<p>Unfortunately, it relies on Windows Subsystem for Linux (WSL), which is not available for INBO users at the moment.</p>
+<p>:(</p>
+<p>We are working on it.</p>
+</div>
+<h1 id="setup">Setup<a href="#setup" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>The instructions below were tested on Arch Linux, but generalize easily.</p>
+<p>I follow the <code>podman</code> installation instructions for Arch Linux, to set up a <strong>rootless container environment</strong>.</p>
+<p>Installation:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pacman -Sy podman podman-docker passt
+</span></span></code></pre></div><p>The last one, <code>passt</code> (providing <code>pasta</code>, yum!), is required for rootless network access.<br>
+Optionally, there is <code>podman-compose</code>.</p>
+<p>Originally, Podman was designed to run <em>only if you are root</em>, just like Docker.
+However, we experienced that it now comes in <em>rootless</em> configuration per default (<a href="https://man.archlinux.org/man/podman.1#Rootless_mode">further instructions</a>).
+Just to be safe, I briefly list the major configuration steps.</p>
+<p>The first step is to confirm a required kernel module: check that <code>unpriviledged_users_clone</code> is set to one.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sysctl kernel.unprivileged_userns_clone
+</span></span></code></pre></div><p>Then, configure &ldquo;subordinate user IDs&rdquo;.
+There are detail differences in each Linux distribution; with some luck, your username is already present in these lists:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /etc/subuid
+</span></span><span style="display:flex;"><span>cat /etc/subgid
+</span></span></code></pre></div><p>If not, you can be admitted to the club of subordinates with the command:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>usermod --add-subuids 100000-165535 --add-subgids 100000-165535 &lt;username&gt;
+</span></span><span style="display:flex;"><span>podman system migrate
+</span></span></code></pre></div><p>We note some useful commands on the way: <code>podman system ...</code> and <code>podman info</code>.
+You might immediately check &ldquo;native rootless overlays&rdquo; (has something to do with mounting filesystems in the container):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>podman info | grep -i overlay
+</span></span></code></pre></div><p>Then, networking: pods might need to communicate to each other and to the world.
+And, of course, container storage: make sure you know where your containers are stored.
+These and more settings are in <code>/etc/containers/containers.conf</code> and <code>/etc/containers/storage.conf</code>; make sure to scan and edit them to your liking.</p>
+<h1 id="usage">Usage<a href="#usage" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>You can use images from <code>docker.io</code> with Podman.
+The only difference from Docker is the explicit mention of the source, <code>docker.io</code>.
+For example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>podman search docker.io/alpine
+</span></span><span style="display:flex;"><span>podman pull docker.io/alpine <span style="color:#aaa;font-style:italic"># download a machine</span>
+</span></span><span style="display:flex;"><span>podman run -it docker.io/alpine <span style="color:#aaa;font-style:italic"># will connect to the container</span>
+</span></span><span style="display:flex;"><span><span style="color:#0aa">exit</span>
+</span></span></code></pre></div><p>Except for the prefix, everything you <a href="/tutorials/development_containers2_run/">can read in our <code>docker run</code> tutorial</a> still applies.</p>
+<h1 id="limitations">Limitations<a href="#limitations" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Note that at least some <code>docker.io</code> images will not work: I actually experienced issues with the &ldquo;rootless Docker image&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># podman run --rm -it docker.io/docker:25.0-dind-rootless</span>
+</span></span></code></pre></div><p>However, it is logical that that one does not work: it builds a (root-level) Docker which is supposed to contain a rootless Docker (<a href="/tutorials/development_containers1/#sec-rootless"><em>cf.</em> the overview tutorial</a>).
+The outer Docker layer requires root, which Podman cannot provide.</p>
+<p>This is a logical case; if you understand it, congratulations: you have achieved a basic understanding of containers and user privileges :)
+There might be yet other images which do not work by default and require additional tinkering in Podman, due to its altered design.
+Most use cases are covered, for example a containerized R environment.</p>
+<h1 id="podman-rocker">Podman Rocker<a href="#podman-rocker" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>From here, <strong>Podman is a full drop-in replacement for Docker</strong>; just that you are not forced to grant host system root privileges to containers.
+This means that you can simply apply <a href="../../tutorial/development_containers3_build">everything I showed about the <code>build</code> command</a> by exchanging <code>docker</code> for <code>podman</code>.</p>
+<p>Any Dockerfile should work, with the mentioned mini-adjustment to <code>FROM</code>.
+And you can use any Docker image; <code>docker.io/rocker/rstudio</code> <a href="https://rocker-project.org/use/rootless-podman.html">is available</a> (don&rsquo;t forget to specify the port).
+You may even write <code>docker</code> in the terminal: it will alias to <code>podman</code> (via the <code>podman-docker</code> package on Linux, or an alias).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>podman run --rm -p 8787:8787 -e <span style="color:#a00">PASSWORD</span>=YOURNEWPASSWORD -v /data/git/coding-club:/root/coding-club docker.io/rocker/rstudio
+</span></span></code></pre></div><p>There is another subtle change: the default user to login to <code>rstudio</code> is not <code>rstudio</code>, but <code>root</code>, because for some reason RStudio needs to have root rights on the container.
+You had those before anyways, but now they are confined to within the pod.
+There might be workarounds, which I will explore.</p>
+<h1 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>To summarize the Podman experience:</p>
+<ul>
+<li><strong>Docker&rsquo;s Dockerfiles like the one above will build equally well on Podman, except for micro-adjustments compared to Docker.</strong></li>
+<li>You can even stick to the <code>docker</code> commands thanks to the <code>podman-docker</code> package.</li>
+<li>There is Podman Desktop, if you like clicking.</li>
+<li>Podman is everything Docker is, just minimally different, and more secure, full FOSS.</li>
+</ul>
+<p>Kudos to the Podman devs!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Daniel J. Walsh (2019): &ldquo;How does rootless Podman work?&rdquo; <a href="https://opensource.com/article/19/2/how-does-rootless-podman-work">https://opensource.com/article/19/2/how-does-rootless-podman-work</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z" />
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/development/'>Development</a>, <a class='category' href='/categories/open-science/'>Open Science</a></div>
+<div class='tags'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
+<line x1="7" y1="7" x2="7" y2="7" />
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/development/'>Development</a>, <a class='tag' href='/tags/open-science/'>Open Science</a>, <a class='tag' href='/tags/docker/'>Docker</a>, <a class='tag' href='/tags/containers/'>Containers</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/vignette_inbodb_get_data_meetnetten/'>
+        <span aria-hidden='true'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="20" y1="12" x2="4" y2="12" />
+<polyline points="10 18 4 12 10 6" />
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>inbodb: How to retrieve data from the Meetnetten database</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/tutorials/development_containers3_build/'>
+        <span class='screen-reader-text'>Next post: </span>Containers (3): Building Custom Containers<span aria-hidden='true'>Next <svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="4" y1="12" x2="20" y2="12" />
+<polyline points="14 6 20 12 14 18" />
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.56dcff95.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

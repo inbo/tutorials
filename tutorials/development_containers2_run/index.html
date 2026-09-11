@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Pulling and running containers from an online container repository.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Containers (2): Running Existing Containers • Falk Mielke'>
+<meta property='og:description' content='Pulling and running containers from an online container repository.'>
+<meta property='og:url' content='/tutorials/development_containers2_run/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='development'><meta property='article:tag' content='open science'><meta property='article:tag' content='docker'><meta property='article:tag' content='containers'><meta property='article:published_time' content='2025-02-21T00:00:00Z'/><meta property='article:modified_time' content='2025-02-21T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.165.0">
+
+  <title>Containers (2): Running Existing Containers • Falk Mielke</title>
+  <link rel='canonical' href='/tutorials/development_containers2_run/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.e45c9137.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>Analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>Analysis of Variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>Api</a>
+      </li><li>
+        <a href='/tags/balanced/' style='font-size:1em'>Balanced</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>Bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>Binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>Biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>BioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>Bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>Brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>Checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>Ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>Co-Variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>Coding Club</a>
+      </li><li>
+        <a href='/tags/containers/' style='font-size:1.0375em'>Containers</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>Credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>Csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>Data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>Database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>De-Trending</a>
+      </li><li>
+        <a href='/tags/density/' style='font-size:1em'>Density</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>Design of Experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.075em'>Development</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/docker/' style='font-size:1.0375em'>Docker</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>Dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>E-Book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>Effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>Endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>Etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>Explorative Data Analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>Frictionless</a>
+      </li><li>
+        <a href='/tags/functional-programming/' style='font-size:1em'>Functional Programming</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>Gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>Generalized Linear Regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>Ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>Gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>Git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>Gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>Github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>Google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>Grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>GwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>Inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>Inborutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>Inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>Inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>Inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>Installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>Keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>Literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>Maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>Markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>Mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>Mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>Mixed Model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>Mixed Models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>Multivariate Statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>N2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.1375em'>Open Science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>Packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>Pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>Passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>Postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>Python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>R</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>Regression</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>Renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>Reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>Rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>Rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>Rstudio</a>
+      </li><li>
+        <a href='/tags/sampling/' style='font-size:1em'>Sampling</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>Scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>Secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1.0125em'>Spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>Spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0125em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>Stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>Statistical Analysis Plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>Styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>Tidyverse</a>
+      </li><li>
+        <a href='/tags/transformations/' style='font-size:1em'>Transformations</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>Uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>Utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>Version Control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>Vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>Visual Markdown Editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>Vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>WateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>Watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>Webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>Windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>Zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>Zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Fri Sep 11 10:33:40 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="3" y1="12" x2="21" y2="12" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<line x1="3" y1="18" x2="21" y2="18" />
+</svg>
+</span>
+  <span class='close'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Containers (2): Running Existing Containers</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Containers (2): Running Existing Containers</h1>
+      
+<p class='desc'>Pulling and running containers from an online container repository.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+<line x1="16" y1="2" x2="16" y2="6" />
+<line x1="8" y1="2" x2="8" y2="6" />
+<line x1="3" y1="10" x2="21" y2="10" />
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2025-02-21T00:00:00Z'>2025, Feb 21</time>
+</span>
+
+  <span class='byline'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1" />
+<path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z" />
+</svg>
+<span class='screen-reader-text'> by </span><a href='/authors/falkmielke'>Falk Mielke</a></span>
+  <br/>
+  
+<span class='reading-time'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><circle cx="12" cy="12" r="10" />
+<polyline points="12 6 12 12 15 15" />
+</svg>
+8 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/development_containers2_run/index.md'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><p>Docker is about assembling and working in containers.
+&ldquo;Living&rdquo; in containers.
+Or, rather, you can think of this as living in a <a href="https://parametric-architecture.com/tiny-house-movement">&ldquo;tiny home&rdquo;, or &ldquo;mobile home&rdquo;</a>.
+(Let&rsquo;s call it a fancy caravan.)
+In the simple, but comfortable case, you do not get to pick a general design or to choose all details of the interior: you just take that wheeled cabine &ldquo;as is&rdquo; from a tiny home reseller.</p>
+<figure>
+<img src="../../images/tutorials/development_docker/docker_metaphor_tiny_space.jpg" alt="Black/white image of a tiny home as a metaphor for software containerization." />
+<figcaption aria-hidden="true">A tiny home close to "Gare Maritime", Brussels, February 2025.</figcaption>
+</figure>
+<p>Just as a tiny home is a mini-version of an immobile house, a container can be thought of as a miniature computer which can be transferred to other computing environments.
+The good news:
+there are a gazillion <strong>Docker images available</strong> on repositories like <a href="https://hub.docker.com">Docker Hub</a> or <a href="https://quay.io">Quay</a>.</p>
+<p>This tutorial will show you how to use such &ldquo;containers-to-go&rdquo;, thereby demonstrating some basic principles and vocabulary about containerization.
+I assume that you have <a href="/tutorials/development_containers1/#sec-installation">installed docker</a>.
+This tutorial will stay on the more involved route of running Docker in the terminal (the Docker Desktop &ldquo;app&rdquo; is rather self-explanatory, and you can manoever it easily with knowledge of terminal vocabulary).
+Once you master these first step, you can proceed to <a href="/tutorials/development_containers3_build/">customize your container images</a>.
+You might also <a href="/tutorials/development_containers4_podman/">consider Podman as a Docker alternative</a>.</p>
+<h2 id="example">Example<a href="#example" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Because of the useful idea of bringing your computer environment along (think of benefits for distributed computing), container images of all kind are abundant on the container repositories mentioned above.
+For example<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, there are Docker images with <a href="https://posit.co/download/rstudio-server">rstudio server</a> pre-installed:</p>
+<ul>
+<li><a href="https://hub.docker.com/r/rocker/rstudio">https://hub.docker.com/r/rocker/rstudio</a></li>
+</ul>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  If you control containers via the desktop app, simply search, pull, and run it.
+</div>
+<figure>
+<img src="../../images/tutorials/development_docker/docker_desktop2.jpg" alt="desktop app: run" />
+<figcaption aria-hidden="true">Desktop App: run.</figcaption>
+</figure>
+<p>If you are comfortable using the terminal, execute the following script (<em>Windows</em>: use an administrator terminal).
+If it does not find the resources locally, Docker will download and extract the image from Docker Hub<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run --rm -p 8787:8787 -e <span style="color:#a00">PASSWORD</span>=YOURNEWPASSWORD rocker/rstudio
+</span></span></code></pre></div><ul>
+<li>The <code>run</code> command will automatically <code>pull</code>, i.e. download an existing image; though you could also <code>pull</code> without running.</li>
+<li>The <code>--rm</code> flag makes the Docker container non-permanent, i.e. disk space will be freed after you close the container (<a href="#sec-permanence" class="quarto-xref">Section 0.4</a>).</li>
+<li>The port specified at <code>-p</code> is the one you use to access this local container server (the <code>-p</code> actually maps host- and container ports). You have to specify it explicitly, otherwise the host system will not let you pass (<code>:gandalf-meme:</code>).</li>
+<li>The <code>-e</code> flag allows you to specify environment variables, in this case used to set a password for the RStudio server. But if you do not specify one, a random password will be generated and displayed upon startup (read the terminal output).</li>
+</ul>
+<figure>
+<img src="../../images/tutorials/development_docker/docker_run.jpg" alt="run" />
+<figcaption aria-hidden="true">Docker run, on the terminal.</figcaption>
+</figure>
+<p>You are now running (<code>run</code>) a <code>rocker/rstudio</code> server instance on your <code>localhost</code>, i.e. your computer.
+You can access it via a browser, going to <a href="#ZgotmplZ">localhost:8787</a>, with the username <code>rstudio</code> and your chosen password.</p>
+<p>You can shut down the container with the keyboard shortcut <code>[ctrl]+[C]</code> (probably <code>[ctrl]+[Z] [Return]</code> on Windows).</p>
+<p><a id="sec-mounting"></a></p>
+<h2 id="file-access">File Access<a href="#file-access" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The downside of this is that your container is isolated (well&hellip; at least to a certain degree).</p>
+<p>Images can take up considerable storage space.
+Storing files locally, i.e. on the host machine, without storing an unneccessarily filled container, might be a good strategy.
+This can be achieved by mapping a virtual path on the container to a local drive on your computer.
+(Linux users will be familiar with the concept of &ldquo;mounting&rdquo; and &ldquo;linking&rdquo; storage locations.)
+Note that the technique is equally relevant when running the container locally, hence not exclusive to remote hosts.</p>
+<p>Docker <code>run</code> brings the <code>-v</code> flag for mounting volumes.
+Suppose you have an R project you would like to work on, stored, for example, in this path:</p>
+<ul>
+<li><code>/data/git/coding-club</code></li>
+</ul>
+<p>Then you can link this to your container&rsquo;s home folder via the following command.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Windows syntax, mapping on `D:\data`</span>
+</span></span><span style="display:flex;"><span>docker run --rm -p 8787:8787 -v //d/data/git/coding-club:/home/rstudio/coding-club rocker/rstudio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Linux syntax</span>
+</span></span><span style="display:flex;"><span>docker run --rm -p 8787:8787 -v /data/git/coding-club:/home/rstudio/coding-club rocker/rstudio 
+</span></span></code></pre></div><p>Again, navigate to <a href="#ZgotmplZ">localhost:8787</a>, <em>et voilà</em>, you can access your project and store files back in your regular folders.</p>
+<h2 id="limitations">Limitations<a href="#limitations" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>This is a simple and quick way to run R and RStudio in a container.</p>
+<p>However, there are limitations:</p>
+<div class="callout callout-note" role="note">
+  <div class="callout-title"></div>
+  <ul>
+<li>You have to live with the R packages provided in the container, or otherwise install them each time you access it&hellip;</li>
+<li>&hellip; unless you make your container permanent by omitting the <code>--rm</code> option. Note that this will cost considerable disk space, will not transfer to other computers (the original purpose of Docker), and demand occasional updates (<a href="#sec-permanence" class="quarto-xref">Section 0.4</a>).</li>
+<li>You could alternatively add <code>--pull always</code> to <code>docker run</code>, which will check and pull new versions.</li>
+<li>Speaking of updates: it is good practice to keep software up to date. Occasionally update or simply re-install your Docker image and R packages to get the latest versions.</li>
+<li>You should make sure that the containers are configured correctly and securely. This is especially important with server components which expose your machine to the internet.</li>
+<li>Because most containers contain a Linux system, user permissions are taken seriously, and the consequences might be confusing. There are guides online (<a href="https://labex.io/tutorials/docker-how-to-handle-permissions-in-docker-415866">e.g. here</a>); there are example repositories (like the author&rsquo;s own struggle <a href="https://github.com/inbo/containbo?tab=readme-ov-file#understanding-volumes">here</a> and <a href="https://github.com/inbo/containbo/tree/main/emacs">here</a>); base images are well set up and one can normally get by with default users.</li>
+<li>There is a performance penalty from using containers: in inaccurate laymans&rsquo; terms, they emulate (parts of a) &ldquo;computer&rdquo; inside your computer.</li>
+</ul>
+</div>
+<p>On the performance issue: I attempted this on my local laptop with matrix multiplication.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># https://cran.r-project.org/web/packages/rbenchmark/rbenchmark.pdf</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># install.packages(&#34;rbenchmark&#34;)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test &lt;- <span style="color:#00a">function</span>(){
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># test from https://prdm0.github.io/ropenblas/#installation</span>
+</span></span><span style="display:flex;"><span>  m &lt;- <span style="color:#099">1e4</span>; n &lt;- <span style="color:#099">1e3</span>; k &lt;- <span style="color:#099">3e2</span>
+</span></span><span style="display:flex;"><span>  X &lt;- <span style="color:#0a0">matrix</span>(<span style="color:#0a0">rnorm</span>(m*k), nrow=m); Y &lt;- <span style="color:#0a0">matrix</span>(<span style="color:#0a0">rnorm</span>(n*k), ncol=n)
+</span></span><span style="display:flex;"><span>  X %*% Y
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">benchmark</span>(<span style="color:#0a0">test</span>())
+</span></span></code></pre></div><p>In the terminal:</p>
+<pre><code>    test replications elapsed relative user.self sys.self user.child sys.child
+1 test()          100  22.391        1    83.961   65.291          0         0
+</code></pre>
+<p>In the container:</p>
+<pre><code>    test replications elapsed relative user.self sys.self user.child sys.child
+1 test()          100  26.076        1   102.494   153.89          0         0
+</code></pre>
+<p>Now, the <em>good news</em> is that the difference is not by orders of magnitude.
+This indicates that the chosen rocker image integrated the more performant <code>blas</code> variant which is <a href="https://pbs-assess.github.io/sdmTMB/index.html#installation">recommended</a> <a href="https://prdm0.github.io/ropenblas/#installation">elsewhere</a> (<code>blas-openblas</code>).</p>
+<p>The <em>bad news</em> is that we still suffer a performance drop of <code>-20%</code>, which is considerable.</p>
+<p>This is just a single snapshot on a laptop, and putatively <code>blas</code>-confounded.
+Feel free to systematically and scientifically repeat the tests on your own machine.</p>
+<p><a id="sec-permanence"></a></p>
+<h2 id="container-permanence-the---rm-option">Container Permanence: The <code>--rm</code> Option<a href="#container-permanence-the---rm-option" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>As briefly touched above, <code>docker run</code> comes with the <code>--rm</code> option.
+This basically enables two separate workflows, i.e. usage paradigms.</p>
+<p>The first option, which is the default, is that your container is stored on the system permanently.
+This counts for the upstream images, which are downloaded upon first invocation of a container.
+But also, changes you apply while working in the container are persistently stored until you log in again, using hard drive space of the host.
+Images may still be removed by manually running <code>docker rmi [...]</code> (<a href="/tutorials/development_containers1/#sec-commands"><em>cf.</em> &ldquo;useful commands&rdquo; in the overview tutorial</a>).</p>
+<p>In contrast, with the second option, <code>docker run --rm [...]</code>, ad-hoc changes in the container are removed when the container is finished.
+Unless, of course, you mount a local volume with <code>docker run --rm -v [...]</code> (<a href="#sec-mounting" class="quarto-xref">Section 0.2</a>).
+However, contrary to a rather general intuition, starting a container with <code>--rm</code> will not require dependency download a second time.</p>
+<p>You might want to test this for yourself.
+Consider the following series of commands to create a test file in the Docker home directory:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run  --name testing_permanence --rm -it docker.io/rocker/r-base
+</span></span><span style="display:flex;"><span><span style="color:#0aa">echo</span> <span style="color:#a50">&#34;testing permanence.&#34;</span> &gt; ~/test.txt
+</span></span><span style="display:flex;"><span>cat ~/test.txt
+</span></span><span style="display:flex;"><span><span style="color:#0aa">exit</span>
+</span></span></code></pre></div><p>Re-connecting is instantateous.
+However,</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run  --name testing_permanence --rm -it docker.io/rocker/r-base bash
+</span></span><span style="display:flex;"><span>cat ~/test.txt
+</span></span></code></pre></div><p>will return:</p>
+<blockquote>
+<p>cat: /root/test.txt: No such file or directory</p>
+</blockquote>
+<p>This behavior is desired (in the second workflow above): if you start up a fresh environment each time you work in Docker, you <strong>assure that your work pipeline is independent of prior changes on the system</strong>.
+Whether this makes sense as a workflow has to be evaluated with respect to hard drive space requirement, updates, the option to build upon a customized Dockerfile, reproducibility potential.</p>
+<p>You can &ldquo;link in&rdquo; folders for working files (note how you have to specify the full path to <code>new_home</code>, and that this container uses the root user by default):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir new_home
+</span></span><span style="display:flex;"><span>docker run  --name testing_permanence -v /data/containers/new_home:/root --rm -it docker.io/rocker/r-base bash
+</span></span><span style="display:flex;"><span><span style="color:#0aa">echo</span> <span style="color:#a50">&#34;testing permanence.&#34;</span> &gt; ~/test.txt
+</span></span></code></pre></div><p>Using <code>--rm</code> might not be desirable in every case.
+However, it is a valuable option for testing, good to have when disk space is sparse, or as a final check before publishing.
+Generally, I would consider it good practice to treat containers as volatile, thereby keeping them hostmachine-independent as much as possible.</p>
+<h1 id="summary">Summary<a href="#summary" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Docker images are the actual containers which you create from the Dockerfile blueprints by the process of building.
+In the &ldquo;tiny home&rdquo; metaphor: your &ldquo;image&rdquo; is the physical (small, but real, DIY-achievement) home to live in, built from step-by-step instructions.
+Think of a Docker image as a virtual copy of your computer which you store for later re-activation.</p>
+<p>Luckily, other people have prepared images for you.
+For example, a collection of images for specific analysis pipelines at INBO are preserved at <a href="https://hub.docker.com/u/inbobmk">Docker Hub/inbobmk</a>.
+We consider these &ldquo;stable&rdquo; versions because they could be re-activated at any point in the future, which enables us to return to all details of previous analyses.</p>
+<p>This tutorial provided introductory details on how to run such images.
+If you would like to take this further and customize your containers, proceed with <a href="/tutorials/development_containers3_build/">the next tutorial about the <code>build</code> command</a>.
+Those commands are practically identical <a href="/tutorials/development_containers4_podman/">in Docker and Podman</a>.</p>
+<p>An overview on the topic is <a href="/tutorials/development_containers1/">available here</a>.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>I mostly follow <a href="https://jsta.github.io/r-docker-tutorial/02-Launching-Docker.html">this tutorial</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Just like &ldquo;Github&rdquo; is a server service to store git repositories, guess what: &ldquo;Docker Hub&rdquo; is a hosting service to store Docker containers.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z" />
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/development/'>Development</a>, <a class='category' href='/categories/open-science/'>Open Science</a></div>
+<div class='tags'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
+<line x1="7" y1="7" x2="7" y2="7" />
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/development/'>Development</a>, <a class='tag' href='/tags/open-science/'>Open Science</a>, <a class='tag' href='/tags/docker/'>Docker</a>, <a class='tag' href='/tags/containers/'>Containers</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/development_containers3_build/'>
+        <span aria-hidden='true'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="20" y1="12" x2="4" y2="12" />
+<polyline points="10 18 4 12 10 6" />
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Containers (3): Building Custom Containers</a>
+    </div><div class='next-entry sep-before'>
+      <a href='/tutorials/development_containers1/'>
+        <span class='screen-reader-text'>Next post: </span>Containers (1): An Overview<span aria-hidden='true'>Next <svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="4" y1="12" x2="20" y2="12" />
+<polyline points="14 6 20 12 14 18" />
+</svg>
+</span>
+      </a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.56dcff95.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+
