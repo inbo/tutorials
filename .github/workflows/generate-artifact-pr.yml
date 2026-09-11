@@ -8,23 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (tutorials)
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Checkout (theme)
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: MunifTanjim/minimo
-          ref: v2.9.0
+          # repository: falkmielke/minimo
+          # ref: update_202605
           path: themes/minimo
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@16361eb4acea8698b220b76c0d4e84e1fd22c61d # v2
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
         with:
-          hugo-version: '0.88.1'
+          hugo-version: '0.161.1'
           # extended: true
 
       - name: Build
@@ -38,7 +39,7 @@ jobs:
         run: node themes/minimo/scripts/generate-search-index-lunr.js
 
       - name: Archive built site to an artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: pr-${{ env.PR_NUMBER }}-inbo-tutorials-website
           path: public

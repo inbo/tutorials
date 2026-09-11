@@ -1,0 +1,14 @@
+<link rel='icon' href='{{ ( or .Site.Params.assets.favicon "favicon.ico" ) | relURL }}'>
+<link rel='stylesheet' href='{{ print "assets/css/" hugo.Data.assets.main.css | relURL  }}'>
+
+{{- if or ( .Site.Params.settings.rtl ) ( eq .Site.Language.Direction "rtl" ) -}}
+  <link rel='stylesheet' href='{{ print "assets/css/" hugo.Data.assets.rtl.css | relURL  }}'>
+{{- end -}}
+
+{{- range .Site.Params.assets.customCSS -}}
+  <link rel='stylesheet' href='{{ . | relURL }}'>
+{{- end -}}
+
+{{- partial "head/css" . -}}
+
+{{- partial "head/analytics" . -}}

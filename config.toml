@@ -1,5 +1,5 @@
 theme = "minimo"
-languageCode = "en-us"
+locale = "en-us"
 title = "INBO Tutorials"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.qmd$", "_cache$", "\\.db$", "\\.csv$", "\\.sqlite$", "\\.geojson$"]
@@ -12,7 +12,7 @@ copyright = ""
 disqusShortname = ""
 googleAnalytics = ""
 
-Paginate = 1000
+pagination.pagerSize = 1000
 preserveTaxonomyNames = true
 
 enableRobotsTXT = true # generate robots.txt
@@ -146,7 +146,7 @@ hrefTargetBlank = true
 # edit this block for your own language
 [languages.en]
 lang = "en"
-languageName = "English"
+label = "English"
 weight = 1
 
 [markup]
