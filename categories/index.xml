@@ -1,92 +1,80 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Categories on INBO Tutorials</title>
-    <link>/categories/</link>
-    <description>Recent content in Categories on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>development</title>
-      <link>/categories/development/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>r</title>
-      <link>/categories/r/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>databases</title>
-      <link>/categories/databases/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/databases/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>statistics</title>
-      <link>/categories/statistics/</link>
-      <pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/statistics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>installation</title>
-      <link>/categories/installation/</link>
-      <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/installation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>version control</title>
-      <link>/categories/version-control/</link>
-      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/version-control/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gis</title>
-      <link>/categories/gis/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/gis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>literature</title>
-      <link>/categories/literature/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/literature/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>styleguide</title>
-      <link>/categories/styleguide/</link>
-      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/styleguide/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Categories on INBO Tutorials</title>
+		<link>/categories/</link>
+		<description>Recent content in Categories on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Development</title>
+				<link>/categories/development/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/categories/development/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>R</title>
+				<link>/categories/r/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/categories/r/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Databases</title>
+				<link>/categories/databases/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/categories/databases/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Statistics</title>
+				<link>/categories/statistics/</link>
+				<pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>/categories/statistics/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Installation</title>
+				<link>/categories/installation/</link>
+				<pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>/categories/installation/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Version Control</title>
+				<link>/categories/version-control/</link>
+				<pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+				<guid>/categories/version-control/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Gis</title>
+				<link>/categories/gis/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/categories/gis/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Literature</title>
+				<link>/categories/literature/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/categories/literature/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Styleguide</title>
+				<link>/categories/styleguide/</link>
+				<pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/categories/styleguide/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>mgrs on INBO Tutorials</title>
-    <link>/tags/mgrs/</link>
-    <description>Recent content in mgrs on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/mgrs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The UTM grid and the MGRS grid: not quite the same</title>
-      <link>/articles/spatial_mgrs/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/spatial_mgrs/</guid>
-      <description>Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
-Main points:
- The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Mgrs on INBO Tutorials</title>
+		<link>/tags/mgrs/</link>
+		<description>Recent content in Mgrs on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/mgrs/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>The UTM grid and the MGRS grid: not quite the same</title>
+				<link>/articles/spatial_mgrs/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/spatial_mgrs/</guid>
+				<description>&lt;h4 id=&#34;summary&#34;&gt;Summary&lt;/h4&gt;&#xA;&lt;p&gt;Grids are widely used in biodiversity monitoring to define the basic&#xA;spatial units for data collection, data processing or mapping. In this&#xA;post I explain differences between the UTM and MGRS grids, provide&#xA;references to their full definition and refer to some software&#xA;implementations for MGRS.&lt;/p&gt;&#xA;&lt;p&gt;Main points:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The UTM grid and the MGRS grid outside the polar regions are both&#xA;derived from the UTM (Universal Transverse Mercator) map projection&#xA;system. Both grids have a world-wide coverage, but the polar regions&#xA;are only covered by the MGRS grid. In the polar regions, the MGRS grid&#xA;is derived from the UPS (Universal Polar Stereographic) map&#xA;projection.&lt;/li&gt;&#xA;&lt;li&gt;The major divisions of the UTM grid are the &lt;em&gt;UTM zones&lt;/em&gt;, defined by&#xA;meridians that are 6° apart. The understanding of the term ‘UTM grid’&#xA;in this post &lt;em&gt;only&lt;/em&gt; involves grid lines tied to the UTM coordinate&#xA;system.&lt;/li&gt;&#xA;&lt;li&gt;In the area where UTM applies, the major partitions of the MGRS grid&#xA;are the &lt;em&gt;grid zones&lt;/em&gt;, which are a further division of UTM zones&#xA;according to specific parallels, further amended by shifting the&#xA;meridian borders of some grid zones. Grid zone borders generate extra&#xA;cell clipping compared to the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;Apart from deviations and extra clips as a consequence of the grid&#xA;zones, the MGRS grid cell pattern outside the polar regions matches&#xA;that of the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;UTM grid references consist solely of digits (Arabic numerals), while&#xA;MGRS grid references are alphanumeric (combination of digits &amp;amp; Latin&#xA;characters). To illustrate this, following examples refer to the&#xA;Belgian point location used in the text:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;An UTM grid reference looks like &lt;code&gt;31.577019.5661520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31.577.5661&lt;/code&gt; (kilometer precision) and separators are&#xA;needed (point, slash, space) if not applying localized&#xA;simplifications. Quite some variations exist.&lt;/li&gt;&#xA;&lt;li&gt;An MGRS grid reference looks like &lt;code&gt;31U ES 77019 61520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31U ES 77 61&lt;/code&gt; (kilometer precision), and the spacing&#xA;is optional.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;When decreasing the precision of a position, &lt;em&gt;coordinates&lt;/em&gt; are to be&#xA;&lt;em&gt;rounded&lt;/em&gt; while in (UTM and MGRS) &lt;em&gt;grid references&lt;/em&gt; the numeric parts&#xA;representing easting and northing are to be &lt;em&gt;truncated&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Projected coordinate reference systems (CRSs) specify a geodetic datum&#xA;so that coordinates can be linked to a physical location on the&#xA;Earth’s surface. Likewise, you need to specify (and be aware of) the&#xA;geodetic datum when using a (UTM or MGRS) grid reference for&#xA;positioning.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;terminological-notes&#34;&gt;Terminological notes&lt;/h4&gt;&#xA;&lt;p&gt;The NGA (National Geospatial-Intelligence Agency) Office of Geomatics&#xA;(&lt;a href=&#34;https://earth-info.nga.mil&#34;&gt;https://earth-info.nga.mil&lt;/a&gt;), part of the US Department of Defense,&#xA;maintains definitions of the UTM map projection system and the MGRS grid&#xA;(&lt;a href=&#34;/articles/spatial_mgrs/#ref-national_geospatial-intelligence_agency_universal_2014&#34;&gt;National Geospatial-Intelligence Agency,&#xA;2014a&lt;/a&gt;), as&#xA;did its predecessor organisations since the inception of these systems&#xA;in the 1940s (&lt;a href=&#34;/articles/spatial_mgrs/#ref-buchroithner_geodetic_2017&#34;&gt;Buchroithner &amp;amp; Pfahlbusch,&#xA;2017&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_1956&#34;&gt;Department of the Army,&#xA;1956&lt;/a&gt;,&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_2001&#34;&gt;2001&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-palombo_military_2021&#34;&gt;Palombo,&#xA;2021&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-snyder_map_1987&#34;&gt;Snyder, 1987&lt;/a&gt;;&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-stott_utm_1977&#34;&gt;Stott, 1977&lt;/a&gt;). Their usage of the term ‘UTM grid’&#xA;is not distinguished from the UTM map projection system, hence comes&#xA;down to using numeric CRS coordinates in meters.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

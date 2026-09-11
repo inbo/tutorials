@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>github on INBO Tutorials</title>
-    <link>/tags/github/</link>
-    <description>Recent content in github on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Set up Zenodo - GitHub integration</title>
-      <link>/tutorials/git_zenodo/</link>
-      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/git_zenodo/</guid>
-      <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
-GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
-    </item>
-    
-    <item>
-      <title>Git and GitHub Authentication on Windows</title>
-      <link>/tutorials/git_authentication/</link>
-      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/git_authentication/</guid>
-      <description>Before we start This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system. The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. The guidelines here are meant for people who use Git and GitHub in RStudio, but the general principles can be applied to other software too (e.</description>
-    </item>
-    
-    <item>
-      <title>Styleguide new git repositories</title>
-      <link>/tutorials/styleguide_repos/</link>
-      <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/styleguide_repos/</guid>
-      <description>Naming   Use lowercase for repository, directory, and file names. For R-related files, use uppercase R.
- https://github.com/inbo/data-publication ../tutorials/gis/leaflet-R.Rmd    Use dash (-) to separate words in directory and file names. Don&amp;rsquo;t use underscores.
- .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql    Avoid the use of dash (-) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes).</description>
-    </item>
-    
-    <item>
-      <title>Git(hub) introduction</title>
-      <link>/tutorials/git_introduction/</link>
-      <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/git_introduction/</guid>
-      <description>At INBO, people do write code and require version control. As git is not the most straightforward environment to work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an achievable workflow.
-To introduce the concept of version control with Git and Github, a separate git course website is available here.
-The git course provides an introduction on main terminology of Git based on 5 important tasks:</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Github on INBO Tutorials</title>
+		<link>/tags/github/</link>
+		<description>Recent content in Github on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Set up Zenodo - GitHub integration</title>
+				<link>/tutorials/git_zenodo/</link>
+				<pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/git_zenodo/</guid>
+				<description>&lt;p&gt;&lt;em&gt;Note: there is also a &lt;a href=&#34;https://packages.inbo.be/checklist/articles/zenodo.html&#34;&gt;vignette&lt;/a&gt; in the &lt;code&gt;checklist&lt;/code&gt; package for R, that covers below topics and more, such as integration with ORCID.&lt;/em&gt;&#xA;&lt;em&gt;If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;github-and-zenodo-background&#34;&gt;GitHub and Zenodo: background&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com&#34;&gt;GitHub&lt;/a&gt; hosts a remote Git server that you can use for distributed version control with Git.&#xA;For more information about Git and GitHub, see &lt;a href=&#34;https://inbo.github.io/tutorials/categories/version-control/&#34;&gt;other&lt;/a&gt; tutorials on this website!&#xA;In short, Git helps you with version control (maintaining snapshots) of a directory (file folder) – a repository – and GitHub helps you with distributing versions and with collaboration.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Git and GitHub Authentication on Windows</title>
+				<link>/tutorials/git_authentication/</link>
+				<pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/git_authentication/</guid>
+				<description>&lt;h2 id=&#34;before-we-start&#34;&gt;Before we start&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial assumes you have a GitHub account, and have Git, R and&#xA;RStudio installed on your system. The purpose of this tutorial is to&#xA;make clear recommendations about authentication for employees at INBO&#xA;who use Git version control in their workflows. The guidelines here are&#xA;meant for people who use Git and GitHub in RStudio, but the general&#xA;principles can be applied to other software too (e.g. GitHub Desktop).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Styleguide new git repositories</title>
+				<link>/tutorials/styleguide_repos/</link>
+				<pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/styleguide_repos/</guid>
+				<description>&lt;h2 id=&#34;naming&#34;&gt;Naming&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Use lowercase for repository, directory, and file names. For R-related files, use uppercase &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;  https://github.com/inbo/data-publication&#xA;  ../tutorials/gis/leaflet-R.Rmd&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Use dash (&lt;code&gt;-&lt;/code&gt;) to separate words in directory and file names. Don&amp;rsquo;t use underscores.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;  .../datasets/bird-tracking-gull-occurrences/mapping/dwc-occurrence.sql&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Avoid the use of dash (&lt;code&gt;-&lt;/code&gt;) in the name of repositories that you intend for R package development (it is OK to use a dash in repository names for other purposes). Especially if you intend to publish the package at CRAN at some point. CRAN demands package names to comply with the following: &amp;ldquo;contain only (ASCII) letters, numbers and dot, have at least two characters and start with a letter and not end in a dot&amp;rdquo;. Few packages include a dot in their name, so avoid this too.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Git(hub) introduction</title>
+				<link>/tutorials/git_introduction/</link>
+				<pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/git_introduction/</guid>
+				<description>&lt;p&gt;At INBO, people do write code and require version control. As git is not the most straightforward environment to&#xA;work with for non-IT specialists, we try to define our own sub-ecosystem with relevant practices and an&#xA;achievable workflow.&lt;/p&gt;&#xA;&lt;p&gt;To introduce the concept of version control with Git and Github, a separate git course website is&#xA;available &lt;a href=&#34;https://inbo.github.io/git-course/index.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;The git course provides an introduction on main terminology of Git based on 5 important tasks:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

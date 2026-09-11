@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>pieterjanverhelst on INBO Tutorials</title>
-    <link>/authors/pieterjanverhelst/</link>
-    <description>Recent content in pieterjanverhelst on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="/authors/pieterjanverhelst/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Headers and navigation in R code</title>
-      <link>/tutorials/r_script_sections/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_script_sections/</guid>
-      <description>Introduction R code can become elaborate and consequently unclear or difficult to navigate. Yet, it is possible to introduce headers and navigate through them.
-Creating sections manually To create a header of a section, different methods can be applied. Any comment line which includes at least four trailing dashes (-), equal signs (=), or hash tags (#) automatically creates a code section.
-# 1. Header 1 #### # 2. Header 2 ---- # 3.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Pieterjanverhelst on INBO Tutorials</title>
+		<link>/authors/pieterjanverhelst/</link>
+		<description>Recent content in Pieterjanverhelst on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/authors/pieterjanverhelst/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Headers and navigation in R code</title>
+				<link>/tutorials/r_script_sections/</link>
+				<pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_script_sections/</guid>
+				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;R code can become elaborate and consequently unclear or difficult to&#xA;navigate. Yet, it is possible to introduce headers and navigate through&#xA;them.&lt;/p&gt;&#xA;&lt;h2 id=&#34;creating-sections-manually&#34;&gt;Creating sections manually&lt;/h2&gt;&#xA;&lt;p&gt;To create a header of a section, different methods can be applied. Any&#xA;comment line which includes at least four trailing dashes (-), equal&#xA;signs (=), or hash tags (#) automatically creates a code section.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# 1. Header 1 ####&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# 2. Header 2 ----&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# 3. Header 3 ====&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On the right side of the code editor, nex to the buttons to run your&#xA;code, a button with horizontal lines can be found. When you click it,&#xA;the headers will be visible. As such, the structure of your code is&#xA;visible and allows more easily to navigate through it.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

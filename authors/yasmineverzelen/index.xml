@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>yasmineverzelen on INBO Tutorials</title>
-    <link>/authors/yasmineverzelen/</link>
-    <description>Recent content in yasmineverzelen on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="/authors/yasmineverzelen/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Using `%&gt;%` pipes in R</title>
-      <link>/tutorials/r_tidyverse_piping/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_tidyverse_piping/</guid>
-      <description>library(dplyr) How to use piping in R Normally, you would do this:
-head(mtcars) ## mpg cyl disp hp drat wt qsec vs am gear carb ## Mazda RX4 21.0 6 160 110 3.90 2.620 16.46 0 1 4 4 ## Mazda RX4 Wag 21.0 6 160 110 3.90 2.875 17.02 0 1 4 4 ## Datsun 710 22.8 4 108 93 3.85 2.320 18.61 1 1 4 1 ## Hornet 4 Drive 21.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Yasmineverzelen on INBO Tutorials</title>
+		<link>/authors/yasmineverzelen/</link>
+		<description>Recent content in Yasmineverzelen on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/authors/yasmineverzelen/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Using `%&gt;%` pipes in R</title>
+				<link>/tutorials/r_tidyverse_piping/</link>
+				<pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_tidyverse_piping/</guid>
+				<description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(dplyr)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;how-to-use-piping-in-r&#34;&gt;How to use piping in R&lt;/h1&gt;&#xA;&lt;p&gt;Normally, you would do this:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;head&lt;/span&gt;(mtcars)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb&#xA;## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4&#xA;## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4&#xA;## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1&#xA;## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1&#xA;## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2&#xA;## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;However, with piping, this would look different:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

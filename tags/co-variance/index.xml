@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>co-variance on INBO Tutorials</title>
-    <link>/tags/co-variance/</link>
-    <description>Recent content in co-variance on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="/tags/co-variance/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>An Algorithmic Approach to Variograms</title>
-      <link>/tutorials/spatial_variograms/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_variograms/</guid>
-      <description>Introduction  Everything is related to everything else, but near things are more related than distant things.
- (First Law according to Waldo Tobler)
-This remarkably unquantitative statement, or &amp;ldquo;law&amp;rdquo;, is described on wikipedia as &amp;ldquo;a direct product of the quantitative revolution&amp;rdquo; in Geography. Contrast it with the wikipedia article on variograms, which is full of jargon and seemingly complicated equations.
-With this tutorial, I would like to document the condensed essence of my own trials and misunderstandings with practical variogram-based analysis.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Co-Variance on INBO Tutorials</title>
+		<link>/tags/co-variance/</link>
+		<description>Recent content in Co-Variance on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/co-variance/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>An Algorithmic Approach to Variograms</title>
+				<link>/tutorials/spatial_variograms/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_variograms/</guid>
+				<description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Everything is related to everything else, but near things are more related than distant things.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography&#34;&gt;&lt;em&gt;(First Law according to Waldo Tobler)&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;This remarkably unquantitative statement, or &amp;ldquo;law&amp;rdquo;, is described &lt;a href=&#34;https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography#Background&#34;&gt;on wikipedia&lt;/a&gt; as &amp;ldquo;a direct product of the quantitative revolution&amp;rdquo; in Geography.&#xA;Contrast it with the &lt;a href=&#34;https://en.wikipedia.org/wiki/Variogram&#34;&gt;wikipedia article on variograms&lt;/a&gt;, which is full of jargon and seemingly complicated equations.&lt;/p&gt;&#xA;&lt;p&gt;With this tutorial, I would like to document the condensed essence of my own trials and misunderstandings with practical variogram-based analysis.&#xA;We will see below that variograms are not that complicated after all.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

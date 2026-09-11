@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>markdown on INBO Tutorials</title>
-    <link>/tags/markdown/</link>
-    <description>Recent content in markdown on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Citations in R Markdown</title>
-      <link>/tutorials/r_citations_markdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_citations_markdown/</guid>
-      <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
-More general tutorials can be found at the following web pages:
- https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
-    </item>
-    
-    <item>
-      <title>R voor beginners</title>
-      <link>/tutorials/r_beginners/</link>
-      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_beginners/</guid>
-      <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
- Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
-    </item>
-    
-    <item>
-      <title>Pandoc installation</title>
-      <link>/installation/administrator/admin_install_pandoc/</link>
-      <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
-      
-      <guid>/installation/administrator/admin_install_pandoc/</guid>
-      <description>Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
-Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster  wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb </description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Markdown on INBO Tutorials</title>
+		<link>/tags/markdown/</link>
+		<description>Recent content in Markdown on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Citations in R Markdown</title>
+				<link>/tutorials/r_citations_markdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_citations_markdown/</guid>
+				<description>&lt;h1 id=&#34;enter-vme-mode&#34;&gt;Enter VME mode&lt;/h1&gt;&#xA;&lt;p&gt;With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.&#xA;In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.&#xA;We also give some guidelines specific to the Research Institute for Nature and Forest.&lt;/p&gt;&#xA;&lt;p&gt;More general tutorials can be found at the following web pages:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://pandoc.org/MANUAL.html#citations&#34;&gt;https://pandoc.org/MANUAL.html#citations&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://rstudio.github.io/visual-markdown-editing/citations.html&#34;&gt;https://rstudio.github.io/visual-markdown-editing/citations.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The latter webpage is part of the documentation about the Visual Markdown Editing (&lt;strong&gt;VME&lt;/strong&gt;) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.&#xA;VME is a what-you-see-is-what-you-get&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; interface for interacting with R Markdown.&#xA;This interface is similar to writing documents in word processing software (google docs, MS Word, &amp;hellip;).&#xA;Moreover, the VME mode has more functionalities for citations than the source mode.&#xA;To switch between source mode and VME, press the &lt;img src=&#34;/tutorials/r_citations_markdown/visual-mode-2x.png&#34; alt=&#34;&#34;&gt; button&#xA;:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>R voor beginners</title>
+				<link>/tutorials/r_beginners/</link>
+				<pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_beginners/</guid>
+				<description>&lt;h2 id=&#34;doel-van-de-cursus&#34;&gt;Doel van de cursus&lt;/h2&gt;&#xA;&lt;p&gt;Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Rstudio kunnen gebruiken (Les 1a)&lt;/li&gt;&#xA;&lt;li&gt;Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b)&lt;/li&gt;&#xA;&lt;li&gt;Externe databestanden inlezen in R (Les 2a)&lt;/li&gt;&#xA;&lt;li&gt;Gegevens visualiseren (ggplot2) (Les 2b)&lt;/li&gt;&#xA;&lt;li&gt;Data manipuleren in een gewenste vorm (dplyr) (Les 3)&lt;/li&gt;&#xA;&lt;li&gt;Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops. Deze opleiding is bedoeld voor mensen die nog nooit met R gewerkt hebben. In de workshops wordt het materiaal in de handleidingen al doende uitgelegd, en afgewisseld met oefeningen. Na elke workshop wordt er altijd een huistaak aangeboden, die op vrijwillige basis ingediend kan worden, en van feedback voorzien.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Pandoc installation</title>
+				<link>/installation/administrator/admin_install_pandoc/</link>
+				<pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
+				<guid>/installation/administrator/admin_install_pandoc/</guid>
+				<description>&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;p&gt;Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Kijk op &lt;a href=&#34;https://github.com/jgm/pandoc/releases&#34;&gt;https://github.com/jgm/pandoc/releases&lt;/a&gt; wat de laatste versie is.&lt;/li&gt;&#xA;&lt;li&gt;Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb&#xA;sudo dpkg -i pandoc-1.19-1-amd64.deb&#xA;rm pandoc-1.19-1-amd64.deb&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+			</item>
+	</channel>
 </rss>

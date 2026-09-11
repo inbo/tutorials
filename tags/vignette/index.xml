@@ -1,362 +1,290 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>vignette on INBO Tutorials</title>
-    <link>/tags/vignette/</link>
-    <description>Recent content in vignette on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 30 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/vignette/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>inbodb: How to retrieve data from the Meetnetten database</title>
-      <link>/tutorials/vignette_inbodb_get_data_meetnetten/</link>
-      <pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inbodb_get_data_meetnetten/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inbodb/articles/get_data_meetnetten.html</description>
-    </item>
-    
-    <item>
-      <title>inbodb: How to retrieve data from the Taxonlijsten database</title>
-      <link>/tutorials/vignette_inbodb_get_data_taxonlijsten/</link>
-      <pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inbodb_get_data_taxonlijsten/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inbodb/articles/get_data_taxonlijsten.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Multiple values</title>
-      <link>/tutorials/vignette_rgbif_multiple_values/</link>
-      <pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_rgbif_multiple_values/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/multiple_values.html</description>
-    </item>
-    
-    <item>
-      <title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
-      <link>/tutorials/vignette_checklist_zenodo/</link>
-      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_checklist_zenodo/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/zenodo.html</description>
-    </item>
-    
-    <item>
-      <title>frictionless: Introduction to frictionless</title>
-      <link>/tutorials/vignette_frictionless_frictionless/</link>
-      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_frictionless_frictionless/</guid>
-      <description>See the vignette/tutorial at https://frictionlessdata.github.io/frictionless-r/articles/frictionless.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Citing GBIF mediated data</title>
-      <link>/tutorials/vignette_rgbif_cite_gbif_mediated_data/</link>
-      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_rgbif_cite_gbif_mediated_data/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/gbif_citations.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Downloading occurrence data from GBIF</title>
-      <link>/tutorials/vignette_rgbif_occurrence_downloads/</link>
-      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_rgbif_occurrence_downloads/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Downloading species lists from GBIF</title>
-      <link>/tutorials/vignette_rgbif_species_downloads/</link>
-      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_rgbif_species_downloads/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Set up your GBIF username and password</title>
-      <link>/tutorials/vignette_rgbif_credentials_setup/</link>
-      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_rgbif_credentials_setup/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/gbif_credentials.html</description>
-    </item>
-    
-    <item>
-      <title>rgbif: Working with taxonomic names</title>
-      <link>/tutorials/vignette_rgbif_taxonomic_names/</link>
-      <pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_rgbif_taxonomic_names/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/rgbif/articles/taxonomic_names.html</description>
-    </item>
-    
-    <item>
-      <title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
-      <link>/tutorials/vignette_waterinfo_waterinfo/</link>
-      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_waterinfo_waterinfo/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html</description>
-    </item>
-    
-    <item>
-      <title>etn: Explore acoustic telemetry data</title>
-      <link>/tutorials/vignette_etn_acoustic_telemetry/</link>
-      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_etn_acoustic_telemetry/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/etn/articles/acoustic_telemetry.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
-      <link>/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
-      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html</description>
-    </item>
-    
-    <item>
-      <title>checklist: Philosophy of the checklist package</title>
-      <link>/tutorials/vignette_checklist_philosophy/</link>
-      <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_checklist_philosophy/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/philosophy.html</description>
-    </item>
-    
-    <item>
-      <title>checklist: Setting up checklist</title>
-      <link>/tutorials/vignette_checklist_getting_started/</link>
-      <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_checklist_getting_started/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/checklist/articles/getting_started.html</description>
-    </item>
-    
-    <item>
-      <title>watina: Getting started with watina: connecting and selecting locations</title>
-      <link>/tutorials/vignette_watina_v010_getstarted/</link>
-      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_watina_v010_getstarted/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v010_getstarted.html</description>
-    </item>
-    
-    <item>
-      <title>gwloggeR: Air pressure</title>
-      <link>/tutorials/vignette_gwlogger_airpressure/</link>
-      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_gwlogger_airpressure/</guid>
-      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure.html</description>
-    </item>
-    
-    <item>
-      <title>gwloggeR: Air pressure: drift</title>
-      <link>/tutorials/vignette_gwlogger_airpressure_drift/</link>
-      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_gwlogger_airpressure_drift/</guid>
-      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure-Drift.html</description>
-    </item>
-    
-    <item>
-      <title>gwloggeR: Hydrostatic pressure</title>
-      <link>/tutorials/vignette_gwlogger_hydropressure/</link>
-      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_gwlogger_hydropressure/</guid>
-      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Hydropressure.html</description>
-    </item>
-    
-    <item>
-      <title>gwloggeR: Introduction to gwloggeR</title>
-      <link>/tutorials/vignette_gwlogger_gwlogger/</link>
-      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_gwlogger_gwlogger/</guid>
-      <description>See the vignette/tutorial at https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html</description>
-    </item>
-    
-    <item>
-      <title>inbodb: How to retrieve data from the INBOVEG database</title>
-      <link>/tutorials/vignette_inbodb_get_data_inboveg/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inbodb_get_data_inboveg/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inbodb/articles/get_data_inboveg.html</description>
-    </item>
-    
-    <item>
-      <title>effectclass: Standardised classification of effects based on their uncertainty</title>
-      <link>/tutorials/vignette_effectclass_classification/</link>
-      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_effectclass_classification/</guid>
-      <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/classification.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
-      <link>/tutorials/vignette_n2khab_v022_example/</link>
-      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v022_example/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v022_example.html</description>
-    </item>
-    
-    <item>
-      <title>effectclass: Visualising effects</title>
-      <link>/tutorials/vignette_effectclass_visualisation/</link>
-      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_effectclass_visualisation/</guid>
-      <description>See the vignette/tutorial at https://effectclass.netlify.app/articles/visualisation.html</description>
-    </item>
-    
-    <item>
-      <title>watina: Using hydrochemical data to characterize and select locations</title>
-      <link>/tutorials/vignette_watina_v210_chem/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_watina_v210_chem/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v210_chem.html</description>
-    </item>
-    
-    <item>
-      <title>watina: Using XG3 values to characterize and select locations</title>
-      <link>/tutorials/vignette_watina_v110_xg3/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_watina_v110_xg3/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v110_xg3.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Where to store the N2KHAB input data sources</title>
-      <link>/tutorials/vignette_n2khab_v020_datastorage/</link>
-      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v020_datastorage/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v020_datastorage.html</description>
-    </item>
-    
-    <item>
-      <title>inborutils: GBIF scientific name matching</title>
-      <link>/tutorials/vignette_inborutils_gbif_name_match/</link>
-      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inborutils_gbif_name_match/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Using the GRTS data sources</title>
-      <link>/tutorials/vignette_n2khab_v030_grtsmh/</link>
-      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v030_grtsmh/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v030_GRTSmh.html</description>
-    </item>
-    
-    <item>
-      <title>bioRad: Introduction to bioRad</title>
-      <link>/tutorials/vignette_biorad/</link>
-      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_biorad/</guid>
-      <description>See the vignette/tutorial at https://adokter.github.io/bioRad/articles/bioRad.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Reference lists and using them</title>
-      <link>/tutorials/vignette_n2khab_v010_reference_lists/</link>
-      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v010_reference_lists/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v010_reference_lists.html</description>
-    </item>
-    
-    <item>
-      <title>inlatools: Checking the distribution and dispersion of a model</title>
-      <link>/tutorials/vignette_inlatools_distribution/</link>
-      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inlatools_distribution/</guid>
-      <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/distribution.html</description>
-    </item>
-    
-    <item>
-      <title>inlatools: Getting a grasp on the random walk hyperparameter</title>
-      <link>/tutorials/vignette_inlatools_rwprior/</link>
-      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inlatools_rwprior/</guid>
-      <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/rwprior.html</description>
-    </item>
-    
-    <item>
-      <title>inlatools: Setting a prior for the random intercept variance and fixed effects</title>
-      <link>/tutorials/vignette_inlatools_prior/</link>
-      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inlatools_prior/</guid>
-      <description>See the vignette/tutorial at https://inlatools.netlify.app/articles/prior.html</description>
-    </item>
-    
-    <item>
-      <title>inborutils: (Down)load data from external partners</title>
-      <link>/tutorials/vignette_inborutils_data_loaders_examples/</link>
-      <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inborutils_data_loaders_examples/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/data_loaders_examples.html</description>
-    </item>
-    
-    <item>
-      <title>INBOmd: Introduction to INBOmd</title>
-      <link>/tutorials/vignette_inbomd_introduction/</link>
-      <pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inbomd_introduction/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/INBOmd/articles/introduction.html</description>
-    </item>
-    
-    <item>
-      <title>inborutils: Check coordinate system</title>
-      <link>/tutorials/vignette_inborutils_guess_projection/</link>
-      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inborutils_guess_projection/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/guess_projection.html</description>
-    </item>
-    
-    <item>
-      <title>wateRinfo: Define the date period to download</title>
-      <link>/tutorials/vignette_waterinfo_define_date_periods/</link>
-      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_waterinfo_define_date_periods/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html</description>
-    </item>
-    
-    <item>
-      <title>wateRinfo: Download time series from multiple stations/variables</title>
-      <link>/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
-      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
-      <description>See the vignette/tutorial at https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Vignette on INBO Tutorials</title>
+		<link>/tags/vignette/</link>
+		<description>Recent content in Vignette on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 30 Sep 2024 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/vignette/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>inbodb: How to retrieve data from the Meetnetten database</title>
+				<link>/tutorials/vignette_inbodb_get_data_meetnetten/</link>
+				<pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inbodb_get_data_meetnetten/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inbodb/articles/get_data_meetnetten.html&#34;&gt;https://inbo.github.io/inbodb/articles/get_data_meetnetten.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inbodb: How to retrieve data from the Taxonlijsten database</title>
+				<link>/tutorials/vignette_inbodb_get_data_taxonlijsten/</link>
+				<pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inbodb_get_data_taxonlijsten/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inbodb/articles/get_data_taxonlijsten.html&#34;&gt;https://inbo.github.io/inbodb/articles/get_data_taxonlijsten.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>rgbif: Multiple values</title>
+				<link>/tutorials/vignette_rgbif_multiple_values/</link>
+				<pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_rgbif_multiple_values/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/multiple_values.html&#34;&gt;https://docs.ropensci.org/rgbif/articles/multiple_values.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>checklist: Setting up the integration between GitHub, Zenodo and ORCID</title>
+				<link>/tutorials/vignette_checklist_zenodo/</link>
+				<pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_checklist_zenodo/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/checklist/articles/zenodo.html&#34;&gt;https://inbo.github.io/checklist/articles/zenodo.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>frictionless: Introduction to frictionless</title>
+				<link>/tutorials/vignette_frictionless_frictionless/</link>
+				<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_frictionless_frictionless/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://frictionlessdata.github.io/frictionless-r/articles/frictionless.html&#34;&gt;https://frictionlessdata.github.io/frictionless-r/articles/frictionless.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>rgbif: Citing GBIF mediated data</title>
+				<link>/tutorials/vignette_rgbif_cite_gbif_mediated_data/</link>
+				<pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_rgbif_cite_gbif_mediated_data/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/gbif_citations.html&#34;&gt;https://docs.ropensci.org/rgbif/articles/gbif_citations.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>rgbif: Downloading occurrence data from GBIF</title>
+				<link>/tutorials/vignette_rgbif_occurrence_downloads/</link>
+				<pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_rgbif_occurrence_downloads/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html&#34;&gt;https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>rgbif: Downloading species lists from GBIF</title>
+				<link>/tutorials/vignette_rgbif_species_downloads/</link>
+				<pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_rgbif_species_downloads/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html&#34;&gt;https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>rgbif: Set up your GBIF username and password</title>
+				<link>/tutorials/vignette_rgbif_credentials_setup/</link>
+				<pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_rgbif_credentials_setup/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/gbif_credentials.html&#34;&gt;https://docs.ropensci.org/rgbif/articles/gbif_credentials.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>rgbif: Working with taxonomic names</title>
+				<link>/tutorials/vignette_rgbif_taxonomic_names/</link>
+				<pubDate>Mon, 20 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_rgbif_taxonomic_names/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/taxonomic_names.html&#34;&gt;https://docs.ropensci.org/rgbif/articles/taxonomic_names.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>wateRinfo: Introduction to downloading time series data from waterinfo.be</title>
+				<link>/tutorials/vignette_waterinfo_waterinfo/</link>
+				<pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_waterinfo_waterinfo/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html&#34;&gt;https://docs.ropensci.org/wateRinfo/articles/wateRinfo.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>etn: Explore acoustic telemetry data</title>
+				<link>/tutorials/vignette_etn_acoustic_telemetry/</link>
+				<pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_etn_acoustic_telemetry/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/etn/articles/acoustic_telemetry.html&#34;&gt;https://inbo.github.io/etn/articles/acoustic_telemetry.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
+				<link>/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
+				<pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html&#34;&gt;https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>checklist: Philosophy of the checklist package</title>
+				<link>/tutorials/vignette_checklist_philosophy/</link>
+				<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_checklist_philosophy/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/checklist/articles/philosophy.html&#34;&gt;https://inbo.github.io/checklist/articles/philosophy.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>checklist: Setting up checklist</title>
+				<link>/tutorials/vignette_checklist_getting_started/</link>
+				<pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_checklist_getting_started/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/checklist/articles/getting_started.html&#34;&gt;https://inbo.github.io/checklist/articles/getting_started.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>watina: Getting started with watina: connecting and selecting locations</title>
+				<link>/tutorials/vignette_watina_v010_getstarted/</link>
+				<pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_watina_v010_getstarted/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/watina/articles/v010_getstarted.html&#34;&gt;https://inbo.github.io/watina/articles/v010_getstarted.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>gwloggeR: Air pressure</title>
+				<link>/tutorials/vignette_gwlogger_airpressure/</link>
+				<pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_gwlogger_airpressure/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure.html&#34;&gt;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>gwloggeR: Air pressure: drift</title>
+				<link>/tutorials/vignette_gwlogger_airpressure_drift/</link>
+				<pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_gwlogger_airpressure_drift/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure-Drift.html&#34;&gt;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Airpressure-Drift.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>gwloggeR: Hydrostatic pressure</title>
+				<link>/tutorials/vignette_gwlogger_hydropressure/</link>
+				<pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_gwlogger_hydropressure/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Hydropressure.html&#34;&gt;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/Hydropressure.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>gwloggeR: Introduction to gwloggeR</title>
+				<link>/tutorials/vignette_gwlogger_gwlogger/</link>
+				<pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_gwlogger_gwlogger/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html&#34;&gt;https://dov-vlaanderen.github.io/groundwater-logger-validation/gwloggeR/docs/articles/gwloggeR.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inbodb: How to retrieve data from the INBOVEG database</title>
+				<link>/tutorials/vignette_inbodb_get_data_inboveg/</link>
+				<pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inbodb_get_data_inboveg/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inbodb/articles/get_data_inboveg.html&#34;&gt;https://inbo.github.io/inbodb/articles/get_data_inboveg.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>effectclass: Standardised classification of effects based on their uncertainty</title>
+				<link>/tutorials/vignette_effectclass_classification/</link>
+				<pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_effectclass_classification/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://effectclass.netlify.app/articles/classification.html&#34;&gt;https://effectclass.netlify.app/articles/classification.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
+				<link>/tutorials/vignette_n2khab_v022_example/</link>
+				<pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v022_example/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v022_example.html&#34;&gt;https://inbo.github.io/n2khab/articles/v022_example.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>effectclass: Visualising effects</title>
+				<link>/tutorials/vignette_effectclass_visualisation/</link>
+				<pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_effectclass_visualisation/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://effectclass.netlify.app/articles/visualisation.html&#34;&gt;https://effectclass.netlify.app/articles/visualisation.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>watina: Using hydrochemical data to characterize and select locations</title>
+				<link>/tutorials/vignette_watina_v210_chem/</link>
+				<pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_watina_v210_chem/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/watina/articles/v210_chem.html&#34;&gt;https://inbo.github.io/watina/articles/v210_chem.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>watina: Using XG3 values to characterize and select locations</title>
+				<link>/tutorials/vignette_watina_v110_xg3/</link>
+				<pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_watina_v110_xg3/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/watina/articles/v110_xg3.html&#34;&gt;https://inbo.github.io/watina/articles/v110_xg3.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Where to store the N2KHAB input data sources</title>
+				<link>/tutorials/vignette_n2khab_v020_datastorage/</link>
+				<pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v020_datastorage/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v020_datastorage.html&#34;&gt;https://inbo.github.io/n2khab/articles/v020_datastorage.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inborutils: GBIF scientific name matching</title>
+				<link>/tutorials/vignette_inborutils_gbif_name_match/</link>
+				<pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inborutils_gbif_name_match/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inborutils/articles/gbif_name_match.html&#34;&gt;https://inbo.github.io/inborutils/articles/gbif_name_match.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Using the GRTS data sources</title>
+				<link>/tutorials/vignette_n2khab_v030_grtsmh/</link>
+				<pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v030_grtsmh/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v030_GRTSmh.html&#34;&gt;https://inbo.github.io/n2khab/articles/v030_GRTSmh.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>bioRad: Introduction to bioRad</title>
+				<link>/tutorials/vignette_biorad/</link>
+				<pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_biorad/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://adokter.github.io/bioRad/articles/bioRad.html&#34;&gt;https://adokter.github.io/bioRad/articles/bioRad.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Reference lists and using them</title>
+				<link>/tutorials/vignette_n2khab_v010_reference_lists/</link>
+				<pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v010_reference_lists/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v010_reference_lists.html&#34;&gt;https://inbo.github.io/n2khab/articles/v010_reference_lists.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inlatools: Checking the distribution and dispersion of a model</title>
+				<link>/tutorials/vignette_inlatools_distribution/</link>
+				<pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inlatools_distribution/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inlatools.netlify.app/articles/distribution.html&#34;&gt;https://inlatools.netlify.app/articles/distribution.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inlatools: Getting a grasp on the random walk hyperparameter</title>
+				<link>/tutorials/vignette_inlatools_rwprior/</link>
+				<pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inlatools_rwprior/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inlatools.netlify.app/articles/rwprior.html&#34;&gt;https://inlatools.netlify.app/articles/rwprior.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inlatools: Setting a prior for the random intercept variance and fixed effects</title>
+				<link>/tutorials/vignette_inlatools_prior/</link>
+				<pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inlatools_prior/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inlatools.netlify.app/articles/prior.html&#34;&gt;https://inlatools.netlify.app/articles/prior.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inborutils: (Down)load data from external partners</title>
+				<link>/tutorials/vignette_inborutils_data_loaders_examples/</link>
+				<pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inborutils_data_loaders_examples/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inborutils/articles/data_loaders_examples.html&#34;&gt;https://inbo.github.io/inborutils/articles/data_loaders_examples.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>INBOmd: Introduction to INBOmd</title>
+				<link>/tutorials/vignette_inbomd_introduction/</link>
+				<pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inbomd_introduction/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/INBOmd/articles/introduction.html&#34;&gt;https://inbo.github.io/INBOmd/articles/introduction.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inborutils: Check coordinate system</title>
+				<link>/tutorials/vignette_inborutils_guess_projection/</link>
+				<pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inborutils_guess_projection/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inborutils/articles/guess_projection.html&#34;&gt;https://inbo.github.io/inborutils/articles/guess_projection.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>wateRinfo: Define the date period to download</title>
+				<link>/tutorials/vignette_waterinfo_define_date_periods/</link>
+				<pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_waterinfo_define_date_periods/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html&#34;&gt;https://docs.ropensci.org/wateRinfo/articles/define_date_periods.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>wateRinfo: Download time series from multiple stations/variables</title>
+				<link>/tutorials/vignette_waterinfo_download_timeseries_batch/</link>
+				<pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_waterinfo_download_timeseries_batch/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html&#34;&gt;https://docs.ropensci.org/wateRinfo/articles/download_timeseries_batch.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

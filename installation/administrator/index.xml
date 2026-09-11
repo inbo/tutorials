@@ -1,64 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Administrator installation notes on INBO Tutorials</title>
-    <link>/installation/administrator/</link>
-    <description>Recent content in Administrator installation notes on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0000</lastBuildDate><atom:link href="/installation/administrator/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Install R</title>
-      <link>/installation/administrator/admin_install_r/</link>
-      <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/installation/administrator/admin_install_r/</guid>
-      <description>Windows Installatiebestand beschikbaar via cloud.r-project.org
-In de onderstaande tekst moet je in R-4.x.y zowel x als y vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus voor versie R-4.0.0 is x = 0 en y = 0.
-Nieuwe installatie van R  Voer het bestand R-4.x.y-win.exe uit. Kies Nederlands als taal voor de installatie en klik op OK. klik op Volgende. Aanvaard de licentievoorwaarden door op Volgende te klikken.</description>
-    </item>
-    
-    <item>
-      <title>RStudio Desktop installation</title>
-      <link>/installation/administrator/admin_install_rstudio/</link>
-      <pubDate>Wed, 18 Oct 2017 00:30:40 +0200</pubDate>
-      
-      <guid>/installation/administrator/admin_install_rstudio/</guid>
-      <description>De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/
-Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
- Zorg dat eerst R geïnstalleerd is. Voer het 64-bit installatiebestand uit. Klik Ja. Welkom bij de installatie: klik op volgende. Geef de doelmap en klik op volgende. Je mag de standaard gebruiken. Klik op installeren.</description>
-    </item>
-    
-    <item>
-      <title>Rtools installation</title>
-      <link>/installation/administrator/admin_install_rtools/</link>
-      <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
-      
-      <guid>/installation/administrator/admin_install_rtools/</guid>
-      <description>Windows Installatie en upgrade De installatiebestanden zijn beschikbaar via cloud.r-project.org. Kies de 64-bit versie van de installer.
-Bij een upgrade dient eerst de vorige versie te worden verwijderd.
- Klik Ja. Kies C:\rtools40 (standaard) als installatiemap en klik Next. Laat alles aangevinkt en klik Next. Klik Install. Klik Finish. Wijzing PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;. Start R en controleer of Sys.which(&amp;quot;make&amp;quot;) verwijst naar &amp;quot;C:\\rtools40\\usr\\bin\\make.exe&amp;quot;.  Afwijkingen t.o.v. default installatie  Wijzig de systeemvariabele PATH naar PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;  </description>
-    </item>
-    
-    <item>
-      <title>Pandoc installation</title>
-      <link>/installation/administrator/admin_install_pandoc/</link>
-      <pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
-      
-      <guid>/installation/administrator/admin_install_pandoc/</guid>
-      <description>Windows Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.
-Ubuntu  Kijk op https://github.com/jgm/pandoc/releases wat de laatste versie is. Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster  wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb sudo dpkg -i pandoc-1.19-1-amd64.deb rm pandoc-1.19-1-amd64.deb </description>
-    </item>
-    
-    <item>
-      <title>Git installation</title>
-      <link>/installation/administrator/admin_install_git/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/installation/administrator/admin_install_git/</guid>
-      <description>Windows De installatiebestanden zijn beschikbaar via http://git-scm.com/downloads
- Installeer eerst notepad++. Voer het installatiebestand uit en klik Ja. Welkom bij de installatie: klik op Next. Aanvaard de licentievoorwaarden door Next te klikken. Installeer git in de voorgestelde standaard directory. Gebruik de standaard componenten door Next te klikken. Klik Next om de menu map in te stellen. Kies Notepad++ als editor. Kies use Git from the command line en klik Next. Use OpenSSL library en klik Next.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Administrator installation notes on INBO Tutorials</title>
+		<link>/installation/administrator/</link>
+		<description>Recent content in Administrator installation notes on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 19 Jul 2024 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/installation/administrator/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Install R</title>
+				<link>/installation/administrator/admin_install_r/</link>
+				<pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>/installation/administrator/admin_install_r/</guid>
+				<description>&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;p&gt;Installatiebestand beschikbaar via&#xA;&lt;a href=&#34;https://cloud.r-project.org/bin/windows/base&#34;&gt;cloud.r-project.org&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;In de onderstaande tekst moet je in &lt;code&gt;R-4.x.y&lt;/code&gt; zowel &lt;code&gt;x&lt;/code&gt; als &lt;code&gt;y&lt;/code&gt;&#xA;vervangen door een cijfer om zo het huidige versienummer te krijgen. Dus&#xA;voor versie &lt;code&gt;R-4.0.0&lt;/code&gt; is &lt;code&gt;x&lt;/code&gt; = 0 en &lt;code&gt;y&lt;/code&gt; = 0.&lt;/p&gt;&#xA;&lt;h3 id=&#34;nieuwe-installatie-van-r&#34;&gt;Nieuwe installatie van R&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Voer het bestand &lt;em&gt;R-4.x.y-win.exe&lt;/em&gt; uit.&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;em&gt;Nederlands&lt;/em&gt; als taal voor de installatie en klik op &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;klik op &lt;em&gt;Volgende&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Aanvaard de licentievoorwaarden door op &lt;em&gt;Volgende&lt;/em&gt; te klikken.&lt;/li&gt;&#xA;&lt;li&gt;Wijzig de standaarddoelmap naar &lt;code&gt;C:\R\R-4.x.y&lt;/code&gt; en klik op&#xA;&lt;em&gt;Volgende&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Selecteer de gewenste componenten en klik op &lt;em&gt;Volgende&lt;/em&gt;. Je &lt;strong&gt;MOET&lt;/strong&gt;&#xA;deze standaardwaarden laten staan.&lt;/li&gt;&#xA;&lt;li&gt;Opstartinstelling aanpassen: Kies &lt;code&gt;Nee&lt;/code&gt; en klik op &lt;em&gt;Volgende&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Geef de map voor het start menu en klik op &lt;em&gt;Volgende&lt;/em&gt;. Je mag de&#xA;standaardwaarde gebruiken.&lt;/li&gt;&#xA;&lt;li&gt;Vink de gewenste extra snelkoppelingen &lt;em&gt;aan&lt;/em&gt; (default is ok), alle&#xA;register entries &lt;em&gt;aan&lt;/em&gt; en klik op &lt;em&gt;Volgende&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;R wordt nu geïnstalleerd. Klik op &lt;em&gt;Voltooien&lt;/em&gt; als de installatie&#xA;afgelopen is.&lt;/li&gt;&#xA;&lt;li&gt;Ga naar &lt;code&gt;Start&lt;/code&gt; en tik “Omgevingsvariabelen” in het veld&#xA;&lt;code&gt;Programma&#39;s en variabelen zoeken&lt;/code&gt;. Selecteer&#xA;&lt;code&gt;De omgevingsvariabelen van het systeem bewerken&lt;/code&gt;. Selecteer het&#xA;tabblad &lt;code&gt;Geavanceerd&lt;/code&gt; en klik op de knop &lt;code&gt;Omgevingsvariabelen&lt;/code&gt;. Ga&#xA;na of er een systeemvariabele &lt;code&gt;R_LIBS_USER&lt;/code&gt; met waarde&#xA;&lt;code&gt;C:/R/library&lt;/code&gt; bestaat&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Indien niet, maak deze aan met de knop&#xA;&lt;code&gt;Nieuw&lt;/code&gt;. Sluit al deze schermen via de &lt;code&gt;OK&lt;/code&gt; knop.&lt;/li&gt;&#xA;&lt;li&gt;Kopieer het bestand &lt;a href=&#34;/installation/administrator/admin_install_r/Rprofile.site&#34;&gt;&lt;code&gt;Rprofile.site&lt;/code&gt;&lt;/a&gt; naar &lt;code&gt;etc&lt;/code&gt; in&#xA;de doelmap waar je R geïnstalleerd hebt (&lt;code&gt;C:\R\R-4.x.y&lt;/code&gt;). Hierbij&#xA;moet je het bestaande bestand overschrijven.&lt;/li&gt;&#xA;&lt;li&gt;Zorg dat de gebruiker schrijfrechten heeft voor&#xA;&lt;code&gt;C:\R\R-4.x.y\library&lt;/code&gt; en &lt;code&gt;C:\R\library&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h4 id=&#34;afwijkingen-tov-default-installatie&#34;&gt;Afwijkingen t.o.v. default installatie&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Wijzig de standaarddoelmap naar &lt;code&gt;C:\R\R-4.x.y&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;alle&lt;/strong&gt; gebruikers moeten &lt;strong&gt;volledige&lt;/strong&gt; rechten hebben in&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;C:\R\library&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;C:\R\R-4.x.y\library&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Systeemvariable &lt;code&gt;R_LIBS_USER&lt;/code&gt; instellen op &lt;code&gt;C:/R/library&lt;/code&gt; (&lt;strong&gt;verplicht&#xA;forward slashes&lt;/strong&gt;)&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;/installation/administrator/admin_install_r/Rprofile.site&#34;&gt;&lt;code&gt;Rprofile.site&lt;/code&gt;&lt;/a&gt; in &lt;code&gt;C:\R\R-4.x.y\etc&lt;/code&gt; overschrijven&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;R mag niet met admininstratorrechten gestart worden.&lt;/strong&gt; Anders worden&#xA;een aantal packages met administrator rechten geïnstalleerd waardoor de&#xA;gebruiker ze niet meer kan updaten.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>RStudio Desktop installation</title>
+				<link>/installation/administrator/admin_install_rstudio/</link>
+				<pubDate>Wed, 18 Oct 2017 00:30:40 +0200</pubDate>
+				<guid>/installation/administrator/admin_install_rstudio/</guid>
+				<description>&lt;p&gt;De installatiebestanden voor de stabiele versies zijn beschikbaar via &lt;a href=&#34;http://www.rstudio.com/products/rstudio/download/&#34;&gt;http://www.rstudio.com/products/rstudio/download/&lt;/a&gt;.&#xA;De preview versie is beschikbaar via &lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/preview/&#34;&gt;https://www.rstudio.com/products/rstudio/download/preview/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;h3 id=&#34;nieuwe-installatie-en-upgrade-van-rstudio&#34;&gt;Nieuwe installatie en upgrade van RStudio&lt;/h3&gt;&#xA;&lt;p&gt;RStudio upgraden doe je door de nieuwe versie te installeren over de oude.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Zorg dat eerst &lt;code&gt;R&lt;/code&gt; geïnstalleerd is.&lt;/li&gt;&#xA;&lt;li&gt;Voer het 64-bit installatiebestand uit.&lt;/li&gt;&#xA;&lt;li&gt;Klik &lt;em&gt;Ja&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Welkom bij de installatie: klik op &lt;em&gt;volgende&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Geef de doelmap en klik op &lt;em&gt;volgende&lt;/em&gt;.&#xA;Je mag de standaard gebruiken.&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;installeren&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;voltooien&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Kopieer het bestand &lt;a href=&#34;/installation/administrator/admin_install_rstudio/rstudio-prefs.json&#34;&gt;&lt;code&gt;rstudio-prefs.json&lt;/code&gt;&lt;/a&gt; naar de verborgen map &lt;code&gt;AppData/Roaming/RStudio&lt;/code&gt; in de persoonlijke map van de gebruiker (&lt;code&gt;C:/users/username&lt;/code&gt;).&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;RStudio mag niet met admininstratorrechten gestart worden.&lt;/strong&gt;&#xA;Anders worden een aantal R packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Rtools installation</title>
+				<link>/installation/administrator/admin_install_rtools/</link>
+				<pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
+				<guid>/installation/administrator/admin_install_rtools/</guid>
+				<description>&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;h3 id=&#34;installatie-en-upgrade&#34;&gt;Installatie en upgrade&lt;/h3&gt;&#xA;&lt;p&gt;De installatiebestanden zijn beschikbaar via &lt;a href=&#34;https://cloud.r-project.org/bin/windows/Rtools/&#34;&gt;cloud.r-project.org&lt;/a&gt;.&#xA;Kies de 64-bit versie van de installer.&lt;/p&gt;&#xA;&lt;p&gt;Bij een upgrade dient eerst de vorige versie te worden verwijderd.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Klik &lt;em&gt;Ja&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;code&gt;C:\rtools40&lt;/code&gt; (standaard) als installatiemap en klik &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Laat alles aangevinkt en klik &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Klik &lt;em&gt;Install&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Klik &lt;em&gt;Finish&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Wijzing &lt;code&gt;PATH&lt;/code&gt; naar &lt;code&gt;PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Start R en controleer of &lt;code&gt;Sys.which(&amp;quot;make&amp;quot;)&lt;/code&gt; verwijst naar &lt;code&gt;&amp;quot;C:\\rtools40\\usr\\bin\\make.exe&amp;quot;&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;afwijkingen-tov-default-installatie&#34;&gt;Afwijkingen t.o.v. default installatie&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Wijzig de systeemvariabele &lt;code&gt;PATH&lt;/code&gt; naar &lt;code&gt;PATH=&amp;quot;${RTOOLS40_HOME}\usr\bin;${PATH}&amp;quot;&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
+				<title>Pandoc installation</title>
+				<link>/installation/administrator/admin_install_pandoc/</link>
+				<pubDate>Wed, 18 Oct 2017 00:28:40 +0200</pubDate>
+				<guid>/installation/administrator/admin_install_pandoc/</guid>
+				<description>&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;p&gt;Pandoc wordt automatisch geïnstalleerd als je RStudio installeert.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Kijk op &lt;a href=&#34;https://github.com/jgm/pandoc/releases&#34;&gt;https://github.com/jgm/pandoc/releases&lt;/a&gt; wat de laatste versie is.&lt;/li&gt;&#xA;&lt;li&gt;Pas het versienummer in onderstaande code aan en voer ze uit in een terminalvenster&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget https://github.com/jgm/pandoc/releases/download/1.19/pandoc-1.19-1-amd64.deb&#xA;sudo dpkg -i pandoc-1.19-1-amd64.deb&#xA;rm pandoc-1.19-1-amd64.deb&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+			</item>
+			<item>
+				<title>Git installation</title>
+				<link>/installation/administrator/admin_install_git/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>/installation/administrator/admin_install_git/</guid>
+				<description>&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;p&gt;De installatiebestanden zijn beschikbaar via &lt;a href=&#34;http://git-scm.com/downloads&#34;&gt;http://git-scm.com/downloads&lt;/a&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Installeer eerst &lt;code&gt;notepad++&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Voer het installatiebestand uit en klik &lt;em&gt;Ja&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Welkom bij de installatie: klik op &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Aanvaard de licentievoorwaarden door &lt;em&gt;Next&lt;/em&gt; te klikken.&lt;/li&gt;&#xA;&lt;li&gt;Installeer git in de voorgestelde standaard directory.&lt;/li&gt;&#xA;&lt;li&gt;Gebruik de standaard componenten door &lt;em&gt;Next&lt;/em&gt; te klikken.&lt;/li&gt;&#xA;&lt;li&gt;Klik &lt;em&gt;Next&lt;/em&gt; om de menu map in te stellen.&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;code&gt;Notepad++&lt;/code&gt; als editor.&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;code&gt;use Git from the command line&lt;/code&gt; en klik &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;Use OpenSSL library&lt;/code&gt; en klik &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;code&gt;Checkout Windows-style, commit Unix-style line endings&lt;/code&gt; en klik &lt;em&gt;Next&lt;/em&gt;&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;code&gt;use Windows&#39; default console window&lt;/code&gt; en klik &lt;em&gt;Next&lt;/em&gt;&lt;/li&gt;&#xA;&lt;li&gt;Kies &lt;code&gt;Default&lt;/code&gt; en klik &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Gebruik de standaard door &lt;em&gt;Next&lt;/em&gt; te klikken.&lt;/li&gt;&#xA;&lt;li&gt;Gebruik de standaard door &lt;em&gt;Install&lt;/em&gt; te klikken.&lt;/li&gt;&#xA;&lt;li&gt;Vink alles uit en klik op &lt;em&gt;Next&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;afwijkingen-tov-default-installatie&#34;&gt;Afwijkingen t.o.v. default installatie&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;Notepad++&lt;/code&gt; als editor&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;use Windows&#39; default console window&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;ubuntu&#34;&gt;Ubuntu&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get update&#xA;sudo apt-get install git&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+			</item>
+	</channel>
 </rss>

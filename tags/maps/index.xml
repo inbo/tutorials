@@ -1,86 +1,66 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>maps on INBO Tutorials</title>
-    <link>/tags/maps/</link>
-    <description>Recent content in maps on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/maps/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Using WFS services in R</title>
-      <link>/tutorials/spatial_wfs_services/</link>
-      <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
-The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
-    </item>
-    
-    <item>
-      <title>Using WMS services in R</title>
-      <link>/tutorials/spatial_wms_services/</link>
-      <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_wms_services/</guid>
-      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
-We will use the leaflet package to make interactive maps.
-library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
-# Flanders: wms_grb &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
-    </item>
-    
-    <item>
-      <title>Coordinate operations and maps in R</title>
-      <link>/tutorials/spatial_transform_crs_2/</link>
-      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_crs_2/</guid>
-      <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
-A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
-The tutorial assumes you have some pre-existing knowledge:
- Basic knowledge about coordinate reference systems (CRSs) and geodetic datums; see another tutorial and the references and links therein.</description>
-    </item>
-    
-    <item>
-      <title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
-      <link>/tutorials/spatial_crs_coding/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_crs_coding/</guid>
-      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
-    </item>
-    
-    <item>
-      <title>Transforming spatial objects</title>
-      <link>/tutorials/spatial_transform_crs/</link>
-      <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_crs/</guid>
-      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
-Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
-    </item>
-    
-    <item>
-      <title>How to make spatial joins (point in polygon)?</title>
-      <link>/tutorials/spatial_point_in_polygon/</link>
-      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_point_in_polygon/</guid>
-      <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
-Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
-    </item>
-    
-    <item>
-      <title>Let&#39;s create an interactive map!</title>
-      <link>/tutorials/spatial_create_leaflet_map/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_create_leaflet_map/</guid>
-      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
-Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let’s create a dummy data.frame to play around, i.e. the three locations of INBO:
-names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;, &amp;#34;Geraardsbergen&amp;#34;, &amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Maps on INBO Tutorials</title>
+		<link>/tags/maps/</link>
+		<description>Recent content in Maps on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 31 Aug 2023 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/maps/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Using WFS services in R</title>
+				<link>/tutorials/spatial_wfs_services/</link>
+				<pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_wfs_services/</guid>
+				<description>&lt;h1 id=&#34;what-is-wfs&#34;&gt;What is WFS?&lt;/h1&gt;&#xA;&lt;p&gt;In computing, the &lt;a href=&#34;http://www.opengeospatial.org/standards/wfs&#34;&gt;Open Geospatial Consortium (OGC) &lt;strong&gt;Web Feature&#xA;Service (WFS)&lt;/strong&gt;&lt;/a&gt; Interface&#xA;Standard provides an interface allowing requests for geographical&#xA;features across the web using platform-independent calls. One can think&#xA;of geographical features as the “source code” behind a map, whereas the&#xA;Web Mapping Service (WMS) interface or online tiled mapping portals like&#xA;Google Maps return only an image, which end-users cannot edit or&#xA;spatially analyze.&lt;/p&gt;&#xA;&lt;p&gt;The standard output format for reading or downloading data from a WFS is&#xA;the XML-based Geography Markup Language (GML), but other formats like&#xA;shapefiles or geojson are also available. In early 2006 the OGC members&#xA;approved the OpenGIS GML Simple Features Profile. This profile is&#xA;designed both to increase interoperability between WFS servers and to&#xA;improve the ease of implementation of the WFS standard. (Source:&#xA;&lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Feature_Service&#34;&gt;Wikipedia&lt;/a&gt;)&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Using WMS services in R</title>
+				<link>/tutorials/spatial_wms_services/</link>
+				<pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_wms_services/</guid>
+				<description>&lt;p&gt;WMS stands for &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Map_Service&#34;&gt;Web Map&#xA;Service&lt;/a&gt;. The service&#xA;provides prerendered tiles at different scales. This makes it useful to&#xA;include them as background images in maps.&lt;/p&gt;&#xA;&lt;p&gt;We will use the &lt;code&gt;leaflet&lt;/code&gt; package to make interactive maps.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, we define some WMS URLs for Flanders and Belgium to play with:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# Flanders:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_grb &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_ortho &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_inbo &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_hunting &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# Belgium:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_cartoweb_be &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_ortho_be &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://wms.ngi.be/inspire/ortho/service&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;code&gt;wms_grb&lt;/code&gt; links to the WMS of the&#xA;&lt;a href=&#34;http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151&#34;&gt;GRB-basiskaart&lt;/a&gt;,&#xA;the Flemish cadastral map. It depicts land parcels, buildings,&#xA;watercourses, roads and railroads.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Coordinate operations and maps in R</title>
+				<link>/tutorials/spatial_transform_crs_2/</link>
+				<pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_crs_2/</guid>
+				<description>&lt;h2 id=&#34;introduction-and-setup&#34;&gt;Introduction and setup&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial originated while preparing an R-demonstration during a GIS&#xA;club at INBO on 16 September 2021. (Further material of the GIS club is&#xA;available&#xA;&lt;a href=&#34;https://drive.google.com/drive/folders/1s5HZ5VjnkTbCQSE1vfFyMJz6PVIl4mHW&#34;&gt;here&lt;/a&gt;.)&lt;/p&gt;&#xA;&lt;p&gt;A straightforward approach for transforming spatial data is available in&#xA;another &lt;a href=&#34;../spatial_transform_crs/&#34;&gt;tutorial&lt;/a&gt;. The current tutorial&#xA;tackles a few extra aspects.&lt;/p&gt;&#xA;&lt;p&gt;The tutorial assumes you have some pre-existing knowledge:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Basic knowledge about coordinate reference systems (CRSs) and&#xA;geodetic datums; see &lt;a href=&#34;../spatial_crs_coding/&#34;&gt;another tutorial&lt;/a&gt; and&#xA;the references and links therein.&lt;/li&gt;&#xA;&lt;li&gt;Knowing how to read geospatial files with&#xA;&lt;a href=&#34;https://r-spatial.github.io/sf&#34;&gt;&lt;code&gt;sf&lt;/code&gt;&lt;/a&gt;. There is another&#xA;&lt;a href=&#34;../spatial_standards_vector/&#34;&gt;tutorial&lt;/a&gt; demonstrating some aspects.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;In this tutorial we will apply conversions (without datum shift) and&#xA;transformations (with datum shift) to &lt;code&gt;sf&lt;/code&gt; and &lt;code&gt;sfc&lt;/code&gt; objects. In the&#xA;background, these operations use the &lt;a href=&#34;https://proj.org&#34;&gt;PROJ&lt;/a&gt; library.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
+				<link>/tutorials/spatial_crs_coding/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_crs_coding/</guid>
+				<description>&lt;h2 id=&#34;coordinate-reference-systems-minimal-background&#34;&gt;Coordinate reference systems: minimal background&lt;/h2&gt;&#xA;&lt;h3 id=&#34;what&#34;&gt;What?&lt;/h3&gt;&#xA;&lt;p&gt;A coordinate reference system (&lt;strong&gt;CRS&lt;/strong&gt;) – also called spatial reference&#xA;system (SRS) – is what you need if you want to interpret numeric&#xA;coordinates as actual point locations with reference to the Earth. Two&#xA;types of coordinate reference system are much used in spatial science:&#xA;&lt;em&gt;geodetic&lt;/em&gt; and &lt;em&gt;projected&lt;/em&gt; CRSs. The former serve only to locate&#xA;coordinates relative to a 3D model of the Earth surface, while the&#xA;latter add a projection to generate coordinates on a 2D map. Coordinate&#xA;operations convert or transform coordinates from one CRS to another, and&#xA;you often need them because the CRS may differ between dataset 1,&#xA;dataset 2 or a specific mapping technology (such as &lt;code&gt;leaflet&lt;/code&gt;).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Transforming spatial objects</title>
+				<link>/tutorials/spatial_transform_crs/</link>
+				<pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_crs/</guid>
+				<description>&lt;p&gt;&lt;em&gt;General note: migration to the more actively developed &lt;code&gt;sf&lt;/code&gt; package is&#xA;currently advised by the &lt;code&gt;sp&lt;/code&gt; maintainer.&lt;/em&gt; &lt;em&gt;The &lt;code&gt;sp&lt;/code&gt; package, used in&#xA;this tutorial, is still maintained in order to support the newest&#xA;versions of the GDAL and PROJ backends.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Sometimes we have a layer in one coordinate reference system (CRS) and&#xA;need to transform it into another coordinate reference system. The first&#xA;thing we need to do is identifying both coordinate reference systems.&#xA;Let’s create an example and identify the coordinate reference system&#xA;with &lt;code&gt;wkt()&lt;/code&gt;. We used the coordinates posted on the contact page of&#xA;&lt;a href=&#34;http://www.ngi.be/NL/NL5.shtm&#34;&gt;NGI&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>How to make spatial joins (point in polygon)?</title>
+				<link>/tutorials/spatial_point_in_polygon/</link>
+				<pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_point_in_polygon/</guid>
+				<description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(R.utils)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(rgdal)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(tidyverse)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sp)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sf)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(rgbif)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(DBI)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;what-we-want-to-do&#34;&gt;What we want to do&lt;/h2&gt;&#xA;&lt;p&gt;In this short tutorial, we explore various options to deal with the&#xA;situation where we have (1) a spatially referenced GIS file with&#xA;polygons and (2) a spatially referenced set of points that overlaps with&#xA;the GIS polygons.&lt;/p&gt;&#xA;&lt;p&gt;Typically, both data sources contain information (apart from the spatial&#xA;locations) that needs to be related to each other in some way. In this&#xA;case study, we want to know for each point in which polygon it is&#xA;located.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Let&#39;s create an interactive map!</title>
+				<link>/tutorials/spatial_create_leaflet_map/</link>
+				<pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_create_leaflet_map/</guid>
+				<description>&lt;p&gt;&lt;em&gt;General note: migration to the more actively developed &lt;code&gt;sf&lt;/code&gt; package is&#xA;currently advised by the &lt;code&gt;sp&lt;/code&gt; maintainer.&lt;/em&gt; &lt;em&gt;The &lt;code&gt;sp&lt;/code&gt; package, used in&#xA;this tutorial, is still maintained in order to support the newest&#xA;versions of the GDAL and PROJ backends.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The required packages are &lt;strong&gt;leaflet&lt;/strong&gt; and &lt;strong&gt;sp&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sp)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;dummy-data&#34;&gt;Dummy data&lt;/h2&gt;&#xA;&lt;p&gt;Let’s create a dummy &lt;code&gt;data.frame&lt;/code&gt; to play around, i.e. the three&#xA;locations of INBO:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;names &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;VAC HT&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;Geraardsbergen&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;Linkebeek&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lat &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#099&#34;&gt;50.865664&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;50.760201&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;50.767950&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lon &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#099&#34;&gt;4.349944&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;3.874300&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;4.333044&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;data &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;data.frame&lt;/span&gt;(names, lat, lon)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We created three points:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

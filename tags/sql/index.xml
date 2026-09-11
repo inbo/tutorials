@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>sql on INBO Tutorials</title>
-    <link>/tags/sql/</link>
-    <description>Recent content in sql on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sql/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Table Inheritance with PostgreSQL</title>
-      <link>/tutorials/sql_inheritance/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/sql_inheritance/</guid>
-      <description>Motivation For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, cf.) we organize fieldwork with a QGIS/QField front-end which connects to a database backend. The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.
-One central component of our database is a fieldwork calendar, which you could think of as a sort of TODO list: in there are the various activity types, per location, with a due date.</description>
-    </item>
-    
-    <item>
-      <title>Styleguide SQL-scripts</title>
-      <link>/tutorials/sql_styleguide/</link>
-      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/sql_styleguide/</guid>
-      <description>SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.
-In short  --This is how a basic SQL-script should look like /** Description: Lijst met broedvogels per UTM1-hok sinds 2010 Created: 2015-08-12 Created by: Frederic Piesschaert **/ SELECT w.WRNG_JAR AS jaar , w.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Sql on INBO Tutorials</title>
+		<link>/tags/sql/</link>
+		<description>Recent content in Sql on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Table Inheritance with PostgreSQL</title>
+				<link>/tutorials/sql_inheritance/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tutorials/sql_inheritance/</guid>
+				<description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, &lt;a href=&#34;https://www.vlaanderen.be/inbo/teams/meetnetten-natuurlijk-milieu&#34;&gt;&lt;em&gt;cf.&lt;/em&gt;&lt;/a&gt;) we organize fieldwork with a &lt;a href=&#34;https://qgis.org&#34;&gt;QGIS&lt;/a&gt;/&lt;a href=&#34;https://qfield.org&#34;&gt;QField&lt;/a&gt; front-end which connects to a database backend.&#xA;The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.&lt;/p&gt;&#xA;&lt;p&gt;One central component of our database is a fieldwork calendar, which you could think of as a sort of &lt;strong&gt;TODO list&lt;/strong&gt;: in there are the various activity types, per location, with a due date.&#xA;This is outbound information: it is planned in desktop work, and facilitates the allocation of our efforts in the field.&#xA;On the other hand, there are the actual actions performed in the field: inbound information captured during execution of the task.&#xA;All the different tasks (installation/preparation/measurement) have &lt;strong&gt;some data fields in common, whereas other fields are task-specific&lt;/strong&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Styleguide SQL-scripts</title>
+				<link>/tutorials/sql_styleguide/</link>
+				<pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/sql_styleguide/</guid>
+				<description>&lt;p&gt;SQL is a standard language for storing, manipulating and retrieving data in databases. This is not a SQL-course but a styleguide, describing how to enhance the readability of your SQL-scripts. Focus of the styleguide is on scripts for retrieving data.&lt;/p&gt;&#xA;&lt;h1 id=&#34;in-short&#34;&gt;In short&lt;/h1&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    --This is how a basic SQL-script should look like&#xA;    &#xA;    /**&#xA;    Description: Lijst met broedvogels per UTM1-hok sinds 2010&#xA;    Created: 2015-08-12&#xA;    Created by: Frederic Piesschaert&#xA;    **/&#xA;&#xA;    SELECT w.WRNG_JAR AS jaar&#xA;      , w.WRNG_UTM1_CDE AS utm1&#xA;      , s.SPEC_NAM_WET AS wetenschappelijke_naam&#xA;      , s.SPEC_NAM_NED AS nederlandse_naam&#xA;      , t.TOPO_DES AS locatie&#xA;    FROM tblWaarneming w&#xA;      INNER JOIN tblWaarnemingMeting wm ON w.WRNG_ID = wm.WRME_WRNG_ID&#xA;      INNER JOIN tblSoort s ON wm.WRME_SPEC_CDE = s.SPEC_CDE&#xA;      LEFT JOIN tblToponiem t on t.TOPO_ID = w.WRNG_TOPO_ID --toponiemen werden niet altijd ingevuld&#xA;    WHERE 1 = 1&#xA;      AND w.WRNG_UTM1_CDE IS NOT NULL&#xA;      AND w.WRNG_JAR &amp;gt; 2010&#xA;    GROUP BY w.WRNG_JAR&#xA;      , w.WRNG_UTM1_CDE&#xA;      , s.SPEC_NAM_WET&#xA;      , s.SPEC_NAM_NED&#xA;      , t.TOPO_DES&#xA;    ORDER BY s.SPEC_NAM_NED&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;SQL-keywords (SELECT, FROM, JOIN, WHERE, GROUP BY, &amp;hellip;) are written in capitals&lt;/li&gt;&#xA;&lt;li&gt;Table names and field names are capitalized as they are defined in the database&lt;/li&gt;&#xA;&lt;li&gt;Use short and meaningful aliases and write them in lowercase&lt;/li&gt;&#xA;&lt;li&gt;Use a new line for each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause&lt;/li&gt;&#xA;&lt;li&gt;Put the comma in front of the line in SELECT and GROUP BY statements&lt;/li&gt;&#xA;&lt;li&gt;Indent each field in the SELECT-statement and each argument in the WHERE and GROUP BY clause&lt;/li&gt;&#xA;&lt;li&gt;When multiple arguments are used in the WHERE clause, AND/OR keywords are always placed at the front&lt;/li&gt;&#xA;&lt;li&gt;Use full INNER JOIN statements&lt;/li&gt;&#xA;&lt;li&gt;JOINS should be indented&lt;/li&gt;&#xA;&lt;li&gt;Subqueries should be indented and properly named&lt;/li&gt;&#xA;&lt;li&gt;Put whitespaces around relational operators (= &amp;gt; &amp;hellip;)&lt;/li&gt;&#xA;&lt;li&gt;Document your scripts&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;layout&#34;&gt;Layout&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;SQL-keywords (SELECT, FROM, JOIN, WHERE, GROUP BY, &amp;hellip;) are written in capitals&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

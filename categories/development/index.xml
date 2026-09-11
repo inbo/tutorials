@@ -1,85 +1,66 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>development on INBO Tutorials</title>
-    <link>/categories/development/</link>
-    <description>Recent content in development on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/development/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mathematical Transformations of Spatially Balanced Samples</title>
-      <link>/tutorials/spatial_transform_balanced_samples/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_balanced_samples/</guid>
-      <description>library(&amp;#34;dplyr&amp;#34;) library(&amp;#34;magrittr&amp;#34;) library(&amp;#34;sf&amp;#34;) library(&amp;#34;glue&amp;#34;) library(&amp;#34;spbal&amp;#34;) library(&amp;#34;ggplot2&amp;#34;) library(&amp;#34;ggExtra&amp;#34;) # set specific seed for reproducability location_id &amp;lt;- 42 set.seed(location_id) 
-Introduction Is Randomness Chaos? Occasionally, one requires a set of points which are randomly distributed in a given area.
-n_samples &amp;lt;- 2^8 x &amp;lt;- runif(n_samples) y &amp;lt;- runif(n_samples) data &amp;lt;- data.frame(&amp;#34;x&amp;#34; = x, &amp;#34;y&amp;#34; = y) par(pty = &amp;#34;s&amp;#34;) plot(data, pch = 21, col = &amp;#34;black&amp;#34;) But then, you know, if we are honest, &amp;ldquo;random&amp;rdquo; might be a bit too random.</description>
-    </item>
-    
-    <item>
-      <title>Table Inheritance with PostgreSQL</title>
-      <link>/tutorials/sql_inheritance/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/sql_inheritance/</guid>
-      <description>Motivation For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, cf.) we organize fieldwork with a QGIS/QField front-end which connects to a database backend. The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.
-One central component of our database is a fieldwork calendar, which you could think of as a sort of TODO list: in there are the various activity types, per location, with a due date.</description>
-    </item>
-    
-    <item>
-      <title>The `keyring` package: We can do better than `*******`.</title>
-      <link>/tutorials/r_keyring/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_keyring/</guid>
-      <description>What do the software &amp;ldquo;giants&amp;rdquo; Cisco, Ivanti, and Atlassian all have in common? They all (repeatedly) raised negative attention in the past by pushing hardcoded, unencrypted credentials to the public.
-This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners&#39; mistake.
-The programming environment we will use is R. The package of choice is keyring, but it will be spiced up with some extra precautions.</description>
-    </item>
-    
-    <item>
-      <title>An Algorithmic Approach to Variograms</title>
-      <link>/tutorials/spatial_variograms/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_variograms/</guid>
-      <description>Introduction  Everything is related to everything else, but near things are more related than distant things.
- (First Law according to Waldo Tobler)
-This remarkably unquantitative statement, or &amp;ldquo;law&amp;rdquo;, is described on wikipedia as &amp;ldquo;a direct product of the quantitative revolution&amp;rdquo; in Geography. Contrast it with the wikipedia article on variograms, which is full of jargon and seemingly complicated equations.
-With this tutorial, I would like to document the condensed essence of my own trials and misunderstandings with practical variogram-based analysis.</description>
-    </item>
-    
-    <item>
-      <title>Software by INBO: packages for environmentalists and ecologists!</title>
-      <link>/articles/inbo_software/</link>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/inbo_software/</guid>
-      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel free to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
-    </item>
-    
-    <item>
-      <title>Wercker</title>
-      <link>/tutorials/development_wercker/</link>
-      <pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
-      
-      <guid>/tutorials/development_wercker/</guid>
-      <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
- create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
-The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
-    </item>
-    
-    <item>
-      <title>Code coverage</title>
-      <link>/tutorials/development_codecov/</link>
-      <pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
-      
-      <guid>/tutorials/development_codecov/</guid>
-      <description>R CMD check has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, R CMD check does run a set unit tests. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the testthat framework for writing unit tests.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Development on INBO Tutorials</title>
+		<link>/categories/development/</link>
+		<description>Recent content in Development on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/categories/development/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Mathematical Transformations of Spatially Balanced Samples</title>
+				<link>/tutorials/spatial_transform_balanced_samples/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_balanced_samples/</guid>
+				<description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;dplyr&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;magrittr&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;sf&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;glue&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;spbal&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;ggplot2&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;ggExtra&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# set specific seed for reproducability&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;location_id &amp;lt;- &lt;span style=&#34;color:#099&#34;&gt;42&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;set.seed&lt;/span&gt;(location_id)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a id=&#34;sec-introduction&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;h2 id=&#34;is-randomness-chaos&#34;&gt;Is Randomness Chaos?&lt;/h2&gt;&#xA;&lt;p&gt;Occasionally, one requires a set of points which are &lt;strong&gt;randomly distributed&lt;/strong&gt; in a given area.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;n_samples &amp;lt;- &lt;span style=&#34;color:#099&#34;&gt;2&lt;/span&gt;^8&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;x &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;runif&lt;/span&gt;(n_samples)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;y &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;runif&lt;/span&gt;(n_samples)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;data &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;data.frame&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;x&amp;#34;&lt;/span&gt; = x, &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;y&amp;#34;&lt;/span&gt; = y)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;par&lt;/span&gt;(pty = &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;s&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;plot&lt;/span&gt;(data, pch = &lt;span style=&#34;color:#099&#34;&gt;21&lt;/span&gt;, col = &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;black&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;/images/tutorials/spatial_transform_balanced_samples/totally-random-points-1.png&#34; width=&#34;80%&#34; /&gt;&#xA;&lt;p&gt;But then, you know, if we are honest, &amp;ldquo;random&amp;rdquo; might be a bit too random.&#xA;Some points come out on top of each other, some areas remain blank, and the corner points are quite far from the center.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Table Inheritance with PostgreSQL</title>
+				<link>/tutorials/sql_inheritance/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tutorials/sql_inheritance/</guid>
+				<description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, &lt;a href=&#34;https://www.vlaanderen.be/inbo/teams/meetnetten-natuurlijk-milieu&#34;&gt;&lt;em&gt;cf.&lt;/em&gt;&lt;/a&gt;) we organize fieldwork with a &lt;a href=&#34;https://qgis.org&#34;&gt;QGIS&lt;/a&gt;/&lt;a href=&#34;https://qfield.org&#34;&gt;QField&lt;/a&gt; front-end which connects to a database backend.&#xA;The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.&lt;/p&gt;&#xA;&lt;p&gt;One central component of our database is a fieldwork calendar, which you could think of as a sort of &lt;strong&gt;TODO list&lt;/strong&gt;: in there are the various activity types, per location, with a due date.&#xA;This is outbound information: it is planned in desktop work, and facilitates the allocation of our efforts in the field.&#xA;On the other hand, there are the actual actions performed in the field: inbound information captured during execution of the task.&#xA;All the different tasks (installation/preparation/measurement) have &lt;strong&gt;some data fields in common, whereas other fields are task-specific&lt;/strong&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>The `keyring` package: We can do better than `*******`.</title>
+				<link>/tutorials/r_keyring/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_keyring/</guid>
+				<description>&lt;p&gt;What do the software &amp;ldquo;giants&amp;rdquo; Cisco, Ivanti, and Atlassian all have in common?&#xA;They all (repeatedly) raised negative attention in the past by &lt;a href=&#34;https://www.bleepingcomputer.com/search/?q=hardcoded&amp;#43;credentials&#34;&gt;pushing hardcoded, unencrypted credentials to the public&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners&amp;rsquo; mistake.&lt;/p&gt;&#xA;&lt;p&gt;The programming environment we will use is R.&#xA;The package of choice is &lt;a href=&#34;https://keyring.r-lib.org/index.html&#34;&gt;&lt;code&gt;keyring&lt;/code&gt;&lt;/a&gt;, but it will be spiced up with some extra precautions.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>An Algorithmic Approach to Variograms</title>
+				<link>/tutorials/spatial_variograms/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_variograms/</guid>
+				<description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Everything is related to everything else, but near things are more related than distant things.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography&#34;&gt;&lt;em&gt;(First Law according to Waldo Tobler)&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;This remarkably unquantitative statement, or &amp;ldquo;law&amp;rdquo;, is described &lt;a href=&#34;https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography#Background&#34;&gt;on wikipedia&lt;/a&gt; as &amp;ldquo;a direct product of the quantitative revolution&amp;rdquo; in Geography.&#xA;Contrast it with the &lt;a href=&#34;https://en.wikipedia.org/wiki/Variogram&#34;&gt;wikipedia article on variograms&lt;/a&gt;, which is full of jargon and seemingly complicated equations.&lt;/p&gt;&#xA;&lt;p&gt;With this tutorial, I would like to document the condensed essence of my own trials and misunderstandings with practical variogram-based analysis.&#xA;We will see below that variograms are not that complicated after all.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Software by INBO: packages for environmentalists and ecologists!</title>
+				<link>/articles/inbo_software/</link>
+				<pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/inbo_software/</guid>
+				<description>&lt;p&gt;At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists &lt;strong&gt;R and Python packages&lt;/strong&gt; which INBO developed or made a significant contribution to. Several of these packages continue being developed.&lt;/p&gt;&#xA;&lt;p&gt;Please, feel free to &lt;strong&gt;try out&lt;/strong&gt; packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository. You can also directly contribute improvements with a pull request.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Wercker</title>
+				<link>/tutorials/development_wercker/</link>
+				<pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
+				<guid>/tutorials/development_wercker/</guid>
+				<description>&lt;h2 id=&#34;set-up-continuous-integration-with-wercker&#34;&gt;Set up continuous integration with Wercker&lt;/h2&gt;&#xA;&lt;p&gt;There are 2 major steps to set up continuous integration:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;create a &lt;code&gt;wercker.yml&lt;/code&gt; file in the package&lt;/li&gt;&#xA;&lt;li&gt;add the application (package) to Wercker.com&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.&lt;/p&gt;&#xA;&lt;p&gt;The Wercker test environment can only be set up if the file &lt;code&gt;wercker.yml&lt;/code&gt; is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.com (giving an error if &lt;code&gt;wercker.yml&lt;/code&gt; is not commited yet).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Code coverage</title>
+				<link>/tutorials/development_codecov/</link>
+				<pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
+				<guid>/tutorials/development_codecov/</guid>
+				<description>&lt;p&gt;&lt;code&gt;R CMD check&lt;/code&gt; has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, &lt;code&gt;R CMD check&lt;/code&gt; does run a set &lt;a href=&#34;https://en.wikipedia.org/wiki/Unit_testing&#34;&gt;unit tests&lt;/a&gt;. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the &lt;a href=&#34;http://testthat.r-lib.org/&#34;&gt;&lt;code&gt;testthat&lt;/code&gt;&lt;/a&gt; framework for writing unit tests.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

@@ -1,105 +1,80 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Articles on INBO Tutorials</title>
-    <link>/articles/</link>
-    <description>Recent content in Articles on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="/articles/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Software by INBO: packages for environmentalists and ecologists!</title>
-      <link>/articles/inbo_software/</link>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/inbo_software/</guid>
-      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel free to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
-    </item>
-    
-    <item>
-      <title>The UTM grid and the MGRS grid: not quite the same</title>
-      <link>/articles/spatial_mgrs/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/spatial_mgrs/</guid>
-      <description>Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
-Main points:
- The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.</description>
-    </item>
-    
-    <item>
-      <title>Statistics courses @ INBO!</title>
-      <link>/articles/inbo_stats_courses/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/inbo_stats_courses/</guid>
-      <description>During the course of the years, we have taught many statistics courses at the Research Institute for Nature and Forest (INBO), both for scientists and technicians. Most of these courses have been developed and taught in-house. Some (mostly advanced) courses were taught in-house by external teachers.
-While we do plan to periodically repeat these courses for new employees and as a refresher, the course material can always be consulted and used for self-teaching or as a reference.</description>
-    </item>
-    
-    <item>
-      <title>Acquiring the skills</title>
-      <link>/articles/skills/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/skills/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
-    </item>
-    
-    <item>
-      <title>Scientific computing and data handling workflows</title>
-      <link>/articles/computing/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/computing/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-Overviews  Wilson et al. (2017): set of good computing practices that every researcher can adopt British Ecological Society (2014): planning the data life cycle; creating, processing, documenting, preserving, sharing &amp;amp; reusing data Goudeseune et al.</description>
-    </item>
-    
-    <item>
-      <title>The discipline of open science</title>
-      <link>/articles/open_science/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/open_science/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
-    </item>
-    
-    <item>
-      <title>Meet some popular open geospatial standards!</title>
-      <link>/articles/geospatial_standards/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/geospatial_standards/</guid>
-      <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
-Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
-    </item>
-    
-    <item>
-      <title>Books and articles on statistics</title>
-      <link>/articles/statistics/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/statistics/</guid>
-      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I’ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
-    </item>
-    
-    <item>
-      <title>Sharing and communicating</title>
-      <link>/articles/communicating/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/communicating/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Articles on INBO Tutorials</title>
+		<link>/articles/</link>
+		<description>Recent content in Articles on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/articles/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Software by INBO: packages for environmentalists and ecologists!</title>
+				<link>/articles/inbo_software/</link>
+				<pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/inbo_software/</guid>
+				<description>&lt;p&gt;At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists &lt;strong&gt;R and Python packages&lt;/strong&gt; which INBO developed or made a significant contribution to. Several of these packages continue being developed.&lt;/p&gt;&#xA;&lt;p&gt;Please, feel free to &lt;strong&gt;try out&lt;/strong&gt; packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository. You can also directly contribute improvements with a pull request.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>The UTM grid and the MGRS grid: not quite the same</title>
+				<link>/articles/spatial_mgrs/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/spatial_mgrs/</guid>
+				<description>&lt;h4 id=&#34;summary&#34;&gt;Summary&lt;/h4&gt;&#xA;&lt;p&gt;Grids are widely used in biodiversity monitoring to define the basic&#xA;spatial units for data collection, data processing or mapping. In this&#xA;post I explain differences between the UTM and MGRS grids, provide&#xA;references to their full definition and refer to some software&#xA;implementations for MGRS.&lt;/p&gt;&#xA;&lt;p&gt;Main points:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The UTM grid and the MGRS grid outside the polar regions are both&#xA;derived from the UTM (Universal Transverse Mercator) map projection&#xA;system. Both grids have a world-wide coverage, but the polar regions&#xA;are only covered by the MGRS grid. In the polar regions, the MGRS grid&#xA;is derived from the UPS (Universal Polar Stereographic) map&#xA;projection.&lt;/li&gt;&#xA;&lt;li&gt;The major divisions of the UTM grid are the &lt;em&gt;UTM zones&lt;/em&gt;, defined by&#xA;meridians that are 6° apart. The understanding of the term ‘UTM grid’&#xA;in this post &lt;em&gt;only&lt;/em&gt; involves grid lines tied to the UTM coordinate&#xA;system.&lt;/li&gt;&#xA;&lt;li&gt;In the area where UTM applies, the major partitions of the MGRS grid&#xA;are the &lt;em&gt;grid zones&lt;/em&gt;, which are a further division of UTM zones&#xA;according to specific parallels, further amended by shifting the&#xA;meridian borders of some grid zones. Grid zone borders generate extra&#xA;cell clipping compared to the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;Apart from deviations and extra clips as a consequence of the grid&#xA;zones, the MGRS grid cell pattern outside the polar regions matches&#xA;that of the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;UTM grid references consist solely of digits (Arabic numerals), while&#xA;MGRS grid references are alphanumeric (combination of digits &amp;amp; Latin&#xA;characters). To illustrate this, following examples refer to the&#xA;Belgian point location used in the text:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;An UTM grid reference looks like &lt;code&gt;31.577019.5661520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31.577.5661&lt;/code&gt; (kilometer precision) and separators are&#xA;needed (point, slash, space) if not applying localized&#xA;simplifications. Quite some variations exist.&lt;/li&gt;&#xA;&lt;li&gt;An MGRS grid reference looks like &lt;code&gt;31U ES 77019 61520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31U ES 77 61&lt;/code&gt; (kilometer precision), and the spacing&#xA;is optional.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;When decreasing the precision of a position, &lt;em&gt;coordinates&lt;/em&gt; are to be&#xA;&lt;em&gt;rounded&lt;/em&gt; while in (UTM and MGRS) &lt;em&gt;grid references&lt;/em&gt; the numeric parts&#xA;representing easting and northing are to be &lt;em&gt;truncated&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Projected coordinate reference systems (CRSs) specify a geodetic datum&#xA;so that coordinates can be linked to a physical location on the&#xA;Earth’s surface. Likewise, you need to specify (and be aware of) the&#xA;geodetic datum when using a (UTM or MGRS) grid reference for&#xA;positioning.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;terminological-notes&#34;&gt;Terminological notes&lt;/h4&gt;&#xA;&lt;p&gt;The NGA (National Geospatial-Intelligence Agency) Office of Geomatics&#xA;(&lt;a href=&#34;https://earth-info.nga.mil&#34;&gt;https://earth-info.nga.mil&lt;/a&gt;), part of the US Department of Defense,&#xA;maintains definitions of the UTM map projection system and the MGRS grid&#xA;(&lt;a href=&#34;/articles/spatial_mgrs/#ref-national_geospatial-intelligence_agency_universal_2014&#34;&gt;National Geospatial-Intelligence Agency,&#xA;2014a&lt;/a&gt;), as&#xA;did its predecessor organisations since the inception of these systems&#xA;in the 1940s (&lt;a href=&#34;/articles/spatial_mgrs/#ref-buchroithner_geodetic_2017&#34;&gt;Buchroithner &amp;amp; Pfahlbusch,&#xA;2017&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_1956&#34;&gt;Department of the Army,&#xA;1956&lt;/a&gt;,&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_2001&#34;&gt;2001&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-palombo_military_2021&#34;&gt;Palombo,&#xA;2021&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-snyder_map_1987&#34;&gt;Snyder, 1987&lt;/a&gt;;&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-stott_utm_1977&#34;&gt;Stott, 1977&lt;/a&gt;). Their usage of the term ‘UTM grid’&#xA;is not distinguished from the UTM map projection system, hence comes&#xA;down to using numeric CRS coordinates in meters.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Statistics courses @ INBO!</title>
+				<link>/articles/inbo_stats_courses/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/articles/inbo_stats_courses/</guid>
+				<description>&lt;p&gt;During the course of the years, we have taught many statistics courses at the Research Institute for Nature and Forest (INBO), both for scientists and technicians.&#xA;Most of these courses have been developed and taught in-house.&#xA;Some (mostly advanced) courses were taught in-house by external teachers.&lt;/p&gt;&#xA;&lt;p&gt;While we do plan to periodically repeat these courses for new employees and as a refresher, the course material can always be consulted and used for self-teaching or as a reference.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Acquiring the skills</title>
+				<link>/articles/skills/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/skills/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;p&gt;These resources focus on the learning and teaching aspect, while they&#xA;often also give an overview of &lt;a href=&#34;../computing&#34;&gt;scientific computing&#xA;workflows&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Scientific computing and data handling workflows</title>
+				<link>/articles/computing/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/computing/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overviews&#34;&gt;Overviews&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Wilson &lt;em&gt;et al.&lt;/em&gt; (2017): set of &lt;strong&gt;good computing practices&lt;/strong&gt; that&#xA;every researcher can adopt&lt;/li&gt;&#xA;&lt;li&gt;British Ecological Society (2014): planning the &lt;strong&gt;data life cycle&lt;/strong&gt;;&#xA;creating, processing, documenting, preserving, sharing &amp;amp; reusing&#xA;data&lt;/li&gt;&#xA;&lt;li&gt;Goudeseune &lt;em&gt;et al.&lt;/em&gt; (2019): &lt;strong&gt;open data management&lt;/strong&gt;, data&#xA;management plan, repositories, standards and licenses&lt;/li&gt;&#xA;&lt;li&gt;Cooper &amp;amp; Hsing (2017): file organisation, workflow documentation,&#xA;&lt;strong&gt;code&lt;/strong&gt; reproducibility and readability, writing reproducible&#xA;reports, version control and code archiving&lt;/li&gt;&#xA;&lt;li&gt;Marwick &lt;em&gt;et al.&lt;/em&gt; (2018): the &lt;strong&gt;research compendium&lt;/strong&gt; as a solution&#xA;to share research in a reproducible way&lt;/li&gt;&#xA;&lt;li&gt;Ibanez &lt;em&gt;et al.&lt;/em&gt; (2014): vision on reproducible science, routine&#xA;&lt;strong&gt;practices&lt;/strong&gt;, collaboration, literate computing&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;See also some resources related to &lt;a href=&#34;../skills&#34;&gt;learning and education&lt;/a&gt;&#xA;and the &lt;a href=&#34;../open_science&#34;&gt;discipline of open and reproducible science&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>The discipline of open science</title>
+				<link>/articles/open_science/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/open_science/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;p&gt;These resources focus on the discipline as a whole, its perception,&#xA;principles, etc., while they often also give an overview of &lt;a href=&#34;../computing&#34;&gt;scientific&#xA;computing workflows&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Meet some popular open geospatial standards!</title>
+				<link>/articles/geospatial_standards/</link>
+				<pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/geospatial_standards/</guid>
+				<description>&lt;p&gt;Some inspiration for this post came from the beautiful books of Lovelace&#xA;&lt;em&gt;et al.&lt;/em&gt; (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from&#xA;various websites.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-use-open-standards&#34;&gt;Why use open standards?&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Open file standards ease collaboration, portability and&#xA;compatibility between users, machines and applications.&lt;/li&gt;&#xA;&lt;li&gt;Their (file) structure is fully documented.&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Consequently, scientists and programmers can build new software&#xA;/ packages and make innovations that use these standards, while&#xA;maintaining interoperability with existing applications.&lt;/li&gt;&#xA;&lt;li&gt;And, there is a much higher chance that your data will still be&#xA;readable in a hundred years from now. The standard’s open&#xA;documentation makes it relatively easy to build tools that can&#xA;read an ancient open-standard file!&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Luckily, quite a list of open standards is available! Below, some&#xA;powerful and widely-used single-file formats are introduced. Single-file&#xA;data sources are readily amenable to exchange and publication.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Books and articles on statistics</title>
+				<link>/articles/statistics/</link>
+				<pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+				<guid>/articles/statistics/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;McElreath (2015): Statistical Rethinking is an introduction to&#xA;applied Bayesian data analysis, aimed at PhD students and&#xA;researchers in the natural and social sciences. This audience has&#xA;had some calculus and linear algebra, and one or two joyless&#xA;undergraduate courses in statistics. I’ve been teaching applied&#xA;statistics to this audience for about a decade now, and this book&#xA;has evolved from that experience. The book teaches generalized&#xA;linear multilevel modeling (GLMMs) from a Bayesian perspective,&#xA;relying on a simple logical interpretation of Bayesian probability&#xA;and maximum entropy. The book covers the basics of regression&#xA;through multilevel models, as well as touching on measurement error,&#xA;missing data, and Gaussian process models for spatial and network&#xA;autocorrelation. This is not a traditional mathematical statistics&#xA;book. Instead the approach is computational, using complete R code&#xA;examples, aimed at developing skilled and skeptical scientists.&#xA;Theory is explained through simulation exercises, using R code. And&#xA;modeling examples are fully worked, with R code displayed within the&#xA;main text. Mathematical depth is given in optional&#xA;{“}overthinking{”} boxes throughout.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Sharing and communicating</title>
+				<link>/articles/communicating/</link>
+				<pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+				<guid>/articles/communicating/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;h2 id=&#34;sharing-data&#34;&gt;Sharing data&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ellis &amp;amp; Leek (2017): guidelines for &lt;strong&gt;providing data&lt;/strong&gt; to a&#xA;scientist / statistician: provide raw data, format consistently,&#xA;include metadata &amp;amp; preprocessing steps&lt;/li&gt;&#xA;&lt;li&gt;Wilkinson &lt;em&gt;et al.&lt;/em&gt; (2016): the &lt;strong&gt;FAIR data principles&lt;/strong&gt;: date are to&#xA;be findable, accessible, interoperable and reusable&lt;/li&gt;&#xA;&lt;li&gt;Culina &lt;em&gt;et al.&lt;/em&gt; (2018): overview of online &lt;strong&gt;data infrastructures&lt;/strong&gt;&#xA;and considerations to be made&lt;/li&gt;&#xA;&lt;li&gt;Perkel (2016): &lt;strong&gt;data repository sites&lt;/strong&gt; like github and others&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;communicating&#34;&gt;Communicating&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Smith &lt;em&gt;et al.&lt;/em&gt; (2016): recommendations of the FORCE11 Software&#xA;Citation Working Group&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;bibliography&#34;&gt;Bibliography&lt;/h2&gt;&#xA;&lt;p&gt;Culina A., Baglioni M., Crowther T.W., Visser M.E., Woutersen-Windhouwer&#xA;S. &amp;amp; Manghi P. (2018). Navigating the unfolding open data landscape in&#xA;ecology and evolution. Nature Ecology &amp;amp; Evolution 2 (3): 420–426.&#xA;&lt;a href=&#34;https://doi.org/10.1038/s41559-017-0458-2&#34;&gt;https://doi.org/10.1038/s41559-017-0458-2&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

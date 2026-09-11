@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>coding club on INBO Tutorials</title>
-    <link>/tags/coding-club/</link>
-    <description>Recent content in coding club on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/coding-club/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Tutorial setup_codingclub_session()</title>
-      <link>/tutorials/r_setup_codingclub_session/</link>
-      <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_setup_codingclub_session/</guid>
-      <description>Before each coding club you will usually have to download some datasets and some scripts. This can be done manually from the corresponding GitHub webpages but it is much easier to use the setup_codingclub_session() function of the inborutils package.
-To begin, make sure that you have the latest version of inborutils installed by running the following code:
-if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
-library(inborutils) The function takes four arguments with the following default settings:</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Coding Club on INBO Tutorials</title>
+		<link>/tags/coding-club/</link>
+		<description>Recent content in Coding Club on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/coding-club/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Tutorial setup_codingclub_session()</title>
+				<link>/tutorials/r_setup_codingclub_session/</link>
+				<pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_setup_codingclub_session/</guid>
+				<description>&lt;p&gt;Before each coding club you will usually have to download some datasets&#xA;and some scripts. This can be done manually from the corresponding&#xA;GitHub webpages but it is much easier to use the&#xA;&lt;code&gt;setup_codingclub_session()&lt;/code&gt; function of the &lt;code&gt;inborutils&lt;/code&gt; package.&lt;/p&gt;&#xA;&lt;p&gt;To begin, make sure that you have the latest version of &lt;code&gt;inborutils&lt;/code&gt;&#xA;installed by running the following code:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a&#34;&gt;if&lt;/span&gt; (!&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;remotes&amp;#34;&lt;/span&gt; %in% &lt;span style=&#34;color:#0a0&#34;&gt;rownames&lt;/span&gt;(&lt;span style=&#34;color:#0a0&#34;&gt;installed.packages&lt;/span&gt;())) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#0a0&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;remotes&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;remotes::&lt;span style=&#34;color:#0a0&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;inbo/inborutils&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next load the package:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(inborutils)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function takes four arguments with the following default settings:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

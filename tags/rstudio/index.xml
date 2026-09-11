@@ -1,61 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>rstudio on INBO Tutorials</title>
-    <link>/tags/rstudio/</link>
-    <description>Recent content in rstudio on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/rstudio/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Git and GitHub Authentication on Windows</title>
-      <link>/tutorials/git_authentication/</link>
-      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/git_authentication/</guid>
-      <description>Before we start This tutorial assumes you have a GitHub account, and have Git, R and RStudio installed on your system. The purpose of this tutorial is to make clear recommendations about authentication for employees at INBO who use Git version control in their workflows. The guidelines here are meant for people who use Git and GitHub in RStudio, but the general principles can be applied to other software too (e.</description>
-    </item>
-    
-    <item>
-      <title>Citations in R Markdown</title>
-      <link>/tutorials/r_citations_markdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_citations_markdown/</guid>
-      <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
-More general tutorials can be found at the following web pages:
- https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
-    </item>
-    
-    <item>
-      <title>R voor beginners</title>
-      <link>/tutorials/r_beginners/</link>
-      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_beginners/</guid>
-      <description>Doel van de cursus Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.
- Rstudio kunnen gebruiken (Les 1a) Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b) Externe databestanden inlezen in R (Les 2a) Gegevens visualiseren (ggplot2) (Les 2b) Data manipuleren in een gewenste vorm (dplyr) (Les 3) Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)  Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops.</description>
-    </item>
-    
-    <item>
-      <title>Rstudio installation</title>
-      <link>/installation/user/user_install_rstudio/</link>
-      <pubDate>Wed, 18 Oct 2017 15:43:44 +0200</pubDate>
-      
-      <guid>/installation/user/user_install_rstudio/</guid>
-      <description>Na de eerste installatie  Start Rstudio Kies in het menu Tools -&amp;gt; Global Options In het tabblad General  Pas de Default working directory aan naar de locatie waar je R versie staat (C:/R/R-4.x.y) 1 Restore .RData into workspace at startup: uitvinken Save workspace to.RData on exit: Never   In het tabblad Code  Subtab Editing  Insert spaces for tab: aanvinken Tab width: 2 Soft-wrap R source files: aanvinken   Subtab Saving  Default text encoding: UTF-8   Subtab Diagnostics  Alles aanvinken     In het tabblad Appearance  Stel in naar eigen smaak   In het tabblad Packages  CRAN mirror: wijzigen naar Global (CDN) - RStudio   In het tabblad Sweave  Weave Rnw files using: knitr Typeset LaTeX into PDF using: XeLaTex   Klik op OK en herstart RStudio  Configuratie van RStudio na een upgrade van R  Start RStudio Kies in het menu Tools -&amp;gt; Global Options Indien niet de laatste versie vermeld staat bij R version: klik op Change om het aan te passen.</description>
-    </item>
-    
-    <item>
-      <title>RStudio Desktop installation</title>
-      <link>/installation/administrator/admin_install_rstudio/</link>
-      <pubDate>Wed, 18 Oct 2017 00:30:40 +0200</pubDate>
-      
-      <guid>/installation/administrator/admin_install_rstudio/</guid>
-      <description>De installatiebestanden voor de stabiele versies zijn beschikbaar via http://www.rstudio.com/products/rstudio/download/. De preview versie is beschikbaar via https://www.rstudio.com/products/rstudio/download/preview/
-Windows Nieuwe installatie en upgrade van RStudio RStudio upgraden doe je door de nieuwe versie te installeren over de oude.
- Zorg dat eerst R geïnstalleerd is. Voer het 64-bit installatiebestand uit. Klik Ja. Welkom bij de installatie: klik op volgende. Geef de doelmap en klik op volgende. Je mag de standaard gebruiken. Klik op installeren.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Rstudio on INBO Tutorials</title>
+		<link>/tags/rstudio/</link>
+		<description>Recent content in Rstudio on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/rstudio/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Git and GitHub Authentication on Windows</title>
+				<link>/tutorials/git_authentication/</link>
+				<pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/git_authentication/</guid>
+				<description>&lt;h2 id=&#34;before-we-start&#34;&gt;Before we start&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial assumes you have a GitHub account, and have Git, R and&#xA;RStudio installed on your system. The purpose of this tutorial is to&#xA;make clear recommendations about authentication for employees at INBO&#xA;who use Git version control in their workflows. The guidelines here are&#xA;meant for people who use Git and GitHub in RStudio, but the general&#xA;principles can be applied to other software too (e.g. GitHub Desktop).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Citations in R Markdown</title>
+				<link>/tutorials/r_citations_markdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_citations_markdown/</guid>
+				<description>&lt;h1 id=&#34;enter-vme-mode&#34;&gt;Enter VME mode&lt;/h1&gt;&#xA;&lt;p&gt;With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.&#xA;In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.&#xA;We also give some guidelines specific to the Research Institute for Nature and Forest.&lt;/p&gt;&#xA;&lt;p&gt;More general tutorials can be found at the following web pages:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://pandoc.org/MANUAL.html#citations&#34;&gt;https://pandoc.org/MANUAL.html#citations&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://rstudio.github.io/visual-markdown-editing/citations.html&#34;&gt;https://rstudio.github.io/visual-markdown-editing/citations.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The latter webpage is part of the documentation about the Visual Markdown Editing (&lt;strong&gt;VME&lt;/strong&gt;) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.&#xA;VME is a what-you-see-is-what-you-get&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; interface for interacting with R Markdown.&#xA;This interface is similar to writing documents in word processing software (google docs, MS Word, &amp;hellip;).&#xA;Moreover, the VME mode has more functionalities for citations than the source mode.&#xA;To switch between source mode and VME, press the &lt;img src=&#34;/tutorials/r_citations_markdown/visual-mode-2x.png&#34; alt=&#34;&#34;&gt; button&#xA;:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>R voor beginners</title>
+				<link>/tutorials/r_beginners/</link>
+				<pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_beginners/</guid>
+				<description>&lt;h2 id=&#34;doel-van-de-cursus&#34;&gt;Doel van de cursus&lt;/h2&gt;&#xA;&lt;p&gt;Hoe maak je van je ingezamelde gegevens een reproduceerbare analyse, visualisatie en rapportage, gebruik makend van de software R en Rstudio.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Rstudio kunnen gebruiken (Les 1a)&lt;/li&gt;&#xA;&lt;li&gt;Commando&amp;rsquo;s uitvoeren vanuit een script (Les 1b)&lt;/li&gt;&#xA;&lt;li&gt;Externe databestanden inlezen in R (Les 2a)&lt;/li&gt;&#xA;&lt;li&gt;Gegevens visualiseren (ggplot2) (Les 2b)&lt;/li&gt;&#xA;&lt;li&gt;Data manipuleren in een gewenste vorm (dplyr) (Les 3)&lt;/li&gt;&#xA;&lt;li&gt;Reproduceerbaar analyserapport maken (Rmarkdown) + algemene vragen (Les 4)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Bovenstaande topics worden gecombineerd in een opleiding van 4 workshops. Deze opleiding is bedoeld voor mensen die nog nooit met R gewerkt hebben. In de workshops wordt het materiaal in de handleidingen al doende uitgelegd, en afgewisseld met oefeningen. Na elke workshop wordt er altijd een huistaak aangeboden, die op vrijwillige basis ingediend kan worden, en van feedback voorzien.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Rstudio installation</title>
+				<link>/installation/user/user_install_rstudio/</link>
+				<pubDate>Wed, 18 Oct 2017 15:43:44 +0200</pubDate>
+				<guid>/installation/user/user_install_rstudio/</guid>
+				<description>&lt;h2 id=&#34;na-de-eerste-installatie&#34;&gt;Na de eerste installatie&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Start &lt;code&gt;Rstudio&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Kies in het menu &lt;code&gt;Tools -&amp;gt; Global Options&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;In het tabblad &lt;code&gt;General&lt;/code&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Pas de &lt;em&gt;Default working directory&lt;/em&gt; aan naar de locatie waar je &lt;code&gt;R&lt;/code&gt; versie staat (&lt;code&gt;C:/R/R-4.x.y&lt;/code&gt;) &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Restore .RData into workspace at startup:&lt;/em&gt; &lt;code&gt;uitvinken&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Save workspace to.RData on exit:&lt;/em&gt; &lt;code&gt;Never&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;In het tabblad &lt;em&gt;Code&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Subtab &lt;em&gt;Editing&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;em&gt;Insert spaces for tab:&lt;/em&gt; &lt;code&gt;aanvinken&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Tab width:&lt;/em&gt; &lt;code&gt;2&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Soft-wrap R source files:&lt;/em&gt; &lt;code&gt;aanvinken&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Subtab &lt;em&gt;Saving&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;em&gt;Default text encoding:&lt;/em&gt; &lt;code&gt;UTF-8&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Subtab &lt;em&gt;Diagnostics&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Alles &lt;code&gt;aanvinken&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;In het tabblad &lt;em&gt;Appearance&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Stel in naar eigen smaak&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;In het tabblad &lt;em&gt;Packages&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;em&gt;CRAN mirror:&lt;/em&gt; wijzigen naar &lt;code&gt;Global (CDN) - RStudio&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;In het tabblad &lt;em&gt;Sweave&lt;/em&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;em&gt;Weave Rnw files using:&lt;/em&gt; &lt;code&gt;knitr&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Typeset LaTeX into PDF using:&lt;/em&gt; &lt;code&gt;XeLaTex&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;OK&lt;/em&gt; en herstart &lt;code&gt;RStudio&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;configuratie-van-rstudio-na-een-upgrade-van-r&#34;&gt;Configuratie van RStudio na een upgrade van R&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Start &lt;code&gt;RStudio&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Kies in het menu &lt;code&gt;Tools -&amp;gt; Global Options&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Indien niet de laatste versie vermeld staat bij R version: klik op &lt;em&gt;Change&lt;/em&gt; om het aan te passen.&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;OK&lt;/em&gt; als je een waarschuwing krijgt dat je &lt;code&gt;RStudio&lt;/code&gt; moet herstarten.&lt;/li&gt;&#xA;&lt;li&gt;Wijzig de default working directory in &lt;code&gt;C:/R/R-4.x.y&lt;/code&gt; &lt;sup id=&#34;fnref1:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;OK&lt;/em&gt;&lt;/li&gt;&#xA;&lt;li&gt;Herstart &lt;code&gt;RStudio&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;&#xA;&lt;hr&gt;&#xA;&lt;ol&gt;&#xA;&lt;li id=&#34;fn:1&#34;&gt;&#xA;&lt;p&gt;x en y verwijzen naar het versienummer. Dus bij R-4.1.0 is x = 1 en y = 0. De working directory is in dat geval &lt;code&gt;C:/R/R-4.1.0&lt;/code&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>RStudio Desktop installation</title>
+				<link>/installation/administrator/admin_install_rstudio/</link>
+				<pubDate>Wed, 18 Oct 2017 00:30:40 +0200</pubDate>
+				<guid>/installation/administrator/admin_install_rstudio/</guid>
+				<description>&lt;p&gt;De installatiebestanden voor de stabiele versies zijn beschikbaar via &lt;a href=&#34;http://www.rstudio.com/products/rstudio/download/&#34;&gt;http://www.rstudio.com/products/rstudio/download/&lt;/a&gt;.&#xA;De preview versie is beschikbaar via &lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/preview/&#34;&gt;https://www.rstudio.com/products/rstudio/download/preview/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;h3 id=&#34;nieuwe-installatie-en-upgrade-van-rstudio&#34;&gt;Nieuwe installatie en upgrade van RStudio&lt;/h3&gt;&#xA;&lt;p&gt;RStudio upgraden doe je door de nieuwe versie te installeren over de oude.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Zorg dat eerst &lt;code&gt;R&lt;/code&gt; geïnstalleerd is.&lt;/li&gt;&#xA;&lt;li&gt;Voer het 64-bit installatiebestand uit.&lt;/li&gt;&#xA;&lt;li&gt;Klik &lt;em&gt;Ja&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Welkom bij de installatie: klik op &lt;em&gt;volgende&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Geef de doelmap en klik op &lt;em&gt;volgende&lt;/em&gt;.&#xA;Je mag de standaard gebruiken.&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;installeren&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Klik op &lt;em&gt;voltooien&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Kopieer het bestand &lt;a href=&#34;/installation/administrator/admin_install_rstudio/rstudio-prefs.json&#34;&gt;&lt;code&gt;rstudio-prefs.json&lt;/code&gt;&lt;/a&gt; naar de verborgen map &lt;code&gt;AppData/Roaming/RStudio&lt;/code&gt; in de persoonlijke map van de gebruiker (&lt;code&gt;C:/users/username&lt;/code&gt;).&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;RStudio mag niet met admininstratorrechten gestart worden.&lt;/strong&gt;&#xA;Anders worden een aantal R packages met administrator rechten geïnstalleerd waardoor de gebruiker ze niet meer kan updaten.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

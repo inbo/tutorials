@@ -1,875 +1,689 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on INBO Tutorials</title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>balanced</title>
-      <link>/tags/balanced/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/balanced/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>density</title>
-      <link>/tags/density/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/density/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>distribution</title>
-      <link>/tags/distribution/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/distribution/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>functional programming</title>
-      <link>/tags/functional-programming/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/functional-programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sampling</title>
-      <link>/tags/sampling/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/sampling/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>spatial</title>
-      <link>/tags/spatial/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/spatial/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>transformations</title>
-      <link>/tags/transformations/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/transformations/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>development</title>
-      <link>/tags/development/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>inheritance</title>
-      <link>/tags/inheritance/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inheritance/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>postgresql</title>
-      <link>/tags/postgresql/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/postgresql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sql</title>
-      <link>/tags/sql/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/sql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>design of experiments</title>
-      <link>/tags/design-of-experiments/</link>
-      <pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/design-of-experiments/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>StAP</title>
-      <link>/tags/stap/</link>
-      <pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/stap/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>statistical analysis plan</title>
-      <link>/tags/statistical-analysis-plan/</link>
-      <pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/statistical-analysis-plan/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>credentials</title>
-      <link>/tags/credentials/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/credentials/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>keyring</title>
-      <link>/tags/keyring/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/keyring/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>passwords</title>
-      <link>/tags/passwords/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/passwords/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>r</title>
-      <link>/tags/r/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/r/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>scripting</title>
-      <link>/tags/scripting/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/scripting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>secrets</title>
-      <link>/tags/secrets/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/secrets/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>analysis</title>
-      <link>/tags/analysis/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>binning</title>
-      <link>/tags/binning/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/binning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>co-variance</title>
-      <link>/tags/co-variance/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/co-variance/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>de-trending</title>
-      <link>/tags/de-trending/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/de-trending/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gis</title>
-      <link>/tags/gis/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/gis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>regression</title>
-      <link>/tags/regression/</link>
-      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/regression/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>inbodb</title>
-      <link>/tags/inbodb/</link>
-      <pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inbodb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>vignette</title>
-      <link>/tags/vignette/</link>
-      <pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/vignette/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>installation</title>
-      <link>/tags/installation/</link>
-      <pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/installation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>/tags/git/</link>
-      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>version control</title>
-      <link>/tags/version-control/</link>
-      <pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/version-control/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>brms</title>
-      <link>/tags/brms/</link>
-      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/brms/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>generalized linear regression</title>
-      <link>/tags/generalized-linear-regression/</link>
-      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/generalized-linear-regression/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mixed models</title>
-      <link>/tags/mixed-models/</link>
-      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mixed-models/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>stan</title>
-      <link>/tags/stan/</link>
-      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/stan/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>open science</title>
-      <link>/tags/open-science/</link>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/open-science/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>packages</title>
-      <link>/tags/packages/</link>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/packages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>/tags/python/</link>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>grids</title>
-      <link>/tags/grids/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/grids/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mgrs</title>
-      <link>/tags/mgrs/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mgrs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>utm</title>
-      <link>/tags/utm/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/utm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>maps</title>
-      <link>/tags/maps/</link>
-      <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/maps/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>webservice</title>
-      <link>/tags/webservice/</link>
-      <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/webservice/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>github</title>
-      <link>/tags/github/</link>
-      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>zenodo</title>
-      <link>/tags/zenodo/</link>
-      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/zenodo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>api</title>
-      <link>/tags/api/</link>
-      <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/api/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>biodiversity</title>
-      <link>/tags/biodiversity/</link>
-      <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/biodiversity/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gbif</title>
-      <link>/tags/gbif/</link>
-      <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/gbif/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rgbif</title>
-      <link>/tags/rgbif/</link>
-      <pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rgbif/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rstudio</title>
-      <link>/tags/rstudio/</link>
-      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rstudio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>checklist</title>
-      <link>/tags/checklist/</link>
-      <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/checklist/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>frictionless</title>
-      <link>/tags/frictionless/</link>
-      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/frictionless/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>wateRinfo</title>
-      <link>/tags/waterinfo/</link>
-      <pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/waterinfo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>etn</title>
-      <link>/tags/etn/</link>
-      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/etn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bibliography</title>
-      <link>/tags/bibliography/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bibliography/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bookdown</title>
-      <link>/tags/bookdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bookdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>csl</title>
-      <link>/tags/csl/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/csl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gitbook</title>
-      <link>/tags/gitbook/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/gitbook/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>INBOmd</title>
-      <link>/tags/inbomd/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inbomd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>markdown</title>
-      <link>/tags/markdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>pandoc</title>
-      <link>/tags/pandoc/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/pandoc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>reports</title>
-      <link>/tags/reports/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/reports/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rmarkdown</title>
-      <link>/tags/rmarkdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rmarkdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>visual markdown editing</title>
-      <link>/tags/visual-markdown-editing/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/visual-markdown-editing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>zotero</title>
-      <link>/tags/zotero/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/zotero/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>renv</title>
-      <link>/tags/renv/</link>
-      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/renv/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>n2khab</title>
-      <link>/tags/n2khab/</link>
-      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/n2khab/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>inborutils</title>
-      <link>/tags/inborutils/</link>
-      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inborutils/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>analysis of variance</title>
-      <link>/tags/analysis-of-variance/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/analysis-of-variance/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>explorative data analysis</title>
-      <link>/tags/explorative-data-analysis/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/explorative-data-analysis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>INLA</title>
-      <link>/tags/inla/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inla/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mixed model</title>
-      <link>/tags/mixed-model/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mixed-model/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>multivariate statistics</title>
-      <link>/tags/multivariate-statistics/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/multivariate-statistics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>uncertainty</title>
-      <link>/tags/uncertainty/</link>
-      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/uncertainty/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>watina</title>
-      <link>/tags/watina/</link>
-      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/watina/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gwloggeR</title>
-      <link>/tags/gwlogger/</link>
-      <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/gwlogger/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>endnote</title>
-      <link>/tags/endnote/</link>
-      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/endnote/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mendeley</title>
-      <link>/tags/mendeley/</link>
-      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mendeley/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>coding club</title>
-      <link>/tags/coding-club/</link>
-      <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/coding-club/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>data</title>
-      <link>/tags/data/</link>
-      <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/data/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>google</title>
-      <link>/tags/google/</link>
-      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/google/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>spreadsheet</title>
-      <link>/tags/spreadsheet/</link>
-      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/spreadsheet/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>literature</title>
-      <link>/tags/literature/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/literature/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>database</title>
-      <link>/tags/database/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/database/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ggplot2</title>
-      <link>/tags/ggplot2/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ggplot2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>styleguide</title>
-      <link>/tags/styleguide/</link>
-      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/styleguide/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>effectclass</title>
-      <link>/tags/effectclass/</link>
-      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/effectclass/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>e-book</title>
-      <link>/tags/e-book/</link>
-      <pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/e-book/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bioRad</title>
-      <link>/tags/biorad/</link>
-      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/biorad/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dplyr</title>
-      <link>/tags/dplyr/</link>
-      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/dplyr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>inlabru</title>
-      <link>/tags/inlabru/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inlabru/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>inlatools</title>
-      <link>/tags/inlatools/</link>
-      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/inlatools/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>vmm</title>
-      <link>/tags/vmm/</link>
-      <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/vmm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tidyverse</title>
-      <link>/tags/tidyverse/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/tidyverse/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ci</title>
-      <link>/tags/ci/</link>
-      <pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
-      
-      <guid>/tags/ci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>windows</title>
-      <link>/tags/windows/</link>
-      <pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
-      
-      <guid>/tags/windows/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Tags on INBO Tutorials</title>
+		<link>/tags/</link>
+		<description>Recent content in Tags on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Balanced</title>
+				<link>/tags/balanced/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/balanced/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Density</title>
+				<link>/tags/density/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/density/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Distribution</title>
+				<link>/tags/distribution/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/distribution/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Functional Programming</title>
+				<link>/tags/functional-programming/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/functional-programming/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Sampling</title>
+				<link>/tags/sampling/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/sampling/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Spatial</title>
+				<link>/tags/spatial/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/spatial/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Transformations</title>
+				<link>/tags/transformations/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/transformations/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Development</title>
+				<link>/tags/development/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/development/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Inheritance</title>
+				<link>/tags/inheritance/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/inheritance/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Postgresql</title>
+				<link>/tags/postgresql/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/postgresql/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Sql</title>
+				<link>/tags/sql/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tags/sql/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Design of Experiments</title>
+				<link>/tags/design-of-experiments/</link>
+				<pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/design-of-experiments/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>StAP</title>
+				<link>/tags/stap/</link>
+				<pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/stap/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Statistical Analysis Plan</title>
+				<link>/tags/statistical-analysis-plan/</link>
+				<pubDate>Mon, 17 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/statistical-analysis-plan/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Credentials</title>
+				<link>/tags/credentials/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/credentials/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Keyring</title>
+				<link>/tags/keyring/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/keyring/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Passwords</title>
+				<link>/tags/passwords/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/passwords/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>R</title>
+				<link>/tags/r/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/r/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Scripting</title>
+				<link>/tags/scripting/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/scripting/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Secrets</title>
+				<link>/tags/secrets/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/secrets/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Analysis</title>
+				<link>/tags/analysis/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/analysis/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Binning</title>
+				<link>/tags/binning/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/binning/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Co-Variance</title>
+				<link>/tags/co-variance/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/co-variance/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>De-Trending</title>
+				<link>/tags/de-trending/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/de-trending/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Gis</title>
+				<link>/tags/gis/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/gis/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Regression</title>
+				<link>/tags/regression/</link>
+				<pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+				<guid>/tags/regression/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Inbodb</title>
+				<link>/tags/inbodb/</link>
+				<pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/inbodb/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Vignette</title>
+				<link>/tags/vignette/</link>
+				<pubDate>Mon, 30 Sep 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/vignette/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Installation</title>
+				<link>/tags/installation/</link>
+				<pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/installation/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Git</title>
+				<link>/tags/git/</link>
+				<pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/git/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Version Control</title>
+				<link>/tags/version-control/</link>
+				<pubDate>Wed, 17 Apr 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/version-control/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Brms</title>
+				<link>/tags/brms/</link>
+				<pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/brms/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Generalized Linear Regression</title>
+				<link>/tags/generalized-linear-regression/</link>
+				<pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/generalized-linear-regression/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Mixed Models</title>
+				<link>/tags/mixed-models/</link>
+				<pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/mixed-models/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Stan</title>
+				<link>/tags/stan/</link>
+				<pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
+				<guid>/tags/stan/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Open Science</title>
+				<link>/tags/open-science/</link>
+				<pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/open-science/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Packages</title>
+				<link>/tags/packages/</link>
+				<pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/packages/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Python</title>
+				<link>/tags/python/</link>
+				<pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/python/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Grids</title>
+				<link>/tags/grids/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/grids/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Mgrs</title>
+				<link>/tags/mgrs/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/mgrs/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Utm</title>
+				<link>/tags/utm/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/utm/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Maps</title>
+				<link>/tags/maps/</link>
+				<pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/maps/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Webservice</title>
+				<link>/tags/webservice/</link>
+				<pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
+				<guid>/tags/webservice/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Github</title>
+				<link>/tags/github/</link>
+				<pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/github/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Zenodo</title>
+				<link>/tags/zenodo/</link>
+				<pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/zenodo/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Api</title>
+				<link>/tags/api/</link>
+				<pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/api/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Biodiversity</title>
+				<link>/tags/biodiversity/</link>
+				<pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/biodiversity/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Gbif</title>
+				<link>/tags/gbif/</link>
+				<pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/gbif/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Rgbif</title>
+				<link>/tags/rgbif/</link>
+				<pubDate>Tue, 21 Jun 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/rgbif/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Rstudio</title>
+				<link>/tags/rstudio/</link>
+				<pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/rstudio/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Checklist</title>
+				<link>/tags/checklist/</link>
+				<pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/checklist/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Frictionless</title>
+				<link>/tags/frictionless/</link>
+				<pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+				<guid>/tags/frictionless/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>WateRinfo</title>
+				<link>/tags/waterinfo/</link>
+				<pubDate>Wed, 15 Dec 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/waterinfo/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Etn</title>
+				<link>/tags/etn/</link>
+				<pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/etn/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Bibliography</title>
+				<link>/tags/bibliography/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/bibliography/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Bookdown</title>
+				<link>/tags/bookdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/bookdown/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Csl</title>
+				<link>/tags/csl/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/csl/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Gitbook</title>
+				<link>/tags/gitbook/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/gitbook/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>INBOmd</title>
+				<link>/tags/inbomd/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/inbomd/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Markdown</title>
+				<link>/tags/markdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/markdown/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Pandoc</title>
+				<link>/tags/pandoc/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/pandoc/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Reports</title>
+				<link>/tags/reports/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/reports/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Rmarkdown</title>
+				<link>/tags/rmarkdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/rmarkdown/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Visual Markdown Editing</title>
+				<link>/tags/visual-markdown-editing/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/visual-markdown-editing/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Zotero</title>
+				<link>/tags/zotero/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/zotero/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Renv</title>
+				<link>/tags/renv/</link>
+				<pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/renv/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>N2khab</title>
+				<link>/tags/n2khab/</link>
+				<pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/n2khab/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>InboRutils</title>
+				<link>/tags/inborutils/</link>
+				<pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/inborutils/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Analysis of Variance</title>
+				<link>/tags/analysis-of-variance/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/analysis-of-variance/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Explorative Data Analysis</title>
+				<link>/tags/explorative-data-analysis/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/explorative-data-analysis/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>INLA</title>
+				<link>/tags/inla/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/inla/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Mixed Model</title>
+				<link>/tags/mixed-model/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/mixed-model/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Multivariate Statistics</title>
+				<link>/tags/multivariate-statistics/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/multivariate-statistics/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Uncertainty</title>
+				<link>/tags/uncertainty/</link>
+				<pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/uncertainty/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Watina</title>
+				<link>/tags/watina/</link>
+				<pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+				<guid>/tags/watina/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>GwloggeR</title>
+				<link>/tags/gwlogger/</link>
+				<pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/gwlogger/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Endnote</title>
+				<link>/tags/endnote/</link>
+				<pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/endnote/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Mendeley</title>
+				<link>/tags/mendeley/</link>
+				<pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/mendeley/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Coding Club</title>
+				<link>/tags/coding-club/</link>
+				<pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/coding-club/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Data</title>
+				<link>/tags/data/</link>
+				<pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/data/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Google</title>
+				<link>/tags/google/</link>
+				<pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/google/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Spreadsheet</title>
+				<link>/tags/spreadsheet/</link>
+				<pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/spreadsheet/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Literature</title>
+				<link>/tags/literature/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/literature/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Database</title>
+				<link>/tags/database/</link>
+				<pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/database/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Ggplot2</title>
+				<link>/tags/ggplot2/</link>
+				<pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/ggplot2/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Styleguide</title>
+				<link>/tags/styleguide/</link>
+				<pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/styleguide/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Effectclass</title>
+				<link>/tags/effectclass/</link>
+				<pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+				<guid>/tags/effectclass/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>E-Book</title>
+				<link>/tags/e-book/</link>
+				<pubDate>Thu, 13 Jun 2019 00:00:00 +0000</pubDate>
+				<guid>/tags/e-book/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>BioRad</title>
+				<link>/tags/biorad/</link>
+				<pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tags/biorad/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Dplyr</title>
+				<link>/tags/dplyr/</link>
+				<pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tags/dplyr/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Inlabru</title>
+				<link>/tags/inlabru/</link>
+				<pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+				<guid>/tags/inlabru/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Inlatools</title>
+				<link>/tags/inlatools/</link>
+				<pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+				<guid>/tags/inlatools/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Vmm</title>
+				<link>/tags/vmm/</link>
+				<pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
+				<guid>/tags/vmm/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Tidyverse</title>
+				<link>/tags/tidyverse/</link>
+				<pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+				<guid>/tags/tidyverse/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Ci</title>
+				<link>/tags/ci/</link>
+				<pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
+				<guid>/tags/ci/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Windows</title>
+				<link>/tags/windows/</link>
+				<pubDate>Wed, 18 Oct 2017 00:30:16 +0200</pubDate>
+				<guid>/tags/windows/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

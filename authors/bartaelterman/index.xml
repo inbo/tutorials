@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>bartaelterman on INBO Tutorials</title>
-    <link>/authors/bartaelterman/</link>
-    <description>Recent content in bartaelterman on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 10 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="/authors/bartaelterman/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Reading large data files in R</title>
-      <link>/tutorials/r_large_data_files_handling/</link>
-      <pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_large_data_files_handling/</guid>
-      <description>Intro R is known to have difficulties handling large data files. Here we will explore some tips that make working with such files in R less painfull.
-tl;dr  If you can comfortably work with the entire file in memory, but reading the file is rather slow, consider using the data.table package and read the file with its fread function. If your file does not comfortably fit in memory:  Use sqldf if you have to stick to csv files.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Bartaelterman on INBO Tutorials</title>
+		<link>/authors/bartaelterman/</link>
+		<description>Recent content in Bartaelterman on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 10 Feb 2017 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/authors/bartaelterman/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Reading large data files in R</title>
+				<link>/tutorials/r_large_data_files_handling/</link>
+				<pubDate>Fri, 10 Feb 2017 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_large_data_files_handling/</guid>
+				<description>&lt;h2 id=&#34;intro&#34;&gt;Intro&lt;/h2&gt;&#xA;&lt;p&gt;R is known to have difficulties handling large data files. Here we will&#xA;explore some tips that make working with such files in R less painfull.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tldr&#34;&gt;tl;dr&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;If you can comfortably work with the entire file in memory, but&#xA;reading the file is rather slow, consider using the &lt;code&gt;data.table&lt;/code&gt;&#xA;package and &lt;a href=&#34;/tutorials/r_large_data_files_handling/#loadentire&#34;&gt;read the file with its &lt;code&gt;fread&lt;/code&gt; function&lt;/a&gt;.&lt;/li&gt;&#xA;&lt;li&gt;If your file does not comfortably fit in memory:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;/tutorials/r_large_data_files_handling/#sqldftit&#34;&gt;Use &lt;code&gt;sqldf&lt;/code&gt;&lt;/a&gt; if you have to stick to &lt;code&gt;csv&lt;/code&gt; files.&lt;/li&gt;&#xA;&lt;li&gt;Use a SQLite database and query it using either &lt;a href=&#34;/tutorials/r_large_data_files_handling/#sqlitestrat&#34;&gt;SQL&#xA;queries&lt;/a&gt; or &lt;a href=&#34;/tutorials/r_large_data_files_handling/#dplyrstrat&#34;&gt;&lt;code&gt;dplyr&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;/tutorials/r_large_data_files_handling/#convertsqlite&#34;&gt;Convert&lt;/a&gt; your &lt;code&gt;csv&lt;/code&gt; file to a &lt;code&gt;sqlite&lt;/code&gt; database&#xA;in order to query&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;downloading-the-example-files&#34;&gt;Downloading the example files&lt;/h2&gt;&#xA;&lt;p&gt;While you can directly test this tutorial on your own large data files,&#xA;we will use bird tracking data from the &lt;a href=&#34;https://doi.org/10.3897/zookeys.555.6173&#34;&gt;LifeWatch bird tracking&#xA;network&lt;/a&gt; for the examples. We&#xA;have made two versions of some tracking data available for download: a&#xA;&lt;code&gt;.csv&lt;/code&gt; file (text data) and a &lt;code&gt;.db&lt;/code&gt; file (sqlite data). Both contain&#xA;processed log files; for more information on the processing, see the&#xA;&lt;a href=&#34;https://github.com/inbo/bird-tracking-etl&#34;&gt;BirdTrackingEtl package&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

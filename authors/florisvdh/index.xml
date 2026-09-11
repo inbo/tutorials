@@ -1,230 +1,171 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>florisvdh on INBO Tutorials</title>
-    <link>/authors/florisvdh/</link>
-    <description>Recent content in florisvdh on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The UTM grid and the MGRS grid: not quite the same</title>
-      <link>/articles/spatial_mgrs/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/spatial_mgrs/</guid>
-      <description>Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
-Main points:
- The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.</description>
-    </item>
-    
-    <item>
-      <title>Using WFS services in R</title>
-      <link>/tutorials/spatial_wfs_services/</link>
-      <pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_wfs_services/</guid>
-      <description>What is WFS? In computing, the Open Geospatial Consortium (OGC) Web Feature Service (WFS) Interface Standard provides an interface allowing requests for geographical features across the web using platform-independent calls. One can think of geographical features as the “source code” behind a map, whereas the Web Mapping Service (WMS) interface or online tiled mapping portals like Google Maps return only an image, which end-users cannot edit or spatially analyze.
-The standard output format for reading or downloading data from a WFS is the XML-based Geography Markup Language (GML), but other formats like shapefiles or geojson are also available.</description>
-    </item>
-    
-    <item>
-      <title>Set up Zenodo - GitHub integration</title>
-      <link>/tutorials/git_zenodo/</link>
-      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/git_zenodo/</guid>
-      <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
-GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
-    </item>
-    
-    <item>
-      <title>Using WMS services in R</title>
-      <link>/tutorials/spatial_wms_services/</link>
-      <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_wms_services/</guid>
-      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
-We will use the leaflet package to make interactive maps.
-library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
-# Flanders: wms_grb &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
-    </item>
-    
-    <item>
-      <title>Coordinate operations and maps in R</title>
-      <link>/tutorials/spatial_transform_crs_2/</link>
-      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_crs_2/</guid>
-      <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
-A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
-The tutorial assumes you have some pre-existing knowledge:
- Basic knowledge about coordinate reference systems (CRSs) and geodetic datums; see another tutorial and the references and links therein.</description>
-    </item>
-    
-    <item>
-      <title>Citations in R Markdown</title>
-      <link>/tutorials/r_citations_markdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_citations_markdown/</guid>
-      <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
-More general tutorials can be found at the following web pages:
- https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
-    </item>
-    
-    <item>
-      <title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
-      <link>/tutorials/spatial_crs_coding/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_crs_coding/</guid>
-      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
-    </item>
-    
-    <item>
-      <title>Updating the renv environment of an R project</title>
-      <link>/tutorials/r_renv_update/</link>
-      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_renv_update/</guid>
-      <description>What is renv? renv is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system. Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.
-Start using renv For general advice on renv setup and usage, see https://rstudio.</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
-      <link>/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
-      <pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html</description>
-    </item>
-    
-    <item>
-      <title>watina: Getting started with watina: connecting and selecting locations</title>
-      <link>/tutorials/vignette_watina_v010_getstarted/</link>
-      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_watina_v010_getstarted/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v010_getstarted.html</description>
-    </item>
-    
-    <item>
-      <title>Use of INBO citation style with bibliography managers</title>
-      <link>/tutorials/style_inbo_bibliography/</link>
-      <pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/style_inbo_bibliography/</guid>
-      <description>The INBO citation style Most journals, publishers and companies use a specified format for citations and bibliographies. The Research Institute for Nature and Forest (INBO) is no exception.
-All bibliography managers provide ways to automate the formatting of citations and bibliographies which greatly facilitates scientific publishing. Depending on the bibliographic manager software, the style formatting rules are stored in specific files. In this tutorial you will learn how to use the INBO citation style in EndNote, Mendeley and Zotero bibliography managers.</description>
-    </item>
-    
-    <item>
-      <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
-      <link>/tutorials/spatial_standards_raster/</link>
-      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_standards_raster/</guid>
-      <description>During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code, but you can safely ignore them. For more information, see the CRS tutorial.
-This tutorial uses a few basic functions from the dplyr and raster packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.</description>
-    </item>
-    
-    <item>
-      <title>Transforming spatial objects</title>
-      <link>/tutorials/spatial_transform_crs/</link>
-      <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_crs/</guid>
-      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
-Sometimes we have a layer in one coordinate reference system (CRS) and need to transform it into another coordinate reference system. The first thing we need to do is identifying both coordinate reference systems.</description>
-    </item>
-    
-    <item>
-      <title>Using Kerberos authentication for database connection</title>
-      <link>/installation/user/user_install_kerberos/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/installation/user/user_install_kerberos/</guid>
-      <description>Introduction (shamelessly taken from wikipedia)
-Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.
-Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including FreeBSD, Apple&amp;rsquo;s Mac OS X, Red Hat Enterprise Linux, Oracle&amp;rsquo;s Solaris, IBM&amp;rsquo;s AIX and Z/OS, HP&amp;rsquo;s HP-UX and OpenVMS and others, include software for Kerberos authentication of users or services.</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
-      <link>/tutorials/vignette_n2khab_v022_example/</link>
-      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v022_example/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v022_example.html</description>
-    </item>
-    
-    <item>
-      <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
-      <link>/tutorials/spatial_standards_vector/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_standards_vector/</guid>
-      <description>This tutorial uses a few basic functions from the dplyr and sf packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
-options(stringsAsFactors = FALSE) library(tidyverse) library(sf) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
-In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
-    </item>
-    
-    <item>
-      <title>Meet some popular open geospatial standards!</title>
-      <link>/articles/geospatial_standards/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/geospatial_standards/</guid>
-      <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
-Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
-    </item>
-    
-    <item>
-      <title>watina: Using hydrochemical data to characterize and select locations</title>
-      <link>/tutorials/vignette_watina_v210_chem/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_watina_v210_chem/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v210_chem.html</description>
-    </item>
-    
-    <item>
-      <title>watina: Using XG3 values to characterize and select locations</title>
-      <link>/tutorials/vignette_watina_v110_xg3/</link>
-      <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_watina_v110_xg3/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/watina/articles/v110_xg3.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Where to store the N2KHAB input data sources</title>
-      <link>/tutorials/vignette_n2khab_v020_datastorage/</link>
-      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v020_datastorage/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v020_datastorage.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Using the GRTS data sources</title>
-      <link>/tutorials/vignette_n2khab_v030_grtsmh/</link>
-      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v030_grtsmh/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v030_GRTSmh.html</description>
-    </item>
-    
-    <item>
-      <title>n2khab: Reference lists and using them</title>
-      <link>/tutorials/vignette_n2khab_v010_reference_lists/</link>
-      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_n2khab_v010_reference_lists/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/n2khab/articles/v010_reference_lists.html</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Florisvdh on INBO Tutorials</title>
+		<link>/authors/florisvdh/</link>
+		<description>Recent content in Florisvdh on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/authors/florisvdh/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>The UTM grid and the MGRS grid: not quite the same</title>
+				<link>/articles/spatial_mgrs/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/spatial_mgrs/</guid>
+				<description>&lt;h4 id=&#34;summary&#34;&gt;Summary&lt;/h4&gt;&#xA;&lt;p&gt;Grids are widely used in biodiversity monitoring to define the basic&#xA;spatial units for data collection, data processing or mapping. In this&#xA;post I explain differences between the UTM and MGRS grids, provide&#xA;references to their full definition and refer to some software&#xA;implementations for MGRS.&lt;/p&gt;&#xA;&lt;p&gt;Main points:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The UTM grid and the MGRS grid outside the polar regions are both&#xA;derived from the UTM (Universal Transverse Mercator) map projection&#xA;system. Both grids have a world-wide coverage, but the polar regions&#xA;are only covered by the MGRS grid. In the polar regions, the MGRS grid&#xA;is derived from the UPS (Universal Polar Stereographic) map&#xA;projection.&lt;/li&gt;&#xA;&lt;li&gt;The major divisions of the UTM grid are the &lt;em&gt;UTM zones&lt;/em&gt;, defined by&#xA;meridians that are 6° apart. The understanding of the term ‘UTM grid’&#xA;in this post &lt;em&gt;only&lt;/em&gt; involves grid lines tied to the UTM coordinate&#xA;system.&lt;/li&gt;&#xA;&lt;li&gt;In the area where UTM applies, the major partitions of the MGRS grid&#xA;are the &lt;em&gt;grid zones&lt;/em&gt;, which are a further division of UTM zones&#xA;according to specific parallels, further amended by shifting the&#xA;meridian borders of some grid zones. Grid zone borders generate extra&#xA;cell clipping compared to the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;Apart from deviations and extra clips as a consequence of the grid&#xA;zones, the MGRS grid cell pattern outside the polar regions matches&#xA;that of the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;UTM grid references consist solely of digits (Arabic numerals), while&#xA;MGRS grid references are alphanumeric (combination of digits &amp;amp; Latin&#xA;characters). To illustrate this, following examples refer to the&#xA;Belgian point location used in the text:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;An UTM grid reference looks like &lt;code&gt;31.577019.5661520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31.577.5661&lt;/code&gt; (kilometer precision) and separators are&#xA;needed (point, slash, space) if not applying localized&#xA;simplifications. Quite some variations exist.&lt;/li&gt;&#xA;&lt;li&gt;An MGRS grid reference looks like &lt;code&gt;31U ES 77019 61520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31U ES 77 61&lt;/code&gt; (kilometer precision), and the spacing&#xA;is optional.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;When decreasing the precision of a position, &lt;em&gt;coordinates&lt;/em&gt; are to be&#xA;&lt;em&gt;rounded&lt;/em&gt; while in (UTM and MGRS) &lt;em&gt;grid references&lt;/em&gt; the numeric parts&#xA;representing easting and northing are to be &lt;em&gt;truncated&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Projected coordinate reference systems (CRSs) specify a geodetic datum&#xA;so that coordinates can be linked to a physical location on the&#xA;Earth’s surface. Likewise, you need to specify (and be aware of) the&#xA;geodetic datum when using a (UTM or MGRS) grid reference for&#xA;positioning.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;terminological-notes&#34;&gt;Terminological notes&lt;/h4&gt;&#xA;&lt;p&gt;The NGA (National Geospatial-Intelligence Agency) Office of Geomatics&#xA;(&lt;a href=&#34;https://earth-info.nga.mil&#34;&gt;https://earth-info.nga.mil&lt;/a&gt;), part of the US Department of Defense,&#xA;maintains definitions of the UTM map projection system and the MGRS grid&#xA;(&lt;a href=&#34;/articles/spatial_mgrs/#ref-national_geospatial-intelligence_agency_universal_2014&#34;&gt;National Geospatial-Intelligence Agency,&#xA;2014a&lt;/a&gt;), as&#xA;did its predecessor organisations since the inception of these systems&#xA;in the 1940s (&lt;a href=&#34;/articles/spatial_mgrs/#ref-buchroithner_geodetic_2017&#34;&gt;Buchroithner &amp;amp; Pfahlbusch,&#xA;2017&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_1956&#34;&gt;Department of the Army,&#xA;1956&lt;/a&gt;,&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_2001&#34;&gt;2001&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-palombo_military_2021&#34;&gt;Palombo,&#xA;2021&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-snyder_map_1987&#34;&gt;Snyder, 1987&lt;/a&gt;;&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-stott_utm_1977&#34;&gt;Stott, 1977&lt;/a&gt;). Their usage of the term ‘UTM grid’&#xA;is not distinguished from the UTM map projection system, hence comes&#xA;down to using numeric CRS coordinates in meters.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Using WFS services in R</title>
+				<link>/tutorials/spatial_wfs_services/</link>
+				<pubDate>Thu, 31 Aug 2023 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_wfs_services/</guid>
+				<description>&lt;h1 id=&#34;what-is-wfs&#34;&gt;What is WFS?&lt;/h1&gt;&#xA;&lt;p&gt;In computing, the &lt;a href=&#34;http://www.opengeospatial.org/standards/wfs&#34;&gt;Open Geospatial Consortium (OGC) &lt;strong&gt;Web Feature&#xA;Service (WFS)&lt;/strong&gt;&lt;/a&gt; Interface&#xA;Standard provides an interface allowing requests for geographical&#xA;features across the web using platform-independent calls. One can think&#xA;of geographical features as the “source code” behind a map, whereas the&#xA;Web Mapping Service (WMS) interface or online tiled mapping portals like&#xA;Google Maps return only an image, which end-users cannot edit or&#xA;spatially analyze.&lt;/p&gt;&#xA;&lt;p&gt;The standard output format for reading or downloading data from a WFS is&#xA;the XML-based Geography Markup Language (GML), but other formats like&#xA;shapefiles or geojson are also available. In early 2006 the OGC members&#xA;approved the OpenGIS GML Simple Features Profile. This profile is&#xA;designed both to increase interoperability between WFS servers and to&#xA;improve the ease of implementation of the WFS standard. (Source:&#xA;&lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Feature_Service&#34;&gt;Wikipedia&lt;/a&gt;)&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Set up Zenodo - GitHub integration</title>
+				<link>/tutorials/git_zenodo/</link>
+				<pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/git_zenodo/</guid>
+				<description>&lt;p&gt;&lt;em&gt;Note: there is also a &lt;a href=&#34;https://packages.inbo.be/checklist/articles/zenodo.html&#34;&gt;vignette&lt;/a&gt; in the &lt;code&gt;checklist&lt;/code&gt; package for R, that covers below topics and more, such as integration with ORCID.&lt;/em&gt;&#xA;&lt;em&gt;If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;github-and-zenodo-background&#34;&gt;GitHub and Zenodo: background&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com&#34;&gt;GitHub&lt;/a&gt; hosts a remote Git server that you can use for distributed version control with Git.&#xA;For more information about Git and GitHub, see &lt;a href=&#34;https://inbo.github.io/tutorials/categories/version-control/&#34;&gt;other&lt;/a&gt; tutorials on this website!&#xA;In short, Git helps you with version control (maintaining snapshots) of a directory (file folder) – a repository – and GitHub helps you with distributing versions and with collaboration.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Using WMS services in R</title>
+				<link>/tutorials/spatial_wms_services/</link>
+				<pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_wms_services/</guid>
+				<description>&lt;p&gt;WMS stands for &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Map_Service&#34;&gt;Web Map&#xA;Service&lt;/a&gt;. The service&#xA;provides prerendered tiles at different scales. This makes it useful to&#xA;include them as background images in maps.&lt;/p&gt;&#xA;&lt;p&gt;We will use the &lt;code&gt;leaflet&lt;/code&gt; package to make interactive maps.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, we define some WMS URLs for Flanders and Belgium to play with:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# Flanders:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_grb &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_ortho &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_inbo &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_hunting &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# Belgium:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_cartoweb_be &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_ortho_be &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://wms.ngi.be/inspire/ortho/service&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;code&gt;wms_grb&lt;/code&gt; links to the WMS of the&#xA;&lt;a href=&#34;http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151&#34;&gt;GRB-basiskaart&lt;/a&gt;,&#xA;the Flemish cadastral map. It depicts land parcels, buildings,&#xA;watercourses, roads and railroads.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Coordinate operations and maps in R</title>
+				<link>/tutorials/spatial_transform_crs_2/</link>
+				<pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_crs_2/</guid>
+				<description>&lt;h2 id=&#34;introduction-and-setup&#34;&gt;Introduction and setup&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial originated while preparing an R-demonstration during a GIS&#xA;club at INBO on 16 September 2021. (Further material of the GIS club is&#xA;available&#xA;&lt;a href=&#34;https://drive.google.com/drive/folders/1s5HZ5VjnkTbCQSE1vfFyMJz6PVIl4mHW&#34;&gt;here&lt;/a&gt;.)&lt;/p&gt;&#xA;&lt;p&gt;A straightforward approach for transforming spatial data is available in&#xA;another &lt;a href=&#34;../spatial_transform_crs/&#34;&gt;tutorial&lt;/a&gt;. The current tutorial&#xA;tackles a few extra aspects.&lt;/p&gt;&#xA;&lt;p&gt;The tutorial assumes you have some pre-existing knowledge:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Basic knowledge about coordinate reference systems (CRSs) and&#xA;geodetic datums; see &lt;a href=&#34;../spatial_crs_coding/&#34;&gt;another tutorial&lt;/a&gt; and&#xA;the references and links therein.&lt;/li&gt;&#xA;&lt;li&gt;Knowing how to read geospatial files with&#xA;&lt;a href=&#34;https://r-spatial.github.io/sf&#34;&gt;&lt;code&gt;sf&lt;/code&gt;&lt;/a&gt;. There is another&#xA;&lt;a href=&#34;../spatial_standards_vector/&#34;&gt;tutorial&lt;/a&gt; demonstrating some aspects.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;In this tutorial we will apply conversions (without datum shift) and&#xA;transformations (with datum shift) to &lt;code&gt;sf&lt;/code&gt; and &lt;code&gt;sfc&lt;/code&gt; objects. In the&#xA;background, these operations use the &lt;a href=&#34;https://proj.org&#34;&gt;PROJ&lt;/a&gt; library.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Citations in R Markdown</title>
+				<link>/tutorials/r_citations_markdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_citations_markdown/</guid>
+				<description>&lt;h1 id=&#34;enter-vme-mode&#34;&gt;Enter VME mode&lt;/h1&gt;&#xA;&lt;p&gt;With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.&#xA;In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.&#xA;We also give some guidelines specific to the Research Institute for Nature and Forest.&lt;/p&gt;&#xA;&lt;p&gt;More general tutorials can be found at the following web pages:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://pandoc.org/MANUAL.html#citations&#34;&gt;https://pandoc.org/MANUAL.html#citations&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://rstudio.github.io/visual-markdown-editing/citations.html&#34;&gt;https://rstudio.github.io/visual-markdown-editing/citations.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The latter webpage is part of the documentation about the Visual Markdown Editing (&lt;strong&gt;VME&lt;/strong&gt;) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.&#xA;VME is a what-you-see-is-what-you-get&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; interface for interacting with R Markdown.&#xA;This interface is similar to writing documents in word processing software (google docs, MS Word, &amp;hellip;).&#xA;Moreover, the VME mode has more functionalities for citations than the source mode.&#xA;To switch between source mode and VME, press the &lt;img src=&#34;/tutorials/r_citations_markdown/visual-mode-2x.png&#34; alt=&#34;&#34;&gt; button&#xA;:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
+				<link>/tutorials/spatial_crs_coding/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_crs_coding/</guid>
+				<description>&lt;h2 id=&#34;coordinate-reference-systems-minimal-background&#34;&gt;Coordinate reference systems: minimal background&lt;/h2&gt;&#xA;&lt;h3 id=&#34;what&#34;&gt;What?&lt;/h3&gt;&#xA;&lt;p&gt;A coordinate reference system (&lt;strong&gt;CRS&lt;/strong&gt;) – also called spatial reference&#xA;system (SRS) – is what you need if you want to interpret numeric&#xA;coordinates as actual point locations with reference to the Earth. Two&#xA;types of coordinate reference system are much used in spatial science:&#xA;&lt;em&gt;geodetic&lt;/em&gt; and &lt;em&gt;projected&lt;/em&gt; CRSs. The former serve only to locate&#xA;coordinates relative to a 3D model of the Earth surface, while the&#xA;latter add a projection to generate coordinates on a 2D map. Coordinate&#xA;operations convert or transform coordinates from one CRS to another, and&#xA;you often need them because the CRS may differ between dataset 1,&#xA;dataset 2 or a specific mapping technology (such as &lt;code&gt;leaflet&lt;/code&gt;).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Updating the renv environment of an R project</title>
+				<link>/tutorials/r_renv_update/</link>
+				<pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_renv_update/</guid>
+				<description>&lt;h2 id=&#34;what-is-renv&#34;&gt;What is &lt;code&gt;renv&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;renv&lt;/code&gt; is an R package that provides tools to save the version of R and all packages used in a particular directory with R code (e.g. an RStudio project directory), and to reproduce (recreate) this environment on another (or your future) system.&#xA;Because software versions can have important effects on the results of your work, it is important to be able to reproduce versions.&lt;/p&gt;&#xA;&lt;h2 id=&#34;start-using-renv&#34;&gt;Start using &lt;code&gt;renv&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;For general advice on &lt;code&gt;renv&lt;/code&gt; setup and usage, see &lt;a href=&#34;https://rstudio.github.io/renv&#34;&gt;https://rstudio.github.io/renv&lt;/a&gt;.&#xA;The functions you mostly need, are &lt;code&gt;renv::init()&lt;/code&gt;, &lt;code&gt;renv::snapshot()&lt;/code&gt;, &lt;code&gt;renv::status()&lt;/code&gt;, &lt;code&gt;renv::restore()&lt;/code&gt; (always put &lt;code&gt;renv::restore()&lt;/code&gt; in the beginning of your R code).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Working with geospatial data sources of habitat (sub)types and RIBs</title>
+				<link>/tutorials/vignette_n2khab_v025_geospatial_hab/</link>
+				<pubDate>Wed, 12 May 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v025_geospatial_hab/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html&#34;&gt;https://inbo.github.io/n2khab/articles/v025_geospatial_hab.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>watina: Getting started with watina: connecting and selecting locations</title>
+				<link>/tutorials/vignette_watina_v010_getstarted/</link>
+				<pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_watina_v010_getstarted/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/watina/articles/v010_getstarted.html&#34;&gt;https://inbo.github.io/watina/articles/v010_getstarted.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Use of INBO citation style with bibliography managers</title>
+				<link>/tutorials/style_inbo_bibliography/</link>
+				<pubDate>Fri, 20 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/style_inbo_bibliography/</guid>
+				<description>&lt;h1 id=&#34;the-inbo-citation-style&#34;&gt;The INBO citation style&lt;/h1&gt;&#xA;&lt;p&gt;Most journals, publishers and companies use a specified format for&#xA;citations and bibliographies. The Research Institute for Nature and&#xA;Forest (INBO) is no exception.&lt;/p&gt;&#xA;&lt;p&gt;All bibliography managers provide ways to automate the formatting of&#xA;citations and bibliographies which greatly facilitates scientific&#xA;publishing. Depending on the bibliographic manager software, the style&#xA;formatting rules are stored in specific files. In this tutorial you will&#xA;learn how to use the INBO citation style in EndNote, Mendeley and Zotero&#xA;bibliography managers.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
+				<link>/tutorials/spatial_standards_raster/</link>
+				<pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_standards_raster/</guid>
+				<description>&lt;p&gt;&lt;em&gt;During the current transition period of supporting both old and new&#xA;PROJ/GDAL, you may get a decent portion of proj4string-related warnings&#xA;when running the below code, but you can safely ignore them.&lt;/em&gt; &lt;em&gt;For more&#xA;information, see the &lt;a href=&#34;../spatial_crs_coding/&#34;&gt;CRS tutorial&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;This tutorial uses a few basic functions from the&#xA;&lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;dplyr&lt;/a&gt; and&#xA;&lt;a href=&#34;https://rspatial.org/raster/pkg&#34;&gt;raster&lt;/a&gt; packages. While only a few&#xA;functions are used, you can use the previous hyperlinks to access the&#xA;tutorials (vignettes) of these packages for more functions and&#xA;information.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Transforming spatial objects</title>
+				<link>/tutorials/spatial_transform_crs/</link>
+				<pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_crs/</guid>
+				<description>&lt;p&gt;&lt;em&gt;General note: migration to the more actively developed &lt;code&gt;sf&lt;/code&gt; package is&#xA;currently advised by the &lt;code&gt;sp&lt;/code&gt; maintainer.&lt;/em&gt; &lt;em&gt;The &lt;code&gt;sp&lt;/code&gt; package, used in&#xA;this tutorial, is still maintained in order to support the newest&#xA;versions of the GDAL and PROJ backends.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Sometimes we have a layer in one coordinate reference system (CRS) and&#xA;need to transform it into another coordinate reference system. The first&#xA;thing we need to do is identifying both coordinate reference systems.&#xA;Let’s create an example and identify the coordinate reference system&#xA;with &lt;code&gt;wkt()&lt;/code&gt;. We used the coordinates posted on the contact page of&#xA;&lt;a href=&#34;http://www.ngi.be/NL/NL5.shtm&#34;&gt;NGI&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Using Kerberos authentication for database connection</title>
+				<link>/installation/user/user_install_kerberos/</link>
+				<pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/installation/user/user_install_kerberos/</guid>
+				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;em&gt;(shamelessly taken from &lt;a href=&#34;https://en.wikipedia.org/wiki/Kerberos_%28protocol%29&#34;&gt;wikipedia&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Kerberos is a computer network authentication protocol that works on the basis of tickets to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner.&lt;/p&gt;&#xA;&lt;p&gt;Windows 2000 and later uses Kerberos as its default authentication method. Many UNIX and UNIX-like operating systems, including &lt;a href=&#34;https://en.wikipedia.org/wiki/FreeBSD&#34;&gt;FreeBSD&lt;/a&gt;, Apple&amp;rsquo;s &lt;a href=&#34;https://en.wikipedia.org/wiki/Mac_OS_X&#34;&gt;Mac OS X&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux&#34;&gt;Red Hat Enterprise Linux&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Sun_microsystems&#34;&gt;Oracle&lt;/a&gt;&amp;rsquo;s &lt;a href=&#34;https://en.wikipedia.org/wiki/Solaris_%28operating_system%29&#34;&gt;Solaris&lt;/a&gt;, IBM&amp;rsquo;s &lt;a href=&#34;https://en.wikipedia.org/wiki/AIX&#34;&gt;AIX&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/Z/OS&#34;&gt;Z/OS&lt;/a&gt;, HP&amp;rsquo;s &lt;a href=&#34;https://en.wikipedia.org/wiki/HP-UX&#34;&gt;HP-UX&lt;/a&gt; and &lt;a href=&#34;https://en.wikipedia.org/wiki/OpenVMS&#34;&gt;OpenVMS&lt;/a&gt; and others, include software for Kerberos authentication of users or services.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Demonstrating package &amp; data setup and handling of sf objects: a case with read_soilmap()</title>
+				<link>/tutorials/vignette_n2khab_v022_example/</link>
+				<pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v022_example/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v022_example.html&#34;&gt;https://inbo.github.io/n2khab/articles/v022_example.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
+				<link>/tutorials/spatial_standards_vector/</link>
+				<pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_standards_vector/</guid>
+				<description>&lt;p&gt;This tutorial uses a few basic functions from the&#xA;&lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;dplyr&lt;/a&gt; and&#xA;&lt;a href=&#34;https://r-spatial.github.io/sf/&#34;&gt;sf&lt;/a&gt; packages. While only a few&#xA;functions are used, you can use the previous hyperlinks to access the&#xA;tutorials (vignettes) of these packages for more functions and&#xA;information.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;options&lt;/span&gt;(stringsAsFactors = &lt;span style=&#34;color:#00a&#34;&gt;FALSE&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(tidyverse)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sf)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(inborutils)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will find a bit more background about ‘why and what’, regarding the&#xA;considered open standards, in &lt;a href=&#34;/articles/geospatial_standards/&#34;&gt;a separate&#xA;post&lt;/a&gt; on this website.&lt;/p&gt;&#xA;&lt;p&gt;In short, the GeoPackage and GeoJSON formats are ideal for exchange,&#xA;publication, interoperability &amp;amp; durability and to open science in&#xA;general.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Meet some popular open geospatial standards!</title>
+				<link>/articles/geospatial_standards/</link>
+				<pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/geospatial_standards/</guid>
+				<description>&lt;p&gt;Some inspiration for this post came from the beautiful books of Lovelace&#xA;&lt;em&gt;et al.&lt;/em&gt; (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from&#xA;various websites.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-use-open-standards&#34;&gt;Why use open standards?&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Open file standards ease collaboration, portability and&#xA;compatibility between users, machines and applications.&lt;/li&gt;&#xA;&lt;li&gt;Their (file) structure is fully documented.&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Consequently, scientists and programmers can build new software&#xA;/ packages and make innovations that use these standards, while&#xA;maintaining interoperability with existing applications.&lt;/li&gt;&#xA;&lt;li&gt;And, there is a much higher chance that your data will still be&#xA;readable in a hundred years from now. The standard’s open&#xA;documentation makes it relatively easy to build tools that can&#xA;read an ancient open-standard file!&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Luckily, quite a list of open standards is available! Below, some&#xA;powerful and widely-used single-file formats are introduced. Single-file&#xA;data sources are readily amenable to exchange and publication.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>watina: Using hydrochemical data to characterize and select locations</title>
+				<link>/tutorials/vignette_watina_v210_chem/</link>
+				<pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_watina_v210_chem/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/watina/articles/v210_chem.html&#34;&gt;https://inbo.github.io/watina/articles/v210_chem.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>watina: Using XG3 values to characterize and select locations</title>
+				<link>/tutorials/vignette_watina_v110_xg3/</link>
+				<pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_watina_v110_xg3/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/watina/articles/v110_xg3.html&#34;&gt;https://inbo.github.io/watina/articles/v110_xg3.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Where to store the N2KHAB input data sources</title>
+				<link>/tutorials/vignette_n2khab_v020_datastorage/</link>
+				<pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v020_datastorage/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v020_datastorage.html&#34;&gt;https://inbo.github.io/n2khab/articles/v020_datastorage.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Using the GRTS data sources</title>
+				<link>/tutorials/vignette_n2khab_v030_grtsmh/</link>
+				<pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v030_grtsmh/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v030_GRTSmh.html&#34;&gt;https://inbo.github.io/n2khab/articles/v030_GRTSmh.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>n2khab: Reference lists and using them</title>
+				<link>/tutorials/vignette_n2khab_v010_reference_lists/</link>
+				<pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_n2khab_v010_reference_lists/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/n2khab/articles/v010_reference_lists.html&#34;&gt;https://inbo.github.io/n2khab/articles/v010_reference_lists.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

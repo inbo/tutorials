@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>jeroenspeybroeck on INBO Tutorials</title>
-    <link>/authors/jeroenspeybroeck/</link>
-    <description>Recent content in jeroenspeybroeck on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate><atom:link href="/authors/jeroenspeybroeck/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Let&#39;s create an interactive map!</title>
-      <link>/tutorials/spatial_create_leaflet_map/</link>
-      <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_create_leaflet_map/</guid>
-      <description>General note: migration to the more actively developed sf package is currently advised by the sp maintainer. The sp package, used in this tutorial, is still maintained in order to support the newest versions of the GDAL and PROJ backends.
-Introduction The required packages are leaflet and sp.
-library(leaflet) library(sp) Dummy data Let’s create a dummy data.frame to play around, i.e. the three locations of INBO:
-names &amp;lt;- c(&amp;#34;VAC HT&amp;#34;, &amp;#34;Geraardsbergen&amp;#34;, &amp;#34;Linkebeek&amp;#34;) lat &amp;lt;- c(50.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Jeroenspeybroeck on INBO Tutorials</title>
+		<link>/authors/jeroenspeybroeck/</link>
+		<description>Recent content in Jeroenspeybroeck on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 14 Jun 2018 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/authors/jeroenspeybroeck/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Let&#39;s create an interactive map!</title>
+				<link>/tutorials/spatial_create_leaflet_map/</link>
+				<pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_create_leaflet_map/</guid>
+				<description>&lt;p&gt;&lt;em&gt;General note: migration to the more actively developed &lt;code&gt;sf&lt;/code&gt; package is&#xA;currently advised by the &lt;code&gt;sp&lt;/code&gt; maintainer.&lt;/em&gt; &lt;em&gt;The &lt;code&gt;sp&lt;/code&gt; package, used in&#xA;this tutorial, is still maintained in order to support the newest&#xA;versions of the GDAL and PROJ backends.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The required packages are &lt;strong&gt;leaflet&lt;/strong&gt; and &lt;strong&gt;sp&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sp)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;dummy-data&#34;&gt;Dummy data&lt;/h2&gt;&#xA;&lt;p&gt;Let’s create a dummy &lt;code&gt;data.frame&lt;/code&gt; to play around, i.e. the three&#xA;locations of INBO:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;names &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;VAC HT&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;Geraardsbergen&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;Linkebeek&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lat &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#099&#34;&gt;50.865664&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;50.760201&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;50.767950&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lon &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#099&#34;&gt;4.349944&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;3.874300&lt;/span&gt;, &lt;span style=&#34;color:#099&#34;&gt;4.333044&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;data &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;data.frame&lt;/span&gt;(names, lat, lon)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We created three points:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

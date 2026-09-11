@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>inheritance on INBO Tutorials</title>
-    <link>/tags/inheritance/</link>
-    <description>Recent content in inheritance on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/inheritance/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Table Inheritance with PostgreSQL</title>
-      <link>/tutorials/sql_inheritance/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/sql_inheritance/</guid>
-      <description>Motivation For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, cf.) we organize fieldwork with a QGIS/QField front-end which connects to a database backend. The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.
-One central component of our database is a fieldwork calendar, which you could think of as a sort of TODO list: in there are the various activity types, per location, with a due date.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Inheritance on INBO Tutorials</title>
+		<link>/tags/inheritance/</link>
+		<description>Recent content in Inheritance on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/inheritance/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Table Inheritance with PostgreSQL</title>
+				<link>/tutorials/sql_inheritance/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tutorials/sql_inheritance/</guid>
+				<description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, &lt;a href=&#34;https://www.vlaanderen.be/inbo/teams/meetnetten-natuurlijk-milieu&#34;&gt;&lt;em&gt;cf.&lt;/em&gt;&lt;/a&gt;) we organize fieldwork with a &lt;a href=&#34;https://qgis.org&#34;&gt;QGIS&lt;/a&gt;/&lt;a href=&#34;https://qfield.org&#34;&gt;QField&lt;/a&gt; front-end which connects to a database backend.&#xA;The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.&lt;/p&gt;&#xA;&lt;p&gt;One central component of our database is a fieldwork calendar, which you could think of as a sort of &lt;strong&gt;TODO list&lt;/strong&gt;: in there are the various activity types, per location, with a due date.&#xA;This is outbound information: it is planned in desktop work, and facilitates the allocation of our efforts in the field.&#xA;On the other hand, there are the actual actions performed in the field: inbound information captured during execution of the task.&#xA;All the different tasks (installation/preparation/measurement) have &lt;strong&gt;some data fields in common, whereas other fields are task-specific&lt;/strong&gt;.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

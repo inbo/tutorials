@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>balanced on INBO Tutorials</title>
-    <link>/tags/balanced/</link>
-    <description>Recent content in balanced on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/balanced/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mathematical Transformations of Spatially Balanced Samples</title>
-      <link>/tutorials/spatial_transform_balanced_samples/</link>
-      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_balanced_samples/</guid>
-      <description>library(&amp;#34;dplyr&amp;#34;) library(&amp;#34;magrittr&amp;#34;) library(&amp;#34;sf&amp;#34;) library(&amp;#34;glue&amp;#34;) library(&amp;#34;spbal&amp;#34;) library(&amp;#34;ggplot2&amp;#34;) library(&amp;#34;ggExtra&amp;#34;) # set specific seed for reproducability location_id &amp;lt;- 42 set.seed(location_id) 
-Introduction Is Randomness Chaos? Occasionally, one requires a set of points which are randomly distributed in a given area.
-n_samples &amp;lt;- 2^8 x &amp;lt;- runif(n_samples) y &amp;lt;- runif(n_samples) data &amp;lt;- data.frame(&amp;#34;x&amp;#34; = x, &amp;#34;y&amp;#34; = y) par(pty = &amp;#34;s&amp;#34;) plot(data, pch = 21, col = &amp;#34;black&amp;#34;) But then, you know, if we are honest, &amp;ldquo;random&amp;rdquo; might be a bit too random.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Balanced on INBO Tutorials</title>
+		<link>/tags/balanced/</link>
+		<description>Recent content in Balanced on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/balanced/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Mathematical Transformations of Spatially Balanced Samples</title>
+				<link>/tutorials/spatial_transform_balanced_samples/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_balanced_samples/</guid>
+				<description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;dplyr&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;magrittr&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;sf&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;glue&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;spbal&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;ggplot2&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;ggExtra&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# set specific seed for reproducability&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;location_id &amp;lt;- &lt;span style=&#34;color:#099&#34;&gt;42&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;set.seed&lt;/span&gt;(location_id)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a id=&#34;sec-introduction&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;h2 id=&#34;is-randomness-chaos&#34;&gt;Is Randomness Chaos?&lt;/h2&gt;&#xA;&lt;p&gt;Occasionally, one requires a set of points which are &lt;strong&gt;randomly distributed&lt;/strong&gt; in a given area.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;n_samples &amp;lt;- &lt;span style=&#34;color:#099&#34;&gt;2&lt;/span&gt;^8&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;x &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;runif&lt;/span&gt;(n_samples)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;y &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;runif&lt;/span&gt;(n_samples)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;data &amp;lt;- &lt;span style=&#34;color:#0a0&#34;&gt;data.frame&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;x&amp;#34;&lt;/span&gt; = x, &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;y&amp;#34;&lt;/span&gt; = y)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;par&lt;/span&gt;(pty = &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;s&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;plot&lt;/span&gt;(data, pch = &lt;span style=&#34;color:#099&#34;&gt;21&lt;/span&gt;, col = &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;black&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;img src=&#34;/images/tutorials/spatial_transform_balanced_samples/totally-random-points-1.png&#34; width=&#34;80%&#34; /&gt;&#xA;&lt;p&gt;But then, you know, if we are honest, &amp;ldquo;random&amp;rdquo; might be a bit too random.&#xA;Some points come out on top of each other, some areas remain blank, and the corner points are quite far from the center.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

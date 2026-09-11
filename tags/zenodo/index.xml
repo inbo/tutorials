@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>zenodo on INBO Tutorials</title>
-    <link>/tags/zenodo/</link>
-    <description>Recent content in zenodo on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/zenodo/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Set up Zenodo - GitHub integration</title>
-      <link>/tutorials/git_zenodo/</link>
-      <pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/git_zenodo/</guid>
-      <description>Note: there is also a vignette in the checklist package for R, that covers below topics and more, such as integration with ORCID. If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!
-GitHub and Zenodo: background GitHub hosts a remote Git server that you can use for distributed version control with Git. For more information about Git and GitHub, see other tutorials on this website!</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Zenodo on INBO Tutorials</title>
+		<link>/tags/zenodo/</link>
+		<description>Recent content in Zenodo on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 22 Dec 2022 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/zenodo/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Set up Zenodo - GitHub integration</title>
+				<link>/tutorials/git_zenodo/</link>
+				<pubDate>Thu, 22 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/git_zenodo/</guid>
+				<description>&lt;p&gt;&lt;em&gt;Note: there is also a &lt;a href=&#34;https://packages.inbo.be/checklist/articles/zenodo.html&#34;&gt;vignette&lt;/a&gt; in the &lt;code&gt;checklist&lt;/code&gt; package for R, that covers below topics and more, such as integration with ORCID.&lt;/em&gt;&#xA;&lt;em&gt;If you are working with R and wish to control some of the below steps from R, then definitely read the vignette!&lt;/em&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;github-and-zenodo-background&#34;&gt;GitHub and Zenodo: background&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com&#34;&gt;GitHub&lt;/a&gt; hosts a remote Git server that you can use for distributed version control with Git.&#xA;For more information about Git and GitHub, see &lt;a href=&#34;https://inbo.github.io/tutorials/categories/version-control/&#34;&gt;other&lt;/a&gt; tutorials on this website!&#xA;In short, Git helps you with version control (maintaining snapshots) of a directory (file folder) – a repository – and GitHub helps you with distributing versions and with collaboration.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

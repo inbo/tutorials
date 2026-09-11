@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>python on INBO Tutorials</title>
-    <link>/tags/python/</link>
-    <description>Recent content in python on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Software by INBO: packages for environmentalists and ecologists!</title>
-      <link>/articles/inbo_software/</link>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/inbo_software/</guid>
-      <description>At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists R and Python packages which INBO developed or made a significant contribution to. Several of these packages continue being developed.
-Please, feel free to try out packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Python on INBO Tutorials</title>
+		<link>/tags/python/</link>
+		<description>Recent content in Python on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Software by INBO: packages for environmentalists and ecologists!</title>
+				<link>/articles/inbo_software/</link>
+				<pubDate>Fri, 01 Dec 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/inbo_software/</guid>
+				<description>&lt;p&gt;At the Research Institute for Nature and Forest (INBO), we are eager to sustain, promote and develop open-source software that is relevant to biodiversity researchers! This page lists &lt;strong&gt;R and Python packages&lt;/strong&gt; which INBO developed or made a significant contribution to. Several of these packages continue being developed.&lt;/p&gt;&#xA;&lt;p&gt;Please, feel free to &lt;strong&gt;try out&lt;/strong&gt; packages! If you encounter a problem or if you have a suggestion, we encourage you to post an issue on the package’s code repository. You can also directly contribute improvements with a pull request.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

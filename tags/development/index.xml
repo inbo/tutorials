@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>development on INBO Tutorials</title>
-    <link>/tags/development/</link>
-    <description>Recent content in development on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/development/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Table Inheritance with PostgreSQL</title>
-      <link>/tutorials/sql_inheritance/</link>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/sql_inheritance/</guid>
-      <description>Motivation For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, cf.) we organize fieldwork with a QGIS/QField front-end which connects to a database backend. The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.
-One central component of our database is a fieldwork calendar, which you could think of as a sort of TODO list: in there are the various activity types, per location, with a due date.</description>
-    </item>
-    
-    <item>
-      <title>Wercker</title>
-      <link>/tutorials/development_wercker/</link>
-      <pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
-      
-      <guid>/tutorials/development_wercker/</guid>
-      <description>Set up continuous integration with Wercker There are 2 major steps to set up continuous integration:
- create a wercker.yml file in the package add the application (package) to Wercker.com  To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.
-The Wercker test environment can only be set up if the file wercker.yml is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.</description>
-    </item>
-    
-    <item>
-      <title>Code coverage</title>
-      <link>/tutorials/development_codecov/</link>
-      <pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
-      
-      <guid>/tutorials/development_codecov/</guid>
-      <description>R CMD check has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, R CMD check does run a set unit tests. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the testthat framework for writing unit tests.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Development on INBO Tutorials</title>
+		<link>/tags/development/</link>
+		<description>Recent content in Development on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/development/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Table Inheritance with PostgreSQL</title>
+				<link>/tutorials/sql_inheritance/</link>
+				<pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+				<guid>/tutorials/sql_inheritance/</guid>
+				<description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;For our &amp;ldquo;Monitoring Programme for the Natural Environment&amp;rdquo; project (MNE, &lt;a href=&#34;https://www.vlaanderen.be/inbo/teams/meetnetten-natuurlijk-milieu&#34;&gt;&lt;em&gt;cf.&lt;/em&gt;&lt;/a&gt;) we organize fieldwork with a &lt;a href=&#34;https://qgis.org&#34;&gt;QGIS&lt;/a&gt;/&lt;a href=&#34;https://qfield.org&#34;&gt;QField&lt;/a&gt; front-end which connects to a database backend.&#xA;The simplicity and elegance of this combination is much appreciated and has helped us enormously to distribute tasks and capture data.&lt;/p&gt;&#xA;&lt;p&gt;One central component of our database is a fieldwork calendar, which you could think of as a sort of &lt;strong&gt;TODO list&lt;/strong&gt;: in there are the various activity types, per location, with a due date.&#xA;This is outbound information: it is planned in desktop work, and facilitates the allocation of our efforts in the field.&#xA;On the other hand, there are the actual actions performed in the field: inbound information captured during execution of the task.&#xA;All the different tasks (installation/preparation/measurement) have &lt;strong&gt;some data fields in common, whereas other fields are task-specific&lt;/strong&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Wercker</title>
+				<link>/tutorials/development_wercker/</link>
+				<pubDate>Fri, 23 Mar 2018 11:23:07 +0100</pubDate>
+				<guid>/tutorials/development_wercker/</guid>
+				<description>&lt;h2 id=&#34;set-up-continuous-integration-with-wercker&#34;&gt;Set up continuous integration with Wercker&lt;/h2&gt;&#xA;&lt;p&gt;There are 2 major steps to set up continuous integration:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;create a &lt;code&gt;wercker.yml&lt;/code&gt; file in the package&lt;/li&gt;&#xA;&lt;li&gt;add the application (package) to Wercker.com&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;To be able to add a package to Wercker, one must have administrator rights on the package repository on Github.&lt;/p&gt;&#xA;&lt;p&gt;The Wercker test environment can only be set up if the file &lt;code&gt;wercker.yml&lt;/code&gt; is commited to the repository, but Wercker is triggered to start checking when the application is added to wercker.com (giving an error if &lt;code&gt;wercker.yml&lt;/code&gt; is not commited yet).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Code coverage</title>
+				<link>/tutorials/development_codecov/</link>
+				<pubDate>Wed, 18 Oct 2017 00:25:24 +0200</pubDate>
+				<guid>/tutorials/development_codecov/</guid>
+				<description>&lt;p&gt;&lt;code&gt;R CMD check&lt;/code&gt; has a large set of generic quality tests on a package. It is impossible to create generic tests that check the content of the package. E.g. does each function return sensible results. However, &lt;code&gt;R CMD check&lt;/code&gt; does run a set &lt;a href=&#34;https://en.wikipedia.org/wiki/Unit_testing&#34;&gt;unit tests&lt;/a&gt;. These are small pieces of code written by the package developer which test the output of a specific function under specific circumstances. We highly recommend the &lt;a href=&#34;http://testthat.r-lib.org/&#34;&gt;&lt;code&gt;testthat&lt;/code&gt;&lt;/a&gt; framework for writing unit tests.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

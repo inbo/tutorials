@@ -1,75 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>literature on INBO Tutorials</title>
-    <link>/categories/literature/</link>
-    <description>Recent content in literature on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/literature/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Citations in R Markdown</title>
-      <link>/tutorials/r_citations_markdown/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_citations_markdown/</guid>
-      <description>Enter VME mode With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved. In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents. We also give some guidelines specific to the Research Institute for Nature and Forest.
-More general tutorials can be found at the following web pages:
- https://pandoc.org/MANUAL.html#citations https://rstudio.github.io/visual-markdown-editing/citations.html  The latter webpage is part of the documentation about the Visual Markdown Editing (VME) mode that is available since RStudio 1.</description>
-    </item>
-    
-    <item>
-      <title>Acquiring the skills</title>
-      <link>/articles/skills/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/skills/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the learning and teaching aspect, while they often also give an overview of scientific computing workflows.</description>
-    </item>
-    
-    <item>
-      <title>Scientific computing and data handling workflows</title>
-      <link>/articles/computing/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/computing/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-Overviews  Wilson et al. (2017): set of good computing practices that every researcher can adopt British Ecological Society (2014): planning the data life cycle; creating, processing, documenting, preserving, sharing &amp;amp; reusing data Goudeseune et al.</description>
-    </item>
-    
-    <item>
-      <title>The discipline of open science</title>
-      <link>/articles/open_science/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/open_science/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-These resources focus on the discipline as a whole, its perception, principles, etc., while they often also give an overview of scientific computing workflows.</description>
-    </item>
-    
-    <item>
-      <title>Books and articles on statistics</title>
-      <link>/articles/statistics/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/statistics/</guid>
-      <description>McElreath (2015): Statistical Rethinking is an introduction to applied Bayesian data analysis, aimed at PhD students and researchers in the natural and social sciences. This audience has had some calculus and linear algebra, and one or two joyless undergraduate courses in statistics. I’ve been teaching applied statistics to this audience for about a decade now, and this book has evolved from that experience. The book teaches generalized linear multilevel modeling (GLMMs) from a Bayesian perspective, relying on a simple logical interpretation of Bayesian probability and maximum entropy.</description>
-    </item>
-    
-    <item>
-      <title>Sharing and communicating</title>
-      <link>/articles/communicating/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/communicating/</guid>
-      <description>This page lists selected literature and online resources. Some are related to existing tutorial pages, while others are not. They are supposed to be of high interest to this site’s users.
-Several of the resources were added based on an inspiring talk by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.
-Sharing data  Ellis &amp;amp; Leek (2017): guidelines for providing data to a scientist / statistician: provide raw data, format consistently, include metadata &amp;amp; preprocessing steps Wilkinson et al.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Literature on INBO Tutorials</title>
+		<link>/categories/literature/</link>
+		<description>Recent content in Literature on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 08 Jul 2021 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/categories/literature/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Citations in R Markdown</title>
+				<link>/tutorials/r_citations_markdown/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_citations_markdown/</guid>
+				<description>&lt;h1 id=&#34;enter-vme-mode&#34;&gt;Enter VME mode&lt;/h1&gt;&#xA;&lt;p&gt;With the advent of RStudio version 1.4+, working with bibliographies and citing documents in R Markdown has much improved.&#xA;In this tutorial we focus on best practices to further ease the citation experience when working with R Markdown documents.&#xA;We also give some guidelines specific to the Research Institute for Nature and Forest.&lt;/p&gt;&#xA;&lt;p&gt;More general tutorials can be found at the following web pages:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://pandoc.org/MANUAL.html#citations&#34;&gt;https://pandoc.org/MANUAL.html#citations&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://rstudio.github.io/visual-markdown-editing/citations.html&#34;&gt;https://rstudio.github.io/visual-markdown-editing/citations.html&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The latter webpage is part of the documentation about the Visual Markdown Editing (&lt;strong&gt;VME&lt;/strong&gt;) mode that is available since RStudio 1.4+ as an alternative to writing R Markdown documents in source mode.&#xA;VME is a what-you-see-is-what-you-get&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; interface for interacting with R Markdown.&#xA;This interface is similar to writing documents in word processing software (google docs, MS Word, &amp;hellip;).&#xA;Moreover, the VME mode has more functionalities for citations than the source mode.&#xA;To switch between source mode and VME, press the &lt;img src=&#34;/tutorials/r_citations_markdown/visual-mode-2x.png&#34; alt=&#34;&#34;&gt; button&#xA;:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Acquiring the skills</title>
+				<link>/articles/skills/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/skills/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;p&gt;These resources focus on the learning and teaching aspect, while they&#xA;often also give an overview of &lt;a href=&#34;../computing&#34;&gt;scientific computing&#xA;workflows&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Scientific computing and data handling workflows</title>
+				<link>/articles/computing/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/computing/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overviews&#34;&gt;Overviews&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Wilson &lt;em&gt;et al.&lt;/em&gt; (2017): set of &lt;strong&gt;good computing practices&lt;/strong&gt; that&#xA;every researcher can adopt&lt;/li&gt;&#xA;&lt;li&gt;British Ecological Society (2014): planning the &lt;strong&gt;data life cycle&lt;/strong&gt;;&#xA;creating, processing, documenting, preserving, sharing &amp;amp; reusing&#xA;data&lt;/li&gt;&#xA;&lt;li&gt;Goudeseune &lt;em&gt;et al.&lt;/em&gt; (2019): &lt;strong&gt;open data management&lt;/strong&gt;, data&#xA;management plan, repositories, standards and licenses&lt;/li&gt;&#xA;&lt;li&gt;Cooper &amp;amp; Hsing (2017): file organisation, workflow documentation,&#xA;&lt;strong&gt;code&lt;/strong&gt; reproducibility and readability, writing reproducible&#xA;reports, version control and code archiving&lt;/li&gt;&#xA;&lt;li&gt;Marwick &lt;em&gt;et al.&lt;/em&gt; (2018): the &lt;strong&gt;research compendium&lt;/strong&gt; as a solution&#xA;to share research in a reproducible way&lt;/li&gt;&#xA;&lt;li&gt;Ibanez &lt;em&gt;et al.&lt;/em&gt; (2014): vision on reproducible science, routine&#xA;&lt;strong&gt;practices&lt;/strong&gt;, collaboration, literate computing&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;See also some resources related to &lt;a href=&#34;../skills&#34;&gt;learning and education&lt;/a&gt;&#xA;and the &lt;a href=&#34;../open_science&#34;&gt;discipline of open and reproducible science&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>The discipline of open science</title>
+				<link>/articles/open_science/</link>
+				<pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/open_science/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;p&gt;These resources focus on the discipline as a whole, its perception,&#xA;principles, etc., while they often also give an overview of &lt;a href=&#34;../computing&#34;&gt;scientific&#xA;computing workflows&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Books and articles on statistics</title>
+				<link>/articles/statistics/</link>
+				<pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+				<guid>/articles/statistics/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;McElreath (2015): Statistical Rethinking is an introduction to&#xA;applied Bayesian data analysis, aimed at PhD students and&#xA;researchers in the natural and social sciences. This audience has&#xA;had some calculus and linear algebra, and one or two joyless&#xA;undergraduate courses in statistics. I’ve been teaching applied&#xA;statistics to this audience for about a decade now, and this book&#xA;has evolved from that experience. The book teaches generalized&#xA;linear multilevel modeling (GLMMs) from a Bayesian perspective,&#xA;relying on a simple logical interpretation of Bayesian probability&#xA;and maximum entropy. The book covers the basics of regression&#xA;through multilevel models, as well as touching on measurement error,&#xA;missing data, and Gaussian process models for spatial and network&#xA;autocorrelation. This is not a traditional mathematical statistics&#xA;book. Instead the approach is computational, using complete R code&#xA;examples, aimed at developing skilled and skeptical scientists.&#xA;Theory is explained through simulation exercises, using R code. And&#xA;modeling examples are fully worked, with R code displayed within the&#xA;main text. Mathematical depth is given in optional&#xA;{“}overthinking{”} boxes throughout.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Sharing and communicating</title>
+				<link>/articles/communicating/</link>
+				<pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+				<guid>/articles/communicating/</guid>
+				<description>&lt;p&gt;This page lists &lt;strong&gt;selected&lt;/strong&gt; literature and online resources. Some are&#xA;related to existing tutorial pages, while others are not. They are&#xA;supposed to be of high interest to this site’s users.&lt;/p&gt;&#xA;&lt;p&gt;Several of the resources were added based on an inspiring&#xA;&lt;a href=&#34;https://docs.google.com/presentation/d/10KkXEv4r3wWtdKvB6RFOPe809eMNldODaRqQxn-jeME/edit?usp=sharing&#34;&gt;talk&lt;/a&gt;&#xA;by Julia Lowndes at the SAFRED conference, Brussels, 27 Feb 2018.&lt;/p&gt;&#xA;&lt;h2 id=&#34;sharing-data&#34;&gt;Sharing data&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ellis &amp;amp; Leek (2017): guidelines for &lt;strong&gt;providing data&lt;/strong&gt; to a&#xA;scientist / statistician: provide raw data, format consistently,&#xA;include metadata &amp;amp; preprocessing steps&lt;/li&gt;&#xA;&lt;li&gt;Wilkinson &lt;em&gt;et al.&lt;/em&gt; (2016): the &lt;strong&gt;FAIR data principles&lt;/strong&gt;: date are to&#xA;be findable, accessible, interoperable and reusable&lt;/li&gt;&#xA;&lt;li&gt;Culina &lt;em&gt;et al.&lt;/em&gt; (2018): overview of online &lt;strong&gt;data infrastructures&lt;/strong&gt;&#xA;and considerations to be made&lt;/li&gt;&#xA;&lt;li&gt;Perkel (2016): &lt;strong&gt;data repository sites&lt;/strong&gt; like github and others&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;communicating&#34;&gt;Communicating&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Smith &lt;em&gt;et al.&lt;/em&gt; (2016): recommendations of the FORCE11 Software&#xA;Citation Working Group&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;bibliography&#34;&gt;Bibliography&lt;/h2&gt;&#xA;&lt;p&gt;Culina A., Baglioni M., Crowther T.W., Visser M.E., Woutersen-Windhouwer&#xA;S. &amp;amp; Manghi P. (2018). Navigating the unfolding open data landscape in&#xA;ecology and evolution. Nature Ecology &amp;amp; Evolution 2 (3): 420–426.&#xA;&lt;a href=&#34;https://doi.org/10.1038/s41559-017-0458-2&#34;&gt;https://doi.org/10.1038/s41559-017-0458-2&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

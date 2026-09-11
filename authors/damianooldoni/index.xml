@@ -1,75 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>damianooldoni on INBO Tutorials</title>
-    <link>/authors/damianooldoni/</link>
-    <description>Recent content in damianooldoni on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Get species checklist data from GBIF with rgbif</title>
-      <link>/tutorials/r_gbif_checklist/</link>
-      <pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_gbif_checklist/</guid>
-      <description>Introduction The R package rgbif is a R wrapper to the GBIF API which allows you to get data from GBIF directly in your R session. The package is very well documented. Please, look at the articles on how to:
- setup your GBIF username and password get occurrence data work with taxonomy related functions match and download a long species list  So, why write another tutorial about rgbif? Because I think you can benefit from these short instructions to get a (species) checklist dataset from GBIF without having to read through all the documentation.</description>
-    </item>
-    
-    <item>
-      <title>etn: Explore acoustic telemetry data</title>
-      <link>/tutorials/vignette_etn_acoustic_telemetry/</link>
-      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_etn_acoustic_telemetry/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/etn/articles/acoustic_telemetry.html</description>
-    </item>
-    
-    <item>
-      <title>Tutorial setup_codingclub_session()</title>
-      <link>/tutorials/r_setup_codingclub_session/</link>
-      <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_setup_codingclub_session/</guid>
-      <description>Before each coding club you will usually have to download some datasets and some scripts. This can be done manually from the corresponding GitHub webpages but it is much easier to use the setup_codingclub_session() function of the inborutils package.
-To begin, make sure that you have the latest version of inborutils installed by running the following code:
-if (!&amp;#34;remotes&amp;#34; %in% rownames(installed.packages())) { install.packages(&amp;#34;remotes&amp;#34;) } remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) Next load the package:
-library(inborutils) The function takes four arguments with the following default settings:</description>
-    </item>
-    
-    <item>
-      <title>Read data from Google sheets</title>
-      <link>/tutorials/r_google_sheets/</link>
-      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_google_sheets/</guid>
-      <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
-This package is very well documented, so we just have to provide you with the right links:
- read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
-A complete list of vignettes can be found in the Articles page.
-googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&amp;rsquo;t work anymore as it is built on the outdated Sheets v3 API.</description>
-    </item>
-    
-    <item>
-      <title>Match scientific names with the GBIF Backbone Taxonomy</title>
-      <link>/tutorials/r_gbif_name_matching/</link>
-      <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_gbif_name_matching/</guid>
-      <description>Introduction This tutorial will explain how you can match a list of scientific names against the GBIF backbone taxonomy.
-It is important that you have the most recent version of inborutils installed and available:
-remotes::install_github(&amp;#34;inbo/inborutils&amp;#34;) # install inborutils library(tidyverse) # To do datascience library(rgbif) # To lookup names in the GBIF backbone taxonomy library(inborutils) # To wrap GBIF API data library(knitr) Read data file containing the scientific names Read file containing the scientific names you want to check against the GBIF taxonomic backbone:</description>
-    </item>
-    
-    <item>
-      <title>inborutils: GBIF scientific name matching</title>
-      <link>/tutorials/vignette_inborutils_gbif_name_match/</link>
-      <pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/vignette_inborutils_gbif_name_match/</guid>
-      <description>See the vignette/tutorial at https://inbo.github.io/inborutils/articles/gbif_name_match.html</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Damianooldoni on INBO Tutorials</title>
+		<link>/authors/damianooldoni/</link>
+		<description>Recent content in Damianooldoni on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/authors/damianooldoni/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Get species checklist data from GBIF with rgbif</title>
+				<link>/tutorials/r_gbif_checklist/</link>
+				<pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_gbif_checklist/</guid>
+				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The R package &lt;a href=&#34;https://docs.ropensci.org/rgbif/&#34;&gt;rgbif&lt;/a&gt; is a R wrapper&#xA;to the &lt;a href=&#34;https://www.gbif.org/developer/summary&#34;&gt;GBIF API&lt;/a&gt; which allows&#xA;you to get data from GBIF directly in your R session. The package is&#xA;very well documented. Please, look at the articles on how to:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/gbif_credentials.html&#34;&gt;setup your GBIF username and&#xA;password&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/getting_occurrence_data.html&#34;&gt;get occurrence&#xA;data&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/taxonomic_names.html&#34;&gt;work with taxonomy related&#xA;functions&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://docs.ropensci.org/rgbif/articles/downloading_a_long_species_list.html&#34;&gt;match and download a long species&#xA;list&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;So, why write another tutorial about rgbif? Because I think you can&#xA;benefit from these short instructions to get a (species) checklist&#xA;dataset from GBIF without having to read through all the documentation.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>etn: Explore acoustic telemetry data</title>
+				<link>/tutorials/vignette_etn_acoustic_telemetry/</link>
+				<pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_etn_acoustic_telemetry/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/etn/articles/acoustic_telemetry.html&#34;&gt;https://inbo.github.io/etn/articles/acoustic_telemetry.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Tutorial setup_codingclub_session()</title>
+				<link>/tutorials/r_setup_codingclub_session/</link>
+				<pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_setup_codingclub_session/</guid>
+				<description>&lt;p&gt;Before each coding club you will usually have to download some datasets&#xA;and some scripts. This can be done manually from the corresponding&#xA;GitHub webpages but it is much easier to use the&#xA;&lt;code&gt;setup_codingclub_session()&lt;/code&gt; function of the &lt;code&gt;inborutils&lt;/code&gt; package.&lt;/p&gt;&#xA;&lt;p&gt;To begin, make sure that you have the latest version of &lt;code&gt;inborutils&lt;/code&gt;&#xA;installed by running the following code:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#00a&#34;&gt;if&lt;/span&gt; (!&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;remotes&amp;#34;&lt;/span&gt; %in% &lt;span style=&#34;color:#0a0&#34;&gt;rownames&lt;/span&gt;(&lt;span style=&#34;color:#0a0&#34;&gt;installed.packages&lt;/span&gt;())) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#0a0&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;remotes&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;remotes::&lt;span style=&#34;color:#0a0&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;inbo/inborutils&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next load the package:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(inborutils)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function takes four arguments with the following default settings:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Read data from Google sheets</title>
+				<link>/tutorials/r_google_sheets/</link>
+				<pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_google_sheets/</guid>
+				<description>&lt;h2 id=&#34;googlesheets4&#34;&gt;&lt;code&gt;googlesheets4&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;The R package &lt;a href=&#34;https://googlesheets4.tidyverse.org/&#34;&gt;googlesheets4&lt;/a&gt; provides the functionality to read and write data from a Google sheet.&lt;/p&gt;&#xA;&lt;p&gt;This package is very well documented, so we just have to provide you with the right links:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/googlesheets4.html#read_sheet-a-k-a--range_read&#34;&gt;read sheets&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/googlesheets4.html#writing-sheets&#34;&gt;write sheets&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;There are also two specific in-depth articles: one about &lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html&#34;&gt;reading&lt;/a&gt; and one about &lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html&#34;&gt;writing&lt;/a&gt; sheets.&lt;/p&gt;&#xA;&lt;p&gt;A complete list of vignettes can be found in the &lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/index.html&#34;&gt;Articles page&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;googlesheets4-vs-googlesheets&#34;&gt;&lt;code&gt;googlesheets4&lt;/code&gt; vs &lt;code&gt;googlesheets&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;The package &lt;code&gt;googlesheets4&lt;/code&gt; is the follower of &lt;a href=&#34;https://github.com/jennybc/googlesheets/blob/master/README.md&#34;&gt;&lt;code&gt;googlesheets&lt;/code&gt;&lt;/a&gt; which doesn&amp;rsquo;t work anymore as it is built on the outdated Sheets v3 API.&#xA;If you still have code using this package, you will get this error:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Match scientific names with the GBIF Backbone Taxonomy</title>
+				<link>/tutorials/r_gbif_name_matching/</link>
+				<pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_gbif_name_matching/</guid>
+				<description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial will explain how you can match a list of &lt;em&gt;scientific&#xA;names&lt;/em&gt; against the &lt;a href=&#34;https://www.gbif.org/species/search?dataset_key=d7dddbf4-2cf0-4f39-9b2a-bb099caae36c&amp;amp;advanced=1&#34;&gt;GBIF backbone&#xA;taxonomy&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;It is important that you have the most recent version of&#xA;&lt;a href=&#34;https://inbo.github.io/inborutils/&#34;&gt;inborutils&lt;/a&gt; installed and&#xA;available:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;remotes::&lt;span style=&#34;color:#0a0&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;inbo/inborutils&amp;#34;&lt;/span&gt;)   &lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# install inborutils&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(tidyverse)    &lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# To do datascience&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(rgbif)        &lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# To lookup names in the GBIF backbone taxonomy&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(inborutils)   &lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# To wrap GBIF API data&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(knitr)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;read-data-file-containing-the-scientific-names&#34;&gt;Read data file containing the scientific names&lt;/h2&gt;&#xA;&lt;p&gt;Read file containing the scientific names you want to check against the&#xA;&lt;a href=&#34;https://www.gbif.org/species/search?q=&#34;&gt;GBIF&lt;/a&gt; taxonomic backbone:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>inborutils: GBIF scientific name matching</title>
+				<link>/tutorials/vignette_inborutils_gbif_name_match/</link>
+				<pubDate>Thu, 25 Jul 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/vignette_inborutils_gbif_name_match/</guid>
+				<description>&lt;p&gt;See the vignette/tutorial at &lt;a href=&#34;https://inbo.github.io/inborutils/articles/gbif_name_match.html&#34;&gt;https://inbo.github.io/inborutils/articles/gbif_name_match.html&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

@@ -1,96 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>gis on INBO Tutorials</title>
-    <link>/categories/gis/</link>
-    <description>Recent content in gis on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="/categories/gis/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The UTM grid and the MGRS grid: not quite the same</title>
-      <link>/articles/spatial_mgrs/</link>
-      <pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/spatial_mgrs/</guid>
-      <description>Summary Grids are widely used in biodiversity monitoring to define the basic spatial units for data collection, data processing or mapping. In this post I explain differences between the UTM and MGRS grids, provide references to their full definition and refer to some software implementations for MGRS.
-Main points:
- The UTM grid and the MGRS grid outside the polar regions are both derived from the UTM (Universal Transverse Mercator) map projection system.</description>
-    </item>
-    
-    <item>
-      <title>Using WMS services in R</title>
-      <link>/tutorials/spatial_wms_services/</link>
-      <pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_wms_services/</guid>
-      <description>WMS stands for Web Map Service. The service provides prerendered tiles at different scales. This makes it useful to include them as background images in maps.
-We will use the leaflet package to make interactive maps.
-library(leaflet) First, we define some WMS URLs for Flanders and Belgium to play with:
-# Flanders: wms_grb &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34; wms_ortho &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34; wms_inbo &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34; wms_hunting &amp;lt;- &amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34; # Belgium: wms_cartoweb_be &amp;lt;- &amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34; wms_ortho_be &amp;lt;- &amp;#34;https://wms.</description>
-    </item>
-    
-    <item>
-      <title>Coordinate operations and maps in R</title>
-      <link>/tutorials/spatial_transform_crs_2/</link>
-      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_transform_crs_2/</guid>
-      <description>Introduction and setup This tutorial originated while preparing an R-demonstration during a GIS club at INBO on 16 September 2021. (Further material of the GIS club is available here.)
-A straightforward approach for transforming spatial data is available in another tutorial. The current tutorial tackles a few extra aspects.
-The tutorial assumes you have some pre-existing knowledge:
- Basic knowledge about coordinate reference systems (CRSs) and geodetic datums; see another tutorial and the references and links therein.</description>
-    </item>
-    
-    <item>
-      <title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
-      <link>/tutorials/spatial_crs_coding/</link>
-      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_crs_coding/</guid>
-      <description>Coordinate reference systems: minimal background What? A coordinate reference system (CRS) – also called spatial reference system (SRS) – is what you need if you want to interpret numeric coordinates as actual point locations with reference to the Earth. Two types of coordinate reference system are much used in spatial science: geodetic and projected CRSs. The former serve only to locate coordinates relative to a 3D model of the Earth surface, while the latter add a projection to generate coordinates on a 2D map.</description>
-    </item>
-    
-    <item>
-      <title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
-      <link>/tutorials/spatial_standards_raster/</link>
-      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_standards_raster/</guid>
-      <description>During the current transition period of supporting both old and new PROJ/GDAL, you may get a decent portion of proj4string-related warnings when running the below code, but you can safely ignore them. For more information, see the CRS tutorial.
-This tutorial uses a few basic functions from the dplyr and raster packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.</description>
-    </item>
-    
-    <item>
-      <title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
-      <link>/tutorials/spatial_standards_vector/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_standards_vector/</guid>
-      <description>This tutorial uses a few basic functions from the dplyr and sf packages. While only a few functions are used, you can use the previous hyperlinks to access the tutorials (vignettes) of these packages for more functions and information.
-options(stringsAsFactors = FALSE) library(tidyverse) library(sf) library(inborutils) You will find a bit more background about ‘why and what’, regarding the considered open standards, in a separate post on this website.
-In short, the GeoPackage and GeoJSON formats are ideal for exchange, publication, interoperability &amp;amp; durability and to open science in general.</description>
-    </item>
-    
-    <item>
-      <title>Meet some popular open geospatial standards!</title>
-      <link>/articles/geospatial_standards/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/articles/geospatial_standards/</guid>
-      <description>Some inspiration for this post came from the beautiful books of Lovelace et al. (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from various websites.
-Why use open standards?  Open file standards ease collaboration, portability and compatibility between users, machines and applications. Their (file) structure is fully documented.  Consequently, scientists and programmers can build new software / packages and make innovations that use these standards, while maintaining interoperability with existing applications.</description>
-    </item>
-    
-    <item>
-      <title>How to make spatial joins (point in polygon)?</title>
-      <link>/tutorials/spatial_point_in_polygon/</link>
-      <pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/spatial_point_in_polygon/</guid>
-      <description>library(R.utils) library(rgdal) library(tidyverse) library(leaflet) library(sp) library(sf) library(rgbif) library(DBI) What we want to do In this short tutorial, we explore various options to deal with the situation where we have (1) a spatially referenced GIS file with polygons and (2) a spatially referenced set of points that overlaps with the GIS polygons.
-Typically, both data sources contain information (apart from the spatial locations) that needs to be related to each other in some way.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Gis on INBO Tutorials</title>
+		<link>/categories/gis/</link>
+		<description>Recent content in Gis on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 23 Oct 2023 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/categories/gis/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>The UTM grid and the MGRS grid: not quite the same</title>
+				<link>/articles/spatial_mgrs/</link>
+				<pubDate>Mon, 23 Oct 2023 00:00:00 +0000</pubDate>
+				<guid>/articles/spatial_mgrs/</guid>
+				<description>&lt;h4 id=&#34;summary&#34;&gt;Summary&lt;/h4&gt;&#xA;&lt;p&gt;Grids are widely used in biodiversity monitoring to define the basic&#xA;spatial units for data collection, data processing or mapping. In this&#xA;post I explain differences between the UTM and MGRS grids, provide&#xA;references to their full definition and refer to some software&#xA;implementations for MGRS.&lt;/p&gt;&#xA;&lt;p&gt;Main points:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The UTM grid and the MGRS grid outside the polar regions are both&#xA;derived from the UTM (Universal Transverse Mercator) map projection&#xA;system. Both grids have a world-wide coverage, but the polar regions&#xA;are only covered by the MGRS grid. In the polar regions, the MGRS grid&#xA;is derived from the UPS (Universal Polar Stereographic) map&#xA;projection.&lt;/li&gt;&#xA;&lt;li&gt;The major divisions of the UTM grid are the &lt;em&gt;UTM zones&lt;/em&gt;, defined by&#xA;meridians that are 6° apart. The understanding of the term ‘UTM grid’&#xA;in this post &lt;em&gt;only&lt;/em&gt; involves grid lines tied to the UTM coordinate&#xA;system.&lt;/li&gt;&#xA;&lt;li&gt;In the area where UTM applies, the major partitions of the MGRS grid&#xA;are the &lt;em&gt;grid zones&lt;/em&gt;, which are a further division of UTM zones&#xA;according to specific parallels, further amended by shifting the&#xA;meridian borders of some grid zones. Grid zone borders generate extra&#xA;cell clipping compared to the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;Apart from deviations and extra clips as a consequence of the grid&#xA;zones, the MGRS grid cell pattern outside the polar regions matches&#xA;that of the UTM grid.&lt;/li&gt;&#xA;&lt;li&gt;UTM grid references consist solely of digits (Arabic numerals), while&#xA;MGRS grid references are alphanumeric (combination of digits &amp;amp; Latin&#xA;characters). To illustrate this, following examples refer to the&#xA;Belgian point location used in the text:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;An UTM grid reference looks like &lt;code&gt;31.577019.5661520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31.577.5661&lt;/code&gt; (kilometer precision) and separators are&#xA;needed (point, slash, space) if not applying localized&#xA;simplifications. Quite some variations exist.&lt;/li&gt;&#xA;&lt;li&gt;An MGRS grid reference looks like &lt;code&gt;31U ES 77019 61520&lt;/code&gt; (meter&#xA;precision) or &lt;code&gt;31U ES 77 61&lt;/code&gt; (kilometer precision), and the spacing&#xA;is optional.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;When decreasing the precision of a position, &lt;em&gt;coordinates&lt;/em&gt; are to be&#xA;&lt;em&gt;rounded&lt;/em&gt; while in (UTM and MGRS) &lt;em&gt;grid references&lt;/em&gt; the numeric parts&#xA;representing easting and northing are to be &lt;em&gt;truncated&lt;/em&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Projected coordinate reference systems (CRSs) specify a geodetic datum&#xA;so that coordinates can be linked to a physical location on the&#xA;Earth’s surface. Likewise, you need to specify (and be aware of) the&#xA;geodetic datum when using a (UTM or MGRS) grid reference for&#xA;positioning.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;terminological-notes&#34;&gt;Terminological notes&lt;/h4&gt;&#xA;&lt;p&gt;The NGA (National Geospatial-Intelligence Agency) Office of Geomatics&#xA;(&lt;a href=&#34;https://earth-info.nga.mil&#34;&gt;https://earth-info.nga.mil&lt;/a&gt;), part of the US Department of Defense,&#xA;maintains definitions of the UTM map projection system and the MGRS grid&#xA;(&lt;a href=&#34;/articles/spatial_mgrs/#ref-national_geospatial-intelligence_agency_universal_2014&#34;&gt;National Geospatial-Intelligence Agency,&#xA;2014a&lt;/a&gt;), as&#xA;did its predecessor organisations since the inception of these systems&#xA;in the 1940s (&lt;a href=&#34;/articles/spatial_mgrs/#ref-buchroithner_geodetic_2017&#34;&gt;Buchroithner &amp;amp; Pfahlbusch,&#xA;2017&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_1956&#34;&gt;Department of the Army,&#xA;1956&lt;/a&gt;,&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-department_of_the_army_map_2001&#34;&gt;2001&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-palombo_military_2021&#34;&gt;Palombo,&#xA;2021&lt;/a&gt;; &lt;a href=&#34;/articles/spatial_mgrs/#ref-snyder_map_1987&#34;&gt;Snyder, 1987&lt;/a&gt;;&#xA;&lt;a href=&#34;/articles/spatial_mgrs/#ref-stott_utm_1977&#34;&gt;Stott, 1977&lt;/a&gt;). Their usage of the term ‘UTM grid’&#xA;is not distinguished from the UTM map projection system, hence comes&#xA;down to using numeric CRS coordinates in meters.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Using WMS services in R</title>
+				<link>/tutorials/spatial_wms_services/</link>
+				<pubDate>Fri, 08 Apr 2022 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_wms_services/</guid>
+				<description>&lt;p&gt;WMS stands for &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Map_Service&#34;&gt;Web Map&#xA;Service&lt;/a&gt;. The service&#xA;provides prerendered tiles at different scales. This makes it useful to&#xA;include them as background images in maps.&lt;/p&gt;&#xA;&lt;p&gt;We will use the &lt;code&gt;leaflet&lt;/code&gt; package to make interactive maps.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, we define some WMS URLs for Flanders and Belgium to play with:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# Flanders:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_grb &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/GRB-basiskaart/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_ortho &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/OMWRGBMRVL/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_inbo &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/INBO/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_hunting &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://geo.api.vlaanderen.be/Jacht/wms&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#aaa;font-style:italic&#34;&gt;# Belgium:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_cartoweb_be &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://cartoweb.wms.ngi.be/service&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wms_ortho_be &amp;lt;- &lt;span style=&#34;color:#a50&#34;&gt;&amp;#34;https://wms.ngi.be/inspire/ortho/service&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;code&gt;wms_grb&lt;/code&gt; links to the WMS of the&#xA;&lt;a href=&#34;http://www.geopunt.be/catalogus/webservicefolder/aa04ae22-2297-98c3-1ffd-3440-5aff-bd2c-8a0cc151&#34;&gt;GRB-basiskaart&lt;/a&gt;,&#xA;the Flemish cadastral map. It depicts land parcels, buildings,&#xA;watercourses, roads and railroads.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Coordinate operations and maps in R</title>
+				<link>/tutorials/spatial_transform_crs_2/</link>
+				<pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_transform_crs_2/</guid>
+				<description>&lt;h2 id=&#34;introduction-and-setup&#34;&gt;Introduction and setup&lt;/h2&gt;&#xA;&lt;p&gt;This tutorial originated while preparing an R-demonstration during a GIS&#xA;club at INBO on 16 September 2021. (Further material of the GIS club is&#xA;available&#xA;&lt;a href=&#34;https://drive.google.com/drive/folders/1s5HZ5VjnkTbCQSE1vfFyMJz6PVIl4mHW&#34;&gt;here&lt;/a&gt;.)&lt;/p&gt;&#xA;&lt;p&gt;A straightforward approach for transforming spatial data is available in&#xA;another &lt;a href=&#34;../spatial_transform_crs/&#34;&gt;tutorial&lt;/a&gt;. The current tutorial&#xA;tackles a few extra aspects.&lt;/p&gt;&#xA;&lt;p&gt;The tutorial assumes you have some pre-existing knowledge:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Basic knowledge about coordinate reference systems (CRSs) and&#xA;geodetic datums; see &lt;a href=&#34;../spatial_crs_coding/&#34;&gt;another tutorial&lt;/a&gt; and&#xA;the references and links therein.&lt;/li&gt;&#xA;&lt;li&gt;Knowing how to read geospatial files with&#xA;&lt;a href=&#34;https://r-spatial.github.io/sf&#34;&gt;&lt;code&gt;sf&lt;/code&gt;&lt;/a&gt;. There is another&#xA;&lt;a href=&#34;../spatial_standards_vector/&#34;&gt;tutorial&lt;/a&gt; demonstrating some aspects.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;In this tutorial we will apply conversions (without datum shift) and&#xA;transformations (with datum shift) to &lt;code&gt;sf&lt;/code&gt; and &lt;code&gt;sfc&lt;/code&gt; objects. In the&#xA;background, these operations use the &lt;a href=&#34;https://proj.org&#34;&gt;PROJ&lt;/a&gt; library.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Goodbye PROJ.4! How to specify a coordinate reference system in R?</title>
+				<link>/tutorials/spatial_crs_coding/</link>
+				<pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_crs_coding/</guid>
+				<description>&lt;h2 id=&#34;coordinate-reference-systems-minimal-background&#34;&gt;Coordinate reference systems: minimal background&lt;/h2&gt;&#xA;&lt;h3 id=&#34;what&#34;&gt;What?&lt;/h3&gt;&#xA;&lt;p&gt;A coordinate reference system (&lt;strong&gt;CRS&lt;/strong&gt;) – also called spatial reference&#xA;system (SRS) – is what you need if you want to interpret numeric&#xA;coordinates as actual point locations with reference to the Earth. Two&#xA;types of coordinate reference system are much used in spatial science:&#xA;&lt;em&gt;geodetic&lt;/em&gt; and &lt;em&gt;projected&lt;/em&gt; CRSs. The former serve only to locate&#xA;coordinates relative to a 3D model of the Earth surface, while the&#xA;latter add a projection to generate coordinates on a 2D map. Coordinate&#xA;operations convert or transform coordinates from one CRS to another, and&#xA;you often need them because the CRS may differ between dataset 1,&#xA;dataset 2 or a specific mapping technology (such as &lt;code&gt;leaflet&lt;/code&gt;).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>How to use open raster file formats in R: GeoTIFF &amp; GeoPackage</title>
+				<link>/tutorials/spatial_standards_raster/</link>
+				<pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_standards_raster/</guid>
+				<description>&lt;p&gt;&lt;em&gt;During the current transition period of supporting both old and new&#xA;PROJ/GDAL, you may get a decent portion of proj4string-related warnings&#xA;when running the below code, but you can safely ignore them.&lt;/em&gt; &lt;em&gt;For more&#xA;information, see the &lt;a href=&#34;../spatial_crs_coding/&#34;&gt;CRS tutorial&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;This tutorial uses a few basic functions from the&#xA;&lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;dplyr&lt;/a&gt; and&#xA;&lt;a href=&#34;https://rspatial.org/raster/pkg&#34;&gt;raster&lt;/a&gt; packages. While only a few&#xA;functions are used, you can use the previous hyperlinks to access the&#xA;tutorials (vignettes) of these packages for more functions and&#xA;information.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>How to use open vector file formats in R: GeoPackage &amp; GeoJSON</title>
+				<link>/tutorials/spatial_standards_vector/</link>
+				<pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_standards_vector/</guid>
+				<description>&lt;p&gt;This tutorial uses a few basic functions from the&#xA;&lt;a href=&#34;https://dplyr.tidyverse.org&#34;&gt;dplyr&lt;/a&gt; and&#xA;&lt;a href=&#34;https://r-spatial.github.io/sf/&#34;&gt;sf&lt;/a&gt; packages. While only a few&#xA;functions are used, you can use the previous hyperlinks to access the&#xA;tutorials (vignettes) of these packages for more functions and&#xA;information.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;options&lt;/span&gt;(stringsAsFactors = &lt;span style=&#34;color:#00a&#34;&gt;FALSE&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(tidyverse)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sf)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(inborutils)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will find a bit more background about ‘why and what’, regarding the&#xA;considered open standards, in &lt;a href=&#34;/articles/geospatial_standards/&#34;&gt;a separate&#xA;post&lt;/a&gt; on this website.&lt;/p&gt;&#xA;&lt;p&gt;In short, the GeoPackage and GeoJSON formats are ideal for exchange,&#xA;publication, interoperability &amp;amp; durability and to open science in&#xA;general.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Meet some popular open geospatial standards!</title>
+				<link>/articles/geospatial_standards/</link>
+				<pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
+				<guid>/articles/geospatial_standards/</guid>
+				<description>&lt;p&gt;Some inspiration for this post came from the beautiful books of Lovelace&#xA;&lt;em&gt;et al.&lt;/em&gt; (2020), Pebesma &amp;amp; Bivand (2019) and Hijmans (2019), and from&#xA;various websites.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-use-open-standards&#34;&gt;Why use open standards?&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Open file standards ease collaboration, portability and&#xA;compatibility between users, machines and applications.&lt;/li&gt;&#xA;&lt;li&gt;Their (file) structure is fully documented.&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Consequently, scientists and programmers can build new software&#xA;/ packages and make innovations that use these standards, while&#xA;maintaining interoperability with existing applications.&lt;/li&gt;&#xA;&lt;li&gt;And, there is a much higher chance that your data will still be&#xA;readable in a hundred years from now. The standard’s open&#xA;documentation makes it relatively easy to build tools that can&#xA;read an ancient open-standard file!&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Luckily, quite a list of open standards is available! Below, some&#xA;powerful and widely-used single-file formats are introduced. Single-file&#xA;data sources are readily amenable to exchange and publication.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>How to make spatial joins (point in polygon)?</title>
+				<link>/tutorials/spatial_point_in_polygon/</link>
+				<pubDate>Thu, 20 Jun 2019 00:00:00 +0000</pubDate>
+				<guid>/tutorials/spatial_point_in_polygon/</guid>
+				<description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(R.utils)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(rgdal)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(tidyverse)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(leaflet)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sp)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(sf)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(rgbif)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a0&#34;&gt;library&lt;/span&gt;(DBI)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;what-we-want-to-do&#34;&gt;What we want to do&lt;/h2&gt;&#xA;&lt;p&gt;In this short tutorial, we explore various options to deal with the&#xA;situation where we have (1) a spatially referenced GIS file with&#xA;polygons and (2) a spatially referenced set of points that overlaps with&#xA;the GIS polygons.&lt;/p&gt;&#xA;&lt;p&gt;Typically, both data sources contain information (apart from the spatial&#xA;locations) that needs to be related to each other in some way. In this&#xA;case study, we want to know for each point in which polygon it is&#xA;located.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

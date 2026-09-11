@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>passwords on INBO Tutorials</title>
-    <link>/tags/passwords/</link>
-    <description>Recent content in passwords on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 05 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="/tags/passwords/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The `keyring` package: We can do better than `*******`.</title>
-      <link>/tutorials/r_keyring/</link>
-      <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_keyring/</guid>
-      <description>What do the software &amp;ldquo;giants&amp;rdquo; Cisco, Ivanti, and Atlassian all have in common? They all (repeatedly) raised negative attention in the past by pushing hardcoded, unencrypted credentials to the public.
-This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners&#39; mistake.
-The programming environment we will use is R. The package of choice is keyring, but it will be spiced up with some extra precautions.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Passwords on INBO Tutorials</title>
+		<link>/tags/passwords/</link>
+		<description>Recent content in Passwords on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 05 Sep 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/passwords/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>The `keyring` package: We can do better than `*******`.</title>
+				<link>/tutorials/r_keyring/</link>
+				<pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_keyring/</guid>
+				<description>&lt;p&gt;What do the software &amp;ldquo;giants&amp;rdquo; Cisco, Ivanti, and Atlassian all have in common?&#xA;They all (repeatedly) raised negative attention in the past by &lt;a href=&#34;https://www.bleepingcomputer.com/search/?q=hardcoded&amp;#43;credentials&#34;&gt;pushing hardcoded, unencrypted credentials to the public&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;This brief tutorial will help you to not be the poor intern who is rightfully expelled for such a fatal beginners&amp;rsquo; mistake.&lt;/p&gt;&#xA;&lt;p&gt;The programming environment we will use is R.&#xA;The package of choice is &lt;a href=&#34;https://keyring.r-lib.org/index.html&#34;&gt;&lt;code&gt;keyring&lt;/code&gt;&lt;/a&gt;, but it will be spiced up with some extra precautions.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

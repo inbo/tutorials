@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>spreadsheet on INBO Tutorials</title>
-    <link>/tags/spreadsheet/</link>
-    <description>Recent content in spreadsheet on INBO Tutorials</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Read data from Google sheets</title>
-      <link>/tutorials/r_google_sheets/</link>
-      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tutorials/r_google_sheets/</guid>
-      <description>googlesheets4 The R package googlesheets4 provides the functionality to read and write data from a Google sheet.
-This package is very well documented, so we just have to provide you with the right links:
- read sheets write sheets  There are also two specific in-depth articles: one about reading and one about writing sheets.
-A complete list of vignettes can be found in the Articles page.
-googlesheets4 vs googlesheets The package googlesheets4 is the follower of googlesheets which doesn&amp;rsquo;t work anymore as it is built on the outdated Sheets v3 API.</description>
-    </item>
-    
-  </channel>
+	<channel>
+		<title>Spreadsheet on INBO Tutorials</title>
+		<link>/tags/spreadsheet/</link>
+		<description>Recent content in Spreadsheet on INBO Tutorials</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="/tags/spreadsheet/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Read data from Google sheets</title>
+				<link>/tutorials/r_google_sheets/</link>
+				<pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+				<guid>/tutorials/r_google_sheets/</guid>
+				<description>&lt;h2 id=&#34;googlesheets4&#34;&gt;&lt;code&gt;googlesheets4&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;The R package &lt;a href=&#34;https://googlesheets4.tidyverse.org/&#34;&gt;googlesheets4&lt;/a&gt; provides the functionality to read and write data from a Google sheet.&lt;/p&gt;&#xA;&lt;p&gt;This package is very well documented, so we just have to provide you with the right links:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/googlesheets4.html#read_sheet-a-k-a--range_read&#34;&gt;read sheets&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/googlesheets4.html#writing-sheets&#34;&gt;write sheets&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;There are also two specific in-depth articles: one about &lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/articles/read-sheets.html&#34;&gt;reading&lt;/a&gt; and one about &lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/articles/write-sheets.html&#34;&gt;writing&lt;/a&gt; sheets.&lt;/p&gt;&#xA;&lt;p&gt;A complete list of vignettes can be found in the &lt;a href=&#34;https://googlesheets4.tidyverse.org/articles/index.html&#34;&gt;Articles page&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;googlesheets4-vs-googlesheets&#34;&gt;&lt;code&gt;googlesheets4&lt;/code&gt; vs &lt;code&gt;googlesheets&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;The package &lt;code&gt;googlesheets4&lt;/code&gt; is the follower of &lt;a href=&#34;https://github.com/jennybc/googlesheets/blob/master/README.md&#34;&gt;&lt;code&gt;googlesheets&lt;/code&gt;&lt;/a&gt; which doesn&amp;rsquo;t work anymore as it is built on the outdated Sheets v3 API.&#xA;If you still have code using this package, you will get this error:&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>
