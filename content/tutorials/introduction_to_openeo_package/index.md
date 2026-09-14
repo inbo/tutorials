@@ -1,7 +1,7 @@
 ---
 title: "Downloading datacubes from OpenEO"
 description: "This code provides an introduction to the openeo package. With this package, you can access different satellite stack datacubes of the Copernicus federation back-ends. Processing these datacubes can be done in the cloud (openeo wizard) as a direct process or as a batch process. The script was part of an Open Science Café course of INBO (08/09/2026). The code, together with some toy datasets, can be found on git: https://github.com/sverbesselt01/OpenScienceCafe-introduction-to-OpenEO."
-author: "Sebastiaan Verbesselt"
+author: "sebastiaanverbesselt"
 date: "2026-09-11"
 categories: "Opens Science Café"
 tags: ["Remote Sensing", "Satellite datasets"]
@@ -344,6 +344,8 @@ and request the results synchronously by `compute_results`:
 ``` r
 # synchronous:
 compute_result(result, format = "NetCDF", output_file = "./export/ndvi.nc", con = con)
+
+# This code will give an error, since authentication is interactively. Users should not get this error when they are logged in to the Copernicus Data Space Ecosystem website.
 ```
 
     ## Error in `req_perform()`:
@@ -893,6 +895,7 @@ def apply_datacube(cube: XarrayDataCube, context: dict) -> XarrayDataCube:
   jobs[[i]] <- job
   cat("Job for polygon", i, "submitted./n")
 }
+# This code will give an error when the job is being submitted, since authentication is interactively. Users should not get this error when they are logged in to the Copernicus Data Space Ecosystem website.
 ```
 
     ## Error in `req_perform()`:
@@ -904,6 +907,7 @@ def apply_datacube(cube: XarrayDataCube, context: dict) -> XarrayDataCube:
 Submit the job
 
 ``` r
+# This code will give an error when the job is being submitted, since authentication is interactively. Users should not get this error when they are logged in to the Copernicus Data Space Ecosystem website.
 list_jobs() %>% names() -> job_names
 ```
 
