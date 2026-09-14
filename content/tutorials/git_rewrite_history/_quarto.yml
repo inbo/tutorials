@@ -1,0 +1,28 @@
+project:
+  type: default
+  preview:
+    port: 4201
+    browser: true
+  render:
+    - presentation.qmd
+  output-dir: output
+  post-render: post_render.R
+
+lang: en-GB
+
+format: flandersqmd-revealjs
+
+flandersqmd:
+  entity: INBO
+  level: 2
+  title: Rewriting git history
+  author:
+  - name:
+      given: Thierry
+      family: Onkelinx
+    email: thierry.onkelinx@inbo.be
+    orcid: 0000-0001-8804-4216
+    affiliation:
+    - Research Institute for Nature and Forest (INBO)
+  date: '2026-03-05'
+  cover: pexels-erfin-ekarana-494408160-28216541.jpg
