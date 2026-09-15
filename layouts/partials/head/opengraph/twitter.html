@@ -1,0 +1,33 @@
+<meta name='twitter:card' content='summary{{- if .Params.cover -}}_large_image{{- end -}}'>
+
+{{- with .Site.Params.opengraph.twitter.page -}}
+  <meta name='twitter:site' content='@{{- . -}}'>
+{{- end -}}
+
+{{- range $authorID := .Params.authors -}}
+  {{- $author := ( index hugo.Data.authors $authorID ) -}}
+  {{- with $author.social.twitter -}}
+    <meta name='twitter:creator' content='@{{- . -}}'>
+  {{- end -}}
+{{- end -}}
+
+{{- with .Params.cover -}}
+  {{- $type := ( printf "%T" . ) -}}
+  {{- $isMap := ( not ( eq $type "string" ) ) -}}
+
+  {{- $image := "" -}}
+  {{- if $isMap -}}
+    {{- $image = .image -}}
+  {{- else -}}
+    {{- $image = . -}}
+  {{- end -}}
+
+  {{- $image = ( replaceRE "^\\./" $.RelPermalink $image ) -}}
+
+  <meta property='twitter:image' content='{{- $image | absURL -}}'>
+  {{- if $isMap -}}
+    {{- with .caption -}}
+    <meta property='twitter:image:alt' content='{{ . | markdownify }}'>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

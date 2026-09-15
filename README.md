@@ -26,10 +26,16 @@ The technology used to create the website is [Hugo](https://gohugo.io/), a stati
 
 1. [Install hugo](https://gohugo.io/getting-started/installing/)
 2. Clone the tutorials repository
-3. In the cloned tutorials directory, install the theme with `git clone https://github.com/MunifTanjim/minimo.git --branch v2.9.0 themes/minimo`
-4. Build and serve the site with `hugo server`
+3. In the cloned tutorials directory, install the theme[^1] with `git clone https://github.com/MunifTanjim/minimo.git themes/minimo`
+4. Build and serve the site 
+    a) with `hugo server` OR
+    b) for debugging, with `hugo -D` and then serving manually `python -m http.server 8887 --bind localhost --directory <tutorials>/public/`
+
+[^1]: The `minimo` theme seems unmaintained; a (temporary?) fork with fixes of hugo deprecation warnings is available [here](https://github.com/falkmielke/minimo/tree/update_202605).
+
 
 For more information, see [Hugo's getting started documentation](https://gohugo.io/getting-started/usage/).
+
 
 ### Customizing the theme
 
