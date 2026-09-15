@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='This code provides an introduction to the openeo package. With this package, you can access different satellite stack datacubes of the Copernicus federation back-ends. Processing these datacubes can be done in the cloud (openeo wizard) as a direct process or as a batch process. The script was part of an Open Science Café course of INBO (08/09/2026). The code, together with some toy datasets, can be found on git: https://github.com/sverbesselt01/OpenScienceCafe-introduction-to-OpenEO.'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Downloading datacubes from OpenEO • INBO Tutorials'>
+<meta property='og:description' content='This code provides an introduction to the openeo package. With this package, you can access different satellite stack datacubes of the Copernicus federation back-ends. Processing these datacubes can be done in the cloud (openeo wizard) as a direct process or as a batch process. The script was part of an Open Science Café course of INBO (08/09/2026). The code, together with some toy datasets, can be found on git: https://github.com/sverbesselt01/OpenScienceCafe-introduction-to-OpenEO.'>
+<meta property='og:url' content='/tutorials/introduction_to_openeo_package/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='Remote Sensing'><meta property='article:tag' content='Satellite datasets'><meta property='article:published_time' content='2026-09-11T00:00:00Z'/><meta property='article:modified_time' content='2026-09-11T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.165.0">
+
+  <title>Downloading datacubes from OpenEO • INBO Tutorials</title>
+  <link rel='canonical' href='/tutorials/introduction_to_openeo_package/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.e45c9137.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/analysis/' style='font-size:1.0625em'>Analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>Analysis of Variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0125em'>Api</a>
+      </li><li>
+        <a href='/tags/balanced/' style='font-size:1em'>Balanced</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0125em'>Bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>Binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0125em'>Biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>BioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0125em'>Bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>Brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.025em'>Checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0125em'>Ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>Co-Variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>Coding Club</a>
+      </li><li>
+        <a href='/tags/containers/' style='font-size:1.0375em'>Containers</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>Credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0125em'>Csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.025em'>Data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.05em'>Database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>De-Trending</a>
+      </li><li>
+        <a href='/tags/density/' style='font-size:1em'>Density</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>Design of Experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.075em'>Development</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/docker/' style='font-size:1.0375em'>Docker</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>Dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>E-Book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.025em'>Effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>Endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>Etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>Explorative Data Analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>Frictionless</a>
+      </li><li>
+        <a href='/tags/functional-programming/' style='font-size:1em'>Functional Programming</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0125em'>Gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0125em'>Generalized Linear Regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0125em'>Ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1375em'>Gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.125em'>Git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0125em'>Gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.0375em'>Github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0125em'>Google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>Grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.0375em'>GwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.025em'>Inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.0375em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.0375em'>Inborutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>Inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.025em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>Inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.025em'>Inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1125em'>Installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>Keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.05em'>Literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.075em'>Maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.025em'>Markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>Mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>Mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0625em'>Mixed Model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>Mixed Models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>Multivariate Statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.05em'>N2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.1375em'>Open Science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.0375em'>Packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0125em'>Pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>Passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>Postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>Python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>R</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>Regression</a>
+      </li><li>
+        <a href='/tags/remote-sensing/' style='font-size:1em'>Remote Sensing</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>Renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0125em'>Reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0625em'>Rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.025em'>Rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.05em'>Rstudio</a>
+      </li><li>
+        <a href='/tags/sampling/' style='font-size:1em'>Sampling</a>
+      </li><li>
+        <a href='/tags/satellite-datasets/' style='font-size:1em'>Satellite Datasets</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>Scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>Secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1.0125em'>Spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>Spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0125em'>Sql</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>Stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>Statistical Analysis Plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.0375em'>Styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.0375em'>Tidyverse</a>
+      </li><li>
+        <a href='/tags/transformations/' style='font-size:1em'>Transformations</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0125em'>Uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>Utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.1em'>Version Control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.475em'>Vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>Visual Markdown Editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>Vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.025em'>WateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.025em'>Watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.0375em'>Webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>Windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>Zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0125em'>Zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Tue Sep 15 12:26:52 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="3" y1="12" x2="21" y2="12" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<line x1="3" y1="18" x2="21" y2="18" />
+</svg>
+</span>
+  <span class='close'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Downloading datacubes from OpenEO</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Downloading datacubes from OpenEO</h1>
+      
+<p class='desc'>This code provides an introduction to the openeo package. With this package, you can access different satellite stack datacubes of the Copernicus federation back-ends. Processing these datacubes can be done in the cloud (openeo wizard) as a direct process or as a batch process. The script was part of an Open Science Café course of INBO (08/09/2026). The code, together with some toy datasets, can be found on git: https://github.com/sverbesselt01/OpenScienceCafe-introduction-to-OpenEO.</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+<line x1="16" y1="2" x2="16" y2="6" />
+<line x1="8" y1="2" x2="8" y2="6" />
+<line x1="3" y1="10" x2="21" y2="10" />
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2026-09-11T00:00:00Z'>2026, Sep 11</time>
+</span>
+
+  
+  <br/>
+  
+<span class='reading-time'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><circle cx="12" cy="12" r="10" />
+<polyline points="12 6 12 12 15 15" />
+</svg>
+21 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/introduction_to_openeo_package/index.md'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>list.of.packages &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;tidyverse&#34;</span>, <span style="color:#a50">&#34;sf&#34;</span>, <span style="color:#a50">&#34;stars&#34;</span>, <span style="color:#a50">&#34;mapview&#34;</span>, <span style="color:#a50">&#34;lubridate&#34;</span>, <span style="color:#a50">&#34;dplyr&#34;</span>, <span style="color:#a50">&#34;rpart&#34;</span>, <span style="color:#a50">&#34;rpart.plot&#34;</span>, <span style="color:#a50">&#34;leaflet&#34;</span>, <span style="color:#a50">&#34;mapedit&#34;</span>, <span style="color:#a50">&#34;scales&#34;</span>, <span style="color:#a50">&#34;ggplot2&#34;</span>, <span style="color:#a50">&#34;rstudioapi&#34;</span>,<span style="color:#a50">&#34;tidyr&#34;</span>,<span style="color:#a50">&#34;zoo&#34;</span>,<span style="color:#a50">&#34;np&#34;</span>,<span style="color:#a50">&#34;kernlab&#34;</span>,<span style="color:#a50">&#34;leafem&#34;</span>,<span style="color:#a50">&#34;viridis&#34;</span>,<span style="color:#a50">&#34;cubelyr&#34;</span>,<span style="color:#a50">&#34;terra&#34;</span>,<span style="color:#a50">&#34;signal&#34;</span>,<span style="color:#a50">&#34;abind&#34;</span>,<span style="color:#a50">&#34;INBOmd&#34;</span>,<span style="color:#a50">&#34;INBOtheme&#34;</span>,<span style="color:#a50">&#34;openeo&#34;</span>)
+</span></span><span style="display:flex;"><span>new.packages &lt;- list.of.packages[!(list.of.packages %in% <span style="color:#0a0">installed.packages</span>()[,<span style="color:#a50">&#34;Package&#34;</span>])]
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span>(<span style="color:#0a0">length</span>(new.packages)) <span style="color:#0a0">install.packages</span>(new.packages)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(openeo)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(tidyverse)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(sf)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(stars)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(mapview)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(lubridate)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(dplyr)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(rpart)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(rpart.plot)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(leaflet)    <span style="color:#aaa;font-style:italic"># for interactive maps</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(leafem)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(mapedit)    <span style="color:#aaa;font-style:italic"># for drawing polygons interactively</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(scales)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(rstudioapi)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(tidyr)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(zoo)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(np)         <span style="color:#aaa;font-style:italic"># kernel regression</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(kernlab)    <span style="color:#aaa;font-style:italic"># Gaussian processes</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(viridis)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(terra)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(signal)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(abind)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(INBOmd)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(INBOtheme)
+</span></span></code></pre></div><p>This script took some inspiration from:
+<a href="https://www.r-bloggers.com/2022/11/processing-large-scale-satellite-imagery-with-openeo-platform-and-r/#google_vignette">https://www.r-bloggers.com/2022/11/processing-large-scale-satellite-imagery-with-openeo-platform-and-r/#google_vignette</a>
+and is modified for learning purpose.</p>
+<h1 id="openeo">OpenEO<a href="#openeo" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p><a href="https://openeo.org">OpenEO</a> is an open source project that tries to
+make large-scale, cloud-based satellite image processing easier and more
+open. This script shows how the openEO client can access openEO
+providers: (here, the Copernicus Data Space Ecosystem Federation),
+available from CRAN, can be used to explore datasets, compute on them,
+and download results.</p>
+<p>A list of support back ends and collection can be found on
+<a href="https://hub.openeo.org/">https://hub.openeo.org/</a>.</p>
+<h2 id="registration">Registration<a href="#registration" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>You first need to create an account op the Copernicus Data Space
+Ecosystem (CDSE) in order to get <a href="https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/auth?client_id=account-console&amp;redirect_uri=https%3A%2F%2Fidentity.dataspace.copernicus.eu%2Fauth%2Frealms%2FCDSE%2Faccount%2F%23%2F&amp;state=a8075610-e75a-4fc8-90f3-08e59d243f4c&amp;response_mode=fragment&amp;response_type=code&amp;scope=openid&amp;nonce=f8d35ab0-061f-4fb9-843a-746f6eeda9ce&amp;code_challenge=W6xjfkziopIjZAUIgAoq7RSFiSrPv9Lr4ztu3GhAa3U&amp;code_challenge_method=S256">acces to
+OpenEO</a></p>
+<p>Once you have access to OpenEO, you have access to all the supported
+back-ends (without having additional API’s) like SentinelHub,
+Terrascope, EODC,…</p>
+<figure>
+<img src="./Media/Graphic%20OpenEO.png"
+alt="Fig 1: The platforms that make up the openEO federated platform. Source: https://docs.openeo.cloud/federation/#data-collections" />
+<figcaption aria-hidden="true">Fig 1: The platforms that make up the
+openEO federated platform. Source: <a
+href="https://docs.openeo.cloud/federation/#data-collections"
+class="uri">https://docs.openeo.cloud/federation/#data-collections</a></figcaption>
+</figure>
+<h2 id="sample-session">Sample session<a href="#sample-session" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>An openEO session is started with loading the library, connecting to a
+back-end, and authenticating with the back-end:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">exists</span>(<span style="color:#a50">&#34;con&#34;</span>)) {
+</span></span><span style="display:flex;"><span>  con &lt;- <span style="color:#0a0">connect</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a50">&#34;https://openeofed.dataspace.copernicus.eu/openeo/1.2&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre><code>## Connected to service:  https://openeofed.dataspace.copernicus.eu/openeo/1.2 
+## Please check the terms of service (terms_of_service()) and the privacy policy (privacy_policy()). By further usage of this service, you acknowledge and agree to those terms and policies.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Only authenticate interactively when running manually</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (<span style="color:#0a0">interactive</span>()) {
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">login</span>(con)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The login will prompt for an authentication ID which can come from your
+organisation, or an openID-based mechanism such as google or GitHub. For
+loggin on you need an account on the back-end, as cloud computing in
+general is not a free resource. The openeo.cloud website has
+instructions on how to apply for a (ESA-) sponsored account with limited
+compute credits.</p>
+<p>When these commands were carried out, and you are using RStudio as an
+IDE, RStudio will show an overview of the image collections available on
+this backend.</p>
+<figure>
+<img src="./Media/Collections.webp"
+alt="Fig 2: Overview of connected collections." />
+<figcaption aria-hidden="true">Fig 2: Overview of connected
+collections.</figcaption>
+</figure>
+<p>This can help search for a particular collection. Image collections are
+collections of satellite images that are all processed in a uniform way.
+The set of image collections can also be obtained programmatically by</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>collections = <span style="color:#0a0">list_collections</span>(con)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">names</span>(collections) |&gt; <span style="color:#0a0">head</span>()
+</span></span></code></pre></div><pre><code>## [1] &quot;SENTINEL1_GRD&quot;            &quot;COPERNICUS_30&quot;           
+## [3] &quot;SENTINEL3_OLCI_L1B&quot;       &quot;SENTINEL3_SLSTR&quot;         
+## [5] &quot;SENTINEL_5P_L2&quot;           &quot;LANDSAT_BIMONTHLY_MOSAIC&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">length</span>(collections)
+</span></span></code></pre></div><pre><code>## [1] 182
+</code></pre>
+<p>which can then be further processed</p>
+<p>We will work with Sentinel level 2A data, available in the collection.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>collection = <span style="color:#a50">&#34;SENTINEL2_L2A&#34;</span>
+</span></span><span style="display:flex;"><span>coll_meta = <span style="color:#0a0">describe_collection</span>(collection)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">names</span>(coll_meta)
+</span></span></code></pre></div><pre><code>##  [1] &quot;bands&quot;                         &quot;ceosard:specification&quot;        
+##  [3] &quot;ceosard:specification_version&quot; &quot;ceosard:type&quot;                 
+##  [5] &quot;cube:dimensions&quot;               &quot;description&quot;                  
+##  [7] &quot;extent&quot;                        &quot;id&quot;                           
+##  [9] &quot;keywords&quot;                      &quot;license&quot;                      
+## [11] &quot;links&quot;                         &quot;mission&quot;                      
+## [13] &quot;name&quot;                          &quot;providers&quot;                    
+## [15] &quot;sci:citation&quot;                  &quot;sci:doi&quot;                      
+## [17] &quot;stac_extensions&quot;               &quot;stac_version&quot;                 
+## [19] &quot;summaries&quot;                     &quot;title&quot;                        
+## [21] &quot;type&quot;
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [1] &#34;bands&#34;                         &#34;ceosard:specification&#34;         &#34;ceosard:specification_version&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [4] &#34;ceosard:type&#34;                  &#34;cube:dimensions&#34;               &#34;description&#34;                  </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [7] &#34;extent&#34;                        &#34;id&#34;                            &#34;keywords&#34;                     </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [10] &#34;license&#34;                       &#34;links&#34;                         &#34;mission&#34;                      </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [13] &#34;name&#34;                          &#34;providers&#34;                     &#34;sci:citation&#34;                 </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [16] &#34;sci:doi&#34;                       &#34;stac_extensions&#34;               &#34;stac_version&#34;                 </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [19] &#34;summaries&#34;                     &#34;title&#34;                         &#34;type&#34;</span>
+</span></span></code></pre></div><p>information about the names and extents of data cube dimensions is for
+instance obtained by</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>coll_meta$`cube:dimensions`
+</span></span></code></pre></div><pre><code>## Dimension:    bands 
+## Type:         bands 
+## Values:       [B01,B02,B03,B04,B05,B06,B07,B08,B8A,B09,B11,B12,WVP,AOT,SCL,sunAzimuthAngles,sunZenithAngles,viewAzimuthMean,viewZenithMean,CLD,SNW]
+## 
+## Dimension:    t 
+## Type:         temporal 
+## Extent:       [2015-06-27T10:25:31Z,NULL] 
+## 
+## Dimension:    x 
+## Type:         spatial 
+## Axis:         x 
+## Extent:       [-180,180] 
+## 
+## Dimension:    y 
+## Type:         spatial 
+## Axis:         y 
+## Extent:       [-90,90]
+</code></pre>
+<h2 id="example-1-monthly-ndvi-values-of-the-kloosterbeemden">Example 1: Monthly NDVI values of the Kloosterbeemden<a href="#example-1-monthly-ndvi-values-of-the-kloosterbeemden" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>We are going to set some parameters to extract Sentinel-2 datacubes form
+OpenEO. We define the extent of our AOI, the bands we are interested in
+and the time range. In this example, we are going to extract the R, G, B
+values (for visualization) and the NDVI (the most popular vegetation
+index there is) for the Kloosterbeemden.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Set parameters</span>
+</span></span><span style="display:flex;"><span>KB &lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;./data/Extent_KB.gpkg&#34;</span>) <span style="color:#aaa;font-style:italic"># Our area of interest (AOI) = the Kloosterbeemden</span>
+</span></span></code></pre></div><pre><code>## Reading layer `demervallei' from data source 
+##   `G:\Mijn Drive\OpenScience Cafe - OpenEO\OpenScience Cafe - OpenEO\OpenScience café - introduction to OpenEO\data\Extent_KB.gpkg' 
+##   using driver `GPKG'
+## Simple feature collection with 1 feature and 3 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 190585.3 ymin: 187694.2 xmax: 194315.6 ymax: 190383.4
+## Projected CRS: BD72 / Belgian Lambert 72
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>KB &lt;- KB %&gt;% <span style="color:#0a0">st_transform</span>(<span style="color:#a50">&#34;EPSG:4326&#34;</span>) <span style="color:#aaa;font-style:italic"># transform crs to WGS84</span>
+</span></span><span style="display:flex;"><span>bbox &lt;- <span style="color:#0a0">st_bbox</span>(KB)
+</span></span><span style="display:flex;"><span>bbox
+</span></span></code></pre></div><pre><code>##      xmin      ymin      xmax      ymax 
+##  4.946907 50.997773  5.000369 51.022219
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>bands = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;B02&#34;</span>,<span style="color:#a50">&#34;B03&#34;</span>,<span style="color:#a50">&#34;B04&#34;</span>, <span style="color:#a50">&#34;B08&#34;</span>) <span style="color:#aaa;font-style:italic"># The Blue, Green, Red and NDVI bands of S2. </span>
+</span></span><span style="display:flex;"><span>time_range = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;2018-01-01&#34;</span>, <span style="color:#a50">&#34;2019-01-01&#34;</span>) <span style="color:#aaa;font-style:italic"># Time range of one year.</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">mapview</span>(KB)
+</span></span></code></pre></div><pre><code>## PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
+</code></pre>
+<p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-7-1.png" alt=""><!-- --></p>
+<p>If you are not familiar with Sentinel-2 Bands and what which landcover
+types they can represent, you can learn more about this with this slider
+<a href="https://h5p.org/h5p/embed/663570">https://h5p.org/h5p/embed/663570</a> <a href="https://learn.opengeoedu.de/en/fernerkundung/vorlesung/copernicus/Sentinel-2-Teil-2">Link to
+source</a>.</p>
+<p>We can then start building a process graph, the object that contains the
+work to be done on the back-end side. First we load the available
+processes from the back-end:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p = openeo::<span style="color:#0a0">processes</span>(con)
+</span></span></code></pre></div><p>and then we define the image collection as constrained by name, space,
+time, and bands (if no constraints are given, the full extent is used).
+We use a member function of <code>p</code> here, so that we cannot use processes
+that are not available on the back-end.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>data = p$<span style="color:#0a0">load_collection</span>(id = collection, 
+</span></span><span style="display:flex;"><span>                         spatial_extent = bbox,
+</span></span><span style="display:flex;"><span>                         temporal_extent = time_range, 
+</span></span><span style="display:flex;"><span>                         bands = bands) 
+</span></span></code></pre></div><p>We will compute NDVI, <a href="https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index">normalized difference vegetation
+index</a>,
+from the two selected bands, and use the NDVI function in
+<code>reduce_dimension</code> to reduce dimension <code>bands</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ndvi = <span style="color:#00a">function</span>(data, context) {
+</span></span><span style="display:flex;"><span>  red = data[3]
+</span></span><span style="display:flex;"><span>  nir = data[4<span style="color:#0a0">]
+</span></span></span><span style="display:flex;"><span><span style="color:#0a0">  </span>(nir-red)/(nir+red)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>calc_ndvi = p$<span style="color:#0a0">reduce_dimension</span>(data = data,
+</span></span><span style="display:flex;"><span>                               dimension = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>                               reducer = ndvi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_final = calc_ndvi
+</span></span></code></pre></div><p>Although <code>ndvi</code> is defined as an R function, in effect the <code>openeo</code> R
+client translates this function into openEO native processes. This
+cannot be done with arbitrarily complex functions, and passing on R
+functions to be processed by an R instance in the back-end is done using
+user-defined functions (see later).</p>
+<p>If you want to work only with NDVI values, you may skip the code block
+below. If you want to have the original band values (B02: blue, B03:
+green, B04: red, B08: NIR) and the NDVI values, you can run this code
+block</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>ndvi_cube = p$<span style="color:#0a0">add_dimension</span>(
+</span></span><span style="display:flex;"><span>  data = calc_ndvi,
+</span></span><span style="display:flex;"><span>  name = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>  label = <span style="color:#a50">&#34;NDVI&#34;</span>,
+</span></span><span style="display:flex;"><span>  type = <span style="color:#a50">&#34;bands&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data_final = p$<span style="color:#0a0">merge_cubes</span>(data, ndvi_cube)
+</span></span></code></pre></div><p>We will now process the NDVI values to a monthly series, by picking for
+each pixel the median value of all pixels over the month (Sentinel-2 has
+an image for roughly every 5 days). This is done by
+<code>aggregate_temporal</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>intervals = <span style="color:#0a0">list</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-01-01&#39;</span>, <span style="color:#a50">&#39;2018-02-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-02-01&#39;</span>, <span style="color:#a50">&#39;2018-03-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-03-01&#39;</span>, <span style="color:#a50">&#39;2018-04-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-04-01&#39;</span>, <span style="color:#a50">&#39;2018-05-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-05-01&#39;</span>, <span style="color:#a50">&#39;2018-06-01&#39;</span>), 
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-06-01&#39;</span>, <span style="color:#a50">&#39;2018-07-01&#39;</span>), 
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-07-01&#39;</span>, <span style="color:#a50">&#39;2018-08-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-08-01&#39;</span>, <span style="color:#a50">&#39;2018-09-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-09-01&#39;</span>, <span style="color:#a50">&#39;2018-10-01&#39;</span>), 
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-10-01&#39;</span>, <span style="color:#a50">&#39;2018-11-01&#39;</span>),
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-11-01&#39;</span>, <span style="color:#a50">&#39;2018-12-01&#39;</span>), 
+</span></span><span style="display:flex;"><span>                 <span style="color:#0a0">c</span>(<span style="color:#a50">&#39;2018-12-01&#39;</span>, <span style="color:#a50">&#39;2018-12-30&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># and labels</span>
+</span></span><span style="display:flex;"><span>labels = <span style="color:#0a0">sapply</span>(intervals, head, <span style="color:#099">1</span>) <span style="color:#aaa;font-style:italic"># create labels from list</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># add the process node</span>
+</span></span><span style="display:flex;"><span>temp_period = p$<span style="color:#0a0">aggregate_temporal</span>(data = data_final,
+</span></span><span style="display:flex;"><span>                                   intervals = intervals,
+</span></span><span style="display:flex;"><span>                                   reducer = <span style="color:#00a">function</span>(data, context){p$<span style="color:#0a0">median</span>(data)},
+</span></span><span style="display:flex;"><span>                                   labels = labels,
+</span></span><span style="display:flex;"><span>                                   dimension = <span style="color:#a50">&#34;t&#34;</span>)
+</span></span></code></pre></div><p>Finally, we can define how we want to save results (which file format),
+by the <code>save_result</code> process</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>result = p$<span style="color:#0a0">save_result</span>(data = temp_period, format=<span style="color:#a50">&#34;NetCDF&#34;</span>)
+</span></span></code></pre></div><p>and request the results synchronously by <code>compute_results</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># synchronous:</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">compute_result</span>(result, format = <span style="color:#a50">&#34;NetCDF&#34;</span>, output_file = <span style="color:#a50">&#34;./export/ndvi.nc&#34;</span>, con = con)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This code will give an error, since authentication is interactively. Users should not get this error when they are logged in to the Copernicus Data Space Ecosystem website.</span>
+</span></span></code></pre></div><pre><code>## Error in `req_perform()`:
+## ! HTTP 401 Unauthorized.
+## ℹ SERVER-ERROR: Unauthorized.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## [1] &#34;ndvi.nc&#34;</span>
+</span></span></code></pre></div><p>All commands before <code>compute_result()</code> can be executed without
+authentication; only <code>compute_result</code> asks for “real” computations on
+imagery, and requires authentication, so that the compute costs can be
+accounted for.</p>
+<p><code>compute_result</code> downloads the file locally, and we can now import it
+and plot it either by e.g. <code>ggplot2</code></p>
+<p>First: load the NetCDF file as stars object and check the dimensions</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>r = <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;./export/ndvi.nc&#34;</span>)
+</span></span></code></pre></div><pre><code>## B02, B03, B04, B08, NDVI,
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">st_dimensions</span>(r) <span style="color:#aaa;font-style:italic"># you will see the starting and end points (from / to), offset and delta (step interval). For x and y (since they are expressed in local projection system), the units are meters. So delta is 10, since every pixel is 10 x 10 meter. </span>
+</span></span></code></pre></div><pre><code>##   from  to  offset delta                refsys
+## x    1 383  636540    10 WGS 84 / UTM zone 31N
+## y    1 282 5654200   -10 WGS 84 / UTM zone 31N
+## t    1  12      NA    NA               udunits
+##                                                                            values
+## x                                                                            NULL
+## y                                                                            NULL
+## t [10227,10258) [days since 1990-01-01],...,[10561,10591) [days since 1990-01-01]
+##   x/y
+## x [x]
+## y [y]
+## t
+</code></pre>
+<p>Our time value is expressed in udunits, in days since 1990-01-01. Stars
+object can also express time in <code>Date</code> (calendar dates), <code>POSIXct</code>
+(dates and times), or <code>PCICt</code> (for non-standard 360-day or 365-day
+calendars often used in climate models). We will convert the udunits to
+Dates.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>r &lt;- <span style="color:#0a0">st_set_dimensions</span>(r, <span style="color:#a50">&#34;t&#34;</span>,<span style="color:#0a0">as.Date</span>(<span style="color:#0a0">st_get_dimension_values</span>(r, <span style="color:#a50">&#34;t&#34;</span>), origin = <span style="color:#a50">&#34;1990-01-01&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">st_dimensions</span>(r)
+</span></span></code></pre></div><pre><code>##   from  to  offset delta                refsys                    values x/y
+## x    1 383  636540    10 WGS 84 / UTM zone 31N                      NULL [x]
+## y    1 282 5654200   -10 WGS 84 / UTM zone 31N                      NULL [y]
+## t    1  12      NA    NA                  Date 2018-01-01,...,2018-12-01
+</code></pre>
+<p>Visualize the output with ggplot.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## Loading required package: abind</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">ggplot</span>() + <span style="color:#0a0">geom_stars</span>(data = r[<span style="color:#a50">&#34;NDVI&#34;</span>]) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">facet_wrap</span>(~t) + <span style="color:#0a0">coord_equal</span>() +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">theme_void</span>() +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_x_discrete</span>(expand = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>,<span style="color:#099">0</span>)) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_y_discrete</span>(expand = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>,<span style="color:#099">0</span>)) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_fill_viridis_c</span>() 
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-17-1.png" alt=""><!-- --></p>
+<p>or by <code>mapview</code> (where the “real” mapview obviously gives an interactive
+plot):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Slice the 5th temporal layer</span>
+</span></span><span style="display:flex;"><span>time_slice5 &lt;- r %&gt;% <span style="color:#0a0">slice</span>(t, <span style="color:#099">5</span>) <span style="color:#aaa;font-style:italic"># Month of May</span>
+</span></span><span style="display:flex;"><span>time_slice5_ndvi &lt;- time_slice5 %&gt;% <span style="color:#0a0">select</span>(<span style="color:#a50">&#34;NDVI&#34;</span>) <span style="color:#aaa;font-style:italic"># Select the NDVI band</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Visualize the sliced single-timestamp object</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">mapview</span>(time_slice5_ndvi)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-18-1.png" alt=""><!-- --></p>
+<p>Change detection - see the difference between May and July</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>time_slice7 &lt;- r %&gt;% <span style="color:#0a0">slice</span>(t, <span style="color:#099">7</span>) <span style="color:#aaa;font-style:italic"># Month of May</span>
+</span></span><span style="display:flex;"><span>time_slice7_ndvi &lt;- time_slice7 %&gt;% <span style="color:#0a0">select</span>(<span style="color:#a50">&#34;NDVI&#34;</span>) <span style="color:#aaa;font-style:italic"># Select the NDVI band</span>
+</span></span><span style="display:flex;"><span>diff &lt;- (time_slice7_ndvi - time_slice5_ndvi)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">ggplot</span>() + <span style="color:#0a0">geom_stars</span>(data = diff) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">coord_equal</span>() +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">theme_void</span>() +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_x_discrete</span>(expand = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>,<span style="color:#099">0</span>)) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_y_discrete</span>(expand = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>,<span style="color:#099">0</span>)) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_fill_viridis_c</span>(direction=<span style="color:#099">1</span>) <span style="color:#aaa;font-style:italic"># yellow green areas: greening of the area, blue areas: loss of green</span>
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-19-1.png" alt=""><!-- --></p>
+<p>you can also plot true color (RGB) image of false color images (like the
+false color infrared color CIR):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Select True Color bands (B04=Red, B03=Green, B02=Blue)</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Or for False Color IR use: c(&#34;B08&#34;, &#34;B04&#34;, &#34;B03&#34;)</span>
+</span></span><span style="display:flex;"><span>rgb_attributes &lt;- time_slice5 %&gt;% <span style="color:#0a0">select</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#34;B04&#34;</span>, <span style="color:#a50">&#34;B03&#34;</span>, <span style="color:#a50">&#34;B02&#34;</span>)) <span style="color:#aaa;font-style:italic"># -&gt; R-G-B</span>
+</span></span><span style="display:flex;"><span>cir_attributes &lt;- time_slice5 %&gt;% <span style="color:#0a0">select</span>(<span style="color:#0a0">c</span>(<span style="color:#a50">&#34;B08&#34;</span>, <span style="color:#a50">&#34;B04&#34;</span>, <span style="color:#a50">&#34;B02&#34;</span>)) <span style="color:#aaa;font-style:italic"># -&gt; NIR-R-G</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 3. Merge attributes into a single multi-band dimension</span>
+</span></span><span style="display:flex;"><span>rgb_stacked &lt;- <span style="color:#0a0">merge</span>(rgb_attributes, name = <span style="color:#a50">&#34;band&#34;</span>)
+</span></span><span style="display:flex;"><span>cir_stacked &lt;- <span style="color:#0a0">merge</span>(cir_attributes, name = <span style="color:#a50">&#34;band&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Convert stars object to terra object to visualize with plotRGB</span>
+</span></span><span style="display:flex;"><span>rgb_terra &lt;- <span style="color:#0a0">rast</span>(rgb_stacked)
+</span></span><span style="display:flex;"><span>cir_terra &lt;- <span style="color:#0a0">rast</span>(cir_stacked)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 4. Plot as RGB (rgb = 1:3 maps Red-&gt;1, Green-&gt;2, Blue-&gt;3)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plotRGB</span>(rgb_terra, r = <span style="color:#099">1</span>, g = <span style="color:#099">2</span>, b = <span style="color:#099">3</span>, stretch = <span style="color:#a50">&#34;lin&#34;</span>, main = <span style="color:#a50">&#34;Sentinel-2 True Color (Linear Stretch) - May 2018&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-20-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">plotRGB</span>(cir_terra, r = <span style="color:#099">1</span>, g = <span style="color:#099">2</span>, b = <span style="color:#099">3</span>, stretch = <span style="color:#a50">&#34;lin&#34;</span>, main = <span style="color:#a50">&#34;Sentinel-2 False Color CIR (Linear Stretch) - May 2018&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-20-2.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Healthy vegetation appears in vibrant, bright red tones. Bare soil and urban areas appear gray, blue, or cyan, while water appears dark blue or black.</span>
+</span></span></code></pre></div><p>We see “strange deviations in the NDVI trend” , whereby we would expect
+values to increase (NDVI follows the phenological cycle of vegetation)
+over the summer months and decrease in the winter months. For example,
+we same very low values in June 2018. This is we did not correct for
+atmospheric interference.</p>
+<p>To illustrate, I made a time-laps animation for the month of June for
+our area. The animation was created on the <a href="https://browser.dataspace.copernicus.eu/?zoom=5&amp;lat=50.16282&amp;lng=20.78613&amp;themeId=DEFAULT-THEME&amp;visualizationUrl=U2FsdGVkX1%2Bqks280qYM21jCX9mmd%2FcsnAko8WK02m2bsat2uf1S9JW62GKn8ZwYxcBvIg7t2OfUcwVFRJiO%2FJSNM8%2BfdZ0VsFQSbck%2F8nAm%2FrQCKSBFMNcgHyj8%2BTXj&amp;datasetId=S2_L2A_CDAS&amp;demSource3D=%22MAPZEN%22&amp;cloudCoverage=30&amp;dateMode=SINGLE">Copernicus
+website</a>:</p>
+<figure>
+<img src="./Media/Sentinel-2_L2A-1730713489482057-timelapse.gif"
+alt="Fig 3: Time-laps of S2 in June 2018 for our study area." />
+<figcaption aria-hidden="true">Fig 3: Time-laps of S2 in June 2018 for
+our study area.</figcaption>
+</figure>
+<p>We see that atmospheric interference causes noise within the data. In
+order to make reliable time series, we need to perform atmospheric
+corrections (cloud % filtering, cloud masking), converting band values
+from digital numbers (0-10000) to reflectance values (0-1). Gaps within
+the data have to be filled in (data imputation) to create regular time
+series for analysis. This is typically done with temporal and/or spatial
+interpolation, followed by smoothing.</p>
+<figure>
+<img src="./Media/preprocessing%20workflow.png"
+alt="Fig 4: Typical pre-processing steps before we can use Sentinel-2 satellite time series data. Image was generated with Gemini." />
+<figcaption aria-hidden="true">Fig 4: Typical pre-processing steps
+before we can use Sentinel-2 satellite time series data. Image was
+generated with Gemini.</figcaption>
+</figure>
+<h2 id="example-2-inundation-monitoring-of-the-kloosterbeemden">Example 2: Inundation monitoring of the Kloosterbeemden<a href="#example-2-inundation-monitoring-of-the-kloosterbeemden" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h4 id="with-more-advanced-preprocessing-and-batch-processing">(with more advanced preprocessing and batch processing)<a href="#with-more-advanced-preprocessing-and-batch-processing" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h4>
+<p>We are going to check if our area has become more wet over the years and
+check it this claim is true.
+<a href="https://www.vrt.be/vrtnws/nl/2026/05/05/scherpenheuvel-zichem-kloosterbeemden-sanering-natuur-bos-tessen/">https://www.vrt.be/vrtnws/nl/2026/05/05/scherpenheuvel-zichem-kloosterbeemden-sanering-natuur-bos-tessen/</a></p>
+<p>For this, we are going to use a very simplistic model, developed to
+detect inundation in open wetlands (doi/10.1002/rse2.363).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Load the decision tree model</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">load</span>(<span style="color:#a50">&#34;./data/jussila_decisiontree.RData&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Visualize the decision tree structure</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">rpart.plot</span>(tree_jussila, tweak = <span style="color:#099">1</span>, extra = <span style="color:#099">0</span>)
+</span></span></code></pre></div><pre><code>## Warning: Cannot retrieve the data used to build the model (so cannot determine roundint and is.binary for the variables).
+## To silence this warning:
+##     Call rpart.plot with roundint=FALSE,
+##     or rebuild the rpart model with model=TRUE.
+</code></pre>
+<p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-21-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Visualize the necessary bands for model:</span>
+</span></span><span style="display:flex;"><span>tree_jussila[[<span style="color:#a50">&#34;terms&#34;</span>]][[3]]
+</span></span></code></pre></div><pre><code>## b02 + b03 + b04 + b05 + b8a + b11 + b12 + ndvi + mndwi11 + mndwi12 + 
+##     ndwi_mf + ndmi_gao11
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#b02 + b03 + b04 + b05 + b8a + b11 + b12 + ndvi + mndwi11 + mndwi12 + ndwi_mf + ndmi_gao11</span>
+</span></span></code></pre></div><p>Set some parameters to extract Sentinel-2 datacubes form OpenEO. We
+define the extent of our AOI, the bands we are interested in and the
+time range. In this example, we are going to extract the R, G, B values
+(for visualization) and the NDVI (the most popular vegetation index
+there is) for the Kloosterbeemden.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">exists</span>(<span style="color:#a50">&#34;con&#34;</span>)) {
+</span></span><span style="display:flex;"><span>  con &lt;- <span style="color:#0a0">connect</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a50">&#34;https://openeofed.dataspace.copernicus.eu/openeo/1.2&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Only authenticate interactively when running manually</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (<span style="color:#0a0">interactive</span>()) {
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">login</span>(con)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Load the AOI’s.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>gr&lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;./data/grasslands_kloosterbeemden.gpkg&#34;</span>) <span style="color:#aaa;font-style:italic"># Our area of interest (AOI) = the Kloosterbeemden </span>
+</span></span></code></pre></div><pre><code>## Reading layer `grasslands_kloosterbeemden' from data source 
+##   `G:\Mijn Drive\OpenScience Cafe - OpenEO\OpenScience Cafe - OpenEO\OpenScience café - introduction to OpenEO\data\grasslands_kloosterbeemden.gpkg' 
+##   using driver `GPKG'
+## Simple feature collection with 11 features and 43 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 192145.9 ymin: 188403 xmax: 193157.9 ymax: 189852.5
+## Projected CRS: BD72 / Belgian Lambert 72
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>gr &lt;- gr %&gt;% <span style="color:#0a0">st_transform</span>(<span style="color:#a50">&#34;EPSG:4326&#34;</span>) <span style="color:#aaa;font-style:italic"># transform crs to WGS84 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>we&lt;- <span style="color:#0a0">st_read</span>(<span style="color:#a50">&#34;./data/wetlands_kloosterbeemden.gpkg&#34;</span>) <span style="color:#aaa;font-style:italic"># Our area of interest (AOI) = the Kloosterbeemden </span>
+</span></span></code></pre></div><pre><code>## Reading layer `wetlands_kloosterbeemden' from data source 
+##   `G:\Mijn Drive\OpenScience Cafe - OpenEO\OpenScience Cafe - OpenEO\OpenScience café - introduction to OpenEO\data\wetlands_kloosterbeemden.gpkg' 
+##   using driver `GPKG'
+## Simple feature collection with 22 features and 43 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 191918.1 ymin: 188374.1 xmax: 193613.6 ymax: 189972.7
+## Projected CRS: BD72 / Belgian Lambert 72
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>we &lt;- we %&gt;% <span style="color:#0a0">st_transform</span>(<span style="color:#a50">&#34;EPSG:4326&#34;</span>) <span style="color:#aaa;font-style:italic"># transform crs to WGS84 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>polygons &lt;- <span style="color:#0a0">rbind</span>(gr,we)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">mapview</span>(polygons,zcol=<span style="color:#a50">&#34;HAB1&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-23-1.png" alt=""><!-- --></p>
+<p>Remove “High Green” form the polygons</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>gk21 &lt;- <span style="color:#0a0">rast</span>(<span style="color:#a50">&#34;./data/groenkaart21.tif&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(gk21)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-24-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>hg &lt;- gk21 == <span style="color:#099">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(hg)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-24-2.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Convert TRUE cells to polygons</span>
+</span></span><span style="display:flex;"><span>hg_poly &lt;- <span style="color:#0a0">as.polygons</span>(hg, dissolve = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Keep only TRUE areas</span>
+</span></span><span style="display:flex;"><span>hg_poly &lt;- hg_poly[hg_poly$groenkaart21 == <span style="color:#099">1</span>, ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Convert terra vector to sf</span>
+</span></span><span style="display:flex;"><span>hg_sf &lt;- <span style="color:#0a0">st_as_sf</span>(hg_poly)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Make sure CRS matches</span>
+</span></span><span style="display:flex;"><span>polygons &lt;- <span style="color:#0a0">st_transform</span>(polygons, <span style="color:#0a0">st_crs</span>(hg_sf))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Remove overlapping parts</span>
+</span></span><span style="display:flex;"><span>polygons_no_overlap &lt;- <span style="color:#0a0">st_difference</span>(polygons, <span style="color:#0a0">st_union</span>(hg_sf))
+</span></span></code></pre></div><pre><code>## Warning: attribute variables are assumed to be spatially constant throughout
+## all geometries
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot result</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(<span style="color:#0a0">st_geometry</span>(polygons_no_overlap), col = <span style="color:#a50">&#34;lightblue&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(hg_sf$geometry, add = <span style="color:#00a">TRUE</span>, col = <span style="color:#a50">&#34;red&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-24-3.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">mapview</span>(polygons_no_overlap)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-25-1.png" alt=""><!-- --></p>
+<p>Important, openEO expect your regions to have crs = EPSG:4326 (WGS84)!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>polygons_no_overlap &lt;- polygons_no_overlap %&gt;% <span style="color:#0a0">st_transform</span>(<span style="color:#a50">&#34;EPSG:4326&#34;</span>)
+</span></span></code></pre></div><p>Set the parameters for the cube processing.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Set parameters </span>
+</span></span><span style="display:flex;"><span>bands = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;B02&#34;</span>,<span style="color:#a50">&#34;B03&#34;</span>,<span style="color:#a50">&#34;B04&#34;</span>, <span style="color:#a50">&#34;B05&#34;</span>, <span style="color:#a50">&#34;B8A&#34;</span>, <span style="color:#a50">&#34;B11&#34;</span>, <span style="color:#a50">&#34;B12&#34;</span>, <span style="color:#a50">&#34;SCL&#34;</span>) <span style="color:#aaa;font-style:italic"># SCL = scene classification layer</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>time_range = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;2022-01-01&#34;</span>, <span style="color:#a50">&#34;2026-01-01&#34;</span>) <span style="color:#aaa;font-style:italic"># 5 years</span>
+</span></span><span style="display:flex;"><span>collection = <span style="color:#a50">&#34;SENTINEL2_L2A&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>jobs &lt;- <span style="color:#0a0">list</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a">for</span> (i <span style="color:#00a">in</span> <span style="color:#099">1</span>:<span style="color:#0a0">nrow</span>(polygons_no_overlap[1,])) { 
+</span></span><span style="display:flex;"><span>  polygon &lt;- polygons_no_overlap[i, ] 
+</span></span><span style="display:flex;"><span>  bbox &lt;- <span style="color:#0a0">st_bbox</span>(polygon)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Get process graph builder</span>
+</span></span><span style="display:flex;"><span>  process &lt;- openeo::<span style="color:#0a0">processes</span>()
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Define spatial extent</span>
+</span></span><span style="display:flex;"><span>  spatial_extent &lt;- <span style="color:#0a0">list</span>(
+</span></span><span style="display:flex;"><span>    west = bbox[<span style="color:#a50">&#34;xmin&#34;</span>],
+</span></span><span style="display:flex;"><span>    south = bbox[<span style="color:#a50">&#34;ymin&#34;</span>],
+</span></span><span style="display:flex;"><span>    east = bbox[<span style="color:#a50">&#34;xmax&#34;</span>],
+</span></span><span style="display:flex;"><span>    north = bbox[<span style="color:#a50">&#34;ymax&#34;</span>],
+</span></span><span style="display:flex;"><span>    crs = <span style="color:#099">4326</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Define temporal extent (all available years)</span>
+</span></span><span style="display:flex;"><span>  temporal_extent &lt;- time_range
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  fn_eo_cloud_cover1 = <span style="color:#00a">function</span>(value) {
+</span></span><span style="display:flex;"><span>    cc = process$<span style="color:#0a0">lte</span>(x = value, y = <span style="color:#099">20</span>) <span style="color:#aaa;font-style:italic"># We set a &lt;20% cloud cover filter for the whole S2 image tile.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a">return</span>(cc)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Load Sentinel-2 L2A data using process graph builder</span>
+</span></span><span style="display:flex;"><span>  col &lt;- process$<span style="color:#0a0">load_collection</span>(
+</span></span><span style="display:flex;"><span>    id = collection,
+</span></span><span style="display:flex;"><span>    spatial_extent = spatial_extent,
+</span></span><span style="display:flex;"><span>    temporal_extent = temporal_extent,
+</span></span><span style="display:flex;"><span>    bands = bands,
+</span></span><span style="display:flex;"><span>    properties = <span style="color:#0a0">list</span>(<span style="color:#a50">&#34;eo:cloud_cover&#34;</span> = fn_eo_cloud_cover1)
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Mask out bad pixels based on values of the SCL layer. </span>
+</span></span><span style="display:flex;"><span>  filterSCL = <span style="color:#00a">function</span>(col , context) {
+</span></span><span style="display:flex;"><span>    scl = col[8]
+</span></span><span style="display:flex;"><span>    res = scl != <span style="color:#099">4</span> &amp; scl != <span style="color:#099">5</span> &amp; scl != <span style="color:#099">6</span> <span style="color:#aaa;font-style:italic"># The pixel is not classified as vegetation, not_vegetated or water</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a">return</span>(res)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  mask = process$<span style="color:#0a0">reduce_dimension</span>(
+</span></span><span style="display:flex;"><span>    data = col
+</span></span><span style="display:flex;"><span>    , reducer = filterSCL
+</span></span><span style="display:flex;"><span>    , dimension = <span style="color:#a50">&#34;bands&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># apply mask</span>
+</span></span><span style="display:flex;"><span>  cube_masked = process$<span style="color:#0a0">mask</span>(col, mask)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Calculate the different indices:</span>
+</span></span><span style="display:flex;"><span>  ndvi = <span style="color:#00a">function</span>(cube_masked, context) {
+</span></span><span style="display:flex;"><span>    red = cube_masked[3]
+</span></span><span style="display:flex;"><span>    nir = cube_masked[5<span style="color:#0a0">]
+</span></span></span><span style="display:flex;"><span><span style="color:#0a0">    </span>(nir-red)/(nir+red)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  mndwi12 = <span style="color:#00a">function</span>(cube_masked, context) {
+</span></span><span style="display:flex;"><span>    green = cube_masked[2]
+</span></span><span style="display:flex;"><span>    swir2 = cube_masked[7<span style="color:#0a0">]
+</span></span></span><span style="display:flex;"><span><span style="color:#0a0">    </span>(green-swir2)/(green+swir2)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  mndwi11 = <span style="color:#00a">function</span>(cube_masked,context){
+</span></span><span style="display:flex;"><span>    green = cube_masked[2]
+</span></span><span style="display:flex;"><span>    swir1 = cube_masked[6<span style="color:#0a0">]
+</span></span></span><span style="display:flex;"><span><span style="color:#0a0">    </span>(green-swir1)/(green+swir1)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  ndwi_mf = <span style="color:#00a">function</span>(cube_masked,context){
+</span></span><span style="display:flex;"><span>    green = cube_masked[2]
+</span></span><span style="display:flex;"><span>    nir = cube_masked[5<span style="color:#0a0">]
+</span></span></span><span style="display:flex;"><span><span style="color:#0a0">    </span>(green-nir)/(green+nir)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  ndmi_gao11 = <span style="color:#00a">function</span>(cube_masked,context){
+</span></span><span style="display:flex;"><span>    swir1 = cube_masked[6]
+</span></span><span style="display:flex;"><span>    nir = cube_masked[5<span style="color:#0a0">]
+</span></span></span><span style="display:flex;"><span><span style="color:#0a0">    </span>(nir-swir1)/(nir+swir1)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  calc_mndwi11 = process$<span style="color:#0a0">reduce_dimension</span>(data = cube_masked,
+</span></span><span style="display:flex;"><span>                                          dimension = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>                                          reducer = mndwi11)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  calc_mndwi12 = process$<span style="color:#0a0">reduce_dimension</span>(data = cube_masked,
+</span></span><span style="display:flex;"><span>                                          dimension = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>                                          reducer = mndwi12)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  calc_ndvi = process$<span style="color:#0a0">reduce_dimension</span>(data = cube_masked,
+</span></span><span style="display:flex;"><span>                                       dimension = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>                                       reducer = ndvi)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  calc_ndwi_mf = process$<span style="color:#0a0">reduce_dimension</span>(data = cube_masked,
+</span></span><span style="display:flex;"><span>                                          dimension = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>                                          reducer = ndwi_mf)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  calc_ndmi_gao11 = process$<span style="color:#0a0">reduce_dimension</span>(data = cube_masked,
+</span></span><span style="display:flex;"><span>                                             dimension = <span style="color:#a50">&#34;bands&#34;</span>,
+</span></span><span style="display:flex;"><span>                                             reducer = ndmi_gao11)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Rename the bands</span>
+</span></span><span style="display:flex;"><span>  cube_ndvi = process$<span style="color:#0a0">add_dimension</span>(data = calc_ndvi,name = <span style="color:#a50">&#34;bands&#34;</span>,label = <span style="color:#a50">&#34;ndvi&#34;</span>, type = <span style="color:#a50">&#34;bands&#34;</span>)
+</span></span><span style="display:flex;"><span>  cube_mndwi11 = process$<span style="color:#0a0">add_dimension</span>(data = calc_mndwi11, name = <span style="color:#a50">&#34;bands&#34;</span>,label = <span style="color:#a50">&#34;mndwi11&#34;</span>, type = <span style="color:#a50">&#34;bands&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  cube_mndwi12 = process$<span style="color:#0a0">add_dimension</span>(data = calc_mndwi12,name = <span style="color:#a50">&#34;bands&#34;</span>,label = <span style="color:#a50">&#34;mndwi12&#34;</span>, type = <span style="color:#a50">&#34;bands&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  cube_ndwi_mf = process$<span style="color:#0a0">add_dimension</span>(data = calc_ndwi_mf,name = <span style="color:#a50">&#34;bands&#34;</span>,label = <span style="color:#a50">&#34;ndwi_mf&#34;</span>, type = <span style="color:#a50">&#34;bands&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  cube_ndmi_gao11 = process$<span style="color:#0a0">add_dimension</span>(data = calc_ndmi_gao11,name = <span style="color:#a50">&#34;bands&#34;</span>,label = <span style="color:#a50">&#34;ndmi_gao11&#34;</span>, type = <span style="color:#a50">&#34;bands&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Combine the datacubes</span>
+</span></span><span style="display:flex;"><span>  merge1 = process$<span style="color:#0a0">merge_cubes</span>(cube_masked, cube_mndwi11)
+</span></span><span style="display:flex;"><span>  merge2 = process$<span style="color:#0a0">merge_cubes</span>(merge1, cube_mndwi12)
+</span></span><span style="display:flex;"><span>  merge3 = process$<span style="color:#0a0">merge_cubes</span>(merge2, cube_ndvi)
+</span></span><span style="display:flex;"><span>  merge4 = process$<span style="color:#0a0">merge_cubes</span>(merge3, cube_ndwi_mf)
+</span></span><span style="display:flex;"><span>  data_combined = process$<span style="color:#0a0">merge_cubes</span>(merge4,cube_ndmi_gao11)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Create monthly mosaics</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">library</span>(lubridate)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  dates &lt;- <span style="color:#0a0">seq</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#0a0">as.Date</span>(<span style="color:#a50">&#34;2022-01-01&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#0a0">as.Date</span>(<span style="color:#a50">&#34;2026-01-01&#34;</span>),
+</span></span><span style="display:flex;"><span>    by = <span style="color:#a50">&#34;month&#34;</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  intervals &lt;- <span style="color:#0a0">lapply</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#099">1</span>:(<span style="color:#0a0">length</span>(dates)<span style="color:#099">-1</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#00a">function</span>(i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#0a0">c</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">as.character</span>(dates[i]),
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">as.character</span>(dates[i<span style="color:#099">+1</span>])
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># and labels</span>
+</span></span><span style="display:flex;"><span>  labels = <span style="color:#0a0">sapply</span>(intervals, head, <span style="color:#099">1</span>) <span style="color:#aaa;font-style:italic"># create labels from list</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># add the process node</span>
+</span></span><span style="display:flex;"><span>  temp_period = process$<span style="color:#0a0">aggregate_temporal</span>(data = data_combined,
+</span></span><span style="display:flex;"><span>                                           intervals = intervals,
+</span></span><span style="display:flex;"><span>                                           reducer = <span style="color:#00a">function</span>(data_combined, context){process$<span style="color:#0a0">median</span>(data_combined)},
+</span></span><span style="display:flex;"><span>                                           labels = labels,
+</span></span><span style="display:flex;"><span>                                           dimension = <span style="color:#a50">&#34;t&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Test to see if UDF work</span>
+</span></span><span style="display:flex;"><span>  udf_code &lt;- <span style="color:#a50">&#34;import numpy as np
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">import xarray
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">from scipy.signal import savgol_filter
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">from openeo.udf import XarrayDataCube
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">def apply_datacube(cube: XarrayDataCube, context: dict) -&gt; XarrayDataCube:
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    array = cube.get_array()
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    # Ensure time dimension exists
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    if &#39;t&#39; not in array.dims:
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">        return cube
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    # Interpolate NaNs along time
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    filled = array.interpolate_na(dim=&#39;t&#39;, method=&#39;linear&#39;, fill_value=&#39;extrapolate&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    data = filled.values
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    # Find time axis safely
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    time_axis = array.dims.index(&#39;t&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    # Check length
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    if data.shape[time_axis] &lt; 5:
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">        return cube  # too short → skip
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    # Check for remaining NaNs
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    if np.isnan(data).any():
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">        return cube
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    try:
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">        smoothed = savgol_filter(data, window_length=5, polyorder=2, axis=time_axis)
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    except Exception:
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">        return cube  # fail-safe
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    return XarrayDataCube(
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">        xarray.DataArray(smoothed, dims=array.dims, coords=array.coords)
+</span></span></span><span style="display:flex;"><span><span style="color:#a50">    )&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic">#temp_period_smooth &lt;- process$run_udf(data = temp_period,udf = udf_code, runtime = &#34;Python&#34;)</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  temp_period_smooth &lt;- process$<span style="color:#0a0">apply_dimension</span>(
+</span></span><span style="display:flex;"><span>    data = temp_period,
+</span></span><span style="display:flex;"><span>    dimension = <span style="color:#a50">&#34;t&#34;</span>,
+</span></span><span style="display:flex;"><span>    process = <span style="color:#00a">function</span>(data, context) {
+</span></span><span style="display:flex;"><span>      process$<span style="color:#0a0">run_udf</span>(
+</span></span><span style="display:flex;"><span>        data = data,
+</span></span><span style="display:flex;"><span>        udf = udf_code,
+</span></span><span style="display:flex;"><span>        runtime = <span style="color:#a50">&#34;Python&#34;</span>,
+</span></span><span style="display:flex;"><span>        context = <span style="color:#0a0">list</span>()
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Save the result using process$save_result</span>
+</span></span><span style="display:flex;"><span>  result &lt;- process$<span style="color:#0a0">save_result</span>(data = temp_period_smooth, format = <span style="color:#a50">&#34;NetCDF&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Create the batch job</span>
+</span></span><span style="display:flex;"><span>  job &lt;- <span style="color:#0a0">create_job</span>(graph = result, title = <span style="color:#0a0">paste0</span>(<span style="color:#a50">&#34;OpenSciencecafé_&#34;</span>, i)) 
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Submit the job</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic">#job$send_job()</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  jobs[[i]] &lt;- job
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">cat</span>(<span style="color:#a50">&#34;Job for polygon&#34;</span>, i, <span style="color:#a50">&#34;submitted./n&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This code will give an error when the job is being submitted, since authentication is interactively. Users should not get this error when they are logged in to the Copernicus Data Space Ecosystem website.</span>
+</span></span></code></pre></div><pre><code>## Error in `req_perform()`:
+## ! HTTP 401 Unauthorized.
+## ℹ SERVER-ERROR: Unauthorized.
+
+## Job for polygon 1 submitted./n
+</code></pre>
+<p>Submit the job</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This code will give an error when the job is being submitted, since authentication is interactively. Users should not get this error when they are logged in to the Copernicus Data Space Ecosystem website.</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">list_jobs</span>() %&gt;% <span style="color:#0a0">names</span>() -&gt; job_names
+</span></span></code></pre></div><pre><code>## Error in `req_perform()`:
+## ! HTTP 401 Unauthorized.
+## ℹ SERVER-ERROR: Unauthorized.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Uncomment the code below to launch your jobs.</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#for(i in 1:nrow(polygons_no_overlap[1,])) { start_job(job_names[i]) }</span>
+</span></span></code></pre></div><p>Monitor the status of your batch jobs on OpenEO</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Uncomment the code below to follow-up on your batch jobs.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#list_jobs() %&gt;% as_tibble() %&gt;% View() # View the list of batch jobs on your OpenEO account</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#list_jobs() %&gt;% as_tibble() %&gt;% count(status) # See the status of your batch jobs</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#list_jobs() %&gt;% as_tibble() -&gt; jobs_df # create a dataframe of your batch jobs</span>
+</span></span></code></pre></div><p>When your batch jobs are finished, you can download them with this code
+to a specific folder:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Uncommend the code below to download your jobs when ready.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#for(i in 1:nrow(polygons_no_overlap[1,])) { </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#  id &lt;- unlist(jobs_df[i,&#34;id&#34;]) </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#  name &lt;- paste0(&#34;./export/&#34;, gsub(&#34; &#34;, &#34;_&#34;, unlist(jobs_df[i, &#34;title&#34;])), &#34;.nc&#34;) </span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#  print(name) </span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#  download_results(id, folder = &#34;./export/&#34;) -&gt; downname</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#  file.rename(unlist(downname), name) </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#  }</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>r2 = <span style="color:#0a0">read_stars</span>(<span style="color:#a50">&#34;./export/OpenSciencecafé_1.nc&#34;</span>)
+</span></span></code></pre></div><pre><code>## B02, B03, B04, B05, B8A, B11, B12, SCL, mndwi11, mndwi12, ndvi, ndwi_mf, ndmi_gao11,
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>r2 &lt;- <span style="color:#0a0">st_set_dimensions</span>(r2, <span style="color:#a50">&#34;t&#34;</span>,<span style="color:#0a0">as.Date</span>(<span style="color:#0a0">st_get_dimension_values</span>(r2, <span style="color:#a50">&#34;t&#34;</span>), origin = <span style="color:#a50">&#34;1990-01-01&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">st_dimensions</span>(r2)
+</span></span></code></pre></div><pre><code>##   from to  offset delta                refsys                    values x/y
+## x    1 17  638760    10 WGS 84 / UTM zone 31N                      NULL [x]
+## y    1 28 5652480   -10 WGS 84 / UTM zone 31N                      NULL [y]
+## t    1 48      NA    NA                  Date 2022-01-01,...,2025-12-01
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">plot</span>(r2)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-32-1.png" alt=""><!-- --></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">## Loading required package: abind</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">ggplot</span>() + <span style="color:#0a0">geom_stars</span>(data = r2[<span style="color:#a50">&#34;ndvi&#34;</span>]) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">facet_wrap</span>(~t,ncol=<span style="color:#099">12</span>) + <span style="color:#0a0">coord_equal</span>() +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">theme_void</span>() +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_x_discrete</span>(expand = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>,<span style="color:#099">0</span>)) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_y_discrete</span>(expand = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>,<span style="color:#099">0</span>)) +
+</span></span><span style="display:flex;"><span>        <span style="color:#0a0">scale_fill_viridis_c</span>() 
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-33-1.png" alt=""><!-- --></p>
+<p>Perform classification.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>df &lt;- <span style="color:#0a0">as.data.frame</span>(r2, wide = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">names</span>(df)[4:<span style="color:#099">10</span>] &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;b02&#34;</span>,<span style="color:#a50">&#34;b03&#34;</span>,<span style="color:#a50">&#34;b04&#34;</span>,<span style="color:#a50">&#34;b05&#34;</span>,<span style="color:#a50">&#34;b8a&#34;</span>,<span style="color:#a50">&#34;b11&#34;</span>,<span style="color:#a50">&#34;b12&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Identify rows with NAs</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This ensures we don&#39;t pass NAs to models that can&#39;t handle them </span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># and allows us to preserve the NA structure in the output.</span>
+</span></span><span style="display:flex;"><span>complete_cases &lt;- <span style="color:#0a0">complete.cases</span>(df)
+</span></span><span style="display:flex;"><span>df_clean &lt;- df[complete_cases, ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Prepare the prediction vector (as done above)</span>
+</span></span><span style="display:flex;"><span>pred &lt;- <span style="color:#0a0">predict</span>(tree_jussila, newdata = df_clean)
+</span></span><span style="display:flex;"><span>pred_binary &lt;- <span style="color:#0a0">ifelse</span>(pred[, <span style="color:#a50">&#34;water&#34;</span>] &gt; pred[, <span style="color:#a50">&#34;dry&#34;</span>], <span style="color:#099">1</span>, <span style="color:#099">0</span>)
+</span></span><span style="display:flex;"><span>pred_values &lt;- <span style="color:#0a0">as.vector</span>(pred_binary)
+</span></span><span style="display:flex;"><span>final_pred_vector &lt;- <span style="color:#0a0">rep</span>(<span style="color:#00a">NA_real_</span>, <span style="color:#0a0">nrow</span>(df))
+</span></span><span style="display:flex;"><span>final_pred_vector[complete_cases] &lt;- pred_values
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Get the dimensions of your original object (spatial + temporal)</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># We exclude the &#39;bands&#39; dimension because we are collapsing it into 1 classification value</span>
+</span></span><span style="display:flex;"><span>new_dims &lt;- <span style="color:#0a0">st_dimensions</span>(r2)<span style="color:#0a0">[c</span>(<span style="color:#a50">&#34;x&#34;</span>, <span style="color:#a50">&#34;y&#34;</span>, <span style="color:#a50">&#34;t&#34;</span>)] <span style="color:#aaa;font-style:italic"># Ensure names match your r2 object</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Rebuild the stars object directly from the vector</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This avoids &#39;slice&#39; and &#39;mutate&#39; errors by building from the ground up</span>
+</span></span><span style="display:flex;"><span>result_stars &lt;- <span style="color:#0a0">st_as_stars</span>(<span style="color:#0a0">list</span>(classification = <span style="color:#0a0">array</span>(final_pred_vector, dim = <span style="color:#0a0">dim</span>(new_dims))),
+</span></span><span style="display:flex;"><span>                            dimensions = new_dims)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Ensure values are factors for discrete scaling</span>
+</span></span><span style="display:flex;"><span>result_stars_df &lt;- result_stars
+</span></span><span style="display:flex;"><span>result_stars_df[[1]] &lt;- <span style="color:#0a0">factor</span>(result_stars_df[[1]], 
+</span></span><span style="display:flex;"><span>                                levels = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>, <span style="color:#099">1</span>), 
+</span></span><span style="display:flex;"><span>                                labels = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;dry&#34;</span>, <span style="color:#a50">&#34;inundated&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>polygon_transformed &lt;- <span style="color:#0a0">st_transform</span>(polygons_no_overlap[1,], <span style="color:#0a0">st_crs</span>(result_stars_df)) <span style="color:#aaa;font-style:italic"># Make sure both files have the same crs system.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">ggplot</span>() +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_stars</span>(data = result_stars_df) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Map values to specific colors</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">scale_fill_manual</span>(values = <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;dry&#34;</span> = <span style="color:#a50">&#34;tan&#34;</span>, <span style="color:#a50">&#34;inundated&#34;</span> = <span style="color:#a50">&#34;blue&#34;</span>), 
+</span></span><span style="display:flex;"><span>                    name = <span style="color:#a50">&#34;Status&#34;</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Add the polygon border</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_sf</span>(data = polygon_transformed, 
+</span></span><span style="display:flex;"><span>          fill = <span style="color:#00a">NA</span>, 
+</span></span><span style="display:flex;"><span>          color = <span style="color:#a50">&#34;red&#34;</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># If you have multiple time steps/layers, this creates the facets</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">facet_wrap</span>(~t,ncol=<span style="color:#099">12</span>) + 
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">theme_minimal</span>() 
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-34-1.png" alt=""><!-- --></p>
+<p>Visualize the relative frequency each year.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Extract the years from the time dimension (&#39;t&#39;)</span>
+</span></span><span style="display:flex;"><span>time_vals &lt;- <span style="color:#0a0">st_get_dimension_values</span>(result_stars, <span style="color:#a50">&#34;t&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This works whether &#39;t&#39; consists of Dates, characters, or factors by grabbing the first 4 digits</span>
+</span></span><span style="display:flex;"><span>years &lt;- <span style="color:#0a0">substr</span>(<span style="color:#0a0">as.character</span>(time_vals), <span style="color:#099">1</span>, <span style="color:#099">4</span>) 
+</span></span><span style="display:flex;"><span>unique_years &lt;- <span style="color:#0a0">sort</span>(<span style="color:#0a0">unique</span>(years))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Compute the inundation frequency proportion (0 to 1) for each year</span>
+</span></span><span style="display:flex;"><span>yearly_maps &lt;- <span style="color:#0a0">lapply</span>(unique_years, <span style="color:#00a">function</span>(yr) {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  target_times &lt;- years == yr
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Extract the indices where target is TRUE</span>
+</span></span><span style="display:flex;"><span>  true_indices &lt;- <span style="color:#0a0">which</span>(target_times)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Subset the time steps belonging to the current year</span>
+</span></span><span style="display:flex;"><span>  year_sub &lt;- result_stars[, , ,true_indices]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Calculate the mean across the spatial grid (collapsing the time dimension).</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Since 1 = inundated and 0 = dry, the mean represents the frequency proportion.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">st_apply</span>(year_sub, <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;x&#34;</span>, <span style="color:#a50">&#34;y&#34;</span>), mean, na.rm = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Combine the separate yearly maps into a single stars object</span>
+</span></span><span style="display:flex;"><span>result_combined &lt;- <span style="color:#0a0">do.call</span>(c, yearly_maps)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">names</span>(result_combined) &lt;- unique_years <span style="color:#aaa;font-style:italic"># Name each attribute layer after its year</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Merge the separate year attributes into a single &#39;year&#39; dimension</span>
+</span></span><span style="display:flex;"><span>result_yearly_stars &lt;- <span style="color:#0a0">merge</span>(result_combined)
+</span></span><span style="display:flex;"><span>result_yearly_stars &lt;- <span style="color:#0a0">st_set_dimensions</span>(result_yearly_stars, <span style="color:#a50">&#34;attributes&#34;</span>, names = <span style="color:#a50">&#34;year&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">names</span>(result_yearly_stars) &lt;- <span style="color:#a50">&#34;frequency&#34;</span> <span style="color:#aaa;font-style:italic"># Label the value column</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Align the coordinate reference system (CRS) for your polygon overlay</span>
+</span></span><span style="display:flex;"><span>polygon_transformed &lt;- <span style="color:#0a0">st_transform</span>(polygons_no_overlap[1,], <span style="color:#0a0">st_crs</span>(result_yearly_stars))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot the continuous yearly frequency using ggplot</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">ggplot</span>() +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_stars</span>(data = result_yearly_stars) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Map the continuous frequency to a gradient matching your original colors</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">scale_fill_gradient</span>(low = <span style="color:#a50">&#34;tan&#34;</span>,        <span style="color:#aaa;font-style:italic"># 0% Inundated (Always Dry)</span>
+</span></span><span style="display:flex;"><span>                      high = <span style="color:#a50">&#34;blue&#34;</span>,      <span style="color:#aaa;font-style:italic"># 100% Inundated (Always Flooded)</span>
+</span></span><span style="display:flex;"><span>                      limits = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>, <span style="color:#099">1</span>),
+</span></span><span style="display:flex;"><span>                      labels = scales::percent, <span style="color:#aaa;font-style:italic"># Formats values as 0%, 50%, 100%</span>
+</span></span><span style="display:flex;"><span>                      name = <span style="color:#a50">&#34;Inundation\nFrequency&#34;</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Add the red polygon boundary</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_sf</span>(data = polygon_transformed, 
+</span></span><span style="display:flex;"><span>          fill = <span style="color:#00a">NA</span>, 
+</span></span><span style="display:flex;"><span>          color = <span style="color:#a50">&#34;red&#34;</span>,
+</span></span><span style="display:flex;"><span>          linewidth = <span style="color:#099">0.8</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Facet the map layout by year instead of individual time steps</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">facet_wrap</span>(~year) + 
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">theme_minimal</span>() +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">labs</span>(title = <span style="color:#a50">&#34;Annual Inundation Frequency Map&#34;</span>,
+</span></span><span style="display:flex;"><span>       x = <span style="color:#a50">&#34;Longitude&#34;</span>,
+</span></span><span style="display:flex;"><span>       y = <span style="color:#a50">&#34;Latitude&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-35-1.png" alt=""><!-- --></p>
+<p>Evaluate the % of inundated pixels (within the polygon) over the years
+and plot the trend line.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Crop stars object to the polygon and calculate the mean for each time step</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># st_apply allows us to run a function (mean) over the &#39;t&#39; dimension</span>
+</span></span><span style="display:flex;"><span>inundation_stats &lt;- result_stars[polygon_transformed] %&gt;%
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">st_apply</span>(MARGIN = <span style="color:#a50">&#34;t&#34;</span>, FUN = <span style="color:#00a">function</span>(x) <span style="color:#0a0">mean</span>(x == <span style="color:#099">1</span>, na.rm = <span style="color:#00a">TRUE</span>)) %&gt;%
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">as.data.frame</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Rename columns for clarity (adjust &#39;classification&#39; if your attribute name differs)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">colnames</span>(inundation_stats) &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;t&#34;</span>, <span style="color:#a50">&#34;ratio&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">ggplot</span>(inundation_stats, <span style="color:#0a0">aes</span>(x = t, y = ratio)) +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_point</span>(color = <span style="color:#a50">&#34;blue&#34;</span>, alpha = <span style="color:#099">0.6</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_line</span>(color = <span style="color:#a50">&#34;blue&#34;</span>, alpha = <span style="color:#099">0.3</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Add a linear trend line (method = &#34;lm&#34;) or a curved one (method = &#34;loess&#34;)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">geom_smooth</span>(method = <span style="color:#a50">&#34;lm&#34;</span>, color = <span style="color:#a50">&#34;red&#34;</span>, se = <span style="color:#00a">TRUE</span>, linetype = <span style="color:#a50">&#34;dashed&#34;</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">scale_y_continuous</span>(labels = scales::percent, limits = <span style="color:#0a0">c</span>(<span style="color:#099">0</span>, <span style="color:#099">1</span>)) +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">labs</span>(title = <span style="color:#a50">&#34;Inundation Ratio Over Time&#34;</span>,
+</span></span><span style="display:flex;"><span>       subtitle = <span style="color:#0a0">paste</span>(<span style="color:#a50">&#34;Calculated within polygon area&#34;</span>),
+</span></span><span style="display:flex;"><span>       x = <span style="color:#a50">&#34;Time (t)&#34;</span>,
+</span></span><span style="display:flex;"><span>       y = <span style="color:#a50">&#34;Percentage Inundated&#34;</span>) +
+</span></span><span style="display:flex;"><span>  <span style="color:#0a0">theme_minimal</span>()
+</span></span></code></pre></div><pre><code>## `geom_smooth()` using formula = 'y ~ x'
+</code></pre>
+<p><img src="/tutorials/introduction_to_openeo_package/index_files/figure-gfm/unnamed-chunk-36-1.png" alt=""><!-- --></p>
+<h1 id="extra-when-to-use-terra-vs-stars-for-processing-rasterdatacubes">Extra: when to use terra vs stars for processing raster/datacubes?<a href="#extra-when-to-use-terra-vs-stars-for-processing-rasterdatacubes" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>The data can be easily converted in one another, of even a tibble /
+standard dataframes. See discussion on:
+<a href="https://github.com/r-spatial/stars/issues/633">https://github.com/r-spatial/stars/issues/633</a></p>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z" />
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/opens-science-caf%C3%A9/'>Opens Science Café</a></div>
+<div class='tags'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
+<line x1="7" y1="7" x2="7" y2="7" />
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/remote-sensing/'>Remote Sensing</a>, <a class='tag' href='/tags/satellite-datasets/'>Satellite Datasets</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/spatial_transform_balanced_samples/'>
+        <span aria-hidden='true'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="20" y1="12" x2="4" y2="12" />
+<polyline points="10 18 4 12 10 6" />
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Mathematical Transformations of Spatially Balanced Samples</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.56dcff95.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+
