@@ -1,0 +1,62 @@
+title: Reveal.js quarto extension with corporate identity of the Flemish government
+author: Thierry Onkelinx
+version: 0.0.1
+contributes:
+  knitr:
+    opts_chunk:
+      echo: false
+      message: false
+      warning: false
+      fig-height: 5.7
+      fig-width: 12
+  formats:
+    revealjs:
+      theme: [default, slides.scss]
+      css: entity.css
+      transition: convex
+      width: 1244
+      height: 700
+      navigation-mode: vertical
+      controls-layout: bottom-right
+      controls-tutorial: true
+      slide-number: c/t
+      show-slide-number: all
+      slide-level: 2
+      email-obfuscation: javascript
+      embed-resources: true
+      chalkboard: false
+      preview-links: true
+      output-file: index.html
+      df-print: kable
+      progress: true
+      csl: research-institute-for-nature-and-forest.csl
+      template: partials/template.html
+      template-partials:
+        - partials/title-slide.html
+      format-resources:
+        - research-institute-for-nature-and-forest.csl
+        - css/entity.css
+        - fonts/FlandersArtSans-Bold.ttf
+        - fonts/FlandersArtSans-Light.ttf
+        - fonts/FlandersArtSans-Medium.ttf
+        - fonts/FlandersArtSans-Regular.ttf
+        - fonts/Inconsolata-Bold.ttf
+        - fonts/Inconsolata-Light.ttf
+        - fonts/Inconsolata-Medium.ttf
+        - fonts/Inconsolata-Regular.ttf
+        - img/flanders-en-intermediate.png
+        - img/flanders-en-slide.png
+        - img/flanders-en-title.png
+        - img/flanders-nl-intermediate.jpg
+        - img/flanders-nl-slide.jpg
+        - img/flanders-nl-transparent.png
+        - img/flanders-nl-title.png
+        - img/inbo-en-black.jpg
+        - img/inbo-en-title.png
+        - img/inbo-en-white.png
+        - img/inbo-nl-black.png
+        - img/inbo-nl-title.png
+        - img/inbo-nl-white.png
+      filters:
+        - filters/translations.lua
+        - filters/url.lua
