@@ -3,7 +3,9 @@ name: Build the site and deploy to GitHub pages
 on:
   push:
     branches:
-      - master
+      - main
+  # Enable manual triggering
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
