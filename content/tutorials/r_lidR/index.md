@@ -61,7 +61,7 @@ library(knitr)
 ```
 
 ## 2.2 External Data Workflow (QGIS Pre-processing)
-
+The output of the following steps can be downloaded from the [github page of this tutorial](https://github.com/inbo/tutorials/tree/main/content/tutorials/r_lidr).
 1.  **Download Data**: Download `.laz` tiles matching your area of
     interest (e.g., via [OpenLidar
     Vlaanderen](https://remotesensing.vlaanderen.be/apps/openlidar/#collapseDataDownload)).
