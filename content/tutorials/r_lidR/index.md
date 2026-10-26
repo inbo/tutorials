@@ -107,7 +107,7 @@ scan angle missing values, normalization status).
 
 ``` r
 # Check data integrity and attributes
-las_check(classified)
+las_check(classified) # We have duplicates since the tiles of laz files overlap to a certain degree (flight paths of the plane with the lidar sensor onboard overlap). In these overlapping zones, you can have dubble the amount of points. You can remove them before analysis (for example, remove the overlapping zones), but most functions inside the package will detect them automatically and remove them (but for for statistical analysis/metrics, it is indeed better to remove duplicates). The degenerated ground points can be caused by small errors in the sensor, or by "moving" objects on the ground during lidar scanning (For example, if there is wind, tree crowns move slightly, causing different z-values for the same locations).
 ```
 
 ## 3.3 Initial 3D Visualization
