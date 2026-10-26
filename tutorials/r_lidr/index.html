@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang='en' dir='auto'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='This tutorial provides an introduction for processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. Our team (biotope diversity) is currently looking more closely into the opportunities and challenges presented by this type of data (and the models) so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).'>
+<meta name='theme-color' content='#c04384'>
+
+<meta property='og:title' content='Exploring the potential of aerial lidar: introduction to lidR • INBO Tutorials'>
+<meta property='og:description' content='This tutorial provides an introduction for processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. Our team (biotope diversity) is currently looking more closely into the opportunities and challenges presented by this type of data (and the models) so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).'>
+<meta property='og:url' content='/tutorials/r_lidr/'>
+<meta property='og:site_name' content='INBO Tutorials'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='Remote Sensing'><meta property='article:tag' content='Aerial lidar'><meta property='article:tag' content='R'><meta property='article:published_time' content='2026-10-23T00:00:00Z'/><meta property='article:modified_time' content='2026-10-23T00:00:00Z'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.165.0">
+
+  <title>Exploring the potential of aerial lidar: introduction to lidR • INBO Tutorials</title>
+  <link rel='canonical' href='/tutorials/r_lidr/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.e45c9137.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#c04384;}
+</style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},   
+        {left: '$$', right: '$$', display: true},     
+        {left: '\\(', right: '\\)', display: false},  
+      ],
+      throwOnError : false
+    });
+  });
+</script>
+
+
+
+</head>
+<body class='page type-tutorials has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+       
+      </a>
+    </h2>
+    <div class='desc'>
+    
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-search sep-after'>
+  <header>
+    <h4 class='title widget-title'> </h4>
+  </header>
+
+  <form action='/search' id='search-form' class='search-form'>
+    <label>
+      <span class='screen-reader-text'>Search</span>
+      <input id='search-term' class='search-term' type='search' name='q' placeholder='Search&hellip;'>
+    </label></form>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/articles/'>Articles</a></li><li class='item has-current'>
+  <a href='/tutorials/'>Tutorials</a></li><li class='item'>
+  <a href='/create_tutorial/'>Create tutorial</a></li><li class='item has-children'>
+  <a href='/installation/'>Installation</a><button class='sub-menu-toggler'>
+    <span class='screen-reader-text'>expand sub menu</span>
+    <span class='sign'></span>
+  </button>
+
+  <ul class='sub-menu'><li class='item'>
+  <a href='/installation/administrator/'>For admins</a></li><li class='item'>
+  <a href='/installation/user/'>For users</a></li></ul></li><li class='item'>
+  <a href='/categories/'>Categories</a></li><li class='item'>
+  <a href='https://github.com/inbo/tutorials'>Repository</a></li></ul>
+    </div>
+  </nav>
+
+</section><section class='widget widget-taxonomy_cloud sep-after'>
+  <header>
+    <h4 class='title widget-title'>Tags</h4>
+  </header>
+
+  <div class='container list-container'>
+  <ul class='list taxonomy-cloud no-shuffle'><li>
+        <a href='/tags/aerial-lidar/' style='font-size:1em'>Aerial Lidar</a>
+      </li><li>
+        <a href='/tags/analysis/' style='font-size:1.0617283950617284em'>Analysis</a>
+      </li><li>
+        <a href='/tags/analysis-of-variance/' style='font-size:1em'>Analysis of Variance</a>
+      </li><li>
+        <a href='/tags/api/' style='font-size:1.0123456790123457em'>Api</a>
+      </li><li>
+        <a href='/tags/balanced/' style='font-size:1em'>Balanced</a>
+      </li><li>
+        <a href='/tags/bibliography/' style='font-size:1.0123456790123457em'>Bibliography</a>
+      </li><li>
+        <a href='/tags/binning/' style='font-size:1em'>Binning</a>
+      </li><li>
+        <a href='/tags/biodiversity/' style='font-size:1.0123456790123457em'>Biodiversity</a>
+      </li><li>
+        <a href='/tags/biorad/' style='font-size:1em'>BioRad</a>
+      </li><li>
+        <a href='/tags/bookdown/' style='font-size:1.0123456790123457em'>Bookdown</a>
+      </li><li>
+        <a href='/tags/brms/' style='font-size:1em'>Brms</a>
+      </li><li>
+        <a href='/tags/checklist/' style='font-size:1.0246913580246915em'>Checklist</a>
+      </li><li>
+        <a href='/tags/ci/' style='font-size:1.0123456790123457em'>Ci</a>
+      </li><li>
+        <a href='/tags/co-variance/' style='font-size:1em'>Co-Variance</a>
+      </li><li>
+        <a href='/tags/coding-club/' style='font-size:1em'>Coding Club</a>
+      </li><li>
+        <a href='/tags/containers/' style='font-size:1.037037037037037em'>Containers</a>
+      </li><li>
+        <a href='/tags/credentials/' style='font-size:1em'>Credentials</a>
+      </li><li>
+        <a href='/tags/csl/' style='font-size:1.0123456790123457em'>Csl</a>
+      </li><li>
+        <a href='/tags/data/' style='font-size:1.0246913580246915em'>Data</a>
+      </li><li>
+        <a href='/tags/database/' style='font-size:1.0493827160493827em'>Database</a>
+      </li><li>
+        <a href='/tags/de-trending/' style='font-size:1em'>De-Trending</a>
+      </li><li>
+        <a href='/tags/density/' style='font-size:1em'>Density</a>
+      </li><li>
+        <a href='/tags/design-of-experiments/' style='font-size:1em'>Design of Experiments</a>
+      </li><li>
+        <a href='/tags/development/' style='font-size:1.074074074074074em'>Development</a>
+      </li><li>
+        <a href='/tags/distribution/' style='font-size:1em'>Distribution</a>
+      </li><li>
+        <a href='/tags/docker/' style='font-size:1.037037037037037em'>Docker</a>
+      </li><li>
+        <a href='/tags/dplyr/' style='font-size:1em'>Dplyr</a>
+      </li><li>
+        <a href='/tags/e-book/' style='font-size:1em'>E-Book</a>
+      </li><li>
+        <a href='/tags/effectclass/' style='font-size:1.0246913580246915em'>Effectclass</a>
+      </li><li>
+        <a href='/tags/endnote/' style='font-size:1em'>Endnote</a>
+      </li><li>
+        <a href='/tags/etn/' style='font-size:1em'>Etn</a>
+      </li><li>
+        <a href='/tags/explorative-data-analysis/' style='font-size:1em'>Explorative Data Analysis</a>
+      </li><li>
+        <a href='/tags/frictionless/' style='font-size:1em'>Frictionless</a>
+      </li><li>
+        <a href='/tags/functional-programming/' style='font-size:1em'>Functional Programming</a>
+      </li><li>
+        <a href='/tags/gbif/' style='font-size:1.0123456790123457em'>Gbif</a>
+      </li><li>
+        <a href='/tags/generalized-linear-regression/' style='font-size:1.0123456790123457em'>Generalized Linear Regression</a>
+      </li><li>
+        <a href='/tags/ggplot2/' style='font-size:1.0123456790123457em'>Ggplot2</a>
+      </li><li>
+        <a href='/tags/gis/' style='font-size:1.1358024691358024em'>Gis</a>
+      </li><li>
+        <a href='/tags/git/' style='font-size:1.123456790123457em'>Git</a>
+      </li><li>
+        <a href='/tags/gitbook/' style='font-size:1.0123456790123457em'>Gitbook</a>
+      </li><li>
+        <a href='/tags/github/' style='font-size:1.037037037037037em'>Github</a>
+      </li><li>
+        <a href='/tags/google/' style='font-size:1.0123456790123457em'>Google</a>
+      </li><li>
+        <a href='/tags/grids/' style='font-size:1em'>Grids</a>
+      </li><li>
+        <a href='/tags/gwlogger/' style='font-size:1.037037037037037em'>GwloggeR</a>
+      </li><li>
+        <a href='/tags/inbodb/' style='font-size:1.0246913580246915em'>Inbodb</a>
+      </li><li>
+        <a href='/tags/inbomd/' style='font-size:1.037037037037037em'>INBOmd</a>
+      </li><li>
+        <a href='/tags/inborutils/' style='font-size:1.037037037037037em'>InboRutils</a>
+      </li><li>
+        <a href='/tags/inheritance/' style='font-size:1em'>Inheritance</a>
+      </li><li>
+        <a href='/tags/inla/' style='font-size:1.0246913580246915em'>INLA</a>
+      </li><li>
+        <a href='/tags/inlabru/' style='font-size:1em'>Inlabru</a>
+      </li><li>
+        <a href='/tags/inlatools/' style='font-size:1.0246913580246915em'>Inlatools</a>
+      </li><li>
+        <a href='/tags/installation/' style='font-size:1.1111111111111112em'>Installation</a>
+      </li><li>
+        <a href='/tags/keyring/' style='font-size:1em'>Keyring</a>
+      </li><li>
+        <a href='/tags/literature/' style='font-size:1.0493827160493827em'>Literature</a>
+      </li><li>
+        <a href='/tags/maps/' style='font-size:1.074074074074074em'>Maps</a>
+      </li><li>
+        <a href='/tags/markdown/' style='font-size:1.0246913580246915em'>Markdown</a>
+      </li><li>
+        <a href='/tags/mendeley/' style='font-size:1em'>Mendeley</a>
+      </li><li>
+        <a href='/tags/mgrs/' style='font-size:1em'>Mgrs</a>
+      </li><li>
+        <a href='/tags/mixed-model/' style='font-size:1.0617283950617284em'>Mixed Model</a>
+      </li><li>
+        <a href='/tags/mixed-models/' style='font-size:1em'>Mixed Models</a>
+      </li><li>
+        <a href='/tags/multivariate-statistics/' style='font-size:1em'>Multivariate Statistics</a>
+      </li><li>
+        <a href='/tags/n2khab/' style='font-size:1.0493827160493827em'>N2khab</a>
+      </li><li>
+        <a href='/tags/open-science/' style='font-size:1.1358024691358024em'>Open Science</a>
+      </li><li>
+        <a href='/tags/packages/' style='font-size:1.037037037037037em'>Packages</a>
+      </li><li>
+        <a href='/tags/pandoc/' style='font-size:1.0123456790123457em'>Pandoc</a>
+      </li><li>
+        <a href='/tags/passwords/' style='font-size:1em'>Passwords</a>
+      </li><li>
+        <a href='/tags/postgresql/' style='font-size:1em'>Postgresql</a>
+      </li><li>
+        <a href='/tags/python/' style='font-size:1em'>Python</a>
+      </li><li>
+        <a href='/tags/r/' style='font-size:2em'>R</a>
+      </li><li>
+        <a href='/tags/regression/' style='font-size:1em'>Regression</a>
+      </li><li>
+        <a href='/tags/remote-sensing/' style='font-size:1.0123456790123457em'>Remote Sensing</a>
+      </li><li>
+        <a href='/tags/renv/' style='font-size:1em'>Renv</a>
+      </li><li>
+        <a href='/tags/reports/' style='font-size:1.0123456790123457em'>Reports</a>
+      </li><li>
+        <a href='/tags/rgbif/' style='font-size:1.0617283950617284em'>Rgbif</a>
+      </li><li>
+        <a href='/tags/rmarkdown/' style='font-size:1.0246913580246915em'>Rmarkdown</a>
+      </li><li>
+        <a href='/tags/rstudio/' style='font-size:1.0493827160493827em'>Rstudio</a>
+      </li><li>
+        <a href='/tags/sampling/' style='font-size:1em'>Sampling</a>
+      </li><li>
+        <a href='/tags/satellite-datasets/' style='font-size:1em'>Satellite Datasets</a>
+      </li><li>
+        <a href='/tags/scripting/' style='font-size:1em'>Scripting</a>
+      </li><li>
+        <a href='/tags/secrets/' style='font-size:1em'>Secrets</a>
+      </li><li>
+        <a href='/tags/spatial/' style='font-size:1.0123456790123457em'>Spatial</a>
+      </li><li>
+        <a href='/tags/spreadsheet/' style='font-size:1em'>Spreadsheet</a>
+      </li><li>
+        <a href='/tags/sql/' style='font-size:1.0123456790123457em'>SQL</a>
+      </li><li>
+        <a href='/tags/stan/' style='font-size:1em'>Stan</a>
+      </li><li>
+        <a href='/tags/stap/' style='font-size:1em'>StAP</a>
+      </li><li>
+        <a href='/tags/statistical-analysis-plan/' style='font-size:1em'>Statistical Analysis Plan</a>
+      </li><li>
+        <a href='/tags/styleguide/' style='font-size:1.037037037037037em'>Styleguide</a>
+      </li><li>
+        <a href='/tags/tidyverse/' style='font-size:1.037037037037037em'>Tidyverse</a>
+      </li><li>
+        <a href='/tags/transformations/' style='font-size:1em'>Transformations</a>
+      </li><li>
+        <a href='/tags/uncertainty/' style='font-size:1.0123456790123457em'>Uncertainty</a>
+      </li><li>
+        <a href='/tags/utm/' style='font-size:1em'>Utm</a>
+      </li><li>
+        <a href='/tags/version-control/' style='font-size:1.0987654320987654em'>Version Control</a>
+      </li><li>
+        <a href='/tags/vignette/' style='font-size:1.4691358024691357em'>Vignette</a>
+      </li><li>
+        <a href='/tags/visual-markdown-editing/' style='font-size:1em'>Visual Markdown Editing</a>
+      </li><li>
+        <a href='/tags/vmm/' style='font-size:1em'>Vmm</a>
+      </li><li>
+        <a href='/tags/waterinfo/' style='font-size:1.0246913580246915em'>WateRinfo</a>
+      </li><li>
+        <a href='/tags/watina/' style='font-size:1.0246913580246915em'>Watina</a>
+      </li><li>
+        <a href='/tags/webservice/' style='font-size:1.037037037037037em'>Webservice</a>
+      </li><li>
+        <a href='/tags/windows/' style='font-size:1em'>Windows</a>
+      </li><li>
+        <a href='/tags/zenodo/' style='font-size:1em'>Zenodo</a>
+      </li><li>
+        <a href='/tags/zotero/' style='font-size:1.0123456790123457em'>Zotero</a>
+      </li></ul>
+</div>
+
+
+</section>
+<section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/inbo' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+</svg>
+</a>
+      </li><li>
+        <a href='https://facebook.com/INBOVlaanderen' target='_blank' rel='noopener me'>
+          <span class='screen-reader-text'>Open Facebook account in new tab</span><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section>
+<section class='widget widget-build_time sep-after'>
+  <p><small>Built on: Mon Oct 26 15:04:57 UTC 2026</small></p>
+</section></div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="3" y1="12" x2="21" y2="12" />
+<line x1="3" y1="6" x2="21" y2="6" />
+<line x1="3" y1="18" x2="21" y2="18" />
+</svg>
+</span>
+  <span class='close'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</span>
+</button><div class='header-widgets'>
+        <div class='container'>
+    
+    <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
+  <section class='widget widget-breadcrumbs sep-after'>
+    <nav id='breadcrumbs'>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Exploring the potential of aerial lidar: introduction to lidR</span></li></ol>
+    </nav>
+  </section></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>INBO Tutorials</p><p class='desc site-desc'></p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Exploring the potential of aerial lidar: introduction to lidR</h1>
+      
+<p class='desc'>This tutorial provides an introduction for processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. Our team (biotope diversity) is currently looking more closely into the opportunities and challenges presented by this type of data (and the models) so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).</p>
+
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+<line x1="16" y1="2" x2="16" y2="6" />
+<line x1="8" y1="2" x2="8" y2="6" />
+<line x1="3" y1="10" x2="21" y2="10" />
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2026-10-23T00:00:00Z'>2026, Oct 23</time>
+</span>
+
+  
+  <br/>
+  
+<span class='reading-time'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><circle cx="12" cy="12" r="10" />
+<polyline points="12 6 12 12 15 15" />
+</svg>
+9 mins read
+</span>
+
+
+  <span class="github-link">
+
+    
+
+        
+
+        
+            
+        
+
+        
+            <a href='https://github.com/inbo/tutorials/edit/master/content/tutorials/r_lidR/index.md'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+</svg>
+Improve this page</a>
+        
+
+        
+    
+</span>
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'><h1 id="1-introduction--acknowledgments">1. Introduction &amp; Acknowledgments<a href="#1-introduction--acknowledgments" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>The workflow integrates: 1. <strong>Custom workflow script</strong> based on regional
+LiDAR data (e.g., Open Data Vlaanderen) pre-classified with deep
+learning models (3D SegFormer). 2. <strong>Individual Tree Segmentation
+(ITS)</strong> techniques adapted from the <a href="https://tgoodbody.github.io/lidRtutorial/06_its.html">lidRtutorial by Tristan
+Goodbody</a> (<a href="https://github.com/tgoodbody/lidRtutorial/blob/master/R/06_its.R">GitHub
+repository</a>).
+3. <strong>Advanced tree metrics and point cloud processing</strong> concepts
+inspired by Liam Irwin’s
+<a href="https://liamirwin.github.io/CompTreeR/">CompTreeR</a>. The code was compiled and documented with the support of Gemini.</p>
+<hr>
+<h1 id="2-setup--data-preparation">2. Setup &amp; Data Preparation<a href="#2-setup--data-preparation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="21-package-installation--environment">2.1 Package Installation &amp; Environment<a href="#21-package-installation--environment" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>First, ensure all required R packages are installed.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Core LiDAR processing package</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;lidR&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;lidR&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Optional ground classification algorithm support</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;RCSF&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;RCSF&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Spatial handling and raster processing</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;sf&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;sf&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;terra&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;terra&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;stars&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;stars&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;alphashape3d&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;alphashape3d&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#00a">if</span> (!<span style="color:#0a0">requireNamespace</span>(<span style="color:#a50">&#34;knitr&#34;</span>, quietly = <span style="color:#00a">TRUE</span>)) <span style="color:#0a0">install.packages</span>(<span style="color:#a50">&#34;knitr&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Load libraries</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(lidR)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(sf)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(terra)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(stars)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(alphashape3d)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(knitr)
+</span></span></code></pre></div><h2 id="22-external-data-workflow-qgis-pre-processing">2.2 External Data Workflow (QGIS Pre-processing)<a href="#22-external-data-workflow-qgis-pre-processing" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>The output of the following steps can be downloaded from the <a href="https://github.com/inbo/tutorials/tree/main/content/tutorials/r_lidr">github page of this tutorial</a>.</p>
+<ol>
+<li><strong>Download Data</strong>: Download <code>.laz</code> tiles matching your area of
+interest (e.g., via <a href="https://remotesensing.vlaanderen.be/apps/openlidar/#collapseDataDownload">OpenLidar
+Vlaanderen</a>).</li>
+</ol>
+<p><img src="/tutorials/r_lidr/media/Schermafbeelding%202026-10-21%20194444.png" alt=""></p>
+<ol>
+<li>
+<p><strong>Merge Tiles</strong>: Merge overlapping <code>.laz</code> files using the QGIS
+<strong>Merge</strong> tool.</p>
+</li>
+<li>
+<p><strong>AI Classification</strong>: Pre-classify ground, vegetation, buildings,
+poles, wires and transmission towers (not necessary in natural
+environments but comes in handy for complex urban areas) using the
+<strong>SegFormer 3D Airborne model (30cm)</strong> via the LiDAR AI Classifier
+plugin in QGIS.</p>
+</li>
+</ol>
+<p><img src="/tutorials/r_lidr/media/Schermafbeelding%202026-10-21%20194739.png" alt=""></p>
+<p><img src="/tutorials/r_lidr/media/Schermafbeelding%202026-10-21%20194846.png" alt=""></p>
+<p><img src="/tutorials/r_lidr/media/Schermafbeelding%202026-10-21%20194931.png" alt=""></p>
+<p><img src="/tutorials/r_lidr/media/Schermafbeelding%202026-10-21%20194952.png" alt=""></p>
+<hr>
+<h1 id="3-data-loading--quality-control">3. Data Loading &amp; Quality Control<a href="#3-data-loading--quality-control" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="31-loading-classified-las-data">3.1 Loading Classified LAS Data<a href="#31-loading-classified-las-data" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Load the pre-classified LAS/LAZ file</span>
+</span></span><span style="display:flex;"><span>las_path &lt;- <span style="color:#a50">&#34;./classified_3dsegformer.laz&#34;</span>
+</span></span><span style="display:flex;"><span>classified &lt;- <span style="color:#0a0">readLAS</span>(las_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Verify CRS and structure</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">print</span>(classified)
+</span></span></code></pre></div><h2 id="32-data-inspection-las_check">3.2 Data Inspection (<code>las_check</code>)<a href="#32-data-inspection-las_check" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>It is crucial to inspect point cloud validity (e.g., duplicated points,
+scan angle missing values, normalization status).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Check data integrity and attributes</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">las_check</span>(classified) <span style="color:#aaa;font-style:italic"># We have duplicates since the tiles of laz files overlap to a certain degree (flight paths of the plane with the lidar sensor onboard overlap). In these overlapping zones, you can have dubble the amount of points. You can remove them before analysis (for example, remove the overlapping zones), but most functions inside the package will detect them automatically and remove them (but for for statistical analysis/metrics, it is indeed better to remove duplicates). The degenerated ground points can be caused by small errors in the sensor, or by &#34;moving&#34; objects on the ground during lidar scanning (For example, if there is wind, tree crowns move slightly, causing different z-values for the same locations).</span>
+</span></span></code></pre></div><h2 id="33-initial-3d-visualization">3.3 Initial 3D Visualization<a href="#33-initial-3d-visualization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Quickly inspect point cloud attributes in 3D using <code>lidR::plot()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Visualization colored by elevation</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(classified, color = <span style="color:#a50">&#34;Z&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Color by intensity</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic">#plot(classified, color = &#34;Intensity&#34;)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Color by AI classification values</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(classified, color = <span style="color:#a50">&#34;Classification&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Color by RGB (if available in point cloud attributes)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(classified, color = <span style="color:#a50">&#34;RGB&#34;</span>)
+</span></span></code></pre></div><hr>
+<h1 id="4-height-normalization--transect-analysis">4. Height Normalization &amp; Transect Analysis<a href="#4-height-normalization--transect-analysis" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>Point cloud elevation (<em>Z</em>) reflects absolute elevation above sea level.
+Height normalization converts <em>Z</em> to height above ground surface.</p>
+<h2 id="41-ground-normalization">4.1 Ground Normalization<a href="#41-ground-normalization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Height normalization using a Triangular Irregular Network (TIN) ground model</span>
+</span></span><span style="display:flex;"><span>norm &lt;- <span style="color:#0a0">normalize_height</span>(classified, <span style="color:#0a0">tin</span>())
+</span></span></code></pre></div><h2 id="42-cross-section-visualizations-transects">4.2 Cross-Section Visualizations (Transects)<a href="#42-cross-section-visualizations-transects" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Extracting cross-sections allows visual validation of height
+normalization and canopy structure.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Define transect endpoints (Coordinates in local projection, e.g., Belge 1972 / Lambert 72)</span>
+</span></span><span style="display:flex;"><span>X1 &lt;- <span style="color:#099">149800</span>; Y1 &lt;- <span style="color:#099">180514</span>
+</span></span><span style="display:flex;"><span>X2 &lt;- <span style="color:#099">150000</span>; Y2 &lt;- <span style="color:#099">180514</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Slice 2-meter wide transects for raw and normalized point clouds</span>
+</span></span><span style="display:flex;"><span>slice &lt;- <span style="color:#0a0">clip_transect</span>(classified, p1 = <span style="color:#0a0">c</span>(X1, Y1), p2 = <span style="color:#0a0">c</span>(X2, Y2), width = <span style="color:#099">2</span>)
+</span></span><span style="display:flex;"><span>slice_norm &lt;- <span style="color:#0a0">clip_transect</span>(norm, p1 = <span style="color:#0a0">c</span>(X1, Y1), p2 = <span style="color:#0a0">c</span>(X2, Y2), width = <span style="color:#099">2</span>) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Compare raw vs. normalized profile plots</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">par</span>(mfrow = <span style="color:#0a0">c</span>(<span style="color:#099">2</span>, <span style="color:#099">1</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(slice$X, slice$Z, col = slice$Z, pch = <span style="color:#099">19</span>, main = <span style="color:#a50">&#34;Raw Elevation Profile&#34;</span>, xlab = <span style="color:#a50">&#34;Distance&#34;</span>, ylab = <span style="color:#a50">&#34;Elevation (m)&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(slice_norm$X, slice_norm$Z, col = slice_norm$Z, pch = <span style="color:#099">19</span>, main = <span style="color:#a50">&#34;Normalized Height Profile&#34;</span>, xlab = <span style="color:#a50">&#34;Distance&#34;</span>, ylab = <span style="color:#a50">&#34;Height above ground (m)&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/transect-analysis-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">par</span>(mfrow = <span style="color:#0a0">c</span>(<span style="color:#099">1</span>, <span style="color:#099">1</span>))
+</span></span></code></pre></div><hr>
+<h1 id="5-individual-tree-segmentation-its">5. Individual Tree Segmentation (ITS)<a href="#5-individual-tree-segmentation-its" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>This section combines canopy model generation and tree detection
+techniques adapted from <a href="https://tgoodbody.github.io/lidRtutorial/06_its.html">Goodbody
+(lidRtutorial)</a>
+and <a href="https://liamirwin.github.io/CompTreeR/">Irwin (CompTreeR)</a>.</p>
+<h2 id="51-canopy-height-model-chm--tree-top-detection">5.1 Canopy Height Model (CHM) &amp; Tree Top Detection<a href="#51-canopy-height-model-chm--tree-top-detection" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Filter normalized point cloud to high vegetation (ASPRS class 5)</span>
+</span></span><span style="display:flex;"><span>high_veg &lt;- <span style="color:#0a0">filter_poi</span>(norm, Classification == <span style="color:#099">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Generate a 0.5m Canopy Height Model using Pit-free or Point-to-Raster algorithms</span>
+</span></span><span style="display:flex;"><span>chm &lt;- <span style="color:#0a0">rasterize_canopy</span>(high_veg, res = <span style="color:#099">0.5</span>, algorithm = <span style="color:#0a0">p2r</span>(subcircle = <span style="color:#099">0.15</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Locate individual tree tops using a Local Maximum Filter (LMF)</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Variable window size (ws) can also be used: e.g., function(z) { z * 0.1 + 1 }</span>
+</span></span><span style="display:flex;"><span>ttops &lt;- <span style="color:#0a0">locate_trees</span>(high_veg, <span style="color:#0a0">lmf</span>(ws = <span style="color:#099">5</span>)) <span style="color:#aaa;font-style:italic"># This algorithm work both on normalized point clouds, as dsm (but results can be slightly different).</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot CHM with detected tree tops</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(chm, main = <span style="color:#a50">&#34;Canopy Height Model with Detected Treetops&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(ttops), add = <span style="color:#00a">TRUE</span>, col = <span style="color:#a50">&#34;red&#34;</span>, pch = <span style="color:#099">3</span>, cex = <span style="color:#099">0.8</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/chm-and-ttops-1.png" alt=""></p>
+<p>If you would do the same on the norm laz file (without filtering for
+high vegetation), convert it to a chm. The locate_trees algorithm will
+confuse building or other urban structures with trees.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Generate a 0.5m Canopy Height Model using Pit-free or Point-to-Raster algorithms</span>
+</span></span><span style="display:flex;"><span>chm2 &lt;- <span style="color:#0a0">rasterize_canopy</span>(norm, res = <span style="color:#099">0.5</span>, algorithm = <span style="color:#0a0">p2r</span>(subcircle = <span style="color:#099">0.15</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Locate individual tree tops using a Local Maximum Filter (LMF)</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Variable window size (ws) can also be used: e.g., function(z) { z * 0.1 + 1 }</span>
+</span></span><span style="display:flex;"><span>ttops2 &lt;- <span style="color:#0a0">locate_trees</span>(norm, <span style="color:#0a0">lmf</span>(ws = <span style="color:#099">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot CHM with detected tree tops</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(chm2, main = <span style="color:#a50">&#34;Canopy Height Model with Detected Treetops&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(ttops2), add = <span style="color:#00a">TRUE</span>, col = <span style="color:#a50">&#34;red&#34;</span>, pch = <span style="color:#099">3</span>, cex = <span style="color:#099">0.8</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/chm-and-ttops%202-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">nrow</span>(ttops)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">nrow</span>(ttops2)
+</span></span></code></pre></div><h2 id="52-tree-segmentation-algorithms">5.2 Tree Segmentation Algorithms<a href="#52-tree-segmentation-algorithms" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p><code>lidR</code> provides multiple segmentation algorithms: <code>li2012()</code>,
+<code>dalponte2016()</code>, <code>silva2016()</code>, and <code>watershed()</code>. You could do tree
+segementation on point clouds, but when you work with with large laz
+files, it it faster to convert your point layer to a chm and do the
+segementation on your chm.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Point-to-point tree segmentation using Li et al. (2012)</span>
+</span></span><span style="display:flex;"><span>segmented_las &lt;- <span style="color:#0a0">segment_trees</span>(high_veg, <span style="color:#0a0">li2012</span>()) <span style="color:#aaa;font-style:italic"># +/- 3 min. computation time</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot the segmented point cloud where colors represent individual tree IDs</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(segmented_las, color = <span style="color:#a50">&#34;treeID&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ttops_seg &lt;- <span style="color:#0a0">tree_metrics</span>(segmented_las, func = .stdmetrics) %&gt;% <span style="color:#0a0">st_as_sf</span>()
+</span></span><span style="display:flex;"><span><span style="color:#0a0">kable</span>(<span style="color:#0a0">summary</span>(ttops_seg[,<span style="color:#0a0">c</span>( <span style="color:#a50">&#34;zmax&#34;</span>, <span style="color:#a50">&#34;zmean&#34;</span>,<span style="color:#a50">&#34;zsd&#34;</span>,<span style="color:#a50">&#34;zq95&#34;</span>,<span style="color:#a50">&#34;area&#34;</span>)]%&gt;% <span style="color:#0a0">st_drop_geometry</span>()))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">hist</span>(ttops_seg$zmax,plot = <span style="color:#0aa">T</span>, main = <span style="color:#a50">&#34;Height Distribrution (m)&#34;</span>,xlab =   <span style="color:#a50">&#34;Height (m)&#34;</span>,ylab = <span style="color:#a50">&#34;Frequency&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/segmentation-1.png" alt=""></p>
+<h2 id="53-transect-inspection-of-tree-clusters">5.3 Transect Inspection of Tree Clusters<a href="#53-transect-inspection-of-tree-clusters" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Clip transect of segmented trees</span>
+</span></span><span style="display:flex;"><span>slice_tree &lt;- <span style="color:#0a0">clip_transect</span>(segmented_las, p1 = <span style="color:#0a0">c</span>(X1, Y1), p2 = <span style="color:#0a0">c</span>(X2, Y2), width = <span style="color:#099">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot profile colored by segmented tree IDs</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(slice_tree$X, slice_tree$Z, col = slice_tree$treeID, pch = <span style="color:#099">19</span>, 
+</span></span><span style="display:flex;"><span>     xlab = <span style="color:#a50">&#34;Distance&#34;</span>, ylab = <span style="color:#a50">&#34;Height&#34;</span>, main = <span style="color:#a50">&#34;Individual Tree Segmentation Cross-Section&#34;</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/tree-transect-1.png" alt=""></p>
+<hr>
+<h1 id="6-metrics-extraction">6. Metrics Extraction<a href="#6-metrics-extraction" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<h2 id="61-individual-tree-level-metrics">6.1 Individual Tree Level Metrics<a href="#61-individual-tree-level-metrics" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Extract metrics for isolated tree crowns.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Extract a single tree</span>
+</span></span><span style="display:flex;"><span>tree_1 &lt;- <span style="color:#0a0">filter_poi</span>(segmented_las, treeID == <span style="color:#099">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(tree_1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Extract maximum tree height directly</span>
+</span></span><span style="display:flex;"><span>max_height &lt;- <span style="color:#0a0">max</span>(tree_1$Z)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">cat</span>(<span style="color:#a50">&#34;Tree 1 Max Height:&#34;</span>, max_height, <span style="color:#a50">&#34;m\n&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Standard crown metrics</span>
+</span></span><span style="display:flex;"><span>crown_m &lt;- <span style="color:#0a0">crown_metrics</span>(tree_1, .stdtreemetrics)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">summary</span>(crown_m)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Standard height metrics</span>
+</span></span><span style="display:flex;"><span>cloud_m &lt;- <span style="color:#0a0">cloud_metrics</span>(tree_1, .stdmetrics_z)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">print</span>(cloud_m)
+</span></span></code></pre></div><p>Computing crown volume (for one tree). See
+<a href="https://liamirwin.github.io/CompTreeR/">https://liamirwin.github.io/CompTreeR/</a> to calcluate across the whole
+dataset.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>get_crown_attributes &lt;- <span style="color:#00a">function</span>(X, Y, Z, alpha = <span style="color:#0a0">c</span>(<span style="color:#00a">Inf</span>, <span style="color:#099">1</span>)) {
+</span></span><span style="display:flex;"><span>  <span style="color:#00a">if</span> (<span style="color:#0a0">length</span>(X) &lt;= <span style="color:#099">3</span> || <span style="color:#0a0">length</span>(Y) &lt;= <span style="color:#099">3</span> || <span style="color:#0a0">length</span>(Z) &lt;= <span style="color:#099">3</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#0a0">message</span>(<span style="color:#a50">&#34;Cannot compute a 3D hull from 3 or fewer points&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#00a">return</span>(<span style="color:#00a">NULL</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Prepare centered matrix for stable alpha shape computation</span>
+</span></span><span style="display:flex;"><span>  mean_x &lt;- <span style="color:#0a0">mean</span>(X)
+</span></span><span style="display:flex;"><span>  mean_y &lt;- <span style="color:#0a0">mean</span>(Y)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  a3d_centered &lt;- <span style="color:#0a0">cbind</span>(X - mean_x, Y - mean_y, Z)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  top_x &lt;- X<span style="color:#0a0">[which.max</span>(Z)]
+</span></span><span style="display:flex;"><span>  top_y &lt;- Y<span style="color:#0a0">[which.max</span>(Z)]
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Compute alpha shape</span>
+</span></span><span style="display:flex;"><span>  ashape &lt;- alphashape3d::<span style="color:#0a0">ashape3d</span>(x = a3d_centered, alpha = alpha, pert = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Calculate crown metrics</span>
+</span></span><span style="display:flex;"><span>  df &lt;- <span style="color:#0a0">data.frame</span>(
+</span></span><span style="display:flex;"><span>    Zmax = <span style="color:#0a0">max</span>(Z),
+</span></span><span style="display:flex;"><span>    Zq999 = <span style="color:#0a0">as.numeric</span>(<span style="color:#0a0">quantile</span>(Z, <span style="color:#099">0.999</span>)),
+</span></span><span style="display:flex;"><span>    Zq99 = <span style="color:#0a0">as.numeric</span>(<span style="color:#0a0">quantile</span>(Z, <span style="color:#099">0.990</span>)),
+</span></span><span style="display:flex;"><span>    Z_mean = <span style="color:#0a0">mean</span>(Z),
+</span></span><span style="display:flex;"><span>    n_points = <span style="color:#0a0">length</span>(Z),
+</span></span><span style="display:flex;"><span>    vol_convex = alphashape3d::<span style="color:#0a0">volume_ashape3d</span>(ashape, indexAlpha = <span style="color:#099">1</span>),
+</span></span><span style="display:flex;"><span>    vol_concave = alphashape3d::<span style="color:#0a0">volume_ashape3d</span>(ashape, indexAlpha = <span style="color:#099">2</span>),
+</span></span><span style="display:flex;"><span>    CV_Z = <span style="color:#0a0">sd</span>(Z) / <span style="color:#0a0">mean</span>(Z),
+</span></span><span style="display:flex;"><span>    CRR = (<span style="color:#0a0">mean</span>(Z) - <span style="color:#0a0">min</span>(Z)) / (<span style="color:#0a0">max</span>(Z) - <span style="color:#0a0">min</span>(Z)),
+</span></span><span style="display:flex;"><span>    X = top_x,
+</span></span><span style="display:flex;"><span>    Y = top_y
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#aaa;font-style:italic"># Return both metrics and the fitted hull object along with shift offsets</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a">return</span>(<span style="color:#0a0">list</span>(
+</span></span><span style="display:flex;"><span>    metrics = df, 
+</span></span><span style="display:flex;"><span>    ashape = ashape, 
+</span></span><span style="display:flex;"><span>    centered_points = a3d_centered
+</span></span><span style="display:flex;"><span>  ))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Run function</span>
+</span></span><span style="display:flex;"><span>result &lt;- <span style="color:#0a0">get_crown_attributes</span>(
+</span></span><span style="display:flex;"><span>  tree_1@data[[<span style="color:#a50">&#34;X&#34;</span>]],
+</span></span><span style="display:flex;"><span>  tree_1@data[[<span style="color:#a50">&#34;Y&#34;</span>]],
+</span></span><span style="display:flex;"><span>  tree_1@data[[<span style="color:#a50">&#34;Z&#34;</span>]],
+</span></span><span style="display:flex;"><span>  alpha = <span style="color:#0a0">c</span>(<span style="color:#00a">Inf</span>, <span style="color:#099">1</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Extract components</span>
+</span></span><span style="display:flex;"><span>metrics &lt;- result$metrics
+</span></span><span style="display:flex;"><span>ashape_obj &lt;- result$ashape
+</span></span><span style="display:flex;"><span>pts_centered &lt;- result$centered_points
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># --- Plot 1: Convex Hull (alpha = Inf) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(ashape_obj, indexAlpha = <span style="color:#099">1</span>, transparency = <span style="color:#099">0.3</span>, axes = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>rgl::<span style="color:#0a0">points3d</span>(pts_centered, color = <span style="color:#a50">&#34;black&#34;</span>, size = <span style="color:#099">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># --- Plot 2: Concave Hull (alpha = 1) ---</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(ashape_obj, indexAlpha = <span style="color:#099">2</span>, transparency = <span style="color:#099">0.4</span>, axes = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>rgl::<span style="color:#0a0">points3d</span>(pts_centered, color = <span style="color:#a50">&#34;black&#34;</span>, size = <span style="color:#099">4</span>)
+</span></span></code></pre></div><h2 id="62-crown-hull-geometry-options">6.2 Crown Hull Geometry Options<a href="#62-crown-hull-geometry-options" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Computing crown geometries (polygons/hulls) using different algorithms:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Using example dataset for multi-tree crown geometries</span>
+</span></span><span style="display:flex;"><span>LASfile &lt;- <span style="color:#0a0">system.file</span>(<span style="color:#a50">&#34;extdata&#34;</span>, <span style="color:#a50">&#34;MixedConifer.laz&#34;</span>, package = <span style="color:#a50">&#34;lidR&#34;</span>)
+</span></span><span style="display:flex;"><span>trees &lt;- <span style="color:#0a0">readLAS</span>(LASfile, filter = <span style="color:#a50">&#34;-drop_z_below 0&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Convex Hull</span>
+</span></span><span style="display:flex;"><span>metrics_convex &lt;- <span style="color:#0a0">crown_metrics</span>(trees, .stdtreemetrics, geom = <span style="color:#a50">&#34;convex&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Concave Hull</span>
+</span></span><span style="display:flex;"><span>metrics_concave &lt;- <span style="color:#0a0">crown_metrics</span>(trees, .stdtreemetrics, geom = <span style="color:#a50">&#34;concave&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Bounding Box</span>
+</span></span><span style="display:flex;"><span>metrics_bbox &lt;- <span style="color:#0a0">crown_metrics</span>(trees, .stdtreemetrics, geom = <span style="color:#a50">&#34;bbox&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Visualize concave hulls</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">par</span>(mfrow=<span style="color:#0a0">c</span>(<span style="color:#099">1</span>,<span style="color:#099">3</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(metrics_concave))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(metrics_convex))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(metrics_bbox))
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/crown-geometries-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">par</span>(mfrow=<span style="color:#0a0">c</span>(<span style="color:#099">1</span>,<span style="color:#099">1</span>))     
+</span></span></code></pre></div><h2 id="63-custom-metric-functions">6.3 Custom Metric Functions<a href="#63-custom-metric-functions" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<p>Defining custom statistical metrics for LiDAR returns:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Define custom height &amp; intensity metric function</span>
+</span></span><span style="display:flex;"><span>myMetrics &lt;- <span style="color:#00a">function</span>(z, i) {
+</span></span><span style="display:flex;"><span>  metrics &lt;- <span style="color:#0a0">list</span>(
+</span></span><span style="display:flex;"><span>    zwimean = <span style="color:#0a0">sum</span>(z * i) / <span style="color:#0a0">sum</span>(i), <span style="color:#aaa;font-style:italic"># Intensity-weighted mean elevation</span>
+</span></span><span style="display:flex;"><span>    zimean  = <span style="color:#0a0">mean</span>(z * i),         <span style="color:#aaa;font-style:italic"># Mean product of height and intensity</span>
+</span></span><span style="display:flex;"><span>    zsqmean = <span style="color:#0a0">sqrt</span>(<span style="color:#0a0">mean</span>(z^2))      <span style="color:#aaa;font-style:italic"># Quadratic mean height (RMS)</span>
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>  <span style="color:#00a">return</span>(metrics)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Apply custom metrics over a stars spatial grid template</span>
+</span></span><span style="display:flex;"><span>template_stars &lt;- stars::<span style="color:#0a0">st_as_stars</span>(<span style="color:#0a0">st_bbox</span>(segmented_las), dx = <span style="color:#099">10</span>, dy = <span style="color:#099">10</span>)
+</span></span><span style="display:flex;"><span>m_custom &lt;- <span style="color:#0a0">template_metrics</span>(segmented_las, <span style="color:#0a0">myMetrics</span>(Z, Intensity), template_stars)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(m_custom)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/custom-metrics-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#0a0">plot</span>(chm)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/custom-metrics-2.png" alt=""></p>
+<h2 id="64-pixel-plot-and-voxel-metrics">6.4 Pixel, Plot, and Voxel Metrics<a href="#64-pixel-plot-and-voxel-metrics" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
+<h3 id="pixel-metrics--filtering-strategies">Pixel Metrics &amp; Filtering Strategies<a href="#pixel-metrics--filtering-strategies" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 1. Basic approach</span>
+</span></span><span style="display:flex;"><span>first_returns &lt;- <span style="color:#0a0">filter_poi</span>(segmented_las, ReturnNumber == <span style="color:#099">1</span>)
+</span></span><span style="display:flex;"><span>m_pixel_basic &lt;- <span style="color:#0a0">pixel_metrics</span>(first_returns, ~<span style="color:#0a0">mean</span>(Z), res = <span style="color:#099">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 2. Optimized approach (Inline filtering - memory efficient)</span>
+</span></span><span style="display:flex;"><span>m_pixel_opt &lt;- <span style="color:#0a0">pixel_metrics</span>(segmented_las, ~<span style="color:#0a0">mean</span>(Z), res = <span style="color:#099">20</span>, filter = ~ReturnNumber == <span style="color:#099">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 3. Echo-type breakdown</span>
+</span></span><span style="display:flex;"><span>echo_types &lt;- <span style="color:#0a0">c</span>(<span style="color:#a50">&#34;all&#34;</span>, <span style="color:#a50">&#34;first&#34;</span>, <span style="color:#a50">&#34;multiple&#34;</span>)
+</span></span><span style="display:flex;"><span>func_echo &lt;- ~<span style="color:#0a0">list</span>(avgI = <span style="color:#0a0">mean</span>(Intensity))
+</span></span><span style="display:flex;"><span>m_echo &lt;- <span style="color:#0a0">pixel_metrics</span>(segmented_las, func_echo, res = <span style="color:#099">20</span>, by_echo = echo_types)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(m_echo)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/pixel-metrics-1.png" alt=""></p>
+<h3 id="plot-metrics-inventory-matching">Plot Metrics (Inventory Matching)<a href="#plot-metrics-inventory-matching" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Load sample forest inventory plot data</span>
+</span></span><span style="display:flex;"><span>LASfile &lt;- <span style="color:#0a0">system.file</span>(<span style="color:#a50">&#34;extdata&#34;</span>, <span style="color:#a50">&#34;Megaplot.laz&#34;</span>, package=<span style="color:#a50">&#34;lidR&#34;</span>)
+</span></span><span style="display:flex;"><span>las &lt;- <span style="color:#0a0">readLAS</span>(LASfile, filter = <span style="color:#a50">&#34;-keep_random_fraction 0.5&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(las)
+</span></span><span style="display:flex;"><span>shpfile &lt;- <span style="color:#0a0">system.file</span>(<span style="color:#a50">&#34;extdata&#34;</span>, <span style="color:#a50">&#34;efi_plot.shp&#34;</span>, package = <span style="color:#a50">&#34;lidR&#34;</span>)
+</span></span><span style="display:flex;"><span>inventory &lt;- sf::<span style="color:#0a0">st_read</span>(shpfile, quiet = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>inventory <span style="color:#aaa;font-style:italic"># contains an ID and a Value Of Interest (VOI) per plot</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(inventory[,<span style="color:#099">1</span>]) <span style="color:#aaa;font-style:italic"># Point shapefile dataset.</span>
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/plot-metrics-1.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Calculate metrics per circular plot (radius = 11.28m, ~400 m² plot)</span>
+</span></span><span style="display:flex;"><span>fun_q85 &lt;- ~<span style="color:#0a0">list</span>(q85 = <span style="color:#0a0">quantile</span>(Z, probs = <span style="color:#099">0.85</span>))
+</span></span><span style="display:flex;"><span>m_plot &lt;- <span style="color:#0a0">plot_metrics</span>(las, fun_q85, inventory, radius = <span style="color:#099">11.28</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(<span style="color:#0a0">header</span>(las))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(m_plot[<span style="color:#a50">&#34;q85&#34;</span>], pch = <span style="color:#099">19</span>, cex = <span style="color:#099">3</span>, add = <span style="color:#00a">TRUE</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/plot-metrics-2.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Buffer inventory points into explicit polygon objects</span>
+</span></span><span style="display:flex;"><span>inventory_poly &lt;- sf::<span style="color:#0a0">st_buffer</span>(inventory, <span style="color:#099">11.28</span>)
+</span></span><span style="display:flex;"><span>m_poly &lt;- <span style="color:#0a0">plot_metrics</span>(las, .stdmetrics_z, inventory_poly)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Works with polygons as well</span>
+</span></span><span style="display:flex;"><span>inventory &lt;- sf::<span style="color:#0a0">st_buffer</span>(inventory, <span style="color:#099">11.28</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(<span style="color:#0a0">header</span>(las))
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(inventory), add = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>m &lt;- <span style="color:#0a0">plot_metrics</span>(las, .stdmetrics_z, inventory)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(m[<span style="color:#a50">&#34;zq85&#34;</span>], pch = <span style="color:#099">19</span>, cex = <span style="color:#099">3</span>, add = <span style="color:#00a">TRUE</span>)
+</span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/plot-metrics-3.png" alt=""></p>
+<h3 id="voxel-metrics-3d-grid-summaries">Voxel Metrics (3D Grid Summaries)<a href="#voxel-metrics-3d-grid-summaries" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Generate 8m voxel counts and mean intensity</span>
+</span></span><span style="display:flex;"><span>v_count &lt;- <span style="color:#0a0">voxel_metrics</span>(las, <span style="color:#0a0">length</span>(Z), res = <span style="color:#099">8</span>)
+</span></span><span style="display:flex;"><span>v_intensity &lt;- <span style="color:#0a0">voxel_metrics</span>(las, <span style="color:#0a0">mean</span>(Intensity), res = <span style="color:#099">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 3D Voxel rendering</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(v_intensity, color = <span style="color:#a50">&#34;V1&#34;</span>, colorPalette = <span style="color:#0a0">heat.colors</span>(<span style="color:#099">50</span>), trim = <span style="color:#099">60</span>, voxel = <span style="color:#00a">TRUE</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># 3D Voxel rendering</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(v_count, color = <span style="color:#a50">&#34;V1&#34;</span>, colorPalette = <span style="color:#0a0">heat.colors</span>(<span style="color:#099">50</span>), trim = <span style="color:#099">60</span>, voxel = <span style="color:#00a">TRUE</span>)
+</span></span></code></pre></div><hr>
+<h1 id="7-references--further-reading">7. References &amp; Further Reading<a href="#7-references--further-reading" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<ol>
+<li><strong>lidR Official Documentation</strong>: Roussel et al., <em>lidR: Airborne
+LiDAR Data Manipulation and Visualization for Forestry
+Applications</em>. <a href="https://cran.r-project.org/package=lidR">CRAN lidR
+Package</a></li>
+<li><strong>Goodbody, T.</strong> <em>lidRtutorial: Individual Tree Segmentation (ITS)</em>.
+<a href="https://tgoodbody.github.io/lidRtutorial/06_its.html">Online Tutorial &amp;
+Code</a></li>
+<li><strong>Irwin, L.</strong> <em>CompTreeR: Computational Tree Analysis in R</em>.
+<a href="https://liamirwin.github.io/CompTreeR/">CompTreeR Guide</a></li>
+</ol>
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'><div class='categories'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z" />
+</svg>
+<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/remote-sensing/'>Remote Sensing</a></div>
+<div class='tags'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
+<line x1="7" y1="7" x2="7" y2="7" />
+</svg>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/remote-sensing/'>Remote Sensing</a>, <a class='tag' href='/tags/aerial-lidar/'>Aerial Lidar</a>, <a class='tag' href='/tags/r/'>R</a></div>
+
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/tutorials/introduction_to_openeo_package/'>
+        <span aria-hidden='true'><svg
+  class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  viewbox="0 0 24 24"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  aria-hidden="true"
+><line x1="20" y1="12" x2="4" y2="12" />
+<polyline points="10 18 4 12 10 6" />
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Downloading datacubes from OpenEO</a>
+    </div></div>
+</nav>
+
+
+
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><div class='copyright'>
+  <p><a href="http://creativecommons.org/licenses/by/4.0/"><img src="https://inbo.github.io/tutorials/images/cc-by.svg" alt="CC BY 4.0"></a> &copy; 2018-2026 Research Institute for Nature and Forest (INBO) </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.56dcff95.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+
