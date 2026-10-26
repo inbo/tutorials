@@ -231,7 +231,7 @@ segementation on your chm.
 
 ``` r
 # Point-to-point tree segmentation using Li et al. (2012)
-segmented_las <- segment_trees(high_veg, li2012())
+segmented_las <- segment_trees(high_veg, li2012()) # +/- 3 min. computation time
 
 # Plot the segmented point cloud where colors represent individual tree IDs
 plot(segmented_las, color = "treeID")
