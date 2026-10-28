@@ -1,12 +1,6 @@
 ---
 title: "Exploring the potential of aerial LiDAR: introduction to lidR"
-description: "This tutorial provides an introduction to processing ALS (Airborne
-Laser Scanning) point cloud data using `lidR` and spatial analysis
-packages in R. Our team (biotope diversity) is exploring the opportunities
-and challenges presented by this type of data and its associated models so
-that we are prepared for the new research questions that will
-undoubtedly arise once the new aerial LiDAR campaign (which is currently
-being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel)."
+description: "Tutorial on R package lidR"
 author: "Sebastiaan Verbesselt"
 date: "2026-10-23"
 categories: "Remote Sensing"
@@ -19,6 +13,11 @@ output:
 
 
 # 1. Introduction and Acknowledgments
+
+This tutorial provides an introduction to processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. 
+Our team (biotope diversity) is exploring the opportunities and challenges presented by this type of data and its associated models so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. 
+The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).
+
 The workflow integrates:
 
 1. **A custom workflow script** based on regional LiDAR data (e.g., Open
