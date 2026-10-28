@@ -2,18 +2,18 @@
 <html lang='en' dir='auto'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='This tutorial provides an introduction for processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. Our team (biotope diversity) is currently looking more closely into the opportunities and challenges presented by this type of data (and the models) so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).'>
+<meta name='description' content='This tutorial provides an introduction to processing ALS (Airborne Laser Scanning) point cloud data using lidR and spatial analysis packages in R.'>
 <meta name='theme-color' content='#c04384'>
 
-<meta property='og:title' content='Exploring the potential of aerial lidar: introduction to lidR • INBO Tutorials'>
-<meta property='og:description' content='This tutorial provides an introduction for processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. Our team (biotope diversity) is currently looking more closely into the opportunities and challenges presented by this type of data (and the models) so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).'>
+<meta property='og:title' content='Exploring the potential of aerial LiDAR: introduction to lidR • INBO Tutorials'>
+<meta property='og:description' content='This tutorial provides an introduction to processing ALS (Airborne Laser Scanning) point cloud data using lidR and spatial analysis packages in R.'>
 <meta property='og:url' content='/tutorials/r_lidr/'>
 <meta property='og:site_name' content='INBO Tutorials'>
-<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='Remote Sensing'><meta property='article:tag' content='Aerial lidar'><meta property='article:tag' content='R'><meta property='article:published_time' content='2026-10-23T00:00:00Z'/><meta property='article:modified_time' content='2026-10-23T00:00:00Z'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='tutorials'><meta property='article:tag' content='Remote Sensing'><meta property='article:tag' content='Aerial LiDAR'><meta property='article:tag' content='R'><meta property='article:published_time' content='2026-10-23T00:00:00Z'/><meta property='article:modified_time' content='2026-10-23T00:00:00Z'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.165.0">
 
-  <title>Exploring the potential of aerial lidar: introduction to lidR • INBO Tutorials</title>
+  <title>Exploring the potential of aerial LiDAR: introduction to lidR • INBO Tutorials</title>
   <link rel='canonical' href='/tutorials/r_lidr/'>
   
   
@@ -105,7 +105,7 @@
 
   <div class='container list-container'>
   <ul class='list taxonomy-cloud no-shuffle'><li>
-        <a href='/tags/aerial-lidar/' style='font-size:1em'>Aerial Lidar</a>
+        <a href='/tags/aerial-lidar/' style='font-size:1em'>Aerial LiDAR</a>
       </li><li>
         <a href='/tags/analysis/' style='font-size:1.0617283950617284em'>Analysis</a>
       </li><li>
@@ -355,7 +355,7 @@
   </nav>
 </section>
 <section class='widget widget-build_time sep-after'>
-  <p><small>Built on: Mon Oct 26 15:04:57 UTC 2026</small></p>
+  <p><small>Built on: Wed Oct 28 08:47:59 UTC 2026</small></p>
 </section></div>
 
   <div class='sidebar-overlay'></div>
@@ -394,7 +394,7 @@
     <style>.widget-breadcrumbs li:after{content:'\2f '}</style>
   <section class='widget widget-breadcrumbs sep-after'>
     <nav id='breadcrumbs'>
-      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Exploring the potential of aerial lidar: introduction to lidR</span></li></ol>
+      <ol><li><a href='/'>Home</a></li><li><a href='/tutorials/'>Tutorials</a></li><li><span>Exploring the potential of aerial LiDAR: introduction to lidR</span></li></ol>
     </nav>
   </section></div>
       </div>
@@ -413,9 +413,9 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Exploring the potential of aerial lidar: introduction to lidR</h1>
+      <h1 class='title'>Exploring the potential of aerial LiDAR: introduction to lidR</h1>
       
-<p class='desc'>This tutorial provides an introduction for processing ALS (Airborne Laser Scanning) point cloud data using `lidR` and spatial analysis packages in R. Our team (biotope diversity) is currently looking more closely into the opportunities and challenges presented by this type of data (and the models) so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel).</p>
+<p class='desc'>This tutorial provides an introduction to processing ALS (Airborne Laser Scanning) point cloud data using lidR and spatial analysis packages in R.</p>
 
 
     </div>
@@ -492,16 +492,20 @@ Improve this page</a>
   
   
 
-  <div class='container entry-content'><h1 id="1-introduction--acknowledgments">1. Introduction &amp; Acknowledgments<a href="#1-introduction--acknowledgments" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
-<p>The workflow integrates: 1. <strong>Custom workflow script</strong> based on regional
-LiDAR data (e.g., Open Data Vlaanderen) pre-classified with deep
-learning models (3D SegFormer). 2. <strong>Individual Tree Segmentation
-(ITS)</strong> techniques adapted from the <a href="https://tgoodbody.github.io/lidRtutorial/06_its.html">lidRtutorial by Tristan
-Goodbody</a> (<a href="https://github.com/tgoodbody/lidRtutorial/blob/master/R/06_its.R">GitHub
-repository</a>).
-3. <strong>Advanced tree metrics and point cloud processing</strong> concepts
-inspired by Liam Irwin’s
-<a href="https://liamirwin.github.io/CompTreeR/">CompTreeR</a>. The code was compiled and documented with the support of Gemini.</p>
+  <div class='container entry-content'><h1 id="1-introduction-and-acknowledgments">1. Introduction and Acknowledgments<a href="#1-introduction-and-acknowledgments" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
+<p>The biotope diversity team is exploring the opportunities and challenges presented by ALS (Airborne Laser Scanning) point cloud data and its associated models so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete.
+The data and products are planned to be ready in 2028 as announced in <a href="https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel">this</a> news item.</p>
+<p>The workflow integrates:</p>
+<ol>
+<li><strong>A custom workflow script</strong> based on regional LiDAR data (e.g., Open
+Data Vlaanderen) pre-classified with deep learning models (3D SegFormer).</li>
+<li><strong>Individual Tree Segmentation (ITS)</strong> techniques adapted from the
+<a href="https://tgoodbody.github.io/lidRtutorial/06_its.html">lidRtutorial by Tristan Goodbody</a>
+(<a href="https://github.com/tgoodbody/lidRtutorial/blob/master/R/06_its.R">GitHub repository</a>).</li>
+<li><strong>Advanced tree metrics and point cloud processing</strong> concepts inspired
+by Liam Irwin’s <a href="https://liamirwin.github.io/CompTreeR/">CompTreeR</a>.</li>
+</ol>
+<p>The code was compiled and documented with the support of Gemini.</p>
 <hr>
 <h1 id="2-setup--data-preparation">2. Setup &amp; Data Preparation<a href="#2-setup--data-preparation" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h1>
 <h2 id="21-package-installation--environment">2.1 Package Installation &amp; Environment<a href="#21-package-installation--environment" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
@@ -527,23 +531,24 @@ inspired by Liam Irwin’s
 </span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(alphashape3d)
 </span></span><span style="display:flex;"><span><span style="color:#0a0">library</span>(knitr)
 </span></span></code></pre></div><h2 id="22-external-data-workflow-qgis-pre-processing">2.2 External Data Workflow (QGIS Pre-processing)<a href="#22-external-data-workflow-qgis-pre-processing" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
-<p>The output of the following steps can be downloaded from the <a href="https://github.com/inbo/tutorials/tree/main/content/tutorials/r_lidr">github page of this tutorial</a>.</p>
+<p>The output of the following steps can be downloaded from the
+<a href="https://github.com/inbo/tutorials/tree/main/content/tutorials/r_lidR">GitHub page for this tutorial</a>.</p>
 <ol>
 <li><strong>Download Data</strong>: Download <code>.laz</code> tiles matching your area of
 interest (e.g., via <a href="https://remotesensing.vlaanderen.be/apps/openlidar/#collapseDataDownload">OpenLidar
 Vlaanderen</a>).</li>
 </ol>
 <p><img src="/tutorials/r_lidr/media/Schermafbeelding%202026-10-21%20194444.png" alt=""></p>
-<ol>
+<ol start="2">
 <li>
 <p><strong>Merge Tiles</strong>: Merge overlapping <code>.laz</code> files using the QGIS
 <strong>Merge</strong> tool.</p>
 </li>
 <li>
 <p><strong>AI Classification</strong>: Pre-classify ground, vegetation, buildings,
-poles, wires and transmission towers (not necessary in natural
-environments but comes in handy for complex urban areas) using the
-<strong>SegFormer 3D Airborne model (30cm)</strong> via the LiDAR AI Classifier
+poles, wires, and transmission towers (not necessary in natural
+environments, but useful in complex urban areas) using the
+<strong>SegFormer 3D Airborne model (30 cm)</strong> via the LiDAR AI Classifier
 plugin in QGIS.</p>
 </li>
 </ol>
@@ -564,7 +569,13 @@ plugin in QGIS.</p>
 <p>It is crucial to inspect point cloud validity (e.g., duplicated points,
 scan angle missing values, normalization status).</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Check data integrity and attributes</span>
-</span></span><span style="display:flex;"><span><span style="color:#0a0">las_check</span>(classified) <span style="color:#aaa;font-style:italic"># We have duplicates since the tiles of laz files overlap to a certain degree (flight paths of the plane with the lidar sensor onboard overlap). In these overlapping zones, you can have dubble the amount of points. You can remove them before analysis (for example, remove the overlapping zones), but most functions inside the package will detect them automatically and remove them (but for for statistical analysis/metrics, it is indeed better to remove duplicates). The degenerated ground points can be caused by small errors in the sensor, or by &#34;moving&#34; objects on the ground during lidar scanning (For example, if there is wind, tree crowns move slightly, causing different z-values for the same locations).</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Duplicate points occur where LAZ tiles overlap. You can remove them before</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># analysis, although most package functions detect and remove them</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># automatically. For statistical analysis and metrics, it is better to remove</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># duplicates. Degenerate ground points can result from sensor errors or</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># moving objects during scanning; for example, wind can move tree crowns and</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># produce different Z values at the same locations.</span>
+</span></span><span style="display:flex;"><span><span style="color:#0a0">las_check</span>(classified)
 </span></span></code></pre></div><h2 id="33-initial-3d-visualization">3.3 Initial 3D Visualization<a href="#33-initial-3d-visualization" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p>Quickly inspect point cloud attributes in 3D using <code>lidR::plot()</code>.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Visualization colored by elevation</span>
@@ -617,15 +628,17 @@ and <a href="https://liamirwin.github.io/CompTreeR/">Irwin (CompTreeR)</a>.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Locate individual tree tops using a Local Maximum Filter (LMF)</span>
 </span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Variable window size (ws) can also be used: e.g., function(z) { z * 0.1 + 1 }</span>
-</span></span><span style="display:flex;"><span>ttops &lt;- <span style="color:#0a0">locate_trees</span>(high_veg, <span style="color:#0a0">lmf</span>(ws = <span style="color:#099">5</span>)) <span style="color:#aaa;font-style:italic"># This algorithm work both on normalized point clouds, as dsm (but results can be slightly different).</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># This algorithm works on both normalized point clouds and DSMs, although the</span>
+</span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># results may differ slightly.</span>
+</span></span><span style="display:flex;"><span>ttops &lt;- <span style="color:#0a0">locate_trees</span>(high_veg, <span style="color:#0a0">lmf</span>(ws = <span style="color:#099">5</span>))
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Plot CHM with detected tree tops</span>
 </span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(chm, main = <span style="color:#a50">&#34;Canopy Height Model with Detected Treetops&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#0a0">plot</span>(sf::<span style="color:#0a0">st_geometry</span>(ttops), add = <span style="color:#00a">TRUE</span>, col = <span style="color:#a50">&#34;red&#34;</span>, pch = <span style="color:#099">3</span>, cex = <span style="color:#099">0.8</span>)
 </span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/chm-and-ttops-1.png" alt=""></p>
-<p>If you would do the same on the norm laz file (without filtering for
-high vegetation), convert it to a chm. The locate_trees algorithm will
-confuse building or other urban structures with trees.</p>
+<p>If you do the same with the normalized LAZ file without filtering for
+high vegetation, the <code>locate_trees()</code> algorithm may mistake buildings
+and other urban structures for trees.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Generate a 0.5m Canopy Height Model using Pit-free or Point-to-Raster algorithms</span>
 </span></span><span style="display:flex;"><span>chm2 &lt;- <span style="color:#0a0">rasterize_canopy</span>(norm, res = <span style="color:#099">0.5</span>, algorithm = <span style="color:#0a0">p2r</span>(subcircle = <span style="color:#099">0.15</span>))
 </span></span><span style="display:flex;"><span>
@@ -642,9 +655,9 @@ confuse building or other urban structures with trees.</p>
 </span></span></code></pre></div><h2 id="52-tree-segmentation-algorithms">5.2 Tree Segmentation Algorithms<a href="#52-tree-segmentation-algorithms" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <p><code>lidR</code> provides multiple segmentation algorithms: <code>li2012()</code>,
 <code>dalponte2016()</code>, <code>silva2016()</code>, and <code>watershed()</code>. You could do tree
-segementation on point clouds, but when you work with with large laz
-files, it it faster to convert your point layer to a chm and do the
-segementation on your chm.</p>
+segmentation on point clouds, but when working with large LAZ files, it
+is faster to convert the point cloud to a CHM and perform the
+segmentation on the CHM.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Point-to-point tree segmentation using Li et al. (2012)</span>
 </span></span><span style="display:flex;"><span>segmented_las &lt;- <span style="color:#0a0">segment_trees</span>(high_veg, <span style="color:#0a0">li2012</span>()) <span style="color:#aaa;font-style:italic"># +/- 3 min. computation time</span>
 </span></span><span style="display:flex;"><span>
@@ -655,7 +668,7 @@ segementation on your chm.</p>
 </span></span><span style="display:flex;"><span><span style="color:#0a0">kable</span>(<span style="color:#0a0">summary</span>(ttops_seg[,<span style="color:#0a0">c</span>( <span style="color:#a50">&#34;zmax&#34;</span>, <span style="color:#a50">&#34;zmean&#34;</span>,<span style="color:#a50">&#34;zsd&#34;</span>,<span style="color:#a50">&#34;zq95&#34;</span>,<span style="color:#a50">&#34;area&#34;</span>)]%&gt;% <span style="color:#0a0">st_drop_geometry</span>()))
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#0a0">hist</span>(ttops_seg$zmax,plot = <span style="color:#0aa">T</span>, main = <span style="color:#a50">&#34;Height Distribrution (m)&#34;</span>,xlab =   <span style="color:#a50">&#34;Height (m)&#34;</span>,ylab = <span style="color:#a50">&#34;Frequency&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0a0">hist</span>(ttops_seg$zmax,plot = <span style="color:#0aa">T</span>, main = <span style="color:#a50">&#34;Height Distribution (m)&#34;</span>,xlab =   <span style="color:#a50">&#34;Height (m)&#34;</span>,ylab = <span style="color:#a50">&#34;Frequency&#34;</span>)
 </span></span></code></pre></div><p><img src="/tutorials/r_lidr/lidR_totarial_files/figure-markdown_github/segmentation-1.png" alt=""></p>
 <h2 id="53-transect-inspection-of-tree-clusters">5.3 Transect Inspection of Tree Clusters<a href="#53-transect-inspection-of-tree-clusters" class="anchor"><svg height="22px" viewBox="0 0 24 24" width="22px"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg></a></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Clip transect of segmented trees</span>
@@ -684,9 +697,9 @@ segementation on your chm.</p>
 </span></span><span style="display:flex;"><span><span style="color:#aaa;font-style:italic"># Standard height metrics</span>
 </span></span><span style="display:flex;"><span>cloud_m &lt;- <span style="color:#0a0">cloud_metrics</span>(tree_1, .stdmetrics_z)
 </span></span><span style="display:flex;"><span><span style="color:#0a0">print</span>(cloud_m)
-</span></span></code></pre></div><p>Computing crown volume (for one tree). See
-<a href="https://liamirwin.github.io/CompTreeR/">https://liamirwin.github.io/CompTreeR/</a> to calcluate across the whole
-dataset.</p>
+</span></span></code></pre></div><p>The following code computes crown volume for a single tree. See
+<a href="https://liamirwin.github.io/CompTreeR/">https://liamirwin.github.io/CompTreeR/</a> for instructions on calculating it
+across the whole dataset.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>get_crown_attributes &lt;- <span style="color:#00a">function</span>(X, Y, Z, alpha = <span style="color:#0a0">c</span>(<span style="color:#00a">Inf</span>, <span style="color:#099">1</span>)) {
 </span></span><span style="display:flex;"><span>  <span style="color:#00a">if</span> (<span style="color:#0a0">length</span>(X) &lt;= <span style="color:#099">3</span> || <span style="color:#0a0">length</span>(Y) &lt;= <span style="color:#099">3</span> || <span style="color:#0a0">length</span>(Z) &lt;= <span style="color:#099">3</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#0a0">message</span>(<span style="color:#a50">&#34;Cannot compute a 3D hull from 3 or fewer points&#34;</span>)
@@ -880,7 +893,7 @@ Code</a></li>
 ><path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z" />
 <line x1="7" y1="7" x2="7" y2="7" />
 </svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/remote-sensing/'>Remote Sensing</a>, <a class='tag' href='/tags/aerial-lidar/'>Aerial Lidar</a>, <a class='tag' href='/tags/r/'>R</a></div>
+<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/remote-sensing/'>Remote Sensing</a>, <a class='tag' href='/tags/aerial-lidar/'>Aerial LiDAR</a>, <a class='tag' href='/tags/r/'>R</a></div>
 
   </div>
 </footer>

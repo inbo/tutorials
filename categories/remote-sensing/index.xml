@@ -14,11 +14,11 @@
 		
 			<atom:link href="/categories/remote-sensing/index.xml" rel="self" type="application/rss+xml" />
 			<item>
-				<title>Exploring the potential of aerial lidar: introduction to lidR</title>
+				<title>Exploring the potential of aerial LiDAR: introduction to lidR</title>
 				<link>/tutorials/r_lidr/</link>
 				<pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate>
 				<guid>/tutorials/r_lidr/</guid>
-				<description>&lt;h1 id=&#34;1-introduction--acknowledgments&#34;&gt;1. Introduction &amp;amp; Acknowledgments&lt;/h1&gt;&#xA;&lt;p&gt;The workflow integrates: 1. &lt;strong&gt;Custom workflow script&lt;/strong&gt; based on regional&#xA;LiDAR data (e.g., Open Data Vlaanderen) pre-classified with deep&#xA;learning models (3D SegFormer). 2. &lt;strong&gt;Individual Tree Segmentation&#xA;(ITS)&lt;/strong&gt; techniques adapted from the &lt;a href=&#34;https://tgoodbody.github.io/lidRtutorial/06_its.html&#34;&gt;lidRtutorial by Tristan&#xA;Goodbody&lt;/a&gt; (&lt;a href=&#34;https://github.com/tgoodbody/lidRtutorial/blob/master/R/06_its.R&#34;&gt;GitHub&#xA;repository&lt;/a&gt;).&#xA;3. &lt;strong&gt;Advanced tree metrics and point cloud processing&lt;/strong&gt; concepts&#xA;inspired by Liam Irwin’s&#xA;&lt;a href=&#34;https://liamirwin.github.io/CompTreeR/&#34;&gt;CompTreeR&lt;/a&gt;. The code was compiled and documented with the support of Gemini.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;2-setup--data-preparation&#34;&gt;2. Setup &amp;amp; Data Preparation&lt;/h1&gt;&#xA;&lt;h2 id=&#34;21-package-installation--environment&#34;&gt;2.1 Package Installation &amp;amp; Environment&lt;/h2&gt;&#xA;&lt;p&gt;First, ensure all required R packages are installed.&lt;/p&gt;</description>
+				<description>&lt;h1 id=&#34;1-introduction-and-acknowledgments&#34;&gt;1. Introduction and Acknowledgments&lt;/h1&gt;&#xA;&lt;p&gt;The biotope diversity team is exploring the opportunities and challenges presented by ALS (Airborne Laser Scanning) point cloud data and its associated models so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete.&#xA;The data and products are planned to be ready in 2028 as announced in &lt;a href=&#34;https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel&#34;&gt;this&lt;/a&gt; news item.&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>
