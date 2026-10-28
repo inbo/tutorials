@@ -1,16 +1,10 @@
 ---
-title: "Exploring the potential of aerial lidar: introduction to lidR"
-description: "This tutorial provides an introduction for processing ALS (Airborne
-Laser Scanning) point cloud data using `lidR` and spatial analysis
-packages in R. Our team (biotope diversity) is currently looking more closely into the
-opportunities and challenges presented by this type of data (and the
-models) so that we are prepared for the new research questions that will
-undoubtedly arise once the new aerial LiDAR campaign (which is currently
-being carried out) is complete. The data and products are planned to be ready in 2028: [digitaal hoogtemodel Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel)."
+title: "Exploring the potential of aerial LiDAR: introduction to lidR"
+description: "This tutorial provides an introduction to processing ALS (Airborne Laser Scanning) point cloud data using lidR and spatial analysis packages in R."
 author: "Sebastiaan Verbesselt"
 date: "2026-10-23"
 categories: "Remote Sensing"
-tags: ["Remote Sensing", "Aerial lidar", "R"]
+tags: ["Remote Sensing", "Aerial LiDAR", "R"]
 output:
   md_document:
     preserve_yaml: true
@@ -18,16 +12,22 @@ output:
 ---
 
 
-# 1. Introduction & Acknowledgments
-The workflow integrates: 1. **Custom workflow script** based on regional
-LiDAR data (e.g., Open Data Vlaanderen) pre-classified with deep
-learning models (3D SegFormer). 2. **Individual Tree Segmentation
-(ITS)** techniques adapted from the [lidRtutorial by Tristan
-Goodbody](https://tgoodbody.github.io/lidRtutorial/06_its.html) ([GitHub
-repository](https://github.com/tgoodbody/lidRtutorial/blob/master/R/06_its.R)). 
-3. **Advanced tree metrics and point cloud processing** concepts
-inspired by Liam Irwin’s
-[CompTreeR](https://liamirwin.github.io/CompTreeR/). The code was compiled and documented with the support of Gemini.
+# 1. Introduction and Acknowledgments
+
+The biotope diversity team is exploring the opportunities and challenges presented by ALS (Airborne Laser Scanning) point cloud data and its associated models so that we are prepared for the new research questions that will undoubtedly arise once the new aerial LiDAR campaign (which is currently being carried out) is complete. 
+The data and products are planned to be ready in 2028 as announced in [this](https://www.vlaanderen.be/digitaal-vlaanderen/nieuws/dit-jaar-start-de-vernieuwing-van-het-digitaal-hoogtemodel) news item.
+
+The workflow integrates:
+
+1. **A custom workflow script** based on regional LiDAR data (e.g., Open
+   Data Vlaanderen) pre-classified with deep learning models (3D SegFormer).
+2. **Individual Tree Segmentation (ITS)** techniques adapted from the
+   [lidRtutorial by Tristan Goodbody](https://tgoodbody.github.io/lidRtutorial/06_its.html)
+   ([GitHub repository](https://github.com/tgoodbody/lidRtutorial/blob/master/R/06_its.R)).
+3. **Advanced tree metrics and point cloud processing** concepts inspired
+   by Liam Irwin’s [CompTreeR](https://liamirwin.github.io/CompTreeR/).
+
+The code was compiled and documented with the support of Gemini.
 
 ------------------------------------------------------------------------
 
@@ -61,20 +61,21 @@ library(knitr)
 ```
 
 ## 2.2 External Data Workflow (QGIS Pre-processing)
-The output of the following steps can be downloaded from the [github page of this tutorial](https://github.com/inbo/tutorials/tree/main/content/tutorials/r_lidr).
+The output of the following steps can be downloaded from the
+[GitHub page for this tutorial](https://github.com/inbo/tutorials/tree/main/content/tutorials/r_lidR).
 1.  **Download Data**: Download `.laz` tiles matching your area of
     interest (e.g., via [OpenLidar
     Vlaanderen](https://remotesensing.vlaanderen.be/apps/openlidar/#collapseDataDownload)).
 
 ![](./media/Schermafbeelding%202026-10-21%20194444.png)
 
-1.  **Merge Tiles**: Merge overlapping `.laz` files using the QGIS
+2.  **Merge Tiles**: Merge overlapping `.laz` files using the QGIS
     **Merge** tool.
 
-2.  **AI Classification**: Pre-classify ground, vegetation, buildings,
-    poles, wires and transmission towers (not necessary in natural
-    environments but comes in handy for complex urban areas) using the
-    **SegFormer 3D Airborne model (30cm)** via the LiDAR AI Classifier
+3.  **AI Classification**: Pre-classify ground, vegetation, buildings,
+    poles, wires, and transmission towers (not necessary in natural
+    environments, but useful in complex urban areas) using the
+    **SegFormer 3D Airborne model (30 cm)** via the LiDAR AI Classifier
     plugin in QGIS.
 
 ![](./media/Schermafbeelding%202026-10-21%20194739.png)
@@ -107,7 +108,13 @@ scan angle missing values, normalization status).
 
 ``` r
 # Check data integrity and attributes
-las_check(classified) # We have duplicates since the tiles of laz files overlap to a certain degree (flight paths of the plane with the lidar sensor onboard overlap). In these overlapping zones, you can have dubble the amount of points. You can remove them before analysis (for example, remove the overlapping zones), but most functions inside the package will detect them automatically and remove them (but for for statistical analysis/metrics, it is indeed better to remove duplicates). The degenerated ground points can be caused by small errors in the sensor, or by "moving" objects on the ground during lidar scanning (For example, if there is wind, tree crowns move slightly, causing different z-values for the same locations).
+# Duplicate points occur where LAZ tiles overlap. You can remove them before
+# analysis, although most package functions detect and remove them
+# automatically. For statistical analysis and metrics, it is better to remove
+# duplicates. Degenerate ground points can result from sensor errors or
+# moving objects during scanning; for example, wind can move tree crowns and
+# produce different Z values at the same locations.
+las_check(classified)
 ```
 
 ## 3.3 Initial 3D Visualization
@@ -188,7 +195,9 @@ chm <- rasterize_canopy(high_veg, res = 0.5, algorithm = p2r(subcircle = 0.15))
 
 # Locate individual tree tops using a Local Maximum Filter (LMF)
 # Variable window size (ws) can also be used: e.g., function(z) { z * 0.1 + 1 }
-ttops <- locate_trees(high_veg, lmf(ws = 5)) # This algorithm work both on normalized point clouds, as dsm (but results can be slightly different).
+# This algorithm works on both normalized point clouds and DSMs, although the
+# results may differ slightly.
+ttops <- locate_trees(high_veg, lmf(ws = 5))
 
 # Plot CHM with detected tree tops
 plot(chm, main = "Canopy Height Model with Detected Treetops")
@@ -197,9 +206,9 @@ plot(sf::st_geometry(ttops), add = TRUE, col = "red", pch = 3, cex = 0.8)
 
 ![](lidR_totarial_files/figure-markdown_github/chm-and-ttops-1.png)
 
-If you would do the same on the norm laz file (without filtering for
-high vegetation), convert it to a chm. The locate_trees algorithm will
-confuse building or other urban structures with trees.
+If you do the same with the normalized LAZ file without filtering for
+high vegetation, the `locate_trees()` algorithm may mistake buildings
+and other urban structures for trees.
 
 ``` r
 # Generate a 0.5m Canopy Height Model using Pit-free or Point-to-Raster algorithms
@@ -225,9 +234,9 @@ nrow(ttops2)
 
 `lidR` provides multiple segmentation algorithms: `li2012()`,
 `dalponte2016()`, `silva2016()`, and `watershed()`. You could do tree
-segementation on point clouds, but when you work with with large laz
-files, it it faster to convert your point layer to a chm and do the
-segementation on your chm.
+segmentation on point clouds, but when working with large LAZ files, it
+is faster to convert the point cloud to a CHM and perform the
+segmentation on the CHM.
 
 ``` r
 # Point-to-point tree segmentation using Li et al. (2012)
@@ -240,7 +249,7 @@ ttops_seg <- tree_metrics(segmented_las, func = .stdmetrics) %>% st_as_sf()
 kable(summary(ttops_seg[,c( "zmax", "zmean","zsd","zq95","area")]%>% st_drop_geometry()))
 
 
-hist(ttops_seg$zmax,plot = T, main = "Height Distribrution (m)",xlab =   "Height (m)",ylab = "Frequency")
+hist(ttops_seg$zmax,plot = T, main = "Height Distribution (m)",xlab =   "Height (m)",ylab = "Frequency")
 ```
 
 ![](lidR_totarial_files/figure-markdown_github/segmentation-1.png)
@@ -284,9 +293,9 @@ cloud_m <- cloud_metrics(tree_1, .stdmetrics_z)
 print(cloud_m)
 ```
 
-Computing crown volume (for one tree). See
-<https://liamirwin.github.io/CompTreeR/> to calcluate across the whole
-dataset.
+The following code computes crown volume for a single tree. See
+<https://liamirwin.github.io/CompTreeR/> for instructions on calculating it
+across the whole dataset.
 
 ``` r
 get_crown_attributes <- function(X, Y, Z, alpha = c(Inf, 1)) {
